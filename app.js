@@ -5,6 +5,7 @@
  */
 var $KRF_DEFINE = null;
 
+
 // 버전 관리
 Ext.manifest.loader = {"cache":"1.0.2", "cacheParam":"_ver"};
 
