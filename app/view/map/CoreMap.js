@@ -227,6 +227,18 @@ Ext.define('krf_new.view.map.CoreMap', {
 		});
 	},
 	onExtentChange: function(extent, a, b, obj, c){
+		var me = this;
+		
+		//미니맵 EXTENT 체인지 될시 이벤트
+		if(me.id == "_subMapDiv_"){
+			$KRF_APP.coreMap._krad.tmpGrpLayer.clear();
+	    	require(["esri/graphic"], function(Graphic){
+	    		
+	    		var graphic = new Graphic(me.extent, $KRF_APP.coreMap._krad.miniMapLineSym);
+	    		$KRF_APP.coreMap._krad.tmpGrpLayer.add(graphic);
+	   		
+	    	});
+		}
 		// 툴팁 XY 셋팅
 		$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);
 	},

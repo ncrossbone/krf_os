@@ -104,9 +104,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			}
 			
 			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
-			if(store.searchType != "paramSearch"){
+			/*if(store.searchType != "paramSearch"){
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
-			}
+			}*/
 			
 			if(store.paramType == "MA"){
 				query.where += " AND LAYER_CODE = 'A001' ";
@@ -138,7 +138,6 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				
 			query.orderByFields = ["LAYER_CODE ASC"];
 			query.outFields = ["*"];
-			
 			// 로딩바 표시
 			Ext.getCmp("siteListTree").removeCls("dj-mask-noneimg");
 			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");

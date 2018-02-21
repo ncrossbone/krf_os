@@ -122,12 +122,19 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	},
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
+		
+		if($KRF_APP.coreMap._krad.maxSelect == true){
+    		alert("최대 5개 까지 선택 가능합니다.");
+    		return;
+    	}
+		
 		// 맵 클릭 이벤트 켜기
 		$KRF_APP.coreMap._krad.clickCnt("startPoint");
 		
 		if($KRF_APP.coreMap._krad.realTimeStBtnChk == false){
 			return;
 		}
+		
 		$KRF_APP.coreMap._krad.onMapClickEvt("startPoint", el.id);
 		
 		// 부하량 주제도 off
@@ -145,6 +152,12 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
+		
+		if($KRF_APP.coreMap._krad.maxSelect  == true){
+    		alert("최대 5개 까지 선택 가능합니다.");
+    		return;
+    	}
+		
 		$KRF_APP.coreMap._krad.clickCnt("endPoint");
 		if($KRF_APP.coreMap._krad.realTimeEnBtnChk == false){
 			return;
@@ -167,6 +180,16 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	// 초기화 버튼 클릭
 	onClickReset: function(obj, el, evt){
 		//console.info("dkjdf");
+		
+		var reachs_close = Ext.getCmp("reachs_close");
+		var reache_close = Ext.getCmp("reache_close");
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+		
+		$KRF_APP.coreMap._krad.stCnt = 0;
+		$KRF_APP.coreMap._krad.edCnt = 0;
+		$KRF_APP.coreMap._krad.arrCnt = 0;
+		
 		ResetButtonClick();
 		initKradEvt();
 		
