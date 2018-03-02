@@ -2,24 +2,24 @@
  * 행정구역(Administrative District) 검색 페이지
  */
 Ext.define('krf_new.view.search.SearchArea_Name', {
-	
+
 	extend: 'Ext.panel.Panel',
-	
+
 	xtype: 'west-searchArea_Name',
 
 	controller: 'searchArea_NameController',
-	
+
 	title: '명칭으로 찾기',
-	
+
 	autoScroll: true,
-	
+
 	cls: 'khLee-x-searcharea-water',
-	
+
 	layout: {
 		type: 'vbox',
 		align: 'middle'
 	},
-	
+
 	items: [{
 		xtype: 'container',
 		layout: {
@@ -53,7 +53,7 @@ Ext.define('krf_new.view.search.SearchArea_Name', {
 				}, {
 					xtype: 'container',
 					width: 10
-				},{
+				}, {
 					id: 'btnSearchText',
 					xtype: 'button',
 					lnkCmbId: 'nameSearch',

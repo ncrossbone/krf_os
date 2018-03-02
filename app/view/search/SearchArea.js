@@ -2,13 +2,13 @@
  * 행정구역(Administrative District) 검색 페이지
  */
 Ext.define('krf_new.view.search.SearchArea', {
-	
+
 	extend: 'Ext.panel.Panel',
 
 	xtype: 'west-searchArea',
-	
-//	title: '위치 검색',
-	
+
+	//	title: '위치 검색',
+
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
@@ -34,10 +34,10 @@ Ext.define('krf_new.view.search.SearchArea', {
 		}, {
 			xtype: 'west-searchArea_ADM'
 		}
-		, {
+			, {
 			xtype: 'west-searchArea_Name'
 		}
-		, {
+			, {
 			xtype: 'container',
 			items: [{
 				xtype: 'west-searchArea_Name_Rich'
@@ -48,10 +48,10 @@ Ext.define('krf_new.view.search.SearchArea', {
 			}]
 		}]
 	}],
-	
+
 	listeners: {
-		
-		resize: function(){
+
+		resize: function () {
 		}
 	}
 });

@@ -2,23 +2,23 @@
  * 행정구역(Administrative District) 검색 페이지
  */
 Ext.define('krf_new.view.search.SearchArea_ADM', {
-	
+
 	extend: 'Ext.panel.Panel',
-	
+
 	xtype: 'west-searchArea_ADM',
 
 	controller: 'searchArea_ADMController',
-	
+
 	title: '행정구역으로 찾기',
-	
+
 	autoScroll: true,
 	cls: 'khLee-x-searcharea-water',
-	
+
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	
+
 	items: [{
 		xtype: 'form',
 		cls: 'khLee-x-form',
@@ -33,7 +33,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-//				layerId: _admSidoLayerId,
+				//				layerId: _admSidoLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -44,13 +44,13 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 				labelPad: 10,
 				width: 200,
 				editable: false,
-//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id'
 			}, {
 				xtype: 'container',
 				width: 10
-			},{
+			}, {
 				id: 'btnSearch1',
 				xtype: 'button',
 				lnkCmbId: 'cmbArea1',
@@ -67,7 +67,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-//				layerId: _admSigunguLayerId,
+				//				layerId: _admSigunguLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -78,14 +78,14 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 				labelPad: 10,
 				width: 200,
 				editable: false,
-//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id',
 				disabled: true
 			}, {
 				xtype: 'container',
 				width: 10
-			},{
+			}, {
 				id: 'btnSearch2',
 				xtype: 'button',
 				lnkCmbId: 'cmbArea2',
@@ -102,7 +102,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-//				layerId: _admDongLayerId,
+				//				layerId: _admDongLayerId,
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
@@ -113,14 +113,14 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 				labelPad: 10,
 				width: 200,
 				editable: false,
-//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id',
 				disabled: true
 			}, {
 				xtype: 'container',
 				width: 10
-			},{
+			}, {
 				id: 'btnSearch3',
 				xtype: 'button',
 				lnkCmbId: 'cmbArea3',
