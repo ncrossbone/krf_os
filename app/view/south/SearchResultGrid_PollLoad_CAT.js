@@ -1,15 +1,15 @@
 Ext.define('krf_new.view.south.SearchResultGrid_PollLoad_CAT', {
-	
+
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
-	
+
 	xtype: 'searchResultPollLoad',
-	
+
 	id: 'searchResultPollLoad_container',
-	
+
 	height: '100%',
 	width: '100%',
-	
+
 	items: [{
 		xtype: 'container',
 		width: '100%',
@@ -26,92 +26,92 @@ Ext.define('krf_new.view.south.SearchResultGrid_PollLoad_CAT', {
 			},
 			title: '검색결과',
 			siteId: '',
-			beforeRender: function(){
-				
+			beforeRender: function () {
+
 				var me = this;
 				var parentCtl = this.findParentByType("window");
-				
+
 				me.setWidth(parentCtl.getWidth() - 10);
 				me.setHeight(parentCtl.getHeight() - 110);
-				
-				parentCtl.on("resize", function(){
+
+				parentCtl.on("resize", function () {
 					////console.info(parentCtl);
 					me.setWidth(parentCtl.getWidth() - 10);
 					me.setHeight(parentCtl.getHeight() - 110);
 				});
-				
+
 			},
-			
-			columns: [{	 
-				text      : '대권역',
-				dataIndex : 'WS_NM',
+
+			columns: [{
+				text: '대권역',
+				dataIndex: 'WS_NM',
 				width: 150
 				//filter: {type: 'numeric'}
-			},{	 
-				text      : '중권역',
-				dataIndex : 'AM_NM',
+			}, {
+				text: '중권역',
+				dataIndex: 'AM_NM',
 				width: 150
 				//filter: {type: 'numeric'}
-			},{	 
-				text      : '표준유역',
-				dataIndex : 'SW_NAME',
+			}, {
+				text: '표준유역',
+				dataIndex: 'SW_NAME',
 				width: 150
 				//filter: {type: 'numeric'}
-			},{	 
-				text      : '집수구역',
-				dataIndex : 'CAT_DID',
+			}, {
+				text: '집수구역',
+				dataIndex: 'CAT_DID',
 				width: 150
 				//filter: {type: 'numeric'}
-			},{	 
-				text      : '구분',
-				dataIndex : 'GUBUN',
+			}, {
+				text: '구분',
+				dataIndex: 'GUBUN',
 				width: 150
 				//filter: {type: 'numeric'}
-			},{
-				text : '발생',
+			}, {
+				text: '발생',
 				columns: [{
-					text     : 'BOD',
+					text: 'BOD',
 					dataIndex: 'GNR_BOD_SUM',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
-					text     : 'TN',
+					text: 'TN',
 					dataIndex: 'GNR_TN_SUM',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
-					text     : 'TP',
+					text: 'TP',
 					dataIndex: 'GNR_TP_SUM',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}]
-			
-				
-			},{
-				text : '배출',
+
+
+			}, {
+				text: '배출',
 				columns: [{
-					text     : 'BOD',
+					text: 'BOD',
 					dataIndex: 'OUT_BOD_SUM',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
-					text     : 'TN',
+					text: 'TN',
 					dataIndex: 'OUT_TN_SUMTN',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
-					text     : 'TP',
+					text: 'TP',
 					dataIndex: 'OUT_TP_SUM',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}]
 			}]
 		}]
 	}],
-	initComponent: function(){
-		
+	initComponent: function () {
+
 		this.callParent();
-		
+
 		// 검색조건 컨트롤 초기화
 		$KRF_APP.global.TabFn.searchConditionInit("", this.down("grid"));
 	}

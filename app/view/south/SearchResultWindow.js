@@ -1,11 +1,11 @@
 Ext.define('krf_new.view.south.SearchResultWindow', {
-	
-	extend : 'Ext.window.Window',
+
+	extend: 'Ext.window.Window',
 	//xtype : 'common-windowcontrol',
 	width: 300,
 	height: 300,
 	//renderTo: Ext.getBody(),
-	
+
 	items: [{
 		xtype: 'tabpanel',
 		header: false,
@@ -23,5 +23,5 @@ Ext.define('krf_new.view.south.SearchResultWindow', {
 			}]
 		}]
 	}]
-		
+
 });

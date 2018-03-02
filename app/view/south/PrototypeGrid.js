@@ -1,13 +1,13 @@
 Ext.define('krf_new.view.south.PrototypeGrid', {
-	
+
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
-	
+
 	xtype: 'south-grid-prototype',
-	
+
 	height: '100%',
 	width: '100%',
-	
+
 	items: [{
 		xtype: 'container',
 		//title: 'test',
@@ -108,7 +108,7 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 			store: ['항목선택', 'BOD', 'DO', 'COD', 'T-N', 'T-P', '수온'],
 			value: '항목선택',
 			listeners: {
-				change: function(combo, newVal, oldVal){
+				change: function (combo, newVal, oldVal) {
 					// 피처 레이어 생성/갱신
 					$KRF_APP.fireEvent('Reach_TestOnOff', "DynamicLayerAdmin_ReachTest", newVal, 1);
 				}
@@ -144,27 +144,27 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 			title: '검색결과',
 			store: 'krf_new.store.south.PrototypeGrid',
 			columns: [{
-				text      : '측정소명',
-				dataIndex : 'name',
+				text: '측정소명',
+				dataIndex: 'name',
 				width: 100,
-				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+				filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}, {
-				text      : '년도',
-				dataIndex : 'year',
+				text: '년도',
+				dataIndex: 'year',
 				width: 50,
-				filter: {type: 'numeric'/*, fields: {}*/}
-			}, { 
-				text      : '월',
-				dataIndex : 'month',
-				width: 50,
-				filter: {type: 'numeric'/*, fields: {}*/}
+				filter: { type: 'numeric'/*, fields: {}*/ }
 			}, {
-				text : 'BOD',
+				text: '월',
+				dataIndex: 'month',
+				width: 50,
+				filter: { type: 'numeric'/*, fields: {}*/ }
+			}, {
+				text: 'BOD',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'BOD_value',
 					width: 60,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -176,12 +176,12 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : 'DO',
+				text: 'DO',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'DO_value',
 					width: 60,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -193,12 +193,12 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : 'COD',
+				text: 'COD',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'COD_value',
 					width: 60,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -210,9 +210,9 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : 'T-N',
+				text: 'T-N',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'tn_value',
 					width: 60,
 					filter: 'number'
@@ -227,12 +227,12 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : 'T-P',
+				text: 'T-P',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'tp_value',
 					width: 60,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -244,11 +244,11 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : '수온',
+				text: '수온',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'temp_value',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60, filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -260,11 +260,11 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : 'pH',
+				text: 'pH',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'pH_value',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60, filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -276,11 +276,11 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : 'SS',
+				text: 'SS',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'ss_value',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60, filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -292,11 +292,11 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 					}
 				}]
 			}, {
-				text : '클로로필a',
+				text: '클로로필a',
 				columns: [{
-					text     : '측정값',
+					text: '측정값',
 					dataIndex: 'chl_value',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60, filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '추이변화',
 					width: 80,
