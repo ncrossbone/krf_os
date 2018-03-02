@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Report</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="./css/clipreport.css">
+<link rel="stylesheet" type="text/css" href="./css/UserConfig.css">
+<link rel="stylesheet" type="text/css" href="./css/font.css">
+<script type='text/javascript' src='./js/clipreport.js'></script>
+<script type='text/javascript' src='./js/jquery-1.11.1.js'></script>
+<script type='text/javascript' src='./js/UserConfig.js'></script>
+<script type='text/javascript'>
+var urlPath = document.location.protocol + "//" + document.location.host;
+function html2xml(divPath) {
+<<<<<<< HEAD
+	var report = "%root%/crf/CLIP.crf";
+	var oof = "<?xml version='1.0' encoding='utf-8'?><oof version='3.0'><document title='report' enable-thread='0'><file-list><file type='reb.root' communicationType='local' path='" + report + "'></file></file-list></document></oof>";
+    var report = createReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+    console.info(report);
+<<<<<<< HEAD
+=======
+=======
+	//var report = "%root%/crf/CLIP.crf";
+	var report = "D:\\_0010_Cetech_Workspace\\_000_Git\\KRF_DEV\\crf\\rptTest.crf";
+	var imgFieldName = "GIS_IMAGE";
+	var imgFieldPath = "D:\\_0010_Cetech_Workspace\\_000_Git\\KRF_DEV\\resources\\images\\symbol\\spot_01.png";
+	
+	var oof = 
+		"<?xml version='1.0' encoding='utf-8'?>\r\n"
+	  + "<oof version='3.0'>"
+	  + "	<document title='report' enable-thread='0'>"
+	  + "		<file-list>" // 리포트 파일 목록
+	  + "			<file type='reb.root' communicationType='local' path='" + report + "'>" // 리포트 파일 1
+	  + "				<field-list>" // 매개변수 필드 목록
+	  + "					<field name='" + imgFieldName + "'>" + imgFieldPath + "</field>" // 이미지 경로 필드
+	  + "				</field-list>" // 매개변수 필드 목록 끝
+	  + "			</file>" // 리포트 파일 1 끝
+	  + "		</file-list>" // 리포트 파일 목록 끝
+	  + "	</document>"
+	  + "</oof>";
+			
+			console.info(oof);
+    var report = createReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+>>>>>>> a5e361efd9077033ff22efff4029c8a561e10a1d
+>>>>>>> 8111b60ae23028307a4b73b48e9b0fb5beb980a5
+    //리포트 뷰어의 옵션
+    report.setSlidePage(true);
+    //리포트 뷰어 실행
+    report.view();
+}
+</script>
+</head>
+<body>
+<button onclick="html2xml('targetDiv1')">리포트</button>
+<div id='targetDiv1' style='position:absolute;top:50px;left:5px;right:5px;bottom:5px;'></div>
+</body>
+</html>
