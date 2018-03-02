@@ -73,6 +73,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	lineGrpLayer: null, // 리치라인 그래픽 레이어
 	areaGrpLayer: null, // 집수구역 그래픽 레이어
 	
+	minitmpGrpLayer: null,
+	
 	stSymbol1: null, // 시작위치 심볼
 	edSymbol1: null, // 끝위치 심볼
 	stSymbol2: null, // 시작위치 심볼
@@ -119,13 +121,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		         "esri/symbols/SimpleFillSymbol",
 		         "dojo/_base/Color",
 		         "esri/layers/GraphicsLayer",
-		         "esri/symbols/PictureMarkerSymbol"],
+				 "esri/symbols/PictureMarkerSymbol",
+				 "esri/graphic"],
 				function(SimpleMarkerSymbol,
 						SimpleLineSymbol,
 						SimpleFillSymbol,
 						Color,
 						GraphicsLayer,
-						PictureMarkerSymbol){
+						PictureMarkerSymbol,
+						Graphic){
 			
 			me.drawSymbol_P = new SimpleMarkerSymbol();
 			me.drawSymbol_P.setStyle(SimpleMarkerSymbol.STYLE_CIRCLE);
@@ -274,6 +278,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.tmpGrpLayer.id = "tmpGrpLayer";
 			me.tmpGrpLayer.visible = true;
 			me.map.addLayer(me.tmpGrpLayer);
+
+			me.minitmpGrpLayer = new Graphic();
+			me.minitmpGrpLayer.id = "minitmpGrpLayer";
+			me.minitmpGrpLayer.visible = true;
+			me.map.addLayer(me.minitmpGrpLayer);
 			
 			me.symGrpLayer = new GraphicsLayer();
 			me.symGrpLayer.id = "symGrpLayer";
@@ -287,7 +296,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	var reachClose = Ext.getCmp('reach_close');
     	reachClose.setVisible(true);
-    	console.info(me.clickFS);
+    	
     	//최대 5개 선택되었을 경우
     	if(me.clickFS.length != 0){
     		for(var i = 0 ; i < me.clickFS.length ; i++){

@@ -80,7 +80,8 @@ var $KRF_EVENT = {
 		MAP_RESIZE:'resize',
 		SET_MAP_TOOLTIP_LOCATION:'setMapTooltipLocation',
 		MOVE_COMMON:'moveCommon',
-		WEST_TAB_CHANGE:'WestTabChange'
+		WEST_TAB_CHANGE:'WestTabChange',
+		MINIMAPCHANGE: 'MiniMapChange'
 }
 
 var $KRF_WINS = {  KRF:{   MAP:{id:'map-win'}},
