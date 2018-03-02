@@ -287,7 +287,9 @@ Ext.define('krf_new.view.map.ReachLayerAdmin_v3_New', {
 								// 라인 지운다
 								me.removeLine(featureSet.features[i], "lineGrpLayer");
 								// 지점 목록 창 띄우기
-								Ext.ShowSiteListWindow("selectReach");
+								
+								$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
+								// Ext.ShowSiteListWindow("selectReach");
 								// 검색결과 창 띄우기
 								ShowSearchResultReach("");
 								//PollLoadSearchResult("");
@@ -295,7 +297,8 @@ Ext.define('krf_new.view.map.ReachLayerAdmin_v3_New', {
 								// 라인 그린다
 								me.drawLine(featureSet.features[i], me.upLineSymbol, "lineGrpLayer");
 								// 지점 목록 창 띄우기
-								Ext.ShowSiteListWindow("selectReach");
+								$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
+								// Ext.ShowSiteListWindow("selectReach");
 								// 검색결과 창 띄우기
 								ShowSearchResultReach("");
 								//PollLoadSearchResult("");
@@ -848,7 +851,8 @@ Ext.define('krf_new.view.map.ReachLayerAdmin_v3_New', {
 					if (me.searchCnt == me.tmpSearchCnt) {
 
 						// 지점 목록 창 띄우기
-						Ext.ShowSiteListWindow("selectReach");
+						$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
+						// Ext.ShowSiteListWindow("selectReach");
 
 						// 검색결과 창 띄우기
 						ShowSearchResultReach("");

@@ -62,7 +62,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '배경맵',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click: function(obj, el, evt){
     	            	// 버튼 On/Off
     	        		var currCtl = SetBtnOnOff(el.id);
@@ -87,7 +87,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '리치라인',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click: function(obj, el, evt){
     	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);	
     	        	} } },
@@ -105,7 +105,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '집수구역',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click:  function(obj, el, evt){
     	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
     	        	} } },
@@ -119,7 +119,7 @@ Ext.define('Desktop.MapWindow', {
     	    		groupId: 'grpFlow',
     	        	title: '리치흐름',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: { el: { click: function(obj, el, evt){
     	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
@@ -138,7 +138,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '초기화',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click: function(obj, el, evt){
     	        		ResetButtonClick();
     	        	} } },
@@ -153,7 +153,7 @@ Ext.define('Desktop.MapWindow', {
     	    		xtype: 'image',
     	        	title: '공지사항',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: {
     	        		el: {
@@ -195,7 +195,7 @@ Ext.define('Desktop.MapWindow', {
     	    		xtype: 'image',
     	        	title: 'Q&A',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: {
     	        		el: {
@@ -223,7 +223,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '저장',
     	            style:'cursor:pointer;',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	        	listeners: {
     	        		el: {
     	        			click: function(){
@@ -237,7 +237,7 @@ Ext.define('Desktop.MapWindow', {
     	    		xtype: 'image',
     	        	title: '매뉴얼',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: {
     	        		el: {

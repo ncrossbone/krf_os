@@ -19,11 +19,11 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayer1.setVisibleLayers([1, 2, 3, 4, 5, 76, 77, 53, 54, 55, 62, 63]);
 
 		me.map.addLayer(me.dynamicLayer1);
-		//		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.reachServiceUrl_v3);
-		//		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
-		//		me.dynamicLayer2.visible = true;
-		//		me.dynamicLayer2.opacity = 0.5;
-		//		me.dynamicLayer2.setVisibleLayers([-1]);
+		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.reachServiceUrl_v3);
+		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
+		me.dynamicLayer2.visible = true;
+		me.dynamicLayer2.opacity = 0.5;
+		me.dynamicLayer2.setVisibleLayers([-1]);
 
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DRON_DYNAMIC_LAYER_ON_OFF, me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가

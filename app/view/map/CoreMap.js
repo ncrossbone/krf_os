@@ -372,7 +372,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 				}
 
 				// 지점 목록 창 띄우기
-				Ext.ShowSiteListWindow("selectReach");
+				// Ext.ShowSiteListWindow("selectReach");
+				
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
 
 				// 검색결과 창 띄우기
 				ShowSearchResultReach("");
