@@ -30,7 +30,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
      * @cfg {String} startBtnText
      * The text for the Start Button.
      */
-    startBtnText: 'Start',
+    startBtnText: '시작',
 
     initComponent: function () {
         var me = this;
@@ -44,14 +44,14 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         me.tray = new Ext.toolbar.Toolbar(me.getTrayConfig());
 
         me.items = [
-//            {
-//                xtype: 'button',
-//                cls: 'ux-start-button',
-//                iconCls: 'ux-start-button-icon',
-//                menu: me.startMenu,
-//                menuAlign: 'bl-tl',
-//                text: me.startBtnText
-//            },
+            {
+                xtype: 'button',
+                cls: 'ux-start-button',
+                iconCls: 'ux-start-button-icon',
+                menu: me.startMenu,
+                menuAlign: 'bl-tl',
+                text: me.startBtnText
+            },
             '&nbsp;',
             me.quickStart,
             {

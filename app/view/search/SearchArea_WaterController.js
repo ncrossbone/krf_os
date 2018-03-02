@@ -1,46 +1,46 @@
-Ext.define('krf_new.view.search.SearchArea_WaterController',{
+Ext.define('krf_new.view.search.SearchArea_WaterController', {
 
-	extend : 'Ext.app.ViewController',
-	
-	alias : 'controller.searchArea_WaterController',
+	extend: 'Ext.app.ViewController',
 
-	control : {
-		'#cmbWater1' : {
-			afterrender : 'onCombo1Render',
-			select : 'onAreaChange'
+	alias: 'controller.searchArea_WaterController',
+
+	control: {
+		'#cmbWater1': {
+			afterrender: 'onCombo1Render',
+			select: 'onAreaChange'
 		},
-		'#cmbWater2' : {
-			select : 'onAreaChange'
+		'#cmbWater2': {
+			select: 'onAreaChange'
 		},
-		'#cmbWater3' : {
-			select : 'onAreaChange'
+		'#cmbWater3': {
+			select: 'onAreaChange'
 		},
-		'#btnWater1' : {
-			click : 'onAreaSearch'
+		'#btnWater1': {
+			click: 'onAreaSearch'
 		},
-		'#btnWater2' : {
-			click : 'onAreaSearch'
+		'#btnWater2': {
+			click: 'onAreaSearch'
 		},
-		'#btnWater3' : {
-			click : 'onAreaSearch'
+		'#btnWater3': {
+			click: 'onAreaSearch'
 		},
-		'#btnWaterSelect' : {
-			click : 'onWaterSelect'
+		'#btnWaterSelect': {
+			click: 'onWaterSelect'
 		},
-		'#btnWaterReset' : {
-			click : 'onWaterReset'
+		'#btnWaterReset': {
+			click: 'onWaterReset'
 		}
 	},
 
 	// 시도 랜더링 후
-	onCombo1Render : function(combo) {
+	onCombo1Render: function (combo) {
 		this.setComboData(combo.id, "");
 
 	},
-	
+
 	// 콤보 체인지
-	onAreaChange : function(combo, record, eOpts) {
-		
+	onAreaChange: function (combo, record, eOpts) {
+
 		if (combo.tarCmbId != undefined && combo.tarCmbId != "")
 			this.setComboData(combo.tarCmbId, record.data.id);
 
@@ -49,7 +49,7 @@ Ext.define('krf_new.view.search.SearchArea_WaterController',{
 
 	},
 
-	setComboData : function(comboId, id) {
+	setComboData: function (comboId, id) {
 		var combo = Ext.getCmp(comboId);
 		var store = combo.getStore();
 
@@ -68,7 +68,7 @@ Ext.define('krf_new.view.search.SearchArea_WaterController',{
 
 			// 하위 콤보 없으면 빠져나가기
 			if (combo.tarCmbId == undefined
-					|| combo.tarCmbId == "")
+				|| combo.tarCmbId == "")
 				break;
 
 			// 하위 콤보 disabled
@@ -77,23 +77,23 @@ Ext.define('krf_new.view.search.SearchArea_WaterController',{
 		}
 	},
 
-	onAreaSearch : function(button, eOpts, c) {
+	onAreaSearch: function (button, eOpts, c) {
 		var combo = Ext.getCmp(button.lnkCmbId);
 		var searchLayerId = combo.layerId;
 		var searchText = combo.getValue();
 
 		var idColumn, nameColumn, whereStr;
 
-//		var centerCtl = Ext.getCmp("center_container");
+		//		var centerCtl = Ext.getCmp("center_container");
 		if (searchLayerId == $KRF_DEFINE.areaWSLayerId) {
 			idColumn = "WS_CD";
-//			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
+			//			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
 		}
 		if (searchLayerId == $KRF_DEFINE.areaAMLayerId) {
 			idColumn = "MW_CODE";
 
 			var wsCtl = Ext.getCmp("cmbWater1");
-//			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
+			//			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
 		}
 		if (searchLayerId == $KRF_DEFINE.areaASLayerId) {
 			idColumn = "SW_CODE";
@@ -102,17 +102,17 @@ Ext.define('krf_new.view.search.SearchArea_WaterController',{
 			var msCtl = Ext.getCmp("cmbWater2");
 		}
 		$KRF_APP.fireEvent($KRF_EVENT.AREA_SELECT, {
-			idField : idColumn,
-			idValue : searchText,
-			layerId : searchLayerId
+			idField: idColumn,
+			idValue: searchText,
+			layerId: searchLayerId
 		});
 	},
 
-	onAreaSearch2 : function(a, b) {
+	onAreaSearch2: function (a, b) {
 		//console.info(a);
 	},
 
-	onWaterSelect : function(button, eOpts) {
+	onWaterSelect: function (button, eOpts) {
 
 		// if(ChkSearchCondition("수계찾기")){
 		var btnCtl = null;
@@ -163,16 +163,16 @@ Ext.define('krf_new.view.search.SearchArea_WaterController',{
 				}
 			}
 			// 지점목록 창 띄우기
-//			Ext.ShowSiteListWindow("waterSearch");
+			//			Ext.ShowSiteListWindow("waterSearch");
 
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
-				searchText : 'waterSearch',
-				searchType : null,
+				searchText: 'waterSearch',
+				searchType: null
 			});
 		}
 	},
 
-	onWaterReset : function(button, eOpts) {
+	onWaterReset: function (button, eOpts) {
 		ResetButtonClick();
 	}
 });

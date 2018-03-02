@@ -19,5 +19,7 @@ Ext.define('Ext.ux.desktop.ShortcutModel', {
         name: 'iconCls'
     }, {
         name: 'module'
+    }, {
+        name: 'text'
     }]
 });

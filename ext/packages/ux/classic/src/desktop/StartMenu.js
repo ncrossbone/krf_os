@@ -32,17 +32,17 @@ Ext.define('Ext.ux.desktop.StartMenu', {
 
         me.callParent();
 
-        me.toolbar = new Ext.toolbar.Toolbar(Ext.apply({
-            dock: 'right',
-            cls: 'ux-start-menu-toolbar',
-            vertical: true,
-            width: 100,
-            layout: {
-                align: 'stretch'
-            }
-        }, me.toolConfig));
-
-        me.addDocked(me.toolbar);
+//        me.toolbar = new Ext.toolbar.Toolbar(Ext.apply({
+//            dock: 'right',
+//            cls: 'ux-start-menu-toolbar',
+//            vertical: true,
+//            width: 100,
+//            layout: {
+//                align: 'stretch'
+//            }
+//        }, me.toolConfig));
+//
+//        me.addDocked(me.toolbar);
 
         delete me.toolItems;
     },
