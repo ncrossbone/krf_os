@@ -360,7 +360,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 	getPollLoadString: function(){
 		
 		/* 외부망 부하량 검색 막기 */
-		return "";
+		//return "";
 		//, {\"id\": \"Z001\", \"text\": \"부하량\", \"expanded\": false, \"children\": [{\"id\": \"111111111\", \"text\": \"111111111\", \"catDId\": \"111111111\", \"cls\": \"khLee-x-tree-node-text-small\", \"iconCls\": \"layerNoneImg\", \"leaf\": true, \"checked\": null}]}
 		
 		var btnId = "catTMOnOff";

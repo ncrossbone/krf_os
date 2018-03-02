@@ -14,7 +14,9 @@ Ext.define('krf_new.Desktop.App', {
         'Ext.window.MessageBox',
         'Ext.ux.desktop.ShortcutModel',
         'Desktop.StatusBoardWindow',
-        'Desktop.MapWindow'
+        'Desktop.MapWindow',
+        'Desktop.AdminConfigWindow',
+        'Desktop.ThreeDimensionsWindow'
 
         //        'Desktop.SiteListWindow',
         //        'Desktop.SearchWindow',
