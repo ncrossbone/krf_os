@@ -52,7 +52,7 @@ apiStore.load(function (a, b, c) {
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 	a[0].data.init('http://112.217.167.123:40003');
 });
-
+  
 var $KRF_EVENT = {
 	DESK_TOP_LOADED: 'desktopLoaded',
 	CORE_MAP_LOADED: 'coreMapLoaded',
