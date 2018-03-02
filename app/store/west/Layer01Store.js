@@ -1,5 +1,5 @@
 Ext.define('krf_new.store.west.Layer01Store', {
-	
+
 	extend: 'Ext.data.TreeStore',
 
 	autoLoad: true,
@@ -11,11 +11,11 @@ Ext.define('krf_new.store.west.Layer01Store', {
 			type: 'json'
 		}
 	},
-	
-	constructor: function(){
+
+	constructor: function () {
 		this.callParent();
 	},
-	
+
 	listeners: {
 	}
 });

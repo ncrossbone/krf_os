@@ -1,5 +1,5 @@
 Ext.define('krf_new.store.west.WestTabLayerStore2', {
-	
+
 	extend: 'Ext.data.TreeStore',
 
 	autoLoad: true,

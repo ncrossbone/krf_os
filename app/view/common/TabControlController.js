@@ -1,5 +1,5 @@
 Ext.define('krf_new.view.common.TabControlController', {
-	
+
 	extend: 'Ext.app.ViewController',
 
 	alias: 'controller.tabControlController',
@@ -14,16 +14,16 @@ Ext.define('krf_new.view.common.TabControlController', {
 		'#pollcmbArea3': {
 			select: 'onAreaChange'
 		},
-		
-		'#pollcmbWater1' : {
-			afterrender : 'onwaterCombo1Render',
-			select : 'onwaterChange'
+
+		'#pollcmbWater1': {
+			afterrender: 'onwaterCombo1Render',
+			select: 'onwaterChange'
 		},
-		'#pollcmbWater2' : {
-			select : 'onwaterChange'
+		'#pollcmbWater2': {
+			select: 'onwaterChange'
 		},
-		'#pollcmbWater3' : {
-			select : 'onwaterChange'
+		'#pollcmbWater3': {
+			select: 'onwaterChange'
 		}
 		/*,
 		'#btnSearch1': {
@@ -42,95 +42,95 @@ Ext.define('krf_new.view.common.TabControlController', {
 			click: 'onADMReset'
 		}*/
 	},
-	
+
 	// 시도 랜더링 후
-	onCombo1Render: function(combo){
+	onCombo1Render: function (combo) {
 		this.setComboData(combo.id, "");
-		
+
 	},
-	
+
 	// 콤보 체인지
-	onAreaChange: function(combo, record, eOpts) {
-		
-		if(combo.tarCmbId != undefined && combo.tarCmbId != ""){
+	onAreaChange: function (combo, record, eOpts) {
+
+		if (combo.tarCmbId != undefined && combo.tarCmbId != "") {
 			this.setComboData(combo.tarCmbId, record.data.id);
 		}
-		
+
 		this.setCtlDisable(combo.id);
-		
+
 	},
-	
+
 	// 콤보 Data load
-	setComboData: function(comboId, admCD){
-		
+	setComboData: function (comboId, admCD) {
+
 		var combo = Ext.getCmp(comboId);
 		var store = combo.getStore();
-		
+
 		store.layerId = combo.layerId; // 타겟 콤보 레이어 아이디
 		store.parentADMCD = admCD;
-		
+
 		store.load(); // 데이터 로드
 		combo.reset();
-		
+
 	},
-	
+
 	// 콤보 및 버튼 Disable설정
-	setCtlDisable: function(comboId){
-		
+	setCtlDisable: function (comboId) {
+
 		var combo = Ext.getCmp(comboId);
 		var tarCombo = Ext.getCmp(combo.tarCmbId);
-		
-		if(tarCombo != undefined)
+
+		if (tarCombo != undefined)
 			tarCombo.setValue("");
-		
+
 		combo.setDisabled(false);
-		
+
 		// linked button disabled
 		var lnkBtn = Ext.getCmp(combo.lnkBtnId);
-		
-		if(combo.getValue() == null || combo.getValue() == ""){
+
+		if (combo.getValue() == null || combo.getValue() == "") {
 			lnkBtn.setDisabled(true);
-			if(tarCombo != undefined)
+			if (tarCombo != undefined)
 				tarCombo.setDisabled(true);
 		}
-		else{
+		else {
 			lnkBtn.setDisabled(false);
-			if(tarCombo != undefined)
+			if (tarCombo != undefined)
 				tarCombo.setDisabled(false);
 		}
-		
-		while(true){
-			
-			if(tarCombo == undefined)
+
+		while (true) {
+
+			if (tarCombo == undefined)
 				break;
-			
+
 			lnkBtn = Ext.getCmp(tarCombo.lnkBtnId);
 			lnkBtn.setDisabled(true);
-			
+
 			// 하위 콤보 없으면 빠져나가기
-			if(tarCombo.tarCmbId == undefined || tarCombo.tarCmbId == "")
+			if (tarCombo.tarCmbId == undefined || tarCombo.tarCmbId == "")
 				break;
-			
+
 			// 하위 콤보 disabled
 			tarCombo = Ext.getCmp(tarCombo.tarCmbId);
 			tarCombo.setValue("");
 			//combo.reset();
 			tarCombo.setDisabled(true);
-			
+
 		}
-		
+
 	},
-	
-	
-	
+
+
+
 	// 수계 랜더링 후
-	onwaterCombo1Render : function(combo) {
+	onwaterCombo1Render: function (combo) {
 		this.setwaterComboData(combo.id, "");
 
 	},
-	
+
 	// 콤보 체인지
-	onwaterChange : function(combo, record, eOpts) {
+	onwaterChange: function (combo, record, eOpts) {
 		if (combo.tarCmbId != undefined && combo.tarCmbId != "")
 			this.setwaterComboData(combo.tarCmbId, record.data.id);
 
@@ -139,7 +139,7 @@ Ext.define('krf_new.view.common.TabControlController', {
 
 	},
 
-	setwaterComboData : function(comboId, id) {
+	setwaterComboData: function (comboId, id) {
 		var combo = Ext.getCmp(comboId);
 		var store = combo.getStore();
 
@@ -159,7 +159,7 @@ Ext.define('krf_new.view.common.TabControlController', {
 
 			// 하위 콤보 없으면 빠져나가기
 			if (combo.tarCmbId == undefined
-					|| combo.tarCmbId == "")
+				|| combo.tarCmbId == "")
 				break;
 
 			// 하위 콤보 disabled
@@ -169,10 +169,10 @@ Ext.define('krf_new.view.common.TabControlController', {
 
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/*,
 	
 	// 지도 이동
@@ -279,5 +279,5 @@ Ext.define('krf_new.view.common.TabControlController', {
 		ResetButtonClick();
 		
 	}*/
-	
+
 });

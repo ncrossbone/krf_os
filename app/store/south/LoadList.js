@@ -1,6 +1,6 @@
 Ext.define('krf_new.store.south.LoadList', {
-    extend : 'Ext.data.Store',
-    fields: [        
+	extend: 'Ext.data.Store',
+	fields: [
 		'S_NM',
 		'C_0',
 		'C_1',
@@ -64,27 +64,27 @@ Ext.define('krf_new.store.south.LoadList', {
 		'C_59',
 		'C_60',
 		'C_61'
-	    ],
-	    siteId: '',
-	    autoLoad: true,
-	    pageSize: 100,
-	    selectValue: "",
-	    //부하량 구분
-		url: "",
-		params: "",
-		listeners: {
-			load: function(store, a, b, c, d, e) {
-				Ext.Ajax.request({
-	                url: _API.LoadColunmList, //'./resources/jsp/LoadColunmList.jsp',
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		success : function(response, opts) {
-	        			var jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        		},
-	        		failure: function(form, action) {
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}
-	    }
+	],
+	siteId: '',
+	autoLoad: true,
+	pageSize: 100,
+	selectValue: "",
+	//부하량 구분
+	url: "",
+	params: "",
+	listeners: {
+		load: function (store, a, b, c, d, e) {
+			Ext.Ajax.request({
+				url: _API.LoadColunmList, //'./resources/jsp/LoadColunmList.jsp',
+				async: true, // 비동기 = async: true, 동기 = async: false
+				success: function (response, opts) {
+					var jsonData = Ext.util.JSON.decode(response.responseText);
+					store.setData(jsonData.data);
+				},
+				failure: function (form, action) {
+					alert("오류가 발생하였습니다.");
+				}
+			});
+		}
+	}
 });
