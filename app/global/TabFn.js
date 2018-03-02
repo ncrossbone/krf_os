@@ -7,129 +7,129 @@
  *    - http://jsfiddle.net/prajavk/YhuWT/
  *    - https://wikidocs.net/3384 5.글로벌 변수 사용 */
 Ext.define("krf_new.global.TabFn", {
-	singleton : true, // 요게 있어야 set, get 메서드 사용가능..
+	singleton: true, // 요게 있어야 set, get 메서드 사용가능..
 	config: {
 		globalTest: 0 // 테스트용 변수
 	},
 	conditionCtl: [],
-	searchConditionInit: function(gridType, grid){
-		
+	searchConditionInit: function (gridType, grid) {
+
 		var conditionCont = Ext.getCmp("tabCondition");
-		
+
 		var cmbStartYear = conditionCont.down("#cmbStartYear");
 		var cmbStartMonth = conditionCont.down("#cmbStartMonth");
 		var cmbStartDay = conditionCont.down("#startDay");
 		var cmbStartHour = conditionCont.down("#startTime");
-		
+
 		var cmbEndYear = conditionCont.down("#cmbEndYear");
 		var cmbEndMonth = conditionCont.down("#cmbEndMonth");
 		var cmbEndDay = conditionCont.down("#endDay");
 		var cmbEndHour = conditionCont.down("#endTime");
-		
-		if(gridType == "수질자동측정망"){
-			
+
+		if (gridType == "수질자동측정망") {
+
 			cmbStartYear.setValue($KRF_APP.global.CommFn.nowDate.getYear());
 			cmbStartMonth.setValue($KRF_APP.global.CommFn.nowDate.getMonth());
 			cmbEndYear.setValue($KRF_APP.global.CommFn.nowDate.getYear());
 			cmbEndMonth.setValue($KRF_APP.global.CommFn.nowDate.getMonth());
-		} else{
-			
+		} else {
+
 			cmbStartYear.setValue($KRF_APP.global.CommFn.nowDate.addMonth(-3).year);
 			cmbStartMonth.setValue($KRF_APP.global.CommFn.nowDate.addMonth(-3).month);
 			cmbEndYear.setValue($KRF_APP.global.CommFn.nowDate.getYear());
 			cmbEndMonth.setValue($KRF_APP.global.CommFn.nowDate.getMonth());
 		}
-		
+
 		cmbStartDay.setValue($KRF_APP.global.CommFn.nowDate.getDay());
 		cmbStartHour.setValue("00");
 		cmbEndDay.setValue($KRF_APP.global.CommFn.nowDate.getDay());
 		cmbEndHour.setValue("23");
-		
+
 		grid.searchCondition = {};
-		
+
 		grid.searchCondition.startYear = cmbStartYear.getValue();
 		grid.searchCondition.startMonth = cmbStartMonth.getValue();
 		grid.searchCondition.startDay = cmbStartDay.getValue();
 		grid.searchCondition.startHour = cmbStartHour.getValue();
-		
+
 		grid.searchCondition.endYear = cmbEndYear.getValue();
 		grid.searchCondition.endMonth = cmbEndMonth.getValue();
 		grid.searchCondition.endDay = cmbEndDay.getValue();
 		grid.searchCondition.endHour = cmbEndHour.getValue();
 	},
 	/* 검색결과 탭별 조회조건 셋팅 */
-	searchConditionCtl: function(grid){
+	searchConditionCtl: function (grid) {
 
 		var conditionCont = Ext.getCmp("tabCondition");
-		
+
 		var cmbStartYear = conditionCont.down("#cmbStartYear");
 		var cmbStartMonth = conditionCont.down("#cmbStartMonth");
 		var cmbStartDay = conditionCont.down("#startDay");
 		var cmbStartHour = conditionCont.down("#startTime");
-		
+
 		var cmbEndYear = conditionCont.down("#cmbEndYear");
 		var cmbEndMonth = conditionCont.down("#cmbEndMonth");
 		var cmbEndDay = conditionCont.down("#endDay");
 		var cmbEndHour = conditionCont.down("#endTime");
-		
-		if(grid.searchCondition != undefined){
-			
+
+		if (grid.searchCondition != undefined) {
+
 			cmbStartYear.setValue(grid.searchCondition.startYear);
 			cmbStartMonth.setValue(grid.searchCondition.startMonth);
-			
+
 			cmbEndYear.setValue(grid.searchCondition.endYear);
 			cmbEndMonth.setValue(grid.searchCondition.endMonth);
 		}
 	},
-	searchConditionSet: function(grid){
-		
+	searchConditionSet: function (grid) {
+
 		var conditionCont = Ext.getCmp("tabCondition");
-		
+
 		var cmbStartYear = conditionCont.down("#cmbStartYear");
 		var cmbStartMonth = conditionCont.down("#cmbStartMonth");
 		var cmbStartDay = conditionCont.down("#startDay");
 		var cmbStartHour = conditionCont.down("#startTime");
-		
+
 		var cmbEndYear = conditionCont.down("#cmbEndYear");
 		var cmbEndMonth = conditionCont.down("#cmbEndMonth");
 		var cmbEndDay = conditionCont.down("#endDay");
 		var cmbEndHour = conditionCont.down("#endTime");
-		
+
 		grid.searchCondition = {};
-		
+
 		grid.searchCondition.startYear = cmbStartYear.getValue();
 		grid.searchCondition.startMonth = cmbStartMonth.getValue();
 		grid.searchCondition.startDay = cmbStartDay.getValue();
 		grid.searchCondition.startHour = cmbStartHour.getValue();
-		
+
 		grid.searchCondition.endYear = cmbEndYear.getValue();
 		grid.searchCondition.endMonth = cmbEndMonth.getValue();
 		grid.searchCondition.endDay = cmbEndDay.getValue();
 		grid.searchCondition.endHour = cmbEndHour.getValue();
 	},
-	setConditionCtl: function(container){
-		
+	setConditionCtl: function (container) {
+
 		var items = container.items;
-		
-		if(items != undefined){
-			
+
+		if (items != undefined) {
+
 			var isArray = Array.isArray(items);
-			
-			if(isArray == true){
-				
-				for(var i = 0; i < items.length; i++){
-					
-					if(items[i].xtype != undefined){
-						
-						if(items[i].xtype == "combo"){
+
+			if (isArray == true) {
+
+				for (var i = 0; i < items.length; i++) {
+
+					if (items[i].xtype != undefined) {
+
+						if (items[i].xtype == "combo") {
 							this.conditionCtl.push(items[i]);
 						}
 					}
 					this.setConditionCtl(items[i]);
 				}
-			} else{
-				if(items.xtype != undefined){
-					if(items.xtype == "combo"){
+			} else {
+				if (items.xtype != undefined) {
+					if (items.xtype == "combo") {
 						this.conditionCtl.push(items);
 					}
 				}

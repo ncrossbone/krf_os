@@ -1,30 +1,30 @@
 Ext.define('krf_new.view.common.Window', {
-	extend : 'Ext.window.Window',
-	
-	xtype : 'app-common-window',
-	
+	extend: 'Ext.window.Window',
+
+	xtype: 'app-common-window',
+
 	cls: 'khLee-x-tab-active',
-	
-	initComponent : function() {
-		
+
+	initComponent: function () {
+
 		var tab_panel = Ext.getCmp('datawindow-tabpanel');
-		
-		if(tab_panel == null || tab_panel == undefined){
+
+		if (tab_panel == null || tab_panel == undefined) {
 			CreateWindow(this.params);
 		}
-		else{
+		else {
 			AddTab(tab_panel, this.params);
 		}
-		
+
 		this.callParent();
 	}
 });
 
-function AddTab(parent, params){
-	
+function AddTab(parent, params) {
+
 	var ctl = Ext.getCmp(params.id);
-	
-	if(ctl == null || ctl == undefined){
+
+	if (ctl == null || ctl == undefined) {
 		parent.add({
 			xtype: params.xtype,
 			//store: params.store,
@@ -35,11 +35,11 @@ function AddTab(parent, params){
 			//columns: params.columns,
 			//height: params.height
 		});
-		
+
 		//console.info(parent.items.items);
 		ctl = parent.items.items[parent.items.items.length - 1];
 	}
-	
+
 	parent.setActiveTab(ctl);
 }
 
@@ -49,10 +49,10 @@ var windowX = 0;
 var windowY = 0;
 var windowMode = "";
 
-function CreateWindow(params){
-	
+function CreateWindow(params) {
+
 	var center = Ext.getCmp('center_container');
-	
+
 	windowWidth = center.getWidth();
 	windowHeight = 300;
 	windowX = 0;
@@ -68,26 +68,26 @@ function CreateWindow(params){
 		title: 'Tab Window',
 		height: windowHeight,
 		width: windowWidth,
-        frame: true,
+		frame: true,
 		x: windowX,
 		y: windowY,
 		closable: true,
 		tools: [{
 			type: 'restore',
 			hidden: false,
-			handler: function(evt, toolEl, owner, tool){
+			handler: function (evt, toolEl, owner, tool) {
 				var window = owner.up('window');
-				
-				if(windowMode == "normal"){
+
+				if (windowMode == "normal") {
 					windowWidth = window.getWidth();
 					windowHeight = window.getHeight();
 					windowX = window.getX();
 					windowY = window.getY();
 				}
-				
-				if(windowMode == "minimize")
+
+				if (windowMode == "minimize")
 					window.expand('', false);
-				
+
 				windowMode = "normal";
 				window.setWidth(windowWidth);
 				window.setHeight(windowHeight);
@@ -96,42 +96,42 @@ function CreateWindow(params){
 			}
 		}, {
 			type: 'maximize',
-			handler: function(evt, toolEl, owner, tool){
+			handler: function (evt, toolEl, owner, tool) {
 				var window = owner.up('window');
 
-				if(windowMode == "normal"){
+				if (windowMode == "normal") {
 					windowWidth = window.getWidth();
 					windowHeight = window.getHeight();
 					windowX = window.getX();
 					windowY = window.getY();
 				}
-				
+
 				windowMode = "maximize";
-				
-				
+
+
 				window.expand('', false);
 				window.setWidth(center.getWidth());
 				window.setHeight(center.getHeight());
 				window.setX(centerX);
 				window.setY(centerY);
-				
+
 				//window.alignTo('center-panel', 'tl-br');
 			}
 		}, {
 			type: 'minimize',
-			handler: function(evt, toolEl, owner, tool){
-				
+			handler: function (evt, toolEl, owner, tool) {
+
 				var window = owner.up('window');
-				
-				if(windowMode == "normal"){
+
+				if (windowMode == "normal") {
 					windowWidth = window.getWidth();
 					windowHeight = window.getHeight();
 					windowX = window.getX();
 					windowY = window.getY();
 				}
-				
+
 				windowMode = "minimize";
-				
+
 				window.collapse();
 				window.setWidth(150);
 				window.alignTo(center, 'bl-bl');
@@ -153,20 +153,20 @@ function CreateWindow(params){
 				height: '100%'*/
 			}]
 		}],
-		listeners:{
-	        close:function(){
-	            var currCtl = Ext.getCmp("btnSearchResult");
-	            if(currCtl.btnOnOff == "on"){
-	            	SetBtnOnOff(currCtl.id);
-	            }
-	        },
-	        resize : function(win,width,height,opt){
-                //var grid = Ext.getCmp("grid-tab-2");grdPrototype
-                var grid = Ext.getCmp("grdPrototype");
-	        	if(grid != undefined){
-	        		grid.setHeight(height - 85);
-	        		grid.setWidth(width);
-	        	}
+		listeners: {
+			close: function () {
+				var currCtl = Ext.getCmp("btnSearchResult");
+				if (currCtl.btnOnOff == "on") {
+					SetBtnOnOff(currCtl.id);
+				}
+			},
+			resize: function (win, width, height, opt) {
+				//var grid = Ext.getCmp("grid-tab-2");grdPrototype
+				var grid = Ext.getCmp("grdPrototype");
+				if (grid != undefined) {
+					grid.setHeight(height - 85);
+					grid.setWidth(width);
+				}
 	        	/*
 	        	grid = Ext.getCmp("grid-tab-3");
 	        	if(grid != undefined){
@@ -175,7 +175,7 @@ function CreateWindow(params){
 	        	}
 	        	
 	        	*/
-	        }
-	    }
+			}
+		}
 	});
 }

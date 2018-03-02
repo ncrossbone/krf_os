@@ -56,15 +56,14 @@ Ext.define('krf_new.view.map.CoreMap', {
 	mapRendered: function (p) {
 		require(["esri/map", "dojo/domReady!"], function (Map) {
 			me.map = new Map(me.id, {
-				isDoubleClickZoom: true,
+				isDoubleClickZoom: false,
 				isPan: true,
 				logo: false,
 				isMapNavigation: true,
 				slider: false,
 				showAttribution: false,
 				zoom: 8,
-				autoResize: true,
-				navigationMode: 'classic'
+				autoResize: true
 			});
 
 			//me.map.resize();
@@ -98,14 +97,22 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			me.featureLayerAdmin = Ext.create('krf_new.view.map.FeatureLayerAdmin1', me.map);
 
-			dojo.connect(me.map, "onExtentChange", me.onExtentChange);
+			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
+
+			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnageEvent, me);
+			//        	dojo.connect(me.map,'onLoad', function(){
+			//        		debugger;
+			//        		
+			//        		$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, Ext.getCmp('westLayer01').getView().getChecked());
+			//        	});
 
 			$KRF_APP.fireEvent($KRF_EVENT.CORE_MAP_LOADED, me);
 
-			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnageEvent, me);
-			//MINIMAPCHANGE
-			//        	me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id, 'http://211.114.21.35/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp', "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
+			require(["/KRF_DEV/app/view/map/task/CustomPrintTask.js"], function () {
+				//"./resources/jsp/CustomPrintTask_New.jsp"
+				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id, 'http://localhost:8088/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp', "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
 
+			});
 			//        	$KRF_APP.fireEvent($KRF_EVENT.MAP_RESIZE, this);
 
 			//        	this.map.resize();
@@ -228,7 +235,6 @@ Ext.define('krf_new.view.map.CoreMap', {
 			}
 		});
 	},
-
 
 	miniMapChnageEvent: function (map) {
 		var me = this;

@@ -1,13 +1,13 @@
 Ext.define('krf_new.store.west.SearchArea_Water', {
 
-	extend : 'Ext.data.Store',
+	extend: 'Ext.data.Store',
 
-	fields : [ 'id', 'name' ],
+	fields: ['id', 'name'],
 
-	remoteSort : true,
+	remoteSort: true,
 
-	listeners : {
-		beforeload : function(store) {
+	listeners: {
+		beforeload: function (store) {
 			var idColumn, nameColumn, whereStr, pId;
 			idColumn = "";
 			if (store.layerId == $KRF_DEFINE.areaWSLayerId) {
@@ -25,19 +25,19 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 				nameColumn = "SW_NAME";
 				whereStr = "MBSNCD = '" + store.parentId + "'";
 			}
-			if (idColumn == undefined || nameColumn == undefined || whereStr == undefined){
+			if (idColumn == undefined || nameColumn == undefined || whereStr == undefined) {
 				return;
 			}
-				
+
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			query.where = whereStr;
-			query.outFields = [ idColumn, nameColumn ];
+			query.outFields = [idColumn, nameColumn];
 
-			queryTask.execute(query, function(results) {
+			queryTask.execute(query, function (results) {
 				var data = results.features;
-				data.sort(function(a, b) {
+				data.sort(function (a, b) {
 					var aVal = a.attributes[nameColumn];
 					var bVal = b.attributes[nameColumn];
 					if (aVal > bVal) {
@@ -51,13 +51,13 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 
 				var receiveData = [];
 
-				Ext.each(data, function(media, index) {
+				Ext.each(data, function (media, index) {
 
 					var idVal = media.attributes[idColumn];
 					var nameVal = media.attributes[nameColumn];
 					receiveData.push({
-						id : idVal,
-						name : nameVal
+						id: idVal,
+						name: nameVal
 					});
 
 					if (data.length == index + 1) {
