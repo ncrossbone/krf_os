@@ -16,7 +16,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 //		var west_container = Ext.getCmp("west_container");
-		
+	         
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
 		var popHeader = Ext.getCmp("searchConfigHeader");
