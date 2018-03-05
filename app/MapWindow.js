@@ -13,7 +13,9 @@ Ext.define('Desktop.MapWindow', {
 
     subWindowIds:['popSiteInfo','reachNameToolbar','subMapWindow', 'siteListWindow', 'searchResultWindow'
     	,'chlLegend','phyLegend','droneToolbar','droneDetailExp','reachCountSToolbar','reachCountEToolbar'],
-    id:'map-win',
+	id:'map-win',
+	once: true,
+
     init : function(){
         this.launcher = {
             text: 'KRF',
@@ -185,7 +187,8 @@ Ext.define('Desktop.MapWindow', {
     	                                                }]
     	                                            }
     	    				    				});
-    	        				}
+								}
+								Ext.getCmp('center_container').add(boardCtl);
     	        				boardCtl.show();
     	        			}
     	        		}
@@ -211,7 +214,7 @@ Ext.define('Desktop.MapWindow', {
     	    				    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
     	    				    				});
     	        				}
-    	        				
+    	        				Ext.getCmp('center_container').add(boardCtl);
     	        				boardCtl.show();
     	        				
     	        			}
@@ -270,10 +273,13 @@ Ext.define('Desktop.MapWindow', {
     		    afterrender: function(){
     		    },
     		    show: function(){
-    		    	$KRF_APP.coreMap.mapRendered();
+					if(me.once){
+						$KRF_APP.coreMap.mapRendered();
+						me.once = false;
+					}
     		    },
     		    'beforeclose': function(){
-    		    	console.log('beforeclose');
+					me.once = true;
     		    }
     		},
             items: [ {xtype:'west-buttonpanel', region:'west', collapsible:false},
