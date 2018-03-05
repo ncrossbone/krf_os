@@ -11,25 +11,27 @@ Ext.define('Desktop.LoginWindow', {
     requires: [
     ],
 
-    id:'login-win',
+    id: 'login-win',
 
-    init : function(){
+    init: function () {
     },
 
-    createWindow : function(){
+    createWindow: function () {
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('login-win');
-        if(!win){
+        if (!win) {
             win = desktop.createWindow({
                 id: 'login-win',
-                title:'로그인',
-                width:600,
-                height:400,
+                title: '로그인',
+                width: 600,
+                height: 400,
                 iconCls: 'login',
-                animCollapse:false,
+                animCollapse: false,
                 border: false,
                 modal: true,
-
+                maximizable: false,
+                minimizable: false,
+                closable: false,
                 layout: 'fit',
                 items: [
                 ]
