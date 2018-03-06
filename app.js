@@ -46,13 +46,14 @@ var apiStore = Ext.create('Ext.data.Store', {
 	}
 });
 
+
 apiStore.load(function (a, b, c) {
 	_API = a[0].data;
 
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 	a[0].data.init('http://112.217.167.123:40003');
 });
-  
+
 var $KRF_EVENT = {
 	DESK_TOP_LOADED: 'desktopLoaded',
 	CORE_MAP_LOADED: 'coreMapLoaded',
@@ -89,7 +90,8 @@ var $KRF_WINS = {
 	KRF: { MAP: { id: 'map-win' } },
 	STATUS: { MAIN: { id: 'status-win' } },
 	ADMIN: { MAIN: { id: 'admin-win' } },
-	THREEDIM: { MAIN: { id: 'threeDim-win' } }
+	THREEDIM: { MAIN: { id: 'threeDim-win' } },
+	LOGIN: { MAIN: { id: 'login-win' } }
 };
 
 var $KRF_APP = null;
@@ -147,6 +149,27 @@ Ext.application({
 
 	},
 	desktopLoaded: function () {
+
+		// 내부망 로그인정보 조회
+		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+
+		if (loginInfo == null) {
+			this.showLoginWindow();
+		} else {
+			this.showWindowByMode();
+		}
+	},
+	showLoginWindow: function () {
+		var dp = $KRF_APP.getDesktop();
+		var dpWidth = dp.getWidth();
+		var dpHeight = dp.getHeight();
+
+		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
+		var loginWindow = loginModule.createWindow({ x: (dpWidth/2)-200, y: (dpHeight/2)-300, width: 400, height: 600 });
+		loginWindow = loginWindow.show();
+	},
+
+	showWindowByMode: function () {
 		var krfMode = this.localStorate.getItem('krfMode');
 
 		if (krfMode != null) {
@@ -164,7 +187,7 @@ Ext.application({
 		}
 
 		*/
-		
+
 		var dp = $KRF_APP.getDesktop();
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();

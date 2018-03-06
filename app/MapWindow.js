@@ -13,7 +13,9 @@ Ext.define('Desktop.MapWindow', {
 
     subWindowIds:['popSiteInfo','reachNameToolbar','subMapWindow', 'siteListWindow', 'searchResultWindow'
     	,'chlLegend','phyLegend','droneToolbar','droneDetailExp','reachCountSToolbar','reachCountEToolbar'],
-    id:'map-win',
+	id:'map-win',
+	once: true,
+
     init : function(){
         this.launcher = {
             text: 'KRF',
@@ -62,7 +64,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '배경맵',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click: function(obj, el, evt){
     	            	// 버튼 On/Off
     	        		var currCtl = SetBtnOnOff(el.id);
@@ -87,7 +89,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '리치라인',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click: function(obj, el, evt){
     	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);	
     	        	} } },
@@ -105,7 +107,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '집수구역',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click:  function(obj, el, evt){
     	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
     	        	} } },
@@ -119,7 +121,7 @@ Ext.define('Desktop.MapWindow', {
     	    		groupId: 'grpFlow',
     	        	title: '리치흐름',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: { el: { click: function(obj, el, evt){
     	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
@@ -138,7 +140,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '초기화',
     	            style:'cursor:pointer;',
     	        	width: 32,
-    	        	height: 32,
+    	        	height: 20,
     	        	listeners: { el: { click: function(obj, el, evt){
     	        		ResetButtonClick();
     	        	} } },
@@ -153,7 +155,7 @@ Ext.define('Desktop.MapWindow', {
     	    		xtype: 'image',
     	        	title: '공지사항',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: {
     	        		el: {
@@ -185,7 +187,8 @@ Ext.define('Desktop.MapWindow', {
     	                                                }]
     	                                            }
     	    				    				});
-    	        				}
+								}
+								Ext.getCmp('center_container').add(boardCtl);
     	        				boardCtl.show();
     	        			}
     	        		}
@@ -195,7 +198,7 @@ Ext.define('Desktop.MapWindow', {
     	    		xtype: 'image',
     	        	title: 'Q&A',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: {
     	        		el: {
@@ -211,7 +214,7 @@ Ext.define('Desktop.MapWindow', {
     	    				    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
     	    				    				});
     	        				}
-    	        				
+    	        				Ext.getCmp('center_container').add(boardCtl);
     	        				boardCtl.show();
     	        				
     	        			}
@@ -223,7 +226,7 @@ Ext.define('Desktop.MapWindow', {
     	        	title: '저장',
     	            style:'cursor:pointer;',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	        	listeners: {
     	        		el: {
     	        			click: function(){
@@ -237,7 +240,7 @@ Ext.define('Desktop.MapWindow', {
     	    		xtype: 'image',
     	        	title: '매뉴얼',
     	        	width: 69,
-    	        	height: 37,
+    	        	height: 20,
     	            style:'cursor:pointer;',
     	        	listeners: {
     	        		el: {
@@ -270,10 +273,13 @@ Ext.define('Desktop.MapWindow', {
     		    afterrender: function(){
     		    },
     		    show: function(){
-    		    	$KRF_APP.coreMap.mapRendered();
+					if(me.once){
+						$KRF_APP.coreMap.mapRendered();
+						me.once = false;
+					}
     		    },
     		    'beforeclose': function(){
-    		    	console.log('beforeclose');
+					me.once = true;
     		    }
     		},
             items: [ {xtype:'west-buttonpanel', region:'west', collapsible:false},

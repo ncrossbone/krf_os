@@ -182,7 +182,9 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 				SetBtnOnOff("btnSiteListWindow");
 			}
 
-			Ext.ShowSiteListWindow("admSearch"); // 지점목록 창 띄우기
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'admSearch' });
+
+			// Ext.ShowSiteListWindow("admSearch"); // 지점목록 창 띄우기
 		}
 	},
 

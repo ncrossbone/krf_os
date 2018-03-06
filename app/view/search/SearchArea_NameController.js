@@ -37,6 +37,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 				SetBtnOnOff("btnSiteListWindow");
 			}
 		}
-		Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
+		$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'nameSearch' });
+		// Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
 	}
 });
