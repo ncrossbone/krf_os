@@ -100,6 +100,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
 
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnageEvent, me);
+
+			 $KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine);
 			//        	dojo.connect(me.map,'onLoad', function(){
 			//        		debugger;
 			//        		
@@ -108,9 +110,11 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			$KRF_APP.fireEvent($KRF_EVENT.CORE_MAP_LOADED, me);
 
-			require(["/KRF_DEV/app/view/map/task/CustomPrintTask.js"], function () {
+			require(["/KRF_NEW/app/view/map/task/CustomPrintTask.js"], function () {
 				//"./resources/jsp/CustomPrintTask_New.jsp"
-				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id, 'http://localhost:8088/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp', "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
+				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id
+					, 'http://localhost:8070/KRF_OS/resources/jsp/CustomPrintTask_New.jsp'
+					, "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
 
 			});
 			//        	$KRF_APP.fireEvent($KRF_EVENT.MAP_RESIZE, this);
@@ -236,36 +240,60 @@ Ext.define('krf_new.view.map.CoreMap', {
 		});
 	},
 
+	initMiniMapLine: function(){
+		var me = this;		
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var subCoreMap = Ext.getCmp("_subMapDiv_");
+
+		require(["esri/graphic"
+				, "esri/toolbars/edit"
+				, "dojo/_base/event"
+				, "esri/geometry/Polygon"
+				, "esri/symbols/SimpleLineSymbol"
+				,"esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
+					
+					//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
+
+					var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
+					var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
+					graphic.id = "asd";
+
+					coreMap.map.graphics.add(graphic);
+
+					var editToolbar = new esri.toolbars.Edit(coreMap.map);
+					coreMap.map.graphics.on("click", function (evt) {
+						event.stop(evt);
+
+						var options = {
+							allowAddVertices: true,
+							allowDeleteVertices: false,
+							uniformScaling: true
+						};
+						editToolbar.activate(Edit.MOVE|Edit.SCALE, evt.graphic, options);
+						
+					});
+					
+					coreMap.map.on('click', function(){
+						editToolbar.deactivate();
+					});
+
+
+					editToolbar.on('scale-stop', coreMap.subMapSetExtent);
+
+					editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
+				});
+	},
+
+	subMapSetExtent: function(evt){
+		
+		var subCoreMap = Ext.getCmp("_subMapDiv_");
+		subCoreMap.map.setExtent(evt.graphic._extent, true);
+
+	},
+
 	miniMapChnageEvent: function (map) {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
-
-		require(["esri/graphic"
-			, "esri/toolbars/edit"
-			, "dojo/_base/event"
-			, "esri/geometry/Polygon"
-			, "esri/symbols/SimpleLineSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol) {
-
-				var editToolbar = new esri.toolbars.Edit(Ext.getCmp("_mapDiv_"));
-
-				coreMap.map.graphics.on("click", function (evt) {
-
-					event.stop(evt);
-					var tool = 0 | Edit.MOVE;
-
-					var options = {
-						allowAddVertices: true,
-						allowDeleteVertices: true,
-						uniformScaling: true
-					};
-					console.info(coreMap.map.graphics);
-					editToolbar.activate(tool, evt.graphic, options);
-
-					console.info(coreMap.map.graphics);
-				});
-
-			});
-
 	},
 
 	onExtentChange: function (extent, a, b, obj, c) {
@@ -274,22 +302,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 		//coreMap.map.graphics.clear();
 		//미니맵 EXTENT 체인지 될시 이벤트
 		if (me.id == "_subMapDiv_") {
-
-			require(["esri/graphic"
-				, "esri/toolbars/edit"
-				, "dojo/_base/event"
-				, "esri/geometry/Polygon"
-				, "esri/symbols/SimpleLineSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol) {
-
-					var polygonGraphic = Polygon.fromExtent(me.extent);
-					var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
-
-					coreMap.map.graphics.add(graphic);
-				});
-
-
 			$KRF_APP.fireEvent($KRF_EVENT.MINIMAPCHANGE, me);
-
 		}
 		// 툴팁 XY 셋팅
 		$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);

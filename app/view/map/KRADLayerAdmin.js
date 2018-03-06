@@ -252,7 +252,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					"height": 32
 				});
 
-				me.miniMapLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
+				//me.miniMapLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
+				me.miniMapLineSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID
+					, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5)
+					, new Color([255, 255, 255, 0.1]));
+				// me.miniMapLineSym = new SimpleLineSymbol(SimpleFillSymbol.STYLE_SOLID,
+				// 	new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([237, 20, 91]), 5),
+				// 	new Color([255, 255, 0, 0.3]));
 
 				me.reachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 				me.reachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
@@ -421,7 +427,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 		if (me.popup == undefined || me.popup == null) {
 
-			me.popup = Ext.create("KRF_DEV.view.krad.kradEvtPop", {
+			me.popup = Ext.create("krf_new.view.krad.kradEvtPop", {
 				id: "kradEvtPop",
 				width: popWidth,
 				height: popHeight,
@@ -613,7 +619,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 		me.isShowPopup = false;
 
-		KRF_DEV.global.Obj.showSimpleTooltip("선택할 영역을 드래그하세요.");
+		krf_new.global.Obj.showSimpleTooltip("선택할 영역을 드래그하세요.");
 		var isLevel = false;
 		require(["esri/toolbars/draw",
 			"dojo/on"], function (Draw, on, bundle) {
@@ -757,7 +763,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			} else {
 				me.showPopup();
 			}
-		} else {
+		}else if(me.drawOption == "reachLineRemove"){
+    		
+    		var lineFeature = featureSet.features[0];
+    		
+    		me.setDownAndComm([lineFeature.attributes.RCH_DID], [], 0, "RCH_DID");
+    		
+    	} else {
 
 			for (var i = 0; i < featureSet.features.length; i++) {
 
@@ -1277,6 +1289,16 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 								// 좌/우측 하류 검색 종료 시
 								if (isEndLD == true && isEndRD == true) {
+
+
+									// 하류라인 지우기
+									if(me.drawOption == "reachLineRemove"){
+																		
+										// 집수구역 선택된곳에 첫번째 하류를 찾는 function
+										me.findReachLineTmp(tmpArr, 0, false);
+										
+										
+									};
 
 									/* 좌/우측 하류 동시 존재 시 한번만 입력되도록 push 플래그 설정 */
 									var isPush = true;

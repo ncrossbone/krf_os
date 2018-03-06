@@ -98,6 +98,18 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOffImg: './resources/images/button/reach_menu03.png',
 			src: './resources/images/button/reach_menu03.png'
 		}, {
+	    	xtype: 'image',
+	    	id: 'btnMenu03_2',
+	    	groupId: 'group1',
+	    	title: '하류제거',
+	    	width: this.itemWidth,
+	    	height: this.itemHeight,
+	    	listeners: { el: { click: 'onClickRemoveReachLine' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu03_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu03.png',
+	    	src: './resources/images/button/reach_menu03.png'
+	    }, {
 			xtype: 'image',
 			id: 'btnMenu06',
 			groupId: 'group1',

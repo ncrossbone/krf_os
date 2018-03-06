@@ -81,7 +81,8 @@ var $KRF_EVENT = {
 	SET_MAP_TOOLTIP_LOCATION: 'setMapTooltipLocation',
 	MOVE_COMMON: 'moveCommon',
 	WEST_TAB_CHANGE: 'WestTabChange',
-	MINIMAPCHANGE: 'MiniMapChange'
+	MINIMAPCHANGE: 'MiniMapChange',
+	INITMINIMAPLINE: 'InitMiniMapLine'
 }
 
 var $KRF_WINS = {
@@ -273,13 +274,14 @@ Ext.application({
 			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow');
 			centerContainer.add(searchWindow);
 			searchWindow.show();
-			/*
+			
 			Ext.defer(function () {
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
 				subMapWindow.show();
+				
 			}, 500);
-			*/
+			
 		}
 	},
 	getDesktopApp: function () {

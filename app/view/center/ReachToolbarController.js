@@ -120,6 +120,14 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 	},
+
+	//하류제거
+	onClickRemoveReachLine: function(obj, el, evt){
+		
+		$KRF_APP.coreMap._krad.onMapClickEvt("reachLineRemove",el.id)
+		
+	},
+	
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
