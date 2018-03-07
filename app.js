@@ -342,17 +342,14 @@ Ext.application({
 			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow');
 			centerContainer.add(searchWindow);
 			searchWindow.show();
-			var mapModule = $KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id);
-			if (mapModule.initCoord) {
-				$KRF_APP.fireEvent($KRF_EVENT.CENTERAT, mapModule.initCoord);
-			}
-			/*
+			
 			Ext.defer(function () {
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
 				subMapWindow.show();
+				
 			}, 500);
-			*/
+			
 		}
 	},
 	centerAt: function (coord) {

@@ -49,7 +49,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         var threeDimIframe = $('#krf3diframe')[0];
         if (threeDimIframe && threeDimIframe.contentWindow) {
             try {
-                threeDimIframe.contentWindow.postMessage(message, 'http://localhost:8081');
+                threeDimIframe.contentWindow.postMessage(message, 'http://192.168.0.231:8081');
             } catch (e) {
                 console.log(e)
             }
@@ -108,7 +108,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                 },
                 show: function () {
                     if (me.once) {
-                        $('#krf3diframe').prop('src', 'http://localhost:8081/KRF3D.html');
+                        $('#krf3diframe').prop('src', 'http://192.168.0.231:8081/KRF3D.html');
                         var centerContainer = Ext.getCmp("threeDim_center_container");
                         var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow');
                         centerContainer.add(threeDimSearchWindow);

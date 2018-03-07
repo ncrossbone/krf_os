@@ -21,6 +21,8 @@ Ext.define('krf_new.view.map.ReachLayerAdmin_v3_New', {
 	arrEndLine: [], // 끝위치 라인 배열 (집수구역으로 선택 시 라인이 여러개일 수 있음)
 	arrLineGrp: [], // 리치라인 그래픽 배열
 	arrAreaGrp: [], // 집수구역 그래픽 배열
+	arrLineGrpTmp: [], // 리치라인 그래픽 임시배열
+	arrAreaGrpTmp: [], // 집수구역 그래픽 임시배열
 	arrStDownLine: [], // 시작위치 하류 배열
 	arrEdDownLine: [], // 끝위치 하류 배열
 
