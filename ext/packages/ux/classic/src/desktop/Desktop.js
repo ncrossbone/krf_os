@@ -331,7 +331,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
             },
             single: true
         });
-
+        
         // replace normal window close w/fadeOut animation:
         win.doClose = function ()  {
             win.doClose = Ext.emptyFn; // dblclick can call again...

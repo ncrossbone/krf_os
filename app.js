@@ -83,7 +83,9 @@ var $KRF_EVENT = {
 	MOVE_COMMON: 'moveCommon',
 	WEST_TAB_CHANGE: 'WestTabChange',
 	MINIMAPCHANGE: 'MiniMapChange',
-	INITMINIMAPLINE: 'InitMiniMapLine'
+	LOADED3D: 'Loaded3D',
+	CENTERAT: 'centerAt',
+	THREEDIM_MOVE: 'threeDimMove'
 }
 
 var $KRF_WINS = {
@@ -147,6 +149,10 @@ Ext.application({
 
 		$KRF_APP.addListener($KRF_EVENT.MINIMIZE_WINDOWS, me.minimizeWindows, me);
 
+
+		$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
+
+
 	},
 	desktopLoaded: function () {
 
@@ -165,22 +171,16 @@ Ext.application({
 		var dpHeight = dp.getHeight();
 
 		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
-		var loginWindow = loginModule.createWindow({ x: (dpWidth/2)-200, y: (dpHeight/2)-300, width: 400, height: 600 });
-		//loginWindow = loginWindow.show();
+		var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
+		loginWindow = loginWindow.show();
 	},
 
 	showWindowByMode: function () {
 		var krfMode = this.localStorate.getItem('krfMode');
 
-		if (krfMode != null) {
-			if (krfMode == this.REPORT_MODE) {
-				this.showReportMode();
-				return;
-			}
-		}
-		this.showKRFMode();
+		this.modeChanged({ mode: krfMode });
 	},
-	showKRFMode: function () {
+	showKRFMode: function (coord) {
 		/*
 		for (var i = 0; i < this.modeWindows.sb.length; i++) {
 			this.modeWindows.sb[i].close();
@@ -192,8 +192,15 @@ Ext.application({
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();
 
+		var mapWindow = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.MAP.id);
 		var mapModule = $KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id);
-		var mapWindow = mapModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
+		mapModule.initCoord = coord;
+
+		if (mapWindow) {
+			mapWindow.show();
+			return;
+		}
+		mapWindow = mapModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
 		mapWindow = mapWindow.show();
 
 		$KRF_APP.modeWindows.krf.push(mapWindow);
@@ -233,6 +240,13 @@ Ext.application({
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();
 
+		var statusWindow = $KRF_APP.getDesktopWindow($KRF_WINS.STATUS.MAIN.id);
+
+		if (statusWindow) {
+			statusWindow.show();
+			return;
+		}
+
 		var statusModule = $KRF_APP.getDesktopModule($KRF_WINS.STATUS.MAIN.id);
 		var statusWindow = statusModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
 		statusWindow = statusWindow.show();
@@ -246,21 +260,38 @@ Ext.application({
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();
 
+		var adminWindow = $KRF_APP.getDesktopWindow($KRF_WINS.ADMIN.MAIN.id);
+
+		if (adminWindow) {
+			adminWindow.show();
+			return;
+		}
+
 		var adminModule = $KRF_APP.getDesktopModule($KRF_WINS.ADMIN.MAIN.id);
 		var adminWindow = adminModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
 		adminWindow = adminWindow.show();
 
+
 		//		$KRF_APP.modeWindows.sb.push(statusWindow);
 	},
-	showThreeDimMode: function () {
+	showThreeDimMode: function (centerCoord) {
 		//    	$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).release();
+
+
+		var threeDimWindow = $KRF_APP.getDesktopWindow($KRF_WINS.THREEDIM.MAIN.id);
+
+		if (threeDimWindow) {
+			var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
+			threeDimModule.initCoord = centerCoord;
+			threeDimWindow.show();
+			return;
+		}
 
 		var dp = $KRF_APP.getDesktop();
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();
-
 		var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
-		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
+		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35, coord: centerCoord });
 		threeDimWindow = threeDimWindow.show();
 
 		//		$KRF_APP.modeWindows.sb.push(statusWindow);
@@ -268,13 +299,28 @@ Ext.application({
 	modeChanged: function (param) {
 
 		this.currentMode = param.mode;
-		this.localStorate.setItem('krfMode', param.mode);
+		// this.localStorate.setItem('krfMode', param.mode);
 		//    	window.location.reload();
+		var currentWindow = $KRF_APP.getDesktop().getActiveWindow();
+		if (currentWindow) {
+			currentWindow.minimize();
+		}
 
-		if (param.mode == this.KRF_MODE) {
-			this.showKRFMode();
-		} else {
-			this.showReportMode();
+		switch (param.mode) {
+			case this.KRF_MODE:
+				this.showKRFMode(param.coord);
+				break;
+			case this.ADMIN_MODE:
+				this.showAdminMode();
+				break;
+			case this.REPORT_MODE:
+				this.showReportMode();
+				break;
+			case this.THREEDIM_MODE:
+				this.showThreeDimMode(param.coord);
+				break;
+			default:
+				this.showKRFMode();
 		}
 	},
 	minimizeWindows: function () {
@@ -306,6 +352,11 @@ Ext.application({
 			}, 500);
 			
 		}
+	},
+	centerAt: function (coord) {
+		$KRF_APP.coreMap.transCoord(coord, function (transCoord) {
+			$KRF_APP.coreMap.map.centerAt(transCoord[0]);
+		}, 4019, 102100);
 	},
 	getDesktopApp: function () {
 		return desktopApp;

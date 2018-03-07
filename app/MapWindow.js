@@ -8,13 +8,14 @@ Ext.define('Desktop.MapWindow', {
     extend: 'Ext.ux.desktop.Module',
     requires: [
     	'krf_new.view.center.Center',
-    	'krf_new.view.search.ButtonPanel',
+    	'krf_new.view.search.ButtonPanel'
     ],
 
     subWindowIds:['popSiteInfo','reachNameToolbar','subMapWindow', 'siteListWindow', 'searchResultWindow'
     	,'chlLegend','phyLegend','droneToolbar','droneDetailExp','reachCountSToolbar','reachCountEToolbar'],
 	id:'map-win',
 	once: true,
+	initCoord: null,
 
     init : function(){
         this.launcher = {
@@ -289,6 +290,10 @@ Ext.define('Desktop.MapWindow', {
 					if(me.once){
 						$KRF_APP.coreMap.mapRendered();
 						me.once = false;
+					}else{
+						if(me.initCoord){
+							$KRF_APP.fireEvent($KRF_EVENT.CENTERAT, me.initCoord);
+						}
 					}
     		    },
     		    'beforeclose': function(){
@@ -383,7 +388,7 @@ Ext.define('Desktop.MapWindow', {
     	var rNameToolbar = Ext.getCmp("reachNameToolbar");
 		var rToolbar = Ext.getCmp("reachToolbar");
 		var sConfig = Ext.getCmp("searchConfig");
-		var cContainer = Ext.getCmp("center_container");
+		var cContainer = Ext.getCmp("cont_container");
 		
 		if (rToolbar == undefined) {
 			rToolbar = Ext.create('krf_new.view.center.ReachToolbar',{

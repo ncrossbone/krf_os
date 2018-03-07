@@ -16,8 +16,7 @@ Ext.define('krf_new.Desktop.App', {
         'Desktop.StatusBoardWindow',
         'Desktop.MapWindow',
         'Desktop.AdminConfigWindow',
-        'Desktop.ThreeDimensionsWindow',
-        'Desktop.LoginWindow'
+        'Desktop.ThreeDimensionsWindow'
 
         //        'Desktop.SiteListWindow',
         //        'Desktop.SearchWindow',
@@ -40,8 +39,7 @@ Ext.define('krf_new.Desktop.App', {
             new Desktop.StatusBoardWindow(),
             new Desktop.MapWindow(),
             new Desktop.AdminConfigWindow(),
-            new Desktop.ThreeDimensionsWindow(),
-            new Desktop.LoginWindow()
+            new Desktop.ThreeDimensionsWindow()
             //            new Desktop.SearchWindow(),
             //            new Desktop.SiteListWindow(),
             //            new Desktop.ResultWindow(),
@@ -62,12 +60,10 @@ Ext.define('krf_new.Desktop.App', {
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
-                    { name: 'KRF', iconCls: 'accordion-shortcut', module: $KRF_APP.KRF_MODE },
-                    { name: 'Staus', iconCls: 'cpu-shortcut', module: $KRF_APP.REPORT_MODE },
+                    { name: 'KRF', text: 'KRF', iconCls: 'accordion-shortcut', module: $KRF_APP.KRF_MODE },
+                    { name: 'Staus', text: '현황판', iconCls: 'cpu-shortcut', module: $KRF_APP.REPORT_MODE },
                     { name: 'threeDim', text: '3D', iconCls: 'threeDim-shortcut', module: $KRF_APP.THREEDIM_MODE },
                     { name: 'Admin', text: '관리', iconCls: 'admin-shortcut', module: $KRF_APP.ADMIN_MODE }
-                    //                    { name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
-                    //                    { name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
                 ]
             }),
 
@@ -82,29 +78,27 @@ Ext.define('krf_new.Desktop.App', {
         var me = this, ret = me.callParent();
 
         return Ext.apply(ret, {
-            title: 'Don Griffin',
+            title: '시작',
             iconCls: 'user',
             height: 300
-            /*,
-            toolConfig: {
-                width: 100,
-                items: [
-                    //                    {
-                    //                        text:'Settings',
-                    //                        iconCls:'settings',
-                    //                        handler: me.onSettings,
-                    //                        scope: me
-                    //                    },
-                    //                    '-',
-                    //                    {
-                    //                        text:'Logout',
-                    //                        iconCls:'logout',
-                    //                        handler: me.onLogout,
-                    //                        scope: me
-                    //                    }
-                ]
-            }
-            */
+            //            toolConfig: {
+            //                width: 100,
+            //                items: [
+            //                    {
+            //                        text:'Settings',
+            //                        iconCls:'settings',
+            //                        handler: me.onSettings,
+            //                        scope: me
+            //                    },
+            //                    '-',
+            //                    {
+            //                        text:'Logout',
+            //                        iconCls:'logout',
+            //                        handler: me.onLogout,
+            //                        scope: me
+            //                    }
+            //                ]
+            //            }
         });
     },
 
@@ -125,10 +119,6 @@ Ext.define('krf_new.Desktop.App', {
                 }
             ]
         });
-    },
-
-    onLogout: function () {
-        Ext.Msg.confirm('Logout', 'Are you sure you want to logout?');
     },
 
     onSettings: function () {

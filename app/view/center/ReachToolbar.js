@@ -33,7 +33,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 		pack: 'left'
 	},
 
-	y: 1,
+	y: 0,
 
 	initComponent: function () {
 
@@ -141,6 +141,18 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			width: this.itemWidth,
 			height: this.itemHeight,
 			listeners: { el: { click: 'onClickReset' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu08_on.png',
+			btnOffImg: './resources/images/button/reach_menu08.png',
+			src: './resources/images/button/reach_menu08.png'
+		}, {
+			xtype: 'image',
+			id: 'btnMenu09',
+			groupId: 'group1',
+			title: '3D',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: { el: { click: 'onClick3D' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu08_on.png',
 			btnOffImg: './resources/images/button/reach_menu08.png',
