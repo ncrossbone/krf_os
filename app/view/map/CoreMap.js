@@ -54,7 +54,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 	},
 
 	mapRendered: function (p) {
-		require(["esri/map", "dojo/domReady!"], function (Map) {
+		require(["esri/map", 'esri/tasks/GeometryService', 'esri/tasks/ProjectParameters', "dojo/domReady!"], function (Map, GeometryService, ProjectParameters) {
 			me.map = new Map(me.id, {
 				isDoubleClickZoom: false,
 				isPan: true,
@@ -65,6 +65,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 				zoom: 8,
 				autoResize: true
 			});
+			me.gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
 
 			//me.map.resize();
 			me.baseMapInit();
@@ -117,6 +118,19 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			//        	this.map.resize();
 
+		});
+	},
+	transCoord: function (coord, callback, inSr, outSr, scope) {
+		var params = new esri.tasks.ProjectParameters();
+		params.geometries = [new esri.geometry.Point(coord.x, coord.y, new esri.SpatialReference({ wkid: inSr }))];
+		params.outSR = new esri.SpatialReference(outSr);
+
+		this.gsvc.project(params, function (projectedPoints) {
+			if (scope) {
+				callback.apply(scope, [projectedPoints])
+			} else {
+				callback(projectedPoints);
+			}
 		});
 	},
 	mapLoaded: function () {
@@ -373,7 +387,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 				// 지점 목록 창 띄우기
 				// Ext.ShowSiteListWindow("selectReach");
-				
+
 				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
 
 				// 검색결과 창 띄우기

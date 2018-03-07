@@ -1,8 +1,8 @@
-Ext.define('krf_new.view.search.Layer02Controller', {
+Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 
 	extend: 'Ext.app.ViewController',
 
-	alias: 'controller.layer02Controller',
+	alias: 'controller.threeDimLayer01Controller',
 
 	control: {
 		'treepanel': {
@@ -16,8 +16,6 @@ Ext.define('krf_new.view.search.Layer02Controller', {
 		me.checked = checked;
 
 		if (btnId == undefined || btnId == null) {
-			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
-			this.setLinkBtn(btnId);
 		}
 
 		if (!node.get('leaf')) {
@@ -29,7 +27,7 @@ Ext.define('krf_new.view.search.Layer02Controller', {
 					parentNode.set('checked', false);
 				}
 			}
-			$KRF_APP.fireEvent('drondynamicLayerOnOff', this.getView().getChecked());
+			$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
 		}
 	},
 
@@ -39,7 +37,7 @@ Ext.define('krf_new.view.search.Layer02Controller', {
 		Ext.each(children, function (child, index, eObjs) {
 			child.set('checked', checked);
 			if (index == children.length - 1) {
-				$KRF_APP.fireEvent('drondynamicLayerOnOff', me.getView().getChecked());
+				$KRF_APP.fireEvent('dynamicLayerOnOff', me.getView().getChecked());
 			}
 		});
 	},
