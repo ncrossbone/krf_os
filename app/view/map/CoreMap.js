@@ -103,13 +103,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
 
-<<<<<<< HEAD
-			//$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnageEvent, me);
-=======
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
 
 			 $KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine);
->>>>>>> c8d5cccd42e0b77552153d51208c6d4006cdbf4c
 			//        	dojo.connect(me.map,'onLoad', function(){
 			//        		debugger;
 			//        		
