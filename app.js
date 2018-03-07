@@ -158,7 +158,6 @@ Ext.application({
 
 		// 내부망 로그인정보 조회
 		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-
 		if (loginInfo == null) {
 			this.showLoginWindow();
 		} else {
