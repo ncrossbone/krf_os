@@ -18,6 +18,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 	layerInfo: null,
 	baseMap: null,
 
+	
+
 	me: null,
 	vworldTileInfo: new esri.layers.TileInfo({
 		rows: 256, cols: 256, dpi: 96,
@@ -63,7 +65,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 				slider: false,
 				showAttribution: false,
 				zoom: 8,
-				autoResize: true
+				autoResize: true,
+				testCount: 0
 			});
 
 			//me.map.resize();
@@ -85,7 +88,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 			//me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
 
 			// KRAD 전역 Object Setting
-			me._krad = Ext.create('krf_new.view.map.KRADLayerAdmin', me.map);
+			me._krad = Ext.create('krf_new.view.map.KRADLayerAdmin', me.map , me.geometryService);
 			// 검색설정 "상류" 검색 전역 Object Setting
 			me._rchUpSearch = Ext.create('krf_new.view.map.SearchReachUp');
 			// 리치라인 전역 Object Setting
@@ -99,7 +102,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
 
-			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnageEvent, me);
+			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
 
 			 $KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine);
 			//        	dojo.connect(me.map,'onLoad', function(){
@@ -113,7 +116,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 			require(["/KRF_NEW/app/view/map/task/CustomPrintTask.js"], function () {
 				//"./resources/jsp/CustomPrintTask_New.jsp"
 				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id
-					, 'http://localhost:8070/KRF_OS/resources/jsp/CustomPrintTask_New.jsp'
+					, '/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp'
 					, "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
 
 			});
@@ -264,6 +267,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 					coreMap.map.graphics.on("click", function (evt) {
 						event.stop(evt);
 
+						console.info("graphics click");
 						var options = {
 							allowAddVertices: true,
 							allowDeleteVertices: false,
@@ -275,34 +279,52 @@ Ext.define('krf_new.view.map.CoreMap', {
 					
 					coreMap.map.on('click', function(){
 						editToolbar.deactivate();
+						coreMap.map.testCount = 0;
 					});
 
-
+					//스케일 조정 stop, 드래그 이벤트 stop
 					editToolbar.on('scale-stop', coreMap.subMapSetExtent);
-
 					editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
 				});
 	},
 
+	//미니맵 setExtent
 	subMapSetExtent: function(evt){
-		
-		var subCoreMap = Ext.getCmp("_subMapDiv_");
-		subCoreMap.map.setExtent(evt.graphic._extent, true);
-
-	},
-
-	miniMapChnageEvent: function (map) {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
+		coreMap.map.testCount = 1;
+		var subCoreMap = Ext.getCmp("_subMapDiv_");
+		subCoreMap.map.setExtent(evt.graphic._extent, true);
+		
 	},
 
+	//소하천 미니맵 change 이벤트
+	miniMapChnage: function (map) {
+		
+		var me = this;
+
+		var coreMap = Ext.getCmp("_mapDiv_");
+		
+		var polygonGraphic = esri.geometry.Polygon.fromExtent(map.extent);
+		
+		if(coreMap.map.graphics.graphics[1] != undefined){
+			
+			coreMap.map.graphics.graphics[1].setGeometry(polygonGraphic);
+
+		}
+		
+	},
+
+	//맵 change 이벤트
 	onExtentChange: function (extent, a, b, obj, c) {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
-		//coreMap.map.graphics.clear();
 		//미니맵 EXTENT 체인지 될시 이벤트
 		if (me.id == "_subMapDiv_") {
-			$KRF_APP.fireEvent($KRF_EVENT.MINIMAPCHANGE, me);
+			if(coreMap.map.testCount == 0){
+				$KRF_APP.fireEvent($KRF_EVENT.MINIMAPCHANGE, me);	
+			}
+			coreMap.map.testCount = 0;
 		}
 		// 툴팁 XY 셋팅
 		$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);

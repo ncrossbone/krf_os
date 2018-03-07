@@ -23,6 +23,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	arrDownGrp: [], // 하류 그래픽 배열
 	arrLineGrp: [], // 리치라인 그래픽 배열
 	arrAreaGrp: [], // 집수구역 그래픽 배열
+	arrLineGrpTmp: [], // 리치라인 임시 그래픽 배열
+	arrAreaGrpTmp: [], // 집수구역 임시 그래픽 배열
+	arrLineGrp_s: [], // 소하천 리치라인 그래픽 배열
+	arrAreaGrp_s: [], // 소하천 집수구역 그래픽 배열
 	arrCommGrp: [], // 공통하류 배열
 	tmpEvtLineGrp: [], // KRAD 라인 이벤트 임시 배열
 	arrEvtLineGrp: [], // KRAD 라인 이벤트 그래픽 배열
@@ -73,6 +77,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	lineGrpLayer: null, // 리치라인 그래픽 레이어
 	areaGrpLayer: null, // 집수구역 그래픽 레이어
 
+	lineGrpLayer_s: null, //소하천 리치라인 그래픽 레이어
+	areaGrpLayer_s: null, //소하천 집수구역 그래픽 레이어
+
 	minitmpGrpLayer: null,
 
 	stSymbol1: null, // 시작위치 심볼
@@ -88,6 +95,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 	reachLineSym: null, // 리치 라인 심볼
 	reachAreaSym: null, // 리치 집수구역 심볼
+
+	addReachLineSym: null, // 리치 라인 심볼
+	addReachAreaSym: null, // 리치 집수구역 심볼
+	
+	removeReachLineSym: null, // 리치 라인 심볼
+	removeReachAreaSym: null, // 리치 집수구역 심볼
+	
+	reachLineSym_s: null, // 소하천 리치 라인 심볼
+	reachAreaSym_s: null, // 소하천 리치 집수구역 심볼
 
 	overSymbol_P: null, // 마우스 오버 심볼 포인트
 	drawSymbol_P: null, // krad point 심볼
@@ -105,9 +121,22 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 	searchConfigInfoJson: null, // 검색설정 JSON
 
+	//소하천
+	sRiverLineArray : [], // 라인
+	sRiverAreaArray : [], // 집수구역
+	
+	removeLineTmp : [],
+	removeFirstLine : null,
+	removeFirstBonBreak : null,
+	
+	geometryService:null,
+	geometry : null,
+	
+	firstLine : null,
+
 	testSymbol: null,
 
-	constructor: function (map) {
+	constructor: function (map, geometryService) {
 
 		var me = this;
 		me.map = map;
@@ -252,19 +281,32 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					"height": 32
 				});
 
-				//me.miniMapLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 				me.miniMapLineSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID
 					, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5)
 					, new Color([255, 255, 255, 0.1]));
-				// me.miniMapLineSym = new SimpleLineSymbol(SimpleFillSymbol.STYLE_SOLID,
-				// 	new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([237, 20, 91]), 5),
-				// 	new Color([255, 255, 0, 0.3]));
 
 				me.reachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 				me.reachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
 					new Color([255, 255, 0, 0.3]));
-
+				
+					//임시정장 
+				me.addReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
+				me.addReachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
+					new Color([255, 255, 0, 0.3]));
+			
+				me.removeReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([1, 2, 3]), 0);
+				me.removeReachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([1, 2, 3]), 0),
+					new Color([1, 2, 3, 4]));
+			
+			
+				me.reachLineSym_s = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([100, 10, 31]), 5);
+				me.reachAreaSym_s = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
+					new Color([100, 100, 0, 0.3]));
+					
 				me.downGrpLayer = new GraphicsLayer();
 				me.downGrpLayer.id = "downGrpLayer";
 				me.downGrpLayer.visible = true;
@@ -279,6 +321,16 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				me.areaGrpLayer.id = "areaGrpLayer";
 				me.areaGrpLayer.visible = true;
 				me.map.addLayer(me.areaGrpLayer);
+
+				me.lineGrpLayer_s = new GraphicsLayer();
+				me.lineGrpLayer_s.id = "lineGrpLayer_s";
+				me.lineGrpLayer_s.visible = true;
+				me.map.addLayer(me.lineGrpLayer_s);
+				
+				me.areaGrpLayer_s = new GraphicsLayer();
+				me.areaGrpLayer_s.id = "areaGrpLayer_s";
+				me.areaGrpLayer_s.visible = true;
+				me.map.addLayer(me.areaGrpLayer_s);
 
 				me.tmpGrpLayer = new GraphicsLayer();
 				me.tmpGrpLayer.id = "tmpGrpLayer";
@@ -571,7 +623,16 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 								} else { /* 검색설정 "상류" 체크 시 끝 */
 
 									if (me.isShowPopup == true) {
-										me.setRchIdsWithEvent();
+
+										//소하천 on/off
+										console.info(Ext.getCmp("btnLayerSRiver").btnOnOff);
+										if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
+											me.setSRchIdsWithEvent();
+										}else{
+											me.setRchIdsWithEvent();
+										}
+
+										//me.setRchIdsWithEvent();
 									} else {
 										me.closePopup();
 									}
@@ -622,41 +683,304 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		krf_new.global.Obj.showSimpleTooltip("선택할 영역을 드래그하세요.");
 		var isLevel = false;
 		require(["esri/toolbars/draw",
-			"dojo/on"], function (Draw, on, bundle) {
-
-				var mapClickObj = on(me.map, "mouse-up", function (evt) {
-
-					if (me.map.getLevel() < 11) {
-						mapClickObj.remove();
-						return;
+			"dojo/on",
+			"esri/geometry/geometryEngine",
+			"esri/symbols/TextSymbol",
+			"esri/graphic",
+			"esri/symbols/Font",   
+			"esri/Color",
+			"esri/tasks/BufferParameters"], function (Draw, on, geometryEngine, TextSymbol, Graphic,Font,   
+				Color , BufferParameters) {
+        	
+					var mapClickObj = on(me.map, "mouse-up", function(evt){
+						
+						if(me.map.getLevel() < 11){
+							mapClickObj.remove();
+							return;
+						}
+						
+					});
+					
+					
+					
+					var selectionToolbar = new Draw(me.map, { showTooltips: false });
+					
+					
+					
+					if(me.drawOption == "extent"){
+						selectionToolbar.activate(Draw.EXTENT);
+					}else if(me.drawOption == "radius"){
+						
+						selectionToolbar.activate(Draw.POINT);
+						
+					}else if(me.drawOption == "circle"){
+						
+						selectionToolbar.activate(Draw.CIRCLE);
+						
+						//반경 그릴시
+						var centerPt = ""; //센터 포인트 좌표
+						
+						var textSymbol = new TextSymbol("");
+						var font = new Font("15px", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLDER);
+						textSymbol.setFont(font);
+						textSymbol.setColor(new Color([255,0,0]));
+						var radiusText = new Graphic(null, textSymbol, null, null);
+						
+						//드래그 시작시 그래픽 생성 , 센터 좌표 변수생성
+						me.map.on("mouse-drag-start", function(evt) {  
+							
+							if(me.drawOption == "circle"){
+								centerPt = evt;
+								me.map.graphics.add(radiusText);
+							}
+							
+						});
+						
+						// 드래그중 반경 값 확인, 값 변경
+						me.map.on('mouse-drag', function(dragEvt) {  
+							
+							//버튼 클릭이벤트가 동일하므로 radius 일때는 return 시켜준다
+							if(me.drawOption == "radius"){
+								return;
+							}
+							
+							if(me.drawOption == "circle"){
+								//반지름 값 구하기 (시작포인트 현제 포인트)
+								var pl = new esri.geometry.Polyline(me.map.spatialReference);
+								pl.addPath([centerPt.mapPoint, dragEvt.mapPoint]);
+								
+								//반지름값, 단위 미터
+								var radius = geometryEngine.geodesicLength(pl, "meters");
+								
+								//반지름 * 2 = 지름
+								var radiusValue = Math.round(radius*2);
+								
+								// 1000 이상시 km, 1000 이하일시 m 값 나눔
+								if(radiusValue > 1000){
+									radiusValue = radiusValue.toString().replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1.') + " 킬로미터(km)";
+								}else{
+									radiusValue = radiusValue + " 미터(m)";
+								}
+								
+								//텍스트 심볼 값 변경
+								textSymbol.setText(radiusValue);
+								radiusText.setGeometry(centerPt.mapPoint);
+							}
+							
+							
+						});
 					}
-				});
-
-				var selectionToolbar = new Draw(me.map, { showTooltips: false });
-
-				if (me.drawOption == "extent") {
-					selectionToolbar.activate(Draw.EXTENT);
-				}
-				else if (me.drawOption == "circle") {
-					selectionToolbar.activate(Draw.CIRCLE);
-				}
-
-				on(selectionToolbar, "DrawEnd", function (evt) {
-					if (me.map.getLevel() < 11) {
-						alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
-					} else {
-						me.mapClickEvt = evt;
-						me.setRchIdsWithEvent();
-					}
-					selectionToolbar.deactivate();
-					SetBtnOnOff(btnId, "off");
-					$KRF_APP.global.Obj.hideSimpleTooltip();
-				});
+					
+					on(selectionToolbar, "DrawEnd", function (evt) {
+						if(me.drawOption == "radius"){
+							
+							if(evt.type != "point"){
+								return;
+							}
+							
+							var radiusText = parseFloat(Ext.getCmp("radiusText").getValue());
+							
+							if(isNaN(radiusText)){
+								alert("숫자만 입력 가능합니다.");
+								return;
+							}
+							var params = new BufferParameters();
+							params.distances = [ radiusText ];
+							
+							params.outSpatialReference = me.map.spatialReference;
+							params.unit = esri.tasks.GeometryService.UNIT_KILOMETER;
+							
+							require(["esri/geometry/normalizeUtils"], function(normalizeUtils) { 
+								
+								normalizeUtils.normalizeCentralMeridian([evt]).then(function(normalizedGeometries){
+									var normalizedGeometry = normalizedGeometries[0];
+										
+									  me.geometryService.simplify([normalizedGeometry], function(geometries) {
+										params.geometries = geometries;
+										
+										me.geometryService.buffer(params, function(result){
+											
+											if(result.length>0){
+												evt = result[0];
+												var symbol = new esri.symbol.SimpleFillSymbol(
+														esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+														new esri.symbol.SimpleLineSymbol(
+																esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+														  new dojo.Color([255,0,0,0.65]), 2
+														),
+														new dojo.Color([255,0,0,0.35])
+													  );
+												
+												var graphic = new esri.Graphic(evt, symbol);
+												
+												me.map.graphics.clear();
+												me.map.graphics.add(graphic);
+												
+												
+												
+												if(me.map.getLevel() < 11){
+													alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+												}else{
+													me.mapClickEvt = evt;
+													me.setRchIdsWithEvent();
+												}
+												selectionToolbar.deactivate();
+												
+												SetBtnOnOff(btnId, "off");
+												SetBtnOnOff("btnMenu07", "off");
+												
+												krf_new.global.Obj.hideSimpleTooltip();
+												
+												var radiusToolbar = Ext.getCmp("radiusToolbar");
+												radiusToolbar.hide();
+												
+											}
+											
+										})
+										
+									  });
+								  });
+								
+							});
+							
+							
+						}else{
+							//return;
+							me.map.graphics.clear();
+							
+							if(me.map.getLevel() < 11){
+								alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+							}else{
+								me.mapClickEvt = evt;
+								me.setRchIdsWithEvent();
+							}
+							selectionToolbar.deactivate();
+							SetBtnOnOff(btnId, "off");
+							krf_new.global.Obj.hideSimpleTooltip();
+						}
+						
+					});
+				
 			});
 	},
 	offMapDragEvt: function () {
 		$KRF_APP.global.Obj.hideSimpleTooltip();
 	},
+
+
+	//소하천 리치클릭
+    setSRchIdsWithEvent: function(feature , type){
+    	console.info(type);
+    	var me = this;
+    	
+    	require(["esri/tasks/query",
+	         "esri/tasks/QueryTask",
+	         "esri/geometry/Point",
+	         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
+		
+		   	var queryTask = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverReach); // 소하천 리치라인
+			var query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			if(feature == undefined){
+				var centerPoint = new Point(me.mapClickEvt.mapPoint.x, me.mapClickEvt.mapPoint.y, me.mapClickEvt.mapPoint.spatialReference);
+	        	var mapWidth = me.map.extent.getWidth();
+	        	var pixelWidth = mapWidth / me.map.width;
+	        	var tolerance = 10 * pixelWidth;
+	        	
+	        	var queryExtent = new Extent(1, 1, tolerance, tolerance, me.mapClickEvt.mapPoint.spatialReference);
+	        	query.geometry = queryExtent.centerAt(centerPoint);
+				
+			}else{
+				if(feature.attributes.D_SRCH_ID == undefined){
+					query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
+				}else{
+					query.where = "SRCH_ID = '" + feature.attributes.D_SRCH_ID + "'" ;
+				}
+				
+			}
+			
+			queryTask.execute(query, function(featureSet){
+				
+				
+
+				if(featureSet.features.length > 0){
+					me.execSLineFeature(featureSet);
+				}else{
+
+					if(type == 2){
+						alert("소하천이 없습니다. 다시 선택해주세요");
+						return;
+					}else{
+						//리치라인이 없을시  getSRiverCatId
+						console.info($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat);
+						var queryTaskArea = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat); // 소하천 집수구역
+						var queryArea = new Query();
+						queryArea.returnGeometry = true;
+						queryArea.outFields = ["*"];
+						queryArea.geometry = me.mapClickEvt.mapPoint;
+						queryTaskArea.execute(queryArea, function(featureSetArea){
+							console.info(featureSetArea);
+							if(featureSetArea.features.length > 0){
+								me.setSRchIdsWithEvent(featureSetArea.features[0] , 2);
+							}else{
+								alert("소하천 집수구역이 없습니다.");
+								return;
+							}
+						});
+					}
+				}
+			});
+    	});
+	},
+	
+	//소하천 집수구역 id 찾기
+	getSRiverCatId: function(feature){
+    	
+    	var me = this;
+    	var sCatId = feature.attributes.SCAT_ID;
+    	
+    	require(["esri/tasks/query",
+	         "esri/tasks/QueryTask"], function(Query, QueryTask){
+		console.info($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat);
+		   	var queryTask = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat); // 소하천집수구역 URL
+			var query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			query.where = "SCAT_ID = '" + sCatId + "'";
+			
+			// 집수구역 조회
+			queryTask.execute(query, function(featureSet){
+				console.info(featureSet);
+				if(featureSet.features.length > 0){
+					
+					me.sRiverAreaArray.push(featureSet.features[0]);
+					
+				}
+			});
+		});
+    },
+    
+    ///////////소하천///////////////////////////////////////////////////
+    execSLineFeature: function(featureSet){
+    	
+    	var me = this;
+    	
+    	var feature = featureSet.features[0];
+    	me.sRiverLineArray.push(feature);
+    	me.getSRiverCatId(feature);
+    	//me.drawGraphic(feature, "reachLine_s");
+    	if(feature.attributes.RD_SRCH_ID == " " && feature.attributes.LD_SRCH_ID == " " && feature.attributes.D_SRCH_ID != " "){
+    		me.setRchIdsWithEvent(featureSet);
+    		//기존 검색으로 넘어간다
+    	}else{
+    		//소하천이 존재하므로 소하천 검색을한다.
+    		me.setSRchIdsWithEvent(feature);	
+    	}
+    },
+
+
+
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * 조회 완료 후 컨텍스트 메뉴 팝업 오픈 */
@@ -687,7 +1011,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					var mapWidth = me.map.extent.getWidth();
 					var pixelWidth = mapWidth / me.map.width;
 					var tolerance = 10 * pixelWidth;
-
 					var queryExtent = new Extent(1, 1, tolerance, tolerance, me.mapClickEvt.mapPoint.spatialReference);
 					query.geometry = queryExtent.centerAt(centerPoint);
 				} else {
@@ -775,33 +1098,42 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 				var feature = featureSet.features[i];
 
-				if (me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle") {
-
-					var catDid = feature.attributes.CAT_DID;
-
-					// 그래픽 그리기
-					me.drawGraphic(feature, "reachLine");
-					// 집수구역 그리기
-					me.setReachArea(catDid);
-					// 버튼 끄기
-					SetBtnOnOff(me.btnObj.id, "off");
-					// 이벤트 초기화
-					initKradEvt();
-				} else if (me.drawOption == "removePoint") {
-
-					// 라인 지운다
-					me.removeGraphic(feature, "reachLine");
-					// 집수구역 지운다
-					me.removeGraphic(feature, "reachArea");
-					// 버튼 끄기
-					SetBtnOnOff(me.btnObj.id, "off");
-					// 이벤트 초기화
-					initKradEvt();
-				}
+				if(me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "radius"){
+        			
+        			var catDid = feature.attributes.CAT_DID;
+        			
+        			// 그래픽 그리기
+        			me.drawGraphic(feature, "reachLine");
+        			// 집수구역 그리기
+        			me.setReachArea(catDid);
+        			// 버튼 끄기
+        			SetBtnOnOff(me.btnObj.id, "off");
+        			// 이벤트 초기화
+    				initKradEvt();
+        		}
+        		else if(me.drawOption == "removePoint"){
+        			
+        			var catDid = feature.attributes.CAT_DID;
+        			me.drawGraphic(feature, "removeReachLine");
+        			me.setReachAreaTmp(catDid);
+        			
+    				//initKradEvt();
+    			}else if(me.drawOption == "addPoint"){
+    				
+    				var catDid = feature.attributes.CAT_DID;
+    				
+    				me.drawGraphic(feature, "addReachLine");
+    				me.setReachAreaTmp(catDid);
+    				
+    			}
 			}
 		}
 
-		if (me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint") {
+		//if (me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint") {
+		if(me.drawOption == "extent" || me.drawOption == "circle"|| me.drawOption == "radius"){    		
+    		
+			me.map.graphics.clear();
+		
 			// 검색 종료 체크
 			me.isStopCheck();
 		}
@@ -1448,6 +1780,147 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	},
 	searchCnt: 0, // 검색 카운트
 
+
+	//선택된 집수구역에 가장 첫번째 집수구역을 찾는 function
+    findReachLineTmp: function(tmpArr){
+    	var me = this;
+    	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+    	
+    	var firstLine = "";
+    	var firstGeo = "";
+    	var firstAttributes = "";
+    	var firstBon = true;
+    	me.removeFirstLine = tmpArr[0].attributes.CAT_DID;
+    	
+    	//클릭된 하천에서 선택된 리치중에 가장 처음 유입되는 하류를 찾는 로직
+    	for(var i = 0 ; i < tmpArr.length; i++){
+    		var tmpValue = reachAdmin.arrLineGrp.map(function(e) {
+	    		return e.attributes.CAT_DID; 
+	    	}).indexOf(tmpArr[i].attributes.CAT_DID);
+    		
+    		
+    		if(tmpValue == -1){
+    			firstAttributes = tmpArr[i].attributes;
+    			firstLine = tmpArr[i].attributes.CAT_DID;
+    			me.firstLine = tmpArr[i].attributes.CAT_DID;
+    			firstGeo = tmpArr[i].attributes.GEO_TRIB;
+    		}
+    		if(firstLine != ""){
+    			break;
+    		}
+    		
+    	}
+    	
+    	//본류를 찾기 0번째 라인에서부터 본류를 만나면 클릭된 하천이 본류 // 아니면 지류 (지류일때 동작 로직)
+    	for(var k = 0 ; k < tmpArr.length ; k++){
+    		if(tmpArr[k].attributes.GEO_TRIB == firstAttributes.GEO_TRIB){
+    			if(k != 0){
+    				//본류를 만났을때 본류에서 우측상류인지 죄측상류인지 확인하기위해 본류 전단계와 본류 좌우측 상류 비교
+    				if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.LU_RCH_DID){//좌측일까??
+    					me.firstBonBreak = tmpArr[k].attributes.RU_RCH_DID;
+    				}else if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.RU_RCH_DID){
+    					me.firstBonBreak = tmpArr[k].attributes.LU_RCH_DID;
+    				}else{
+    					console.info("없음");
+    				}
+    			}
+    			break;
+    		}
+    	};
+    	console.info("removeFirstLine:"+me.removeFirstLine)
+    	console.info("firstBonBreak:"+me.firstBonBreak);
+    	console.info("firstLine:"+firstLine);
+    	if(firstLine != ""){
+    		// 상류 찾기
+    		me.setReachUpLineTmp(firstLine);
+    	}
+    },
+    
+    //임시 하류삭제를 위한 조회
+    setReachUpLineTmp: function(catDid){
+    	var me = this;
+    	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+    	var breakFor = false;
+    	//me.firstBonBreak
+    	
+	    require(["esri/tasks/query","esri/tasks/QueryTask"],
+		    function(Query,QueryTask){
+	    	
+	    	
+		   	var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
+				var query = new Query();
+				query.returnGeometry = true;
+				query.outFields = [ "CAT_DID",
+									"RD_RCH_DID",
+									"LD_RCH_DID",
+									"LU_RCH_DID",
+									"RU_RCH_DID"];
+				query.where = "RCH_DID = '" + catDid + "'";
+				
+				// 리치라인 조회
+				queryTask.execute(query, function(featureSet){
+					
+					if(featureSet.features.length > 0){
+						
+						//그려진 집수구역에서 지금 찾은 상류중라인이 있는지 없는지 확인 
+						var tmpValue = reachAdmin.arrLineGrp.map(function(e) {
+				    		return e.attributes.CAT_DID; 
+				    	}).indexOf(featureSet.features[0].attributes.CAT_DID);
+						
+						//가장 처음 하류 라인에서 띄어 넘고 그다음 집수구역중에 끊어지는 라인에서 return;						
+						if(tmpValue == -1){
+							if(me.firstLine != featureSet.features[0].attributes.CAT_DID){
+								me.firstLine = null; //초기화
+								return;
+							}
+						}
+						
+						
+						for(var i = 0 ; i < reachAdmin.arrLineGrp.length ; i ++){
+							if(reachAdmin.arrLineGrp[i].attributes.CAT_DID == featureSet.features[0].attributes.CAT_DID){
+								//선택된 리치에서 본류를 찾아서 반대편 상류에서 break후 return;
+								if(me.firstBonBreak == featureSet.features[0].attributes.CAT_DID){
+									me.firstBonBreak = null;
+									return;
+								}
+								console.info(featureSet.features[0]);
+								me.removeGraphic(featureSet.features[0], "reachLine");
+								me.removeGraphic(featureSet.features[0], "reachArea");
+								breakFor = true;
+							}
+							
+							if(breakFor){
+								break;
+							}
+							
+							
+						}
+						
+						//클릭지점이 넘어서면 return;
+						if(me.removeFirstLine == featureSet.features[0].attributes.CAT_DID){
+				    		return;
+				    	}
+						
+						if(featureSet.features[0].attributes.LU_RCH_DID != "" || featureSet.features[0].attributes.LU_RCH_DID != undefined || featureSet.features[0].attributes.LU_RCH_DID != null){
+							me.setReachUpLineTmp(featureSet.features[0].attributes.LU_RCH_DID);
+						}
+						
+						if(featureSet.features[0].attributes.RU_RCH_DID != "" || featureSet.features[0].attributes.RU_RCH_DID != undefined || featureSet.features[0].attributes.RU_RCH_DID != null){
+							me.setReachUpLineTmp(featureSet.features[0].attributes.RU_RCH_DID);
+						}
+						
+						
+						
+						
+						//me.removeGraphic(tmpArr[i], "reachLine");						
+						
+					}
+				})
+	    	});
+		
+    },
+
+
     /* 상류 리치라인 조회 및 그리기
      * rchDid: 검색될 리치 아이디(DID)
      * cnt: 상류검색 카운트 */
@@ -1518,6 +1991,19 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 						}
 
 						if (cnt == 0) {
+
+							//me.sRiverLineArray //소하천 배열
+							if(me.sRiverLineArray.length > 0){
+								for(var sRiver = 0 ; sRiver < me.sRiverLineArray.length; sRiver++){
+									me.drawGraphic(me.sRiverLineArray[sRiver], "reachLine_s");	
+							}
+							//me.drawGraphic(me.sRiverAreaArray[sRiver], "reachArea_s");
+							}
+							if(me.sRiverAreaArray.length > 0){
+								for(var sRiverArea = 0 ; sRiverArea < me.sRiverAreaArray.length; sRiverArea++){
+									me.drawGraphic(me.sRiverAreaArray[sRiverArea], "reachArea_s");	
+								}
+							}
 
 							if (me.clickFS[0] == "startPoint") {
 								me.arrDownGrpStart = 0;
@@ -1873,6 +2359,43 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.drawGraphic2(graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
 		}
 
+
+		////////////////////////////////////////////////////////////////////////////////////////////////
+    	//리치제거 tmp 임시로 그래픽 그리고 삭제완료할떄 한번에 삭제
+    	if(grpType == "removeReachLine"){
+    		
+    		me.drawGraphic2(graphic, me.removeReachLineSym, me.tmpGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
+    	}
+    	
+    	if(grpType == "removeReachArea"){
+    		
+    		me.drawGraphic2(graphic, me.removeReachAreaSym, me.tmpGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
+    	}
+    	////////////////////////////////////////////////////////////////////////////////////////////////
+    	//리치추가 tmp
+    	if(grpType == "addReachLine"){
+    		
+    		me.drawGraphic2(graphic, me.addReachLineSym, me.lineGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
+    	}
+    	
+    	if(grpType == "addReachArea"){
+    		
+    		me.drawGraphic2(graphic, me.addReachAreaSym, me.areaGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
+    	}
+    	////////////////////////////////////////////////////////////////////////////////////////////////
+    	//소하천
+    	if(grpType == "reachLine_s"){
+    		
+    		me.drawGraphic2_s(graphic, me.reachLineSym_s, me.lineGrpLayer_s, me.arrLineGrp_s, reachAdmin.arrLineGrp);
+    	}
+    	
+    	if(grpType == "reachArea_s"){
+    		
+    		me.drawGraphic2_s(graphic, me.reachAreaSym_s, me.areaGrpLayer_s, me.arrAreaGrp_s, reachAdmin.arrAreaGrp);
+    	}
+    	//////////////////////////////////////////////////////////////////////////////////////////////
+
+
 		if (grpType == "kradLine") {
 
 			me.drawGraphic2(graphic, me.drawSymbol_L, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
@@ -1888,6 +2411,21 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.drawGraphic2(graphic, me.drawSymbol_empty, me.areaGrpLayer, [], []);
 		}
 	},
+
+	// 소하천 graphic draw
+    drawGraphic2_s: function(graphic, symbol, layer, arrObj, reachArr){
+    	
+    	var me = this;
+		// 그래픽 그린다.
+		graphic.setSymbol(symbol);
+		layer.add(graphic);
+		// 배열에 넣기
+		arrObj.push(graphic);
+		// 리치 배열 넣기
+		reachArr.push(graphic);
+		
+    },
+
 	drawGraphic2: function (graphic, symbol, layer, arrObj, reachArr) {
 
 		var me = this;
@@ -1995,6 +2533,41 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			reachArr.splice(rchIdx, 1);
 		}
 	},
+
+	
+    setReachAreaTmp: function(catDid){
+    	
+    	var me = this;
+    	
+    	require(["esri/tasks/query",
+    	         "esri/tasks/QueryTask"], function(Query, QueryTask){
+    		//$KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachAreaLayerId
+	    	var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachAreaLayerId); // 집수구역 URL
+			var query = new Query();
+			query.returnGeometry = true;
+			//query.outFields = ["*"];
+			query.outFields = ["CAT_DID","CAT_ID"];
+
+			query.where = "CAT_DID = '" + catDid + "'";
+			
+			// 집수구역 조회
+			queryTask.execute(query, function(featureSet){
+				
+				for(var i = 0; i < featureSet.features.length; i++){
+					
+					// 집수구역 그리기
+					var feature = featureSet.features[i];
+					if(me.drawOption == "addPoint"){
+						me.drawGraphic(feature, "addReachArea");
+					}else if(me.drawOption == "removePoint"){
+						me.drawGraphic(feature, "removeReachArea");
+					}
+					
+				}
+			});
+    	});
+    },
+
 	/* 리치 집수구역 셋팅 */
 	setReachArea: function (catDid) {
 
@@ -2233,6 +2806,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 		/* 전역변수 클리어 */
 		me.clearVariable();
+
 	},
 	/* 그래픽 클리어 */
 	clearGraphic: function () {
@@ -2254,6 +2828,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		if (me.areaGrpLayer != undefined && me.areaGrpLayer != null) {
 			me.areaGrpLayer.clear();
 		}
+
+		if (me.lineGrpLayer_s != undefined && me.lineGrpLayer_s != null) {
+			me.lineGrpLayer_s.clear();
+		}
+
+		if (me.areaGrpLayer_s != undefined && me.areaGrpLayer_s != null) {
+			me.areaGrpLayer_s.clear();
+		}
+
 	},
 	clearVariable: function () {
 
@@ -2280,6 +2863,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		me.arrCommGrp = []; // 공통하류 그래픽 배열
 		me.tmpEvtLineGrp = []; // 라인 이벤트 임시 배열
 		me.arrEvtLineGrp = []; // 라인 이벤트 리치 배열
+		me.arrLineGrp_s = []; // 소하천 라인 그래픽 배열
+		me.arrAreaGrp_s = []; // 소하천 집수구역 그래픽 배열
 
 		var reachAdmin = $KRF_APP.coreMap.reachLayerAdmin_v3_New;
 

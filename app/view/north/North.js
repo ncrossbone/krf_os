@@ -113,9 +113,20 @@ Ext.define('krf_new.view.north.North', {
     	btnOffImg: './resources/images/button/btn_top_03_off.png',
     	src: './resources/images/button/btn_top_03_off.png'
     }, {
+		xtype: 'container',
+    	width: 5
+	}, { 
+		xtype: 'button',
+		id: 'btnLayerSRiver',
+		toggleGroup: 'grpSRiver',
+		btnOnOff: 'on',
+    	text: '소하천',
+        style:'cursor:pointer;',
+    	listeners: { el: { click: 'onClickSRiver' } }
+    }, {
     	xtype: 'container',
     	width: 50
-    }, {
+    },{
 		xtype: 'image',
     	title: '공지사항',
     	width: 69,

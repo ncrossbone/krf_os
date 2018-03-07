@@ -89,12 +89,50 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	
 	// 리치추가 버튼 클릭
 	onClickAddReach: function(obj, el, evt){
-		
 		// 맵 클릭 이벤트 켜기
-		$KRF_APP.coreMap._krad.onMapClickEvt("addPoint", el.id);
-		
+		//$KRF_APP.coreMap._krad.onMapClickEvt("addPoint", el.id);
 		// 부하량 주제도 off
-		catTMLayerOnOff("off");
+		//catTMLayerOnOff("off");
+
+		
+		//SetBtnOnOff("btnMenu02", "off");
+		
+		var btnMenu02 = Ext.getCmp("btnMenu02");
+		if(btnMenu02.btnOnOff == "off"){
+		
+			// 맵 클릭 이벤트 켜기
+			$KRF_APP.coreMap._krad.onMapClickEvt("addPoint", el.id);
+			
+			// 부하량 주제도 off
+			catTMLayerOnOff("off");
+			
+		}else{
+			
+			//tmp에 저장되어 있는 graphic을 지우고 원래 graphic으로 배열을 넘겨준다.
+			
+			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+			for(var i = 0 ; i < $KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++){
+				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrLineGrpTmp[i], $KRF_APP.coreMap._krad.reachLineSym 
+					, $KRF_APP.coreMap._krad.lineGrpLayer, $KRF_APP.coreMap._krad.arrLineGrp, reachAdmin.arrLineGrp)
+			};
+			for(var j = 0 ; j < $KRF_APP.coreMap._krad.arrAreaGrpTmp.length; j++){
+				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrAreaGrpTmp[j], $KRF_APP.coreMap._krad.reachAreaSym
+					, $KRF_APP.coreMap._krad.areaGrpLayer, $KRF_APP.coreMap._krad.arrAreaGrp, reachAdmin.arrAreaGrp);
+			};
+			
+			// 검색 종료 체크(지점목록,검색결과)
+			$KRF_APP.coreMap._krad.isStopCheck();
+			SetBtnOnOff("btnMenu02", "off");
+			
+			$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
+			$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
+			reachAdmin.arrLineGrpTmp = [];
+			reachAdmin.arrAreaGrpTmp = [];
+						
+		}
+		
+	
+
 	},
 	
 	// 구간제거 버튼 클릭

@@ -150,6 +150,19 @@ Ext.define('Desktop.MapWindow', {
     	        	src: './resources/images/button/btn_top_03_off.png'
     	        }, {
     	        	xtype: 'container',
+    	        	width: 5
+    	        }, { 
+					xtype: 'button',
+					id: 'btnLayerSRiver',
+					toggleGroup: 'grpSRiver',
+					btnOnOff: 'on',
+					text: '소하천',
+					style:'cursor:pointer;',
+					listeners: { el: { click: function(obj, el, evt){
+    	        		me.onClickSRiver();
+    	        	} } },
+				}, {
+    	        	xtype: 'container',
     	        	width: 50
     	        }, {
     	    		xtype: 'image',
@@ -298,7 +311,27 @@ Ext.define('Desktop.MapWindow', {
             win = desktop.createWindow(cfg);
         }
         return win;
-    },
+	},
+	
+	//소하천 dynamic 켜기
+	onClickSRiver: function(obj, el, evt){
+		
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+		
+		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
+		
+		if(btnLayerSRiver == "on"){
+			DynamicLayerSRiver.setVisibleLayers([-1]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+		}else{
+			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+		}
+		
+		
+	},
+
     setSubWindowLocation :function(){
     	var rNameToolbar = Ext.getCmp("reachNameToolbar");
 		var rToolbar = Ext.getCmp("reachToolbar");

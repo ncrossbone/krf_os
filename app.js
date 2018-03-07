@@ -166,7 +166,7 @@ Ext.application({
 
 		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
 		var loginWindow = loginModule.createWindow({ x: (dpWidth/2)-200, y: (dpHeight/2)-300, width: 400, height: 600 });
-		loginWindow = loginWindow.show();
+		//loginWindow = loginWindow.show();
 	},
 
 	showWindowByMode: function () {

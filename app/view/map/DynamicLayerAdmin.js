@@ -4,6 +4,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 	dynamicLayer1: null,
 	dynamicLayer2: null,
 
+	dynamicLayerSRiver:null,
 	//읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
 	fLayers: [], // 투명도 주기위한 레이어 아이디
 
@@ -24,6 +25,13 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayer2.visible = true;
 		me.dynamicLayer2.opacity = 0.5;
 		me.dynamicLayer2.setVisibleLayers([-1]);
+
+
+		me.dynamicLayerSRiver = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.sRiver);
+		me.dynamicLayerSRiver.id = "DynamicLayerSRiver";
+		me.dynamicLayerSRiver.visible = true;
+		me.dynamicLayerSRiver.setVisibleLayers([0,1,2]);
+		me.map.addLayer(me.dynamicLayerSRiver);
 
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DRON_DYNAMIC_LAYER_ON_OFF, me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
