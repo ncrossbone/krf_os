@@ -441,12 +441,12 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			// 끝위치 버튼 셋팅
 			Ext.getCmp("btnMenu05").setSrc(Ext.getCmp("btnMenu05").src.replace("_on.png", ".png"));
 			Ext.get('_mapDiv__gc').setStyle('cursor', 'default');
-			$KRF_APP.fireEvent('drawEnd');
+			$KRF_APP.fireEvent($KRF_EVENT.DRAW_END);
 			this.endBtnOnOff = "off";
 			// 끝위치 버튼 셋팅 끝
 
 			// 레이어 On/Off
-			$KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "reset", 1);
+			$KRF_APP.fireEvent($KRF_EVENT.REACH_TEST_ON_OFF, $KRF_EVENT.DYNAMIC_LAYER_REACH_TEST, $KRF_EVENT.RESET, 1);
 
 			// 모든 창닫기
 			Ext.HideSiteListWindow(currCtl);
@@ -463,12 +463,12 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			// 끝위치 버튼 셋팅
 			Ext.getCmp("btnMenu05").setSrc(Ext.getCmp("btnMenu05").src.replace("_on.png", ".png"));
 			Ext.get('_mapDiv__gc').setStyle('cursor', 'default');
-			$KRF_APP.fireEvent('drawEnd');
+			$KRF_APP.fireEvent($KRF_EVENT.DRAW_END);
 			this.endBtnOnOff = "off";
 			// 끝위치 버튼 셋팅 끝
 
 			// 레이어 On/Off
-			$KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "reset", 1);
+			$KRF_APP.fireEvent($KRF_EVENT.REACH_TEST_ON_OFF, $KRF_EVENT.DYNAMIC_LAYER_REACH_TEST, $KRF_EVENT.RESET, 1);
 
 			// 모든 창닫기
 			Ext.HideSiteListWindow(currCtl);

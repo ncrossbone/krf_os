@@ -1780,7 +1780,26 @@ ResetButtonClick = function(){
 	
 	$KRF_APP.coreMap._krad.realTimeStBtnChk = true;
 	$KRF_APP.coreMap._krad.realTimeEnBtnChk = true;
+
+	$KRF_APP.coreMap._krad.countInfo = []; //count 정보
 	
+	$KRF_APP.coreMap._krad.maxSelect = false;
+	
+
+	var reachs_close = Ext.getCmp("reachs_close");
+	var reache_close = Ext.getCmp("reache_close");
+	if(reachs_close != undefined && reache_close != undefined){
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+	}
+
+	//리치추가 임시 tmp 제거
+	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+	$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
+	$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
+	reachAdmin.arrLineGrpTmp = [];
+	reachAdmin.arrAreaGrpTmp = [];
+
 	//---north
 	// 항공영상 초기화
 	

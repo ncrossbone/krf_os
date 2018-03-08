@@ -66,6 +66,8 @@ var $KRF_EVENT = {
 	REACH_TEST_ON_OFF: 'Reach_TestOnOff',
 	DYNAMIC_LAYER_REACH_TEST: 'DynamicLayer_Reach_Test',
 	END: 'end',
+	RESET: 'reset',
+	SAVE: 'save',
 	SET_SELECTED_SITE: 'setSelectedSite',
 	SET_SELECTED_CAT_AREA: 'setSelectedCatArea',
 	SET_SELECTED_RCHLINE: 'setSelectedRchLine',
@@ -82,6 +84,7 @@ var $KRF_EVENT = {
 	SET_MAP_TOOLTIP_LOCATION: 'setMapTooltipLocation',
 	MOVE_COMMON: 'moveCommon',
 	WEST_TAB_CHANGE: 'WestTabChange',
+	INITMINIMAPLINE: 'initMiniMapLine',
 	MINIMAPCHANGE: 'MiniMapChange',
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
@@ -171,7 +174,7 @@ Ext.application({
 		
 		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
 		var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
-		loginWindow = loginWindow.show();
+		//loginWindow = loginWindow.show();
 	},
 
 	showWindowByMode: function () {
@@ -342,14 +345,15 @@ Ext.application({
 			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow');
 			centerContainer.add(searchWindow);
 			searchWindow.show();
-			
+
+			/*
 			Ext.defer(function () {
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
 				subMapWindow.show();
 				
 			}, 500);
-			
+			*/
 		}
 	},
 	centerAt: function (coord) {
