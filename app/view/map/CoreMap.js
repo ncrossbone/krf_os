@@ -105,12 +105,13 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
 
-			 $KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine);
-			//        	dojo.connect(me.map,'onLoad', function(){
-			//        		debugger;
-			//        		
-			//        		$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, Ext.getCmp('westLayer01').getView().getChecked());
-			//        	});
+			 //$KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine);
+
+			       	// dojo.connect(me.map,'onLoad', function(){
+			       	// 	debugger;
+			       		
+			       	// 	$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, Ext.getCmp('westLayer01').getView().getChecked());
+			       	// });
 
 			$KRF_APP.fireEvent($KRF_EVENT.CORE_MAP_LOADED, me);
 
@@ -281,7 +282,6 @@ Ext.define('krf_new.view.map.CoreMap', {
 					coreMap.map.graphics.on("click", function (evt) {
 						event.stop(evt);
 
-						console.info("graphics click");
 						var options = {
 							allowAddVertices: true,
 							allowDeleteVertices: false,

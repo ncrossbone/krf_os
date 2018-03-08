@@ -158,6 +158,7 @@ Ext.application({
 
 		// 내부망 로그인정보 조회
 		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+
 		if (loginInfo == null) {
 			this.showLoginWindow();
 		} else {
@@ -171,7 +172,7 @@ Ext.application({
 
 		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
 		var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
-		loginWindow = loginWindow.show();
+		//loginWindow = loginWindow.show();
 	},
 
 	showWindowByMode: function () {
