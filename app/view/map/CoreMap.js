@@ -66,7 +66,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 				showAttribution: false,
 				zoom: 8,
 				autoResize: true,
+				// navigationMode: 'classic',
 				testCount: 0
+				
 			});
 			me.gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
 
@@ -102,7 +104,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 			me.featureLayerAdmin = Ext.create('krf_new.view.map.FeatureLayerAdmin1', me.map);
 
 			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
-
+			
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
 			
 			$KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine, me);
@@ -342,6 +344,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 		}
 		// 툴팁 XY 셋팅
 		$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);
+
+		// _mapDiv__gc 위치가 정상적으로 변경되지 않아 강제로 넣음
+		$('#_mapDiv__gc').css('transform','translate(0px, 0px)');
 	},
 
 	extentMove: function (extent, level) {
