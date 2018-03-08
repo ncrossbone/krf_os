@@ -84,6 +84,7 @@ var $KRF_EVENT = {
 	SET_MAP_TOOLTIP_LOCATION: 'setMapTooltipLocation',
 	MOVE_COMMON: 'moveCommon',
 	WEST_TAB_CHANGE: 'WestTabChange',
+	INITMINIMAPLINE: 'initMiniMapLine',
 	MINIMAPCHANGE: 'MiniMapChange',
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
