@@ -502,7 +502,5 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
 		}
-		
-		
-	},
+	}
 });

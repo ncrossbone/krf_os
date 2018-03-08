@@ -49,7 +49,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu01_on.png',
 			btnOffImg: './resources/images/button/reach_menu01.png',
 			src: './resources/images/button/reach_menu01.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu04',
@@ -62,7 +62,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu04_on.png',
 			btnOffImg: './resources/images/button/reach_menu04.png',
 			src: './resources/images/button/reach_menu04.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu05',
@@ -75,7 +75,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu05_on.png',
 			btnOffImg: './resources/images/button/reach_menu05.png',
 			src: './resources/images/button/reach_menu05.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu02',
@@ -88,7 +88,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu02_on.png',
 			btnOffImg: './resources/images/button/reach_menu02.png',
 			src: './resources/images/button/reach_menu02.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu03',
@@ -101,7 +101,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu03_on.png',
 			btnOffImg: './resources/images/button/reach_menu03.png',
 			src: './resources/images/button/reach_menu03.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu09',
@@ -114,7 +114,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu03_on.png',
 			btnOffImg: './resources/images/button/reach_menu03.png',
 			src: './resources/images/button/reach_menu03.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu06',
@@ -127,7 +127,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu06_on.png',
 			btnOffImg: './resources/images/button/reach_menu06.png',
 			src: './resources/images/button/reach_menu06.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu07',
@@ -140,7 +140,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu07_on.png',
 			btnOffImg: './resources/images/button/reach_menu07.png',
 			src: './resources/images/button/reach_menu07.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu08',
@@ -153,7 +153,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu08_on.png',
 			btnOffImg: './resources/images/button/reach_menu08.png',
 			src: './resources/images/button/reach_menu08.png',
-			hidden: true,
+			hidden: true
 		}, {
 			xtype: 'button',
 			id: 'btn3dMap',
@@ -163,7 +163,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			width: this.itemWidth,
 			height: this.itemHeight,
 			style: 'cursor:pointer;',
-			listeners: { el: { click: 'onClick3D' } },
+			listeners: { el: { click: 'onClick3D' } }
 		}, {
 			xtype: 'image',
 			//id: 'btnReachLayer',
@@ -298,7 +298,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				el: {
 					click: 'onClickSRiver'
 				}
-			},
+			}
 		}, {
 			xtype: 'container',
 			width: 50

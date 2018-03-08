@@ -33,6 +33,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbThreeDimArea1',
+				layerId: $KRF_DEFINE.admSidoLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbThreeDimArea2',
 				lnkBtnId: 'btnThreeDimSearch1',
@@ -42,6 +43,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				store: Ext.create('krf_new.store.west.SearchArea_ADM'),
 				editable: false,
 				displayField: 'name',
 				valueField: 'id'
@@ -65,6 +67,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbThreeDimArea2',
+				layerId: $KRF_DEFINE.admSigunguLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbThreeDimArea3',
 				lnkBtnId: 'btnThreeDimSearch2',
@@ -74,6 +77,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				store: Ext.create('krf_new.store.west.SearchArea_ADM'),
 				editable: false,
 				displayField: 'name',
 				valueField: 'id',
@@ -98,6 +102,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbThreeDimArea3',
+				layerId: $KRF_DEFINE.admDongLayerId,
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnThreeDimSearch3',
@@ -107,6 +112,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				store: Ext.create('krf_new.store.west.SearchArea_ADM'),
 				editable: false,
 				displayField: 'name',
 				valueField: 'id',

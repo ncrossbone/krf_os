@@ -8,6 +8,7 @@ $include-desktop-bogusmodule: dynamic(true);;
 $include-desktop-loginwindow: dynamic(true);;
 $include-desktop-mapwindow: dynamic(true);;
 $include-desktop-notepad: dynamic(true);;
+$include-desktop-reportwindow: dynamic(true);;
 $include-desktop-resultwindow: dynamic(true);;
 $include-desktop-searchwindow: dynamic(true);;
 $include-desktop-settings: dynamic(true);;
