@@ -18,7 +18,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 	layerInfo: null,
 	baseMap: null,
 
-	
+
 
 	me: null,
 	vworldTileInfo: new esri.layers.TileInfo({
@@ -89,7 +89,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 			//me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
 
 			// KRAD 전역 Object Setting
-			me._krad = Ext.create('krf_new.view.map.KRADLayerAdmin', me.map , me.geometryService);
+			me._krad = Ext.create('krf_new.view.map.KRADLayerAdmin', me.map, me.geometryService);
 			// 검색설정 "상류" 검색 전역 Object Setting
 			me._rchUpSearch = Ext.create('krf_new.view.map.SearchReachUp');
 			// 리치라인 전역 Object Setting
@@ -105,7 +105,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
 
-			 $KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine);
+			debugger;
+			
+			$KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine, me);
 			//        	dojo.connect(me.map,'onLoad', function(){
 			//        		debugger;
 			//        		
@@ -257,76 +259,76 @@ Ext.define('krf_new.view.map.CoreMap', {
 		});
 	},
 
-	initMiniMapLine: function(){
-		var me = this;		
+	initMiniMapLine: function () {
+		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var subCoreMap = Ext.getCmp("_subMapDiv_");
 
 		require(["esri/graphic"
-				, "esri/toolbars/edit"
-				, "dojo/_base/event"
-				, "esri/geometry/Polygon"
-				, "esri/symbols/SimpleLineSymbol"
-				,"esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
-					
-					//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
+			, "esri/toolbars/edit"
+			, "dojo/_base/event"
+			, "esri/geometry/Polygon"
+			, "esri/symbols/SimpleLineSymbol"
+			, "esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
 
-					var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
-					var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
-					graphic.id = "asd";
+				//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
 
-					coreMap.map.graphics.add(graphic);
+				var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
+				var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
+				graphic.id = "asd";
 
-					var editToolbar = new esri.toolbars.Edit(coreMap.map);
-					coreMap.map.graphics.on("click", function (evt) {
-						event.stop(evt);
+				coreMap.map.graphics.add(graphic);
 
-						console.info("graphics click");
-						var options = {
-							allowAddVertices: true,
-							allowDeleteVertices: false,
-							uniformScaling: true
-						};
-						editToolbar.activate(Edit.MOVE|Edit.SCALE, evt.graphic, options);
-						
-					});
-					
-					coreMap.map.on('click', function(){
-						editToolbar.deactivate();
-						coreMap.map.testCount = 0;
-					});
+				var editToolbar = new esri.toolbars.Edit(coreMap.map);
+				coreMap.map.graphics.on("click", function (evt) {
+					event.stop(evt);
 
-					//스케일 조정 stop, 드래그 이벤트 stop
-					editToolbar.on('scale-stop', coreMap.subMapSetExtent);
-					editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
+					console.info("graphics click");
+					var options = {
+						allowAddVertices: true,
+						allowDeleteVertices: false,
+						uniformScaling: true
+					};
+					editToolbar.activate(Edit.MOVE | Edit.SCALE, evt.graphic, options);
+
 				});
+
+				coreMap.map.on('click', function () {
+					editToolbar.deactivate();
+					coreMap.map.testCount = 0;
+				});
+
+				//스케일 조정 stop, 드래그 이벤트 stop
+				editToolbar.on('scale-stop', coreMap.subMapSetExtent);
+				editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
+			});
 	},
 
 	//미니맵 setExtent
-	subMapSetExtent: function(evt){
+	subMapSetExtent: function (evt) {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
 		coreMap.map.testCount = 1;
 		var subCoreMap = Ext.getCmp("_subMapDiv_");
 		subCoreMap.map.setExtent(evt.graphic._extent, true);
-		
+
 	},
 
 	//소하천 미니맵 change 이벤트
 	miniMapChnage: function (map) {
-		
+
 		var me = this;
 
 		var coreMap = Ext.getCmp("_mapDiv_");
-		
+
 		var polygonGraphic = esri.geometry.Polygon.fromExtent(map.extent);
-		
-		if(coreMap.map.graphics.graphics[1] != undefined){
-			
+
+		if (coreMap.map.graphics.graphics[1] != undefined) {
+
 			coreMap.map.graphics.graphics[1].setGeometry(polygonGraphic);
 
 		}
-		
+
 	},
 
 	//맵 change 이벤트
@@ -335,8 +337,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 		var coreMap = Ext.getCmp("_mapDiv_");
 		//미니맵 EXTENT 체인지 될시 이벤트
 		if (me.id == "_subMapDiv_") {
-			if(coreMap.map.testCount == 0){
-				$KRF_APP.fireEvent($KRF_EVENT.MINIMAPCHANGE, me);	
+			if (coreMap.map.testCount == 0) {
+				$KRF_APP.fireEvent($KRF_EVENT.MINIMAPCHANGE, me);
 			}
 			coreMap.map.testCount = 0;
 		}
