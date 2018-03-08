@@ -363,7 +363,8 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 			// 끝위치 버튼 셋팅 끝
 
 			// 레이어 On/Off
-			$KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "reset", 1);
+			$KRF_APP.fireEvent($KRF_EVENT.REACH_TEST_ON_OFF, $KRF_EVENT.DYNAMIC_LAYER_REACH_TEST, $KRF_EVENT.RESET, 1);
+			// $KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "reset", 1);
 
 			// 모든 창닫기
 			Ext.HideSiteListWindow(currCtl);
@@ -385,7 +386,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 			// 끝위치 버튼 셋팅 끝
 
 			// 레이어 On/Off
-			$KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "reset", 1);
+			$KRF_APP.fireEvent($KRF_EVENT.REACH_TEST_ON_OFF, $KRF_EVENT.DYNAMIC_LAYER_REACH_TEST, $KRF_EVENT.RESET, 1);
 
 			// 모든 창닫기
 			Ext.HideSiteListWindow(currCtl);
@@ -406,10 +407,11 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 			// 끝위치 버튼 셋팅 끝
 
 			// 레이어 On/Off
-			$KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "save", 1);
+			$KRF_APP.fireEvent($KRF_EVENT.REACH_TEST_ON_OFF, $KRF_EVENT.DYNAMIC_LAYER_REACH_TEST, $KRF_EVENT.SAVE, 1);
+			// $KRF_APP.fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "save", 1);
 
 			// 지점목록 보여주기
-			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, "DynamicLayer_Reach_Test", "save", 1);
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, $KRF_EVENT.DYNAMIC_LAYER_REACH_TEST, $KRF_EVENT.SAVE, 1);
 			//    		Ext.ShowSiteListWindow("test");
 		}
 

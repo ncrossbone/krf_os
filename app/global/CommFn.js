@@ -328,7 +328,7 @@ Ext.define("krf_new.global.CommFn", {
 	getLoginUserId: function () {
 		var loginUserInfo = this.getLoginUserInfo();
 		if (loginUserInfo != null) {
-			return loginUserInfo.userid;
+			return loginUserInfo.userId;
 		}
 		return;
 	}
