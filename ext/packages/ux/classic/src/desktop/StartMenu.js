@@ -18,10 +18,13 @@ Ext.define('Ext.ux.desktop.StartMenu', {
     defaultAlign: 'bl-tl',
 
     iconCls: 'user',
-
+    header: true,
+    title: '메뉴',
+    
     bodyBorder: true,
 
-    width: 300,
+    width: 200,
+    height: 200,
 
     initComponent: function() {
         var me = this;

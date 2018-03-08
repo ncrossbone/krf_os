@@ -19,7 +19,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
     init: function () {
 
         this.launcher = {
-            text: 'Three Dim Window',
+            text: '3D 지도',
             iconCls: 'icon-grid'
         };
 

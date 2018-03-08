@@ -17,7 +17,8 @@ Ext.define('krf_new.Desktop.App', {
         'Desktop.MapWindow',
         'Desktop.AdminConfigWindow',
         'Desktop.LoginWindow',
-        'Desktop.ThreeDimensionsWindow'
+        'Desktop.ThreeDimensionsWindow',
+        'Desktop.ReportWindow'
 
         //        'Desktop.SiteListWindow',
         //        'Desktop.SearchWindow',
@@ -37,11 +38,12 @@ Ext.define('krf_new.Desktop.App', {
 
     getModules: function () {
         return [
-            new Desktop.StatusBoardWindow(),
             new Desktop.MapWindow(),
+            new Desktop.StatusBoardWindow(),
+            new Desktop.ReportWindow(),
+            new Desktop.ThreeDimensionsWindow(),
             new Desktop.AdminConfigWindow(),
-            new Desktop.LoginWindow(),
-            new Desktop.ThreeDimensionsWindow()
+            new Desktop.LoginWindow()
             //            new Desktop.SearchWindow(),
             //            new Desktop.SiteListWindow(),
             //            new Desktop.ResultWindow(),
@@ -56,16 +58,17 @@ Ext.define('krf_new.Desktop.App', {
             //            cls: 'ux-desktop-black',
 
             contextMenuItems: [
-                { text: 'Change Settings', handler: me.onSettings, scope: me }
+                // { text: 'Change Settings', handler: me.onSettings, scope: me }
             ],
 
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
                     { name: 'KRF', text: 'KRF', iconCls: 'accordion-shortcut', module: $KRF_APP.KRF_MODE },
-                    { name: 'Staus', text: '현황판', iconCls: 'cpu-shortcut', module: $KRF_APP.REPORT_MODE },
-                    { name: 'threeDim', text: '3D', iconCls: 'threeDim-shortcut', module: $KRF_APP.THREEDIM_MODE },
-                    { name: 'Admin', text: '관리', iconCls: 'admin-shortcut', module: $KRF_APP.ADMIN_MODE }
+                    { name: 'Staus', text: '현황판', iconCls: 'cpu-shortcut', module: $KRF_APP.STATUS_MODE },
+                    { name: 'Report', text: '레포트', iconCls: 'cpu-shortcut', module: $KRF_APP.REPORT_MODE },
+                    { name: 'threeDim', text: '3D지도', iconCls: 'accordion-shortcut', module: $KRF_APP.THREEDIM_MODE },
+                    { name: 'Admin', text: '관리', iconCls: 'cpu-shortcut', module: $KRF_APP.ADMIN_MODE }
                 ]
             }),
 
@@ -109,13 +112,13 @@ Ext.define('krf_new.Desktop.App', {
 
         return Ext.apply(ret, {
             quickStart: [
-                { name: 'KRF 모드', iconCls: 'accordion', module: $KRF_APP.KRF_MODE },
-                { name: '현황판', iconCls: 'icon-grid', module: $KRF_APP.REPORT_MODE }
+                // { name: 'KRF 모드', iconCls: 'accordion', module: $KRF_APP.KRF_MODE },
+                // { name: '현황판', iconCls: 'icon-grid', module: $KRF_APP.REPORT_MODE }
             ],
             trayItems: [
                 //                { xtype: 'trayclock', flex: 1 }
                 {
-                    xtype: 'button', text: '바탕화면보기', onClick: function () {
+                    xtype: 'button', text: '바탕화면', onClick: function () {
                         $KRF_APP.fireEvent($KRF_EVENT.MINIMIZE_WINDOWS);
                     }
                 }

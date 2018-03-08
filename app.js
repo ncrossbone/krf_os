@@ -88,7 +88,8 @@ var $KRF_EVENT = {
 	MINIMAPCHANGE: 'MiniMapChange',
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
-	THREEDIM_MOVE: 'threeDimMove'
+	THREEDIM_MOVE: 'threeDimMove',
+	SHOW_MAP_TOOLBAR:'showMapToolbar'
 }
 
 var $KRF_WINS = {
@@ -115,6 +116,7 @@ Ext.application({
 	desktopApp: null,
 
 	KRF_MODE: 'KRF_MODE',
+	KRF_MODE: 'STATUS_MODE',
 	REPORT_MODE: 'REPORT_MODE',
 	ADMIN_MODE: 'ADMIN_MODE',
 	THREEDIM_MODE: 'THREEDIM_MODE',
@@ -152,16 +154,15 @@ Ext.application({
 
 		$KRF_APP.addListener($KRF_EVENT.MINIMIZE_WINDOWS, me.minimizeWindows, me);
 
-
 		$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
-
 
 	},
 	desktopLoaded: function () {
 
 		// 내부망 로그인정보 조회
 		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-		if (loginInfo==null) {
+		loginInfo = {};
+		if (loginInfo == null) {
 			this.showLoginWindow();
 		} else {
 			this.showWindowByMode();
@@ -342,9 +343,11 @@ Ext.application({
 	coreMapLoaded: function (param) {
 		if (param.id == '_mapDiv_') {
 			var centerContainer = Ext.getCmp('center_container');
-			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow');
+			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow',{y:75});
 			centerContainer.add(searchWindow);
 			searchWindow.show();
+
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
 
 			/*
 			Ext.defer(function () {

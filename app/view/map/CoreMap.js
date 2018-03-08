@@ -114,7 +114,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			$KRF_APP.fireEvent($KRF_EVENT.CORE_MAP_LOADED, me);
 
-			require(["/KRF_NEW/app/view/map/task/CustomPrintTask.js"], function () {
+			require(["/KRF_DEV/app/view/map/task/CustomPrintTask.js"], function () {
 				//"./resources/jsp/CustomPrintTask_New.jsp"
 				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id
 					, '/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp'

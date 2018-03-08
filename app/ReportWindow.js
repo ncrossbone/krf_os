@@ -5,27 +5,27 @@
  * http://www.sencha.com/license
  */
 
-Ext.define('Desktop.StatusBoardWindow', {
+Ext.define('Desktop.ReportWindow', {
     extend: 'Ext.ux.desktop.Module',
 
     requires: [
     ],
 
-    id:'status-win',
+    id:'report-win',
 
     init : function(){
         this.launcher = {
-            text: '현황판',
+            text: '레포트',
             iconCls:'icon-grid'
         };
     },
 
     createWindow : function(config){
         var desktop = this.app.getDesktop();
-        var win = desktop.getWindow('status-win');
+        var win = desktop.getWindow('report-win');
         var cfg = Ext.applyIf(config || {}, {
-			            id: 'status-win',
-			            title:'현황판',
+			            id: 'report-win',
+			            title:'레포트',
 			            width:740,
 			            height:480,
 			            iconCls: 'icon-grid',

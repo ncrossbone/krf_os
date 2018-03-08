@@ -26,7 +26,10 @@ Ext.define('Desktop.MapWindow', {
         // 리치 툴바 on/off
         $KRF_APP.addListener($KRF_EVENT.SHOW_REACH_TOOLBAR, this.showReachToolbar, this);
         $KRF_APP.addListener($KRF_EVENT.HIDE_REACH_TOOLBAR, this.hideReachToolbar, this);
-        
+		
+		$KRF_APP.addListener($KRF_EVENT.SHOW_MAP_TOOLBAR, this.showMapToolbar, this);
+		
+
         // drone 툴바 on/off
         $KRF_APP.addListener($KRF_EVENT.SHOW_DRONE_TOOLBAR, this.showDroneToolbar, this);
         $KRF_APP.addListener($KRF_EVENT.HIDE_DRONE_TOOLBAR, this.hideDroneToolbar, this);
@@ -56,215 +59,7 @@ Ext.define('Desktop.MapWindow', {
             layout: 'border',
             constrain: true,
     		constrainHeader:false,
-    		tools:
-    	         [{
-    	     		xtype: 'image',
-    	    		//id: 'btnReachLayer',
-    	    		layerId: 'baseMap',
-    	    		groupId: 'grpBase',
-    	        	title: '배경맵',
-    	            style:'cursor:pointer;',
-    	        	width: 32,
-    	        	height: 20,
-    	        	listeners: { el: { click: function(obj, el, evt){
-    	            	// 버튼 On/Off
-    	        		var currCtl = SetBtnOnOff(el.id);
-    	        		if(currCtl.btnOnOff == "on"){
-    	        			$KRP_APP.coreMap.baseMap.setVisibility(true);
-    	        		} else{
-    	        			$KRP_APP.coreMap.baseMap.setVisibility(false);
-    	        		}
-    	            } } },
-    	        	btnOnOff: 'on',
-    	        	btnOnImg: './resources/images/button/btn_top_05_on.png',
-    	        	btnOffImg: './resources/images/button/btn_top_05_off.png',
-    	        	src: './resources/images/button/btn_top_05_on.png'
-    	        }, {
-    	        	xtype: 'container',
-    	        	width: 5
-    	        }, { 
-    	    		xtype: 'image',
-    	    		id: 'btnReachLayer',
-    	    		layerId: '55',
-    	    		groupId: 'grpReach',
-    	        	title: '리치라인',
-    	            style:'cursor:pointer;',
-    	        	width: 32,
-    	        	height: 20,
-    	        	listeners: { el: { click: function(obj, el, evt){
-    	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);	
-    	        	} } },
-    	        	btnOnOff: 'on',
-    	        	btnOnImg: './resources/images/button/btn_top_01_on.png',
-    	        	btnOffImg: './resources/images/button/btn_top_01_off.png',
-    	        	src: './resources/images/button/btn_top_01_on.png'
-    	        }, {
-    	        	xtype: 'container',
-    	        	width: 5
-    	        }, { 
-    	    		xtype: 'image',
-    	    		id: 'btnAreaLayer',
-    	    		groupId: 'grpArea',
-    	        	title: '집수구역',
-    	            style:'cursor:pointer;',
-    	        	width: 32,
-    	        	height: 20,
-    	        	listeners: { el: { click:  function(obj, el, evt){
-    	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
-    	        	} } },
-    	        	btnOnOff: 'off',
-    	        	btnOnImg: './resources/images/button/btn_top_02_on.png',
-    	        	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	        	src: './resources/images/button/btn_top_02_off.png'
-    	        }, { 
-    	    		xtype: 'image',
-    	    		id: 'btnFlowLayer',
-    	    		groupId: 'grpFlow',
-    	        	title: '리치흐름',
-    	        	width: 32,
-    	        	height: 20,
-    	            style:'cursor:pointer;',
-    	        	listeners: { el: { click: function(obj, el, evt){
-    	        		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
-    	        	} } },
-    	        	btnOnOff: 'on',
-    	        	btnOnImg: './resources/images/button/btn_top_04_on.png',
-    	        	btnOffImg: './resources/images/button/btn_top_04_off.png',
-    	        	src: './resources/images/button/btn_top_04_on.png'
-    	        }, {
-    	        	xtype: 'container',
-    	        	width: 5
-    	        }, { 
-    	    		xtype: 'image',
-    	    		id: 'btnLayerReset',
-    	    		groupId: 'grpReset',
-    	        	title: '초기화',
-    	            style:'cursor:pointer;',
-    	        	width: 32,
-    	        	height: 20,
-    	        	listeners: { el: { click: function(obj, el, evt){
-    	        		ResetButtonClick();
-    	        	} } },
-    	        	btnOnOff: 'off',
-    	        	btnOnImg: './resources/images/button/btn_top_03_on.png',
-    	        	btnOffImg: './resources/images/button/btn_top_03_off.png',
-    	        	src: './resources/images/button/btn_top_03_off.png'
-    	        }, {
-    	        	xtype: 'container',
-    	        	width: 5
-    	        }, { 
-					xtype: 'button',
-					id: 'btnLayerSRiver',
-					toggleGroup: 'grpSRiver',
-					btnOnOff: 'on',
-					text: '소하천',
-					style:'cursor:pointer;',
-					listeners: { el: { click: function(obj, el, evt){
-    	        		me.onClickSRiver();
-    	        	} } },
-				}, {
-    	        	xtype: 'container',
-    	        	width: 50
-    	        }, {
-    	    		xtype: 'image',
-    	        	title: '공지사항',
-    	        	width: 69,
-    	        	height: 20,
-    	            style:'cursor:pointer;',
-    	        	listeners: {
-    	        		el: {
-    	        			click: function(){
-    	        				var boardCtl = Ext.getCmp("boardNotice");
-    	        				if(boardCtl == undefined){
-    	    	    				boardCtl = Ext.create("Ext.window.Window", {
-    	    				    					id: "boardNotice",
-    	    				    					title: "공지사항",
-    	                                            width: 670,
-    	                                            height: 580,
-    	                                            html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>',
-    	                                            cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
-    	                                            style:"border:solid 10px #E6E6E6;",
-    	                                            closable: false,
-    	                                            constrain: true,
-    	                                            header:{
-    	                                                items:[{
-    	                                                    xtype:'image',
-    	                                                    src:'./resources/images/button/btn_close.png',
-    	                                                    style:'padding-right:13px !important; cursor:pointer;',
-    	                                                    listeners:{
-    	                                                        el:{
-    	                                                            click:function(){
-    	                                                                Ext.getCmp("boardNotice").close();
-    	                                                            }
-    	                                                        }
-    	                                                    }
-    	                                                }]
-    	                                            }
-    	    				    				});
-								}
-								Ext.getCmp('center_container').add(boardCtl);
-    	        				boardCtl.show();
-    	        			}
-    	        		}
-    	        	},
-    	        	src: './resources/images/button/top_btn4_off.png'			
-    	    	},{
-    	    		xtype: 'image',
-    	        	title: 'Q&A',
-    	        	width: 69,
-    	        	height: 20,
-    	            style:'cursor:pointer;',
-    	        	listeners: {
-    	        		el: {
-    	        			click: function(){
-    	        				
-    	        				var boardCtl = Ext.getCmp("boardQNA");
-    	        				if(boardCtl == undefined){
-    	    	    				boardCtl = Ext.create("Ext.window.Window", {
-    	    				    					id: "boardQNA",
-    	    				    					title: "Q&A",
-    	    				    					width: 660,
-    	    				    					height: 600,
-    	    				    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
-    	    				    				});
-    	        				}
-    	        				Ext.getCmp('center_container').add(boardCtl);
-    	        				boardCtl.show();
-    	        				
-    	        			}
-    	        		}
-    	        	},
-    	        	src: './resources/images/button/top_btn5_off.png'			
-    	    	},{
-    	    		xtype: 'image',
-    	        	title: '저장',
-    	            style:'cursor:pointer;',
-    	        	width: 69,
-    	        	height: 20,
-    	        	listeners: {
-    	        		el: {
-    	        			click: function(){
-    	        				setActionInfo("" , "" , "" , "" , "화면저장");
-    	        				$KRP_APP.coreMap.capture();
-    	        			}
-    	        		}
-    	        	},
-    	        	src: './resources/images/button/top_btn2_off.png'
-    	    	}, {
-    	    		xtype: 'image',
-    	        	title: '매뉴얼',
-    	        	width: 69,
-    	        	height: 20,
-    	            style:'cursor:pointer;',
-    	        	listeners: {
-    	        		el: {
-    	        			click: function(){
-    	        				OpenMenualPop();
-    	        			}
-    	        		}
-    	        	},
-    	        	src: './resources/images/button/top_btn6_off.png'
-    	    	}],
+    		tools:[],
     		listeners: {
     		    move: function(theWin,xP,yP,theOp) {
     		    	$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);
@@ -317,25 +112,6 @@ Ext.define('Desktop.MapWindow', {
         }
         return win;
 	},
-	
-	//소하천 dynamic 켜기
-	onClickSRiver: function(obj, el, evt){
-		
-		var coreMap = Ext.getCmp("_mapDiv_");
-		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
-		
-		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
-		
-		if(btnLayerSRiver == "on"){
-			DynamicLayerSRiver.setVisibleLayers([-1]);
-			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
-		}else{
-			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
-			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
-		}
-		
-		
-	},
 
     setSubWindowLocation :function(){
     	var rNameToolbar = Ext.getCmp("reachNameToolbar");
@@ -383,11 +159,9 @@ Ext.define('Desktop.MapWindow', {
 				phyLegend.setY(legendY);
 			}	
 		}, 1);
-    },
-    showReachToolbar: function() {
-    	var rNameToolbar = Ext.getCmp("reachNameToolbar");
+	},
+	showMapToolbar: function(){
 		var rToolbar = Ext.getCmp("reachToolbar");
-		var sConfig = Ext.getCmp("searchConfig");
 		var cContainer = Ext.getCmp("cont_container");
 		
 		if (rToolbar == undefined) {
@@ -399,7 +173,25 @@ Ext.define('Desktop.MapWindow', {
 			cContainer.add(rToolbar);
 		}
 		rToolbar.show();
+	},
+	
+    showReachToolbar: function() {
+    	var rNameToolbar = Ext.getCmp("reachNameToolbar");
+		var rToolbar = Ext.getCmp("reachToolbar");
+		var sConfig = Ext.getCmp("searchConfig");
+		var cContainer = Ext.getCmp("cont_container");
 		
+		/*if (rToolbar == undefined) {
+			rToolbar = Ext.create('krf_new.view.center.ReachToolbar',{
+								id : 'reachToolbar',
+								cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target',
+								style:'z-index: 30000; position: absolute; padding: 0px 0 0px 0px !important;'
+							});
+			cContainer.add(rToolbar);
+		}
+		rToolbar.show();
+		*/
+
 		if(rNameToolbar == undefined){
 			rNameToolbar = Ext.create('krf_new.view.center.ReachNameToolbar', { });
 			cContainer.add(rNameToolbar);
@@ -413,6 +205,9 @@ Ext.define('Desktop.MapWindow', {
 		if(sConfig == undefined){
 			sConfig = Ext.create("krf_new.view.center.SearchConfig");
 			cContainer.add(sConfig);
+		}
+		for(var i=1; i<10; i++){
+			Ext.getCmp('btnMenu0'+i).setVisible(true);
 		}
 	},
 	hideReachToolbar: function() {
@@ -428,10 +223,14 @@ Ext.define('Desktop.MapWindow', {
 			droneToolbar.setY(droneToolbar.getY() - 105);
 		}
 		
-//		cContainer.remove(rToolbar, false);
-		if(rToolbar != undefined && rToolbar != null){
-			rToolbar.hide();
+		for(var i=1; i<10; i++){
+			Ext.getCmp('btnMenu0'+i).setVisible(false);
 		}
+		
+//		cContainer.remove(rToolbar, false);
+		// if(rToolbar != undefined && rToolbar != null){
+		// 	rToolbar.hide();
+		// }
 		if(rNameToolbar != undefined && rNameToolbar != null)
 			rNameToolbar.close();
 		if(sConfig != undefined && sConfig != null)
