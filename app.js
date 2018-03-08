@@ -89,7 +89,8 @@ var $KRF_EVENT = {
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
 	THREEDIM_MOVE: 'threeDimMove',
-	SHOW_MAP_TOOLBAR:'showMapToolbar'
+	SHOW_MAP_TOOLBAR: 'showMapToolbar',
+	CHECK_MAP_PARAMETER: 'checkMapParameter'
 }
 
 var $KRF_WINS = {
@@ -140,11 +141,14 @@ Ext.application({
 
 		$('#pageloaddingDiv').remove();
 
+
+
 		me.localStorate = new Ext.util.LocalStorage({
 			id: 'krfStorage'
 		});
 
 		$KRF_APP.global = krf_new.global;
+		$KRF_APP.global.CommFn.isIEFunc();
 
 		$KRF_APP.addListener($KRF_EVENT.DESK_TOP_LOADED, me.desktopLoaded, me);
 		$KRF_APP.addListener($KRF_EVENT.MAP_WINDOW_LOADED, me.mapWindowLoaded, me);
@@ -159,20 +163,22 @@ Ext.application({
 	},
 	desktopLoaded: function () {
 
-		// 내부망 로그인정보 조회
-		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-		loginInfo = {};
-		if (loginInfo == null) {
-			this.showLoginWindow();
-		} else {
-			this.showWindowByMode();
+		if (this.checkBrowser()) {
+			// 내부망 로그인정보 조회
+			var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+			loginInfo = {};
+			if (loginInfo == null) {
+				this.showLoginWindow();
+			} else {
+				this.showWindowByMode();
+			}
 		}
 	},
 	showLoginWindow: function () {
 		var dp = $KRF_APP.getDesktop();
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();
-		
+
 		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
 		var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
 		//loginWindow = loginWindow.show();
@@ -343,11 +349,13 @@ Ext.application({
 	coreMapLoaded: function (param) {
 		if (param.id == '_mapDiv_') {
 			var centerContainer = Ext.getCmp('center_container');
-			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow',{y:75});
+			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: 75 });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
 
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
+
+			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAM);
 
 			/*
 			Ext.defer(function () {
@@ -357,6 +365,56 @@ Ext.application({
 				
 			}, 500);
 			*/
+		}
+	},
+	checkBrowser: function () {
+		if (Ext.browser.is.IE == true && Ext.browser.version.major < 10) { // IE11 아래 버전 막기
+			Ext.create("Ext.window.Window", {
+				renderTo: Ext.getBody(),
+				width: 460,
+				height: 335,
+				closable: false,
+				id: "chromePop",
+				header: false,
+				title: '알림',
+				style: 'border: 0px; margin: 0 0 0 0',
+				items: [{
+					xtype: 'panel',
+					header: false,
+					items: [{
+						html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+							+ '<html xmlns="http://www.w3.org/1999/xhtml">'
+							+ '<head>'
+							+ '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
+							+ '<title>Untitled Document</title>'
+							+ '<style>'
+							+ 'html, body,'
+							+ 'div, span,'
+							+ 'dl, dt, dd, ul, ol, li,'
+							+ 'h1, h2, h3, h4, h5, h6,'
+							+ 'blockquote, p, address, pre, cite,'
+							+ 'form, fieldset, input, textarea, select,'
+							+ 'table, th, td {'
+							+ 'margin:0;'
+							+ 'padding:0;'
+							+ '},'
+							+ 'background-color:#D9E5FF;'
+							+ '</style>'
+							+ '</head>'
+							+ '<body>'
+							+ '<div><img src="./resources/images/chrome_pop_2.jpg" usemap="#Map" border="0" />'
+							+ '<map name="Map" id="Map">'
+							+ '<area shape="rect" coords="431,0,460,29" onclick=\"chromePopClose();\" title="닫기" />'
+							+ '</map>'
+							+ '</div>'
+							+ '</body>'
+							+ '</html>'
+					}]
+				}]
+			}).show();
+			return false;
+		}else{
+			return true;
 		}
 	},
 	centerAt: function (coord) {
