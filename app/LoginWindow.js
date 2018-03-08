@@ -54,20 +54,15 @@ Ext.define('Desktop.LoginWindow', {
                 minimizable: false,
                 closable: false,
                 layout: 'fit',
-                autoScroll: false,
                 draggable:false,
-                onEsc:function(){
-                    return;
-                },
                 items: [{
                     xtype: 'component',
                     itemId: 'login-iframe',
-                    autoScroll: false,
                     autoEl: {
                         tag: 'iframe',
                         style: 'height: 100%; width: 100%;',
                         //내부망 url 변경
-                        src: 'http://192.168.0.233:8081/jsp/login/login.jsp?callType=gis&url='+window.location.origin
+                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url='+window.location.origin
                     }
                 }]
             });

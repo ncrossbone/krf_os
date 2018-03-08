@@ -16,7 +16,9 @@ Ext.define('krf_new.Desktop.App', {
         'Desktop.StatusBoardWindow',
         'Desktop.MapWindow',
         'Desktop.AdminConfigWindow',
-        'Desktop.ThreeDimensionsWindow'
+        'Desktop.ThreeDimensionsWindow',
+        'Desktop.LoginWindow'
+
 
         //        'Desktop.SiteListWindow',
         //        'Desktop.SearchWindow',
@@ -39,7 +41,8 @@ Ext.define('krf_new.Desktop.App', {
             new Desktop.StatusBoardWindow(),
             new Desktop.MapWindow(),
             new Desktop.AdminConfigWindow(),
-            new Desktop.ThreeDimensionsWindow()
+            new Desktop.ThreeDimensionsWindow(),
+            new Desktop.LoginWindow()
             //            new Desktop.SearchWindow(),
             //            new Desktop.SiteListWindow(),
             //            new Desktop.ResultWindow(),
