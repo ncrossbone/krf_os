@@ -2,7 +2,7 @@ Ext.define('krf_new.view.map.SubMapWindow', {
 	extend: 'Ext.window.Window',
 	xtype: 'sub-map-win',
 	id: 'subMapWindow',
-	title: '소화천',
+	title: '소하천',
 	constrain: true,
 	layout: {
 		type: 'fit'
