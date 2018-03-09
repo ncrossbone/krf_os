@@ -110,7 +110,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                     if (me.once) {
                         $('#krf3diframe').prop('src', 'http://192.168.0.231:8081/KRF3D.html');
                         var centerContainer = Ext.getCmp("threeDim_center_container");
-                        var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow');
+                        var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow', { y: 75 });
                         centerContainer.add(threeDimSearchWindow);
 
                         threeDimSearchWindow.show();

@@ -14,30 +14,33 @@ Ext.define('Desktop.LoginWindow', {
     id: 'login-win',
 
     init: function () {
-        window.addEventListener("message", this.receiveMessage, false);
+
     },
 
-    receiveMessage: function(message){
-        try{
-            var loginUserInfo = JSON.parse(message.data);
-        }catch(e){
+    receiveMessage: function (message) {
+        try {
+            if (!message.data.type) {
+                var loginUserInfo = JSON.parse(message.data);
+                window.sessionStorage.setItem('krfLoginUser', message.data);
+                var loginModule = $KRF_APP.getDesktopModule('login-win');
+
+                window.removeEventListener('message', loginModule.receiveMessage);
+
+                var loginWindow = $KRF_APP.getDesktopWindow('login-win');
+                if (loginWindow) {
+                    loginWindow.close();
+                }
+
+                $KRF_APP.showWindowByMode();
+            }
+        } catch (e) {
             console.log(e);
         }
-        
-        window.sessionStorage.setItem('krfLoginUser', message.data);
-        var loginModule = $KRF_APP.getDesktopModule('login-win');
-
-        window.removeEventListener('message', loginModule.receiveMessage );
-
-        var loginWindow = $KRF_APP.getDesktopWindow('login-win');
-        if(loginWindow){
-            loginWindow.close();
-        }
-
-        $KRF_APP.showWindowByMode();
-
     },
     createWindow: function () {
+
+        window.addEventListener("message", this.receiveMessage, false);
+
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('login-win');
         if (!win) {
@@ -54,7 +57,7 @@ Ext.define('Desktop.LoginWindow', {
                 minimizable: false,
                 closable: false,
                 layout: 'fit',
-                draggable:false,
+                draggable: false,
                 items: [{
                     xtype: 'component',
                     itemId: 'login-iframe',
@@ -62,7 +65,7 @@ Ext.define('Desktop.LoginWindow', {
                         tag: 'iframe',
                         style: 'height: 100%; width: 100%;',
                         //내부망 url 변경
-                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url='+window.location.origin
+                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url=' + window.location.origin
                     }
                 }]
             });
