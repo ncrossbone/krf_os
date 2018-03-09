@@ -137,6 +137,9 @@ Ext.application({
 
 		me.currentMode = me.KRF_MODE;
 
+
+		this.checkBrowser();
+		
 		desktopApp = new krf_new.Desktop.App();
 
 		$('#pageloaddingDiv').remove();
@@ -162,16 +165,13 @@ Ext.application({
 
 	},
 	desktopLoaded: function () {
-
-		if (this.checkBrowser()) {
-			// 내부망 로그인정보 조회
-			var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-			loginInfo = {};
-			if (loginInfo == null) {
-				this.showLoginWindow();
-			} else {
-				this.showWindowByMode();
-			}
+		// 내부망 로그인정보 조회
+		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+		loginInfo = {};
+		if (loginInfo == null) {
+			this.showLoginWindow();
+		} else {
+			this.showWindowByMode();
 		}
 	},
 	showLoginWindow: function () {
@@ -355,7 +355,7 @@ Ext.application({
 
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
 
-			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAM);
+			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
 
 			/*
 			Ext.defer(function () {
