@@ -5,10 +5,10 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_NameController', {
 	alias: 'controller.threeDimSearchArea_NameController',
 
 	control: {
-		'#btnSearchText': {
+		'#btnThreeDimSearchText': {
 			click: 'onTextSearch'
 		},
-		'#textSearchText': {
+		'#textThreeDimSearchText': {
 			specialkey: function (f, e) {
 				if (e.getKey() == e.ENTER) {
 					this.onTextSearch();
@@ -17,27 +17,20 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_NameController', {
 		}
 	},
 	onTextSearch: function (button, eOpts) {
-		var btnCtl = null;
-		var btn = Ext.getCmp("btnSearchText");
+		var btn = Ext.getCmp("btnThreeDimSearchText");
 
-		var treeResach = Ext.getCmp("siteListTree");
+		var treeResach = Ext.getCmp("threeDimSiteListTree");
+		var store = Ext.create('krf_new.store.east.ThreeDimSiteListWindow', {
+			async: true
+		});
+
+		store.load();
 
 		if (treeResach != undefined) {
-			var store = treeResach.getStore();
-			store.nameInfo = btn.rawValue;
-			store.load();
+			treeResach.setStore(store);
 			treeResach.getView().refresh();
 		} else {
-
-			if (btn.disable == false) {
-				btnCtl = btn;
-			}
-			var currCtl = Ext.getCmp("btnSiteListWindow");
-			if (currCtl.btnOnOff == "off") {
-				SetBtnOnOff("btnSiteListWindow");
-			}
+			Ext.getCmp("threeDimSiteListTree").setStore(store);
 		}
-		$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'nameSearch' });
-		// Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
 	}
 });

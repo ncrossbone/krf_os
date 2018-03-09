@@ -27,17 +27,24 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 					parentNode.set('checked', false);
 				}
 			}
-			$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
+			var message = { type: 'layerOnOff', layers: [] };
+			message.layers.push({ layerNm: node.data.text, wmsId: node.data.wmsId, checked: checked });
+
+			$KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_WMS_LAYER_ON_OFF, message);
 		}
 	},
 
 	checkAllChildren: function (node, checked) {
 		var me = this;
 		var children = node.childNodes;
+		var message = { type: 'layerOnOff', layers: [] };
+
 		Ext.each(children, function (child, index, eObjs) {
 			child.set('checked', checked);
+			message.layers.push({ layerNm: child.data.text, wmsId: child.data.wmsId, checked: checked });
+
 			if (index == children.length - 1) {
-				$KRF_APP.fireEvent('dynamicLayerOnOff', me.getView().getChecked());
+				$KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_WMS_LAYER_ON_OFF, message);
 			}
 		});
 	},

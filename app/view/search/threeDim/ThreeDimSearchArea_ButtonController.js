@@ -12,8 +12,10 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ButtonController', {
 
 		var westContents = Ext.getCmp("searchThreeDimAreaContents");
 
+		Ext.getCmp('threeDimSearch-win').setHeight(480);
 		// 수계로 찾기
 		if (el.id == "btnThreeDimWaterSearch") {
+			
 			westContents.setActiveItem(0);
 		}
 
@@ -24,13 +26,9 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ButtonController', {
 
 		// 명칭으로 찾기
 		if (el.id == "btnThreeDimNameSearch") {
-			var btnNomal = Ext.getCmp("btnThreeDimModeNomal");
-			if (btnNomal.btnOnOff == "on")
-				westContents.setActiveItem(2);
+			westContents.setActiveItem(2);
 
-			var btnReach = Ext.getCmp("btnThreeDimModeReach");
-			if (btnReach.btnOnOff == "on")
-				westContents.setActiveItem(3);
+			Ext.getCmp('threeDimSearch-win').setHeight(580);
 		}
 	}
 });

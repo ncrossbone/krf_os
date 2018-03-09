@@ -7,7 +7,7 @@ var $KRF_DEFINE = null;
 
 
 // 버전 관리
-Ext.manifest.loader = { 'cache': '1.0.2', 'cacheParam': '_ver' };
+//Ext.manifest.loader = { 'cache': '1.0.2', 'cacheParam': '_ver' };
 
 Ext.create('Ext.data.Store', {
 	autoLoad: true,
@@ -90,7 +90,8 @@ var $KRF_EVENT = {
 	CENTERAT: 'centerAt',
 	THREEDIM_MOVE: 'threeDimMove',
 	SHOW_MAP_TOOLBAR: 'showMapToolbar',
-	CHECK_MAP_PARAMETER: 'checkMapParameter'
+	CHECK_MAP_PARAMETER: 'checkMapParameter',
+	THREE_DIM_WMS_LAYER_ON_OFF: 'threeDimWMSLayerOnOff'
 }
 
 var $KRF_WINS = {

@@ -27,6 +27,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 			store.nameInfo = btn.rawValue;
 			store.load();
 			treeResach.getView().refresh();
+			return;
 		} else {
 
 			if (btn.disable == false) {

@@ -27,6 +27,8 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         $KRF_APP.addListener($KRF_EVENT.THREEDIM_MOVE, this.sendMessage, this);
 
+        $KRF_APP.addListener($KRF_EVENT.THREE_DIM_WMS_LAYER_ON_OFF, this.sendMessage, this);
+
     },
 
     receiveMessage: function (param) {

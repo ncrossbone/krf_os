@@ -127,7 +127,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 				disabled: true,
 				cls: 'khLee-x-button-move'
 			}]
-		}, {
+		}/*, {
 			xtype: 'container',
 			height: 17
 		}, {
@@ -149,6 +149,6 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADM', {
 				id: 'btnThreeDimADMSelect',
 				cls: 'khLee-x-button-select'
 			}]
-		}]
+		}*/]
 	}]
 });
