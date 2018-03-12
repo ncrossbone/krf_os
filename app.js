@@ -7,7 +7,7 @@ var $KRF_DEFINE = null;
 
 
 // 버전 관리
-Ext.manifest.loader = { 'cache': '1.0.2', 'cacheParam': '_ver' };
+//Ext.manifest.loader = { 'cache': '1.0.2', 'cacheParam': '_ver' };
 
 Ext.create('Ext.data.Store', {
 	autoLoad: true,
@@ -89,7 +89,9 @@ var $KRF_EVENT = {
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
 	THREEDIM_MOVE: 'threeDimMove',
-	SHOW_MAP_TOOLBAR:'showMapToolbar'
+	SHOW_MAP_TOOLBAR: 'showMapToolbar',
+	CHECK_MAP_PARAMETER: 'checkMapParameter',
+	THREE_DIM_WMS_LAYER_ON_OFF: 'threeDimWMSLayerOnOff'
 }
 
 var $KRF_WINS = {
@@ -97,7 +99,8 @@ var $KRF_WINS = {
 	STATUS: { MAIN: { id: 'status-win' } },
 	ADMIN: { MAIN: { id: 'admin-win' } },
 	THREEDIM: { MAIN: { id: 'threeDim-win' } },
-	LOGIN: { MAIN: { id: 'login-win' } }
+	LOGIN: { MAIN: { id: 'login-win' } },
+	NOTICE: { id: 'browserNoticeWindow' }
 };
 
 var $KRF_APP = null;
@@ -145,6 +148,7 @@ Ext.application({
 		});
 
 		$KRF_APP.global = krf_new.global;
+		$KRF_APP.global.CommFn.isIEFunc();
 
 		$KRF_APP.addListener($KRF_EVENT.DESK_TOP_LOADED, me.desktopLoaded, me);
 		$KRF_APP.addListener($KRF_EVENT.MAP_WINDOW_LOADED, me.mapWindowLoaded, me);
@@ -159,20 +163,22 @@ Ext.application({
 	},
 	desktopLoaded: function () {
 
-		// 내부망 로그인정보 조회
-		var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-		loginInfo = {};
-		if (loginInfo == null) {
-			this.showLoginWindow();
-		} else {
-			this.showWindowByMode();
+		if (this.checkBrowser()) {
+			// 내부망 로그인정보 조회
+			var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+			loginInfo = {};
+			if (loginInfo == null) {
+				this.showLoginWindow();
+			} else {
+				this.showWindowByMode();
+			}
 		}
 	},
 	showLoginWindow: function () {
 		var dp = $KRF_APP.getDesktop();
 		var dpWidth = dp.getWidth();
 		var dpHeight = dp.getHeight();
-		
+
 		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
 		var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
 		//loginWindow = loginWindow.show();
@@ -279,7 +285,10 @@ Ext.application({
 	},
 	showThreeDimMode: function (centerCoord) {
 		//    	$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).release();
-
+		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10){
+			alert('3D 지도는 Internet Explorer 11 과 Chrome 에서 사용가능합니다.');
+			return;
+		}
 
 		var threeDimWindow = $KRF_APP.getDesktopWindow($KRF_WINS.THREEDIM.MAIN.id);
 
@@ -343,11 +352,13 @@ Ext.application({
 	coreMapLoaded: function (param) {
 		if (param.id == '_mapDiv_') {
 			var centerContainer = Ext.getCmp('center_container');
-			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow',{y:75});
+			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: 75 });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
 
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
+
+			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
 
 			/*
 			Ext.defer(function () {
@@ -358,6 +369,19 @@ Ext.application({
 			}, 500);
 			*/
 		}
+	},
+	checkBrowser: function () {
+		if (Ext.browser.is.IE == true && Ext.browser.version.major < 10) { // IE11 아래 버전 막기
+			var dp = $KRF_APP.getDesktop();
+			var dpWidth = dp.getWidth();
+			var dpHeight = dp.getHeight();
+
+			var noticeModule = $KRF_APP.getDesktopModule($KRF_WINS.NOTICE.id);
+			var noticeWindow = noticeModule.createWindow();
+			noticeWindow.show();
+			return false;
+		}
+		return true;
 	},
 	centerAt: function (coord) {
 		$KRF_APP.coreMap.transCoord(coord, function (transCoord) {

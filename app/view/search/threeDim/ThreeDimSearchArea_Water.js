@@ -129,7 +129,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 		}, {
 			xtype: 'container',
 			height: 17
-		}, {
+		}/*, {
 			xtype: 'container',
 			layout: {
 				type: 'hbox',
@@ -151,6 +151,6 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 		}, {
 			xtype: 'container',
 			height: 7
-		}]
+		}*/]
 	}]
 });

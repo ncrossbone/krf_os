@@ -14,9 +14,8 @@ Ext.define('Desktop.LoginWindow', {
     id: 'login-win',
 
     init: function () {
-        window.addEventListener("message", this.receiveMessage, false);
-    },
 
+<<<<<<< HEAD
     receiveMessage: function (message) {
         try {
             var loginUserInfo = JSON.parse(message.data);
@@ -33,11 +32,34 @@ Ext.define('Desktop.LoginWindow', {
         if (loginWindow) {
             loginWindow.close();
         }
+=======
+    },
 
-        $KRF_APP.showWindowByMode();
+    receiveMessage: function (message) {
+        try {
+            if (!message.data.type) {
+                var loginUserInfo = JSON.parse(message.data);
+                window.sessionStorage.setItem('krfLoginUser', message.data);
+                var loginModule = $KRF_APP.getDesktopModule('login-win');
 
+                window.removeEventListener('message', loginModule.receiveMessage);
+>>>>>>> 53a254dbcadfd153db575162586432253159de4c
+
+                var loginWindow = $KRF_APP.getDesktopWindow('login-win');
+                if (loginWindow) {
+                    loginWindow.close();
+                }
+
+                $KRF_APP.showWindowByMode();
+            }
+        } catch (e) {
+            console.log(e);
+        }
     },
     createWindow: function () {
+
+        window.addEventListener("message", this.receiveMessage, false);
+
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('login-win');
         if (!win) {

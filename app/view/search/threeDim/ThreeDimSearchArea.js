@@ -35,22 +35,16 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea', {
 			xtype: 'west-threeDimSearchArea_Water'
 		}, {
 			xtype: 'west-threeDimSearchArea_ADM'
-		}
-			, {
-			xtype: 'west-threeDimSearchArea_Name'
-		}
-			, {
+		}, {
 			xtype: 'container',
 			items: [{
-				xtype: 'west-threeDimSearchArea_Name_Rich'
+				xtype: 'west-threeDimSearchArea_Name'
 			}, {
-				xtype: 'west-threeDimSearchArea-list_Total'
-			}, {
-				xtype: 'west-threeDimSearchArea-list'
+				xtype: 'west-threeDimSearchArea_Name_SiteList'
 			}]
 		}]
 	}],
-
+	
 	listeners: {
 
 		resize: function () {
