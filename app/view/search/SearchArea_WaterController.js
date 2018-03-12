@@ -41,8 +41,12 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 	// 콤보 체인지
 	onAreaChange: function (combo, record, eOpts) {
 
-		if (combo.tarCmbId != undefined && combo.tarCmbId != "")
+		if (record.data) {
 			this.setComboData(combo.tarCmbId, record.data.id);
+		} else {
+			this.setComboData(combo.tarCmbId, record);
+		}
+
 
 		var lnkBtn = Ext.getCmp(combo.lnkBtnId);
 		lnkBtn.setDisabled(false);
@@ -112,7 +116,7 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 		//console.info(a);
 	},
 
-	onWaterSelect: function (button, eOpts) {
+	onWaterSelect: function (button, eOpts, bookMaker) {
 
 		// if(ChkSearchCondition("수계찾기")){
 		var btnCtl = null;
@@ -160,14 +164,24 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 					//console.info(store);
 					store.load();
 					treeResach.getView().refresh();
+
+
 				}
 			}
 			// 지점목록 창 띄우기
 			//			Ext.ShowSiteListWindow("waterSearch");
 
+			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', {
+				flag: 'water',
+				combo1: buttonInfo.lastValue,
+				combo2: buttonInfo2.lastValue,
+				combo3: buttonInfo3.lastValue
+			});
+
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
 				searchText: 'waterSearch',
-				searchType: null
+				searchType: null,
+				bookMaker: bookMaker
 			});
 		}
 	},

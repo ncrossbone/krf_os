@@ -74,6 +74,15 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 		return cArr;
 	},
 
+	callAjax: function (jsonStr) {
+		return $.ajax({
+			url: _API + '',
+			param: jsonStr,
+			type: 'post',
+			contentType: 'application/json'
+		});
+	},
+
 	items: [{
 		xtype: 'form',
 		cls: 'khLee-x-form',
@@ -96,7 +105,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 					type: 'hbox'
 				},
 				items: [{
-
+					id: 'favor-text',
 					layerId: '54',
 					xtype: 'textfield',
 					fieldLabel: '&nbsp;<img src="./resources/images/button/blit_st_01.png" /> <b>저장명:</b> ',
@@ -114,11 +123,71 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 					text: '저장',
 					listeners: {
 						click: function () {
-							var self = this.up('window');
-							var val = self.down('textfield').getValue();
-							if (val && val != '') {
-								var extent = self.coreMap.map.extent;
-								var level = self.coreMap.map.getLevel();
+							var saveName = Ext.getCmp('favor-text').lastValue;
+
+							if (saveName == '') {
+								return alert('저장명을 입력하세요.');
+							}
+
+							var krf = $KRF_APP;
+
+							var favorObj = {};
+
+							var date = new Date();
+
+							var favorWin = Ext.getCmp('Favorite');
+
+							var cmbCfg = ['cmbWater1', 'cmbWater2', 'cmbWater3', 'cmbArea1', 'cmbArea2', 'cmbArea3']
+							var cmbArr = [];
+
+							for (var i = 0; i < cmbCfg.length; i++) {
+								var cmb = Ext.getCmp(cmbCfg[i]);
+								if (cmb.disabled == false && cmb.lastValue != null) {
+									cmbArr.push({ id: cmb.id, value: cmb.lastValue });
+								}
+							}
+
+							var winCfg = ['siteListWindow', 'searchResultWindow', 'windowSiteNChart'];
+							var winArr = [];
+
+							for (var i = 0; i < winCfg.length; i++) {
+								var win = Ext.getCmp(winCfg[i]);
+								if (win != undefined) {
+									winArr.push({ winId: winCfg[i], hidden: win.hidden });
+								}
+							}
+
+							favorObj.cmb = cmbArr;
+							favorObj.win = winArr;
+							favorObj.date = date.yyyymmdd();
+							favorObj.name = saveName;
+							favroObj.result = $KRF_APP.global.CommFn.getBookmarkInfo();
+
+							favorObj.geoInfo = {
+								extent: krf.coreMap.map.extent,
+								level: krf.coreMap.map.getLevel()
+							};
+
+							favorWin.favoriteInfo.push(favorObj);
+							var jsonStr = JSON.stringify(favorObj);
+							//localStorage['_waterFavoriteInfo_'] = jsonStr;
+							favorWin.callAjax(jsonStr).done(function () {
+								favorWin.gridStore.loadData(favorWin.favoriteInfo);
+							}).fail(function () {
+								alert('저장을 실패했습니다.');
+							});
+
+							//							Ext.getCmp(id).fireEvent('select',Ext.getCmp(id),value);
+
+							//기존 즐겨찾기
+							/*var saveName = Ext.getCmp('favor-text').lastValue;
+							if (saveName != '') {
+								var krf = $KRF_APP;
+
+								var favorWindow = Ext.getCmp('Favorite');
+
+								var extent = krf.coreMap.map.extent;
+								var level = krf.coreMap.map.getLevel();
 								var date = new Date();
 
 								var reachLineGArr = [];
@@ -163,41 +232,21 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 								var yyyymmdd = date.yyyymmdd();
 								var saveObj = {
-									UID: dojo.dojox.uuid.generateRandomUuid(), NAME: val, DATE: yyyymmdd, EXTENT: extent.toJson(), LEVEL: level,
+									UID: dojo.dojox.uuid.generateRandomUuid(), NAME: saveName, DATE: yyyymmdd, EXTENT: extent.toJson(), LEVEL: level,
 									reachLineGArr: reachLineGArr,
 									reachAreaGArr: reachAreaGArr,
 									pointGArr: pointGArr,
 									symbolGArr: symbolGArr,
 									downLineGArr: downLineGArr
 								};
-								//								console.info(saveObj);
-								//self.favoriteInfo = [];
-								self.favoriteInfo.push(saveObj);
-								//console.info(self.favoriteInfo);
-								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
-								//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;
-								//console.info(localStorage['_waterFavoriteInfo_']);
-
-								/*
-								var info = JSON.stringify(self.favoriteInfo);
 								
-								alert("c");
-								//1. data params로 넘어가지 않는 문제.
-								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
-								Ext.Ajax.request({
-									url : "./resources/jsp/FavoriteInfo.jsp",
-									method : "POST",
-									success : function(result, request) {
-									},
-									failure : function(result, request) {
-										Ext.Msg.alert("Failed", "Connection Failed");
-									},
-									params:{info:info}
-								});
-								*/
+								favorWindow.favoriteInfo.push(saveObj);
+								localStorage['_waterFavoriteInfo_'] = JSON.stringify(favorWindow.favoriteInfo);*/
 
-								self.gridStore.loadData(self.favoriteInfo);
-							}
+							//favorWindow.gridStore.loadData(favorWindow.favoriteInfo);
+							/*} else {
+								alert('저장명을 입력하세요.');
+							}*/
 						}
 					}
 				}]

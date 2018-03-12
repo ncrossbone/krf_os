@@ -17,20 +17,20 @@ Ext.define('Desktop.LoginWindow', {
         window.addEventListener("message", this.receiveMessage, false);
     },
 
-    receiveMessage: function(message){
-        try{
+    receiveMessage: function (message) {
+        try {
             var loginUserInfo = JSON.parse(message.data);
-        }catch(e){
+        } catch (e) {
             console.log(e);
         }
-        
+
         window.sessionStorage.setItem('krfLoginUser', message.data);
         var loginModule = $KRF_APP.getDesktopModule('login-win');
 
-        window.removeEventListener('message', loginModule.receiveMessage );
+        window.removeEventListener('message', loginModule.receiveMessage);
 
         var loginWindow = $KRF_APP.getDesktopWindow('login-win');
-        if(loginWindow){
+        if (loginWindow) {
             loginWindow.close();
         }
 
@@ -54,7 +54,7 @@ Ext.define('Desktop.LoginWindow', {
                 minimizable: false,
                 closable: false,
                 layout: 'fit',
-                draggable:false,
+                draggable: false,
                 items: [{
                     xtype: 'component',
                     itemId: 'login-iframe',
@@ -62,7 +62,7 @@ Ext.define('Desktop.LoginWindow', {
                         tag: 'iframe',
                         style: 'height: 100%; width: 100%;',
                         //내부망 url 변경
-                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url='+window.location.origin
+                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url=' + window.location.origin
                     }
                 }]
             });

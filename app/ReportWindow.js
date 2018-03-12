@@ -11,39 +11,112 @@ Ext.define('Desktop.ReportWindow', {
     requires: [
     ],
 
-    id:'report-win',
+    id: 'report-win',
 
-    init : function(){
+    init: function () {
         this.launcher = {
             text: '레포트',
-            iconCls:'icon-grid'
+            iconCls: 'icon-grid'
         };
     },
 
-    createWindow : function(config){
+    createWindow: function (config) {
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('report-win');
         var cfg = Ext.applyIf(config || {}, {
-			            id: 'report-win',
-			            title:'레포트',
-			            width:740,
-			            height:480,
-			            iconCls: 'icon-grid',
-			            animCollapse:false,
-			            constrainHeader:true,
-			            layout: 'fit',
-			            items:[ {
-			                xtype: 'component',
-			                itemId: 'status-iframe',
-			                autoScroll: true,
-			                autoEl: {
-			                    tag: 'iframe',
-			                    style: 'height: 100%; width: 100%;',
-			                    src: 'http://112.217.167.123:48090/egov/main/site/dashboardInfo'
-			                }
-			            }]
-			        });
-        if(!win){
+            id: 'report-win',
+            title: '레포트',
+            width: 740,
+            height: 480,
+            iconCls: 'icon-grid',
+            animCollapse: false,
+            constrainHeader: true,
+            layout: 'fit',
+            items: [{
+                xtype: 'panel',
+                layout: 'vbox',
+                items: [{
+                    xtype: 'grid',
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['name', 'movecol'],
+                        proxy: {
+                            type: 'memory',
+                            reader: 'array'
+                        }
+                    }),
+                    columns: [{
+                        header: '레포트명',
+                        dataIndex: 'name',
+                        flex: true
+                    }, {
+                        header: '선택',
+                        dataIndex: 'movecol',
+                        flex: true,
+                        tdCls: 'myDraggable'
+                    }],
+                    viewConfig: {
+                        plugins: {
+                            ptype: 'gridviewdragdrop',
+                            dragText: '드래그해주세요.',
+                            dragZone: {
+                                onBeforeDrag: function (data, e) {
+                                    draggedCell = Ext.get(e.target.parentNode);
+                                    if (draggedCell.hasCls('myDraggable')) {
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    height: 200,
+                    width: 400
+                },{
+                    xtype: 'grid',
+                    store: Ext.create('Ext.data.Store', {
+                        fields: ['name', 'movecol'],
+                        data: [
+                            ["Case1", "1"],
+                            ["Case2", "2"],
+                            ["Case3", "3"],
+                            ["Case4", "4"]
+                        ],
+                        proxy: {
+                            type: 'memory',
+                            reader: 'array'
+                        }
+                    }),
+                    columns: [{
+                        header: '레포트명',
+                        dataIndex: 'name',
+                        flex: true
+                    }, {
+                        header: '선택',
+                        dataIndex: 'movecol',
+                        flex: true,
+                        tdCls: 'myDraggable'
+                    }],
+                    viewConfig: {
+                        plugins: {
+                            ptype: 'gridviewdragdrop',
+                            dragText: '드래그해주세요.',
+                            dragZone: {
+                                onBeforeDrag: function (data, e) {
+                                    draggedCell = Ext.get(e.target.parentNode);
+                                    if (draggedCell.hasCls('myDraggable')) {
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    height: 200,
+                    width: 400
+                }]
+            }]
+        });
+        if (!win) {
             win = desktop.createWindow(cfg);
         }
         return win;

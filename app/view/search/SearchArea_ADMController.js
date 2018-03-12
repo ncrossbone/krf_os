@@ -182,6 +182,13 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 				SetBtnOnOff("btnSiteListWindow");
 			}
 
+			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', {
+				flag: 'adm',
+				combo1: amdBtn1.lastValue,
+				combo2: amdBtn2.lastValue,
+				combo3: amdBtn3.lastValue
+			});
+
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'admSearch' });
 
 			// Ext.ShowSiteListWindow("admSearch"); // 지점목록 창 띄우기

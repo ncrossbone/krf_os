@@ -68,7 +68,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 				autoResize: true,
 				// navigationMode: 'classic',
 				testCount: 0
-				
+
 			});
 			me.gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
 
@@ -104,9 +104,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 			me.featureLayerAdmin = Ext.create('krf_new.view.map.FeatureLayerAdmin1', me.map);
 
 			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
-			
+
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
-			
+
 			$KRF_APP.addListener($KRF_EVENT.INITMINIMAPLINE, me.initMiniMapLine, me);
 			//        	dojo.connect(me.map,'onLoad', function(){
 			//        		debugger;
@@ -265,42 +265,42 @@ Ext.define('krf_new.view.map.CoreMap', {
 		var subCoreMap = Ext.getCmp("_subMapDiv_");
 
 		require(["esri/graphic"
-				, "esri/toolbars/edit"
-				, "dojo/_base/event"
-				, "esri/geometry/Polygon"
-				, "esri/symbols/SimpleLineSymbol"
-				,"esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
-					
-					//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
-					
-					var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
-					var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
-					graphic.id = "asd";
+			, "esri/toolbars/edit"
+			, "dojo/_base/event"
+			, "esri/geometry/Polygon"
+			, "esri/symbols/SimpleLineSymbol"
+			, "esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
 
-					coreMap.map.graphics.add(graphic);
+				//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
 
-					var editToolbar = new esri.toolbars.Edit(coreMap.map);
-					coreMap.map.graphics.on("click", function (evt) {
-						event.stop(evt);
+				var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
+				var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
+				graphic.id = "asd";
 
-						var options = {
-							allowAddVertices: true,
-							allowDeleteVertices: false,
-							uniformScaling: true
-						};
-						editToolbar.activate(Edit.MOVE|Edit.SCALE, evt.graphic, options);
-						
-					});
-					
-					coreMap.map.on('click', function(){
-						editToolbar.deactivate();
-						coreMap.map.testCount = 0;
-					});
+				coreMap.map.graphics.add(graphic);
 
-					//스케일 조정 stop, 드래그 이벤트 stop
-					editToolbar.on('scale-stop', coreMap.subMapSetExtent);
-					editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
+				var editToolbar = new esri.toolbars.Edit(coreMap.map);
+				coreMap.map.graphics.on("click", function (evt) {
+					event.stop(evt);
+
+					var options = {
+						allowAddVertices: true,
+						allowDeleteVertices: false,
+						uniformScaling: true
+					};
+					editToolbar.activate(Edit.MOVE | Edit.SCALE, evt.graphic, options);
+
 				});
+
+				coreMap.map.on('click', function () {
+					editToolbar.deactivate();
+					coreMap.map.testCount = 0;
+				});
+
+				//스케일 조정 stop, 드래그 이벤트 stop
+				editToolbar.on('scale-stop', coreMap.subMapSetExtent);
+				editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
+			});
 
 	},
 
@@ -346,7 +346,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 		$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);
 
 		// _mapDiv__gc 위치가 정상적으로 변경되지 않아 강제로 넣음
-		$('#_mapDiv__gc').css('transform','translate(0px, 0px)');
+		$('#_mapDiv__gc').css('transform', 'translate(0px, 0px)');
 	},
 
 	extentMove: function (extent, level) {
@@ -365,7 +365,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 	capture: function () {
 		var me = this;
 		me.printTask.capture();
-	}, favoriteExe: function (data) {
+	},
+
+	favoriteExe: function (data) {
 
 		var me = this;
 		var extentJson = data.EXTENT;
@@ -384,43 +386,43 @@ Ext.define('krf_new.view.map.CoreMap', {
 		deferred.then(function (value) {
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function (value) {
-				if (_krad.lineGrpLayer) {
-					_krad.lineGrpLayer.clear();
-					_krad.arrLineGrp = [];
+				if (me._krad.lineGrpLayer) {
+					me._krad.lineGrpLayer.clear();
+					me._krad.arrLineGrp = [];
 					for (var i = 0; i < reachLineGArr.length; i++) {
-						_krad.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
-						_krad.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
+						me._krad.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
+						me._krad.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
 					}
 				}
-				if (_krad.areaGrpLayer) {
-					_krad.areaGrpLayer.clear();
-					_krad.arrAreaGrp = [];
+				if (me._krad.areaGrpLayer) {
+					me._krad.areaGrpLayer.clear();
+					me._krad.arrAreaGrp = [];
 					for (var i = 0; i < reachAreaGArr.length; i++) {
-						_krad.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
-						_krad.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
+						me._krad.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
+						me._krad.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
 					}
 				}
 
-				if (_krad.tmpGrpLayer) {
-					_krad.tmpGrpLayer.clear();
+				if (me._krad.tmpGrpLayer) {
+					me._krad.tmpGrpLayer.clear();
 					for (var i = 0; i < pointGArr.length; i++) {
-						_krad.tmpGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
+						me._krad.tmpGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 
-				if (_krad.symGrpLayer) {
-					_krad.symGrpLayer.clear();
+				if (me._krad.symGrpLayer) {
+					me._krad.symGrpLayer.clear();
 					for (var i = 0; i < symbolGArr.length; i++) {
-						_krad.symGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
+						me._krad.symGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 
-				if (_krad.downGrpLayer) {
-					_krad.downGrpLayer.clear();
+				if (me._krad.downGrpLayer) {
+					me._krad.downGrpLayer.clear();
 					for (var i = 0; i < downLineGArr.length; i++) {
-						_krad.downGrpLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
+						me._krad.downGrpLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
