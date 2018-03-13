@@ -738,7 +738,7 @@
 },{
 	"id": "999",
 	"text": "소하천",
-	"cls": 'khLee-x-tree-node-text-bold',
+	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"siteIdCol": "SRIVER",
 	"checked": false
