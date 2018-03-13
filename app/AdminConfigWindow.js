@@ -15,7 +15,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 
 	init: function () {
 		this.launcher = {
-			text: 'Admin Window',
+			text: '설정',
 			iconCls: 'icon-grid'
 		};
 	},
@@ -83,7 +83,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 					autoEl: {
 						tag: 'iframe',
 						style: 'height: 100%; width: 100%;',
-						src: 'http://www.daum.net'
+						src: 'http://112.217.167.123:40002/arcgis/'
 					}
 				}, {
 					xtype: 'component',
@@ -92,7 +92,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 					autoEl: {
 						tag: 'iframe',
 						style: 'height: 100%; width: 100%;',
-						src: 'http://www.google.com'
+						src: 'http://112.217.167.123:40002/arcgis/'
 					}
 				}]
 			}]

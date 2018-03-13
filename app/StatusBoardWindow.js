@@ -15,7 +15,7 @@ Ext.define('Desktop.StatusBoardWindow', {
 
     init : function(){
         this.launcher = {
-            text: 'Status Window',
+            text: '현황판',
             iconCls:'icon-grid'
         };
     },

@@ -1,26 +1,25 @@
 [{
 	"id": "0",
 	"text": "수질측정지점",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "1",
-		"text": "하천수 <a onclick='metaDataView(\"A001\")'  style='padding-right: 40px; float:right' href='#''> <img width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' /> </a> ",
-		"wmsId":"93",
+		"wmsId": "93",
+		"text": "하천수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
 		"leaf": true,
 		"checked": true,
-		"visible": true,
-		"siteIdCol": "측정소코드",
-		"siteAddrCol": "채수지점",
+		"visible": true, // 보이기 여부 (숨김 상태에서 데이터 필요 시 false로 설정)
+		"siteIdCol": "측정소코드", // 레이어 지점코드에 해당하는 컬럼명
 		"siteNmCol": "측정소명",
+		"siteAddrCol": "채수지점",
 		"layerCode": "A001"
 	}, {
 		"id": "2",
-		"wmsId":"92",
 		"text": "호소수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer2",
@@ -29,10 +28,9 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A002"
+		"layerCode": "A002",
 	}, {
 		"id": "3",
-		"wmsId":"91",
 		"text": "농업용수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer3",
@@ -41,10 +39,9 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A003"
+		"layerCode": "A003",
 	}, {
 		"id": "4",
-		"wmsId":"90",
 		"text": "산단하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer4",
@@ -53,10 +50,9 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A004"
+		"layerCode": "A004",
 	}, {
 		"id": "5",
-		"wmsId":"89",
 		"text": "도시관류",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer5",
@@ -65,10 +61,9 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A005"
+		"layerCode": "A005",
 	}, {
 		"id": "6",
-		"wmsId":"88",
 		"text": "중권역대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer6",
@@ -79,7 +74,6 @@
 		"siteAddrCol": "채수지점"
 	}, {
 		"id": "7",
-		"wmsId":"87",
 		"text": "보대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer7",
@@ -92,7 +86,7 @@
 }, /*{
 	"id": "8",
 	"text": "수질자동측정지점",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
@@ -116,7 +110,7 @@
 		"siteIdCol": "사업장코드",
 		"siteNmCol": "사업장명칭",
 		"siteAddrCol": "사업장주소",
-		"layerCode": "B002"
+		"layerCode": "B002",
 	},{
 		"id": "10",
 		"text": "수질자동측정망",
@@ -127,18 +121,17 @@
 		"siteIdCol": "CODE",
 		"siteNmCol": "PT_NM",
 		"siteAddrCol": "ADDR",
-		"layerCode": "B001"
+		"layerCode": "B001",
 	}]
 },*/ {
 	"id": "12",
 	"text": "퇴적물조사지점",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "13",
-		"wmsId":"81",
 		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer13_2",
@@ -147,10 +140,9 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "채취지점_",
-		"layerCode": "C001"
+		"layerCode": "C001",
 	},{
 		"id": "14",
-		"wmsId":"80",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer13_3",
@@ -159,18 +151,17 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "채취지점_",
-		"layerCode": "C002"
+		"layerCode": "C002",
 	}]
 },{
 	"id": "34",
 	"text": "조류모니터링",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "35",
-		"wmsId":"59",
 		"text": "보 모니터링",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer81",
@@ -179,10 +170,9 @@
 		"siteIdCol": "PT_NO",
         "siteNmCol": "PT_NM",
         "siteAddrCol": "ADDRESS",
-		"layerCode": "I001"
+		"layerCode": "I001",
 	},{
 		"id": "36",
-		"wmsId":"58",
 		"text": "상수원구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer82",
@@ -191,10 +181,9 @@
 		"siteIdCol": "지점코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "I002"
+		"layerCode": "I002",
 	},{
 		"id": "37",
-		"wmsId":"57",
 		"text": "친수활동구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer83",
@@ -203,18 +192,17 @@
 		"siteIdCol": "지점코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "I003"
+		"layerCode": "I003",
 	}]
 },{
 	"id": "38",
 	"text": "방사성물질조사지점",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "39",
-		"wmsId":"55",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer77",
@@ -223,10 +211,9 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G002"
+		"layerCode": "G002",
 	},{
 		"id": "40",
-		"wmsId":"54",
 		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer78",
@@ -235,18 +222,17 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G001"
+		"layerCode": "G001",
 	}]
 }, {
 	"id": "15",
 	"text": "기타측정지점",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "16",
-		"wmsId":"78",
 		"text": "수위관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer15",
@@ -255,10 +241,9 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D001"
+		"layerCode": "D001",
 	}, {
 		"id": "17",
-		"wmsId":"77",
 		"text": "우량관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer16",
@@ -267,10 +252,9 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D002"
+		"layerCode": "D002",
 	}, {
 		"id": "18",
-		"wmsId":"76",
 		"text": "유량관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer17",
@@ -279,10 +263,9 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D003"
+		"layerCode": "D003",
 	}, {
 		"id": "19",
-		"wmsId":"75",
 		"text": "댐관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer18",
@@ -291,10 +274,9 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D004"
+		"layerCode": "D004",
 	}, {
 		"id": "20",
-		"wmsId":"74",
 		"text": "AWS기상관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer19",
@@ -303,10 +285,9 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D005"
+		"layerCode": "D005",
 	}, {
 		"id": "21",
-		"wmsId":"73",
 		"text": "지상기상관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer20",
@@ -315,10 +296,9 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D006"
+		"layerCode": "D006",
 	}, {
 		"id": "22",
-		"wmsId":"72",
 		"text": "보관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer21",
@@ -327,18 +307,17 @@
 		"siteIdCol": "PT_NO",
 		"siteNmCol": "보명",
 		"siteAddrCol": "ADDR",
-		"layerCode": "D007"
+		"layerCode": "D007",
 	}]
 }, {
 	"id": "23",
 	"text": "수생태계",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "24",
-		"wmsId":"70",
 		"text": "수생태계조사지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer23",
@@ -347,18 +326,17 @@
 		"siteIdCol": "조사지코드",
 		"siteNmCol": "조사지명",
 		"siteAddrCol": "ADDR",
-		"layerCode": "E001"
+		"layerCode": "E001",
 	}]
 }, {
 	"id": "25",
 	"text": "환경기초시설",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "26",
-		"wmsId":"68",
 		"text": "축산폐수공공처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer25",
@@ -367,10 +345,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F006"
+		"layerCode": "F006",
 	}, {
 		"id": "27",
-		"wmsId":"67",
 		"text": "하수종말처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer26",
@@ -379,10 +356,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F008"
+		"layerCode": "F008",
 	}, {
 		"id": "28",
-		"wmsId":"66",
 		"text": "산업폐수종말처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer27",
@@ -391,10 +367,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F004"
+		"layerCode": "F004",
 	}, {
 		"id": "29",
-		"wmsId":"65",
 		"text": "분뇨처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer28",
@@ -403,10 +378,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F003"
+		"layerCode": "F003",
 	}, {
 		"id": "30",
-		"wmsId":"64",
 		"text": "매립장침출수처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer29",
@@ -415,10 +389,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F006"
+		"layerCode": "F006",
 	}, {
 		"id": "31",
-		"wmsId":"63",
 		"text": "마을하수도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer30",
@@ -427,10 +400,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F007"
+		"layerCode": "F007",
 	}, {
 		"id": "32",
-		"wmsId":"62",
 		"text": "농공단지처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer31",
@@ -439,10 +411,9 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F001"
+		"layerCode": "F001",
 	}, {
 		"id": "33",
-		"wmsId":"61",
 		"text": "기타공동처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer32",
@@ -451,12 +422,12 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F002"
+		"layerCode": "F002",
 	}]
 }, /*{
 	"id": "49",
 	"text": "비점오염원",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
@@ -472,14 +443,13 @@
 }, */{
 	"id": "76",
 	"text": "호소",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"visible": false,
 	"checked": true,
 	"expanded": true,
 	"children": [{
 		"id": "77",
-		"wmsId":"17",
 		"visible": false,
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -491,14 +461,13 @@
 },{
 	"id": "52",
 	"text": "하천망도",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "53",
 		"text": "리치흐름",
-		"wmsId":"41",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer49",
 		"leaf": true,
@@ -506,7 +475,6 @@
 		"siteIdCol": "RCH_FLW"
 	},{
 		"id": "54",
-		"wmsId":"40",
 		"text": "리치노드",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer46",
@@ -515,7 +483,6 @@
 		"siteIdCol": "NODE_DID"
 	}, {
 		"id": "55",
-		"wmsId":"39",
 		"text": "리치라인",
 		"layerBtnId": ["btnReachLayer"],
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -525,7 +492,6 @@
 		"siteIdCol": "RCH_DID"
 	}, {
 		"id": "56",
-		"wmsId":"38",
 		"text": "집수구역",
 		"layerBtnId": ["btnAreaLayer"],
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -537,13 +503,12 @@
 }, {
 	"id": "57",
 	"text": "하천",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "58",
-		"wmsId":"36",
 		"text": "국가하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer50",
@@ -552,7 +517,6 @@
 		"siteIdCol": "STRCODE"
 	}, {
 		"id": "59",
-		"wmsId":"35",
 		"text": "지방하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer51",
@@ -563,13 +527,12 @@
 }, {
 	"id": "61",
 	"text": "수질영향권역",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "62",
-		"wmsId":"32",
 		"text": "대권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer54",
@@ -578,7 +541,6 @@
 		"siteIdCol": "WS_CD"
 	}, {
 		"id": "63",
-		"wmsId":"31",
 		"text": "중권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer55",
@@ -587,7 +549,6 @@
 		"siteIdCol": "MW_CODE"
 	}, {
 		"id": "64",
-		"wmsId":"30",
 		"text": "소권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer56",
@@ -598,13 +559,12 @@
 }, {
 	"id": "65",
 	"text": "행정구역(법정동)",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "65",
-		"wmsId":"28",
 		"text": "법정동_시도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer58",
@@ -613,7 +573,6 @@
 		"siteIdCol": "ADM_CD"
 	}, {
 		"id": "67",
-		"wmsId":"27",
 		"text": "법정동_시군구",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer59",
@@ -622,7 +581,6 @@
 		"siteIdCol": "ADM_CD"
 	}, {
 		"id": "68",
-		"wmsId":"26",
 		"text": "법정동_읍면동",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer60",
@@ -631,7 +589,6 @@
 		"siteIdCol": "ADM_CD"
 	}, {
 		"id": "69",
-		"wmsId":"25",
 		"text": "법정동_동리",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer61",
@@ -642,7 +599,7 @@
 }, /* {
 	"id": "70",
 	"text": "식생도(전국)",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
@@ -657,7 +614,7 @@
 }, {
 	"id": "72",
 	"text": "토지피복도(전국)",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
@@ -672,7 +629,7 @@
 },{
 	"id": "78",
 	"text": "수질보호구역",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
@@ -722,24 +679,16 @@
 }, */ {
 	"id": "87",
 	"text": "총량관리단위유역",
-	"cls": "khLee-x-tree-node-text-bold",
+	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "88",
-		"wmsId":"6",
 		"text": "총량관리단위유역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer80",
 		"leaf": true,
 		"checked": false
 	}]
-},{
-	"id": "999",
-	"text": "소하천",
-	"cls": 'khLee-x-tree-node-text-bold',
-	"iconCls": "layerNoneImg",
-	"siteIdCol": "SRIVER",
-	"checked": false
 }]

@@ -5,29 +5,29 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADMController', {
 	alias: 'controller.threeDimSearchArea_ADMController',
 
 	control: {
-		'#cmbArea1': {
+		'#cmbThreeDimArea1': {
 			afterrender: 'onCombo1Render',
 			select: 'onAreaChange'
 		},
-		'#cmbArea2': {
+		'#cmbThreeDimArea2': {
 			select: 'onAreaChange'
 		},
-		'#cmbArea3': {
+		'#cmbThreeDimArea3': {
 			select: 'onAreaChange'
 		},
-		'#btnSearch1': {
+		'#btnThreeDimSearch1': {
 			click: 'onAreaSearch'
 		},
-		'#btnSearch2': {
+		'#btnThreeDimSearch2': {
 			click: 'onAreaSearch'
 		},
-		'#btnSearch3': {
+		'#btnThreeDimSearch3': {
 			click: 'onAreaSearch'
 		},
-		'#btnADMSelect': {
+		'#btnThreeDimADMSelect': {
 			click: 'onADMSelect'
 		},
-		'#btnADMReset': {
+		'#btnThreeDimADMReset': {
 			click: 'onADMReset'
 		}
 	},
@@ -115,23 +115,47 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_ADMController', {
 		var combo = Ext.getCmp(button.lnkCmbId);
 		var searchLayerId = combo.layerId;
 		var searchText = combo.getValue();
-		KRF_DEV.getApplication().fireEvent('areaSelect', { admCd: searchText, layerId: searchLayerId });
+		
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + searchLayerId);
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = { "wkid": 4019 };
 
+		query.where = "ADM_CD = '" + searchText + "'";
+
+		query.outFields = ["*"];
+		queryTask.execute(query, function (results) {
+			Ext.each(results.features, function (obj, index) {
+				var centerCoord = esri.geometry.Polygon(obj.geometry).getExtent().getCenter();
+				$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {
+					type:'move',
+					coord: centerCoord
+				});
+			});
+		});
+
+		dojo.connect(queryTask, "onError", function (err) {
+			//console.info(err);
+			alert("오류가 발생하였습니다.")
+		});
+		/*
 		var centerCtl = Ext.getCmp("center_container");
 
-		if (combo.id == "cmbArea1") {
+		if (combo.id == "cmbThreeDimArea1") {
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
 		}
 
-		if (combo.id == "cmbArea2") {
-			var wsCtl = Ext.getCmp("cmbArea1");
+		if (combo.id == "cmbThreeDimArea2") {
+			var wsCtl = Ext.getCmp("cmbThreeDimArea1");
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
 		}
-		if (combo.id == "cmbArea3") {
-			var wsCtl = Ext.getCmp("cmbArea1");
-			var msCtl = Ext.getCmp("cmbArea2");
+		if (combo.id == "cmbThreeDimArea3") {
+			var wsCtl = Ext.getCmp("cmbThreeDimArea1");
+			var msCtl = Ext.getCmp("cmbThreeDimArea2");
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + msCtl.rawValue + " > " + combo.rawValue);
 		}
+
+		*/
 	},
 
 	// 선택 버튼

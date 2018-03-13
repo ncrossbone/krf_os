@@ -12,6 +12,8 @@ Ext.define('krf_new.store.west.SearchArea_ADM', {
 
 	listeners: {
 		beforeload: function (store) {
+			
+
 			var idColumn, nameColumn, whereStr;
 
 			idColumn = "ADM_CD";

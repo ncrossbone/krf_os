@@ -115,7 +115,7 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 		var combo = Ext.getCmp(button.lnkCmbId);
 		var searchLayerId = combo.layerId;
 		var searchText = combo.getValue();
-		$KRF_APP.getApplication().fireEvent('areaSelect', { admCd: searchText, layerId: searchLayerId });
+		$KRF_APP.fireEvent($KRF_EVENT.AREA_SELECT, { admCd: searchText, layerId: searchLayerId });
 
 		var centerCtl = Ext.getCmp("center_container");
 
@@ -181,6 +181,13 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 			if (currCtl.btnOnOff == "off") {
 				SetBtnOnOff("btnSiteListWindow");
 			}
+
+			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', {
+				flag: 'adm',
+				combo1: amdBtn1.lastValue,
+				combo2: amdBtn2.lastValue,
+				combo3: amdBtn3.lastValue
+			});
 
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'admSearch' });
 

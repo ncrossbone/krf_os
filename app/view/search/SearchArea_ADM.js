@@ -33,7 +33,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-				layerId: 66,
+				layerId: $KRF_DEFINE.admSidoLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -67,7 +67,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-				layerId: 67,
+				layerId: $KRF_DEFINE.admSigunguLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -102,7 +102,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-				layerId: 68,
+				layerId: $KRF_DEFINE.admDongLayerId,
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',

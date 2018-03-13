@@ -52,13 +52,13 @@ Ext.define('Ext.ux.desktop.TaskBar', {
                 menuAlign: 'bl-tl',
                 text: me.startBtnText
             },
-            '&nbsp;',
-            me.quickStart,
-            {
-                xtype: 'splitter', html: '&#160;',
-                height: 14, width: 4, // TODO - there should be a CSS way here
-                cls: 'x-toolbar-separator x-toolbar-separator-horizontal'
-            },
+            // '&nbsp;',
+            // me.quickStart,
+            // {
+            //     xtype: 'splitter', html: '&#160;',
+            //     height: 14, width: 4, // TODO - there should be a CSS way here
+            //     cls: 'x-toolbar-separator x-toolbar-separator-horizontal'
+            // },
             me.windowBar,
             '-',
             me.tray

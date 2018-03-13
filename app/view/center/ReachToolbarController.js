@@ -556,5 +556,22 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		$KRF_APP.coreMap.transCoord(centerCoord, function (transCoord) {
 			$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { mode: $KRF_APP.THREEDIM_MODE, coord: transCoord[0] });
 		}, 102100, 4019);
+	},
+	
+	//소하천 dynamic 켜기
+	onClickSRiver: function(obj, el, evt){
+		
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+		
+		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
+		
+		if(btnLayerSRiver == "on"){
+			DynamicLayerSRiver.setVisibleLayers([-1]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+		}else{
+			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+		}
 	}
 });

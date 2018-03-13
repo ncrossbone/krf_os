@@ -316,6 +316,7 @@ Ext.define("krf_new.global.CommFn", {
 	},
 	getLoginUserInfo: function () {
 		var loginUserInfo = window.sessionStorage.getItem('krfLoginUser');
+
 		if (loginUserInfo != null) {
 			try {
 				return JSON.parse(loginUserInfo);
@@ -323,7 +324,7 @@ Ext.define("krf_new.global.CommFn", {
 				console.log(e);
 			}
 		}
-		return null;
+		return this.getParamLoginInfo();
 	},
 	getLoginUserId: function () {
 		var loginUserInfo = this.getLoginUserInfo();
@@ -331,5 +332,29 @@ Ext.define("krf_new.global.CommFn", {
 			return loginUserInfo.userId;
 		}
 		return;
+	},
+	getParamLoginInfo: function () {
+		var getParam = location.href.split('param=')[1];
+
+		if (getParam != null) {
+			var decodeUriObj = decodeURIComponent(getParam);
+			window.sessionStorage.setItem('krfLoginUser', decodeUriObj);
+			try {
+				return JSON.parse(decodeUriObj);
+			} catch (e) {
+				console.log(e);
+			}
+		}
+		return;
+	},
+
+	bookmarkInfo: {},
+
+	setBookmarkInfo: function (flag, param) {
+		this.bookmarkInfo[flag] = param;
+	},
+
+	getBookmarkInfo: function () {
+		return this.bookmarkInfo;
 	}
 });

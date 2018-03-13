@@ -16,6 +16,8 @@
 	"baseMapUrl_vworld_test": "http://112.218.1.243:20080/2d/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맵 서비스 테스트 서버 (참고용)
 	"baseMapUrl_vworld_old": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맵 서비스 예전버전 2013년
 	
+	"waterLoginUrl": "http://192.168.0.233:8081/jsp/login/login.jsp?", // 물환경정보시스템 로그인
+
 	"sRiver" : "http://112.217.167.123:40002/arcgis/rest/services/SRiver/MapServer",   //소하천 서비스
 	"sRiverNode" : "0",   //소하천 노드
 	"sRiverReach" : "1",   //소하천 리치

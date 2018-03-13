@@ -123,7 +123,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_WaterController', {
 		queryTask.execute(query, function (results) {
 			Ext.each(results.features, function (obj, index) {
 				var centerCoord = esri.geometry.Polygon(obj.geometry).getExtent().getCenter();
-				$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_MOVE, {
+				$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {
 					type:'move',
 					coord: centerCoord
 				});
