@@ -1284,7 +1284,9 @@ GetTabControl = function (options) {
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function (catIds) {
-
+	$KRF_APP.global.CommFn.setBookmarkInfo('showSearchResultReach', {
+		catIds: catIds
+	});
 	var centerContainer = Ext.getCmp('center_container');
 
 	var windowWidth = centerContainer.getWidth();
@@ -1669,6 +1671,12 @@ ChkSearchCondition = function (sType, siteIds, parentId, titleText, gridId) {
 
 
 siteMovePoint = function (parentNodeId, nodeId, clickValue) {
+	
+	$KRF_APP.global.CommFn.setBookmarkInfo('siteMovePoint', {
+		parentNodeId: parentNodeId,
+		nodeId: nodeId,
+		clickValue: clickValue
+	});
 
 	if (nodeId == undefined || nodeId == null || nodeId == "") {
 		return;
@@ -1821,8 +1829,8 @@ ResetButtonClick = function () {
 	reachAdmin.arrLineGrp = [];
 	reachAdmin.arrAreaGrpTmp = [];
 	reachAdmin.arrAreaGrp = [];
-	
-	
+
+
 
 	//---north
 	// 항공영상 초기화
@@ -2533,37 +2541,37 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
 
-setActionInfo = function(node, parentId , data , id ,type){
-	
-    //1DEP 일시
-    if(node == 0){
-        node = id;
-    }
-    
-    Ext.Ajax.request({
-        url: _API.ClickSession,
-        params: { node : node , parentId : parentId , data:data , id : id , type : type},
-        async: true, // 비동기 = async: true, 동기 = async: false
-        failure: function(form, action) {
-        }
+setActionInfo = function (node, parentId, data, id, type) {
+
+	//1DEP 일시
+	if (node == 0) {
+		node = id;
+	}
+
+	Ext.Ajax.request({
+		url: _API.ClickSession,
+		params: { node: node, parentId: parentId, data: data, id: id, type: type },
+		async: true, // 비동기 = async: true, 동기 = async: false
+		failure: function (form, action) {
+		}
 	});
-	
+
 
 }
 
 //메타 데이터 확인
-metaDataView = function(layerId){
+metaDataView = function (layerId) {
 
 	var metaDataWindow = Ext.getCmp('metaDataWindow');
-	if(metaDataWindow == undefined){
+	if (metaDataWindow == undefined) {
 		//$KRF_APP.fireEvent($KRF_EVENT.SHOWMETADATAWINDOW);
 		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
 		metaDataWindow.show();
-		
+
 
 		// var metaStore = null;
 		// metaStore = Ext.create('krf_new.store.west.MetaDataStore');
-		
+
 		// metaStore.layerId = layerId;
 		// metaStore.load();
 		// var metaData1 = Ext.getCmp('metaData1');
@@ -2572,5 +2580,5 @@ metaDataView = function(layerId){
 		//metaDataWindow.setStore(featureSet.features[0].attributes);
 		//var meatStore = 
 	}
-	
+
 };

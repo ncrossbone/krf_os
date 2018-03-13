@@ -24,6 +24,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			var startPoint = Ext.getCmp("textSearchText_Start");
 			var endPoint = Ext.getCmp("textSearchText_End");
 
+
 			if (store.param.isBookmark) {
 				var bookmarkData = store.param.bookmarkData;
 				if (store.param.searchText = 'waterSearch') {
@@ -39,25 +40,34 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 			}
 
+			var bookParamObj = { searchText: store.param.searchText };
+
 			//var catDid = [];
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			if (buttonInfo1.lastValue != null) {
+				bookParamObj.value1 = buttonInfo1.lastValue;
 				if (buttonInfo3.lastValue == null || buttonInfo3.lastValue == "") {
+					bookParamObj.value2 = buttonInfo2.lastValue;
 					query.where = "CAT_DID like '" + buttonInfo2.lastValue + "%'";
 				} else {
+					bookParamObj.value3 = buttonInfo3.lastValue;
 					query.where = "CAT_DID like '" + buttonInfo3.lastValue + "%'";
 				}
 			} else if (buttonInfo1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "" && nameInfo.rawValue == "") {
 				if (amdBtn2.lastValue == null) {
+					bookParamObj.value1 = amdBtn1.lastValue;
 					query.where = "ADM_CD like '" + amdBtn1.lastValue + "%'";
 				} else if (amdBtn2.lastValue != null && amdBtn3.lastValue == null) {
+					bookParamObj.value2 = amdBtn2.lastValue;
 					query.where = "ADM_CD like '" + amdBtn2.lastValue.substring(0, 5) + "%'";
 				} else {
+					bookParamObj.value3 = amdBtn3.lastValue;
 					query.where = "ADM_CD like '" + amdBtn3.lastValue.substring(0, 7) + "%'";
 				}
 			} else if (buttonInfo1.lastValue == null && amdBtn1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "") {
+				bookParamObj.value1 = nameInfo.rawValue;
 				query.where = "JIJUM_NM like '" + nameInfo.rawValue + "%'";
 			} else {
 				if (endPoint.rawValue == "") {
@@ -66,6 +76,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					query.where = "JIJUM_NM like '" + endPoint.rawValue + "%'";
 				}
 			}
+
+			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', bookParamObj);
 
 			//물환경 연동
 			if (store.searchType == "paramSearch") {

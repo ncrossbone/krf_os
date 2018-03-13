@@ -443,7 +443,6 @@ Ext.define('Desktop.MapWindow', {
 			store.paramType = searchType;
 		}
 		store.searchType = param.searchText;
-		store.bookmark = param.bookmark;
 		store.load();
 		treeCtl.setStore(store);
 

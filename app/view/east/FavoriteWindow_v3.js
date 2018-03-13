@@ -44,20 +44,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 			this.coreMap = GetCoreMap();
 			this.gridStore = this.down('gridpanel').getStore();
 
-			var userId = 'testid';
-			this.callAjax('getBookmark', { userId: userId }).done(function (obj) {
-				var jsonObj = JSON.parse(obj).data;
-				if (jsonObj.length > 0) {
-					var arr = [];
-
-					for (var i = 0; i < jsonObj.length; i++) {
-						arr.push(JSON.parse(jsonObj[i].RM));
-					}
-					me.gridStore.loadData(arr);
-				}
-			}).fail(function () {
-				alert('즐겨찾기 로드 실패.');
-			});
+			this.getBookmark();
 			// if (localStorage['_waterFavoriteInfo_']) {
 			// 	this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
 
@@ -89,12 +76,45 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	},
 
 	callAjax: function (url, param) {
+		param.userId = 'testid';
 		return $.ajax({
+			//url: _API.Bookmark + url,
 			url: 'http://localhost:8070/krf/bookmark/' + url,
 			data: param,
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			type: 'post'
 		});
+	},
+
+	getBookmark: function () {
+		var me = this;
+		var def = new $.Deferred;
+
+		this.callAjax('getBookmark', {}).done(function (obj) {
+			def.resolve();
+			me.writeBookmark(obj);
+		}).fail(function () {
+			alert('즐겨찾기 로드 실패');
+			def.reject();
+		});
+
+		return def.promise();
+	},
+
+	writeBookmark: function (obj) {
+		var me = this;
+		var jsonObj = JSON.parse(obj).data;
+		if (jsonObj.length > 0) {
+			var arr = [];
+			for (var i = 0; i < jsonObj.length; i++) {
+				var rm = JSON.parse(jsonObj[i].RM);
+				rm.sn = jsonObj[i].SN;
+				arr.push(rm);
+			}
+			me.gridStore.loadData(arr);
+		} else {
+			me.gridStore.loadData([]);
+		}
 	},
 
 	items: [{
@@ -159,7 +179,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 								if (cmb.disabled == false && cmb.lastValue != null) {
 									var childCom = Ext.getCmp(cmb.tarCmbId);
 									var childValue = null;
-									if(childCom){
+									if (childCom) {
 										childValue = childCom.lastValue;
 									}
 									cmbArr.push({ id: cmb.id, value: cmb.lastValue, childValue: childValue });
@@ -188,23 +208,9 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 							};
 
 							var jsonStr = JSON.stringify(favorObj);
-							var userId = 'testid';
 
-							favorWin.callAjax('putBookmark', { userId: userId, param: jsonStr }).done(function () {
-								favorWin.callAjax('getBookmark', { userId: userId }).done(function (obj) {
-									var jsonObj = JSON.parse(obj).data;
-									if (jsonObj.length > 0) {
-										var arr = [];
-
-										for (var i = 0; i < jsonObj.length; i++) {
-											arr.push(JSON.parse(jsonObj[i].RM));
-										}
-
-										favorWin.gridStore.loadData(arr);
-									}
-								}).fail(function () {
-									alert('즐겨찾기 로드 실패.');
-								});
+							favorWin.callAjax('putBookmark', { param: jsonStr }).done(function () {
+								favorWin.getBookmark();
 							}).fail(function () {
 								alert('저장을 실패했습니다.');
 							});
@@ -323,19 +329,19 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 							text: '삭제',
 							listeners: {
 								click: function () {
-									var self = this.up('window');
-									var grid = self.down('gridpanel');
-									var uid = grid.selection.data.UID;
-									var gridData = [];
-									for (var i = 0; i < self.favoriteInfo.length; i++) {
-										if (self.favoriteInfo[i].UID != uid) {
-											gridData.push(self.favoriteInfo[i])
-										}
+									var bookmarkGrid = Ext.getCmp('bookmark-grid');
+
+									if (bookmarkGrid == null || bookmarkGrid.selection == null) {
+										return;
 									}
-									self.favoriteInfo = gridData;
-									localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
-									//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;
-									self.gridStore.loadData(self.favoriteInfo);
+									var favorWin = Ext.getCmp('Favorite');
+
+									favorWin.callAjax('deleteBookmark', { sn: bookmarkGrid.selection.getData().sn }).done(function () {
+										favorWin.getBookmark();
+									}).fail(function () {
+										alert('즐겨찾기 삭제 실패');
+									});
+
 								}
 							}
 						}, {
@@ -363,7 +369,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 												var comboDatas = comStore.getData();
 
 												if (comboDatas && comboDatas.length > 0) {
-													comInstance.setValue(selectData.cmb[i].value);											
+													comInstance.setValue(selectData.cmb[i].value);
 												}
 												comInstance.fireEvent('select', comInstance, null, selectData.cmb[i].value, selectData.cmb[i].childValue);
 											}
@@ -381,11 +387,25 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 										if (selectData.result.siteNChart) {
 											var siteNChartData = selectData.result.siteNChart;
 											ShowWindowSiteNChart(siteNChartData.tabIdx, siteNChartData.title, siteNChartData.test, siteNChartData.parentId, siteNChartData.chartFlag);
+											if (selectData.result.siteMovePoint) {
+												var siteMovePointData = selectData.result.siteMovePoint;
+												siteMovePoint(siteMovePointData.parentNodeId, siteMovePointData.nodeId, siteMovePointData.clickValue);
+											}
 										}
-										if(selectData.result.searchResult){
+
+										if (selectData.result.showSearchResultReach) {
+											var showSearchResultReachData = selectData.result.showSearchResultReach;
+											ShowSearchResultReach(showSearchResultReachData.catIds);
+										}
+
+										if (selectData.result.searchResult) {
 											if (selectData.result.searchResult.length > 0) {
 												var searchResultData = selectData.result.searchResult;
-												ShowSearchResult(searchResultData[0].siteIds, searchResultData[0].parentIds, searchResultData[0].titleText, searchResultData[0].gridId, searchResultData[0].test, searchResultData[0].tooltipCk, searchResultData[0].isFirst);
+
+												for (var i = 0; i < searchResultData.length; i++) {
+													ShowSearchResult(searchResultData[i].siteIds, searchResultData[i].parentIds, searchResultData[i].titleText, searchResultData[i].gridId, searchResultData[i].test, searchResultData[i].tooltipCk, searchResultData[i].isFirst);
+												}
+
 											}
 										}
 									});
