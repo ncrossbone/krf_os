@@ -90,7 +90,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	//마우스 커서 변경
 	mouseCursor: function(el){
 
-		console.info(el.id);
+		
 		if(Ext.getCmp([el.id]).btnOnOff == 'on'){
 			Ext.get('_mapDiv__gc').setStyle('cursor', 'url(./resources/images/symbol/'+el.id+'.cur),auto');
 		}else{
@@ -144,7 +144,6 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
 			reachAdmin.arrLineGrpTmp = [];
 			reachAdmin.arrAreaGrpTmp = [];
-						
 		}
 		
 		me.mouseCursor(el);
@@ -153,6 +152,9 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 	// 구간제거 버튼 클릭
 	onClickRemoveReach: function (obj, el, evt) {
+
+		//미니맵 EDIT EVENT 끄기
+		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
 		var me = this;
 		
@@ -197,6 +199,10 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 	//하류제거
 	onClickRemoveReachLine: function(obj, el, evt){
+
+		//미니맵 EDIT EVENT 끄기
+		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
+
 		var me = this;
 
 		$KRF_APP.coreMap._krad.onMapClickEvt("reachLineRemove",el.id);
@@ -205,9 +211,35 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		me.mouseCursor(el);
 		
 	},
+
+	onClickMerge: function(){
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var subCoreMap = Ext.getCmp("_subMapDiv_");
+
+		//console.info(coreMap.map);
+		//console.info(coreMap.map.graphics);
+		
+		//console.info(subCoreMap.map);
+		//console.info(subCoreMap.map.graphics);
+		
+		// console.info($KRF_APP.coreMap);
+		// console.info($KRF_APP.coreMap._krad);
+		// console.info($KRF_APP.subMap);
+		// console.info($KRF_APP.subMap._krad);
+	},
 	
 	// 시작위치 버튼 클릭
 	onClickStartReach: function (obj, el, evt) {
+
+		//미니맵 EDIT EVENT 끄기
+		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
+
+		if ($KRF_APP.coreMap._krad.maxSelect == true) {
+			alert("최대 5개 까지 선택 가능합니다.");
+			return;
+		}
+
+		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
 		if ($KRF_APP.coreMap._krad.maxSelect == true) {
 			alert("최대 5개 까지 선택 가능합니다.");
@@ -221,6 +253,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			return;
 		}
 
+		//$KRF_APP.submap._krad.onMapClickEvt("startPoint", el.id);
 		$KRF_APP.coreMap._krad.onMapClickEvt("startPoint", el.id);
 
 		// 부하량 주제도 off
@@ -239,6 +272,10 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	// 끝위치 버튼 클릭
 	onClickEndReach: function (obj, el, evt) {
 
+
+		//미니맵 EDIT EVENT 끄기
+		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
+
 		if ($KRF_APP.coreMap._krad.maxSelect == true) {
 			alert("최대 5개 까지 선택 가능합니다.");
 			return;
@@ -254,6 +291,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 
+		
 		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 
 		// 버튼 On/Off

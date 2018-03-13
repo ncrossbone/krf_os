@@ -61,6 +61,19 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOffImg: './resources/images/button/reach_menu02.png',
 			src: './resources/images/button/reach_menu02.png',
 			hidden: true
+		},{
+			xtype: 'button',
+			id: 'btnMerge',
+			text: '동기화',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: {
+				el: {
+					click: 'onClickMerge'
+				}
+			}
 		}, {
 			xtype: 'image',
 			id: 'btnMenu02',

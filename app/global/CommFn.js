@@ -349,9 +349,26 @@ Ext.define("krf_new.global.CommFn", {
 	},
 
 	bookmarkInfo: {},
+	bookSearchResult: [],
 
 	setBookmarkInfo: function (flag, param) {
-		this.bookmarkInfo[flag] = param;
+		var me = this;
+		if (flag == 'searchResult') {
+
+			var preIdx = me.bookSearchResult.map(function (e) {
+				return e.gridId;
+			}).indexOf(param.gridId);
+
+			if (preIdx > -1) {
+				me.bookSearchResult[preIdx] = param;
+			} else {
+				me.bookSearchResult.push(param);
+			}
+
+			me.bookmarkInfo[flag] = me.bookSearchResult;
+		} else {
+			me.bookmarkInfo[flag] = param;
+		}
 	},
 
 	getBookmarkInfo: function () {

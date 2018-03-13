@@ -640,6 +640,16 @@ showResultWindow = function () {
 // 검색결과창 띄우기
 ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 
+	$KRF_APP.global.CommFn.setBookmarkInfo('searchResult', {
+		siteIds: siteIds,
+		parentIds: parentIds,
+		titleText: titleText,
+		gridId: gridId,
+		test: test,
+		tooltipCk: tooltipCk,
+		isFirst: isFirst
+	});
+
 	if (parentIds == "") {
 		parentIds = [{ parentId: tooltipCk, siteId: siteIds }];
 	}
@@ -1263,7 +1273,9 @@ GetTabControl = function (options) {
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function (catIds) {
-
+	$KRF_APP.global.CommFn.setBookmarkInfo('showSearchResultReach', {
+		catIds: catIds
+	});
 	var centerContainer = Ext.getCmp('center_container');
 
 	var windowWidth = centerContainer.getWidth();
@@ -1649,6 +1661,12 @@ ChkSearchCondition = function (sType, siteIds, parentId, titleText, gridId) {
 
 
 siteMovePoint = function (parentNodeId, nodeId, clickValue) {
+	
+	$KRF_APP.global.CommFn.setBookmarkInfo('siteMovePoint', {
+		parentNodeId: parentNodeId,
+		nodeId: nodeId,
+		clickValue: clickValue
+	});
 
 	if (nodeId == undefined || nodeId == null || nodeId == "") {
 		return;

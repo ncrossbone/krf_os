@@ -2421,12 +2421,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		var reachAdmin = $KRF_APP.coreMap.reachLayerAdmin_v3_New;
 
 		if (grpType == "reachLine") {
-
 			me.drawGraphic2(graphic, me.reachLineSym, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
 		}
 
 		if (grpType == "reachArea") {
-
 			me.drawGraphic2(graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
 		}
 
@@ -2490,6 +2488,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		// 그래픽 그린다.
 		graphic.setSymbol(symbol);
 		layer.add(graphic);
+		
+		
 		// 배열에 넣기
 		arrObj.push(graphic);
 		// 리치 배열 넣기
@@ -2516,13 +2516,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 			return objId;
 		}).indexOf(currId);
-
 		if (idx == -1) {
 
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
 			layer.add(graphic);
-
+			//$KRF_APP.subMap._krad.lineGrpLayer.add(graphic);
+			
 			// 배열에 넣기
 			arrObj.push(graphic);
 			// 리치 배열 넣기
