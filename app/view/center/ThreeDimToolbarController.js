@@ -10,9 +10,25 @@ Ext.define('krf_new.view.center.ThreeDimToolbarController', {
 		var currCtl = SetBtnOnOff(el.id);
 
 	},
-	onClickKRF: function () {
-		var threeDModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
+	onClickKRF: function (obj, el, evt) {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'getCenter' });
+	},
+	onClickDEM: function (obj, el, evt) {
+		alert('준비중');
+	},
+	onClickAutoMoveMap: function (obj, el, evt) {
+		var currCtl = SetBtnOnOff(el.id);
+		var threeDimCoordinateWindow = Ext.getCmp("threeDimCoordinateWindow");
+		if (!threeDimCoordinateWindow) {
+			var centerContainer = Ext.getCmp('threeDim_center_container');
+			var winX = centerContainer.getWidth() - 350;
+			var winY = 98;
+			threeDimCoordinateWindow = Ext.create('krf_new.view.east.ThreeDimCoordinateWindow', { x: winX, y: winY });
+			centerContainer.add(threeDimCoordinateWindow);
+		}
+		threeDimCoordinateWindow.show();
 
-		threeDModule.sendMessage({type:'getCenter'});
+		// currCtl.btnOnOff == "off" ? windowSiteNChart.hide() : windowSiteNChart.show();
 	}
+
 });

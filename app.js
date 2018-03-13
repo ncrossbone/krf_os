@@ -88,10 +88,11 @@ var $KRF_EVENT = {
 	MINIMAPCHANGE: 'MiniMapChange',
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
-	THREEDIM_MOVE: 'threeDimMove',
+	THREEDIM_SEND_MESSAGE: 'threeDimSendMessage',
 	SHOW_MAP_TOOLBAR: 'showMapToolbar',
 	CHECK_MAP_PARAMETER: 'checkMapParameter',
-	THREE_DIM_WMS_LAYER_ON_OFF: 'threeDimWMSLayerOnOff'
+	ADD_AUTO_MOVE_COORDINATE: 'addAutoMoveCoordinate',
+	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear'
 }
 
 var $KRF_WINS = {

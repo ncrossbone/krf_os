@@ -74,7 +74,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 								if(results.features.length > 0){
 									var point = new esri.geometry.Point(results.features[0].geometry.x, results.features[0].geometry.y, results.features[0].geometry.spatialReference);
 									
-									$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_MOVE, {
+									$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {
 										type:'move',
 										coord: point
 									});

@@ -66,6 +66,20 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanel', {
 			btnOnImg: './resources/images/button/left_menu02_on.png',
 			btnOffImg: './resources/images/button/left_menu02.png',
 			src: './resources/images/button/left_menu02.png'
+		},{
+			xtype: 'image',
+			id: 'btnMeasuredWindow',
+			groupId: 'group2',
+			isOnOff: 'off',
+			title: '측정값',
+			style: 'left: 0px !important;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: { el: { click: 'onClickMeasuredValue' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/left_menu03_on.png',
+			btnOffImg: './resources/images/button/left_menu03.png',
+			src: './resources/images/button/left_menu03.png'
 		}];
 
 		this.callParent();

@@ -180,9 +180,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 						// 버튼 On/Off
 						var currCtl = SetBtnOnOff(el.id);
 						if (currCtl.btnOnOff == "on") {
-							$KRP_APP.coreMap.baseMap.setVisibility(true);
+							$KRF_APP.coreMap.baseMap.setVisibility(true);
 						} else {
-							$KRP_APP.coreMap.baseMap.setVisibility(false);
+							$KRF_APP.coreMap.baseMap.setVisibility(false);
 						}
 					}
 				}
@@ -383,7 +383,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				el: {
 					click: function () {
 						setActionInfo("", "", "", "", "화면저장");
-						$KRP_APP.coreMap.capture();
+						$KRF_APP.coreMap.capture();
 					}
 				}
 			},

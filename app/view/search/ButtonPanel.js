@@ -3,9 +3,9 @@
  */
 Ext.define('krf_new.view.search.ButtonPanel', {
 	extend: 'Ext.toolbar.Toolbar',
-	requires: [
-		'krf_new.view.search.ButtonPanelController'
-	],
+	// requires: [
+	// 	'krf_new.view.search.ButtonPanelController'
+	// ],
 
 	xtype: 'west-buttonpanel',
 

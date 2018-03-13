@@ -30,7 +30,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 			var message = { type: 'layerOnOff', layers: [] };
 			message.layers.push({ layerNm: node.data.text, wmsId: node.data.wmsId, checked: checked });
 
-			$KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_WMS_LAYER_ON_OFF, message);
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, message);
 		}
 	},
 
@@ -44,7 +44,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 			message.layers.push({ layerNm: child.data.text, wmsId: child.data.wmsId, checked: checked });
 
 			if (index == children.length - 1) {
-				$KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_WMS_LAYER_ON_OFF, message);
+				$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, message);
 			}
 		});
 	},
