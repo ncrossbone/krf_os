@@ -15,6 +15,24 @@ Ext.define('Desktop.LoginWindow', {
 
     init: function () {
 
+<<<<<<< HEAD
+    receiveMessage: function (message) {
+        try {
+            var loginUserInfo = JSON.parse(message.data);
+        } catch (e) {
+            console.log(e);
+        }
+
+        window.sessionStorage.setItem('krfLoginUser', message.data);
+        var loginModule = $KRF_APP.getDesktopModule('login-win');
+
+        window.removeEventListener('message', loginModule.receiveMessage);
+
+        var loginWindow = $KRF_APP.getDesktopWindow('login-win');
+        if (loginWindow) {
+            loginWindow.close();
+        }
+=======
     },
 
     receiveMessage: function (message) {
@@ -25,6 +43,7 @@ Ext.define('Desktop.LoginWindow', {
                 var loginModule = $KRF_APP.getDesktopModule('login-win');
 
                 window.removeEventListener('message', loginModule.receiveMessage);
+>>>>>>> 53a254dbcadfd153db575162586432253159de4c
 
                 var loginWindow = $KRF_APP.getDesktopWindow('login-win');
                 if (loginWindow) {

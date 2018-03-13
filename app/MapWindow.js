@@ -412,6 +412,7 @@ Ext.define('Desktop.MapWindow', {
 			store.paramType = searchType;
 		}
 		store.searchType = param.searchText;
+		store.bookMaker = param.bookMaker;
 		store.load();
 		treeCtl.setStore(store);
 

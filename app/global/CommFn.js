@@ -333,12 +333,12 @@ Ext.define("krf_new.global.CommFn", {
 		}
 		return;
 	},
-	getParamLoginInfo: function(){
+	getParamLoginInfo: function () {
 		var getParam = location.href.split('param=')[1];
 
-		if(getParam!=null){
+		if (getParam != null) {
 			var decodeUriObj = decodeURIComponent(getParam);
-			window.sessionStorage.setItem('krfLoginUser',decodeUriObj);
+			window.sessionStorage.setItem('krfLoginUser', decodeUriObj);
 			try {
 				return JSON.parse(decodeUriObj);
 			} catch (e) {
@@ -346,5 +346,15 @@ Ext.define("krf_new.global.CommFn", {
 			}
 		}
 		return;
+	},
+
+	bookmarkInfo: {},
+
+	setBookmarkInfo: function (flag, param) {
+		this.bookmarkInfo[flag] = param;
+	},
+
+	getBookmarkInfo: function () {
+		return this.bookmarkInfo;
 	}
 });
