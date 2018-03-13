@@ -16,7 +16,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 			}
 		}
 	},
-	onTextSearch: function (button, eOpts) {
+	onTextSearch: function (button, eOpts, bookmark) {
 		var btnCtl = null;
 		var btn = Ext.getCmp("btnSearchText");
 
@@ -38,7 +38,16 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 				SetBtnOnOff("btnSiteListWindow");
 			}
 		}
-		$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'nameSearch' });
+
+		$KRF_APP.global.CommFn.setBookmarkInfo('spotList', {
+			searchText: 'nameSearch',
+			value1: btn.rawValue
+		});
+
+		$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
+			searchText: 'nameSearch',
+			isBookmark: false
+		});
 		// Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
 	}
 });

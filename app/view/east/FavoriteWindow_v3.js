@@ -34,7 +34,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 			//self.favoriteInfo = [];
 			//localStorage['_waterFavoriteInfo_'] = [];
-
+			var me = this;
 			Date.prototype.yyyymmdd = function () {
 				var yyyy = this.getFullYear().toString();
 				var mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based
@@ -44,22 +44,36 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 			this.coreMap = GetCoreMap();
 			this.gridStore = this.down('gridpanel').getStore();
 
-			if (localStorage['_waterFavoriteInfo_']) {
-				this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
+			var userId = 'testid';
+			this.callAjax('getBookmark', { userId: userId }).done(function (obj) {
+				var jsonObj = JSON.parse(obj).data;
+				if (jsonObj.length > 0) {
+					var arr = [];
 
-				for (var i = 0; i < this.favoriteInfo.length; i++) {
-					var obj = this.favoriteInfo[i];
-					delete obj.id;
+					for (var i = 0; i < jsonObj.length; i++) {
+						arr.push(JSON.parse(jsonObj[i].RM));
+					}
+					me.gridStore.loadData(arr);
 				}
-				//console.info(this.favoriteInfo);
-				this.gridStore.loadData(this.favoriteInfo);
-			} else {
-				localStorage['_waterFavoriteInfo_'] = JSON.stringify([]);
-				//localStorage['_waterFavoriteInfo_'] = [];
-				this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
-				//this.favoriteInfo = localStorage['_waterFavoriteInfo_'];
-			}
-			require(["dojox/uuid/generateRandomUuid"], function () { });
+			}).fail(function () {
+				alert('즐겨찾기 로드 실패.');
+			});
+			// if (localStorage['_waterFavoriteInfo_']) {
+			// 	this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
+
+			// 	for (var i = 0; i < this.favoriteInfo.length; i++) {
+			// 		var obj = this.favoriteInfo[i];
+			// 		delete obj.id;
+			// 	}
+			// 	//console.info(this.favoriteInfo);
+			// 	this.gridStore.loadData(this.favoriteInfo);
+			// } else {
+			// 	localStorage['_waterFavoriteInfo_'] = JSON.stringify([]);
+			// 	//localStorage['_waterFavoriteInfo_'] = [];
+			// 	this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
+			// 	//this.favoriteInfo = localStorage['_waterFavoriteInfo_'];
+			// }
+			// require(["dojox/uuid/generateRandomUuid"], function () { });
 		}
 	},
 
@@ -74,12 +88,12 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 		return cArr;
 	},
 
-	callAjax: function (jsonStr) {
+	callAjax: function (url, param) {
 		return $.ajax({
-			url: _API + '',
-			param: jsonStr,
-			type: 'post',
-			contentType: 'application/json'
+			url: 'http://localhost:8070/krf/bookmark/' + url,
+			data: param,
+			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+			type: 'post'
 		});
 	},
 
@@ -143,7 +157,12 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 							for (var i = 0; i < cmbCfg.length; i++) {
 								var cmb = Ext.getCmp(cmbCfg[i]);
 								if (cmb.disabled == false && cmb.lastValue != null) {
-									cmbArr.push({ id: cmb.id, value: cmb.lastValue });
+									var childCom = Ext.getCmp(cmb.tarCmbId);
+									var childValue = null;
+									if(childCom){
+										childValue = childCom.lastValue;
+									}
+									cmbArr.push({ id: cmb.id, value: cmb.lastValue, childValue: childValue });
 								}
 							}
 
@@ -161,18 +180,31 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 							favorObj.win = winArr;
 							favorObj.date = date.yyyymmdd();
 							favorObj.name = saveName;
-							favroObj.result = $KRF_APP.global.CommFn.getBookmarkInfo();
+							favorObj.result = $KRF_APP.global.CommFn.getBookmarkInfo();
 
 							favorObj.geoInfo = {
-								extent: krf.coreMap.map.extent,
+								extent: krf.coreMap.map.extent.toJson(),
 								level: krf.coreMap.map.getLevel()
 							};
 
-							favorWin.favoriteInfo.push(favorObj);
 							var jsonStr = JSON.stringify(favorObj);
-							//localStorage['_waterFavoriteInfo_'] = jsonStr;
-							favorWin.callAjax(jsonStr).done(function () {
-								favorWin.gridStore.loadData(favorWin.favoriteInfo);
+							var userId = 'testid';
+
+							favorWin.callAjax('putBookmark', { userId: userId, param: jsonStr }).done(function () {
+								favorWin.callAjax('getBookmark', { userId: userId }).done(function (obj) {
+									var jsonObj = JSON.parse(obj).data;
+									if (jsonObj.length > 0) {
+										var arr = [];
+
+										for (var i = 0; i < jsonObj.length; i++) {
+											arr.push(JSON.parse(jsonObj[i].RM));
+										}
+
+										favorWin.gridStore.loadData(arr);
+									}
+								}).fail(function () {
+									alert('즐겨찾기 로드 실패.');
+								});
 							}).fail(function () {
 								alert('저장을 실패했습니다.');
 							});
@@ -261,21 +293,22 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 			{
 				xtype: 'gridpanel',
+				id: 'bookmark-grid',
 				flex: 1,
 				autoScroll: true,
 				store: Ext.create('Ext.data.Store', {
-					fields: ['UID', 'NAME', 'DATE', 'EXTENT', 'LEVEL']
+					fields: ['name', 'date']
 				}),
 				columns: [
 					{
 						xtype: 'gridcolumn',
-						dataIndex: 'NAME',
+						dataIndex: 'name',
 						text: '저장명',
 						flex: 1
 					},
 					{
 						xtype: 'gridcolumn',
-						dataIndex: 'DATE',
+						dataIndex: 'date',
 						text: '저장일'
 					}
 				],
@@ -310,16 +343,65 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 							text: '불러오기',
 							listeners: {
 								click: function () {
-									var self = this.up('window');
-									var grid = self.down('gridpanel');
+
+									var bookmarkGrid = Ext.getCmp('bookmark-grid');
+
+									if (bookmarkGrid == null || bookmarkGrid.selection == null) {
+										return;
+									}
+									var selectData = bookmarkGrid.selection.data;
+									var krf = $KRF_APP;
+
+									krf.coreMap.map.setExtent(new esri.geometry.Extent(selectData.geoInfo.extent), true).then(function () {
+										krf.coreMap.map.setLevel(selectData.geoInfo.level);
+
+										if (selectData.cmb.length > 0) {
+											for (var i = 0; i < selectData.cmb.length; i++) {
+												var comInstance = Ext.getCmp(selectData.cmb[i].id);
+												var comStore = comInstance.getStore();
+												comStore.selectedValue = selectData.cmb[i].value;
+												var comboDatas = comStore.getData();
+
+												if (comboDatas && comboDatas.length > 0) {
+													comInstance.setValue(selectData.cmb[i].value);
+													comInstance.fireEvent('select', comInstance, null, selectData.cmb[i].value, selectData.cmb[i].childValue);
+													continue;
+												}
+												//Ext.getCmp(selectData.cmb[i].id).fireEvent('select', Ext.getCmp(selectData.cmb[i].id), null , selectData.cmb[i].value);
+												// Ext.getCmp(selectData.cmb[i].id).setValue(selectData.cmb[i].value);
+											}
+										}
+
+										if (selectData.result.spotList) {
+											krf.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
+												searchText: selectData.result.spotList.searchText,
+												searchType: null,
+												isBookmark: true,
+												bookmarkData: selectData.result.spotList
+											});
+										}
+
+										if (selectData.result.siteNChart) {
+											var siteNChartData = selectData.result.siteNChart;
+											ShowWindowSiteNChart(siteNChartData.tabIdx, siteNChartData.title, siteNChartData.test, siteNChartData.parentId, siteNChartData.chartFlag);
+										}
+										if(selectData.result.searchResult){
+											if (selectData.result.searchResult.length > 0) {
+												var searchResultData = selectData.result.searchResult;
+												ShowSearchResult(searchResultData[0].siteIds, searchResultData[0].parentIds, searchResultData[0].titleText, searchResultData[0].gridId, searchResultData[0].test, searchResultData[0].tooltipCk, searchResultData[0].isFirst);
+											}
+										}
+									});
+									//var self = this.up('window');
+									//var grid = self.down('gridpanel');
 									//									var extentJson = grid.selection.data.EXTENT;
 									//									var extent = new esri.geometry.Extent(extentJson);
 									//									var level = grid.selection.data.LEVEL;
 									//									self.coreMap.extentMove(extent, level);
-									if (grid == null || grid.selection == null) {
-										return;
-									}
-									self.coreMap.favoriteExe(grid.selection.data);
+									//if (grid == null || grid.selection == null) {
+									//return;
+									//}
+									//self.coreMap.favoriteExe(grid.selection.data);
 								}
 							}
 						}

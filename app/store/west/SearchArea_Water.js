@@ -6,6 +6,7 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 
 	remoteSort: true,
 
+	selectedValue : null,
 	listeners: {
 		beforeload: function (store) {
 			var idColumn, nameColumn, whereStr, pId;
