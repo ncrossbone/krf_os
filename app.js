@@ -89,9 +89,13 @@ var $KRF_EVENT = {
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
 	THREEDIM_MOVE: 'threeDimMove',
+	SHOWMETADATAWINDOW: 'showMeatDataWindow',
+	HIDEMETADATAWINDOW: 'hideMeatDataWindow',
+	THREEDIM_SEND_MESSAGE: 'threeDimSendMessage',
 	SHOW_MAP_TOOLBAR: 'showMapToolbar',
 	CHECK_MAP_PARAMETER: 'checkMapParameter',
-	THREE_DIM_WMS_LAYER_ON_OFF: 'threeDimWMSLayerOnOff'
+	ADD_AUTO_MOVE_COORDINATE: 'addAutoMoveCoordinate',
+	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear'
 }
 
 var $KRF_WINS = {
@@ -355,19 +359,18 @@ Ext.application({
 			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: 75 });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
-
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
-
 			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
 
-			/*
+			
 			Ext.defer(function () {
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
-				subMapWindow.show();
+				//subMapWindow.show();
+				subMapWindow.hide();
 				
 			}, 500);
-			*/
+			
 		}
 	},
 	checkBrowser: function () {

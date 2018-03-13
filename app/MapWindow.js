@@ -12,7 +12,7 @@ Ext.define('Desktop.MapWindow', {
 	],
 
 	subWindowIds: ['popSiteInfo', 'reachNameToolbar', 'subMapWindow', 'siteListWindow', 'searchResultWindow'
-		, 'chlLegend', 'phyLegend', 'droneToolbar', 'droneDetailExp', 'reachCountSToolbar', 'reachCountEToolbar'],
+		, 'chlLegend', 'phyLegend', 'droneToolbar', 'droneDetailExp', 'reachCountSToolbar', 'reachCountEToolbar','metaDataWindow'],
 	id: 'map-win',
 	once: true,
 	initCoord: null,
@@ -44,6 +44,9 @@ Ext.define('Desktop.MapWindow', {
 		$KRF_APP.addListener($KRF_EVENT.WEST_TAB_CHANGE, this.westTabChange, this);
 
 		$KRF_APP.addListener($KRF_EVENT.CHECK_MAP_PARAMETER, this.checkMapParameter, this);
+
+		$KRF_APP.addListener($KRF_EVENT.SHOWMETADATAWINDOW, this.showMetaDataWindow, this);
+		$KRF_APP.addListener($KRF_EVENT.HIDEMETADATAWINDOW, this.hideMetaDataWindow, this);
 
 	},
 
@@ -96,23 +99,44 @@ Ext.define('Desktop.MapWindow', {
 				},
 				'beforeclose': function () {
 					me.once = true;
-				}
-			},
-			items: [{ xtype: 'west-buttonpanel', region: 'west', collapsible: false },
-			{
-				xtype: 'container',
-				id: 'cont_container',
-				layout: {
-					type: 'absolute'
-				},
-				region: 'center',
-				height: '100%',
-				items: [{ xtype: 'app-default-center', id: 'center_container', x: 0, y: 0 }]
-			}]
-		});
-
-		if (!win) {
-			win = desktop.createWindow(cfg);
+    		    }
+    		},
+            items: [ {xtype:'west-buttonpanel', region:'west', collapsible:false},
+            	     {xtype: 'container',
+	            		id: 'cont_container',
+	            		layout: {
+	            			type: 'absolute'
+	            		},
+	            		region:'center',
+	            		height: '100%',
+	            		items: [{xtype:'app-default-center', id: 'center_container', x:0, y:0}]
+	            	}]
+        });
+        
+        if(!win){
+            win = desktop.createWindow(cfg);
+        }
+        return win;
+	},
+	
+	//소하천 dynamic 켜기
+	onClickSRiver: function(obj, el, evt){
+		
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+		
+		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
+		
+		var subMapWindow = Ext.getCmp("subMapWindow");
+		
+		if(btnLayerSRiver == "on"){
+			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+			subMapWindow.show();
+		}else{
+			DynamicLayerSRiver.setVisibleLayers([-1]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+			subMapWindow.hide();
 		}
 		return win;
 	},
@@ -285,14 +309,20 @@ Ext.define('Desktop.MapWindow', {
 		var lyrId = "";
 
 		switch (btn) {
-			case "btnReachLayer": lyrId = "RCH_DID"; break;
-			case "btnAreaLayer": lyrId = "CAT_DID"; break;
-			case "btnFlowLayer": lyrId = "RCH_FLW"; break;
-			default: break;
+		case "btnReachLayer": lyrId = "RCH_DID"; break;
+		case "btnAreaLayer": lyrId = "CAT_DID"; break;
+		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+		case "SRIVER": lyrId = "SRIVER"; break;
+		default: break;
 		}
 
-		for (var i = 0; i < layerObj.store.data.items.length; i++) {
-			if (layerObj.store.data.items[i].data.siteIdCol == lyrId) {
+		//소하천일 경우 임시
+		if(lyrId = "SRIVER"){
+
+		}
+		
+		for(var i = 0; i<layerObj.store.data.items.length; i++){
+			if(layerObj.store.data.items[i].data.siteIdCol==lyrId){
 				nodeObj = layerObj.store.data.items[i];
 			}
 		}
@@ -444,6 +474,17 @@ Ext.define('Desktop.MapWindow', {
 		westContents.setActiveItem(tabIdx);
 		Ext.getCmp('search-win').setTitle(titleNm);
 	},
+
+	showMetaDataWindow: function(){
+		var metaDataWindow = Ext.getCmp("metaDataWindow");
+		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
+	},
+
+	hideMetaDataWindow: function(){
+		var metaDataWindow = Ext.getCmp("metaDataWindow");
+		//me
+	},
+
 	checkMapParameter: function () {
 		var getParam = window.location.search.substring(1);
 		var params = Ext.urlDecode(getParam);

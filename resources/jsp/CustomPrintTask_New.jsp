@@ -1,21 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@page import="java.util.UUID"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="com.google.gson.Gson"%>
+	<%@page import="java.util.UUID"%>
+		<%@page import="java.util.HashMap"%>
+			<%@page import="com.google.gson.Gson"%>
 
-<%@page import="java.awt.Color"%>
-<%@page import="java.awt.Graphics2D"%>
-<%@page import="java.awt.image.BufferedImage"%>
-<%@page import="java.io.*"%>
-<%@page import="java.net.URL"%>
-<%@page import="java.nio.file.Paths"%>
-<%@page import="javax.imageio.ImageIO"%>
-<%@page import="java.awt.*"%>
-<%@page import="org.apache.batik.transcoder.image.PNGTranscoder"%>
-<%@page import="org.apache.batik.transcoder.TranscoderInput"%>
-<%@page import="org.apache.batik.transcoder.TranscoderOutput"%>
+				<%@page import="java.awt.Color"%>
+					<%@page import="java.awt.Graphics2D"%>
+						<%@page import="java.awt.image.BufferedImage"%>
+							<%@page import="java.io.*"%>
+								<%@page import="java.net.URL"%>
+									<%@page import="java.nio.file.Paths"%>
+										<%@page import="javax.imageio.ImageIO"%>
+											<%@page import="java.awt.*"%>
+												<%@page import="org.apache.batik.transcoder.image.PNGTranscoder"%>
+													<%@page import="org.apache.batik.transcoder.TranscoderInput"%>
+														<%@page import="org.apache.batik.transcoder.TranscoderOutput"%>
 
-<%
+															<%
 	/* url로 받아서 이미지 변환/저장하는 로직.. */
 
 	response.setHeader("Access-Control-Allow-Origin","*");
@@ -39,7 +39,7 @@
 			svgInfo = svgInfo.replace("xmlns=\"http://www.w3.org/2000/svg\"", "");
 			svgInfo = svgInfo.replaceAll("<svg", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" ");
 			
-			svgInfo = svgInfo.replaceAll("./resources/","http://localhost:8070/KRF_DEV/resources/");
+			svgInfo = svgInfo.replaceAll("./resources/","http://192.168.0.231:8080/KRF_DEV/resources/");
 			int width = Integer.parseInt(request.getParameter("width"));
 			int height = Integer.parseInt(request.getParameter("height"));
 			ImageInfo[] imageInfos = gson.fromJson(request.getParameter("imageInfos"), ImageInfo[].class);
@@ -68,12 +68,7 @@
 		    
 		    OutputStream png_ostream = new FileOutputStream(imgSavePath + "\\" + svgPngFileName);
 		    TranscoderOutput output_png_image = new TranscoderOutput(png_ostream);  
-		      
 		    
-		    
-			
-			
-			
 		    BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		    Graphics2D graphic = newImage.createGraphics();
 		    Color color = graphic.getColor();
@@ -137,6 +132,9 @@
 			response.setContentLength(ifilesize);
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Disposition","attachment; filename="+fileName+";");
+			out.clear();
+			out = pageContext.pushBody();
+
 			ServletOutputStream oout = response.getOutputStream();
 			fin.read(b);
 			oout.write(b,0,ifilesize);
@@ -145,8 +143,25 @@
 			fin.close();
 			fin = null;
 			oout = null;
-			Runtime.getRuntime().gc();	
 			
+			// 파일 삭제
+			
+			file = new File(imgSavePath + "\\" + fileName);
+			if( file.exists() ){
+				file.delete();
+			}
+			String svgFileNm = fileName.replace("result_", "svg_");
+
+			file = new File(imgSavePath + "\\" + svgFileNm);
+			if( file.exists() ){
+				file.delete();
+			}
+			svgFileNm = svgFileNm.replace(".png", ".svg");
+			file = new File(imgSavePath + "\\" + svgFileNm);
+			if( file.exists() ){
+				file.delete();
+			}
+				//Runtime.getRuntime().gc();	
 		}
 	}catch(Exception e){
 		System.out.println(e);
@@ -154,7 +169,7 @@
 	}
 %>
 
-<%!
+																<%!
 	class ImageInfo{
 		public String src;
 		public String base64;

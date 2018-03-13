@@ -180,9 +180,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 						// 버튼 On/Off
 						var currCtl = SetBtnOnOff(el.id);
 						if (currCtl.btnOnOff == "on") {
-							$KRP_APP.coreMap.baseMap.setVisibility(true);
+							$KRF_APP.coreMap.baseMap.setVisibility(true);
 						} else {
-							$KRP_APP.coreMap.baseMap.setVisibility(false);
+							$KRF_APP.coreMap.baseMap.setVisibility(false);
 						}
 					}
 				}
@@ -286,17 +286,19 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			width: 5
 		}, {
 			xtype: 'button',
-			id: 'btnLayerSRiver',
+			//id: 'btnLayerSRiver',
+			id: 'btnMenu10',
 			toggleGroup: 'grpSRiver',
 			btnOnOff: 'on',
-			text: '소하천',
+			text: '미니맵',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
 			height: this.itemHeight,
 			style: 'cursor:pointer;',
 			listeners: {
 				el: {
-					click: 'onClickSRiver'
+					//click: 'onClickSRiver'
+					click: 'onClickMiniMap'
 				}
 			}
 		}, {
@@ -383,7 +385,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				el: {
 					click: function () {
 						setActionInfo("", "", "", "", "화면저장");
-						$KRP_APP.coreMap.capture();
+						$KRF_APP.coreMap.capture();
 					}
 				}
 			},

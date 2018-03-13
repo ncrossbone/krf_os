@@ -112,7 +112,7 @@ Ext.define('krf_new.view.north.North', {
     	btnOnImg: './resources/images/button/btn_top_03_on.png',
     	btnOffImg: './resources/images/button/btn_top_03_off.png',
     	src: './resources/images/button/btn_top_03_off.png'
-    }, {
+	}/*, {
 		xtype: 'container',
     	width: 5
 	}, { 
@@ -123,7 +123,7 @@ Ext.define('krf_new.view.north.North', {
     	text: '소하천',
         style:'cursor:pointer;',
     	listeners: { el: { click: 'onClickSRiver' } }
-    }, {
+    }*/, {
     	xtype: 'container',
     	width: 50
     },{

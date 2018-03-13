@@ -25,9 +25,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         window.addEventListener("message", this.receiveMessage, false);
 
-        $KRF_APP.addListener($KRF_EVENT.THREEDIM_MOVE, this.sendMessage, this);
-
-        $KRF_APP.addListener($KRF_EVENT.THREE_DIM_WMS_LAYER_ON_OFF, this.sendMessage, this);
+        $KRF_APP.addListener($KRF_EVENT.THREEDIM_SEND_MESSAGE, this.sendMessage, this);
 
     },
 
@@ -38,11 +36,15 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         if (param.data) {
             switch (param.data.type) {
                 case 'init':
-                    $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_MOVE, ({ type: 'move', coord: me.initCoord }));
+                    $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'move', coord: me.initCoord }));
                     break;
                 case 'getCenter':
                     $KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { mode: $KRF_APP.KRF_MODE, coord: param.data.coord });
                     break;
+                case 'addCoord':
+                    $KRF_APP.fireEvent($KRF_EVENT.ADD_AUTO_MOVE_COORDINATE, param.data.coord);
+                    break;
+
             }
         }
     },
@@ -79,18 +81,18 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
                 },
                 resize: function (win, width, height) {
-                    
+
                     var mapC = Ext.getCmp('krf3diframe');
-                    if(mapC){
-                        mapC.setWidth(width-80);
-                        mapC.setHeight(height-37);
+                    if (mapC) {
+                        mapC.setWidth(width - 80);
+                        mapC.setHeight(height - 37);
                     }
-            		mapC = Ext.getCmp('threedDim_cont_container');
-            		mapC.setWidth(width-80);
-            		mapC.setHeight(height-37);
-            		mapC = Ext.getCmp('threeDim_center_container');
-            		mapC.setWidth(width-80);
-            		mapC.setHeight(height-37);
+                    mapC = Ext.getCmp('threedDim_cont_container');
+                    mapC.setWidth(width - 80);
+                    mapC.setHeight(height - 37);
+                    mapC = Ext.getCmp('threeDim_center_container');
+                    mapC.setWidth(width - 80);
+                    mapC.setHeight(height - 37);
                     if (me.once) {
                         return;
                     }
@@ -118,11 +120,11 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                         threeDimSearchWindow.show();
                         me.once = false;
                     } else {
-                        $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_MOVE, ({ type: 'move', coord: me.initCoord }));
+                        $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'move', coord: me.initCoord }));
                     }
                 },
                 beforeclose: function () {
-                    //me.once = true;
+                    me.once = true;
                 }
             },
             items:
@@ -135,7 +137,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                     },
                     region: 'center',
                     height: '100%',
-                    items: [{xtype:'app-threeDim-center', id: 'threeDim_center_container', x:0, y:0}]
+                    items: [{ xtype: 'app-threeDim-center', id: 'threeDim_center_container', x: 0, y: 0 }]
                 }
                 ]
         });

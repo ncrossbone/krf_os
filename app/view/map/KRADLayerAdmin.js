@@ -77,6 +77,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	lineGrpLayer: null, // 리치라인 그래픽 레이어
 	areaGrpLayer: null, // 집수구역 그래픽 레이어
 
+	miniLineGrpLayer: null, //미니맵 그래픽 레이어
+
 	lineGrpLayer_s: null, //소하천 리치라인 그래픽 레이어
 	areaGrpLayer_s: null, //소하천 집수구역 그래픽 레이어
 
@@ -312,6 +314,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				me.downGrpLayer.visible = true;
 				me.map.addLayer(me.downGrpLayer);
 
+				me.miniLineGrpLayer = new GraphicsLayer();
+				me.miniLineGrpLayer.id = "miniLineGrpLayer";
+				me.miniLineGrpLayer.visible = true;
+				me.map.addLayer(me.miniLineGrpLayer);
+
 				me.lineGrpLayer = new GraphicsLayer();
 				me.lineGrpLayer.id = "lineGrpLayer";
 				me.lineGrpLayer.visible = true;
@@ -366,7 +373,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 						for (var a = 0; a < me.symGrpLayer.graphics.length; a++) {
 							if (me.symGrpLayer.graphics[a].symbol.gubun == "start") {
-								console.info(me.symGrpLayer.graphics[a].symbol.url.substr(35, 1));
 								if (me.symGrpLayer.graphics[a].symbol.url.substr(35, 1) == me.stCnt) {
 									chkYn = true;
 								}
@@ -624,14 +630,25 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 									if (me.isShowPopup == true) {
 
-										//소하천 on/off
-										console.info(Ext.getCmp("btnLayerSRiver").btnOnOff);
-										if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
-											me.setSRchIdsWithEvent();
+										//소하천 on/off * 로컬 스토리지에 소하천이 클릭되어 있을시 소하천 검색로직으로
+										var searchConfigInfo = localStorage['_searchConfigInfo_'];
+										var jsonConf = JSON.parse(searchConfigInfo);
+
+
+										if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
+											me.showPopup();
 										}else{
 											me.setRchIdsWithEvent();
 										}
+										
 
+										//return;
+
+										// if(jsonConf.isSRiver){
+										// 	me.setSRchIdsWithEvent();
+										// }else{
+										// 	me.setRchIdsWithEvent();
+										// }
 										//me.setRchIdsWithEvent();
 									} else {
 										me.closePopup();
@@ -661,6 +678,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.mapClickObj = null;
 		}
 	},
+
 	onMapDragEvt: function (drawOption, btnId) {
 
 		initKradEvt();
@@ -870,7 +888,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 	//소하천 리치클릭
     setSRchIdsWithEvent: function(feature , type){
-    	console.info(type);
     	var me = this;
     	
     	require(["esri/tasks/query",
@@ -909,18 +926,18 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				}else{
 
 					if(type == 2){
-						alert("소하천이 없습니다. 다시 선택해주세요");
-						return;
+						alert("소하천이 없어 일반 리치로 검색");
+						//소하천이 없을시 일반 리치 검색
+						me.setRchIdsWithEvent();
+						//return;
 					}else{
 						//리치라인이 없을시  getSRiverCatId
-						console.info($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat);
 						var queryTaskArea = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat); // 소하천 집수구역
 						var queryArea = new Query();
 						queryArea.returnGeometry = true;
 						queryArea.outFields = ["*"];
 						queryArea.geometry = me.mapClickEvt.mapPoint;
 						queryTaskArea.execute(queryArea, function(featureSetArea){
-							console.info(featureSetArea);
 							if(featureSetArea.features.length > 0){
 								me.setSRchIdsWithEvent(featureSetArea.features[0] , 2);
 							}else{
@@ -942,7 +959,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	require(["esri/tasks/query",
 	         "esri/tasks/QueryTask"], function(Query, QueryTask){
-		console.info($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat);
 		   	var queryTask = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat); // 소하천집수구역 URL
 			var query = new Query();
 			query.returnGeometry = true;
@@ -951,7 +967,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			
 			// 집수구역 조회
 			queryTask.execute(query, function(featureSet){
-				console.info(featureSet);
 				if(featureSet.features.length > 0){
 					
 					me.sRiverAreaArray.push(featureSet.features[0]);
@@ -959,7 +974,55 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				}
 			});
 		});
+	},
+	
+	//클릭이벤트
+	showPopup: function(){
+    	
+    	var me = this;
+    	
+    	var x = me.mapClickEvt.x + 10;
+    	var y = me.mapClickEvt.y;
+    	
+    	var bodyWidth = Ext.getBody().getWidth();
+    	var bodyHeight = Ext.getBody().getHeight();
+    	var popWidth = 80;
+    	var popHeight = 120;
+    	
+    	if(x > bodyWidth - popWidth){
+    		
+    		x = bodyWidth - popWidth - 10;
+    	}
+    	
+    	if(y > bodyHeight - popHeight){
+    		
+    		y = bodyHeight - popHeight - 10;
+    	}
+    	
+    	// 팝업 닫기
+    	me.closePopup();
+    	
+    	if(me.popup == undefined || me.popup == null){
+    		
+			me.popup = Ext.create("krf_new.view.map.SriverEvtPop", {
+				id: "sriverEvtPop",
+				width: popWidth,
+				height: popHeight,
+				x: x,
+				y: y
+			}).show();
+    	}
+	},
+	//
+	closePopup: function(){
+    	
+    	if(this.popup != undefined && this.popup != null){
+    		
+    		this.popup.close();
+    		this.popup = null;
+    	}
     },
+
     
     ///////////소하천///////////////////////////////////////////////////
     execSLineFeature: function(featureSet){
@@ -1417,7 +1480,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			geo = me.mapClickEvt.mapPoint;
 
 			var rIdx = me.clickedReachLines.length - 1;
-			//console.info(me.clickedReachLines[rIdx].attributes);
 			rchId = me.clickedReachLines[rIdx].attributes.RCH_ID;
 			rchIds.push(rchId);
 			rchDid = me.clickedReachLines[rIdx].attributes.RCH_DID;
@@ -1791,28 +1853,36 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	var firstAttributes = "";
     	var firstBon = true;
     	me.removeFirstLine = tmpArr[0].attributes.CAT_DID;
-    	
+		
     	//클릭된 하천에서 선택된 리치중에 가장 처음 유입되는 하류를 찾는 로직
     	for(var i = 0 ; i < tmpArr.length; i++){
     		var tmpValue = reachAdmin.arrLineGrp.map(function(e) {
+				//console.info(e.attributes.CAT_DID);
 	    		return e.attributes.CAT_DID; 
 	    	}).indexOf(tmpArr[i].attributes.CAT_DID);
-    		
-    		
-    		if(tmpValue == -1){
+    		//console.info("tmpArr[i].attributes.CAT_DID::"+tmpArr[i].attributes.CAT_DID);
+    		//console.info("tmpValue::"+tmpValue);
+    		if(tmpValue == "-1"){
+				//console.info(tmpArr[i]);
     			firstAttributes = tmpArr[i].attributes;
-    			firstLine = tmpArr[i].attributes.CAT_DID;
+    			firstLine = tmpArr[i].attributes.RCH_DID;
     			me.firstLine = tmpArr[i].attributes.CAT_DID;
     			firstGeo = tmpArr[i].attributes.GEO_TRIB;
-    		}
-    		if(firstLine != ""){
+			}
+			
+			if(firstLine != ""){
     			break;
-    		}
+			}
+			
+			
     		
     	}
-    	
+		//console.info("firstLine::"+firstLine);
+		//console.info("firstAttributes.GEO_TRIB::"+firstAttributes.GEO_TRIB);
+		//console.info(tmpArr);
     	//본류를 찾기 0번째 라인에서부터 본류를 만나면 클릭된 하천이 본류 // 아니면 지류 (지류일때 동작 로직)
     	for(var k = 0 ; k < tmpArr.length ; k++){
+			//console.info("tmpArr[k].attributes.GEO_TRIB::"+tmpArr[k].attributes.GEO_TRIB);
     		if(tmpArr[k].attributes.GEO_TRIB == firstAttributes.GEO_TRIB){
     			if(k != 0){
     				//본류를 만났을때 본류에서 우측상류인지 죄측상류인지 확인하기위해 본류 전단계와 본류 좌우측 상류 비교
@@ -1821,15 +1891,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				}else if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.RU_RCH_DID){
     					me.firstBonBreak = tmpArr[k].attributes.LU_RCH_DID;
     				}else{
-    					console.info("없음");
+    					//console.info("없음");
     				}
     			}
     			break;
     		}
     	};
-    	console.info("removeFirstLine:"+me.removeFirstLine)
-    	console.info("firstBonBreak:"+me.firstBonBreak);
-    	console.info("firstLine:"+firstLine);
+    	 //console.info("removeFirstLine:"+me.removeFirstLine)
+    	 //console.info("firstBonBreak:"+me.firstBonBreak);
+    	 //console.info("firstLine:"+firstLine);
     	if(firstLine != ""){
     		// 상류 찾기
     		me.setReachUpLineTmp(firstLine);
@@ -1859,6 +1929,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				
 				// 리치라인 조회
 				queryTask.execute(query, function(featureSet){
+					//console.info("featureSet::");
+					//console.info(featureSet);
 					
 					if(featureSet.features.length > 0){
 						
@@ -1883,7 +1955,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 									me.firstBonBreak = null;
 									return;
 								}
-								console.info(featureSet.features[0]);
 								me.removeGraphic(featureSet.features[0], "reachLine");
 								me.removeGraphic(featureSet.features[0], "reachArea");
 								breakFor = true;
@@ -2374,13 +2445,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	////////////////////////////////////////////////////////////////////////////////////////////////
     	//리치추가 tmp
     	if(grpType == "addReachLine"){
-    		
-    		me.drawGraphic2(graphic, me.addReachLineSym, me.lineGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
+			
+			me.drawGraphic2(graphic, me.addReachLineSym, me.lineGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
     	}
     	
     	if(grpType == "addReachArea"){
-    		
-    		me.drawGraphic2(graphic, me.addReachAreaSym, me.areaGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
+			
+			me.drawGraphic2(graphic, me.addReachAreaSym, me.areaGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
     	}
     	////////////////////////////////////////////////////////////////////////////////////////////////
     	//소하천
@@ -2390,8 +2461,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	}
     	
     	if(grpType == "reachArea_s"){
-    		
-    		me.drawGraphic2_s(graphic, me.reachAreaSym_s, me.areaGrpLayer_s, me.arrAreaGrp_s, reachAdmin.arrAreaGrp);
+			
+			me.drawGraphic2_s(graphic, me.reachAreaSym_s, me.areaGrpLayer_s, me.arrAreaGrp_s, reachAdmin.arrAreaGrp);
     	}
     	//////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2769,7 +2840,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	/* KRAD 조회 여부 */
 	fIsKRADSearch: function () {
 
-		//console.info(localStorage['_searchConfigInfo_']);
+		////console.info(localStorage['_searchConfigInfo_']);
 		if (localStorage['_searchConfigInfo_'] != undefined && localStorage['_searchConfigInfo_'] != null) {
 
 			var sConfInfo = JSON.parse(localStorage['_searchConfigInfo_']);

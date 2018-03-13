@@ -11,6 +11,11 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 	},
 
 	onCheckChanged: function (node, checked, btnId) {
+
+		if(node.id == "999"){
+			return;
+		}
+		
 		var me = this;
 		me.node = node;
 		me.checked = checked;
