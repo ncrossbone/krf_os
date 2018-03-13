@@ -39,45 +39,60 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 	},
 
 	// 콤보 체인지
-	onAreaChange: function (combo, record, eOpts) {
-
-		if (record.data) {
-			this.setComboData(combo.tarCmbId, record.data.id);
-		} else {
-			this.setComboData(combo.tarCmbId, record);
-		}
-
+	onAreaChange: function (combo, record, parentId, comboValue) {
 
 		var lnkBtn = Ext.getCmp(combo.lnkBtnId);
-		lnkBtn.setDisabled(false);
+		if (lnkBtn) {
+			lnkBtn.setDisabled(false);
+		}
 
+		if (combo.tarCmbId == null || combo.tarCmbId == '') {
+			return;
+		}
+
+		if (record && record.data) {
+			this.setComboData(combo.tarCmbId, record.data.id);
+		} else {
+			this.setComboData(combo.tarCmbId, parentId, comboValue);
+		}
 	},
 
-	setComboData: function (comboId, id) {
+	setComboData: function (comboId, id, comboValue) {
 		var combo = Ext.getCmp(comboId);
 		var store = combo.getStore();
 
 		store.layerId = combo.layerId; // 타겟 콤보 레이어 아이디
 		store.parentId = id;
 
-		store.load(); // 데이터 로드
-		combo.reset();
-		combo.setDisabled(false);
+		store.customOnLoaded = function () {
+			combo.reset();
+			combo.setDisabled(false);
+			if (comboValue) {
+				combo.setValue(comboValue);
+				var lnkBtn = Ext.getCmp(combo.lnkBtnId);
+				lnkBtn.setDisabled(false);
+			}
+		};
+
+		store.load();
+
+		var subCombo = combo;
 
 		while (true) {
 
 			// linked button disabled
-			var lnkBtn = Ext.getCmp(combo.lnkBtnId);
+			var lnkBtn = Ext.getCmp(subCombo.lnkBtnId);
 			lnkBtn.setDisabled(true);
 
 			// 하위 콤보 없으면 빠져나가기
-			if (combo.tarCmbId == undefined
-				|| combo.tarCmbId == "")
+			if (subCombo.tarCmbId == undefined
+				|| subCombo.tarCmbId == "")
 				break;
 
 			// 하위 콤보 disabled
-			combo = Ext.getCmp(combo.tarCmbId);
-			combo.reset();
+			subCombo = Ext.getCmp(subCombo.tarCmbId);
+			subCombo.reset();
+			subCombo.setDisabled(true);
 		}
 	},
 
@@ -116,7 +131,7 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 		//console.info(a);
 	},
 
-	onWaterSelect: function (button, eOpts, bookMaker) {
+	onWaterSelect: function (button, eOpts, bookmark) {
 
 		// if(ChkSearchCondition("수계찾기")){
 		var btnCtl = null;
@@ -171,17 +186,10 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 			// 지점목록 창 띄우기
 			//			Ext.ShowSiteListWindow("waterSearch");
 
-			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', {
-				flag: 'water',
-				combo1: buttonInfo.lastValue,
-				combo2: buttonInfo2.lastValue,
-				combo3: buttonInfo3.lastValue
-			});
-
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
 				searchText: 'waterSearch',
 				searchType: null,
-				bookMaker: bookMaker
+				isBookmark: false
 			});
 		}
 	},

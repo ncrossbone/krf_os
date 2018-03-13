@@ -434,7 +434,8 @@ Ext.define('Desktop.MapWindow', {
 			store = Ext.create('krf_new.store.east.KradListWindow');
 		} else {
 			store = Ext.create('krf_new.store.east.SiteListWindow', {
-				async: true
+				async: true,
+				param: param
 			});
 		}
 
@@ -442,7 +443,6 @@ Ext.define('Desktop.MapWindow', {
 			store.paramType = searchType;
 		}
 		store.searchType = param.searchText;
-		store.bookMaker = param.bookMaker;
 		store.load();
 		treeCtl.setStore(store);
 

@@ -183,13 +183,16 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 			}
 
 			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', {
-				flag: 'adm',
-				combo1: amdBtn1.lastValue,
-				combo2: amdBtn2.lastValue,
-				combo3: amdBtn3.lastValue
+				searchText: 'admSearch',
+				value1: amdBtn1.lastValue,
+				value2: amdBtn2.lastValue,
+				value3: amdBtn3.lastValue
 			});
 
-			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'admSearch' });
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
+				searchText: 'admSearch',
+				isBookmark: false
+			});
 
 			// Ext.ShowSiteListWindow("admSearch"); // 지점목록 창 띄우기
 		}
