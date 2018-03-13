@@ -90,7 +90,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 	callAjax: function (url, param) {
 		return $.ajax({
-			url: 'http://localhost:8070/krf/bookmark/' + url,
+			url: 'http://192.167.0.168:8070/krf/bookmark/' + url,
 			data: param,
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			type: 'post'
