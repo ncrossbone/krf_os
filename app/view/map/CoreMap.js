@@ -342,7 +342,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
 		
-		var subCoreMap = Ext.getCmp("_]subMapDiv_");
+		var subCoreMap = Ext.getCmp("_subMapDiv_");
 		subCoreMap.map.setExtent(evt.graphic._extent, true);
 		coreMap.map.testCount = 1;
 

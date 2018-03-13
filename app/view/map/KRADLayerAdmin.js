@@ -145,7 +145,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 		me.setKRADInfo();
 
-		me.setDynamicLayer();
+		//me.setDynamicLayer();
 
 		require(["esri/symbols/SimpleMarkerSymbol",
 			"esri/symbols/SimpleLineSymbol",
@@ -444,7 +444,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	},
 
 	setDynamicLayer: function () {
-
 		var me = this;
 		me.dynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(me.kradServiceUrl);
 		me.dynamicLayer.id = "kradLayerAdmin"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
@@ -2692,7 +2691,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(extDataId);
 
 		if (kInfoIdx > -1) {
-
+			return;
 			var eventType = me.kradInfo[kInfoIdx].EVENT_TYPE;
 			var peLayerId = null;
 			var leLayerId = null;
