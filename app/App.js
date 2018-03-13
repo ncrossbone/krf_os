@@ -120,9 +120,16 @@ Ext.define('krf_new.Desktop.App', {
             trayItems: [
                 //                { xtype: 'trayclock', flex: 1 }
                 {
-                    xtype: 'button', text: '바탕화면', onClick: function () {
+                    xtype: 'image',
+                    id: 'btnWallpaper',
+                    groupId: 'btnWallpaper',
+                    title: '바탕화면보기',
+                    width: 80,
+                    height: 35,
+                    listeners: { el: { click: function () {
                         $KRF_APP.fireEvent($KRF_EVENT.MINIMIZE_WINDOWS);
-                    }
+                    } } },
+                    src: './resources/images/button/wallpaper.png'
                 }
             ]
         });

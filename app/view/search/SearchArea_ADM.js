@@ -140,7 +140,6 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			items: [{
 				xtype: 'button',
 				id: 'btnADMReset',
-				//text: '초기화'
 				cls: 'khLee-x-button-reset'
 			}, {
 				xtype: 'container',
@@ -148,7 +147,6 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			}, {
 				xtype: 'button',
 				id: 'btnADMSelect',
-				//text: '선택'
 				cls: 'khLee-x-button-select'
 			}]
 		}]

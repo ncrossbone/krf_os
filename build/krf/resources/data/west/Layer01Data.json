@@ -7,16 +7,16 @@
 	"expanded": true,
 	"children": [{
 		"id": "1",
+		"text": "하천수 <a onclick='metaDataView(\"A001\")'  style='padding-right: 40px; float:right' href='#''> <img width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' /> </a> ",
 		"wmsId":"93",
-		"text": "하천수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
 		"leaf": true,
 		"checked": true,
 		"visible": true,
 		"siteIdCol": "측정소코드",
-		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
+		"siteNmCol": "측정소명",
 		"layerCode": "A001"
 	}, {
 		"id": "2",
@@ -735,4 +735,11 @@
 		"leaf": true,
 		"checked": false
 	}]
+},{
+	"id": "999",
+	"text": "소하천",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"siteIdCol": "SRIVER",
+	"checked": false
 }]

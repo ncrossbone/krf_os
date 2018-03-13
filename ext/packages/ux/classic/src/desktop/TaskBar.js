@@ -24,13 +24,13 @@ Ext.define('Ext.ux.desktop.TaskBar', {
 
     alias: 'widget.taskbar',
 
-    cls: 'ux-taskbar',
+    cls: 'krf_taskbar-ux-taskbar',
 
     /**
      * @cfg {String} startBtnText
      * The text for the Start Button.
      */
-    startBtnText: '시작',
+    // startBtnText: '시작',
 
     initComponent: function () {
         var me = this;
@@ -46,11 +46,13 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         me.items = [
             {
                 xtype: 'button',
-                cls: 'ux-start-button',
-                iconCls: 'ux-start-button-icon',
+                cls: 'krf_desktop-start-button-icon',
+                // iconCls: 'krf_desktop-start-button-icon',
                 menu: me.startMenu,
-                menuAlign: 'bl-tl',
-                text: me.startBtnText
+                // menuAlign: 'bl-tl',
+                width: 80,
+                height: 35,
+                text:''
             },
             // '&nbsp;',
             // me.quickStart,
@@ -80,8 +82,8 @@ Ext.define('Ext.ux.desktop.TaskBar', {
      */
     getQuickStart: function () {
         var me = this, ret = {
-            minWidth: 20,
-            width: Ext.themeName === 'neptune' ? 90 : 80,
+            minWidth: 00,
+            width: Ext.themeName === 'neptune' ? 0 : 0,
             items: [],
             enableOverflow: true
         };
@@ -108,6 +110,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
      */
     getTrayConfig: function () {
         var ret = {
+            cls:'krf_taskbar-ux-taskbar',
             items: this.trayItems
         };
         delete this.trayItems;
@@ -117,7 +120,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     getWindowBarConfig: function () {
         return {
             flex: 1,
-            cls: 'ux-desktop-windowbar',
+            cls: 'krf_taskbar-ux-taskbar',
             items: [ '&#160;' ],
             layout: { overflowHandler: 'Scroller' }
         };

@@ -201,9 +201,11 @@ Ext.application({
 
 		*/
 
-		var dp = $KRF_APP.getDesktop();
-		var dpWidth = dp.getWidth();
-		var dpHeight = dp.getHeight();
+		// var dp = $KRF_APP.getDesktop();
+		var dp = $('.ux-wallpaper');
+
+		var dpWidth = dp.width();
+		var dpHeight = dp.height();
 
 		var mapWindow = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.MAP.id);
 		var mapModule = $KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id);
@@ -213,7 +215,7 @@ Ext.application({
 			mapWindow.show();
 			return;
 		}
-		mapWindow = mapModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
+		mapWindow = mapModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight});
 		mapWindow = mapWindow.show();
 
 		$KRF_APP.modeWindows.krf.push(mapWindow);
@@ -356,7 +358,7 @@ Ext.application({
 	coreMapLoaded: function (param) {
 		if (param.id == '_mapDiv_') {
 			var centerContainer = Ext.getCmp('center_container');
-			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: 75 });
+			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: 60 });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);

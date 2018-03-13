@@ -4,8 +4,8 @@ Ext.define('krf_new.view.south.SearchResultWindow', {
 	//xtype : 'common-windowcontrol',
 	width: 300,
 	height: 300,
-	//renderTo: Ext.getBody(),
 
+   
 	items: [{
 		xtype: 'tabpanel',
 		header: false,

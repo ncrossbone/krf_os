@@ -272,18 +272,18 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		var subMapWindow = Ext.getCmp("subMapWindow");
 		
 			//subMapWindow.show();
-		var btnMenu10 = Ext.getCmp("btnMenu10").btnOnOff;
+		var btnMenu10 = Ext.getCmp("btnMenu010").btnOnOff;
 		
 		if(btnMenu10 == "on"){
 			//DynamicLayerSRiver.setVisibleLayers([-1]);
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
 			subMapWindow.hide();
-			Ext.getCmp("btnMenu10").btnOnOff = "off";
+			Ext.getCmp("btnMenu010").btnOnOff = "off";
 		}else{
 			//DynamicLayerSRiver.setVisibleLayers([2]);
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
 			subMapWindow.show();
-			Ext.getCmp("btnMenu10").btnOnOff = "on";
+			Ext.getCmp("btnMenu010").btnOnOff = "on";
 		}		
 	},
 
