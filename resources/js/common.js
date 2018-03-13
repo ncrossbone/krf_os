@@ -1796,9 +1796,17 @@ ResetButtonClick = function(){
 	//리치추가 임시 tmp 제거
 	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
 	$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
+	$KRF_APP.coreMap._krad.arrLineGrp_s = [];
 	$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
+	$KRF_APP.coreMap._krad.arrAreaGrp_s = [];
+	$KRF_APP.coreMap._krad.sRiverLineArray = [];
+	$KRF_APP.coreMap._krad.sRiverAreaArray = [];
 	reachAdmin.arrLineGrpTmp = [];
+	reachAdmin.arrLineGrp = [];
 	reachAdmin.arrAreaGrpTmp = [];
+	reachAdmin.arrAreaGrp = [];
+	
+	
 
 	//---north
 	// 항공영상 초기화
@@ -2522,5 +2530,31 @@ setActionInfo = function(node, parentId , data , id ,type){
         async: true, // 비동기 = async: true, 동기 = async: false
         failure: function(form, action) {
         }
-    });
+	});
+	
+
 }
+
+//메타 데이터 확인
+metaDataView = function(layerId){
+
+	var metaDataWindow = Ext.getCmp('metaDataWindow');
+	if(metaDataWindow == undefined){
+		//$KRF_APP.fireEvent($KRF_EVENT.SHOWMETADATAWINDOW);
+		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
+		metaDataWindow.show();
+		
+
+		// var metaStore = null;
+		// metaStore = Ext.create('krf_new.store.west.MetaDataStore');
+		
+		// metaStore.layerId = layerId;
+		// metaStore.load();
+		// var metaData1 = Ext.getCmp('metaData1');
+		// metaData1.bindStore(metaData1);
+		// console.info(metaStore);
+		//metaDataWindow.setStore(featureSet.features[0].attributes);
+		//var meatStore = 
+	}
+	
+};

@@ -12,7 +12,8 @@ Ext.define('Desktop.MapWindow', {
     ],
 
     subWindowIds:['popSiteInfo','reachNameToolbar','subMapWindow', 'siteListWindow', 'searchResultWindow'
-    	,'chlLegend','phyLegend','droneToolbar','droneDetailExp','reachCountSToolbar','reachCountEToolbar'],
+		,'chlLegend','phyLegend','droneToolbar','droneDetailExp','reachCountSToolbar','reachCountEToolbar'
+		,'metaDataWindow'],
 	id:'map-win',
 	once: true,
 	initCoord: null,
@@ -38,7 +39,10 @@ Ext.define('Desktop.MapWindow', {
         $KRF_APP.addListener($KRF_EVENT.SHOW_SITE_LIST_WINDOW, this.showSiteListWindow, this);
         $KRF_APP.addListener($KRF_EVENT.HIDE_SITE_LIST_WINDOW, this.hideSiteListWindow, this);
         
-        $KRF_APP.addListener($KRF_EVENT.WEST_TAB_CHANGE, this.westTabChange, this);
+		$KRF_APP.addListener($KRF_EVENT.WEST_TAB_CHANGE, this.westTabChange, this);
+		
+		$KRF_APP.addListener($KRF_EVENT.SHOWMETADATAWINDOW, this.showMetaDataWindow, this);
+		$KRF_APP.addListener($KRF_EVENT.HIDEMETADATAWINDOW, this.hideMetaDataWindow, this);
     },
 
     createWindow : function(config){
@@ -326,12 +330,16 @@ Ext.define('Desktop.MapWindow', {
 		
 		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
 		
+		var subMapWindow = Ext.getCmp("subMapWindow");
+		
 		if(btnLayerSRiver == "on"){
-			DynamicLayerSRiver.setVisibleLayers([-1]);
-			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
-		}else{
 			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+			subMapWindow.show();
+		}else{
+			DynamicLayerSRiver.setVisibleLayers([-1]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+			subMapWindow.hide();
 		}
 		
 		
@@ -481,7 +489,13 @@ Ext.define('Desktop.MapWindow', {
 		case "btnReachLayer": lyrId = "RCH_DID"; break;
 		case "btnAreaLayer": lyrId = "CAT_DID"; break;
 		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+		case "SRIVER": lyrId = "SRIVER"; break;
 		default: break;
+		}
+
+		//소하천일 경우 임시
+		if(lyrId = "SRIVER"){
+
 		}
 		
 		for(var i = 0; i<layerObj.store.data.items.length; i++){
@@ -489,7 +503,7 @@ Ext.define('Desktop.MapWindow', {
 				nodeObj = layerObj.store.data.items[i];
 			}
 		}
-		
+
 		var isChecked = nodeObj.get('checked');
 		
 		nodeObj.set('checked', !isChecked);
@@ -634,6 +648,16 @@ Ext.define('Desktop.MapWindow', {
 		var westContents = Ext.getCmp("westContents");
 		westContents.setActiveItem(tabIdx);
 		Ext.getCmp('search-win').setTitle(titleNm);
+	},
+
+	showMetaDataWindow: function(){
+		var metaDataWindow = Ext.getCmp("metaDataWindow");
+		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
+	},
+
+	hideMetaDataWindow: function(){
+		var metaDataWindow = Ext.getCmp("metaDataWindow");
+		me
 	}
 });
 

@@ -115,7 +115,7 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 		var combo = Ext.getCmp(button.lnkCmbId);
 		var searchLayerId = combo.layerId;
 		var searchText = combo.getValue();
-		KRF_DEV.getApplication().fireEvent('areaSelect', { admCd: searchText, layerId: searchLayerId });
+		$KRF_APP.getApplication().fireEvent('areaSelect', { admCd: searchText, layerId: searchLayerId });
 
 		var centerCtl = Ext.getCmp("center_container");
 

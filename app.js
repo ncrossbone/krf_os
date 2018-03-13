@@ -88,7 +88,9 @@ var $KRF_EVENT = {
 	MINIMAPCHANGE: 'MiniMapChange',
 	LOADED3D: 'Loaded3D',
 	CENTERAT: 'centerAt',
-	THREEDIM_MOVE: 'threeDimMove'
+	THREEDIM_MOVE: 'threeDimMove',
+	SHOWMETADATAWINDOW: 'showMeatDataWindow',
+	HIDEMETADATAWINDOW: 'hideMeatDataWindow'
 }
 
 var $KRF_WINS = {
@@ -346,14 +348,15 @@ Ext.application({
 			centerContainer.add(searchWindow);
 			searchWindow.show();
 
-			/*
+			
 			Ext.defer(function () {
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
-				subMapWindow.show();
+				//subMapWindow.show();
+				subMapWindow.hide();
 				
 			}, 500);
-			*/
+			
 		}
 	},
 	centerAt: function (coord) {

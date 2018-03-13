@@ -157,6 +157,18 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu08_on.png',
 			btnOffImg: './resources/images/button/reach_menu08.png',
 			src: './resources/images/button/reach_menu08.png'
+		}, {
+			xtype: 'image',
+			id: 'btnMenu10',
+			groupId: 'group2',
+			title: '3D',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: { el: { click: 'onClickMiniMap' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu08_on.png',
+			btnOffImg: './resources/images/button/reach_menu08.png',
+			src: './resources/images/button/reach_menu08.png'
 		}/*, '->', {
 	    	xtype: 'image',
 	    	id: 'btnMenuSave',

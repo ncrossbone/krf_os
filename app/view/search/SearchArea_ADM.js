@@ -33,7 +33,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-				//				layerId: _admSidoLayerId,
+				layerId: 66,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -44,7 +44,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 				labelPad: 10,
 				width: 200,
 				editable: false,
-				//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				store: Ext.create('krf_new.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id'
 			}, {
@@ -67,7 +67,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-				//				layerId: _admSigunguLayerId,
+				layerId: 67,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -78,7 +78,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 				labelPad: 10,
 				width: 200,
 				editable: false,
-				//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				store: Ext.create('krf_new.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id',
 				disabled: true
@@ -102,7 +102,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-				//				layerId: _admDongLayerId,
+				layerId: 68,
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
@@ -113,7 +113,7 @@ Ext.define('krf_new.view.search.SearchArea_ADM', {
 				labelPad: 10,
 				width: 200,
 				editable: false,
-				//				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				store: Ext.create('krf_new.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id',
 				disabled: true

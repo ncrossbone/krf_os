@@ -261,24 +261,24 @@ Ext.define('krf_new.view.map.CoreMap', {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var subCoreMap = Ext.getCmp("_subMapDiv_");
-
 		require(["esri/graphic"
 				, "esri/toolbars/edit"
 				, "dojo/_base/event"
 				, "esri/geometry/Polygon"
 				, "esri/symbols/SimpleLineSymbol"
 				,"esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
-					
 					//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
 					
 					var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
 					var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
-					graphic.id = "asd";
 
-					coreMap.map.graphics.add(graphic);
-
+					if($KRF_APP.coreMap._krad.miniLineGrpLayer.graphics.length == 0){
+						$KRF_APP.coreMap._krad.miniLineGrpLayer.add(graphic);
+					}
+					
 					var editToolbar = new esri.toolbars.Edit(coreMap.map);
-					coreMap.map.graphics.on("click", function (evt) {
+					// 클릭될시 리치 검색 클릭시를 유의 해야함
+					$KRF_APP.coreMap._krad.miniLineGrpLayer.on("click", function (evt) {
 						event.stop(evt);
 
 						var options = {
@@ -320,10 +320,12 @@ Ext.define('krf_new.view.map.CoreMap', {
 		var coreMap = Ext.getCmp("_mapDiv_");
 
 		var polygonGraphic = esri.geometry.Polygon.fromExtent(map.extent);
-
-		if (coreMap.map.graphics.graphics[1] != undefined) {
-
-			coreMap.map.graphics.graphics[1].setGeometry(polygonGraphic);
+		var miniLineGrpLayer = coreMap.map.getLayer("miniLineGrpLayer");
+		console.info(miniLineGrpLayer);
+		//coreMap.map.getLayer("DynamicLayerSRiver");
+		if (miniLineGrpLayer != undefined) {
+			console.info(miniLineGrpLayer);
+			miniLineGrpLayer.setGeometry(polygonGraphic);
 
 		}
 

@@ -27,7 +27,10 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 				async: true, // 비동기 = async: true, 동기 = async: false
 				success: function (response, opts) {
 					var jsonData = Ext.util.JSON.decode(response.responseText);
+					console.info(jsonData);
+					console.info(jsonData.data);
 					store.setData(jsonData.data);
+					console.info(store);
 					// 로딩바 숨김
 					Ext.getCmp("siteinfotest").unmask();
 				},

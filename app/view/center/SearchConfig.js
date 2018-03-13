@@ -145,6 +145,21 @@ Ext.define('krf_new.view.center.SearchConfig', {
 					this.up("win-searchConfig").setLocalStorage();
 				},
 				inputValue: 'isJiDraw'
+			}, {
+				xtype: 'checkbox',
+				boxLabel: '소하천',
+				checked: false,
+				width: 70,
+				handler: function (obj, checked) {
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+
+					this.up("win-searchConfig").onClickSRiver(checked);
+
+					$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
+					
+				},
+				inputValue: 'isSRiver'
 			}]
 		}]
 	}],
@@ -162,33 +177,52 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var searchConfigInfo = localStorage['_searchConfigInfo_'];
 		// 체크박스 컨트롤 배열
 		var chkCtls = this.query("checkbox");
-		//console.info(searchConfigInfo);
 		if (chkCtls != undefined && chkCtls != null) {
 			// 로컬 스토리지 존재하면
 			if (searchConfigInfo != undefined && searchConfigInfo != null) {
-
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
 				for (var i = 0; i < chkCtls.length; i++) {
-
-					if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
-						chkCtls[i].setValue(searchConfigInfoJson[chkCtls[i].inputValue]);
-					}
+					if(i == chkCtls.length-1){// 예외 ) 소하천인 경우 로컬스토리지에 저장되기 때문에 init storage를 비활성으로 초기 세팅
+						searchConfigInfoJson[chkCtls[i].inputValue] = false;
+						chkCtls[i].setValue(false);
+					}else{
+						if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
+							chkCtls[i].setValue(searchConfigInfoJson[chkCtls[i].inputValue]);
+						}
+					}	
 				}
-			}
-			else {
+			}else{
 				// 로컬 스토리지 셋팅
 				this.setLocalStorage();
 			}
 		}
+
+		//init 세팅이 끝나고 storage 다시 만들어준다
+		localStorage['_searchConfigInfo_'] = JSON.stringify(searchConfigInfoJson);
 	},
+
+	//소하천 dynamic 켜기
+	onClickSRiver: function(onOff){
+		
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+		//var subMapWindow = Ext.getCmp("subMapWindow");
+		
+		if(onOff){
+			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			//subMapWindow.show();
+		}else{
+			DynamicLayerSRiver.setVisibleLayers([-1]);
+			//subMapWindow.hide();
+		}
+	},
+
 	// 로컬 스토리지 셋팅
 	setLocalStorage: function () {
-
 		var chkCtls = this.query("checkbox");
 		var jsonObj = {};
 		for (var i = 0; i < chkCtls.length; i++) {
-
 			if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
 				jsonObj[chkCtls[i].inputValue] = chkCtls[i].checked;
 			}

@@ -30,7 +30,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayerSRiver = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.sRiver);
 		me.dynamicLayerSRiver.id = "DynamicLayerSRiver";
 		me.dynamicLayerSRiver.visible = true;
-		me.dynamicLayerSRiver.setVisibleLayers([0,1,2]);
+		me.dynamicLayerSRiver.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayerSRiver);
 
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
