@@ -302,6 +302,19 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				}
 			}
 		}, {
+			xtype: 'button',
+			id: 'btnMerge',
+			text: '동기화',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: {
+				el: {
+					click: 'onClickMerge'
+				}
+			}
+		}, {
 			xtype: 'container',
 			width: 50
 		}, {
