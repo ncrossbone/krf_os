@@ -63,6 +63,7 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 
 					if (data.length == index + 1) {
 						store.setData(receiveData);
+						store.customOnLoaded();
 					}
 				});
 			});

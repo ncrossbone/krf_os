@@ -64,19 +64,17 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 		store.layerId = combo.layerId; // 타겟 콤보 레이어 아이디
 		store.parentId = id;
 
-		store.load({
-			addRecords : true,
-			callback: function(records, operation, success) {
-				debugger;
-
-				combo.reset();
-				combo.setDisabled(false);
-				if(comboValue){			
-					combo.setValue(comboValue);
-				}
+		store.customOnLoaded = function(){
+			combo.reset();
+			combo.setDisabled(false);
+			if(comboValue){			
+				combo.setValue(comboValue);
+				var lnkBtn = Ext.getCmp(combo.lnkBtnId);
+				lnkBtn.setDisabled(false);
 			}
-		}); // 데이터 로드
+		};
 		
+		store.load();
 
 		var subCombo = combo;
 
@@ -94,6 +92,7 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 			// 하위 콤보 disabled
 			subCombo = Ext.getCmp(subCombo.tarCmbId);
 			subCombo.reset();
+			subCombo.setDisabled(true);
 		}
 	},
 

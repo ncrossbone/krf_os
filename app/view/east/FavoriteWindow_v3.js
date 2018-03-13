@@ -90,7 +90,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 	callAjax: function (url, param) {
 		return $.ajax({
-			url: 'http://192.167.0.168:8070/krf/bookmark/' + url,
+			url: 'http://localhost:8070/krf/bookmark/' + url,
 			data: param,
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			type: 'post'
@@ -363,12 +363,9 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 												var comboDatas = comStore.getData();
 
 												if (comboDatas && comboDatas.length > 0) {
-													comInstance.setValue(selectData.cmb[i].value);
-													comInstance.fireEvent('select', comInstance, null, selectData.cmb[i].value, selectData.cmb[i].childValue);
-													continue;
+													comInstance.setValue(selectData.cmb[i].value);											
 												}
-												//Ext.getCmp(selectData.cmb[i].id).fireEvent('select', Ext.getCmp(selectData.cmb[i].id), null , selectData.cmb[i].value);
-												// Ext.getCmp(selectData.cmb[i].id).setValue(selectData.cmb[i].value);
+												comInstance.fireEvent('select', comInstance, null, selectData.cmb[i].value, selectData.cmb[i].childValue);
 											}
 										}
 
