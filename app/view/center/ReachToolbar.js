@@ -191,6 +191,10 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOffImg: './resources/images/button/reach_menu14.png',
 			src: './resources/images/button/reach_menu14.png',
 			hidden: true
+		},{
+			xtype:'container',
+			id:'gabToolbarContainer',
+			width:10
 		}, {
 			xtype: 'image',
 			id: 'btnReachLayer',
@@ -272,6 +276,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu18.png'
 		},  {
 			xtype: 'image',
+			id:'btnNotice',
 			title: '공지사항',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -305,6 +310,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu15.png'
 		}, {
 			xtype: 'image',
+			id:'btnQnA',
 			title: 'Q&A',
 			width: this.itemWidth,
 			height: this.itemHeight,
@@ -332,6 +338,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu19.png'
 		}, {
 			xtype: 'image',
+			id:'btnSave',
 			title: '저장',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -347,6 +354,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu16.png'
 		}, {
 			xtype: 'image',
+			id:'btnMenual',
 			title: '매뉴얼',
 			width: this.itemWidth,
 			height: this.itemHeight,

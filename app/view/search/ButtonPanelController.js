@@ -14,7 +14,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 		if (currCtl.btnOnOff == "on") {
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_DRONE_TOOLBAR);
-			
+
 			Layer01OnOff($KRF_DEFINE.reachNodeLayerId, "off");
 			Layer01OnOff($KRF_DEFINE.reachLineLayerId, "off");
 			Layer01OnOff($KRF_DEFINE.reachFlowLayerId, "off");
@@ -34,7 +34,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 			// 항공영상 초기화
 			$KRF_APP.global.DroneFn.onClickResetButton();
-			
+
 			/* 수질측정지점 레이어 on */
 			Layer01OnOff("1", "on");
 			Layer01OnOff("2", "on");
@@ -188,15 +188,6 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 			$KRF_APP.fireEvent($KRF_EVENT.DRAW_END);
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_REACH_TOOLBAR);
-
-			//			Ext.ShowReachToolbar(evtArgs, el);
-
-			var droneToolbar = Ext.getCmp("droneToolbar");
-			var reachToolbar = Ext.getCmp("reachToolbar");
-
-			if (!reachToolbar.hidden && droneToolbar.getY() == 46) {
-				droneToolbar.setY(droneToolbar.getY() + 105);
-			}
 
 			var kradMetaInfo = Ext.getCmp("kradMetaInfo");
 			var kradSchConf = Ext.getCmp("kradSchConf");

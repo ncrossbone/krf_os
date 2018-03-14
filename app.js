@@ -96,7 +96,8 @@ var $KRF_EVENT = {
 	CHECK_MAP_PARAMETER: 'checkMapParameter',
 	ADD_AUTO_MOVE_COORDINATE: 'addAutoMoveCoordinate',
 	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear',
-	STOPEDITEVENT: 'stopEditEvent'
+	STOPEDITEVENT: 'stopEditEvent',
+	RESIZE_TOOL_ITEMS: 'resizeToolItems'
 }
 
 var $KRF_WINS = {

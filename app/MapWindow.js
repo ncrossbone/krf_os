@@ -48,6 +48,7 @@ Ext.define('Desktop.MapWindow', {
 		$KRF_APP.addListener($KRF_EVENT.SHOWMETADATAWINDOW, this.showMetaDataWindow, this);
 		$KRF_APP.addListener($KRF_EVENT.HIDEMETADATAWINDOW, this.hideMetaDataWindow, this);
 
+		$KRF_APP.addListener($KRF_EVENT.RESIZE_TOOL_ITEMS, this.resizeToolItems, this);
 	},
 
 	createWindow: function (config) {
@@ -82,6 +83,8 @@ Ext.define('Desktop.MapWindow', {
 					mapC = Ext.getCmp('cont_container');
 					mapC.setWidth(width - 80);
 					mapC.setHeight(height - 37);
+					
+					$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 					me.setSubWindowLocation();
 				},
 				render: function () {
@@ -142,6 +145,28 @@ Ext.define('Desktop.MapWindow', {
 			subMapWindow.hide();
 		}
 		return win;
+	},
+
+	resizeToolItems: function(){
+		var reachToolbar = Ext.getCmp('reachToolbar');
+		if(!reachToolbar){
+			return;
+		}
+		var toolbarItmes =  reachToolbar.items.items;
+		
+		var gabWidth = Ext.getCmp('_mapDiv_').getWidth();
+
+		for(var i=0; i<toolbarItmes.length; i++){
+			if(!toolbarItmes[i].hidden){
+				gabWidth = gabWidth-reachToolbar.itemWidth;
+			}
+			
+		}
+		if(gabWidth <0){
+			gabWidth = 0;
+		}
+		var gabCon = Ext.getCmp('gabToolbarContainer');
+		gabCon.setWidth(gabWidth);
 	},
 
 	setSubWindowLocation: function () {
@@ -208,6 +233,8 @@ Ext.define('Desktop.MapWindow', {
 			cContainer.add(rToolbar);
 		}
 		rToolbar.show();
+
+		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 	},
 
 	showReachToolbar: function () {
@@ -216,16 +243,6 @@ Ext.define('Desktop.MapWindow', {
 		var sConfig = Ext.getCmp("searchConfig");
 		var cContainer = Ext.getCmp("cont_container");
 
-		/*if (rToolbar == undefined) {
-			rToolbar = Ext.create('krf_new.view.center.ReachToolbar',{
-								id : 'reachToolbar',
-								cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target',
-								style:'z-index: 30000; position: absolute; padding: 0px 0 0px 0px !important;'
-							});
-			cContainer.add(rToolbar);
-		}
-		rToolbar.show();
-		*/
 
 		if (rNameToolbar == undefined) {
 			rNameToolbar = Ext.create('krf_new.view.center.ReachNameToolbar', {});
@@ -244,6 +261,8 @@ Ext.define('Desktop.MapWindow', {
 		for (var i = 1; i < 11; i++) {
 			Ext.getCmp('btnMenu0' + i).setVisible(true);
 		}
+
+		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 	},
 	hideReachToolbar: function () {
 		var cContainer = Ext.getCmp("center_container");
@@ -252,20 +271,12 @@ Ext.define('Desktop.MapWindow', {
 		var sConfig = Ext.getCmp("searchConfig");
 		var kConfig = Ext.getCmp("kradSchConf");
 
-		var droneToolbar = Ext.getCmp("droneToolbar");
-
-		if (droneToolbar.getY() == 115) {
-			droneToolbar.setY(droneToolbar.getY() - 105);
-		}
-
 		for (var i = 1; i < 11; i++) {
 			Ext.getCmp('btnMenu0' + i).setVisible(false);
 		}
 
-		//		cContainer.remove(rToolbar, false);
-		// if(rToolbar != undefined && rToolbar != null){
-		// 	rToolbar.hide();
-		// }
+		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
+		
 		if (rNameToolbar != undefined && rNameToolbar != null)
 			rNameToolbar.close();
 		if (sConfig != undefined && sConfig != null)
