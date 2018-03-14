@@ -15,11 +15,11 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
     y: 0,
     width: 340,
     height: 480,
-    iconCls: 'icon-grid',
     animCollapse: false,
+    collapsible: true,
     layout: 'fit',
     maximizable: false,
-    minimizable: true,
+    minimizable: false,
     resizable: false,
     constrain: true,
     constrainHeader: false,
@@ -45,7 +45,8 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
             treeCtl.setHeight(height - 50);
         }
     },
-    tools: [{
+    tools: [
+        /*{
         type: 'restore',
         handler: function (evt, toolEl, owner, tool) {
             var window = owner.up('window');
@@ -56,7 +57,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
                 window.isMinimaiz = false;
             }
         }
-    }],
+    }*/],
     items: [
         { xtype: 'app-threeDim-west' }
     ]

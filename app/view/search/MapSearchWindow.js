@@ -17,9 +17,10 @@ Ext.define('krf_new.view.search.MapSearchWindow', {
     height: 480,
     // iconCls: 'icon-grid',
     animCollapse: false,
+    collapsible: true,
     layout: 'fit',
     maximizable: false,
-    minimizable: true,
+    minimizable: false,
     resizable: false,
     constrain: true,
     constrainHeader: false,
@@ -39,14 +40,14 @@ Ext.define('krf_new.view.search.MapSearchWindow', {
             treeCtl.setHeight(height - 50);
         }
     },
-    tools: [{
+    tools: [/*{
         type: 'restore',
         handler: function (evt, toolEl, owner, tool) {
             var window = owner.up('window');
             window.expand('', false);
             //            window.center();
         }
-    }],
+    }*/],
     items: [
         { xtype: 'app-default-west' }
     ]
