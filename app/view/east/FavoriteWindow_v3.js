@@ -107,9 +107,11 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 		if (jsonObj.length > 0) {
 			var arr = [];
 			for (var i = 0; i < jsonObj.length; i++) {
-				var rm = JSON.parse(jsonObj[i].RM);
-				rm.sn = jsonObj[i].SN;
-				arr.push(rm);
+				if(jsonObj[i].RM){
+					var rm = JSON.parse(jsonObj[i].RM);
+					rm.sn = jsonObj[i].SN;
+					arr.push(rm);
+				}
 			}
 			me.gridStore.loadData(arr);
 		} else {
