@@ -34,7 +34,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 		viewConfig: {
 			style: { overflow: 'auto', overflowX: 'hidden' }
 		},
-		store: Ext.create('krf_new.store.west.Layer01Store'),
+		store: Ext.create('krf_new.store.west.ThreeDimLayer01Store'),
 		controller: 'threeDimLayer01Controller',
 		id: 'threeDimLayer01', // view.map.DynamicLayerAdmin의 layer.id와 일치시키자..
 		rootVisible: false,

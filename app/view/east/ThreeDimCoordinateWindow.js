@@ -30,6 +30,10 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			iconCls: null,
 			text: 'Play',
 			handler: 'onClickStart'
+		},{
+			iconCls: null,
+			text: 'Pause',
+			handler: 'onClickPause'
 		}, {
 			iconCls: null,
 			text: 'Stop',
