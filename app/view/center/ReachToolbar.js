@@ -291,19 +291,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								style: "border:solid 10px #E6E6E6;",
 								closable: false,
 								constrain: true,
+								closable: true,
 								header: {
-									items: [{
-										xtype: 'image',
-										src: './resources/images/button/btn_close.png',
-										style: 'padding-right:13px !important; cursor:pointer;',
-										listeners: {
-											el: {
-												click: function () {
-													Ext.getCmp("boardNotice").close();
-												}
-											}
-										}
-									}]
+									
 								}
 							});
 						}

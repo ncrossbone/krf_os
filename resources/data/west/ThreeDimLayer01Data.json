@@ -3,7 +3,6 @@
 	"text": "수질측정지점",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "1",
@@ -134,7 +133,6 @@
 	"text": "퇴적물조사지점",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "13",
@@ -166,7 +164,6 @@
 	"text": "조류모니터링",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "35",
@@ -210,7 +207,6 @@
 	"text": "방사성물질조사지점",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "39",
@@ -242,7 +238,6 @@
 	"text": "기타측정지점",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "16",
@@ -334,7 +329,6 @@
 	"text": "수생태계",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "24",
@@ -354,7 +348,6 @@
 	"text": "환경기초시설",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "26",
@@ -458,7 +451,6 @@
 	"text": "비점오염원",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "50",
@@ -475,7 +467,6 @@
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"visible": false,
-	"checked": true,
 	"expanded": true,
 	"children": [{
 		"id": "77",
@@ -493,7 +484,6 @@
 	"text": "하천망도",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "53",
@@ -539,7 +529,6 @@
 	"text": "하천",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "58",
@@ -565,7 +554,6 @@
 	"text": "수질영향권역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "62",
@@ -600,7 +588,6 @@
 	"text": "행정구역(법정동)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "65",
@@ -644,7 +631,6 @@
 	"text": "식생도(전국)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "71",
@@ -659,7 +645,6 @@
 	"text": "토지피복도(전국)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "72",
@@ -674,7 +659,6 @@
 	"text": "수질보호구역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "79",
@@ -724,7 +708,6 @@
 	"text": "총량관리단위유역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
-	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "88",
@@ -735,11 +718,4 @@
 		"leaf": true,
 		"checked": false
 	}]
-},{
-	"id": "999",
-	"text": "소하천",
-	"cls": "khLee-x-tree-node-text-bold",
-	"iconCls": "layerNoneImg",
-	"siteIdCol": "SRIVER",
-	"checked": false
 }]
