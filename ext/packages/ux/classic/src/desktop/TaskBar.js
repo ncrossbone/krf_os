@@ -25,7 +25,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     alias: 'widget.taskbar',
 
     cls: 'krf_taskbar-ux-taskbar',
-
+    height:40,
     /**
      * @cfg {String} startBtnText
      * The text for the Start Button.
@@ -47,6 +47,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
             {
                 xtype: 'button',
                 cls: 'krf_desktop-start-button-icon',
+                border:false,
                 // iconCls: 'krf_desktop-start-button-icon',
                 menu: me.startMenu,
                 // menuAlign: 'bl-tl',

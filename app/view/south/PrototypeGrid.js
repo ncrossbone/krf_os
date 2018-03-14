@@ -120,8 +120,8 @@ Ext.define('krf_new.view.south.PrototypeGrid', {
 			width: 10
 		}, {
 			xtype: 'image',
-			width: 83,
-			height: 25,
+			width: 59,
+			height: 24,
 			src: './resources/images/button/btn_exl.gif' // 엑셀 다운
 		}, {
 			xtype: 'container',

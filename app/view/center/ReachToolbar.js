@@ -247,9 +247,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				}
 			},
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/btn_top_04_on.png',
-			btnOffImg: './resources/images/button/btn_top_04_off.png',
-			src: './resources/images/button/btn_top_04_on.png'
+			btnOnImg: './resources/images/button/reach_menu18.png',
+			btnOffImg: './resources/images/button/reach_menu18_on.png',
+			src: './resources/images/button/reach_menu18.png'
 		},  {
 			xtype: 'image',
 			title: '공지사항',
@@ -319,7 +319,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 					}
 				}
 			},
-			src: './resources/images/button/top_btn5_off.png'
+			src: './resources/images/button/reach_menu19.png'
 		}, {
 			xtype: 'image',
 			title: '저장',

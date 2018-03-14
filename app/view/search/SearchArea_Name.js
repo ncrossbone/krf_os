@@ -9,11 +9,11 @@ Ext.define('krf_new.view.search.SearchArea_Name', {
 
 	controller: 'searchArea_NameController',
 
-	title: '명칭으로 찾기',
-
 	autoScroll: true,
 
 	cls: 'khLee-x-searcharea-water',
+
+	header: { cls: 'sub-panel-x-header', title: '<span class="sub-panel-header-text">명칭으로 찾기</span>' },
 
 	layout: {
 		type: 'vbox',
@@ -39,17 +39,15 @@ Ext.define('krf_new.view.search.SearchArea_Name', {
 					type: 'hbox'
 				},
 				items: [{
-					id: 'nameSearch',
-					xtype: 'label',
-					cls: 'khLee-x-label-default',
-					html: '<img src="./resources/images/button/blit_st_01.png" /> <b>명　칭</b> : ',
-					width: 70
-				}, {
 					id: 'textSearchText',
 					xtype: 'textfield',
 					displayField: 'name',
+					fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b>명  칭</b> ',
 					valueField: 'id',
-					width: 120
+					labelWidth: 60,
+					labelAlign: 'right',
+					labelPad: 10,
+					width: 220
 				}, {
 					xtype: 'container',
 					width: 10
