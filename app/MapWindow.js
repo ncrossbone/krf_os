@@ -156,7 +156,7 @@ Ext.define('Desktop.MapWindow', {
 		
 		var gabWidth = Ext.getCmp('_mapDiv_').getWidth();
 
-		for(var i=0; i<toolbarItmes.length; i++){
+		for(var i=0; i<toolbarItmes.length-1; i++){
 			if(!toolbarItmes[i].hidden){
 				gabWidth = gabWidth-reachToolbar.itemWidth;
 			}
@@ -251,7 +251,7 @@ Ext.define('Desktop.MapWindow', {
 
 		rNameToolbar.show();
 
-		rNameToolbar.setX(rToolbar.getX() + (200));
+		rNameToolbar.setX(rToolbar.getX() + (420));
 		rNameToolbar.setY(rToolbar.getY() + (61));
 
 		if (sConfig == undefined) {
