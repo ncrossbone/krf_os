@@ -57,10 +57,11 @@ Ext.define('Desktop.MapWindow', {
 		var win = desktop.getWindow('map-win');
 		var cfg = Ext.applyIf(config || {}, {
 			id: 'map-win',
-			title: 'KRF',
+			header:true,
 			width: 840,
 			height: 680,
 			iconCls: 'krf_icon',
+			shadow:false,
 			animCollapse: false,
 			layout: 'border',
 			constrain: true,

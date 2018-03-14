@@ -12,7 +12,6 @@ Ext.define('krf_new.view.common.TabControl', {
 	id: 'tabControl',
 
 	gridId: null,
-
 	header: false,
 
 	items: [{
@@ -469,8 +468,8 @@ Ext.define('krf_new.view.common.TabControl', {
 			width: 120
 		}, {
 			xtype: 'image',
-			width: 83,
-			height: 25,
+			width: 59,
+			height: 24,
 			src: './resources/images/button/btn_exl.gif', // 엑셀 다운
 			listeners: {
 				el: {
@@ -660,6 +659,9 @@ Ext.define('krf_new.view.common.TabControl', {
 		xtype: 'tabpanel',
 		id: 'tabpanels',
 		//title: 'tab1',
+		tabBar:{
+			style:'background:#fff;'	
+		},
 		style: 'background-color: #157fcb;',
 		//closable: true,
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',

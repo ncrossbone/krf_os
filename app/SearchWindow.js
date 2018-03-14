@@ -32,7 +32,7 @@ Ext.define('Desktop.SearchWindow', {
 			            layout: 'fit',
 			            maximizable : false,
 			            constrain: true,
-	            		constrainHeader:false,
+                        constrainHeader:false,
 			            items: [
 			            		{xtype:'app-default-west'}
 			            ]
