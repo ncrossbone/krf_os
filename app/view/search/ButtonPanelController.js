@@ -9,23 +9,12 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 	// 조류항공사진버튼
 	onClickDrone: function (obj, el, evt) {
 		var currCtl = SetBtnOnOff(el.id);
-		var droneCtl = Ext.getCmp("droneToolbar");
 		//		var btnModeReach = Ext.getCmp("btnModeReach");
 		//		var westCon = Ext.getCmp('west_container')
 
 		if (currCtl.btnOnOff == "on") {
-			droneCtl.show();
-			if (btnModeReach.btnOnOff == "on" && droneCtl.getY() == 97) {
-				droneCtl.setY(droneCtl.getY() + 105);
-			}
-			if (btnModeReach.btnOnOff == "off" && droneCtl.getY() == 202) {
-				droneCtl.setY(droneCtl.getY() - 105);
-			}
-			//			if(!westCon.getCollapsed()){
-			//				droneCtl.setX(390);
-			//			}else{
-			//				droneCtl.setX(90);
-			//			}
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_DRONE_TOOLBAR);
+			
 			Layer01OnOff($KRF_DEFINE.reachNodeLayerId, "off");
 			Layer01OnOff($KRF_DEFINE.reachLineLayerId, "off");
 			Layer01OnOff($KRF_DEFINE.reachFlowLayerId, "off");
@@ -41,13 +30,11 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 			SetBtnOnOff("btnFlowLayer", "off");
 			SetBtnOnOff("btnReachLayer", "off");
 		} else {
-			droneCtl.hide();
+			$KRF_APP.fireEvent($KRF_EVENT.HIDE_DRONE_TOOLBAR);
+
 			// 항공영상 초기화
 			$KRF_APP.global.DroneFn.onClickResetButton();
-			droneCtl.hide();
-
-			Ext.getCmp("droneDetailExp").hide();
-
+			
 			/* 수질측정지점 레이어 on */
 			Layer01OnOff("1", "on");
 			Layer01OnOff("2", "on");

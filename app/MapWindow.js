@@ -157,15 +157,15 @@ Ext.define('Desktop.MapWindow', {
 
 			rNameToolbar.hide();
 			Ext.defer(function () {
-				rNameToolbar.setX(rToolbar.getX() + (100));
-				rNameToolbar.setY(rToolbar.getY() + (73));
+				rNameToolbar.setX(rToolbar.getX() + (200));
+				rNameToolbar.setY(rToolbar.getY() + (60));
 				rNameToolbar.show();
 
 				if (popCtl != null && !popCtl.isHidden()) {
 					popCtl.setX(rToolbar.getX());
 					popHeader.setX(rToolbar.getX());
-					popCtl.setY(rToolbar.getY() + 103);
-					popHeader.setY(rToolbar.getY() + 73);
+					popCtl.setY(rToolbar.getY() + 203);
+					popHeader.setY(rToolbar.getY() + 60);
 				}
 			}, 1);
 		}
@@ -233,8 +233,8 @@ Ext.define('Desktop.MapWindow', {
 
 		rNameToolbar.show();
 
-		rNameToolbar.setX(rToolbar.getX() + (100));
-		rNameToolbar.setY(rToolbar.getY() + (73));
+		rNameToolbar.setX(rToolbar.getX() + (200));
+		rNameToolbar.setY(rToolbar.getY() + (61));
 
 		if (sConfig == undefined) {
 			sConfig = Ext.create("krf_new.view.center.SearchConfig");
@@ -257,7 +257,7 @@ Ext.define('Desktop.MapWindow', {
 			droneToolbar.setY(droneToolbar.getY() - 105);
 		}
 
-		for (var i = 1; i < 10; i++) {
+		for (var i = 1; i < 11; i++) {
 			Ext.getCmp('btnMenu0' + i).setVisible(false);
 		}
 
@@ -273,31 +273,43 @@ Ext.define('Desktop.MapWindow', {
 			kConfig.hide();
 	},
 	showDroneToolbar: function () {
+		var cContainer = Ext.getCmp("cont_container");
+
 		var droneToolbar = Ext.getCmp("droneToolbar");
 		var droneDetailExp = Ext.getCmp("droneDetailExp");
 
-		if (droneToolbar != null) {
-			droneToolbar.show();
+		if(!droneToolbar){
+			droneToolbar = Ext.create('krf_new.view.center.drone.DroneToolbar', {
+				x: 351,
+				y: 61
+			});
+			cContainer.add(droneToolbar);
 		}
-		if (droneDetailExp != null) {
-			rNamdroneDetailExpeToolbar.show();
+		
+		if(!droneDetailExp){
+			droneDetailExp = Ext.create('krf_new.view.center.drone.DroneDetailExp', {
+				x: 494
+			});
+			cContainer.add(droneDetailExp);
 		}
+		droneToolbar.show();
+		droneDetailExp.show();
 	},
 	hideDroneToolbar: function () {
-		var cContainer = Ext.getCmp("center_container");
-		var rToolbar = Ext.getCmp("reachToolbar");
-		var rNameToolbar = Ext.getCmp("reachNameToolbar");
+		var droneToolbar = Ext.getCmp("droneToolbar");
+		var droneDetailExp = Ext.getCmp("droneDetailExp");
+
+		if(droneToolbar){
+			droneToolbar.hide();
+		}
+		
+		if(droneDetailExp){
+			droneDetailExp.hide();
+		}
+		
 		var sConfig = Ext.getCmp("searchConfig");
 		var kConfig = Ext.getCmp("kradSchConf");
 
-		var droneToolbar = Ext.getCmp("droneToolbar");
-		if (droneToolbar.getY() == 202) {
-			droneToolbar.setY(droneToolbar.getY() - 105);
-		}
-
-		cContainer.remove(rToolbar, false);
-		if (rNameToolbar != undefined && rNameToolbar != null)
-			rNameToolbar.close();
 		if (sConfig != undefined && sConfig != null)
 			sConfig.close();
 		if (kConfig != undefined && kConfig != null)
