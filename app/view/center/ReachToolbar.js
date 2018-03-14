@@ -232,9 +232,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				}
 			},
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/reach_menu13_on.png',
-			btnOffImg: './resources/images/button/reach_menu13.png',
-			src: './resources/images/button/reach_menu13.png'
+			btnOnImg: './resources/images/button/reach_menu20_on.png',
+			btnOffImg: './resources/images/button/reach_menu20.png',
+			src: './resources/images/button/reach_menu20.png'
 		}, {
 			xtype: 'image',
 			id: 'btnAreaLayer',
