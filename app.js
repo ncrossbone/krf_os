@@ -306,14 +306,13 @@ Ext.application({
 			return;
 		}
 
-		var dp = $KRF_APP.getDesktop();
-		var dpWidth = dp.getWidth();
-		var dpHeight = dp.getHeight();
-		var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
-		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35, coord: centerCoord });
-		threeDimWindow = threeDimWindow.show();
+		var dp = $('.ux-wallpaper');
 
-		//		$KRF_APP.modeWindows.sb.push(statusWindow);
+		var dpWidth = dp.width();
+		var dpHeight = dp.height();
+		var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
+		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight, coord: centerCoord });
+		threeDimWindow = threeDimWindow.show();
 	},
 	modeChanged: function (param) {
 

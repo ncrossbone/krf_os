@@ -13,8 +13,11 @@ Ext.define('krf_new.view.center.ThreeDimToolbarController', {
 	onClickKRF: function (obj, el, evt) {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'getCenter' });
 	},
+	onClick3DDefaultMap: function(obj, el, evt) {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'defaultMap' });
+	},
 	onClickDEM: function (obj, el, evt) {
-		alert('준비중');
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'demMap' });
 	},
 	onClickAutoMoveMap: function (obj, el, evt) {
 		var currCtl = SetBtnOnOff(el.id);
@@ -29,6 +32,8 @@ Ext.define('krf_new.view.center.ThreeDimToolbarController', {
 		threeDimCoordinateWindow.show();
 
 		// currCtl.btnOnOff == "off" ? windowSiteNChart.hide() : windowSiteNChart.show();
+	},
+	onClickSave: function(){
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'save' });
 	}
-
 });

@@ -16,6 +16,9 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateController', {
 	onClickStop: function () {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'stopAutoMove'});
 	},
+	onClickPause: function () {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'pauseAutoMove'});
+	},
 	onClickClear: function () {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'clearInputLine'});
 		$KRF_APP.fireEvent($KRF_EVENT.ADD_AUTO_MOVE_CLEAR,{});

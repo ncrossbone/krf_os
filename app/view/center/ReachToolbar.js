@@ -213,6 +213,26 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu13.png'
 		}, {
 			xtype: 'image',
+			id: 'btnReachNodeLayer',
+			layerId: '55',
+			groupId: 'grpReach',
+			title: '리치노드',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: {
+				el: {
+					click: function (obj, el, evt) {
+						//$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+					}
+				}
+			},
+			btnOnOff: 'on',
+			btnOnImg: './resources/images/button/reach_menu13_on.png',
+			btnOffImg: './resources/images/button/reach_menu13.png',
+			src: './resources/images/button/reach_menu13.png'
+		}, {
+			xtype: 'image',
 			id: 'btnAreaLayer',
 			groupId: 'grpArea',
 			title: '집수구역',

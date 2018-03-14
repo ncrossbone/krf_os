@@ -20,13 +20,21 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
     layout: 'fit',
     maximizable: false,
     minimizable: true,
+    resizable: false,
     constrain: true,
     constrainHeader: false,
     closable: false,
     listeners: {
         'minimize': function (window, opts) {
-            window.collapse();
-            window.setWidth(150);
+            if (!window.isMinimaiz) {
+                window.collapse();
+                var dp = $('.ux-wallpaper');
+                window.beforeY = window.getY();
+                window.beforeX = window.getX();
+                window.isMinimaiz = true;
+                window.setY(dp.height() - 35);
+                window.setX(98);
+            }
         },
         'resize': function (window, width, height) {
             // 레이어 트리 패널 높이 조절 (스크롤)
@@ -41,9 +49,12 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
         type: 'restore',
         handler: function (evt, toolEl, owner, tool) {
             var window = owner.up('window');
-            window.setWidth(300);
-            window.expand('', false);
-            //            window.center();
+            if (window.isMinimaiz) {
+                window.expand('', false);
+                window.setY(window.beforeY);
+                window.setX(window.beforeX);
+                window.isMinimaiz = false;
+            }
         }
     }],
     items: [

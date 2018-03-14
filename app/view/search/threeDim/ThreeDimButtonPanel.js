@@ -12,10 +12,9 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanel', {
 	title: '화면제어판',
 
 	/* 사이즈 지정 */
-	itemWidth: 78,
-	itemHeight: 86,
+	itemWidth: 90,
+	width: 90,
 
-	width: 78,
 	/* 사이즈 지정 끝 */
 
 	border: 0,
@@ -44,7 +43,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanel', {
 			title: '위치검색',//위치검색
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight - 22,
+			height: 69,
 			//listeners: this.onClickListener,
 			btnOnOff: 'on',
 			btnOnImg: './resources/images/button/left_menu01_on.png',
@@ -58,7 +57,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanel', {
 			title: '주제도선택',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight - 53,
+			height: 44,
 			//listeners: this.onClickListener,
 			listeners: { el: { click: 'onClickLayer' } },
 			//listeners: { el: { click: 'onClickLayer' } },
