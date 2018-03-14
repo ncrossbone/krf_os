@@ -15,6 +15,7 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 
 	cls: 'khLee-x-searcharea-water',
 
+	header : {cls:'sub-panel-x-header'},
 	layout: {
 		type: 'vbox',
 		align: 'stretch'

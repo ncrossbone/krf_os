@@ -10,7 +10,10 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 
 	id: 'windowSiteNChart',
 	constrain: true,
+	
+	cls: 'subWindow-x-form-item-label-default',
 	header: {
+		cls :'subWindow-x-form-item-label-default',
 		titlePosition: 2,
 		items: [{
 			xtype: 'image',

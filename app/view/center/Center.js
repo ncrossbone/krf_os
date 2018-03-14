@@ -31,17 +31,5 @@ Ext.define('krf_new.view.center.Center', {
 	],
 	initComponent: function () {
 		this.callParent();
-
-		var droneToolbar = Ext.create('krf_new.view.center.drone.DroneToolbar', {
-			x: 10,
-			y: 10
-		});
-		this.add(droneToolbar);
-		var droneDetailExp = Ext.create('krf_new.view.center.drone.DroneDetailExp', {
-			x: 153
-		});
-		this.add(droneDetailExp);
-		droneDetailExp.hide();
-		droneToolbar.hide();
 	}
 });

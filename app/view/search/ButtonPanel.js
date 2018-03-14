@@ -10,12 +10,8 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 	xtype: 'west-buttonpanel',
 
 	title: '화면제어판',
-
-	/* 사이즈 지정 */
-	itemWidth: 78,
-	itemHeight: 86,
-
-	width: 78,
+	itemWidth: 90,
+	width: 90,
 	/* 사이즈 지정 끝 */
 
 	border: 0,
@@ -44,8 +40,7 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '위치검색',//위치검색
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight - 22,
-			//listeners: this.onClickListener,
+			height: 69,
 			btnOnOff: 'on',
 			btnOnImg: './resources/images/button/left_menu01_on.png',
 			btnOffImg: './resources/images/button/left_menu01_on.png',
@@ -58,10 +53,8 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '주제도선택',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight - 53,
-			//listeners: this.onClickListener,
+			height: 44,
 			listeners: { el: { click: 'onClickLayer' } },
-			//listeners: { el: { click: 'onClickLayer' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/left_menu02_on.png',
 			btnOffImg: './resources/images/button/left_menu02.png',
@@ -74,8 +67,7 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '정보창',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight,
-			//listeners: this.onClickListener,
+			height: this.itemWidth,
 			listeners: { el: { click: 'onClickInfo' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/left_menu03_on.png',
@@ -88,8 +80,7 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '검색결과',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight,
-			//listeners: this.onClickListener,
+			height: this.itemWidth,
 			listeners: { el: { click: 'onClickResult' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/left_menu04_on.png',
@@ -107,9 +98,9 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			//listeners: this.onClickListener,
 			listeners: { el: { click: 'onClickDrone' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/left_menu08_on.png',
-			btnOffImg: './resources/images/button/left_menu08.png',
-			src: './resources/images/button/left_menu08.png'
+			btnOnImg: './resources/images/button/left_menu05_on.png',
+			btnOffImg: './resources/images/button/left_menu05.png',
+			src: './resources/images/button/left_menu05.png'
 		}, '->', {
 			xtype: 'image',
 			id: 'btnModeNomal',
@@ -117,12 +108,12 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '일반모드',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight - 5,
+			height: this.itemWidth,
 			listeners: this.onClickListener,
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/left_menu05_on.png',
-			btnOffImg: './resources/images/button/left_menu05.png',
-			src: './resources/images/button/left_menu05_on.png'
+			btnOnImg: './resources/images/button/left_menu06_on.png',
+			btnOffImg: './resources/images/button/left_menu06.png',
+			src: './resources/images/button/left_menu06_on.png'
 		}, {
 			xtype: 'image',
 			id: 'btnModeReach',
@@ -130,12 +121,12 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '리치모드',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight + 4,
+			height: this.itemWidth,
 			listeners: this.onClickListener,
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/left_menu06_on.png',
-			btnOffImg: './resources/images/button/left_menu06.png',
-			src: './resources/images/button/left_menu06.png'
+			btnOnImg: './resources/images/button/left_menu07_on.png',
+			btnOffImg: './resources/images/button/left_menu07.png',
+			src: './resources/images/button/left_menu07.png'
 		}, {
 			xtype: 'image',
 			id: 'btnFavorites',
@@ -143,13 +134,12 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '즐겨찾기',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: this.itemHeight,
+			height: this.itemWidth,
 			listeners: { el: { click: 'onClickFavorite' } },
 			btnOnOff: 'off',
-			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/left_menu07_on.png',
-			btnOffImg: './resources/images/button/left_menu07.png',
-			src: './resources/images/button/left_menu07.png'
+			btnOnImg: './resources/images/button/left_menu08_on.png',
+			btnOffImg: './resources/images/button/left_menu08.png',
+			src: './resources/images/button/left_menu08.png'
 		}];
 
 		this.callParent();

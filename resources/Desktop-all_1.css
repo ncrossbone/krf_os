@@ -2105,11 +2105,11 @@ div.x-form-text-grow .x-form-textarea {
 	padding: 3px 3px 3px 3px;
 	border-width: 1px;
 	border-style: solid;
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-default-small-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-nbr .x-btn-default-small {
@@ -2320,7 +2320,7 @@ div.x-form-text-grow .x-form-textarea {
 
 .x-btn-focus.x-btn-default-small {
 	background-image: none;
-	background-color: #3892d4;
+	background-color: #003873;
 	-webkit-box-shadow: #d7e9f6 0 1px 0px 0 inset, #d7e9f6 0 -1px 0px 0
 		inset, #d7e9f6 -1px 0 0px 0 inset, #d7e9f6 1px 0 0px 0 inset;
 	-moz-box-shadow: #d7e9f6 0 1px 0px 0 inset, #d7e9f6 0 -1px 0px 0 inset,
@@ -2376,7 +2376,7 @@ div.x-form-text-grow .x-form-textarea {
 
 .x-btn.x-btn-disabled.x-btn-default-small {
 	background-image: none;
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-focus .x-btn-default-small-tl, .x-btn-focus .x-btn-default-small-bl,
@@ -2392,7 +2392,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-btn-focus .x-btn-default-small-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-over .x-btn-default-small-tl, .x-btn-over .x-btn-default-small-bl,
@@ -2485,7 +2485,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-btn.x-btn-disabled .x-btn-default-small-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-nbr .x-btn-default-small {
@@ -2659,11 +2659,11 @@ div.x-form-text-grow .x-form-textarea {
 	padding: 3px 3px 3px 3px;
 	border-width: 1px;
 	border-style: solid;
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-default-medium-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-nbr .x-btn-default-medium {
@@ -2874,7 +2874,7 @@ div.x-form-text-grow .x-form-textarea {
 
 .x-btn-focus.x-btn-default-medium {
 	background-image: none;
-	background-color: #3892d4;
+	background-color: #003873;
 	-webkit-box-shadow: #d7e9f6 0 1px 0px 0 inset, #d7e9f6 0 -1px 0px 0
 		inset, #d7e9f6 -1px 0 0px 0 inset, #d7e9f6 1px 0 0px 0 inset;
 	-moz-box-shadow: #d7e9f6 0 1px 0px 0 inset, #d7e9f6 0 -1px 0px 0 inset,
@@ -2930,7 +2930,7 @@ div.x-form-text-grow .x-form-textarea {
 
 .x-btn.x-btn-disabled.x-btn-default-medium {
 	background-image: none;
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-focus .x-btn-default-medium-tl, .x-btn-focus .x-btn-default-medium-bl,
@@ -2946,7 +2946,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-btn-focus .x-btn-default-medium-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-over .x-btn-default-medium-tl, .x-btn-over .x-btn-default-medium-bl,
@@ -3041,7 +3041,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-btn.x-btn-disabled .x-btn-default-medium-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-nbr .x-btn-default-medium {
@@ -3215,11 +3215,11 @@ div.x-form-text-grow .x-form-textarea {
 	padding: 3px 3px 3px 3px;
 	border-width: 1px;
 	border-style: solid;
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-default-large-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-nbr .x-btn-default-large {
@@ -3430,7 +3430,7 @@ div.x-form-text-grow .x-form-textarea {
 
 .x-btn-focus.x-btn-default-large {
 	background-image: none;
-	background-color: #3892d4;
+	background-color: #003873;
 	-webkit-box-shadow: #d7e9f6 0 1px 0px 0 inset, #d7e9f6 0 -1px 0px 0
 		inset, #d7e9f6 -1px 0 0px 0 inset, #d7e9f6 1px 0 0px 0 inset;
 	-moz-box-shadow: #d7e9f6 0 1px 0px 0 inset, #d7e9f6 0 -1px 0px 0 inset,
@@ -3486,7 +3486,7 @@ div.x-form-text-grow .x-form-textarea {
 
 .x-btn.x-btn-disabled.x-btn-default-large {
 	background-image: none;
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-focus .x-btn-default-large-tl, .x-btn-focus .x-btn-default-large-bl,
@@ -3502,7 +3502,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-btn-focus .x-btn-default-large-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-btn-over .x-btn-default-large-tl, .x-btn-over .x-btn-default-large-bl,
@@ -3595,7 +3595,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-btn.x-btn-disabled .x-btn-default-large-mc {
-	background-color: #3892d4
+	background-color: #003873
 }
 
 .x-nbr .x-btn-default-large {
@@ -9104,7 +9104,7 @@ div.x-form-text-grow .x-form-textarea {
 }
 
 .x-form-trigger-wrap-default.x-form-trigger-wrap-focus {
-	border-color: #3892d4
+	border-color: #003873
 }
 
 .x-form-trigger-wrap-default.x-form-trigger-wrap-invalid {
@@ -11351,21 +11351,21 @@ body.x-border-layout-ct, div.x-border-layout-ct {
 }
 
 .x-tab-default-top.x-tab-focus {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-top.x-tab-focus.x-tab-over {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-top.x-tab-focus.x-tab-active {
@@ -11386,21 +11386,21 @@ body.x-border-layout-ct, div.x-border-layout-ct {
 }
 
 .x-tab-default-right.x-tab-focus {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-right.x-tab-focus.x-tab-over {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-right.x-tab-focus.x-tab-active {
@@ -11421,21 +11421,21 @@ body.x-border-layout-ct, div.x-border-layout-ct {
 }
 
 .x-tab-default-bottom.x-tab-focus {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-bottom.x-tab-focus.x-tab-over {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-bottom.x-tab-focus.x-tab-active {
@@ -11456,21 +11456,21 @@ body.x-border-layout-ct, div.x-border-layout-ct {
 }
 
 .x-tab-default-left.x-tab-focus {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-left.x-tab-focus.x-tab-over {
-	-webkit-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0
-		inset, #3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	-moz-box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset;
-	box-shadow: #3892d4 0 1px 0px 0 inset, #3892d4 0 -1px 0px 0 inset,
-		#3892d4 -1px 0 0px 0 inset, #3892d4 1px 0 0px 0 inset
+	-webkit-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0
+		inset, #003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	-moz-box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset;
+	box-shadow: #003873 0 1px 0px 0 inset, #003873 0 -1px 0px 0 inset,
+		#003873 -1px 0 0px 0 inset, #003873 1px 0 0px 0 inset
 }
 
 .x-tab-default-left.x-tab-focus.x-tab-active {
@@ -11555,8 +11555,8 @@ body.x-border-layout-ct, div.x-border-layout-ct {
 }
 
 .x-tab.x-tab-active.x-tab-default {
-	border-color: #3892d4;
-	background-color: #3892d4
+	border-color: #003873;
+	background-color: #003873
 }
 
 .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
@@ -11572,8 +11572,8 @@ body.x-border-layout-ct, div.x-border-layout-ct {
 }
 
 .x-tab-focus.x-tab-active.x-tab-default {
-	border-color: #3892d4;
-	background-color: #3892d4
+	border-color: #003873;
+	background-color: #003873
 }
 
 .x-tab.x-tab-disabled.x-tab-default {

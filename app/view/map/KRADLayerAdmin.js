@@ -145,7 +145,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 		me.setKRADInfo();
 
-		me.setDynamicLayer();
+		//me.setDynamicLayer();
 
 		require(["esri/symbols/SimpleMarkerSymbol",
 			"esri/symbols/SimpleLineSymbol",
@@ -444,7 +444,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	},
 
 	setDynamicLayer: function () {
-
 		var me = this;
 		me.dynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(me.kradServiceUrl);
 		me.dynamicLayer.id = "kradLayerAdmin"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
@@ -2421,12 +2420,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		var reachAdmin = $KRF_APP.coreMap.reachLayerAdmin_v3_New;
 
 		if (grpType == "reachLine") {
-
 			me.drawGraphic2(graphic, me.reachLineSym, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
 		}
 
 		if (grpType == "reachArea") {
-
 			me.drawGraphic2(graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
 		}
 
@@ -2490,6 +2487,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		// 그래픽 그린다.
 		graphic.setSymbol(symbol);
 		layer.add(graphic);
+		
+		
 		// 배열에 넣기
 		arrObj.push(graphic);
 		// 리치 배열 넣기
@@ -2516,13 +2515,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 			return objId;
 		}).indexOf(currId);
-
 		if (idx == -1) {
 
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
 			layer.add(graphic);
-
+			//$KRF_APP.subMap._krad.lineGrpLayer.add(graphic);
+			
 			// 배열에 넣기
 			arrObj.push(graphic);
 			// 리치 배열 넣기
@@ -2692,7 +2691,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(extDataId);
 
 		if (kInfoIdx > -1) {
-
+			return;
 			var eventType = me.kradInfo[kInfoIdx].EVENT_TYPE;
 			var peLayerId = null;
 			var leLayerId = null;

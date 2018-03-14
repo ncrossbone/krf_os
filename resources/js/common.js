@@ -262,14 +262,6 @@ ReachInfoBinding = function (objs) {
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 
-	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
-		tabIdx: tabIdx,
-		title: title,
-		test: test,
-		parentId: parentId,
-		chartFlag: chartFlag
-	});
-
 	var yFieldName = "";
 	var chartId = ""; // 부모아이디
 
@@ -284,11 +276,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 
 		$KRF_APP.parentFlag = parentId;
 		$KRF_APP.chartFlag = "1";
-		//		
 
 		var centerContainer = Ext.getCmp('center_container');
 
-		var winX = centerContainer.getWidth() - 350;
+		var winX = centerContainer.getWidth() - 520;
 		var winY = 98;
 
 		var listCtl = Ext.getCmp("siteListWindow");
@@ -300,7 +291,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		var winCtl = Ext.getCmp("windowSiteNChart");
 
 		if (winCtl == undefined) {
-			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { x: winX, y: winY });
+			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { width: 520, height: 255, x: winX, y: winY });
 			centerContainer.add(winCtl);
 		}
 		winCtl.show();
@@ -410,8 +401,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		}
 
 		chartId = parentId;
-	}
-	else {
+	} else {
 		$KRF_APP.chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		var chartStore = siteChartCtl.getStore();
@@ -685,7 +675,6 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var windowY = centerContainer.getHeight() - windowHeight;
 	// window 창 옵션
 	var options = {
-		renderTo: centerContainer.el,
 		id: 'searchResultWindow',
 		title: '검색결과',
 		width: windowWidth,
@@ -1297,13 +1286,14 @@ ShowSearchResultReach = function (catIds) {
 
 	// window 창 옵션
 	var options = {
-		renderTo: centerContainer.el,
 		id: 'searchResultWindow',
 		title: '검색결과',
 		constrain: true,
 		width: windowWidth,
 		height: windowHeight,
-		y: windowY
+		y: windowY,
+		header: { cls: 'subWindow-x-form-item-label-default' },
+		cls: 'subWindow-x-form-item-label-default'
 	};
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);

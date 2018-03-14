@@ -14,7 +14,9 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 	height: 305,
 	closable: true,
 	constrain: true,
-	style: "padding-top:10px",
+    header:{cls :'subWindow-x-form-item-label-default'},
+	cls: 'subWindow-x-form-item-label-default',
+	
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',

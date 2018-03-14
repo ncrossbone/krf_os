@@ -24,5 +24,5 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanelController', {
 	// 길따라가기
 	onClickMeasuredValue: function (obj, el, evt) {
 		alert('준비중');
-	},
+	}
 });
