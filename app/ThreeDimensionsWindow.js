@@ -19,7 +19,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
     init: function () {
 
         this.launcher = {
-            text: '3D 지도',
+            text: '<span class="krf-os-startmenu-text">3D 지도</span>',
             iconCls: 'krf-os-startmenu-threedim-icon'
         };
 

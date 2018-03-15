@@ -10,6 +10,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 	constrain: true,
 	title: '기간설정',
 	controller: 'chartPanelDateController',
+	cls: 'subWindow-x-form-item-label-default',
+	header:{cls :'subWindow-x-form-item-label-default'},
 	//x: x,
 	//    cls: 'khLee-window-panel-header khLee-x-window-default ',
 	initComponent: function () {

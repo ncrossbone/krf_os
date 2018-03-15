@@ -51,21 +51,21 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				listeners: {
 					el: {
 						click: function (obj, el, evt) {
-							var btnCtl = Ext.getCmp(el.id);
-							var parentCtl = btnCtl.findParentByType("container");
 							var dateWinCtl = Ext.getCmp("datePanel1");
 
-
-							if (dateWinCtl == undefined) {
+							if (!dateWinCtl) {
 								dateWinCtl = Ext.create("krf_new.view.east.ChartPanelDate");
 							}
-							dateWinCtl.show();
-							dateWinCtl = undefined;
+
+							if(dateWinCtl.hidden){
+								Ext.getCmp('center_container').add(dateWinCtl);
+								dateWinCtl.show();
+							}
 						}
 					}
 				},
-				width: 45,
-				height: 21,
+				width: 40,
+				height: 24,
 				src: './resources/images/button/btn_date.gif'
 			}, {
 				xtype: 'label',
@@ -89,9 +89,9 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						}
 					}
 				},
-				width: 45,
-				height: 21,
-				src: './resources/images/button/btn_save.gif'
+				width: 40,
+				height: 24,
+				src: './resources/images/button/icon_save.gif'
 
 			}]
 		}, {

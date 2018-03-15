@@ -15,7 +15,7 @@ Ext.define('Desktop.StatusBoardWindow', {
 
     init : function(){
         this.launcher = {
-            text: '현황판',
+            text: '<span class="krf-os-startmenu-text">현황판</span>',
             iconCls:'krf-os-startmenu-status-icon'
         };
     },

@@ -143,6 +143,8 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 			popCtl = Ext.create('krf_new.view.east.FavoriteWindow_v3');
 		}
 
+		Ext.getCmp('center_container').add(popCtl);
+		
 		////console.info(popCtl.hidden);
 		if (popCtl.hidden == true) {
 			popCtl.show();

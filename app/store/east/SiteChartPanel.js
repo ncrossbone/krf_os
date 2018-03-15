@@ -16,6 +16,18 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 
 	listeners: {
 		load: function (store) {
+
+			var cfgBtn = Ext.getCmp('btnShowSearchWindow');
+			var saveBtn = Ext.getCmp('btnImageDown');
+			var dateWin = Ext.getCmp('datePanel1');
+
+			cfgBtn.hide();
+			saveBtn.hide();
+
+			if (dateWin) {
+				dateWin.hide();
+			}
+
 			var defaultChart = $KRF_APP.chartFlag;
 			var f_Chart = Ext.getCmp("f_Chart");
 			var d_Chart = $KRF_APP.chartFlag_D;
@@ -158,10 +170,15 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						SetChartMaxData(store);
 						// 로딩바 숨김
 						Ext.getCmp("siteCharttest").unmask();
+
 					} else {
 						Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 						Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 					}
+
+					cfgBtn.show();
+					saveBtn.show();
+
 				},
 				failure: function (form, action) {
 					// 로딩바 숨김

@@ -87,10 +87,10 @@ Ext.define('krf_new.Desktop.App', {
         return Ext.apply(ret, {
             iconCls: 'user',
             id:'krf-os-startmenu',
-            height: 500,
+            height: 350,
             width:300,
             header:false,
-            style:'color:#fff;',
+            itemCls:'krf-os-startmenu-item',
             bodyCls:'gradient',
             //            toolConfig: {
             //                width: 100,

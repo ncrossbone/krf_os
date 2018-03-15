@@ -39,17 +39,15 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name', {
 					type: 'hbox'
 				},
 				items: [{
-					id: 'nameThreeDimSearch',
-					xtype: 'label',
-					cls: 'khLee-x-label-default',
-					html: '<img src="./resources/images/button/blit_st_01.png" /> <b>명　칭</b> : ',
-					width: 70
-				}, {
 					id: 'textThreeDimSearchText',
 					xtype: 'textfield',
 					displayField: 'name',
 					valueField: 'id',
-					width: 120
+					fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b>명  칭</b> ',
+					labelWidth: 60,
+					labelAlign: 'right',
+					labelPad: 10,
+					width: 220
 				}, {
 					xtype: 'container',
 					width: 10
