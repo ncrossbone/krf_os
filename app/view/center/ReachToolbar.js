@@ -265,26 +265,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu20_on.png',
 			btnOffImg: './resources/images/button/reach_menu20.png',
 			src: './resources/images/button/reach_menu20_on.png'
-		}, {
-			xtype: 'image',
-			id: 'btnAreaLayer',
-			groupId: 'btnAreaLayer',
-			title: '집수구역',
-			style: 'cursor:pointer;',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: function (obj, el, evt) {
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
-					}
-				}
-			},
-			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu12_on.png',
-			btnOffImg: './resources/images/button/reach_menu12.png',
-			src: './resources/images/button/reach_menu12.png'
-		}, {
+		},  {
 			xtype: 'image',
 			id: 'btnFlowLayer',
 			groupId: 'btnFlowLayer',
@@ -323,9 +304,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>',
 								cls: 'subWindow-x-form-item-label-default',
 								header: { cls: 'subWindow-x-form-item-label-default' },
-								closable: false,
-								constrain: true,
-								closable: true
+								constrain: true
 							});
 						}
 						Ext.getCmp('center_container').add(boardCtl);
@@ -354,6 +333,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								height: 600,
 								cls: 'subWindow-x-form-item-label-default',
 								header: { cls: 'subWindow-x-form-item-label-default' },
+								constrain: true,
 								html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
 							});
 						}
