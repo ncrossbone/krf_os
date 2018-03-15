@@ -43,6 +43,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '3D지도',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClick3D' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu01.png',
@@ -55,20 +56,20 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '미니맵',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickMiniMap' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu02_on.png',
 			btnOffImg: './resources/images/button/reach_menu02.png',
 			src: './resources/images/button/reach_menu02.png',
 			hidden: true
-		},{
+		}, {
 			xtype: 'button',
 			id: 'btnMerge',
 			text: '동기화',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
 			height: this.itemHeight,
-			style: 'cursor:pointer;',
 			listeners: {
 				el: {
 					click: 'onClickMerge'
@@ -81,6 +82,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '리치추가',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickAddReach' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu06_on.png',
@@ -94,6 +96,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '리치제거',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickRemoveReach' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu07_on.png',
@@ -107,6 +110,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '하류제거',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickRemoveReachLine' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu09_on.png',
@@ -120,6 +124,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '시작위치',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickStartReach' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu04_on.png',
@@ -133,6 +138,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '끝위치',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickEndReach' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu05_on.png',
@@ -146,6 +152,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '드래그선택',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickDrag' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu10_on.png',
@@ -159,6 +166,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '반경선택',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickRadius' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu11_on.png',
@@ -172,6 +180,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '데이터셋설정',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickSmart' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu03_on.png',
@@ -185,6 +194,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			title: '초기화',
 			width: this.itemWidth,
 			height: this.itemHeight,
+			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickReset' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu14.png',
@@ -192,29 +202,13 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu14.png',
 			hidden: true
 		}, {
-			xtype: 'image',
-			id: 'btnReachLayer',
-			layerId: '55',
-			groupId: 'grpReach',
-			title: '리치라인',
-			style: 'cursor:pointer;',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: function (obj, el, evt) {
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
-					}
-				}
-			},
-			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/reach_menu13_on.png',
-			btnOffImg: './resources/images/button/reach_menu13.png',
-			src: './resources/images/button/reach_menu13.png'
+			xtype: 'container',
+			id: 'gabToolbarContainer',
+			width: 10
 		}, {
 			xtype: 'image',
 			id: 'btnAreaLayer',
-			groupId: 'grpArea',
+			groupId: 'btnAreaLayer',
 			title: '집수구역',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -233,8 +227,67 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu12.png'
 		}, {
 			xtype: 'image',
+			id: 'btnReachLayer',
+			layerId: '55',
+			groupId: 'btnReachLayer',
+			title: '리치라인',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: {
+				el: {
+					click: function (obj, el, evt) {
+						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+					}
+				}
+			},
+			btnOnOff: 'on',
+			btnOnImg: './resources/images/button/reach_menu13_on.png',
+			btnOffImg: './resources/images/button/reach_menu13.png',
+			src: './resources/images/button/reach_menu13_on.png'
+		}, {
+			xtype: 'image',
+			id: 'btnReachNodeLayer',
+			layerId: '55',
+			groupId: 'btnReachNodeLayer',
+			title: '리치노드',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: {
+				el: {
+					click: function (obj, el, evt) {
+						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+					}
+				}
+			},
+			btnOnOff: 'on',
+			btnOnImg: './resources/images/button/reach_menu20_on.png',
+			btnOffImg: './resources/images/button/reach_menu20.png',
+			src: './resources/images/button/reach_menu20_on.png'
+		}, {
+			xtype: 'image',
+			id: 'btnAreaLayer',
+			groupId: 'btnAreaLayer',
+			title: '집수구역',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: {
+				el: {
+					click: function (obj, el, evt) {
+						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+					}
+				}
+			},
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu12_on.png',
+			btnOffImg: './resources/images/button/reach_menu12.png',
+			src: './resources/images/button/reach_menu12.png'
+		}, {
+			xtype: 'image',
 			id: 'btnFlowLayer',
-			groupId: 'grpFlow',
+			groupId: 'btnFlowLayer',
 			title: '리치흐름',
 			width: this.itemWidth,
 			height: this.itemHeight,
@@ -247,11 +300,12 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				}
 			},
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/btn_top_04_on.png',
-			btnOffImg: './resources/images/button/btn_top_04_off.png',
-			src: './resources/images/button/btn_top_04_on.png'
-		},  {
+			btnOnImg: './resources/images/button/reach_menu18_on.png',
+			btnOffImg: './resources/images/button/reach_menu18.png',
+			src: './resources/images/button/reach_menu18_on.png'
+		}, {
 			xtype: 'image',
+			id: 'btnNotice',
 			title: '공지사항',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -271,19 +325,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								style: "border:solid 10px #E6E6E6;",
 								closable: false,
 								constrain: true,
+								closable: true,
 								header: {
-									items: [{
-										xtype: 'image',
-										src: './resources/images/button/btn_close.png',
-										style: 'padding-right:13px !important; cursor:pointer;',
-										listeners: {
-											el: {
-												click: function () {
-													Ext.getCmp("boardNotice").close();
-												}
-											}
-										}
-									}]
+
 								}
 							});
 						}
@@ -295,6 +339,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu15.png'
 		}, {
 			xtype: 'image',
+			id: 'btnQnA',
 			title: 'Q&A',
 			width: this.itemWidth,
 			height: this.itemHeight,
@@ -319,9 +364,10 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 					}
 				}
 			},
-			src: './resources/images/button/top_btn5_off.png'
+			src: './resources/images/button/reach_menu19.png'
 		}, {
 			xtype: 'image',
+			id: 'btnSave',
 			title: '저장',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -337,6 +383,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu16.png'
 		}, {
 			xtype: 'image',
+			id: 'btnMenual',
 			title: '매뉴얼',
 			width: this.itemWidth,
 			height: this.itemHeight,

@@ -22,7 +22,7 @@ SetBtnOnOff = function (btnId, strOnOff) {
 	}
 	for (i = 0; i < items.length; i++) {
 		if (currCtl.btnOnOff == "on") {
-			if (currCtl.groupId == items[i].groupId) {
+			if (currCtl.groupId && currCtl.groupId == items[i].groupId) {
 				var itemSrc = items[i].src;
 				if (currCtl != items[i]) {
 					items[i].setSrc(items[i].btnOffImg);
@@ -603,24 +603,27 @@ SetChartMaxData = function (store) {
 
 // 정보창 탭 체인지
 ChangeTabIndex = function (tabIdx) {
-
-	if (tabIdx == 0) {
-		var chartCtl = Ext.getCmp("tabChart");
-		chartCtl.setSrc("./resources/images/tab/tap_01_ov.gif");
-
-		var siteCtl = Ext.getCmp("tabSite");
-		siteCtl.setSrc("./resources/images/tab/tap_02_off.gif");
-	}
-	else {
-		var chartCtl = Ext.getCmp("tabChart");
-		chartCtl.setSrc("./resources/images/tab/tap_01_off.gif");
-
-		var siteCtl = Ext.getCmp("tabSite");
-		siteCtl.setSrc("./resources/images/tab/tap_02_ov.gif");
-	}
-
+	var chartCtl = Ext.getCmp("tabChart");
+	var siteCtl = Ext.getCmp("tabSite");
 	var contCtl = Ext.getCmp("infoContents");
-	contCtl.setActiveItem(tabIdx);
+
+	if (chartCtl && siteCtl && contCtl) {
+		if (tabIdx == 0) {
+			chartCtl.setStyle('background','#003873');
+			chartCtl.setStyle('color','#fff');
+
+			siteCtl.setStyle('background','#fff');
+			siteCtl.setStyle('color','#808080');
+		} else {
+			chartCtl.setStyle('background','#fff');
+			chartCtl.setStyle('color','#808080');
+
+			siteCtl.setStyle('background','#003873');
+			siteCtl.setStyle('color','#fff');
+		}
+
+		contCtl.setActiveItem(tabIdx);
+	}
 }
 
 ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
@@ -1661,7 +1664,7 @@ ChkSearchCondition = function (sType, siteIds, parentId, titleText, gridId) {
 
 
 siteMovePoint = function (parentNodeId, nodeId, clickValue) {
-	
+
 	$KRF_APP.global.CommFn.setBookmarkInfo('siteMovePoint', {
 		parentNodeId: parentNodeId,
 		nodeId: nodeId,
@@ -1859,6 +1862,7 @@ ResetButtonClick = function () {
 			//상위 버튼 초기화
 			SetBtnOnOff("btnFlowLayer", "on");
 			SetBtnOnOff("btnReachLayer", "on");
+			SetBtnOnOff("btnReachNodeLayer", "on");
 		}, 500);
 	}
 
@@ -1904,11 +1908,9 @@ Layer01OnOff = function (layerId, onoff) {
 
 	if (onoff == "on") {
 		node.set("checked", true);
-	}
-	else if (onoff == "off") {
+	} else if (onoff == "off") {
 		node.set("checked", false);
-	}
-	else {
+	} else {
 		if (node.data.checked == false) {
 			node.set("checked", true);
 		}
@@ -1917,7 +1919,7 @@ Layer01OnOff = function (layerId, onoff) {
 		}
 	}
 
-	treeCtl.fireEvent('checkchange', node, node.data.checked, null);
+	treeCtl.fireEvent('checkchange', node, node.data.checked, {});
 
 	/*if(node.data.checked == false){
 		node.set("checked", true);

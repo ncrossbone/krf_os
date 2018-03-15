@@ -9,7 +9,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 
 	controller: 'threeDimSearchArea_WaterController',
 
-	title: '수계로 찾기',
+	header: { cls: 'sub-panel-x-header', title: '<span class="sub-panel-header-text">수계로 찾기</span>' },
 
 	autoScroll: true,
 

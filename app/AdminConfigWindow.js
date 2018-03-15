@@ -16,7 +16,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 	init: function () {
 		this.launcher = {
 			text: '설정',
-			iconCls: 'icon-grid'
+			iconCls: 'krf-os-startmenu-admin-icon'
 		};
 	},
 
@@ -34,6 +34,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 			layout: 'fit',
 			header: {
 				titlePosition: 2,
+				cls: 'krf-os-parentwin-header',
 				items: [{
 					xtype: 'image',
 					//title: '차트정보',

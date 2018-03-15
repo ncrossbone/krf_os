@@ -16,7 +16,7 @@ Ext.define('Desktop.ReportWindow', {
     init: function () {
         this.launcher = {
             text: '레포트',
-            iconCls: 'icon-grid'
+            iconCls: 'krf-os-startmenu-report-icon'
         };
     },
 
@@ -25,10 +25,12 @@ Ext.define('Desktop.ReportWindow', {
         var win = desktop.getWindow('report-win');
         var cfg = Ext.applyIf(config || {}, {
             id: 'report-win',
-            title: '레포트',
+            header: {
+                cls: 'krf-os-parentwin-header'
+            },
+            iconCls: 'krf-os-win-title-report-icon',
             width: 740,
             height: 480,
-            iconCls: 'icon-grid',
             animCollapse: false,
             constrainHeader: true,
             layout: 'fit',
@@ -71,7 +73,7 @@ Ext.define('Desktop.ReportWindow', {
                     },
                     height: 200,
                     width: 400
-                },{
+                }, {
                     xtype: 'grid',
                     store: Ext.create('Ext.data.Store', {
                         fields: ['name', 'movecol'],

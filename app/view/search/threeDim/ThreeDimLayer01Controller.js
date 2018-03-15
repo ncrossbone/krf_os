@@ -22,10 +22,10 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 			this.checkAllChildren(node, checked);
 		} else {
 			if (checked == false) {
-				var parentNode = node.parentNode;
-				if (parentNode != undefined) {
-					parentNode.set('checked', false);
-				}
+				// var parentNode = node.parentNode;
+				// if (parentNode != undefined) {
+				// 	parentNode.set('checked', false);
+				// }
 			}
 			var message = { type: 'layerOnOff', layers: [] };
 			message.layers.push({ layerNm: node.data.text, wmsId: node.data.wmsId, checked: checked });

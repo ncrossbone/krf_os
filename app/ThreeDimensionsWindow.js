@@ -20,13 +20,14 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         this.launcher = {
             text: '3D 지도',
-            iconCls: 'icon-grid'
+            iconCls: 'krf-os-startmenu-threedim-icon'
         };
 
         window.addEventListener("message", this.receiveMessage, false);
 
         $KRF_APP.addListener($KRF_EVENT.THREEDIM_SEND_MESSAGE, this.sendMessage, this);
 
+        $KRF_APP.addListener($KRF_EVENT.THREE_DIM_RESIZE_TOOL_ITEMS, this.resizeToolItems, this);
     },
 
     receiveMessage: function (param) {
@@ -59,6 +60,26 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
             }
         }
     },
+    resizeToolItems: function(){
+		var threeDimToolbar = Ext.getCmp('threeDimToolbar');
+		if(!threeDimToolbar){
+			return;
+		}
+		var toolbarItmes =  threeDimToolbar.items.items;
+		
+		var gabWidth = Ext.getCmp('threeDim_center_container').getWidth();
+
+		for(var i=0; i<toolbarItmes.length; i++){
+			if(!toolbarItmes[i].hidden){
+				gabWidth = gabWidth-threeDimToolbar.itemWidth;
+			}
+		}
+		if(gabWidth <0){
+			gabWidth = 0;
+		}
+		var gabCon = Ext.getCmp('threeDimgabToolbarContainer');
+		gabCon.setWidth(gabWidth+40);
+	},
     createWindow: function (config) {
         var me = this;
 
@@ -69,10 +90,12 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         var cfg = Ext.applyIf(config || {}, {
             id: 'threeDim-win',
-            title: '3D',
+            header: {
+                cls: 'krf-os-parentwin-header'
+            },
             width: 740,
             height: 480,
-            iconCls: 'icon-grid',
+            iconCls: 'krf-os-win-title-threedim-icon',
             animCollapse: false,
             constrainHeader: true,
             layout: 'border',
@@ -97,6 +120,8 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                         return;
                     }
                     me.sendMessage({ type: 'resize', width: width, height: height });
+
+                    $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_RESIZE_TOOL_ITEMS);
                 },
                 render: function () {
                     var contContainer = Ext.getCmp("threedDim_cont_container");
@@ -114,10 +139,12 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                     if (me.once) {
                         $('#krf3diframe').prop('src', 'http://192.168.0.231:8081/KRF3D.html');
                         var centerContainer = Ext.getCmp("threeDim_center_container");
-                        var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow', { y: 75 });
+                        var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow', { y: 61 });
                         centerContainer.add(threeDimSearchWindow);
 
                         threeDimSearchWindow.show();
+
+                        $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_RESIZE_TOOL_ITEMS);
                         me.once = false;
                     } else {
                         $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'move', coord: me.initCoord }));

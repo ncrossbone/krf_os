@@ -9,13 +9,12 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 
 	controller: 'searchArea_WaterController',
 
-	title: '수계로 찾기',
-
 	autoScroll: true,
 
 	cls: 'khLee-x-searcharea-water',
 
-	header : {cls:'sub-panel-x-header'},
+	header: { cls: 'sub-panel-x-header', title: '<span class="sub-panel-header-text">수계로 찾기</span>' },
+
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
@@ -40,11 +39,11 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 				tarCmbId: 'cmbWater2',
 				lnkBtnId: 'btnWater1',
 				cls: 'khLee-x-form-item-label-default',
-				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>대권역</b> ',
+				fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit" /> <b>대권역</b> ',
 				labelWidth: 60,
 				labelAlign: 'right',
 				labelPad: 10,
-				width: 200,
+				width: 225,
 				editable: false,
 				store: Ext.create('krf_new.store.west.SearchArea_Water'),
 				displayField: 'name',
@@ -74,11 +73,11 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 				tarCmbId: 'cmbWater3',
 				lnkBtnId: 'btnWater2',
 				cls: 'khLee-x-form-item-label-default',
-				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>중권역</b> ',
+				fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit" /> <b>중권역</b> ',
 				labelWidth: 60,
 				labelAlign: 'right',
 				labelPad: 10,
-				width: 200,
+				width: 225,
 				editable: false,
 				store: Ext.create('krf_new.store.west.SearchArea_Water'),
 				displayField: 'name',
@@ -108,11 +107,11 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 				tarCmbId: '',
 				lnkBtnId: 'btnWater3',
 				cls: 'khLee-x-form-item-label-default',
-				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>소권역</b> ',
+				fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit" /> <b>소권역</b> ',
 				labelWidth: 60,
 				labelAlign: 'right',
 				labelPad: 10,
-				width: 200,
+				width: 225,
 				editable: false,
 				store: Ext.create('krf_new.store.west.SearchArea_Water'),
 				displayField: 'name',

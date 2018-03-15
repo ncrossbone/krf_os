@@ -97,7 +97,9 @@ var $KRF_EVENT = {
 	CHECK_MAP_PARAMETER: 'checkMapParameter',
 	ADD_AUTO_MOVE_COORDINATE: 'addAutoMoveCoordinate',
 	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear',
-	STOPEDITEVENT: 'stopEditEvent'
+	STOPEDITEVENT: 'stopEditEvent',
+	RESIZE_TOOL_ITEMS: 'resizeToolItems',
+	THREE_DIM_RESIZE_TOOL_ITEMS: 'threeDimResizeToolItems'
 }
 
 var $KRF_WINS = {
@@ -307,14 +309,13 @@ Ext.application({
 			return;
 		}
 
-		var dp = $KRF_APP.getDesktop();
-		var dpWidth = dp.getWidth();
-		var dpHeight = dp.getHeight();
-		var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
-		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35, coord: centerCoord });
-		threeDimWindow = threeDimWindow.show();
+		var dp = $('.ux-wallpaper');
 
-		//		$KRF_APP.modeWindows.sb.push(statusWindow);
+		var dpWidth = dp.width();
+		var dpHeight = dp.height();
+		var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
+		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight, coord: centerCoord });
+		threeDimWindow = threeDimWindow.show();
 	},
 	modeChanged: function (param) {
 

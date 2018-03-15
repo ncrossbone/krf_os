@@ -8,7 +8,8 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 	id: 'threeDimCoordinateWindow',
 
 	title: '좌표 정보',
-
+	header:{cls :'subWindow-x-form-item-label-default'},
+    cls: 'subWindow-x-form-item-label-default',
 	layout: {
 		type: 'fit'
 	},
@@ -30,6 +31,10 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			iconCls: null,
 			text: 'Play',
 			handler: 'onClickStart'
+		},{
+			iconCls: null,
+			text: 'Pause',
+			handler: 'onClickPause'
 		}, {
 			iconCls: null,
 			text: 'Stop',
@@ -42,7 +47,7 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 	},
 	// cls: 'khLee-window-panel-header khLee-x-window-default ',
 
-	width: 450,
+	width: 350,
 	height: 300,
 
 	items: [{

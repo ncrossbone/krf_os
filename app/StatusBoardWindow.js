@@ -16,7 +16,7 @@ Ext.define('Desktop.StatusBoardWindow', {
     init : function(){
         this.launcher = {
             text: '현황판',
-            iconCls:'icon-grid'
+            iconCls:'krf-os-startmenu-status-icon'
         };
     },
 
@@ -24,11 +24,13 @@ Ext.define('Desktop.StatusBoardWindow', {
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('status-win');
         var cfg = Ext.applyIf(config || {}, {
-			            id: 'status-win',
-			            title:'현황판',
+                        id: 'status-win',
+                        header: {
+                            cls: 'krf-os-parentwin-header'
+                        },
 			            width:740,
 			            height:480,
-			            iconCls: 'icon-grid',
+                        iconCls: 'krf-os-win-title-status-icon',
 			            animCollapse:false,
 			            constrainHeader:true,
 			            layout: 'fit',
