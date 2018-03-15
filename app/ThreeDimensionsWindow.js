@@ -20,11 +20,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         this.launcher = {
             text: '3D 지도',
-<<<<<<< HEAD
             iconCls: 'krf-os-startmenu-threedim-icon'
-=======
-            iconCls: 'krf_icon'
->>>>>>> 92eee7a382e9c963ec10ac9cd9e3ffd6ef76d16a
         };
 
         window.addEventListener("message", this.receiveMessage, false);
@@ -94,10 +90,12 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         var cfg = Ext.applyIf(config || {}, {
             id: 'threeDim-win',
-            title: '3D',
+            header: {
+                cls: 'krf-os-parentwin-header'
+            },
             width: 740,
             height: 480,
-            iconCls: 'krf_icon',
+            iconCls: 'krf-os-win-title-threedim-icon',
             animCollapse: false,
             constrainHeader: true,
             layout: 'border',

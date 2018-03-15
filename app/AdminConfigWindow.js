@@ -34,6 +34,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 			layout: 'fit',
 			header: {
 				titlePosition: 2,
+				cls: 'krf-os-parentwin-header',
 				items: [{
 					xtype: 'image',
 					//title: '차트정보',
