@@ -6,7 +6,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	cls: 'subWindow-x-form-item-label-default',
 
 	header:{cls :'subWindow-x-form-item-label-default'},
-	
+
 	id: 'Favorite',
 
 	title: '즐겨찾기',
@@ -162,6 +162,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 				}, {
 					xtype: 'button',
 					text: '저장',
+					style:'    background: #405166; border-color: #405166 !important;',
 					listeners: {
 						click: function () {
 							var saveName = Ext.getCmp('favor-text').lastValue;
