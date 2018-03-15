@@ -216,6 +216,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var subCoreMap = Ext.getCmp("_subMapDiv_");
 
+		//$KRF_APP.fireEvent($KRF_EVENT.MAPMOUSEOVER);
 		//console.info(coreMap.map);
 		//console.info(coreMap.map.graphics);
 		
@@ -233,14 +234,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
-
-		if ($KRF_APP.coreMap._krad.maxSelect == true) {
-			alert("최대 5개 까지 선택 가능합니다.");
-			return;
-		}
-
-		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
-
+		
 		if ($KRF_APP.coreMap._krad.maxSelect == true) {
 			alert("최대 5개 까지 선택 가능합니다.");
 			return;
@@ -253,26 +247,18 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			return;
 		}
 
-		//$KRF_APP.submap._krad.onMapClickEvt("startPoint", el.id);
 		$KRF_APP.coreMap._krad.onMapClickEvt("startPoint", el.id);
 
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 
-		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
-
-		// 버튼 On/Off
-		/*var currCtl = SetBtnOnOff(el.id);
-		
-		var coreMap = GetCoreMap();
-		var kradLayerAdmin = coreMap.kradLayerAdmin;
-		kradLayerAdmin.createMapClickEvtTest("startPoint");*/
 	},
 
 	// 끝위치 버튼 클릭
 	onClickEndReach: function (obj, el, evt) {
 
-
+		console.info($KRF_APP.coreMap._krad.stCnt);
+		console.info($KRF_APP.coreMap._krad.edCnt);
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 

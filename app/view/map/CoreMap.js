@@ -94,7 +94,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 			//me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
 
 			// KRAD 전역 Object Setting
-			me._krad = Ext.create('krf_new.view.map.KRADLayerAdmin', me.map, me.geometryService);
+			me._krad = Ext.create('krf_new.view.map.KRADLayerAdmin', me.map, me.geometryService);	
 			// 검색설정 "상류" 검색 전역 Object Setting
 			me._rchUpSearch = Ext.create('krf_new.view.map.SearchReachUp');
 			// 리치라인 전역 Object Setting
@@ -107,6 +107,14 @@ Ext.define('krf_new.view.map.CoreMap', {
 			me.featureLayerAdmin = Ext.create('krf_new.view.map.FeatureLayerAdmin1', me.map);
 
 			dojo.connect(me.map, 'onExtentChange', me.onExtentChange);
+			
+
+			//mapMouseOver
+
+			//$KRF_APP.addListener($KRF_EVENT.MAPMOUSEOVER, me.map.on('mouse-over', me.mousePosition));
+			me.map.on('mouse-over', me.mousePosition)
+
+			//me.map.on('mouse-over', me.mousePosition);
 
 			$KRF_APP.addListener($KRF_EVENT.MINIMAPCHANGE, me.miniMapChnage, me);
 
@@ -323,6 +331,10 @@ Ext.define('krf_new.view.map.CoreMap', {
 				});
 	},
 
+	mousePosition: function(evt){
+		$KRF_POSITION = evt.target.id;
+	},
+
 	stopEditEvent: function(){
 
 		var coreMap = Ext.getCmp("_mapDiv_");
@@ -355,7 +367,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 		var coreMap = Ext.getCmp("_mapDiv_");
 
-		var polygonGraphic = esri.geometry.Polygon.fromExtent(map.extent);  // 미니맵 extent를 polygon geometry로 변환
+		var polygonGraphic = esri.geometry.Polygon.fromExtent(me.map.extent);  // 미니맵 extent를 polygon geometry로 변환
 		var miniLineGrpLayer = coreMap.map.getLayer("miniLineGrpLayer");  // 미니맵 라인 graphicslayer
 		//coreMap.map.getLayer("DynamicLayerSRiver");
 		if (miniLineGrpLayer != undefined) {
@@ -364,6 +376,11 @@ Ext.define('krf_new.view.map.CoreMap', {
 			}
 			
 		}
+	},
+
+	mapMouseOver: function(){
+		// console.info(this);
+		// console.info(this.id);
 	},
 
 	//맵 change 이벤트
