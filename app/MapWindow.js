@@ -20,7 +20,8 @@ Ext.define('Desktop.MapWindow', {
 	init: function () {
 		this.launcher = {
 			text: 'KRF',
-			iconCls: 'krf-os-startmenu-krf-icon'
+			iconCls: 'krf-os-startmenu-krf-icon',
+			style:'height:50px;'
 		};
 
 		// 리치 툴바 on/off
@@ -58,10 +59,12 @@ Ext.define('Desktop.MapWindow', {
 		var win = desktop.getWindow('map-win');
 		var cfg = Ext.applyIf(config || {}, {
 			id: 'map-win',
-			header:true,
+			header:{
+				cls:'krf-os-parentwin-header'
+			},
 			width: 840,
 			height: 680,
-			iconCls: 'krf_icon',
+			iconCls: 'krf-os-win-title-krf-icon',
 			shadow:false,
 			animCollapse: false,
 			layout: 'border',

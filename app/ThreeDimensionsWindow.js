@@ -90,10 +90,12 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
 
         var cfg = Ext.applyIf(config || {}, {
             id: 'threeDim-win',
-            title: '3D',
+            header: {
+                cls: 'krf-os-parentwin-header'
+            },
             width: 740,
             height: 480,
-            iconCls: 'krf_icon',
+            iconCls: 'krf-os-win-title-threedim-icon',
             animCollapse: false,
             constrainHeader: true,
             layout: 'border',

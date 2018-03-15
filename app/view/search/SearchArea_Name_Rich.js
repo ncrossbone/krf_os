@@ -11,7 +11,7 @@ Ext.define('krf_new.view.search.SearchArea_Name_Rich', {
 
 	controller: 'searchArea_NameController_Rich',
 
-	title: '명칭으로 찾기',
+	header: { cls: 'sub-panel-x-header', title: '<span class="sub-panel-header-text">명칭으로 찾기</span>' },
 	cls: 'khLee-x-searcharea-water',
 
 	layout: {

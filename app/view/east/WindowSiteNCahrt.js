@@ -10,19 +10,17 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 
 	id: 'windowSiteNChart',
 	constrain: true,
-	
+
 	cls: 'subWindow-x-form-item-label-default',
 	header: {
-		cls :'subWindow-x-form-item-label-default',
+		cls: 'subWindow-x-form-item-label-default',
 		titlePosition: 2,
 		items: [{
-			xtype: 'image',
+			xtype: 'label',
 			//title: '차트정보',
+			text: '차트정보',
 			id: 'tabChart',
-			src: './resources/images/tab/tap_01_ov.gif',
-			onImg: './resources/images/tab/tap_01_ov.gif',
-			offImg: './resources/images/tab/tap_01_off.gif',
-			style: 'cursor:pointer; border:0px !important;',
+			style: 'cursor:pointer; border:none !important; text-align:center; padding: 5px; font-size: 13px;',
 			width: 95,
 			height: 28,
 			listeners: {
@@ -33,13 +31,11 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 				}
 			}
 		}, {
-			xtype: 'image',
+			xtype: 'label',
+			text: '지점정보',
 			id: 'tabSite',
 			//title: '지점정보',
-			src: './resources/images/tab/tap_02_off.gif',
-			onImg: './resources/images/tab/tap_02_ov.gif',
-			offImg: './resources/images/tab/tap_02_off.gif',
-			style: 'cursor:pointer; border:0px !important;',
+			style: 'cursor:pointer; border:none !important; text-align:center; padding: 5px; font-size: 13px;',
 			width: 95,
 			height: 28,
 			listeners: {

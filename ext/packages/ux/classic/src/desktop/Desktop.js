@@ -62,7 +62,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
     shortcutTpl: [
         '<tpl for=".">',
             '<div class="ux-desktop-shortcut" id="{name}-shortcut">',
-                '<div class="ux-desktop-shortcut-icon {iconCls}">',
+                '<div class="ux-desktop-shortcut-icon {iconCls}" style="margin-bottom: 5px;">',
                     '<img src="',Ext.BLANK_IMAGE_URL,'" title="{text}">',
                 '</div>',
                 '<span class="ux-desktop-shortcut-text">{text}</span>',

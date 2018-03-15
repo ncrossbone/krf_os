@@ -85,12 +85,13 @@ Ext.define('krf_new.Desktop.App', {
         var me = this, ret = me.callParent();
 
         return Ext.apply(ret, {
-            title: '<span style="color:#000;">시작</span>',
             iconCls: 'user',
-            height: 300,
-            header:{
-                style:'background: url(./resources/images/button/top_bg.jpg);'
-            }
+            id:'krf-os-startmenu',
+            height: 500,
+            width:300,
+            header:false,
+            style:'color:#fff;',
+            bodyCls:'gradient',
             //            toolConfig: {
             //                width: 100,
             //                items: [
