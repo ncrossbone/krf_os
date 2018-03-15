@@ -50,6 +50,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
                 border:false,
                 // iconCls: 'krf_desktop-start-button-icon',
                 menu: me.startMenu,
+                arrowVisible:false,
                 // menuAlign: 'bl-tl',
                 width: 80,
                 height: 35,
