@@ -22,7 +22,7 @@ SetBtnOnOff = function (btnId, strOnOff) {
 	}
 	for (i = 0; i < items.length; i++) {
 		if (currCtl.btnOnOff == "on") {
-			if (currCtl.groupId == items[i].groupId) {
+			if (currCtl.groupId && currCtl.groupId == items[i].groupId) {
 				var itemSrc = items[i].src;
 				if (currCtl != items[i]) {
 					items[i].setSrc(items[i].btnOffImg);

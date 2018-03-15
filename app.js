@@ -97,7 +97,8 @@ var $KRF_EVENT = {
 	ADD_AUTO_MOVE_COORDINATE: 'addAutoMoveCoordinate',
 	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear',
 	STOPEDITEVENT: 'stopEditEvent',
-	RESIZE_TOOL_ITEMS: 'resizeToolItems'
+	RESIZE_TOOL_ITEMS: 'resizeToolItems',
+	THREE_DIM_RESIZE_TOOL_ITEMS: 'threeDimResizeToolItems'
 }
 
 var $KRF_WINS = {

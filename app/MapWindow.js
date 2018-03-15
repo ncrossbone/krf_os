@@ -156,7 +156,7 @@ Ext.define('Desktop.MapWindow', {
 		
 		var gabWidth = Ext.getCmp('_mapDiv_').getWidth();
 
-		for(var i=0; i<toolbarItmes.length-1; i++){
+		for(var i=0; i<toolbarItmes.length; i++){
 			if(!toolbarItmes[i].hidden){
 				gabWidth = gabWidth-reachToolbar.itemWidth;
 			}
@@ -166,7 +166,7 @@ Ext.define('Desktop.MapWindow', {
 			gabWidth = 0;
 		}
 		var gabCon = Ext.getCmp('gabToolbarContainer');
-		gabCon.setWidth(gabWidth);
+		gabCon.setWidth(gabWidth+40);
 	},
 
 	setSubWindowLocation: function () {

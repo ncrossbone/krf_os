@@ -9,8 +9,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 
 	//controller: 'threeDimSearchArea_NameController',
 
-	title: '지점 목록',
-
+	header: { cls: 'sub-panel-x-header', title: '<span class="sub-panel-header-text">지점 목록</span>' },
 	autoScroll: true,
 
 	id: 'threeDimSiteListTreePanel',
