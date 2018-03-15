@@ -60,9 +60,9 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClick3DDefaultMap' } },
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/reach_menu22_on.png',
-			btnOffImg: './resources/images/button/reach_menu22.png',
-			src: './resources/images/button/reach_menu22_on.png'
+			btnOnImg: './resources/images/button/reach_menu01_on.png',
+			btnOffImg: './resources/images/button/reach_menu01.png',
+			src: './resources/images/button/reach_menu01_on.png'
 		},{
 			xtype: 'image',
 			id: 'btnDEMMap',
