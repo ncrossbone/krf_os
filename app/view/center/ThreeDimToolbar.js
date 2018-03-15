@@ -15,7 +15,7 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 	/* 사이즈 지정 */
 	itemWidth: 70,
 	itemHeight: 59,
-	
+
 	height: 60,
 	style: 'padding: 0px;',
 
@@ -45,93 +45,88 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			width: this.itemWidth,
 			height: this.itemHeight,
 			listeners: { el: { click: 'onClickKRF' } },
-			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu08_on.png',
-			btnOffImg: './resources/images/button/reach_menu08.png',
-			src: './resources/images/button/reach_menu08.png'
-		}, {
-			xtype: 'button',
-			id: 'btn3DDefaultMap',
-			btnOnOff: 'off',
-			text: 'DEM',
-			width: this.itemWidth,
-			height: this.itemHeight,
 			style: 'cursor:pointer;',
-			listeners: { el: { click: 'onClick3DDefaultMap' } }
-		}, {
-			xtype: 'button',
-			id: 'btnDEMMap',
 			btnOnOff: 'off',
-			text: 'DEM',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			style: 'cursor:pointer;',
-			listeners: { el: { click: 'onClickDEM' } }
-		}, {
-			xtype: 'button',
-			id: 'btnAutoMoveMap',
-			btnOnOff: 'off',
-			text: '경로탐색',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			style: 'cursor:pointer;',
-			listeners: { el: { click: 'onClickAutoMoveMap' } }
+			btnOnImg: './resources/images/button/reach_menu21.png',
+			btnOffImg: './resources/images/button/reach_menu21.png',
+			src: './resources/images/button/reach_menu21.png'
 		},{
 			xtype: 'image',
+			id: 'btn3DDefaultMap',
+			title: '일반',
+			groupId : 'mapHandle',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: { el: { click: 'onClick3DDefaultMap' } },
+			btnOnOff: 'on',
+			btnOnImg: './resources/images/button/reach_menu22_on.png',
+			btnOffImg: './resources/images/button/reach_menu22.png',
+			src: './resources/images/button/reach_menu22_on.png'
+		},{
+			xtype: 'image',
+			id: 'btnDEMMap',
+			title: 'DEM',
+			groupId : 'mapHandle',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: { el: { click: 'onClickDEM' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu22_on.png',
+			btnOffImg: './resources/images/button/reach_menu22.png',
+			src: './resources/images/button/reach_menu22.png'
+		},{
+			xtype: 'image',
+			id: 'btnAutoMoveMap',
+			title: '경로탐색',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: { el: { click: 'onClickAutoMoveMap' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu23_on.png',
+			btnOffImg: './resources/images/button/reach_menu23.png',
+			src: './resources/images/button/reach_menu23.png'
+		}, {
+			xtype: 'container',
+			id: 'threeDimgabToolbarContainer',
+			width: 10
+		}, {
+			xtype: 'image',
 			id: 'btnThreeDimReachLayer',
-			layerId: '54',
-			groupId: 'grpReach',
+			layerId: '40',
 			title: '리치노드',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
 			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: function (obj, el, evt) {
-						
-					}
-				}
-			},
+			listeners: {el: {click: 'onClickReachLayer'	}},
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/reach_menu13_on.png',
-			btnOffImg: './resources/images/button/reach_menu13.png',
-			src: './resources/images/button/reach_menu13_on.png'
+			btnOnImg: './resources/images/button/reach_menu20_on.png',
+			btnOffImg: './resources/images/button/reach_menu20.png',
+			src: './resources/images/button/reach_menu20_on.png'
 		}, {
 			xtype: 'image',
 			id: 'btnThreeDimAreaLayer',
-			groupId: 'grpArea',
-			layerId: '56',
+			layerId: '38',
 			title: '집수구역',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
 			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: function (obj, el, evt) {
-						
-					}
-				}
-			},
+			listeners: {el: {click: 'onClickReachLayer'	}},
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu12_on.png',
 			btnOffImg: './resources/images/button/reach_menu12.png',
 			src: './resources/images/button/reach_menu12.png'
-		},{
+		}, {
 			xtype: 'image',
-			id: 'btnThreeDimReachLayer',
-			layerId: '55',
-			groupId: 'grpReach',
+			id: 'btnThreeDimReachLineLayer',
+			layerId: '39',
 			title: '리치라인',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
 			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: function (obj, el, evt) {
-						
-					}
-				}
-			},
+			listeners: {el: {click: 'onClickReachLayer'	}},
 			btnOnOff: 'on',
 			btnOnImg: './resources/images/button/reach_menu13_on.png',
 			btnOffImg: './resources/images/button/reach_menu13.png',
@@ -146,9 +141,9 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			height: this.itemHeight,
 			listeners: { el: { click: 'onClickSave' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu12_on.png',
-			btnOffImg: './resources/images/button/reach_menu12.png',
-			src: './resources/images/button/reach_menu12.png'
+			btnOnImg: './resources/images/button/reach_menu16.png',
+			btnOffImg: './resources/images/button/reach_menu16.png',
+			src: './resources/images/button/reach_menu16.png'
 		}];
 		this.callParent();
 	}

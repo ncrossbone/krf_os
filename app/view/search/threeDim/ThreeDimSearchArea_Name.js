@@ -9,7 +9,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name', {
 
 	controller: 'threeDimSearchArea_NameController',
 
-	title: '명칭으로 찾기',
+	header: { cls: 'sub-panel-x-header', title: '<span class="sub-panel-header-text">명칭으로 찾기</span>' },
 
 	autoScroll: true,
 
