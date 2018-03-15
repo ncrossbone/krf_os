@@ -199,7 +199,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			xtype: 'image',
 			id: 'btnReachLayer',
 			layerId: '55',
-			groupId: 'grpReach',
+			groupId: 'btnReachLayer',
 			title: '리치라인',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -214,12 +214,12 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnOff: 'on',
 			btnOnImg: './resources/images/button/reach_menu13_on.png',
 			btnOffImg: './resources/images/button/reach_menu13.png',
-			src: './resources/images/button/reach_menu13.png'
+			src: './resources/images/button/reach_menu13_on.png'
 		}, {
 			xtype: 'image',
 			id: 'btnReachNodeLayer',
 			layerId: '55',
-			groupId: 'grpReach',
+			groupId: 'btnReachNodeLayer',
 			title: '리치노드',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -227,18 +227,18 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						//$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
 					}
 				}
 			},
 			btnOnOff: 'on',
 			btnOnImg: './resources/images/button/reach_menu20_on.png',
 			btnOffImg: './resources/images/button/reach_menu20.png',
-			src: './resources/images/button/reach_menu20.png'
+			src: './resources/images/button/reach_menu20_on.png'
 		}, {
 			xtype: 'image',
 			id: 'btnAreaLayer',
-			groupId: 'grpArea',
+			groupId: 'btnAreaLayer',
 			title: '집수구역',
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
@@ -258,7 +258,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 		}, {
 			xtype: 'image',
 			id: 'btnFlowLayer',
-			groupId: 'grpFlow',
+			groupId: 'btnFlowLayer',
 			title: '리치흐름',
 			width: this.itemWidth,
 			height: this.itemHeight,
@@ -271,9 +271,9 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				}
 			},
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/reach_menu18.png',
-			btnOffImg: './resources/images/button/reach_menu18_on.png',
-			src: './resources/images/button/reach_menu18.png'
+			btnOnImg: './resources/images/button/reach_menu18_on.png',
+			btnOffImg: './resources/images/button/reach_menu18.png',
+			src: './resources/images/button/reach_menu18_on.png'
 		},  {
 			xtype: 'image',
 			id:'btnNotice',

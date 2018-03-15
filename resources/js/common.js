@@ -1859,6 +1859,7 @@ ResetButtonClick = function () {
 			//상위 버튼 초기화
 			SetBtnOnOff("btnFlowLayer", "on");
 			SetBtnOnOff("btnReachLayer", "on");
+			SetBtnOnOff("btnReachNodeLayer", "on");
 		}, 500);
 	}
 
@@ -1904,11 +1905,9 @@ Layer01OnOff = function (layerId, onoff) {
 
 	if (onoff == "on") {
 		node.set("checked", true);
-	}
-	else if (onoff == "off") {
+	}else if (onoff == "off") {
 		node.set("checked", false);
-	}
-	else {
+	}else {
 		if (node.data.checked == false) {
 			node.set("checked", true);
 		}
@@ -1917,7 +1916,7 @@ Layer01OnOff = function (layerId, onoff) {
 		}
 	}
 
-	treeCtl.fireEvent('checkchange', node, node.data.checked, null);
+	treeCtl.fireEvent('checkchange', node, node.data.checked, {});
 
 	/*if(node.data.checked == false){
 		node.set("checked", true);

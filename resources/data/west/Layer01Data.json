@@ -498,6 +498,7 @@
 	"children": [{
 		"id": "53",
 		"text": "리치흐름",
+		"layerBtnId": ["btnFlowLayer"],
 		"wmsId":"41",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer49",

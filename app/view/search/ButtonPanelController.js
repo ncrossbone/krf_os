@@ -29,6 +29,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 			SetBtnOnOff("btnFlowLayer", "off");
 			SetBtnOnOff("btnReachLayer", "off");
+			SetBtnOnOff("btnReachNodeLayer", "off");
 		} else {
 			$KRF_APP.fireEvent($KRF_EVENT.HIDE_DRONE_TOOLBAR);
 
@@ -49,6 +50,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 				Layer01OnOff($KRF_DEFINE.LakeLayerId, "on");
 				SetBtnOnOff("btnFlowLayer", "on");
 				SetBtnOnOff("btnReachLayer", "on");
+				SetBtnOnOff("btnReachNodeLayer", "on");
 			}, 100);
 		}
 
