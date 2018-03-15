@@ -338,12 +338,13 @@ Ext.define('Desktop.MapWindow', {
 		case "btnReachLayer": lyrId = "RCH_DID"; break;
 		case "btnAreaLayer": lyrId = "CAT_DID"; break;
 		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+		case "btnReachNodeLayer": lyrId = "NODE_DID"; break;
 		case "SRIVER": lyrId = "SRIVER"; break;
 		default: break;
 		}
 
 		//소하천일 경우 임시
-		if(lyrId = "SRIVER"){
+		if(lyrId == "SRIVER"){
 
 		}
 		
@@ -369,6 +370,8 @@ Ext.define('Desktop.MapWindow', {
 				SetBtnOnOff("btnAreaLayer");
 			} else if (node.data.siteIdCol == "RCH_FLW") {
 				SetBtnOnOff("btnFlowLayer");
+			} else if(node.data.siteIdCol == 'NODE_DID'){
+				SetBtnOnOff("btnReachNodeLayer");
 			}
 		}
 	},

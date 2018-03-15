@@ -12,44 +12,45 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 
 	onCheckChanged: function (node, checked, btnId) {
 
-		if(node.id == "999"){
+		if (node.id == "999") {
 			return;
 		}
-		
+
 		var me = this;
 		me.node = node;
 		me.checked = checked;
 
 		// 상단 메뉴에 버튼 동기화 추후 이벤트로 변경
-		//		if(node.id == "53"){
-		//			var btnFlowLayer = Ext.getCmp("btnFlowLayer");
-		//			
-		//			if(checked){
-		//				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_on.png");
-		//				btnFlowLayer.btnOnOff = "off";
-		//			}else{
-		//				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_off.png");
-		//				btnFlowLayer.btnOnOff = "on";
-		//			}
-		//			
-		//		}
-		//		
-		//		if(node.id == "55"){
-		//			var btnReachLayer = Ext.getCmp("btnReachLayer");
-		//			
-		//			if(checked){
-		//				btnReachLayer.setSrc("./resources/images/button/btn_top_01_on.png");
-		//				btnReachLayer.btnOnOff = "off";
-		//			}else{
-		//				btnReachLayer.setSrc("./resources/images/button/btn_top_01_off.png");
-		//				btnReachLayer.btnOnOff = "on";
-		//			}
-		//		}
+		/*if (node.id == "53") {
+			var btnFlowLayer = Ext.getCmp("btnFlowLayer");
 
-		if (btnId == undefined || btnId == null) {
-			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
-			//this.setLinkBtn(btnId);
+			if (checked) {
+				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_on.png");
+				btnFlowLayer.btnOnOff = "off";
+			} else {
+				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_off.png");
+				btnFlowLayer.btnOnOff = "on";
+			}
+
 		}
+
+		if (node.id == "55") {
+			var btnReachLayer = Ext.getCmp("btnReachLayer");
+
+			if (checked) {
+				btnReachLayer.setSrc("./resources/images/button/btn_top_01_on.png");
+				btnReachLayer.btnOnOff = "off";
+			} else {
+				btnReachLayer.setSrc("./resources/images/button/btn_top_01_off.png");
+				btnReachLayer.btnOnOff = "on";
+			}
+		}
+		*/
+		// if (btnId == undefined || btnId == null) {
+			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
+			
+		this.setLinkBtn(btnId, (btnId ? !checked: checked));
+		// }
 
 		if (!node.get('leaf')) {
 			this.checkAllChildren(node, checked);
@@ -76,7 +77,7 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 	},
 
 	// 레이어 연결된 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
-	setLinkBtn: function (btnId) {
+	setLinkBtn: function (btnId , checked) {
 		var me = this;
 		var btnCtl = null;
 
@@ -85,13 +86,12 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 				if (me.node.data.layerBtnId.length != undefined) {
 					for (var i = 0; i < me.node.data.layerBtnId.length; i++) {
 						// 버튼 On/Off
-						btnCtl = SetBtnOnOff(me.node.data.layerBtnId[i]);
+						btnCtl = SetBtnOnOff(me.node.data.layerBtnId[i] , checked ? 'off': 'on');
 					}
 				}
-			}
-			else if (typeof (me.node.data.layerBtnId) == "string") {
+			} else if (typeof (me.node.data.layerBtnId) == "string") {
 				// 버튼 On/Off
-				btnCtl = SetBtnOnOff(me.node.data.layerBtnId);
+				btnCtl = SetBtnOnOff(me.node.data.layerBtnId , checked ? 'off': 'on');
 			}
 		}
 	}
