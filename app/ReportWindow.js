@@ -16,7 +16,7 @@ Ext.define('Desktop.ReportWindow', {
     init: function () {
         this.launcher = {
             text: '레포트',
-            iconCls: 'icon-grid'
+            iconCls: 'krf-os-startmenu-report-icon'
         };
     },
 

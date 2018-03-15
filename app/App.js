@@ -66,11 +66,11 @@ Ext.define('krf_new.Desktop.App', {
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
-                    { name: 'KRF', text: 'KRF', iconCls: 'accordion-shortcut', module: $KRF_APP.KRF_MODE },
-                    { name: 'Staus', text: '현황판', iconCls: 'cpu-shortcut', module: $KRF_APP.STATUS_MODE },
-                    { name: 'Report', text: '레포트', iconCls: 'cpu-shortcut', module: $KRF_APP.REPORT_MODE },
-                    { name: 'threeDim', text: '3D지도', iconCls: 'accordion-shortcut', module: $KRF_APP.THREEDIM_MODE },
-                    { name: 'Admin', text: '관리', iconCls: 'cpu-shortcut', module: $KRF_APP.ADMIN_MODE }
+                    { name: 'KRF', text: 'KRF', iconCls: 'krf-os-krf-icon', module: $KRF_APP.KRF_MODE },
+                    { name: 'Staus', text: '현황판', iconCls: 'krf-os-status-icon', module: $KRF_APP.STATUS_MODE },
+                    { name: 'Report', text: '레포트', iconCls: 'krf-os-report-icon', module: $KRF_APP.REPORT_MODE },
+                    { name: 'threeDim', text: '3D지도', iconCls: 'krf-os-threedim-icon', module: $KRF_APP.THREEDIM_MODE },
+                    { name: 'Admin', text: '관리', iconCls: 'krf-os-admin-icon', module: $KRF_APP.ADMIN_MODE }
                 ]
             }),
 
@@ -85,9 +85,12 @@ Ext.define('krf_new.Desktop.App', {
         var me = this, ret = me.callParent();
 
         return Ext.apply(ret, {
-            title: '시작',
+            title: '<span style="color:#000;">시작</span>',
             iconCls: 'user',
-            height: 300
+            height: 300,
+            header:{
+                style:'background: url(./resources/images/button/top_bg.jpg);'
+            }
             //            toolConfig: {
             //                width: 100,
             //                items: [

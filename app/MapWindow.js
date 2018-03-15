@@ -20,7 +20,7 @@ Ext.define('Desktop.MapWindow', {
 	init: function () {
 		this.launcher = {
 			text: 'KRF',
-			iconCls: 'krf_icon'
+			iconCls: 'krf-os-startmenu-krf-icon'
 		};
 
 		// 리치 툴바 on/off
