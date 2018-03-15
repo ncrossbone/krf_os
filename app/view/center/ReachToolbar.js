@@ -292,14 +292,11 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								width: 670,
 								height: 580,
 								html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>',
-								cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
-								style: "border:solid 10px #E6E6E6;",
+								cls: 'subWindow-x-form-item-label-default',
+								header: { cls: 'subWindow-x-form-item-label-default' },
 								closable: false,
 								constrain: true,
-								closable: true,
-								header: {
-
-								}
+								closable: true
 							});
 						}
 						Ext.getCmp('center_container').add(boardCtl);
@@ -326,6 +323,8 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								title: "Q&A",
 								width: 660,
 								height: 600,
+								cls: 'subWindow-x-form-item-label-default',
+								header: { cls: 'subWindow-x-form-item-label-default' },
 								html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
 							});
 						}

@@ -46,6 +46,7 @@ Ext.define('Desktop.LoginWindow', {
         if (!win) {
             win = desktop.createWindow({
                 id: 'login-win',
+                header: { style: 'krf-os-parentwin-header' },
                 title: '로그인',
                 width: 800,
                 height: 600,

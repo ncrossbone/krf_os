@@ -64,8 +64,8 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						}
 					}
 				},
-				width: 45,
-				height: 21,
+				width: 40,
+				height: 24,
 				src: './resources/images/button/btn_date.gif'
 			}, {
 				xtype: 'label',
@@ -89,9 +89,9 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						}
 					}
 				},
-				width: 45,
-				height: 21,
-				src: './resources/images/button/btn_save.gif'
+				width: 40,
+				height: 24,
+				src: './resources/images/button/icon_save.gif'
 
 			}]
 		}, {
