@@ -15,7 +15,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 
 	init: function () {
 		this.launcher = {
-			text: '설정',
+			text: '<span class="krf-os-startmenu-text">설정</span>',
 			iconCls: 'krf-os-startmenu-admin-icon'
 		};
 	},

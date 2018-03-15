@@ -12,16 +12,15 @@ Ext.define('Desktop.MapWindow', {
 	],
 
 	subWindowIds: ['popSiteInfo', 'reachNameToolbar', 'subMapWindow', 'siteListWindow', 'searchResultWindow'
-		, 'chlLegend', 'phyLegend', 'droneToolbar', 'droneDetailExp', 'reachCountSToolbar', 'reachCountEToolbar','metaDataWindow'],
+		, 'chlLegend', 'phyLegend', 'droneToolbar', 'droneDetailExp', 'reachCountSToolbar', 'reachCountEToolbar', 'metaDataWindow'],
 	id: 'map-win',
 	once: true,
 	initCoord: null,
 
 	init: function () {
 		this.launcher = {
-			text: 'KRF',
-			iconCls: 'krf-os-startmenu-krf-icon',
-			style:'height:50px;'
+			text: '<span class="krf-os-startmenu-text">KRF</span>',
+			iconCls:'krf-os-startmenu-krf-icon'
 		};
 
 		// 리치 툴바 on/off
@@ -59,13 +58,13 @@ Ext.define('Desktop.MapWindow', {
 		var win = desktop.getWindow('map-win');
 		var cfg = Ext.applyIf(config || {}, {
 			id: 'map-win',
-			header:{
-				cls:'krf-os-parentwin-header'
+			header: {
+				cls: 'krf-os-parentwin-header'
 			},
 			width: 840,
 			height: 680,
 			iconCls: 'krf-os-win-title-krf-icon',
-			shadow:false,
+			shadow: false,
 			animCollapse: false,
 			layout: 'border',
 			constrain: true,
@@ -86,7 +85,7 @@ Ext.define('Desktop.MapWindow', {
 					mapC = Ext.getCmp('cont_container');
 					mapC.setWidth(width - 80);
 					mapC.setHeight(height - 37);
-					
+
 					$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 					me.setSubWindowLocation();
 				},
@@ -96,7 +95,7 @@ Ext.define('Desktop.MapWindow', {
 				},
 				show: function () {
 					this.title = '';
-					
+
 					if (me.once) {
 						$KRF_APP.coreMap.mapRendered();
 						me.once = false;
@@ -108,41 +107,42 @@ Ext.define('Desktop.MapWindow', {
 				},
 				'beforeclose': function () {
 					me.once = true;
-    		    }
-    		},
-            items: [ {xtype:'west-buttonpanel', region:'west', collapsible:false},
-            	     {xtype: 'container',
-	            		id: 'cont_container',
-	            		layout: {
-	            			type: 'absolute'
-	            		},
-	            		region:'center',
-	            		height: '100%',
-	            		items: [{xtype:'app-default-center', id: 'center_container', x:0, y:0}]
-	            	}]
-        });
-        
-        if(!win){
-            win = desktop.createWindow(cfg);
-        }
-        return win;
+				}
+			},
+			items: [{ xtype: 'west-buttonpanel', region: 'west', collapsible: false },
+			{
+				xtype: 'container',
+				id: 'cont_container',
+				layout: {
+					type: 'absolute'
+				},
+				region: 'center',
+				height: '100%',
+				items: [{ xtype: 'app-default-center', id: 'center_container', x: 0, y: 0 }]
+			}]
+		});
+
+		if (!win) {
+			win = desktop.createWindow(cfg);
+		}
+		return win;
 	},
-	
+
 	//소하천 dynamic 켜기
-	onClickSRiver: function(obj, el, evt){
-		
+	onClickSRiver: function (obj, el, evt) {
+
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
-		
+
 		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
-		
+
 		var subMapWindow = Ext.getCmp("subMapWindow");
-		
-		if(btnLayerSRiver == "on"){
-			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+
+		if (btnLayerSRiver == "on") {
+			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
 			subMapWindow.show();
-		}else{
+		} else {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
 			subMapWindow.hide();
@@ -150,26 +150,26 @@ Ext.define('Desktop.MapWindow', {
 		return win;
 	},
 
-	resizeToolItems: function(){
+	resizeToolItems: function () {
 		var reachToolbar = Ext.getCmp('reachToolbar');
-		if(!reachToolbar){
+		if (!reachToolbar) {
 			return;
 		}
-		var toolbarItmes =  reachToolbar.items.items;
-		
+		var toolbarItmes = reachToolbar.items.items;
+
 		var gabWidth = Ext.getCmp('_mapDiv_').getWidth();
 
-		for(var i=0; i<toolbarItmes.length; i++){
-			if(!toolbarItmes[i].hidden){
-				gabWidth = gabWidth-reachToolbar.itemWidth;
+		for (var i = 0; i < toolbarItmes.length; i++) {
+			if (!toolbarItmes[i].hidden) {
+				gabWidth = gabWidth - reachToolbar.itemWidth;
 			}
-			
+
 		}
-		if(gabWidth <0){
+		if (gabWidth < 0) {
 			gabWidth = 0;
 		}
 		var gabCon = Ext.getCmp('gabToolbarContainer');
-		gabCon.setWidth(gabWidth+40);
+		gabCon.setWidth(gabWidth + 40);
 	},
 
 	setSubWindowLocation: function () {
@@ -279,7 +279,7 @@ Ext.define('Desktop.MapWindow', {
 		}
 
 		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
-		
+
 		if (rNameToolbar != undefined && rNameToolbar != null)
 			rNameToolbar.close();
 		if (sConfig != undefined && sConfig != null)
@@ -293,15 +293,15 @@ Ext.define('Desktop.MapWindow', {
 		var droneToolbar = Ext.getCmp("droneToolbar");
 		var droneDetailExp = Ext.getCmp("droneDetailExp");
 
-		if(!droneToolbar){
+		if (!droneToolbar) {
 			droneToolbar = Ext.create('krf_new.view.center.drone.DroneToolbar', {
 				x: 351,
 				y: 61
 			});
 			cContainer.add(droneToolbar);
 		}
-		
-		if(!droneDetailExp){
+
+		if (!droneDetailExp) {
 			droneDetailExp = Ext.create('krf_new.view.center.drone.DroneDetailExp', {
 				x: 494
 			});
@@ -314,14 +314,14 @@ Ext.define('Desktop.MapWindow', {
 		var droneToolbar = Ext.getCmp("droneToolbar");
 		var droneDetailExp = Ext.getCmp("droneDetailExp");
 
-		if(droneToolbar){
+		if (droneToolbar) {
 			droneToolbar.hide();
 		}
-		
-		if(droneDetailExp){
+
+		if (droneDetailExp) {
 			droneDetailExp.hide();
 		}
-		
+
 		var sConfig = Ext.getCmp("searchConfig");
 		var kConfig = Ext.getCmp("kradSchConf");
 
@@ -338,21 +338,21 @@ Ext.define('Desktop.MapWindow', {
 		var lyrId = "";
 
 		switch (btn) {
-		case "btnReachLayer": lyrId = "RCH_DID"; break;
-		case "btnAreaLayer": lyrId = "CAT_DID"; break;
-		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
-		case "btnReachNodeLayer": lyrId = "NODE_DID"; break;
-		case "SRIVER": lyrId = "SRIVER"; break;
-		default: break;
+			case "btnReachLayer": lyrId = "RCH_DID"; break;
+			case "btnAreaLayer": lyrId = "CAT_DID"; break;
+			case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+			case "btnReachNodeLayer": lyrId = "NODE_DID"; break;
+			case "SRIVER": lyrId = "SRIVER"; break;
+			default: break;
 		}
 
 		//소하천일 경우 임시
-		if(lyrId == "SRIVER"){
+		if (lyrId == "SRIVER") {
 
 		}
-		
-		for(var i = 0; i<layerObj.store.data.items.length; i++){
-			if(layerObj.store.data.items[i].data.siteIdCol==lyrId){
+
+		for (var i = 0; i < layerObj.store.data.items.length; i++) {
+			if (layerObj.store.data.items[i].data.siteIdCol == lyrId) {
 				nodeObj = layerObj.store.data.items[i];
 			}
 		}
@@ -373,7 +373,7 @@ Ext.define('Desktop.MapWindow', {
 				SetBtnOnOff("btnAreaLayer");
 			} else if (node.data.siteIdCol == "RCH_FLW") {
 				SetBtnOnOff("btnFlowLayer");
-			} else if(node.data.siteIdCol == 'NODE_DID'){
+			} else if (node.data.siteIdCol == 'NODE_DID') {
 				SetBtnOnOff("btnReachNodeLayer");
 			}
 		}
@@ -506,12 +506,12 @@ Ext.define('Desktop.MapWindow', {
 		Ext.getCmp('search-win').setTitle(titleNm);
 	},
 
-	showMetaDataWindow: function(){
+	showMetaDataWindow: function () {
 		var metaDataWindow = Ext.getCmp("metaDataWindow");
 		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
 	},
 
-	hideMetaDataWindow: function(){
+	hideMetaDataWindow: function () {
 		var metaDataWindow = Ext.getCmp("metaDataWindow");
 		//me
 	},
