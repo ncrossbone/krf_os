@@ -145,22 +145,24 @@ Ext.define('krf_new.view.center.SearchConfig', {
 					this.up("win-searchConfig").setLocalStorage();
 				},
 				inputValue: 'isJiDraw'
-			}, {
-				xtype: 'checkbox',
-				boxLabel: '소하천',
-				checked: false,
-				width: 70,
-				handler: function (obj, checked) {
-					// 로컬 스토리지 셋팅
-					this.up("win-searchConfig").setLocalStorage();
+			}
+				, {
+					xtype: 'checkbox',
+					boxLabel: '소하천',
+					checked: false,
+					width: 70,
+					handler: function (obj, checked) {
+						// 로컬 스토리지 셋팅
+						this.up("win-searchConfig").setLocalStorage();
 
-					this.up("win-searchConfig").onClickSRiver(checked);
+						this.up("win-searchConfig").onClickSRiver(checked);
 
-					$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
-					
-				},
-				inputValue: 'isSRiver'
-			}]
+						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
+						
+					},
+					inputValue: 'isSRiver'
+				}
+			]
 		}]
 	}],
 
@@ -179,7 +181,9 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var chkCtls = this.query("checkbox");
 		if (chkCtls != undefined && chkCtls != null) {
 			// 로컬 스토리지 존재하면
+			console.info(searchConfigInfo);
 			if (searchConfigInfo != undefined && searchConfigInfo != null) {
+				
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
 				for (var i = 0; i < chkCtls.length; i++) {
@@ -194,7 +198,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				}
 			}else{
 				// 로컬 스토리지 셋팅
-				this.setLocalStorage();
+				
 			}
 		}
 
@@ -220,7 +224,9 @@ Ext.define('krf_new.view.center.SearchConfig', {
 
 	// 로컬 스토리지 셋팅
 	setLocalStorage: function () {
+		console.info();
 		var chkCtls = this.query("checkbox");
+		console.info(chkCtls);
 		var jsonObj = {};
 		for (var i = 0; i < chkCtls.length; i++) {
 			if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
