@@ -267,7 +267,6 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu20_on.png'
 		}, {
 			xtype: 'image',
-<<<<<<< HEAD
 			id: 'btnAreaLayer',
 			groupId: 'btnAreaLayer',
 			title: '집수구역',
@@ -287,8 +286,6 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu12.png'
 		}, {
 			xtype: 'image',
-=======
->>>>>>> 62b57d48f9ccfaa1b2a822bc43aab9c3554b6bda
 			id: 'btnFlowLayer',
 			groupId: 'btnFlowLayer',
 			title: '리치흐름',
