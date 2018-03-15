@@ -3,6 +3,10 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 	xtype: 'east-favoritewindow',
 
+	cls: 'subWindow-x-form-item-label-default',
+
+	header:{cls :'subWindow-x-form-item-label-default'},
+	
 	id: 'Favorite',
 
 	title: '즐겨찾기',
@@ -18,6 +22,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	gridStore: null,
 	favoriteInfo: null,
 	constrain: true,
+	resizable: false,
 	width: 400,
 	height: 305,
 	x: 390,
@@ -107,7 +112,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 		if (jsonObj.length > 0) {
 			var arr = [];
 			for (var i = 0; i < jsonObj.length; i++) {
-				if(jsonObj[i].RM){
+				if (jsonObj[i].RM) {
 					var rm = JSON.parse(jsonObj[i].RM);
 					rm.sn = jsonObj[i].SN;
 					arr.push(rm);
