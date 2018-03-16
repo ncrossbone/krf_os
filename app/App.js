@@ -130,6 +130,7 @@ Ext.define('krf_new.Desktop.App', {
                     title: '바탕화면보기',
                     width: 80,
                     height: 35,
+                    style:'cursor:pointer;',
                     listeners: { el: { click: function () {
                         $KRF_APP.fireEvent($KRF_EVENT.MINIMIZE_WINDOWS);
                     } } },
