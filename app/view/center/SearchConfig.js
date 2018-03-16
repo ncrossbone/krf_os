@@ -209,12 +209,12 @@ Ext.define('krf_new.view.center.SearchConfig', {
 
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
-		//var subMapWindow = Ext.getCmp("subMapWindow");
-
-		if (onOff) {
-			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
-			//subMapWindow.show();
-		} else {
+		var subMapWindow = Ext.getCmp("subMapWindow");
+		DynamicLayerSRiver.setVisibleLayers([-1]);
+		if(onOff){
+			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			subMapWindow.show();
+		}else{
 			DynamicLayerSRiver.setVisibleLayers([-1]);
 			subMapWindow.hide();
 		}
