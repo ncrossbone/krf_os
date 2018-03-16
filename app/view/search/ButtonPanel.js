@@ -8,7 +8,7 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 	// ],
 
 	xtype: 'west-buttonpanel',
-
+	id: 'west-button',
 	title: '화면제어판',
 	itemWidth: 90,
 	width: 90,
