@@ -181,7 +181,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var chkCtls = this.query("checkbox");
 		if (chkCtls != undefined && chkCtls != null) {
 			// 로컬 스토리지 존재하면
-			console.info(searchConfigInfo);
+			
 			if (searchConfigInfo != undefined && searchConfigInfo != null) {
 				
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
@@ -224,9 +224,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 
 	// 로컬 스토리지 셋팅
 	setLocalStorage: function () {
-		console.info();
 		var chkCtls = this.query("checkbox");
-		console.info(chkCtls);
 		var jsonObj = {};
 		for (var i = 0; i < chkCtls.length; i++) {
 			if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
