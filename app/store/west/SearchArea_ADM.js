@@ -26,7 +26,6 @@ Ext.define('krf_new.store.west.SearchArea_ADM', {
 				return;
 			}
 				
-			console.info(store.layerId);
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
