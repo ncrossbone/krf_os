@@ -101,6 +101,7 @@
     "setConfig":"./resources/jsp/setConfig.jsp",
     "SetSearchConfig":"./resources/jsp/SetSearchConfig.jsp",
     "SHA_256":"#host#/krf/common/sha256",
+    "Bookmark":"#host#/krf/bookmark/",
     init: function(host){
               if(host != null){
                   this.domain = host;
