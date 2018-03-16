@@ -2,23 +2,19 @@
  * This example shows navigation tabs docked to the side.
  */
 Ext.define('krf_new.view.center.SearchConfig', {
-
+	/* 데이터셋 설정 창 */
 	extend: 'Ext.panel.Panel',
 
 	xtype: 'win-searchConfig',
 
 	id: 'searchConfig',
 
-	title: "검색설정",
-
 	style: 'border: 5px solid #043264; border-radius: 5px;',
 
-	width: 250,
-	height: 150,
+	width: 185,
+	height: 120,
 
-	header: {
-		style: 'background:#043264 !important; border:none;'
-	},
+	header: false,
 
 	resizable: false,
 
@@ -30,7 +26,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 
 	items: [{
 		xtype: 'container',
-		style: "padding-left: 30px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
+		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
 		layout: {
 			type: 'vbox'
 		},
@@ -117,7 +113,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		}]
 	}, {
 		xtype: 'container',
-		style: "font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; padding-left: 30px; padding-top: 6px; border-top: 1px dotted #595959;",
+		style: "font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; padding-left: 10px; padding-top: 6px; border-top: 1px dotted #595959;",
 		layout: {
 			type: 'hbox'
 		},

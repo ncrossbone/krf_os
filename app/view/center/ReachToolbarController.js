@@ -29,7 +29,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			popCtl.show();
 
 			popCtl.setX(rToolbar.getX() + (rToolbar.itemWidth * popCtlIdx));
-			popCtl.setY(rToolbar.getY() + (rToolbar.itemHeight + 2));
+			popCtl.setY(rToolbar.getY() + (rToolbar.itemHeight + 1));
 			SetWestCollapseXY("show");
 		} else {
 			popCtl.hide();

@@ -239,7 +239,7 @@ Ext.define('Desktop.MapWindow', {
 
 		rNameToolbar.show();
 		rNameToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * rNameToolbarIdx) - 8);
-		rNameToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 2));
+		rNameToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 1.4));
 
 		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 	},
