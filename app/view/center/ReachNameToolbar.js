@@ -16,18 +16,18 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 
 	resizable: false,
 
-	border:false,
+	border: false,
 
-	bodyStyle:'background:#043264 !important;',
+	bodyStyle: 'background:#043264 !important; padding:5px; border-radius:5px;',
 	/* 사이즈 지정 */
 	//itemWidth: 69,
-	
-	//cls: 'dj_toolbarNm dj_spottextfield2',
-	height:40,
-	
-	width: 150,
 
-	layout:'hbox',
+	//cls: 'dj_toolbarNm dj_spottextfield2',
+	height: 38,
+
+	width: 155,
+
+	layout: 'hbox',
 
 	initComponent: function () {
 		var a = Ext.create('Ext.window.Window');
@@ -35,28 +35,30 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 
 		this.items = [{
 			xtype: 'textfield',
-			width: 50,
-			style:'border: 2px solid #f5bf32;'
+			width: 70,
+			editable: false,
+			style: 'border: 2px solid #f5bf32; margin-right:5px;'
 		}, {
 			xtype: 'textfield',
-			width: 50,
-			style:'border: 2px solid #3eaf0e;'
-		// }, {
-		// 	xtype: "image",
-		// 	id: "reach_close",
-		// 	hidden: true,
-		// 	src: "./resources/images/button/btn_close2.png",
-		// 	listeners: {
-		// 		el: {
-		// 			click: function () {
-		// 				SetBtnOnOff($KRF_APP.coreMap._krad.btnId, "off");
-		// 				initKradEvt();
-		// 				ResetButtonClick();
-		// 				Ext.getCmp("reach_close").setVisible(false);
-		// 			}
-		// 		}
-		// 	}
-		}];
+			width: 70,
+			editable: false,
+			style: 'border: 2px solid #3eaf0e;'
+		}, {
+			xtype: "image",
+			id: "reach_close",
+			src: "./resources/images/button/btn_close2.png",
+			listeners: {
+				el: {
+					click: function () {
+						SetBtnOnOff($KRF_APP.coreMap._krad.btnId, "off");
+						initKradEvt();
+						ResetButtonClick();
+						Ext.getCmp("reach_close").setVisible(false);
+					}
+				}
+			}
+		}]
+
 		this.callParent();
 	}
 });
