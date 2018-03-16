@@ -25,7 +25,7 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 	//cls: 'dj_toolbarNm dj_spottextfield2',
 	height: 38,
 
-	width: 155,
+	width: 188,
 
 	layout: 'hbox',
 
@@ -42,22 +42,41 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 			xtype: 'textfield',
 			width: 70,
 			editable: false,
-			style: 'border: 2px solid #3eaf0e;'
+			style: 'border: 2px solid #3eaf0e; margin-right:5px;'
 		}, {
-			xtype: "image",
+			xtype: 'button',
+			cls: 'krf-os-reachname-close',
 			id: "reach_close",
-			src: "./resources/images/button/btn_close2.png",
+			width: 28,
+			border: false,
+			disabled: true,
 			listeners: {
 				el: {
 					click: function () {
+						Ext.getCmp("reach_close").setDisabled(true);
 						SetBtnOnOff($KRF_APP.coreMap._krad.btnId, "off");
 						initKradEvt();
 						ResetButtonClick();
-						Ext.getCmp("reach_close").setVisible(false);
 					}
 				}
 			}
 		}]
+
+		// {
+		// 	xtype: "image",
+		// 	id: "reach_close",
+		// 	src: "./resources/images/button/btn_close2.png",
+		// 	listeners: {
+		// 		el: {
+		// 			click: function () {
+		// 				SetBtnOnOff($KRF_APP.coreMap._krad.btnId, "off");
+		// 				initKradEvt();
+		// 				ResetButtonClick();
+		// 				Ext.getCmp("reach_close").setVisible(false);
+		// 			}
+		// 		}
+		// 	}
+		// }
 
 		this.callParent();
 	}

@@ -86,30 +86,12 @@ Ext.define('krf_new.Desktop.App', {
 
         return Ext.apply(ret, {
             iconCls: 'user',
-            id:'krf-os-startmenu',
+            id: 'krf-os-startmenu',
             height: 350,
-            width:300,
-            header:false,
-            itemCls:'krf-os-startmenu-item',
-            bodyCls:'gradient',
-            //            toolConfig: {
-            //                width: 100,
-            //                items: [
-            //                    {
-            //                        text:'Settings',
-            //                        iconCls:'settings',
-            //                        handler: me.onSettings,
-            //                        scope: me
-            //                    },
-            //                    '-',
-            //                    {
-            //                        text:'Logout',
-            //                        iconCls:'logout',
-            //                        handler: me.onLogout,
-            //                        scope: me
-            //                    }
-            //                ]
-            //            }
+            width: 300,
+            header: false,
+            itemCls: 'krf-os-startmenu-item',
+            bodyCls: 'gradient'
         });
     },
 
@@ -130,10 +112,14 @@ Ext.define('krf_new.Desktop.App', {
                     title: '바탕화면보기',
                     width: 80,
                     height: 35,
-                    style:'cursor:pointer;',
-                    listeners: { el: { click: function () {
-                        $KRF_APP.fireEvent($KRF_EVENT.MINIMIZE_WINDOWS);
-                    } } },
+                    style: 'cursor:pointer;',
+                    listeners: {
+                        el: {
+                            click: function () {
+                                $KRF_APP.fireEvent($KRF_EVENT.MINIMIZE_WINDOWS);
+                            }
+                        }
+                    },
                     src: './resources/images/button/wallpaper.png'
                 }
             ]
