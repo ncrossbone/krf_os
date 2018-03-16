@@ -33,7 +33,28 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 		pack: 'left'
 	},
 
-	y: 0,
+	getReachModeBtnIdx: function (btnId) {
+
+		var btnObj = this.query('image');
+
+		for (var i = 0; i < btnObj.length; i++) {
+			if (btnObj[i].id == btnId) {
+				return i;
+			}
+		}
+	},
+
+	showReachModeBtn: function (btnId) {
+
+		var btnObj = this.query('image');
+
+		for (var i = 0; i < btnObj.length; i++) {
+			if (btnObj[i].id.indexOf('btnMenu0') > -1) {
+				Ext.getCmp(btnObj[i].id).setVisible(true);
+			}
+		}
+	},
+
 	initComponent: function () {
 
 		this.items = [{
@@ -63,18 +84,6 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOffImg: './resources/images/button/reach_menu02.png',
 			src: './resources/images/button/reach_menu02.png',
 			hidden: true
-		}, {
-			xtype: 'button',
-			id: 'btnMerge',
-			text: '동기화',
-			style: 'cursor:pointer;',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: 'onClickMerge'
-				}
-			}
 		}, {
 			xtype: 'image',
 			id: 'btnMenu02',
@@ -202,6 +211,18 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu14.png',
 			hidden: true
 		}, {
+			xtype: 'button',
+			id: 'btnMerge',
+			text: '동기화',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: {
+				el: {
+					click: 'onClickMerge'
+				}
+			}
+		}, {
 			xtype: 'container',
 			id: 'gabToolbarContainer',
 			width: 10
@@ -265,7 +286,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOnImg: './resources/images/button/reach_menu20_on.png',
 			btnOffImg: './resources/images/button/reach_menu20.png',
 			src: './resources/images/button/reach_menu20_on.png'
-		},  {
+		}, {
 			xtype: 'image',
 			id: 'btnFlowLayer',
 			groupId: 'btnFlowLayer',

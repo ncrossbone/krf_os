@@ -3,167 +3,165 @@
  */
 Ext.define('krf_new.view.center.SearchConfig', {
 
-	extend: 'Ext.window.Window',
+	extend: 'Ext.panel.Panel',
+
 	xtype: 'win-searchConfig',
+
 	id: 'searchConfig',
 
-	width: 303,
+	title: "검색설정",
+
+	style: 'border: 5px solid #043264; border-radius: 5px;',
+
+	width: 250,
 	height: 150,
-	x: 387,
-	y: 200,
 
-	header: false,
-	closable: false,
+	header: {
+		style: 'background:#043264 !important; border:none;'
+	},
+
 	resizable: false,
-	constrain: true,
 
-	style: "border: 0px;",
+	hidden: true,
+
 	layout: {
 		type: 'vbox'
 	},
 
 	items: [{
-		xtype: "panel",
-		title: "검색설정",
+		xtype: 'container',
+		style: "padding-left: 30px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
 		layout: {
-			type: "vbox"
+			type: 'vbox'
 		},
 		width: "100%",
+		height: 70,
 		items: [{
-			xtype: 'container',
-			style: "padding-left: 30px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
-			layout: {
-				type: 'vbox'
-			},
-			width: "100%",
-			height: 70,
-			items: [{
-				xtype: 'checkbox',
-				boxLabel: '상류',
-				checked: false,
-				width: 50,
-				handler: function (obj, checked) {
-					if (checked == true) {
-						// 중권역 체크박스 활성
-						this.up("container").query("#chkMWDraw")[0].enable();
-						this.up("container").query("#chkMWDraw")[0].setValue(true);
-						// 댐/보 체크박스 활성
-						this.up("container").query("#chkDaemBoDraw")[0].enable();
-					}
-					else {
-						// 중권역 체크박스 비활성
-						this.up("container").query("#chkMWDraw")[0].disable();
-						this.up("container").query("#chkMWDraw")[0].setValue(false);
-						// 댐/보 체크박스 비활성
-						this.up("container").query("#chkDaemBoDraw")[0].disable();
-						this.up("container").query("#chkDaemBoDraw")[0].setValue(false);
-					}
+			xtype: 'checkbox',
+			boxLabel: '상류',
+			checked: false,
+			width: 50,
+			handler: function (obj, checked) {
+				if (checked == true) {
+					// 중권역 체크박스 활성
+					this.up("container").query("#chkMWDraw")[0].enable();
+					this.up("container").query("#chkMWDraw")[0].setValue(true);
+					// 댐/보 체크박스 활성
+					this.up("container").query("#chkDaemBoDraw")[0].enable();
+				}
+				else {
+					// 중권역 체크박스 비활성
+					this.up("container").query("#chkMWDraw")[0].disable();
+					this.up("container").query("#chkMWDraw")[0].setValue(false);
+					// 댐/보 체크박스 비활성
+					this.up("container").query("#chkDaemBoDraw")[0].disable();
+					this.up("container").query("#chkDaemBoDraw")[0].setValue(false);
+				}
 
-					// 로컬 스토리지 셋팅
-					this.up("win-searchConfig").setLocalStorage();
-				},
-				inputValue: 'isUpDraw'
-			}, {
-				xtype: "container",
-				layout: {
-					type: "hbox"
-				},
-				width: "100%",
-				style: "padding-left: 20px;",
-				height: 35,
-				items: [{
-					xtype: "label",
-					text: "└"
-				}, {
-					xtype: 'checkbox',
-					itemId: "chkMWDraw",
-					id: "chkMWDraw",
-					style: "padding-left:10px;",
-					boxLabel: '중권역',
-					checked: false,
-					disabled: true,
-					width: 65,
-					handler: function (obj, checked) {
-						var chkDaemBoDraw = Ext.getCmp('chkDaemBoDraw');
-						if (checked == true) {
-							chkDaemBoDraw.setValue(false);
-						} else {
-							chkDaemBoDraw.setValue(true);
-						}
-						// 로컬 스토리지 셋팅
-						this.up("win-searchConfig").setLocalStorage();
-					},
-					inputValue: 'isMWDraw'
-				}, {
-					xtype: 'checkbox',
-					itemId: "chkDaemBoDraw",
-					id: "chkDaemBoDraw",
-					style: "padding-left:10px;",
-					boxLabel: '댐/보',
-					checked: false,
-					disabled: true,
-					width: 80,
-					handler: function (obj, checked) {
-						var chkMWDraw = Ext.getCmp('chkMWDraw');
-						if (checked == true) {
-							chkMWDraw.setValue(false);
-						} else {
-							chkMWDraw.setValue(true);
-						}
-						// 로컬 스토리지 셋팅
-						this.up("win-searchConfig").setLocalStorage();
-					},
-					inputValue: 'isDaemBoDraw'
-				}]
-			}]
+				// 로컬 스토리지 셋팅
+				this.up("win-searchConfig").setLocalStorage();
+			},
+			inputValue: 'isUpDraw'
 		}, {
-			xtype: 'container',
-			style: "font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; padding-left: 30px; padding-top: 6px; border-top: 1px dotted #595959;",
+			xtype: "container",
 			layout: {
-				type: 'hbox'
+				type: "hbox"
 			},
 			width: "100%",
+			style: "padding-left: 20px;",
 			height: 35,
 			items: [{
-				xtype: 'checkbox',
-				boxLabel: '본류',
-				checked: true,
-				width: 50,
-				handler: function (obj, checked) {
-					if (checked == false) {
-						obj.setValue(true);
-					}
-				},
-				inputValue: 'isBonDraw'
+				xtype: "label",
+				text: "└"
 			}, {
 				xtype: 'checkbox',
-				boxLabel: '지류',
-				checked: true,
-				width: 50,
+				itemId: "chkMWDraw",
+				id: "chkMWDraw",
+				style: "padding-left:10px;",
+				boxLabel: '중권역',
+				checked: false,
+				disabled: true,
+				width: 65,
 				handler: function (obj, checked) {
+					var chkDaemBoDraw = Ext.getCmp('chkDaemBoDraw');
+					if (checked == true) {
+						chkDaemBoDraw.setValue(false);
+					} else {
+						chkDaemBoDraw.setValue(true);
+					}
 					// 로컬 스토리지 셋팅
 					this.up("win-searchConfig").setLocalStorage();
 				},
-				inputValue: 'isJiDraw'
-			}
-				, {
-					xtype: 'checkbox',
-					boxLabel: '소하천',
-					checked: false,
-					width: 70,
-					handler: function (obj, checked) {
-						// 로컬 스토리지 셋팅
-						this.up("win-searchConfig").setLocalStorage();
-
-						this.up("win-searchConfig").onClickSRiver(checked);
-
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
-						
-					},
-					inputValue: 'isSRiver'
-				}
-			]
+				inputValue: 'isMWDraw'
+			}, {
+				xtype: 'checkbox',
+				itemId: "chkDaemBoDraw",
+				id: "chkDaemBoDraw",
+				style: "padding-left:10px;",
+				boxLabel: '댐/보',
+				checked: false,
+				disabled: true,
+				width: 80,
+				handler: function (obj, checked) {
+					var chkMWDraw = Ext.getCmp('chkMWDraw');
+					if (checked == true) {
+						chkMWDraw.setValue(false);
+					} else {
+						chkMWDraw.setValue(true);
+					}
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isDaemBoDraw'
+			}]
 		}]
+	}, {
+		xtype: 'container',
+		style: "font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; padding-left: 30px; padding-top: 6px; border-top: 1px dotted #595959;",
+		layout: {
+			type: 'hbox'
+		},
+		width: "100%",
+		height: 35,
+		items: [{
+			xtype: 'checkbox',
+			boxLabel: '본류',
+			checked: true,
+			width: 50,
+			handler: function (obj, checked) {
+				if (checked == false) {
+					obj.setValue(true);
+				}
+			},
+			inputValue: 'isBonDraw'
+		}, {
+			xtype: 'checkbox',
+			boxLabel: '지류',
+			checked: true,
+			width: 50,
+			handler: function (obj, checked) {
+				// 로컬 스토리지 셋팅
+				this.up("win-searchConfig").setLocalStorage();
+			},
+			inputValue: 'isJiDraw'
+		}
+			, {
+			xtype: 'checkbox',
+			boxLabel: '소하천',
+			checked: false,
+			width: 70,
+			handler: function (obj, checked) {
+				// 로컬 스토리지 셋팅
+				this.up("win-searchConfig").setLocalStorage();
+
+				this.up("win-searchConfig").onClickSRiver(checked);
+
+				$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
+
+			},
+			inputValue: 'isSRiver'
+		}
+		]
 	}],
 
 	initComponent: function () {
@@ -181,24 +179,24 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var chkCtls = this.query("checkbox");
 		if (chkCtls != undefined && chkCtls != null) {
 			// 로컬 스토리지 존재하면
-			
+
 			if (searchConfigInfo != undefined && searchConfigInfo != null) {
-				
+
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
 				for (var i = 0; i < chkCtls.length; i++) {
-					if(i == chkCtls.length-1){// 예외 ) 소하천인 경우 로컬스토리지에 저장되기 때문에 init storage를 비활성으로 초기 세팅
+					if (i == chkCtls.length - 1) {// 예외 ) 소하천인 경우 로컬스토리지에 저장되기 때문에 init storage를 비활성으로 초기 세팅
 						searchConfigInfoJson[chkCtls[i].inputValue] = false;
 						chkCtls[i].setValue(false);
-					}else{
+					} else {
 						if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
 							chkCtls[i].setValue(searchConfigInfoJson[chkCtls[i].inputValue]);
 						}
-					}	
+					}
 				}
-			}else{
+			} else {
 				// 로컬 스토리지 셋팅
-				
+
 			}
 		}
 
@@ -207,16 +205,16 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	},
 
 	//소하천 dynamic 켜기
-	onClickSRiver: function(onOff){
-		
+	onClickSRiver: function (onOff) {
+
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 		//var subMapWindow = Ext.getCmp("subMapWindow");
-		
-		if(onOff){
-			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+
+		if (onOff) {
+			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
 			//subMapWindow.show();
-		}else{
+		} else {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
 			//subMapWindow.hide();
 		}

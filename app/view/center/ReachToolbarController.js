@@ -15,38 +15,28 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	onClickSmart: function (obj, el, evt) {
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
-		//		var west_container = Ext.getCmp("west_container");
 
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
-		var popHeader = Ext.getCmp("searchConfigHeader");
 		var kradMetaInfo = Ext.getCmp("kradMetaInfo");
 		var cContainer = Ext.getCmp("center_container");
+		var rToolbar = Ext.getCmp("reachToolbar");
 
-		if (popHeader == undefined) {
-			popHeader = Ext.create("krf_new.view.center.SearchConfigHeader");
-			cContainer.add(popHeader);
-		}
+		var popCtlIdx = rToolbar.getReachModeBtnIdx(el.id);
+
 		if (popCtl == undefined) {
-			popCtl = Ext.create("krf_new.view.center.SearchConfig");
+			popCtl = Ext.create('krf_new.view.center.SearchConfig', {});
 			cContainer.add(popCtl);
 		}
 
 		// 설정창 show
 		if (currCtl.btnOnOff == "on") {
-			var rToolbar = Ext.getCmp("reachToolbar");
-
-			popHeader.show();
 			popCtl.show();
 
-			popCtl.setX(rToolbar.getX());
-			popHeader.setX(rToolbar.getX());
-
-			popCtl.setY(rToolbar.getY() + 103);
-			popHeader.setY(rToolbar.getY() + 73);
+			popCtl.setX(rToolbar.getX() + (rToolbar.itemWidth * popCtlIdx));
+			popCtl.setY(rToolbar.getY() + (rToolbar.itemHeight + 2));
 			SetWestCollapseXY("show");
 		} else {
-			popHeader.hide();
 			popCtl.hide();
 
 			if (kradMetaInfo != undefined) {
@@ -54,10 +44,6 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			}
 
 		}
-
-		// 부하량 주제도 off
-		//catTMLayerOnOff("off");
-
 	},
 
 	onClickKrad: function (obj, el, evt) {
@@ -88,12 +74,12 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	},
 
 	//마우스 커서 변경
-	mouseCursor: function(el){
+	mouseCursor: function (el) {
 
-		
-		if(Ext.getCmp([el.id]).btnOnOff == 'on'){
-			Ext.get('_mapDiv__gc').setStyle('cursor', 'url(./resources/images/symbol/'+el.id+'.cur),auto');
-		}else{
+
+		if (Ext.getCmp([el.id]).btnOnOff == 'on') {
+			Ext.get('_mapDiv__gc').setStyle('cursor', 'url(./resources/images/symbol/' + el.id + '.cur),auto');
+		} else {
 			initKradEvt();
 		}
 
@@ -104,7 +90,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	},
 
 	// 리치추가 버튼 클릭
-	onClickAddReach: function(obj, el, evt){
+	onClickAddReach: function (obj, el, evt) {
 		var me = this;
 		// 맵 클릭 이벤트 켜기
 		//$KRF_APP.coreMap._krad.onMapClickEvt("addPoint", el.id);
@@ -113,39 +99,39 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 		//SetBtnOnOff("btnMenu02", "off");
 		var btnMenu02 = Ext.getCmp("btnMenu02");
-		
-		if(btnMenu02.btnOnOff == "off"){
-		
+
+		if (btnMenu02.btnOnOff == "off") {
+
 			// 맵 클릭 이벤트 켜기
 			$KRF_APP.coreMap._krad.onMapClickEvt("addPoint", el.id);
-			
+
 			// 부하량 주제도 off
 			catTMLayerOnOff("off");
-			
-		}else{
-			
+
+		} else {
+
 			//tmp에 저장되어 있는 graphic을 지우고 원래 graphic으로 배열을 넘겨준다.
-			
+
 			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
-			for(var i = 0 ; i < $KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++){
-				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrLineGrpTmp[i], $KRF_APP.coreMap._krad.reachLineSym 
+			for (var i = 0; i < $KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++) {
+				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrLineGrpTmp[i], $KRF_APP.coreMap._krad.reachLineSym
 					, $KRF_APP.coreMap._krad.lineGrpLayer, $KRF_APP.coreMap._krad.arrLineGrp, reachAdmin.arrLineGrp)
 			};
-			for(var j = 0 ; j < $KRF_APP.coreMap._krad.arrAreaGrpTmp.length; j++){
+			for (var j = 0; j < $KRF_APP.coreMap._krad.arrAreaGrpTmp.length; j++) {
 				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrAreaGrpTmp[j], $KRF_APP.coreMap._krad.reachAreaSym
 					, $KRF_APP.coreMap._krad.areaGrpLayer, $KRF_APP.coreMap._krad.arrAreaGrp, reachAdmin.arrAreaGrp);
 			};
-			
+
 			// 검색 종료 체크(지점목록,검색결과)
 			$KRF_APP.coreMap._krad.isStopCheck();
 			SetBtnOnOff("btnMenu02", "off");
-			
+
 			$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
 			$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
 			reachAdmin.arrLineGrpTmp = [];
 			reachAdmin.arrAreaGrpTmp = [];
 		}
-		
+
 		me.mouseCursor(el);
 
 	},
@@ -157,40 +143,40 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
 		var me = this;
-		
+
 		var btnMenu03 = Ext.getCmp("btnMenu03");
 		//console.info(btnMenu02.btnOnOff);
-		
-		if(btnMenu03.btnOnOff == "off"){
+
+		if (btnMenu03.btnOnOff == "off") {
 			// 맵 클릭 이벤트 켜기
 			$KRF_APP.coreMap._krad.onMapClickEvt("removePoint", el.id);
-			
+
 			// 부하량 주제도 off
 			catTMLayerOnOff("off");
-			
-		}else{
-			
+
+		} else {
+
 			//tmp에 저장되어 있는 graphic을 지우고(검색종료 체크때 임시 graphic 삭제) 원래 graphic으로 배열을 넘겨준다.
 			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
-			for(var i = 0 ; i <$KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++){				
+			for (var i = 0; i < $KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++) {
 				$KRF_APP.coreMap._krad.removeGraphic($KRF_APP.coreMap._krad.arrLineGrpTmp[i], "reachLine");
 			};
-			
-			for(var j = 0 ; j < $KRF_APP.coreMap._krad.arrAreaGrpTmp.length; j++){
+
+			for (var j = 0; j < $KRF_APP.coreMap._krad.arrAreaGrpTmp.length; j++) {
 				$KRF_APP.coreMap._krad.removeGraphic($KRF_APP.coreMap._krad.arrAreaGrpTmp[j], "reachArea");
 			};
-			
+
 			// 검색 종료 체크(지점목록,검색결과)
 			$KRF_APP.coreMap._krad.isStopCheck();
 			SetBtnOnOff("btnMenu03", "off");
-			
-			
+
+
 			$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
 			$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
 			reachAdmin.arrLineGrpTmp = [];
 			reachAdmin.arrAreaGrpTmp = [];
-			
-		
+
+
 		}
 
 		//마우스 이벤트
@@ -198,43 +184,43 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	},
 
 	//하류제거
-	onClickRemoveReachLine: function(obj, el, evt){
+	onClickRemoveReachLine: function (obj, el, evt) {
 
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
 		var me = this;
 
-		$KRF_APP.coreMap._krad.onMapClickEvt("reachLineRemove",el.id);
-		
+		$KRF_APP.coreMap._krad.onMapClickEvt("reachLineRemove", el.id);
+
 		//마우스 이벤트
 		me.mouseCursor(el);
-		
+
 	},
 
-	onClickMerge: function(){
+	onClickMerge: function () {
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var subCoreMap = Ext.getCmp("_subMapDiv_");
 
 		//$KRF_APP.fireEvent($KRF_EVENT.MAPMOUSEOVER);
 		//console.info(coreMap.map);
 		//console.info(coreMap.map.graphics);
-		
+
 		//console.info(subCoreMap.map);
 		//console.info(subCoreMap.map.graphics);
-		
+
 		// console.info($KRF_APP.coreMap);
 		// console.info($KRF_APP.coreMap._krad);
 		// console.info($KRF_APP.subMap);
 		// console.info($KRF_APP.subMap._krad);
 	},
-	
+
 	// 시작위치 버튼 클릭
 	onClickStartReach: function (obj, el, evt) {
 
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
-		
+
 		if ($KRF_APP.coreMap._krad.maxSelect == true) {
 			alert("최대 5개 까지 선택 가능합니다.");
 			return;
@@ -275,7 +261,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 
-		
+
 		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 
 		// 버튼 On/Off
@@ -285,28 +271,28 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		kradLayerAdmin.createMapClickEvtTest("endPoint");*/
 	},
 
-	onClickMiniMap: function(obj, el, evt){
+	onClickMiniMap: function (obj, el, evt) {
 		var me = this;
 		//DynamicLayerSRiver
 		//btnMenu10
 		var coreMap = Ext.getCmp("_mapDiv_");
 		//var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 		var subMapWindow = Ext.getCmp("subMapWindow");
-		
-			//subMapWindow.show();
+
+		//subMapWindow.show();
 		var btnMenu10 = Ext.getCmp("btnMenu010").btnOnOff;
-		
-		if(btnMenu10 == "on"){
+
+		if (btnMenu10 == "on") {
 			//DynamicLayerSRiver.setVisibleLayers([-1]);
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
 			subMapWindow.hide();
 			Ext.getCmp("btnMenu010").btnOnOff = "off";
-		}else{
+		} else {
 			//DynamicLayerSRiver.setVisibleLayers([2]);
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
 			subMapWindow.show();
 			Ext.getCmp("btnMenu010").btnOnOff = "on";
-		}		
+		}
 	},
 
 	// 초기화 버튼 클릭
@@ -578,20 +564,20 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { mode: $KRF_APP.THREEDIM_MODE, coord: transCoord[0] });
 		}, 102100, 4019);
 	},
-	
+
 	//소하천 dynamic 켜기
-	onClickSRiver: function(obj, el, evt){
-		
+	onClickSRiver: function (obj, el, evt) {
+
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
-		
+
 		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
-		
-		if(btnLayerSRiver == "on"){
+
+		if (btnLayerSRiver == "on") {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
-		}else{
-			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+		} else {
+			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
 		}
 	}

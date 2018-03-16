@@ -37,12 +37,12 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 			xtype: 'textfield',
 			width: 70,
 			editable: false,
-			style: 'border: 2px solid #f5bf32; margin-right:5px;'
+			style: 'border: 2px solid #ff7200; margin-right:5px;'
 		}, {
 			xtype: 'textfield',
 			width: 70,
 			editable: false,
-			style: 'border: 2px solid #3eaf0e; margin-right:5px;'
+			style: 'border: 2px solid #25af38; margin-right:5px;'
 		}, {
 			xtype: 'button',
 			cls: 'krf-os-reachname-close',
