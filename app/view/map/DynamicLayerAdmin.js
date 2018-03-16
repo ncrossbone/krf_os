@@ -35,12 +35,29 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DRON_DYNAMIC_LAYER_ON_OFF, me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
+		$KRF_APP.addListener($KRF_EVENT.SRIVER_DYNAMIC_LAYER_ON_OFF, me.sRiverdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 	},
 	applyRenderer: function (renderer) {
 	},
 
 	// 레이어 on/off 핸들러 정의
 	drondynamicLayerOnOffHandler: function (selectInfo) {
+	},
+
+	//소하천 레이어 on/off 핸들러 정의
+	sRiverdynamicLayerOnOffHandler: function(selectInfo){
+		var me = this;
+		var sLayer = [-1];
+		me.dynamicLayerSRiver.setVisibleLayers(sLayer);
+
+		Ext.each(selectInfo, function (selectObj, index, eObjs) {
+			if(selectObj.data.id.indexOf("S") > -1){
+				sLayer.push(selectObj.data.id.substring(1,2));
+			}
+		});
+		console.info(sLayer);
+		me.dynamicLayerSRiver.setVisibleLayers(sLayer);
+
 	},
 
 	// 레이어 on/off 핸들러 정의

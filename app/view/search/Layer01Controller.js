@@ -11,47 +11,12 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 	},
 
 	onCheckChanged: function (node, checked, btnId) {
-
-		if (node.id == "999") {
-			return;
-		}
-
+		//SRIVER_DYNAMIC_LAYER_ON_OFF
 		var me = this;
 		me.node = node;
 		me.checked = checked;
-
-		// 상단 메뉴에 버튼 동기화 추후 이벤트로 변경
-		/*if (node.id == "53") {
-			var btnFlowLayer = Ext.getCmp("btnFlowLayer");
-
-			if (checked) {
-				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_on.png");
-				btnFlowLayer.btnOnOff = "off";
-			} else {
-				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_off.png");
-				btnFlowLayer.btnOnOff = "on";
-			}
-
-		}
-
-		if (node.id == "55") {
-			var btnReachLayer = Ext.getCmp("btnReachLayer");
-
-			if (checked) {
-				btnReachLayer.setSrc("./resources/images/button/btn_top_01_on.png");
-				btnReachLayer.btnOnOff = "off";
-			} else {
-				btnReachLayer.setSrc("./resources/images/button/btn_top_01_off.png");
-				btnReachLayer.btnOnOff = "on";
-			}
-		}
-		*/
-		// if (btnId == undefined || btnId == null) {
-			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
-			
 		this.setLinkBtn(btnId, (btnId ? !checked: checked));
-		// }
-
+	
 		if (!node.get('leaf')) {
 			this.checkAllChildren(node, checked);
 		} else {
@@ -61,8 +26,18 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 					parentNode.set('checked', false);
 				}
 			}
-			$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
+			//소하천의경우 layer01 json 에서 아이디를 다르게 해줌 / 맵서비스가 다르기때문에 on/off 핸들러를 다르게 씀
+			if (node.id.substring(0,1) == "S") {
+				$KRF_APP.fireEvent($KRF_EVENT.SRIVER_DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
+			}else{
+				$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
+			}
 		}
+
+		// if (btnId == undefined || btnId == null) {
+			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
+			
+		
 	},
 
 	checkAllChildren: function (node, checked) {
@@ -71,7 +46,15 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 		Ext.each(children, function (child, index, eObjs) {
 			child.set('checked', checked);
 			if (index == children.length - 1) {
-				$KRF_APP.fireEvent('dynamicLayerOnOff', me.getView().getChecked());
+
+				// 1 dep 선택시 소하천일경우 ( 소하천의 경우 다른 케이스로 서비스가 달라서 나눔)
+				if(child.data.parentId == 'S'){
+					console.info("here");
+					$KRF_APP.fireEvent('sRiverdynamicLayerOnOff', me.getView().getChecked());
+				}else{
+					$KRF_APP.fireEvent('dynamicLayerOnOff', me.getView().getChecked());
+				}
+				
 			}
 		});
 	},

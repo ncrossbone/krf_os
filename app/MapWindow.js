@@ -327,22 +327,23 @@ Ext.define('Desktop.MapWindow', {
 		}
 
 		//소하천일 경우 임시
-		if (lyrId == "SRIVER") {
-
-		}
-
 		for (var i = 0; i < layerObj.store.data.items.length; i++) {
+			
 			if (layerObj.store.data.items[i].data.siteIdCol == lyrId) {
 				nodeObj = layerObj.store.data.items[i];
+				
+				var isChecked = nodeObj.get('checked');
+
+				nodeObj.set('checked', !isChecked);
+				layerObj.fireEvent('checkchange', nodeObj, !isChecked);
+
+				this.northLink(nodeObj);
 			}
 		}
 
-		var isChecked = nodeObj.get('checked');
+		
 
-		nodeObj.set('checked', !isChecked);
-		layerObj.fireEvent('checkchange', nodeObj, !isChecked);
-
-		this.northLink(nodeObj);
+		
 
 	},
 	northLink: function (node) {

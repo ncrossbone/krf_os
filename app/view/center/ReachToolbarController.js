@@ -268,10 +268,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 	onClickMiniMap: function (obj, el, evt) {
 		var me = this;
-		//DynamicLayerSRiver
-		//btnMenu10
 		var coreMap = Ext.getCmp("_mapDiv_");
-		//var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 		var subMapWindow = Ext.getCmp("subMapWindow");
 
 		//subMapWindow.show();

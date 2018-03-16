@@ -61,6 +61,7 @@ var $KRF_EVENT = {
 	MAP_WINDOW_LOADED: 'mapWindowLoaded',
 	DYNAMIC_LAYER_ON_OFF: 'dynamicLayerOnOff',
 	DRON_DYNAMIC_LAYER_ON_OFF: 'drondynamicLayerOnOff',
+	SRIVER_DYNAMIC_LAYER_ON_OFF: 'sRiverdynamicLayerOnOff',
 	AREA_SELECT: 'areaSelect',
 	POINT_DRAW_CLICK: 'pointDrawClick',
 	DRAW_END: 'drawEnd',
@@ -369,10 +370,9 @@ Ext.application({
 
 			
 			Ext.defer(function () {
+				console.info("create");
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
-				//subMapWindow.show();
-				subMapWindow.hide();
 				
 			}, 500);
 			
