@@ -78,6 +78,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	symGrpLayer: null, // 심볼 그래픽 레이어
 	lineGrpLayer: null, // 리치라인 그래픽 레이어
 	areaGrpLayer: null, // 집수구역 그래픽 레이어
+	areaGrpLayer_sub: null, // 집수구역 그래픽 레이어
+
+	miniLineGrpLayer: null, //미니맵 그래픽 레이어
 	
 	lineGrpLayer_s: null, //소하천 리치라인 그래픽 레이어
 	areaGrpLayer_s: null, //소하천 집수구역 그래픽 레이어
@@ -95,6 +98,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	
 	reachLineSym: null, // 리치 라인 심볼
 	reachAreaSym: null, // 리치 집수구역 심볼
+	reachAreaSym_sub: null, // 리치 집수구역 심볼
 	
 	addReachLineSym: null, // 리치 라인 심볼
 	addReachAreaSym: null, // 리치 집수구역 심볼
@@ -286,12 +290,20 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	 		    "height": 32
 			});
 			
+			me.miniMapLineSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID
+				, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5)
+				, new Color([255, 255, 255, 0.1]));
+
 			me.reachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 			me.reachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
 					new Color([255, 255, 0, 0.3]));
+
+			me.reachAreaSym_sub = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+				new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
+				new Color([255, 255, 0, 0.3]));
 			
-			//임시정장 
+			//임시저장 
 			me.addReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 			me.addReachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
@@ -312,6 +324,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.downGrpLayer.id = "downGrpLayer";
 			me.downGrpLayer.visible = true;
 			me.map.addLayer(me.downGrpLayer);
+
+			me.miniLineGrpLayer = new GraphicsLayer();
+            me.miniLineGrpLayer.id = "miniLineGrpLayer";
+            me.miniLineGrpLayer.visible = true;
+            me.map.addLayer(me.miniLineGrpLayer);
 			
 			me.lineGrpLayer = new GraphicsLayer();
 			me.lineGrpLayer.id = "lineGrpLayer";
@@ -322,6 +339,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.areaGrpLayer.id = "areaGrpLayer";
 			me.areaGrpLayer.visible = true;
 			me.map.addLayer(me.areaGrpLayer);
+
+			me.areaGrpLayer_sub = new GraphicsLayer();
+			me.areaGrpLayer_sub.id = "areaGrpLayer_sub";
+			me.areaGrpLayer_sub.visible = true;
+			me.map.addLayer(me.areaGrpLayer_sub);
 			
 			me.lineGrpLayer_s = new GraphicsLayer();
 			me.lineGrpLayer_s.id = "lineGrpLayer_s";
@@ -664,7 +686,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		    	/* 클릭 이벤트 설정 */
 		    	require(["dojo/on"],
 						function(on){
-		    		
+					//$KRF_APP.coreMap._krad
+					
 		    		/* 지도 이동을 염두에 두고 down일때 이벤트 지정 */
 		    		me.mapMdownObj = on(me.map, "mouse-down", function(evt){
 		    			
@@ -674,8 +697,102 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		    				
 		    				me.mapClickEvt = evt;
 		    			}
+					});
+					
+					me.mapMdownObj = on($KRF_APP.subMap.map, "mouse-down", function(evt){
+		    			
+		    			if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
+			    		}
+		    			else{ // 오른클릭이 아닐때만 이벤트 입력
+		    				
+		    				me.mapClickEvt = evt;
+		    			}
 		    		});
-		    		
+					
+					me.mapClickObj = on($KRF_APP.subMap.map, "mouse-up", function(evt){
+			    		
+			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+			    			
+				    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
+				    			
+				    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
+				    			me.isShowPopup = false;
+				    		}
+				    		else{
+				    			
+				    			if(me.map.getLevel() < 11){
+				    				
+				    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+				    				// 이벤트 초기화
+				    				initKradEvt();
+				    				me.isShowPopup = false;
+				    				SetBtnOnOff(btnId, "off");
+				    				return;
+				    			}
+				    			else{
+				    				
+				    				me.isShowPopup = true;
+				    			}
+				    		}
+			    		}
+			    		
+			    		if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
+			    			
+			    			// 오른버튼 컨텍스트 메뉴 막기
+			    			/*document.oncontextmenu = function(evt){return false;}
+			    			
+			    			if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+			    				
+			    				me.showPopup();
+			    			}*/
+			    		}
+			    		else{
+			    			
+			    			// 오른버튼 컨텍스트 메뉴 풀기
+			    			// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
+			    			me.getSearchConfigInfo();
+			    			
+			    			/* 검색설정 "상류" 체크 시 */
+			    			if($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true){
+			    				
+			    				_rchUpSearch.searchWithEvent(evt);
+			    				// 종료 검색 체크
+			    				me.isStopCheck();
+			    			}
+			    			else{ /* 검색설정 "상류" 체크 시 끝 */
+			    				if(me.isShowPopup == true){
+			    					
+			    					//소하천 on/off
+			    					/*if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
+			    						me.setSRchIdsWithEvent();
+			    					}else{
+			    						me.setRchIdsWithEvent();
+			    					}*/
+									//me.setRchIdsWithEvent();
+									//me.setRchIdsWithEvent();
+									
+									var searchConfigInfo = localStorage['_searchConfigInfo_'];
+									var jsonConf = JSON.parse(searchConfigInfo);
+									
+
+									if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
+										if(jsonConf.isSRiver){ //소하천 선택되었을시
+											me.showMiniPopup();
+										}else{// 소하천이 꺼져있을때는 기존 검색로직
+											me.setRchIdsWithEvent();
+										}
+									}else{
+										me.setRchIdsWithEvent();
+									}
+					    			
+					    		}else{
+					    			
+					    			me.closePopup();
+					    		}
+			    			}
+			    		}
+			    	});
+
 			    	me.mapClickObj = on(me.map, "mouse-up", function(evt){
 			    		
 			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
@@ -1043,7 +1160,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 							me.setSRchIdsWithEvent(featureSetArea.features[0]);
 						}else{
 							alert("소하천 집수구역이 없습니다.");
-							return;
+							me.setRchIdsWithEvent();
 						}
 						
 					});
@@ -1687,7 +1804,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		
 	    	require(["esri/graphic"], function(Graphic){
 	    		
-	    		var graphic = null;
+				var graphic = null;
+				var subGraphic = null; //미니맵 그래픽
 	    		var btnId = null;
 	    		
 	    		
@@ -1696,16 +1814,18 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	    		
 	    		if(me.drawOption == "startPoint"){
 	    			btnId = "btnMenu04";
-	    			//me.stSymbol.url = "./resources/images/symbol/btn_s"+sCnt+".png";
-	    			
+	    			subGraphic = new Graphic(evt, eval("$KRF_APP.subMap._krad.stSymbol"+me.stCnt));
 	    			graphic = new Graphic(evt, eval("me.stSymbol"+me.stCnt));
 	    		}
 	    		if(me.drawOption == "endPoint"){
-	    			btnId = "btnMenu05";
+					btnId = "btnMenu05";
+					subGraphic = new Graphic(evt, eval("$KRF_APP.subMap._krad.edSymbol"+me.stCnt));
 	    			graphic = new Graphic(evt, eval("me.edSymbol"+me.edCnt));
 	    		}
-	    		
-	    		me.symGrpLayer.add(graphic); // 그래픽 추가
+				
+				
+				me.symGrpLayer.add(graphic); // 그래픽 추가
+				$KRF_APP.subMap._krad.symGrpLayer.add(subGraphic); // 미니맵 그래픽 추가
 	    		
 	    		
 	    		// 커서 디폴트
@@ -2851,7 +2971,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     
     drawGraphic2: function(graphic, symbol, layer, arrObj, reachArr){
-		
+		console.info(layer.id);
     	var me = this;
     	
     	var currId = graphic.attributes.LINE_EVENT_ID != undefined ? graphic.attributes.LINE_EVENT_ID :
@@ -2872,15 +2992,50 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		
 		if(idx == -1){
 			
+
+			//subMap 레이어 올리기 ( ** object copy ** );
+			me.subMapLayerDraw(layer,symbol,graphic);
+
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
 			layer.add(graphic);
+			
 			// 배열에 넣기
 			arrObj.push(graphic);
 			// 리치 배열 넣기
 			reachArr.push(graphic);
 		}
-    },
+	},
+	
+	//미니맵 레이어 
+	subMapLayerDraw: function(layer,symbol,graphic){
+
+		var subGraphic = $.extend({}, graphic);
+		var subSymbol = $.extend({}, symbol);
+		
+		subGraphic.setSymbol(subSymbol);
+		$KRF_APP.subMap._krad[layer.id].add(subGraphic);
+		
+	},
+
+	clone: function(obj){
+		console.info(obj);
+		if (obj === null || typeof(obj) !== 'object'){
+			console.info("if");
+			return obj;
+		}
+			
+		var copy = obj.constructor();
+		console.info(copy);
+		for (var attr in obj) {
+			console.info("else");
+			if (obj.hasOwnProperty(attr)) {
+			copy[attr] = obj[attr];
+			}
+		}
+		return copy;
+	},
+
     /* 그래픽 지우기 */
     removeGraphic: function(graphic, grpType){
     	

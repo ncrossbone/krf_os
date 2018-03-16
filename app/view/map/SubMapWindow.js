@@ -24,6 +24,7 @@ Ext.define('krf_new.view.map.SubMapWindow', {
 		},
 		show: function () {
 			$KRF_APP.subMap.mapRendered();
+			console.info("?");
 			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
 		}
 	},

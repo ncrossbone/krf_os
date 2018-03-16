@@ -304,7 +304,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 					if($KRF_APP.coreMap._krad.miniLineGrpLayer.graphics.length == 0){
 						$KRF_APP.coreMap._krad.miniLineGrpLayer.add(graphic);
 					}
-					
+					console.info($KRF_APP.coreMap._krad);
 					coreMap.editToolbar = new esri.toolbars.Edit(coreMap.map);
 					// 클릭될시 리치 검색 클릭시를 유의 해야함
 					$KRF_APP.coreMap._krad.miniLineGrpLayer.on("click", function (evt) {
