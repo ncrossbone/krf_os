@@ -20,7 +20,7 @@ Ext.define('Desktop.MapWindow', {
 	init: function () {
 		this.launcher = {
 			text: '<span class="krf-os-startmenu-text">KRF</span>',
-			iconCls:'krf-os-startmenu-krf-icon'
+			iconCls: 'krf-os-startmenu-krf-icon'
 		};
 
 		// 리치 툴바 on/off
@@ -176,29 +176,6 @@ Ext.define('Desktop.MapWindow', {
 
 		var rToolbarOnOff = Ext.getCmp("btnModeReach");
 
-		if (rToolbarOnOff.btnOnOff == 'on') {
-
-			var rToolbar = Ext.getCmp("reachToolbar");
-			var rNameToolbar = Ext.getCmp("reachNameToolbar");
-
-			var popCtl = Ext.getCmp("searchConfig");
-			var popHeader = Ext.getCmp("searchConfigHeader");
-
-			rNameToolbar.hide();
-			Ext.defer(function () {
-				rNameToolbar.setX(rToolbar.getX() + (200));
-				rNameToolbar.setY(rToolbar.getY() + (60));
-				rNameToolbar.show();
-
-				if (popCtl != null && !popCtl.isHidden()) {
-					popCtl.setX(rToolbar.getX());
-					popHeader.setX(rToolbar.getX());
-					popCtl.setY(rToolbar.getY() + 203);
-					popHeader.setY(rToolbar.getY() + 60);
-				}
-			}, 1);
-		}
-
 		var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
 		var phyLegend = Ext.getCmp("phyLegend"); // 범례 이미지 컨트롤
 
@@ -243,27 +220,26 @@ Ext.define('Desktop.MapWindow', {
 	showReachToolbar: function () {
 		var rNameToolbar = Ext.getCmp("reachNameToolbar");
 		var rToolbar = Ext.getCmp("reachToolbar");
-		var sConfig = Ext.getCmp("searchConfig");
 		var cContainer = Ext.getCmp("cont_container");
+		var searchConfig = Ext.getCmp("searchConfig");
 
+		var rNameToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu04');
+
+		rToolbar.showReachModeBtn();
 
 		if (rNameToolbar == undefined) {
 			rNameToolbar = Ext.create('krf_new.view.center.ReachNameToolbar', {});
 			cContainer.add(rNameToolbar);
 		}
 
+		if (searchConfig == undefined) {
+			searchConfig = Ext.create('krf_new.view.center.SearchConfig', {});
+			cContainer.add(searchConfig);
+		}
+
 		rNameToolbar.show();
-
-		rNameToolbar.setX(rToolbar.getX() + (420));
-		rNameToolbar.setY(rToolbar.getY() + (61));
-
-		if (sConfig == undefined) {
-			sConfig = Ext.create("krf_new.view.center.SearchConfig");
-			cContainer.add(sConfig);
-		}
-		for (var i = 1; i < 11; i++) {
-			Ext.getCmp('btnMenu0' + i).setVisible(true);
-		}
+		rNameToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * rNameToolbarIdx) - 8);
+		rNameToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 2));
 
 		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 	},
@@ -274,8 +250,12 @@ Ext.define('Desktop.MapWindow', {
 		var sConfig = Ext.getCmp("searchConfig");
 		var kConfig = Ext.getCmp("kradSchConf");
 
-		for (var i = 1; i < 11; i++) {
-			Ext.getCmp('btnMenu0' + i).setVisible(false);
+		var btnObj = rToolbar.query('image');
+
+		for (var i = 0; i < btnObj.length; i++) {
+			if (btnObj[i].id.indexOf('btnMenu0') > -1) {
+				Ext.getCmp(btnObj[i].id).setVisible(false);
+			}
 		}
 
 		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
@@ -507,17 +487,17 @@ Ext.define('Desktop.MapWindow', {
 		Ext.getCmp('search-win').setTitle(titleNm);
 	},
 
-	showMetaDataWindow: function(){
+	showMetaDataWindow: function () {
 		var cContainer = Ext.getCmp("cont_container");
 		var metaDataWindow = Ext.getCmp('metaDataWindow');
 		if (metaDataWindow == undefined) {
 			metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
-			cContainer.add(metaDataWindow);		
+			cContainer.add(metaDataWindow);
 		}
 		metaDataWindow.show();
 	},
 
-	hideMetaDataWindow: function(){
+	hideMetaDataWindow: function () {
 		var metaDataWindow = Ext.getCmp('metaDataWindow');
 		metaDataWindow.close();
 		//me

@@ -9,6 +9,7 @@ Ext.define('Desktop.ReportWindow', {
     extend: 'Ext.ux.desktop.Module',
 
     requires: [
+        'krf_new.view.report.ReportMain'
     ],
 
     id: 'report-win',
@@ -34,7 +35,17 @@ Ext.define('Desktop.ReportWindow', {
             animCollapse: false,
             constrainHeader: true,
             layout: 'fit',
-            items: [{
+            items: [{xtype: 'app-report-main'}]
+        });
+        if (!win) {
+            win = desktop.createWindow(cfg);
+        }
+        return win;
+    }
+});
+
+/*
+{
                 xtype: 'panel',
                 layout: 'vbox',
                 items: [{
@@ -116,12 +127,5 @@ Ext.define('Desktop.ReportWindow', {
                     height: 200,
                     width: 400
                 }]
-            }]
-        });
-        if (!win) {
-            win = desktop.createWindow(cfg);
-        }
-        return win;
-    }
-});
-
+            }
+*/

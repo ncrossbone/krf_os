@@ -25,7 +25,7 @@ Ext.define('krf_new.view.search.MapSearchWindow', {
     constrain: true,
     constrainHeader: false,
     closable: false,
-    header:{cls :'subWindow-x-form-item-label-default'},
+    header: { cls: 'subWindow-x-form-item-label-default' },
     cls: 'subWindow-x-form-item-label-default',
     listeners: {
         'minimize': function (window, opts) {

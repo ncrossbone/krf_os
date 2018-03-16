@@ -498,6 +498,7 @@
 	"children": [{
 		"id": "53",
 		"text": "리치흐름",
+		"layerBtnId": ["btnFlowLayer"],
 		"wmsId":"41",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer49",
@@ -508,6 +509,7 @@
 		"id": "54",
 		"wmsId":"40",
 		"text": "리치노드",
+		"layerBtnId": ["btnReachNodeLayer"],
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer46",
 		"leaf": true,
