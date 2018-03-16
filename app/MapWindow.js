@@ -176,29 +176,6 @@ Ext.define('Desktop.MapWindow', {
 
 		var rToolbarOnOff = Ext.getCmp("btnModeReach");
 
-		if (rToolbarOnOff.btnOnOff == 'on') {
-
-			var rToolbar = Ext.getCmp("reachToolbar");
-			var rNameToolbar = Ext.getCmp("reachNameToolbar");
-
-			var popCtl = Ext.getCmp("searchConfig");
-			var popHeader = Ext.getCmp("searchConfigHeader");
-
-			rNameToolbar.hide();
-			Ext.defer(function () {
-				rNameToolbar.setX(rToolbar.getX() + (200));
-				rNameToolbar.setY(rToolbar.getY() + (60));
-				rNameToolbar.show();
-
-				if (popCtl != null && !popCtl.isHidden()) {
-					popCtl.setX(rToolbar.getX());
-					popHeader.setX(rToolbar.getX());
-					popCtl.setY(rToolbar.getY() + 203);
-					popHeader.setY(rToolbar.getY() + 60);
-				}
-			}, 1);
-		}
-
 		var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
 		var phyLegend = Ext.getCmp("phyLegend"); // 범례 이미지 컨트롤
 
@@ -244,7 +221,7 @@ Ext.define('Desktop.MapWindow', {
 		var rNameToolbar = Ext.getCmp("reachNameToolbar");
 		var rToolbar = Ext.getCmp("reachToolbar");
 		var cContainer = Ext.getCmp("cont_container");
-		
+
 		var rNameToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu04');
 
 		rToolbar.showReachModeBtn();

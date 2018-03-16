@@ -238,8 +238,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 
 		if (searchConfigInfo != undefined && searchConfigInfo != null) {
 			searchConfigInfoJson = JSON.parse(searchConfigInfo);
-		}
-		else {
+		} else {
 			// 로컬 스토리지 셋팅
 			this.setLocalStorage();
 			searchConfigInfoJson = JSON.parse(localStorage['_searchConfigInfo_']);
