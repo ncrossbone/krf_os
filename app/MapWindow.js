@@ -506,13 +506,19 @@ Ext.define('Desktop.MapWindow', {
 		Ext.getCmp('search-win').setTitle(titleNm);
 	},
 
-	showMetaDataWindow: function () {
-		var metaDataWindow = Ext.getCmp("metaDataWindow");
-		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
+	showMetaDataWindow: function(){
+		var cContainer = Ext.getCmp("cont_container");
+		var metaDataWindow = Ext.getCmp('metaDataWindow');
+		if (metaDataWindow == undefined) {
+			metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
+			cContainer.add(metaDataWindow);		
+		}
+		metaDataWindow.show();
 	},
 
-	hideMetaDataWindow: function () {
-		var metaDataWindow = Ext.getCmp("metaDataWindow");
+	hideMetaDataWindow: function(){
+		var metaDataWindow = Ext.getCmp('metaDataWindow');
+		metaDataWindow.close();
 		//me
 	},
 

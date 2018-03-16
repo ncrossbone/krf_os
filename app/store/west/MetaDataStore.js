@@ -27,27 +27,20 @@ Ext.define('krf_new.store.west.MetaDataStore', {
 		beforeload: function (store) {
 			console.info(store);
 			
-			var queryTask = new esri.tasks.QueryTask("http://112.217.167.123:40002/arcgis/rest/services/reach_V3/MapServer/94"); // 레이어 URL
+			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.metaId); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.where = "LYR_CODE = '" + store.layerId + "'";
 			query.returnGeometry = false;
 			query.outFields = ["*"];
 			console.info(query);
 			queryTask.execute(query, function (results) {
-				console.info(results);
 				if(results.features.length > 0){
-					//console.info(results.features[0].attributes);
-					var data = {"data":[results.features[0].attributes]};
-					//console.info(data);
-					//console.info([results.features[0].attributes]);
-					 store.setData([results.features[0].attributes]);
-					// console.info(store);
-
-					// var metaData1 = Ext.getCmp('metaData1');
-					// console.info(metaData1);
-					// metaData1.setStore(store);
-					// console.info(metaData1.store);
-
+					for(var i = 0 ; i < store.config.fields.length ; i++){
+						var  value = Ext.getCmp([store.config.fields[i]]);
+						if(value != undefined){
+							value.update(results.features[0].attributes[store.config.fields[i]]);
+						}
+					}
 				}
 			});
 		}

@@ -2553,24 +2553,11 @@ setActionInfo = function (node, parentId, data, id, type) {
 
 //메타 데이터 확인
 metaDataView = function (layerId) {
+	//$KRF_EVENT.HIDEMETADATAWINDOW
+	$KRF_APP.fireEvent($KRF_EVENT.SHOWMETADATAWINDOW);
 
-	var metaDataWindow = Ext.getCmp('metaDataWindow');
-	if (metaDataWindow == undefined) {
-		//$KRF_APP.fireEvent($KRF_EVENT.SHOWMETADATAWINDOW);
-		metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
-		metaDataWindow.show();
-
-
-		// var metaStore = null;
-		// metaStore = Ext.create('krf_new.store.west.MetaDataStore');
-
-		// metaStore.layerId = layerId;
-		// metaStore.load();
-		// var metaData1 = Ext.getCmp('metaData1');
-		// metaData1.bindStore(metaData1);
-		// console.info(metaStore);
-		//metaDataWindow.setStore(featureSet.features[0].attributes);
-		//var meatStore = 
-	}
-
+	var metaStore = Ext.create('krf_new.store.west.MetaDataStore');
+	metaStore.layerId = layerId;
+	metaStore.load();
+		
 };

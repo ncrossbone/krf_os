@@ -257,8 +257,6 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	// 끝위치 버튼 클릭
 	onClickEndReach: function (obj, el, evt) {
 
-		console.info($KRF_APP.coreMap._krad.stCnt);
-		console.info($KRF_APP.coreMap._krad.edCnt);
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
@@ -313,7 +311,6 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 	// 초기화 버튼 클릭
 	onClickReset: function (obj, el, evt) {
-		//console.info("dkjdf");
 
 		var reachs_close = Ext.getCmp("reachs_close");
 		var reache_close = Ext.getCmp("reache_close");

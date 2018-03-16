@@ -740,10 +740,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 									
 									var searchConfigInfo = localStorage['_searchConfigInfo_'];
 									var jsonConf = JSON.parse(searchConfigInfo);
-
+									
 
 									if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
-										me.showMiniPopup();
+										if(jsonConf.isSRiver){ //소하천 선택되었을시
+											me.showMiniPopup();
+										}else{// 소하천이 꺼져있을때는 기존 검색로직
+											me.setRchIdsWithEvent();
+										}
 									}else{
 										me.setRchIdsWithEvent();
 									}
@@ -1882,8 +1886,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				    								// 공통 하류 배열 담기..
 				    								me.arrCommGrp.push(tmpArr[tmpCnt]);
 				    								
-				    							}else{//isPush 시작지점과 끝지점이 같을시
-													me.sRiverDraw(tmpArr[0]);
+												}else{//isPush 시작지점과 끝지점이 같을시
+													//console.info("else");
+													//me.sRiverDraw(tmpArr[0]);
 												}
 				    						}
 				    						
@@ -1906,61 +1911,65 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				    			}
 				    			
 				    			if(lastIdx > -1){
-				    				// 시작위치, 끝위치 선택 완료 시
+									// 시작위치, 끝위치 선택 완료 시
+									
 					    			if(me.stRchIds.length > 0 && me.edRchIds.length > 0){
-					    				
-					    				
-						    			
-					    				for(var i = 0; i < me.arrCommGrp.length; i++){
+
+										if(me.stRchIds == me.edRchIds){
+											me.sRiverDraw(tmpArr[0]);
+										}else{
+											for(var i = 0; i < me.arrCommGrp.length; i++){
 					    					
-						    				var commRchDid = me.arrCommGrp[i].attributes.RCH_DID;
-						    				var commGeoTrib = me.arrCommGrp[i].attributes.GEO_TRIB;
-						    				
-						    				var isGeoTrib = me.chkGeoTrib(commGeoTrib);
-						    				if(isGeoTrib == false){
-						    					
-						    					alert("선택된 시작위치, 끝위치 사이에 본류가 흐르지 않습니다.\r\n검색설정을 확인하세요.");
-						    					// 마지막 심볼 삭제
-						    					me.removeLastSymbol();
-						    					return;
-						    				}
-						    				else{
-						    					
-						    					//#####
-						    					
-						    					
-						    					
-						    					
-						    					if(me.stCnt == 5 && me.edCnt == 5){
-									    			me.maxSelect = true;
-						    					}else{
-						    						SetBtnOnOff("btnMenu04", "off");
-									    			SetBtnOnOff("btnMenu05", "off");
-						    					}
-						    					//버튼 off
+												var commRchDid = me.arrCommGrp[i].attributes.RCH_DID;
+												var commGeoTrib = me.arrCommGrp[i].attributes.GEO_TRIB;
 												
-								    			
-								    			
-						    					
-						    					//시작지점 끝지점 공통하류 존재시 option 줄곳
-						    					
-						    					//공통 하류 rchDid 담기
-			    								me.cmDnRchDid.push(tmpRchDid);
-			    								
-			    								//공통 하류 지점에 우측상류
-			    								me.cmRiRchDid.push(tmpArr[tmpCnt].attributes.LU_RCH_DID);
-			    								
-			    								//공통 하류 지점에 좌측상류
-			    								me.cmLeRchDid.push(tmpArr[tmpCnt].attributes.RU_RCH_DID);
-			    								
-	    										// 상류 검색
-						    					me.setReachUpLine(commRchDid, 0, false);
-						    					
-						    					// 종료 검색 체크
-						    					me.isStopCheck();
-						    					
-						    				}
-					    				}
+												var isGeoTrib = me.chkGeoTrib(commGeoTrib);
+												if(isGeoTrib == false){
+													
+													alert("선택된 시작위치, 끝위치 사이에 본류가 흐르지 않습니다.\r\n검색설정을 확인하세요.");
+													// 마지막 심볼 삭제
+													me.removeLastSymbol();
+													return;
+												}else{
+													
+													//#####
+													
+													
+													
+													
+													if(me.stCnt == 5 && me.edCnt == 5){
+														me.maxSelect = true;
+													}else{
+														SetBtnOnOff("btnMenu04", "off");
+														SetBtnOnOff("btnMenu05", "off");
+													}
+													//버튼 off
+													
+													
+													
+													
+													//시작지점 끝지점 공통하류 존재시 option 줄곳
+													
+													//공통 하류 rchDid 담기
+													me.cmDnRchDid.push(tmpRchDid);
+													
+													//공통 하류 지점에 우측상류
+													me.cmRiRchDid.push(tmpArr[tmpCnt].attributes.LU_RCH_DID);
+													
+													//공통 하류 지점에 좌측상류
+													me.cmLeRchDid.push(tmpArr[tmpCnt].attributes.RU_RCH_DID);
+													
+													// 상류 검색
+													me.setReachUpLine(commRchDid, 0, false);
+													
+													// 종료 검색 체크
+													me.isStopCheck();
+													
+												}
+											}
+										}
+
+					    				
 					    			}
 					    			
 				    			}
@@ -3244,7 +3253,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	if(me.areaGrpLayer != undefined && me.areaGrpLayer != null){
     		me.areaGrpLayer.clear();
-    	}
+		}
+		
+		if (me.lineGrpLayer_s != undefined && me.lineGrpLayer_s != null) {
+			me.lineGrpLayer_s.clear();
+		}
+
+		if (me.areaGrpLayer_s != undefined && me.areaGrpLayer_s != null) {
+			me.areaGrpLayer_s.clear();
+		}
     },
     
     clearVariable: function(){
@@ -3275,7 +3292,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	me.arrCommGrp = []; // 공통하류 그래픽 배열
     	me.tmpEvtLineGrp = []; // 라인 이벤트 임시 배열
     	me.arrEvtLineGrp = []; // 라인 이벤트 리치 배열
+    	me.arrLineGrp_s = []; // 소하천 라인 그래픽 배열
+		me.arrAreaGrp_s = []; // 소하천 집수구역 그래픽 배열
     	
+    	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+    	
+    	reachAdmin.arrLineGrp = []; // 기존 리치 라인 그래픽 배열
+    	reachAdmin.arrAreaGrp = []; // 기존 리치 집수구역 그래픽 배열
     	
     	me.isSearchStop = true;
     	
@@ -3300,14 +3323,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	me.arr1LRchDid = "";
 
     	me.arr2RRchDid = "";
-    	me.arr2LRchDid = "";
+		me.arr2LRchDid = "";
+		
     	
+		
     	
-    	/*var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
-    	
-    	reachAdmin.arrLineGrp = []; // 기존 리치 라인 그래픽 배열
-    	reachAdmin.arrAreaGrp = []; // 기존 리치 집수구역 그래픽 배열
-    	*/
     },
     searchStopCheck: function(cnt){
     	
