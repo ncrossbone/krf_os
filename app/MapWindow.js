@@ -221,6 +221,7 @@ Ext.define('Desktop.MapWindow', {
 		var rNameToolbar = Ext.getCmp("reachNameToolbar");
 		var rToolbar = Ext.getCmp("reachToolbar");
 		var cContainer = Ext.getCmp("cont_container");
+		var searchConfig = Ext.getCmp("searchConfig");
 
 		var rNameToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu04');
 
@@ -231,10 +232,15 @@ Ext.define('Desktop.MapWindow', {
 			cContainer.add(rNameToolbar);
 		}
 
+		if (searchConfig == undefined) {
+			searchConfig = Ext.create('krf_new.view.center.SearchConfig', {});
+			cContainer.add(searchConfig);
+		}
+
 		rNameToolbar.show();
 		rNameToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * rNameToolbarIdx) - 8);
 		rNameToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 2));
-		
+
 		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 	},
 	hideReachToolbar: function () {

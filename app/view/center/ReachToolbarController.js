@@ -24,11 +24,6 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 		var popCtlIdx = rToolbar.getReachModeBtnIdx(el.id);
 
-		if (popCtl == undefined) {
-			popCtl = Ext.create('krf_new.view.center.SearchConfig', {});
-			cContainer.add(popCtl);
-		}
-
 		// 설정창 show
 		if (currCtl.btnOnOff == "on") {
 			popCtl.show();
