@@ -7,7 +7,6 @@ Ext.define('krf_new.view.west.ButtonPanel', {
     xtype: 'west-buttonpanel',
 
     title: '화면제어판',
-    
     //collapsible: true,
     //split: true,
     //header: false,

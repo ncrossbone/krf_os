@@ -5,7 +5,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 	cls: 'subWindow-x-form-item-label-default',
 
-	header:{cls :'subWindow-x-form-item-label-default'},
+	header: { cls: 'subWindow-x-form-item-label-default' },
 
 	id: 'Favorite',
 
@@ -162,7 +162,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 				}, {
 					xtype: 'button',
 					text: '저장',
-					style:'    background: #405166; border-color: #405166 !important;',
+					style: '    background: #405166; border-color: #405166 !important;',
 					listeners: {
 						click: function () {
 							var saveName = Ext.getCmp('favor-text').lastValue;
@@ -204,10 +204,25 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 								}
 							}
 
+							var searchCheck = Ext.getCmp('searchAreaButton');
+							var searchCheckId = '';
+
+							if (searchCheck) {
+
+								var searchCheckObj = Ext.getCmp('searchAreaButton').query('image');
+
+								for (var i = 0; i < searchCheckObj.length; i++) {
+									if (searchCheckObj[i].btnOnOff == 'on') {
+										searchCheckId = searchCheckObj[i].id;
+									}
+								}
+							}
+
 							favorObj.cmb = cmbArr;
 							favorObj.win = winArr;
 							favorObj.date = date.yyyymmdd();
 							favorObj.name = saveName;
+							favorObj.searchCheck = searchCheckId;
 							favorObj.result = $KRF_APP.global.CommFn.getBookmarkInfo();
 
 							favorObj.geoInfo = {
