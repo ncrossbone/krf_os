@@ -138,30 +138,26 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			header: {
 				height: 5
 			},
-			filter: {
-				value: 1,    // 0 is false, 1 is true
-				active: true // turn on the filter
-			},
 			title: '검색결과',
 			header: false,
 			columns: [{
 				text: '연번',
 				dataIndex: 'index',
 				menuDisabled: true,
-				//width: 150
-				width: "20%"
+				width: 150
+				// width: "20%"
 			}, {
 				text: '경도',
 				dataIndex: 'x',
 				menuDisabled: true,
-				//width: 240
-				width: "40%"
+				width: 240
+				// width: "40%"
 			}, {
 				text: '위도',
 				dataIndex: 'y',
 				menuDisabled: true,
-				//width: 240
-				width: "40%"
+				width: 240
+				// width: "40%"
 			}]
 		}]
 	}],
