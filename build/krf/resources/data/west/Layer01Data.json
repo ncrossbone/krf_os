@@ -536,6 +536,41 @@
 		"checked": false,
 		"siteIdCol": "CAT_DID"
 	}]
+},{
+	"id": "S",
+	"text": "소하천",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "S0",
+		"text": "소하천 노드",
+		//"wmsId":"41",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "SRIVER"
+	},{
+		"id": "S1",
+		//"wmsId":"40",
+		"text": "소하천 리치라인",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "SRIVER"
+	}, {
+		"id": "S2",
+		//"wmsId":"39",
+		"text": "소하천 집수구역",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "SRIVER"
+	}]
 }, {
 	"id": "57",
 	"text": "하천",
@@ -737,11 +772,4 @@
 		"leaf": true,
 		"checked": false
 	}]
-},{
-	"id": "999",
-	"text": "소하천",
-	"cls": "khLee-x-tree-node-text-bold",
-	"iconCls": "layerNoneImg",
-	"siteIdCol": "SRIVER",
-	"checked": false
 }]

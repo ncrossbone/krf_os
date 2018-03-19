@@ -60,9 +60,9 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClick3DDefaultMap' } },
 			btnOnOff: 'on',
-			btnOnImg: './resources/images/button/reach_menu01_on.png',
-			btnOffImg: './resources/images/button/reach_menu01.png',
-			src: './resources/images/button/reach_menu01_on.png'
+			btnOnImg: './resources/images/button/3D_on.png',
+			btnOffImg: './resources/images/button/3D.png',
+			src: './resources/images/button/3D_on.png'
 		},{
 			xtype: 'image',
 			id: 'btnDEMMap',
@@ -73,9 +73,9 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickDEM' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu22_on.png',
-			btnOffImg: './resources/images/button/reach_menu22.png',
-			src: './resources/images/button/reach_menu22.png'
+			btnOnImg: './resources/images/button/DEM_on.png',
+			btnOffImg: './resources/images/button/DEM.png',
+			src: './resources/images/button/DEM.png'
 		}, {
 			xtype: 'image',
 			id: 'btnAutoMoveMap',
@@ -84,6 +84,20 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			height: this.itemHeight,
 			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickAutoMoveMap' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu23_on.png',
+			btnOffImg: './resources/images/button/reach_menu23.png',
+			src: './resources/images/button/reach_menu23.png'
+		}, {
+			xtype: 'image',
+			id: 'btnAutoMoveMap2',
+			title: '경로탐색',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: { el: { click: function(){
+				$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'showPoi' });
+			} } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu23_on.png',
 			btnOffImg: './resources/images/button/reach_menu23.png',

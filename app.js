@@ -50,7 +50,7 @@ var apiStore = Ext.create('Ext.data.Store', {
 apiStore.load(function (a, b, c) {
 	_API = a[0].data;
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://112.217.167.123:40003');
+	a[0].data.init('http://192.168.0.231:8082');
 });
 
 var $KRF_POSITION = null;
@@ -100,7 +100,8 @@ var $KRF_EVENT = {
 	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear',
 	STOPEDITEVENT: 'stopEditEvent',
 	RESIZE_TOOL_ITEMS: 'resizeToolItems',
-	THREE_DIM_RESIZE_TOOL_ITEMS: 'threeDimResizeToolItems'
+	THREE_DIM_RESIZE_TOOL_ITEMS: 'threeDimResizeToolItems',
+	THREE_DIM_SET_LEGEND_LOCATION : 'threeDimSetLegendLocation'
 }
 
 var $KRF_WINS = {

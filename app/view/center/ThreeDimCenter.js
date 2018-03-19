@@ -2,7 +2,7 @@ Ext.define('krf_new.view.center.ThreeDimCenter', {
 
 	extend: 'Ext.panel.Panel',
 
-	requires: [],
+	requires: ['krf_new.view.search.threeDim.LegendDEM'],
 
 	collapsible: false,
 	controller: 'center',
@@ -23,7 +23,7 @@ Ext.define('krf_new.view.center.ThreeDimCenter', {
 			style: 'height: 100%; width: 100%;',
 			id: 'krf3diframe'
 		}
-	}
+	},{ xtype: 'legendDEM-panel', id: 'legendDEM', hidden: true }
 	],
 	initComponent: function () {
 		this.callParent();

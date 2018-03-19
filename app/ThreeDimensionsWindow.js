@@ -28,6 +28,8 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         $KRF_APP.addListener($KRF_EVENT.THREEDIM_SEND_MESSAGE, this.sendMessage, this);
 
         $KRF_APP.addListener($KRF_EVENT.THREE_DIM_RESIZE_TOOL_ITEMS, this.resizeToolItems, this);
+
+        $KRF_APP.addListener($KRF_EVENT.THREE_DIM_SET_LEGEND_LOCATION, this.setLegendLocation, this);
     },
 
     receiveMessage: function (param) {
@@ -60,26 +62,26 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
             }
         }
     },
-    resizeToolItems: function(){
-		var threeDimToolbar = Ext.getCmp('threeDimToolbar');
-		if(!threeDimToolbar){
-			return;
-		}
-		var toolbarItmes =  threeDimToolbar.items.items;
-		
-		var gabWidth = Ext.getCmp('threeDim_center_container').getWidth();
+    resizeToolItems: function () {
+        var threeDimToolbar = Ext.getCmp('threeDimToolbar');
+        if (!threeDimToolbar) {
+            return;
+        }
+        var toolbarItmes = threeDimToolbar.items.items;
 
-		for(var i=0; i<toolbarItmes.length; i++){
-			if(!toolbarItmes[i].hidden){
-				gabWidth = gabWidth-threeDimToolbar.itemWidth;
-			}
-		}
-		if(gabWidth <0){
-			gabWidth = 0;
-		}
-		var gabCon = Ext.getCmp('threeDimgabToolbarContainer');
-		gabCon.setWidth(gabWidth+40);
-	},
+        var gabWidth = Ext.getCmp('threeDim_center_container').getWidth();
+
+        for (var i = 0; i < toolbarItmes.length; i++) {
+            if (!toolbarItmes[i].hidden) {
+                gabWidth = gabWidth - threeDimToolbar.itemWidth;
+            }
+        }
+        if (gabWidth < 0) {
+            gabWidth = 0;
+        }
+        var gabCon = Ext.getCmp('threeDimgabToolbarContainer');
+        gabCon.setWidth(gabWidth + 40);
+    },
     createWindow: function (config) {
         var me = this;
 
@@ -101,7 +103,8 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
             layout: 'border',
             listeners: {
                 move: function (theWin, xP, yP, theOp) {
-
+                    me.setLegendLocation();
+                    $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_SET_LEGEND_LOCATION);
                 },
                 resize: function (win, width, height) {
 
@@ -116,6 +119,9 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                     mapC = Ext.getCmp('threeDim_center_container');
                     mapC.setWidth(width - 80);
                     mapC.setHeight(height - 37);
+
+                    $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_SET_LEGEND_LOCATION);
+
                     if (me.once) {
                         return;
                     }
@@ -172,6 +178,26 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
             win = desktop.createWindow(cfg);
         }
         return win;
+    },
+    setLegendLocation: function () {
+
+        var legendDEM = Ext.getCmp("legendDEM"); // 범례 이미지 컨트롤
+
+        var mapWin = $KRF_APP.getDesktopWindow('threeDim-win');
+        var mapWinX = mapWin.getX();
+        var mapWinY = mapWin.getY();
+        var mapWinWidth = mapWin.getWidth();
+        var mapWinHeight = mapWin.getHeight();
+
+        var legendX = (mapWinWidth + mapWinX) - 233;
+        var legendY = (mapWinHeight + mapWinY) - 65;
+        Ext.defer(function () {
+            if (legendDEM && !legendDEM.isHidden()) {
+                legendDEM.show();
+                legendDEM.setX(legendX);
+                legendDEM.setY(legendY);
+            }
+        }, 1);
     }
 });
 
