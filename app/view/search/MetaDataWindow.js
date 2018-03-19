@@ -7,48 +7,48 @@ Ext.define('krf_new.view.search.MetaDataWindow', {
 	id: 'metaDataWindow',
 	
 	title: '메타데이타',
-	width: 420,
-	height: 400,
-
+	width: 440,
+	height: 390,
+	header:{cls :'subWindow-x-form-item-label-default'},
+	cls: 'metaWindow-x-form-item-label-default',
 	items:[{
-		xtype:'container',
-		height:5
-	},{
 	
 		xtype:'container',
+		
 		layout:{
 			type:'table',
+			cls:'aaaaa',
 			border: false,
 			columns:4
 
 		},
 		items:[{
-			width: 90,
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			width: 110,
+			bodyStyle:' font-weight: bold; background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important; border-top: 2px solid #2f4054 !important; ',
 			html: '레이어명'
 		},{
 			width: 150,
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold;background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important; border-top: 2px solid #2f4054 !important; ',
 			html: '데이터생성 기관명'
 		},{
-			width: 90,
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			width: 80,
+			bodyStyle:' font-weight: bold;background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important; border-top: 2px solid #2f4054 !important; ',
 			html: '공개여부'
 		},{
-			width: 90,
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:none !important; border-bottom:1px solid #cccccc',
+			width: 80,
+			bodyStyle:' font-weight: bold;background:#f8f8f8; padding:10px; text-align:left; border-right:none ; border-bottom:1px solid #cccccc !important; border-top: 2px solid #2f4054 !important; ',
 			html: '갱신주기'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold;background:#ffffff; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			id:'LYR_CODE'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold;background:#ffffff; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			id:'INSTT_NM'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#ffffff; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			id:'PRVATE_OTHBC_SE'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:none!important ; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold;background:#ffffff; padding:10px; text-align:left; border-right:none!important ; border-bottom:1px solid #cccccc !important;',
 			id:'UPDT_CYCLE'
 		}]
 
@@ -64,42 +64,42 @@ Ext.define('krf_new.view.search.MetaDataWindow', {
 			columns:2
 		},
 		items:[{
-			width: 90,
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			width: 110,
+			bodyStyle:' font-weight: bold;background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important; border-top: 2px solid #2f4054 !important; ',
 			html:'공간 표현 방식'
 		},{
-			width: 332,
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			width: 310,
+			bodyStyle:' font-weight: bold;background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc !important; border-bottom:1px solid #cccccc !important; border-top: 2px solid #2f4054 !important; ',
 			id:'SPCE_EXPRSN_MTHD'
 		},{
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			html:'좌표계'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc !important; border-bottom:1px solid #cccccc !important;',
 			id:'CNTM_NM'
 		},{
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			html:'최초등록일시'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc !important; border-bottom:1px solid #cccccc !important;',
 			id:'REGIST_DT'
 		},{
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			html:'최종갱신일'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc !important; border-bottom:1px solid #cccccc !important',
 			id:'UPDT_DE'
 		},{
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			html:'분류'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:'font-weight: bold; background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc !important; border-bottom:1px solid #cccccc !important;',
 			id:'LYR_GROUP_NM'
 		},{
-			bodyStyle:'background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#f8f8f8; padding:10px; text-align:left; border-right:1px solid #cccccc !important; border-bottom:1px solid #cccccc !important;',
 			html:'비고'
 		},{
-			bodyStyle:'background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc;; border-bottom:1px solid #cccccc',
+			bodyStyle:' font-weight: bold; background:#ffffff; padding:10px; text-align:left; border-right:1px dolid $cccccc !important; border-bottom:1px solid #cccccc !important',
 			id:'RM'
 		}]
 	}]
