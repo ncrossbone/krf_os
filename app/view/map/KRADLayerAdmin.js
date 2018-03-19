@@ -674,10 +674,12 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	    		var eCnt = me.edCnt;
 	    		//btn_start0001.cur
 	    		if(me.drawOption == "startPoint"){
-	    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start'+sCnt+'.cur),auto');
+					Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start'+sCnt+'.cur),auto');
+					Ext.get('_subMapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start'+sCnt+'.cur),auto');
 		    	}
 		    	else if(me.drawOption == "endPoint"){
-		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end'+eCnt+'.cur),auto');
+					Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end'+eCnt+'.cur),auto');
+					Ext.get('_subMapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end'+eCnt+'.cur),auto');
 				}
 				
 	    	}
@@ -698,184 +700,190 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		    				me.mapClickEvt = evt;
 		    			}
 					});
-					
-					me.mapMdownObj = on($KRF_APP.subMap.map, "mouse-down", function(evt){
+
+
+					me.mapClickObj = on(me.map, "mouse-up", function(evt){
+			    		
+			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+			    			
+				    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
+				    			
+				    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
+				    			me.isShowPopup = false;
+				    		}
+				    		else{
+				    			
+				    			if(me.map.getLevel() < 11){
+				    				
+				    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+				    				// 이벤트 초기화
+				    				initKradEvt();
+				    				me.isShowPopup = false;
+				    				SetBtnOnOff(btnId, "off");
+				    				return;
+				    			}
+				    			else{
+				    				
+				    				me.isShowPopup = true;
+				    			}
+				    		}
+			    		}
+			    		
+			    		if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
+			    			
+			    			// 오른버튼 컨텍스트 메뉴 막기
+			    			/*document.oncontextmenu = function(evt){return false;}
+			    			
+			    			if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+			    				
+			    				me.showPopup();
+			    			}*/
+			    		}
+			    		else{
+			    			
+			    			// 오른버튼 컨텍스트 메뉴 풀기
+			    			// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
+			    			me.getSearchConfigInfo();
+			    			
+			    			/* 검색설정 "상류" 체크 시 */
+			    			if($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true){
+			    				
+			    				_rchUpSearch.searchWithEvent(evt);
+			    				// 종료 검색 체크
+			    				me.isStopCheck();
+			    			} else { /* 검색설정 "상류" 체크 시 끝 */
+			    				if(me.isShowPopup == true){
+			    					
+			    					//소하천 on/off
+			    					/*if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
+			    						me.setSRchIdsWithEvent();
+			    					}else{
+			    						me.setRchIdsWithEvent();
+			    					}*/
+									//me.setRchIdsWithEvent();
+									//me.setRchIdsWithEvent();
+									
+									var searchConfigInfo = localStorage['_searchConfigInfo_'];
+									var jsonConf = JSON.parse(searchConfigInfo);
+									
+
+									if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
+										if(jsonConf.isSRiver){ //소하천 선택되었을시
+											me.showMiniPopup();
+										}else{// 소하천이 꺼져있을때는 기존 검색로직
+											me.setRchIdsWithEvent();
+										}
+									}else{
+										me.setRchIdsWithEvent();
+									}
+					    			
+					    		}else{
+					    			
+					    			me.closePopup();
+					    		}
+			    			}
+			    		}
+			    	});
+					if($KRF_APP.subMap.map != undefined){
+						me.mapMdownObj = on($KRF_APP.subMap.map, "mouse-down", function(evt){
 		    			
-		    			if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
-			    		}
-		    			else{ // 오른클릭이 아닐때만 이벤트 입력
-		    				
-		    				me.mapClickEvt = evt;
-		    			}
-		    		});
+							if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
+							}
+							else{ // 오른클릭이 아닐때만 이벤트 입력
+								
+								me.mapClickEvt = evt;
+							}
+						});
+
+						me.mapClickObj = on($KRF_APP.subMap.map, "mouse-up", function(evt){
+			    		
+							if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+								
+								if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
+									
+									// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
+									me.isShowPopup = false;
+								}
+								else{
+									
+									if(me.map.getLevel() < 11){
+										
+										alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+										// 이벤트 초기화
+										initKradEvt();
+										me.isShowPopup = false;
+										SetBtnOnOff(btnId, "off");
+										return;
+									}
+									else{
+										
+										me.isShowPopup = true;
+									}
+								}
+							}
+							
+							if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
+								
+								// 오른버튼 컨텍스트 메뉴 막기
+								/*document.oncontextmenu = function(evt){return false;}
+								
+								if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+									
+									me.showPopup();
+								}*/
+							}
+							else{
+								
+								// 오른버튼 컨텍스트 메뉴 풀기
+								// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
+								me.getSearchConfigInfo();
+								
+								/* 검색설정 "상류" 체크 시 */
+								if($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true){
+									
+									_rchUpSearch.searchWithEvent(evt);
+									// 종료 검색 체크
+									me.isStopCheck();
+								}
+								else{ /* 검색설정 "상류" 체크 시 끝 */
+									if(me.isShowPopup == true){
+										
+										//소하천 on/off
+										/*if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
+											me.setSRchIdsWithEvent();
+										}else{
+											me.setRchIdsWithEvent();
+										}*/
+										//me.setRchIdsWithEvent();
+										//me.setRchIdsWithEvent();
+										
+										var searchConfigInfo = localStorage['_searchConfigInfo_'];
+										var jsonConf = JSON.parse(searchConfigInfo);
+										
+	
+										if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
+											if(jsonConf.isSRiver){ //소하천 선택되었을시
+												me.showMiniPopup();
+											}else{// 소하천이 꺼져있을때는 기존 검색로직
+												me.setRchIdsWithEvent();
+											}
+										}else{
+											me.setRchIdsWithEvent();
+										}
+										
+									}else{
+										
+										me.closePopup();
+									}
+								}
+							}
+						});
+					}
 					
-					me.mapClickObj = on($KRF_APP.subMap.map, "mouse-up", function(evt){
-			    		
-			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
-			    			
-				    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
-				    			
-				    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
-				    			me.isShowPopup = false;
-				    		}
-				    		else{
-				    			
-				    			if(me.map.getLevel() < 11){
-				    				
-				    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
-				    				// 이벤트 초기화
-				    				initKradEvt();
-				    				me.isShowPopup = false;
-				    				SetBtnOnOff(btnId, "off");
-				    				return;
-				    			}
-				    			else{
-				    				
-				    				me.isShowPopup = true;
-				    			}
-				    		}
-			    		}
-			    		
-			    		if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
-			    			
-			    			// 오른버튼 컨텍스트 메뉴 막기
-			    			/*document.oncontextmenu = function(evt){return false;}
-			    			
-			    			if(me.mapClickEvt != undefined && me.mapClickEvt != null){
-			    				
-			    				me.showPopup();
-			    			}*/
-			    		}
-			    		else{
-			    			
-			    			// 오른버튼 컨텍스트 메뉴 풀기
-			    			// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
-			    			me.getSearchConfigInfo();
-			    			
-			    			/* 검색설정 "상류" 체크 시 */
-			    			if($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true){
-			    				
-			    				_rchUpSearch.searchWithEvent(evt);
-			    				// 종료 검색 체크
-			    				me.isStopCheck();
-			    			}
-			    			else{ /* 검색설정 "상류" 체크 시 끝 */
-			    				if(me.isShowPopup == true){
-			    					
-			    					//소하천 on/off
-			    					/*if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
-			    						me.setSRchIdsWithEvent();
-			    					}else{
-			    						me.setRchIdsWithEvent();
-			    					}*/
-									//me.setRchIdsWithEvent();
-									//me.setRchIdsWithEvent();
-									
-									var searchConfigInfo = localStorage['_searchConfigInfo_'];
-									var jsonConf = JSON.parse(searchConfigInfo);
-									
+					
+					
 
-									if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
-										if(jsonConf.isSRiver){ //소하천 선택되었을시
-											me.showMiniPopup();
-										}else{// 소하천이 꺼져있을때는 기존 검색로직
-											me.setRchIdsWithEvent();
-										}
-									}else{
-										me.setRchIdsWithEvent();
-									}
-					    			
-					    		}else{
-					    			
-					    			me.closePopup();
-					    		}
-			    			}
-			    		}
-			    	});
-
-			    	me.mapClickObj = on(me.map, "mouse-up", function(evt){
-			    		
-			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
-			    			
-				    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
-				    			
-				    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
-				    			me.isShowPopup = false;
-				    		}
-				    		else{
-				    			
-				    			if(me.map.getLevel() < 11){
-				    				
-				    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
-				    				// 이벤트 초기화
-				    				initKradEvt();
-				    				me.isShowPopup = false;
-				    				SetBtnOnOff(btnId, "off");
-				    				return;
-				    			}
-				    			else{
-				    				
-				    				me.isShowPopup = true;
-				    			}
-				    		}
-			    		}
-			    		
-			    		if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
-			    			
-			    			// 오른버튼 컨텍스트 메뉴 막기
-			    			/*document.oncontextmenu = function(evt){return false;}
-			    			
-			    			if(me.mapClickEvt != undefined && me.mapClickEvt != null){
-			    				
-			    				me.showPopup();
-			    			}*/
-			    		}
-			    		else{
-			    			
-			    			// 오른버튼 컨텍스트 메뉴 풀기
-			    			// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
-			    			me.getSearchConfigInfo();
-			    			
-			    			/* 검색설정 "상류" 체크 시 */
-			    			if($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true){
-			    				
-			    				_rchUpSearch.searchWithEvent(evt);
-			    				// 종료 검색 체크
-			    				me.isStopCheck();
-			    			}
-			    			else{ /* 검색설정 "상류" 체크 시 끝 */
-			    				if(me.isShowPopup == true){
-			    					
-			    					//소하천 on/off
-			    					/*if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
-			    						me.setSRchIdsWithEvent();
-			    					}else{
-			    						me.setRchIdsWithEvent();
-			    					}*/
-									//me.setRchIdsWithEvent();
-									//me.setRchIdsWithEvent();
-									
-									var searchConfigInfo = localStorage['_searchConfigInfo_'];
-									var jsonConf = JSON.parse(searchConfigInfo);
-									
-
-									if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
-										if(jsonConf.isSRiver){ //소하천 선택되었을시
-											me.showMiniPopup();
-										}else{// 소하천이 꺼져있을때는 기존 검색로직
-											me.setRchIdsWithEvent();
-										}
-									}else{
-										me.setRchIdsWithEvent();
-									}
-					    			
-					    		}else{
-					    			
-					    			me.closePopup();
-					    		}
-			    			}
-			    		}
-			    	});
+			    	
 		    	});
 		    	/* 클릭 이벤트 설정 끝 */
 	    	}
@@ -1829,7 +1837,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	    		
 	    		
 	    		// 커서 디폴트
-	        	Ext.get('_mapDiv__gc').setStyle('cursor','default');
+				Ext.get('_mapDiv__gc').setStyle('cursor','default');
+				Ext.get('_subMapDiv__gc').setStyle('cursor','default');
 	        	// 버튼 off
 	        	SetBtnOnOff(btnId, "on");
 	    	});

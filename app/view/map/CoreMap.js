@@ -304,11 +304,11 @@ Ext.define('krf_new.view.map.CoreMap', {
 					if($KRF_APP.coreMap._krad.miniLineGrpLayer.graphics.length == 0){
 						$KRF_APP.coreMap._krad.miniLineGrpLayer.add(graphic);
 					}
-					console.info($KRF_APP.coreMap._krad);
+					//console.info($KRF_APP.coreMap._krad);
 					coreMap.editToolbar = new esri.toolbars.Edit(coreMap.map);
 					// 클릭될시 리치 검색 클릭시를 유의 해야함
 					$KRF_APP.coreMap._krad.miniLineGrpLayer.on("click", function (evt) {
-						
+						console.info(evt);
 						event.stop(evt);
 
 						var options = {
@@ -351,6 +351,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 	
 	//미니맵 setExtent
 	subMapSetExtent: function (evt) {
+		console.info(evt);
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
 		
@@ -365,14 +366,16 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 		var me = this;
 
-		var coreMap = Ext.getCmp("_mapDiv_");
+		var subMapInstance = Ext.getCmp("_subMapDiv_");
 
-		var polygonGraphic = esri.geometry.Polygon.fromExtent(me.map.extent);  // 미니맵 extent를 polygon geometry로 변환
-		var miniLineGrpLayer = coreMap.map.getLayer("miniLineGrpLayer");  // 미니맵 라인 graphicslayer
+		var polygonGraphic = esri.geometry.Polygon.fromExtent(subMapInstance.map.extent);  // 미니맵 extent를 polygon geometry로 변환
+		var miniLineGrpLayer = $KRF_APP.coreMap._krad.miniLineGrpLayer;  // 미니맵 라인 graphicslayer
 		//coreMap.map.getLayer("DynamicLayerSRiver");
 		if (miniLineGrpLayer != undefined) {
-			if (coreMap.map.testCount == 0) {
+			if ($KRF_APP.coreMap.map.testCount == 0) {
+				
 				miniLineGrpLayer.graphics[0].setGeometry(polygonGraphic);
+				miniLineGrpLayer.refresh();
 			}
 			
 		}
