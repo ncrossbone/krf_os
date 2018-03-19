@@ -370,7 +370,7 @@ Ext.application({
 
 			
 			Ext.defer(function () {
-				console.info("create");
+				
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
 				

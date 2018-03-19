@@ -2560,4 +2560,11 @@ metaDataView = function (layerId) {
 	metaStore.layerId = layerId;
 	metaStore.load();
 		
-};
+}
+
+miniMapHide = function(){
+	var subMapWindow = Ext.getCmp("subMapWindow");
+	subMapWindow.hide();
+	console.info($KRF_APP.coreMap._krad.miniLineGrpLayer);
+	//$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+}

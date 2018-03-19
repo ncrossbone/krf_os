@@ -30,6 +30,7 @@ Ext.define('krf_new.view.map.SubMapWindow', {
 	x: 120,
 
 	y: 700,
+	once: true,
 
 	listeners: {
 		move: function (theWin, xP, yP, theOp) {
@@ -37,17 +38,20 @@ Ext.define('krf_new.view.map.SubMapWindow', {
 		resize: function (win, width, height) {
 		},
 		render: function () {
+			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
 		},
 		afterrender: function () {
 		},
 		show: function () {
-			$KRF_APP.subMap.mapRendered();
-			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
+			if(this.once){
+				$KRF_APP.subMap.mapRendered();
+				this.once = false;
+			}
 		}
 	},
 	items: [{
 		xtype: "app-map-coreMap",
 		id: '_subMapDiv_',
-		html:'<div style="cursor:pointer; background: url(./resources/images/button/btn_close2.png); position: absolute; top: 0px; right: 0px; width: 28px; height: 28px; z-index: 1;" onclick=Ext.getCmp("subMapWindow").close()></div>'
+		html:'<div style="cursor:pointer; background: url(./resources/images/button/btn_close2.png); position: absolute; top: 0px; right: 0px; width: 28px; height: 28px; z-index: 1;" onclick="miniMapHide()"></div>'
 	}]
 });

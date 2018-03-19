@@ -273,16 +273,20 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 		//subMapWindow.show();
 		var btnMenu10 = Ext.getCmp("btnMenu010").btnOnOff;
-
+		
 		if (btnMenu10 == "on") {
-			//DynamicLayerSRiver.setVisibleLayers([-1]);
-			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+			
 			subMapWindow.hide();
+			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+			//$KRF_APP.coreMap._krad.miniLineGrpLayer.hide();
+			//visible
 			Ext.getCmp("btnMenu010").btnOnOff = "off";
 		} else {
 			//DynamicLayerSRiver.setVisibleLayers([2]);
-			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
+			//$KRF_APP.coreMap._krad.miniLineGrpLayer.redraw();
 			subMapWindow.show();
+			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
+			
 			Ext.getCmp("btnMenu010").btnOnOff = "on";
 		}
 	},
