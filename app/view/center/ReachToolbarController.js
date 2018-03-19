@@ -270,23 +270,21 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
 		var subMapWindow = Ext.getCmp("subMapWindow");
-
-		//subMapWindow.show();
 		var btnMenu10 = Ext.getCmp("btnMenu010").btnOnOff;
 		
 		if (btnMenu10 == "on") {
 			
+			SetBtnOnOff("btnMenu010", "off");	
 			subMapWindow.hide();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
-			//$KRF_APP.coreMap._krad.miniLineGrpLayer.hide();
-			//visible
+
 			Ext.getCmp("btnMenu010").btnOnOff = "off";
 		} else {
-			//DynamicLayerSRiver.setVisibleLayers([2]);
-			//$KRF_APP.coreMap._krad.miniLineGrpLayer.redraw();
+
+			SetBtnOnOff("btnMenu010", "on");
 			subMapWindow.show();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
-			
+
 			Ext.getCmp("btnMenu010").btnOnOff = "on";
 		}
 	},
@@ -565,15 +563,20 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	onClickSRiver: function (obj, el, evt) {
 
 		var coreMap = Ext.getCmp("_mapDiv_");
+		var subMap = Ext.getCmp("_subMapDiv_");
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+		var subDynamicLayerSRiver = subMap.map.getLayer("DynamicLayerSRiver");
+		console.info(subDynamicLayerSRiver);
 
 		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
 
 		if (btnLayerSRiver == "on") {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
+			subDynamicLayerSRiver.setVisibleLayers([-1]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
 		} else {
 			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
+			subDynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
 			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
 		}
 	}

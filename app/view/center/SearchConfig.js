@@ -23,7 +23,11 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	layout: {
 		type: 'vbox'
 	},
-
+	listeners: {
+		show: function (w) {
+				w.el.slideIn();
+		}
+	},
 	items: [{
 		xtype: 'container',
 		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
@@ -151,7 +155,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				this.up("win-searchConfig").setLocalStorage();
 
 				this.up("win-searchConfig").onClickSRiver(checked);
-
+				console.info(checked);
 				//$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
 
 			},
@@ -176,7 +180,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		if (chkCtls != undefined && chkCtls != null) {
 			// 로컬 스토리지 존재하면
 
-			if (searchConfigInfo != undefined && searchConfigInfo != null) {
+			if (!searchConfigInfo) {
 
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
@@ -207,12 +211,26 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 		var subMapWindow = Ext.getCmp("subMapWindow");
 		DynamicLayerSRiver.setVisibleLayers([-1]);
+		console.info(onOff)
 		if(onOff){
 			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			console.info(DynamicLayerSRiver);
 			subMapWindow.show();
+			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
+			
+			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
+			subDynamicLayerSRiver.setVisibleLayers([0,1,2]);
+			SetBtnOnOff("btnMenu010", "on");	
 		}else{
 			DynamicLayerSRiver.setVisibleLayers([-1]);
+			
+			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
+			subDynamicLayerSRiver.setVisibleLayers([-1]);
+			console.info(DynamicLayerSRiver);
 			subMapWindow.hide();
+			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+			
+			SetBtnOnOff("btnMenu010", "off");	
 		}
 	},
 

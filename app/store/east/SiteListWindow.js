@@ -7,7 +7,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 	listeners: {
 
 		load: function (store) {
-
+			console.info(store);
 			var nameInfo = Ext.getCmp("textSearchText");
 			//대권역
 			var buttonInfo1 = Ext.getCmp("cmbWater1");
@@ -97,9 +97,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					paramMarker.hide();
 				}
 			}
-
+			console.info(store.searchType);
 			if (store.searchType == "selectReach") {
 				/* 리치모드 지점목록 조건 설정 */
+				console.info($KRF_APP.coreMap._krad.arrAreaGrp);
 				if ($KRF_APP.coreMap._krad.arrAreaGrp.length > 0) {
 					this.catDid = [];
 					var reachBtn = Ext.getCmp("btnModeReach");
@@ -163,7 +164,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			} else if (store.paramType == "AG") {
 				query.where += " AND LAYER_CODE IN ('I001','I002','I003') ";
 			}
-
+			console.info(query.where);
 			query.orderByFields = ["LAYER_CODE ASC"];
 			query.outFields = ["*"];
 			// 로딩바 표시

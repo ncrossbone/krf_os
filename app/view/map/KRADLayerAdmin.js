@@ -675,11 +675,17 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	    		//btn_start0001.cur
 	    		if(me.drawOption == "startPoint"){
 					Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start'+sCnt+'.cur),auto');
-					Ext.get('_subMapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start'+sCnt+'.cur),auto');
+					if(me.checkSubMap()){
+						Ext.get('_subMapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start'+sCnt+'.cur),auto');
+					}
+					
 		    	}
 		    	else if(me.drawOption == "endPoint"){
 					Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end'+eCnt+'.cur),auto');
-					Ext.get('_subMapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end'+eCnt+'.cur),auto');
+					if(me.checkSubMap()){
+						Ext.get('_subMapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end'+eCnt+'.cur),auto');
+					}
+					
 				}
 				
 	    	}
@@ -783,8 +789,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					    		}
 			    			}
 			    		}
-			    	});
-					if($KRF_APP.subMap.map != undefined){
+					});
+					
+					if(me.checkSubMap()){
 						me.mapMdownObj = on($KRF_APP.subMap.map, "mouse-down", function(evt){
 		    			
 							if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
@@ -806,7 +813,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 								}
 								else{
 									
-									if(me.map.getLevel() < 11){
+									if($KRF_APP.subMap.map.getLevel() < 11){
 										
 										alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
 										// 이벤트 초기화
@@ -847,15 +854,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 								}
 								else{ /* 검색설정 "상류" 체크 시 끝 */
 									if(me.isShowPopup == true){
-										
-										//소하천 on/off
-										/*if(Ext.getCmp("btnLayerSRiver").btnOnOff == "on"){
-											me.setSRchIdsWithEvent();
-										}else{
-											me.setRchIdsWithEvent();
-										}*/
-										//me.setRchIdsWithEvent();
-										//me.setRchIdsWithEvent();
 										
 										var searchConfigInfo = localStorage['_searchConfigInfo_'];
 										var jsonConf = JSON.parse(searchConfigInfo);
@@ -1821,29 +1819,52 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	    		var eCnt = me.edCnt;
 	    		
 	    		if(me.drawOption == "startPoint"){
-	    			btnId = "btnMenu04";
-	    			subGraphic = new Graphic(evt, eval("$KRF_APP.subMap._krad.stSymbol"+me.stCnt));
+					btnId = "btnMenu04";
+					if(me.checkSubMap()){
+						subGraphic = new Graphic(evt, eval("$KRF_APP.subMap._krad.stSymbol"+me.stCnt));
+					}
+	    			
 	    			graphic = new Graphic(evt, eval("me.stSymbol"+me.stCnt));
 	    		}
 	    		if(me.drawOption == "endPoint"){
 					btnId = "btnMenu05";
-					subGraphic = new Graphic(evt, eval("$KRF_APP.subMap._krad.edSymbol"+me.stCnt));
+					if(me.checkSubMap()){
+						subGraphic = new Graphic(evt, eval("$KRF_APP.subMap._krad.edSymbol"+me.stCnt));
+					}
 	    			graphic = new Graphic(evt, eval("me.edSymbol"+me.edCnt));
 	    		}
 				
 				
 				me.symGrpLayer.add(graphic); // 그래픽 추가
-				$KRF_APP.subMap._krad.symGrpLayer.add(subGraphic); // 미니맵 그래픽 추가
+				if(me.checkSubMap()){
+					$KRF_APP.subMap._krad.symGrpLayer.add(subGraphic); // 미니맵 그래픽 추가
+				}
+				
 	    		
 	    		
 	    		// 커서 디폴트
 				Ext.get('_mapDiv__gc').setStyle('cursor','default');
-				Ext.get('_subMapDiv__gc').setStyle('cursor','default');
+				if(me.checkSubMap()){
+					Ext.get('_subMapDiv__gc').setStyle('cursor','default');
+				}
+				
+				console.info();
+
 	        	// 버튼 off
 	        	SetBtnOnOff(btnId, "on");
 	    	});
     	}
-    },
+	},
+	
+	//미니맵이 켜져있는지 확인
+	checkSubMap: function(){
+		var check = false;
+		if(Ext.get('_subMapDiv__gc')){
+			check = true;
+		}
+		return check;
+	},
+
     removeLastSymbol: function(){
     	
     	// 마지막 심볼 삭제 (2개 삭제)
@@ -2968,7 +2989,12 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     
     drawGraphic2_s: function(graphic, symbol, layer, arrObj, reachArr){
     	
-    	var me = this;
+		var me = this;
+		//subMap 레이어 올리기 ( ** object copy ** );
+		if(me.checkSubMap()){ // 미니맵이 켜져있는지 확인
+			me.subMapLayerDraw(layer,symbol,graphic);
+		}
+
 		// 그래픽 그린다.
 		graphic.setSymbol(symbol);
 		layer.add(graphic);
@@ -3003,7 +3029,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			
 
 			//subMap 레이어 올리기 ( ** object copy ** );
-			me.subMapLayerDraw(layer,symbol,graphic);
+			if(me.checkSubMap()){// 미니맵이 켜져있는지 확인
+				me.subMapLayerDraw(layer,symbol,graphic);
+			}
+			
 
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
@@ -3429,7 +3458,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     
     clearVariable: function(){
-    	
+
     	var me = this;
     	
     	me.mapClickEvt = null;
@@ -3452,7 +3481,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	me.arrDownGrp = []; // 하류 그래픽 배열
     	me.arrLineGrp = []; // 리치라인 그래픽 배열
-    	//me.arrAreaGrp = []; // 집수구역 그래픽 배열
+    	//me.arrAreaGrp = []; // 집수구역 그래픽 배열 전역변수중 arrAreaGrp는 검색결과에 쓰이니 clear X
     	me.arrCommGrp = []; // 공통하류 그래픽 배열
     	me.tmpEvtLineGrp = []; // 라인 이벤트 임시 배열
     	me.arrEvtLineGrp = []; // 라인 이벤트 리치 배열
