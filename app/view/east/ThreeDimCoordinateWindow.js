@@ -148,20 +148,20 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 				text: '연번',
 				dataIndex: 'index',
 				menuDisabled: true,
-				//width: 150
-				width: "20%"
+				width: 80
+				//width: "20%"
 			}, {
 				text: '경도',
 				dataIndex: 'x',
 				menuDisabled: true,
-				//width: 240
-				width: "40%"
+				width: 120
+				//width: "40%"
 			}, {
 				text: '위도',
 				dataIndex: 'y',
 				menuDisabled: true,
-				//width: 240
-				width: "40%"
+				width: 120
+				//width: "40%"
 			}]
 		}]
 	}],

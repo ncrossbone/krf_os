@@ -1337,7 +1337,7 @@ ShowSearchResultReach = function (catIds) {
 		tab.insert(0, grdContainer);
 	}
 	tab.setActiveTab("searchResultReach_container");
-
+	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 

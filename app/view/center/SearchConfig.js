@@ -23,7 +23,11 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	layout: {
 		type: 'vbox'
 	},
-
+	listeners: {
+		show: function (w) {
+				w.el.slideIn();
+		}
+	},
 	items: [{
 		xtype: 'container',
 		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
@@ -176,7 +180,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		if (chkCtls != undefined && chkCtls != null) {
 			// 로컬 스토리지 존재하면
 
-			if (searchConfigInfo != undefined && searchConfigInfo != null) {
+			if (!searchConfigInfo) {
 
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
@@ -207,10 +211,10 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 		var subMapWindow = Ext.getCmp("subMapWindow");
 		DynamicLayerSRiver.setVisibleLayers([-1]);
-		if(onOff){
-			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+		if (onOff) {
+			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
 			subMapWindow.show();
-		}else{
+		} else {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
 			subMapWindow.hide();
 		}
