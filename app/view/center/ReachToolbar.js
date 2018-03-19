@@ -211,18 +211,6 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu14.png',
 			hidden: true
 		}, {
-			xtype: 'button',
-			id: 'btnMerge',
-			text: '동기화',
-			style: 'cursor:pointer;',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: 'onClickMerge'
-				}
-			}
-		}, {
 			xtype: 'container',
 			id: 'gabToolbarContainer',
 			width: 10

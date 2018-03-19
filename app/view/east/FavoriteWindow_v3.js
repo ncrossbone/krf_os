@@ -124,6 +124,31 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 		}
 	},
 
+	/* 이미지 버튼 on 가져오기 */
+	getImgBtnOnId: function () {
+		var imgBtnGrpArr = ['west-button', 'searchAreaButton', 'reachToolbar'];
+		var imgBtnObj = {};
+
+		for (var i = 0; i < imgBtnGrpArr.length; i++) {
+			var imgBtnGrp = Ext.getCmp(imgBtnGrpArr[i]);
+			var imgBtnArr = [];
+
+			if (imgBtnGrp) {
+				var imgBtn = imgBtnGrp.query('image');
+
+				for (var j = 0; j < imgBtn.length; j++) {
+					if (imgBtn[j].btnOnOff == 'on') {
+						imgBtnArr.push(imgBtn[j].id);
+						imgBtnObj[imgBtnGrpArr[i]] = imgBtnArr;
+					}
+				}
+			}
+
+		}
+
+		return imgBtnObj;
+	},
+
 	items: [{
 		xtype: 'form',
 		cls: 'khLee-x-form',
@@ -179,6 +204,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 							var favorWin = Ext.getCmp('Favorite');
 
+							/* 검색 콤보박스 */
 							var cmbCfg = ['cmbWater1', 'cmbWater2', 'cmbWater3', 'cmbArea1', 'cmbArea2', 'cmbArea3']
 							var cmbArr = [];
 
@@ -194,6 +220,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 								}
 							}
 
+							/* 윈도우 on/off */
 							var winCfg = ['siteListWindow', 'searchResultWindow', 'windowSiteNChart'];
 							var winArr = [];
 
@@ -204,32 +231,20 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 								}
 							}
 
-							var searchCheck = Ext.getCmp('searchAreaButton');
-							var searchCheckId = '';
-
-							if (searchCheck) {
-
-								var searchCheckObj = Ext.getCmp('searchAreaButton').query('image');
-
-								for (var i = 0; i < searchCheckObj.length; i++) {
-									if (searchCheckObj[i].btnOnOff == 'on') {
-										searchCheckId = searchCheckObj[i].id;
-									}
-								}
-							}
-
 							favorObj.cmb = cmbArr;
 							favorObj.win = winArr;
 							favorObj.date = date.yyyymmdd();
 							favorObj.name = saveName;
-							favorObj.searchCheck = searchCheckId;
+							favorObj.imgBtnOnId = favorWin.getImgBtnOnId();
 							favorObj.result = $KRF_APP.global.CommFn.getBookmarkInfo();
 
 							favorObj.geoInfo = {
 								extent: krf.coreMap.map.extent.toJson(),
 								level: krf.coreMap.map.getLevel()
 							};
-
+							
+							console.log(favorObj);
+							return;
 							var jsonStr = JSON.stringify(favorObj);
 
 							favorWin.callAjax('putBookmark', { param: jsonStr }).done(function () {

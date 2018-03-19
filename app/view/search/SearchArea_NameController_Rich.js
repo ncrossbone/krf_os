@@ -189,49 +189,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController_Rich', {
 
 	},
 	onClickSmart: function (obj, el, evt) {
-		// 검색설정 버튼 On/Off
-		var btnMenu01 = Ext.getCmp("btnMenu01");
-		var currCtl = SetBtnOnOff(btnMenu01.id);
-
-		// 팝업 이미지 (임시)
-		var popCtl = Ext.getCmp("searchConfig");
-		var popHeader = Ext.getCmp("searchConfigHeader");
-		var cContainer = Ext.getCmp("center_container");
-
-
-		if (popCtl == undefined) {
-
-			popCtl = Ext.create("krf_new.view.center.SearchConfig", {
-				x: 390,
-				y: 170
-			});
-			cContainer.add(popCtl);
-
-		}
-
-		if (popHeader == undefined) {
-			popHeader = Ext.create("krf_new.view.center.SearchConfigHeader", {
-				x: 387,
-				y: 170
-			});
-			cContainer.add(popHeader);
-		}
-		// 팝업 이미지 show, hide
-		if (currCtl.btnOnOff == "on") {
-			var rToolbar = Ext.getCmp("reachToolbar");
-
-			popHeader.show();
-			popCtl.show();
-			popCtl.setX(rToolbar.getX());
-			popHeader.setX(rToolbar.getX());
-
-			popCtl.setY(rToolbar.getY() + 103);
-			popHeader.setY(rToolbar.getY() + 73);
-		} else {
-			popCtl.hide();
-			popHeader.hide();
-		}
-
+		$('#btnMenu01').trigger('click');
 	}
 
 });
