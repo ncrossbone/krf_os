@@ -4,7 +4,8 @@
 Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanel', {
 	extend: 'Ext.toolbar.Toolbar',
 	requires: [
-		'krf_new.view.search.threeDim.ThreeDimButtonPanelController'
+		'krf_new.view.search.threeDim.ThreeDimButtonPanelController',
+		'krf_new.view.search.threeDim.ThreeDimMeasuredWindow'
 	],
 
 	xtype: 'threeDim-west-buttonpanel',
@@ -76,9 +77,9 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanel', {
 			height: this.itemHeight,
 			listeners: { el: { click: 'onClickMeasuredValue' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/left_menu03_on.png',
-			btnOffImg: './resources/images/button/left_menu03.png',
-			src: './resources/images/button/left_menu03.png'
+			btnOnImg: './resources/images/button/left_menu09_on.png',
+			btnOffImg: './resources/images/button/left_menu09.png',
+			src: './resources/images/button/left_menu09.png'
 		}];
 
 		this.callParent();

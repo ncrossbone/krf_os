@@ -4,23 +4,55 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateController', {
 
 	alias: 'controller.autoMoveToolbar',
 
-	onClickGrab: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'setGrab'});
+	onClickGrab: function (obj, el, evt) {
+
+		if (Ext.getCmp(el.id).btnOnOff == 'on') {
+			return;
+		}
+		var currCtl = SetBtnOnOff(el.id);
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
+		this.btnToggle(el.id);
 	},
-	onClickInput: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'setInputLine'});
+	onClickInput: function (obj, el, evt) {
+		if (Ext.getCmp(el.id).btnOnOff == 'on') {
+			return;
+		}
+		var currCtl = SetBtnOnOff(el.id);
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setInputLine' });
+		this.btnToggle(el.id);
 	},
-	onClickStart: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'startAutoMove'});
+	onClickStart: function (obj, el, evt) {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'startAutoMove' });
 	},
-	onClickStop: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'stopAutoMove'});
+	onClickStop: function (obj, el, evt) {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'stopAutoMove' });
 	},
-	onClickPause: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'pauseAutoMove'});
+	onClickPause: function (obj, el, evt) {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'pauseAutoMove' });
 	},
-	onClickClear: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, {type:'clearInputLine'});
-		$KRF_APP.fireEvent($KRF_EVENT.ADD_AUTO_MOVE_CLEAR,{});
+	onClickClear: function (obj, el, evt) {
+		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'clearInputLine' });
+		$KRF_APP.fireEvent($KRF_EVENT.ADD_AUTO_MOVE_CLEAR, {});
+	},
+	btnToggle: function (id) {
+
+		var threeDimMoveBtn = Ext.getCmp('threeDimMoveBtn');
+		var threeDimStopBtn = Ext.getCmp('threeDimStopBtn');
+		var threeDimAddBtn = Ext.getCmp('threeDimAddBtn');
+		var threeDimDeleteBtn = Ext.getCmp('threeDimDeleteBtn');
+
+		if (id == 'threeDimPathBtn') {
+			threeDimMoveBtn.show();
+			threeDimStopBtn.show();
+			threeDimAddBtn.hide();
+			threeDimDeleteBtn.hide();
+		} else {
+			threeDimMoveBtn.hide();
+			threeDimStopBtn.hide();
+			threeDimAddBtn.show();
+			threeDimDeleteBtn.show();
+		}
+
 	}
+
 });

@@ -466,192 +466,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		},*/ {
 			xtype: 'container',
 			width: 120
-		}, {
-			xtype: 'image',
-			width: 59,
-			height: 24,
-			src: './resources/images/button/btn_exl.gif', // 엑셀 다운
-			listeners: {
-				el: {
-					click: function () {
-
-						// 로딩바 띄우기
-						var winCtl = Ext.getCmp("searchResultWindow");
-						//				var winCtl = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.RESULT.id);
-						winCtl.mask("loading", "loading...");
-
-						var tabCtl = Ext.getCmp("searchResultTab");
-						tabCtl = tabCtl.items.items[1];
-						var activeTab = tabCtl.getActiveTab();
-						var gridContainer = activeTab.items.items[0];
-						var grid = gridContainer.down('gridpanel');
-						//				console.info(gridContainer);
-						//				console.info(grid);
-						//				if(!grid.download){
-						//					grid.download = 'sleep';
-						//				}
-
-						var colArr = grid.getColumnManager().getColumns();
-
-						var tabpanels = Ext.getCmp("tabpanels");
-
-						var ClNodeName = tabpanels.activeTab.id;
-						var ClNode = tabpanels.activeTab.parentId;
-						var ClTitle = tabpanels.activeTab.title;
-						ClTitle = ClTitle.split('(');
-
-						if (tabpanels.activeTab.id == "searchResultPollLoad_container") {
-							var value = Ext.getCmp("pollLoadSelect").value;
-
-							if (value == "11") {
-								colArr.splice(3, 4);
-							} else if (value == "22") {
-								colArr.splice(3, 3);
-							} else if (value == "33") {
-								colArr.splice(4, 2);
-							} else {
-								colArr = colArr;
-							}
-
-							ClNodeName = ClNodeName.split('_');
-							ClNodeName = ClNodeName[0];
-
-						} else {
-							if (ClNodeName.split('_')[0] == "searchResultpollution") {
-								ClNodeName = ClNodeName.split('_');
-								ClNodeName = ClNodeName[0]
-							} else {
-								ClNodeName = ClNodeName.split('_');
-								ClNodeName = ClNodeName[1];
-							}
-						}
-
-						//엑셀다운 클릭 session
-						setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
-
-						var hItem = grid.getHeaderContainer().config.items;
-						var gItem = [];
-						for (var i = 0; i < hItem.length; i++) {
-							var item = hItem[i];
-							if (item.columns) {
-								gItem.push(item);
-							}
-						}
-
-						var headName = [];
-						var header = [];
-						var datas = [];
-
-						var dataArr = grid.getView().store.data.items
-						if (!dataArr) {
-							dataArr = store.data.map[1].value;
-
-						}
-						for (var i = 0; i < dataArr.length; i++) {
-							// khLee 수정 값 변경
-							var strData = JSON.stringify(dataArr[i].data);
-
-							//고려 해봐야함
-							if (strData == "888888888" || strData == "999999999") {
-								strData = strData.replace(/888888888/gi, "\"\"");
-								strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
-							}
-
-							var convertData = JSON.parse(strData);
-							//datas.push(dataArr[i].data);
-							datas.push(convertData);
-						}
-
-						var removeMem = []
-						if (datas.length > 0) {
-							var data = datas[0];
-							for (var mem in data) {
-								if (data[mem] instanceof Array) {
-									removeMem.push(mem);
-								}
-							}
-
-							// khLee parentId (레이어코드) 제외
-							removeMem.push("parentId");
-							//console.info(colArr);
-							for (var i = 0; i < colArr.length; i++) {
-								if (colArr[i].dataIndex != "") {
-									var add = true;
-									for (var k = 0; k < removeMem.length; k++) {
-										if (removeMem[k] == colArr[i].dataIndex) {
-											add = false;
-											break;
-										}
-
-									}
-
-									if (add) {
-										var preText = '';
-										for (var k = 0; k < gItem.length; k++) {
-											var gCols = gItem[k];
-											for (var j = 0; j < gCols.columns.length; j++) {
-												var gc = gCols.columns[j];
-												if (gc.dataIndex == colArr[i].dataIndex) {
-													preText = gCols.text;
-													break;
-												}
-											}
-										}
-										headName.push(preText + colArr[i].text);
-										header.push(colArr[i].dataIndex);
-									}
-								}
-							}
-							//(kg/일)
-							for (var i = 0; i < headName.length; i++) {
-								if (headName[i].indexOf("(kg/일)") > -1)
-									headName[i] = headName[i].replace("(kg/일)", "") + " (kg/일)";
-							}
-						} else {
-							for (var i = 0; i < colArr.length; i++) {
-								if (colArr[i].dataIndex != "") {
-									var preText = '';
-									for (var k = 0; k < gItem.length; k++) {
-										var gCols = gItem[k];
-										for (var j = 0; j < gCols.columns.length; j++) {
-											var gc = gCols.columns[j];
-											if (gc.dataIndex == colArr[i].dataIndex) {
-												preText = gCols.text;
-												break;
-											}
-										}
-									}
-									headName.push(preText + colArr[i].text);
-									header.push(colArr[i].dataIndex);
-								}
-							}
-						}
-
-						//if(grid.download=='sleep'){
-						this.status = 'download';
-						//"./resources/jsp/excelDown.jsp"
-						/*$.post(_API.excelDown, {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
-							//grid.download = 'download';
-							$('#__fileDownloadIframe__').remove();
-							$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
-							
-							// 로딩바 숨김
-							winCtl.unmask();
-								},"json").error(function(){
-									//grid.download = 'download';
-								});*/
-						var catLayerNm = $KRF_APP.global.CommFn.catLayerNmMap[ClNode];
-						catLayerNm = catLayerNm == null ? "" : catLayerNm + "_";
-						$KRF_APP.global.CommFn.excelDown(catLayerNm + ClTitle[0], headName, header, datas);
-						winCtl.unmask();
-						//				}else{
-						//					alert("다운로드중입니다.");
-						//				}
-
-					}
-				}
-			}
-		}, {
+		},{
 			xtype: 'container',
 			width: 10
 		}]
@@ -667,7 +482,6 @@ Ext.define('krf_new.view.common.TabControl', {
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
-
 				// 그리드별 조회조건 컨트롤 셋팅
 				$KRF_APP.global.TabFn.searchConditionCtl(tab.down("grid"));
 
@@ -815,8 +629,10 @@ Ext.define('krf_new.view.common.TabControl', {
 
 					if (tab.id == "searchResultReach_container") {
 						Ext.getCmp("resultTab").hide();
+						Ext.getCmp("tabCondition").hide();
 					} else {
 						Ext.getCmp("resultTab").show();
+						Ext.getCmp("tabCondition").show();
 					}
 
 					var startLabel = Ext.getCmp("startLabel");
@@ -867,6 +683,192 @@ Ext.define('krf_new.view.common.TabControl', {
 					} else {
 						pollutionYear.setValue(pollutiongrdCtl.store.year);
 					}
+				}
+			}
+		}
+	},{
+		xtype: 'image',
+		width: 59,
+		height: 24,
+		style: 'top: 5px; z-index: 2; right: 10px; position:absolute;',
+		src: './resources/images/button/btn_exl.gif', // 엑셀 다운
+		listeners: {
+			el: {
+				click: function () {
+
+					// 로딩바 띄우기
+					var winCtl = Ext.getCmp("searchResultWindow");
+					//				var winCtl = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.RESULT.id);
+					winCtl.mask("loading", "loading...");
+
+					var tabCtl = Ext.getCmp("searchResultTab");
+					tabCtl = tabCtl.items.items[1];
+					var activeTab = tabCtl.getActiveTab();
+					var gridContainer = activeTab.items.items[0];
+					var grid = gridContainer.down('gridpanel');
+					//				console.info(gridContainer);
+					//				console.info(grid);
+					//				if(!grid.download){
+					//					grid.download = 'sleep';
+					//				}
+
+					var colArr = grid.getColumnManager().getColumns();
+
+					var tabpanels = Ext.getCmp("tabpanels");
+
+					var ClNodeName = tabpanels.activeTab.id;
+					var ClNode = tabpanels.activeTab.parentId;
+					var ClTitle = tabpanels.activeTab.title;
+					ClTitle = ClTitle.split('(');
+
+					if (tabpanels.activeTab.id == "searchResultPollLoad_container") {
+						var value = Ext.getCmp("pollLoadSelect").value;
+
+						if (value == "11") {
+							colArr.splice(3, 4);
+						} else if (value == "22") {
+							colArr.splice(3, 3);
+						} else if (value == "33") {
+							colArr.splice(4, 2);
+						} else {
+							colArr = colArr;
+						}
+
+						ClNodeName = ClNodeName.split('_');
+						ClNodeName = ClNodeName[0];
+
+					} else {
+						if (ClNodeName.split('_')[0] == "searchResultpollution") {
+							ClNodeName = ClNodeName.split('_');
+							ClNodeName = ClNodeName[0]
+						} else {
+							ClNodeName = ClNodeName.split('_');
+							ClNodeName = ClNodeName[1];
+						}
+					}
+
+					//엑셀다운 클릭 session
+					setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
+
+					var hItem = grid.getHeaderContainer().config.items;
+					var gItem = [];
+					for (var i = 0; i < hItem.length; i++) {
+						var item = hItem[i];
+						if (item.columns) {
+							gItem.push(item);
+						}
+					}
+
+					var headName = [];
+					var header = [];
+					var datas = [];
+
+					var dataArr = grid.getView().store.data.items
+					if (!dataArr) {
+						dataArr = store.data.map[1].value;
+
+					}
+					for (var i = 0; i < dataArr.length; i++) {
+						// khLee 수정 값 변경
+						var strData = JSON.stringify(dataArr[i].data);
+
+						//고려 해봐야함
+						if (strData == "888888888" || strData == "999999999") {
+							strData = strData.replace(/888888888/gi, "\"\"");
+							strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+						}
+
+						var convertData = JSON.parse(strData);
+						//datas.push(dataArr[i].data);
+						datas.push(convertData);
+					}
+
+					var removeMem = []
+					if (datas.length > 0) {
+						var data = datas[0];
+						for (var mem in data) {
+							if (data[mem] instanceof Array) {
+								removeMem.push(mem);
+							}
+						}
+
+						// khLee parentId (레이어코드) 제외
+						removeMem.push("parentId");
+						//console.info(colArr);
+						for (var i = 0; i < colArr.length; i++) {
+							if (colArr[i].dataIndex != "") {
+								var add = true;
+								for (var k = 0; k < removeMem.length; k++) {
+									if (removeMem[k] == colArr[i].dataIndex) {
+										add = false;
+										break;
+									}
+
+								}
+
+								if (add) {
+									var preText = '';
+									for (var k = 0; k < gItem.length; k++) {
+										var gCols = gItem[k];
+										for (var j = 0; j < gCols.columns.length; j++) {
+											var gc = gCols.columns[j];
+											if (gc.dataIndex == colArr[i].dataIndex) {
+												preText = gCols.text;
+												break;
+											}
+										}
+									}
+									headName.push(preText + colArr[i].text);
+									header.push(colArr[i].dataIndex);
+								}
+							}
+						}
+						//(kg/일)
+						for (var i = 0; i < headName.length; i++) {
+							if (headName[i].indexOf("(kg/일)") > -1)
+								headName[i] = headName[i].replace("(kg/일)", "") + " (kg/일)";
+						}
+					} else {
+						for (var i = 0; i < colArr.length; i++) {
+							if (colArr[i].dataIndex != "") {
+								var preText = '';
+								for (var k = 0; k < gItem.length; k++) {
+									var gCols = gItem[k];
+									for (var j = 0; j < gCols.columns.length; j++) {
+										var gc = gCols.columns[j];
+										if (gc.dataIndex == colArr[i].dataIndex) {
+											preText = gCols.text;
+											break;
+										}
+									}
+								}
+								headName.push(preText + colArr[i].text);
+								header.push(colArr[i].dataIndex);
+							}
+						}
+					}
+
+					//if(grid.download=='sleep'){
+					this.status = 'download';
+					//"./resources/jsp/excelDown.jsp"
+					/*$.post(_API.excelDown, {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
+						//grid.download = 'download';
+						$('#__fileDownloadIframe__').remove();
+						$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
+						
+						// 로딩바 숨김
+						winCtl.unmask();
+							},"json").error(function(){
+								//grid.download = 'download';
+							});*/
+					var catLayerNm = $KRF_APP.global.CommFn.catLayerNmMap[ClNode];
+					catLayerNm = catLayerNm == null ? "" : catLayerNm + "_";
+					$KRF_APP.global.CommFn.excelDown(catLayerNm + ClTitle[0], headName, header, datas);
+					winCtl.unmask();
+					//				}else{
+					//					alert("다운로드중입니다.");
+					//				}
+
 				}
 			}
 		}

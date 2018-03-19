@@ -7,7 +7,7 @@
 	"children": [{
 		"id": "1",
 		"text": "하천수",
-		"wmsId":"93",
+		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
 		"leaf": true,
@@ -19,7 +19,7 @@
 		"layerCode": "A001"
 	}, {
 		"id": "2",
-		"wmsId":"92",
+		"wmsId":"poi_a002",
 		"text": "호소수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer2",
@@ -31,7 +31,7 @@
 		"layerCode": "A002"
 	}, {
 		"id": "3",
-		"wmsId":"91",
+		"wmsId":"poi_a003",
 		"text": "농업용수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer3",
@@ -43,7 +43,7 @@
 		"layerCode": "A003"
 	}, {
 		"id": "4",
-		"wmsId":"90",
+		"wmsId":"poi_a004",
 		"text": "산단하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer4",
@@ -55,7 +55,7 @@
 		"layerCode": "A004"
 	}, {
 		"id": "5",
-		"wmsId":"89",
+		"wmsId":"poi_a005",
 		"text": "도시관류",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer5",
@@ -67,7 +67,7 @@
 		"layerCode": "A005"
 	}, {
 		"id": "6",
-		"wmsId":"88",
+		"wmsId":"poi_a006",
 		"text": "중권역대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer6",
@@ -78,7 +78,7 @@
 		"siteAddrCol": "채수지점"
 	}, {
 		"id": "7",
-		"wmsId":"87",
+		"wmsId":"poi_a007",
 		"text": "보대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer7",
