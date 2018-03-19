@@ -5,21 +5,22 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateController', {
 	alias: 'controller.autoMoveToolbar',
 
 	onClickGrab: function (obj, el, evt) {
-
-		if (Ext.getCmp(el.id).btnOnOff == 'on') {
+		var id = el.id;
+		if (Ext.getCmp(id).btnOnOff == 'on') {
 			return;
 		}
-		var currCtl = SetBtnOnOff(el.id);
+		var currCtl = SetBtnOnOff(id);
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
-		this.btnToggle(el.id);
+		this.btnToggle(id);
 	},
 	onClickInput: function (obj, el, evt) {
-		if (Ext.getCmp(el.id).btnOnOff == 'on') {
+		var id = el.id;
+		if (Ext.getCmp(id).btnOnOff == 'on') {
 			return;
 		}
-		var currCtl = SetBtnOnOff(el.id);
+		var currCtl = SetBtnOnOff(id);
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setInputLine' });
-		this.btnToggle(el.id);
+		this.btnToggle(id);
 	},
 	onClickStart: function (obj, el, evt) {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'startAutoMove' });
@@ -35,24 +36,19 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateController', {
 		$KRF_APP.fireEvent($KRF_EVENT.ADD_AUTO_MOVE_CLEAR, {});
 	},
 	btnToggle: function (id) {
-
-		var threeDimMoveBtn = Ext.getCmp('threeDimMoveBtn');
-		var threeDimStopBtn = Ext.getCmp('threeDimStopBtn');
-		var threeDimAddBtn = Ext.getCmp('threeDimAddBtn');
-		var threeDimDeleteBtn = Ext.getCmp('threeDimDeleteBtn');
-
-		if (id == 'threeDimPathBtn') {
-			threeDimMoveBtn.show();
-			threeDimStopBtn.show();
-			threeDimAddBtn.hide();
-			threeDimDeleteBtn.hide();
-		} else {
-			threeDimMoveBtn.hide();
-			threeDimStopBtn.hide();
-			threeDimAddBtn.show();
-			threeDimDeleteBtn.show();
+		var threeDimCoordinateWindow = Ext.getCmp('threeDimCoordinateWindow');
+		if (threeDimCoordinateWindow) {
+			var btnObj = threeDimCoordinateWindow.query('image');
+			for (var i = 0; i < btnObj.length; i++) {
+				if (btnObj[i].toggleGrp) {
+					if (id == btnObj[i].toggleGrp) {
+						Ext.getCmp(btnObj[i].id).show();
+					} else {
+						Ext.getCmp(btnObj[i].id).hide();
+					}
+				}
+			}
 		}
-
 	}
 
 });
