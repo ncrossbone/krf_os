@@ -20,9 +20,9 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 			//title: '차트정보',
 			text: '차트정보',
 			id: 'tabChart',
-			style: 'cursor:pointer; border:none !important; text-align:center; padding: 5px; font-size: 13px;',
+			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
 			width: 95,
-			height: 28,
+			height: 21,
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
@@ -35,9 +35,9 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 			text: '지점정보',
 			id: 'tabSite',
 			//title: '지점정보',
-			style: 'cursor:pointer; border:none !important; text-align:center; padding: 5px; font-size: 13px;',
+			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
 			width: 95,
-			height: 28,
+			height: 20,
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
