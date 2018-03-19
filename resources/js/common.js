@@ -1710,6 +1710,10 @@ ResetButtonClick = function () {
 
 	// KRAD 레이어 그래픽 및 변수 초기화
 	$KRF_APP.coreMap._krad.clearKradAll();
+	if($KRF_APP.coreMap._krad.checkSubMap()){
+		$KRF_APP.subMap._krad.clearKradAll();
+	}
+	
 	SetBtnOnOff("btnMenu04", "off");
 	SetBtnOnOff("btnMenu05", "off");
 
@@ -1764,7 +1768,6 @@ ResetButtonClick = function () {
 
 	//리치검색시 초기화 해야될 목록
 	$KRF_APP.coreMap._krad.isSearchStop = true;
-
 	$KRF_APP.coreMap._krad.cmRiRchDid = [];
 	$KRF_APP.coreMap._krad.cmLeRchDid = [];
 	$KRF_APP.coreMap._krad.isNotBon = false;
@@ -1811,7 +1814,8 @@ ResetButtonClick = function () {
 	}
 
 	//리치추가 임시 tmp 제거
-	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;//arrAreaGrp
+	$KRF_APP.coreMap._krad.arrAreaGrp = [];
 	$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
 	$KRF_APP.coreMap._krad.arrLineGrp_s = [];
 	$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
@@ -2563,8 +2567,9 @@ metaDataView = function (layerId) {
 }
 
 miniMapHide = function(){
+	
 	var subMapWindow = Ext.getCmp("subMapWindow");
 	subMapWindow.hide();
-	console.info($KRF_APP.coreMap._krad.miniLineGrpLayer);
-	//$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+	$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+
 }
