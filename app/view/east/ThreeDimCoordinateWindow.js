@@ -13,7 +13,6 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 	layout: {
 		type: 'vbox'
 	},
-
 	// tbar: {
 	// 	controller: 'autoMoveToolbar',
 
@@ -47,18 +46,19 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 	// },
 	// cls: 'khLee-window-panel-header khLee-x-window-default ',
 
-	width: 350,
-	height: 300,
-
+	width: 330,
+	height: 400,
+	resizable: false,
 	items: [{
 		xtype: 'container',
 		style: 'padding:10px;',
 		controller: 'autoMoveToolbar',
+		layout: 'hbox',
 		items: [{
 			/* 경로탐색 */
 			xtype: 'image',
 			btnOnOff: 'on',
-			id:'threeDimPathBtn',
+			id: 'threeDimPathBtn',
 			style: 'cursor:pointer;',
 			groupId: 'threeDimBtnGrp01',
 			height: 33,
@@ -71,7 +71,7 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			/* 점찍기 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			id:'threeDimPointBtn',
+			id: 'threeDimPointBtn',
 			style: 'cursor:pointer;',
 			groupId: 'threeDimBtnGrp01',
 			height: 33,
@@ -84,8 +84,8 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			/* 이동 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			id:'threeDimMoveBtn',
-			toggleGrp:'threeDimPathBtn',
+			id: 'threeDimMoveBtn',
+			toggleGrp: 'threeDimPathBtn',
 			style: 'cursor:pointer; margin:6px 0px 6px 10px;',
 			height: 21,
 			width: 51,
@@ -97,8 +97,8 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			/* 정지 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			id:'threeDimStopBtn',
-			toggleGrp:'threeDimPathBtn',
+			id: 'threeDimStopBtn',
+			toggleGrp: 'threeDimPathBtn',
 			style: 'cursor:pointer; margin: 6px 0px;',
 			height: 21,
 			width: 51,
@@ -108,8 +108,8 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			/* 지점추가 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			id:'threeDimAddBtn',
-			toggleGrp:'threeDimPointBtn',
+			id: 'threeDimAddBtn',
+			toggleGrp: 'threeDimPointBtn',
 			style: 'cursor:pointer; margin: 6px 0px 6px 10px;',
 			height: 21,
 			width: 73,
@@ -120,8 +120,8 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			/* 지점삭제 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			id:'threeDimDeleteBtn',
-			toggleGrp:'threeDimPointBtn',
+			id: 'threeDimDeleteBtn',
+			toggleGrp: 'threeDimPointBtn',
 			style: 'cursor:pointer; margin: 6px 0px;',
 			height: 21,
 			width: 72,
@@ -130,15 +130,13 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			hidden: true
 		}]
 	}, {
-		xtype: 'container',
-		layout: 'fit',
-		items: [{
 			xtype: 'grid',
 			id: 'coordinategrid',
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
-			height: 215,
 			store: Ext.create('krf_new.store.east.ThreeDimCoordinateWindow'),
+			width: 320,
+			height: 300,
 			header: {
 				height: 5
 			},
@@ -153,21 +151,17 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 				dataIndex: 'index',
 				menuDisabled: true,
 				width: 80
-				//width: "20%"
 			}, {
 				text: '경도',
 				dataIndex: 'x',
 				menuDisabled: true,
 				width: 120
-				//width: "40%"
 			}, {
 				text: '위도',
 				dataIndex: 'y',
 				menuDisabled: true,
 				width: 120
-				//width: "40%"
 			}]
-		}]
 	}],
 	initComponent: function () {
 		this.callParent();
