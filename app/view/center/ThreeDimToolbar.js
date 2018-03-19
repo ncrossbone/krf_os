@@ -14,7 +14,7 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 
 	/* 사이즈 지정 */
 	itemWidth: 70,
-	itemHeight: 59,
+	itemHeight: 60,
 
 	height: 60,
 	style: 'padding: 0px;',

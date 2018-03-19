@@ -52,69 +52,78 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 
 	items: [{
 		xtype: 'container',
-		style:'padding:10px;',
+		style: 'padding:10px;',
+		controller: 'autoMoveToolbar',
 		items: [{
 			/* 경로탐색 */
 			xtype: 'image',
 			btnOnOff: 'on',
-			style:'cursor:pointer;',
-			height:33,
-			width:73,
+			id:'threeDimPathBtn',
+			style: 'cursor:pointer;',
+			groupId: 'threeDimBtnGrp01',
+			height: 33,
+			width: 73,
 			listeners: { el: { click: 'onClickGrab' } },
 			btnOnImg: './resources/images/button/b1_on.png',
 			btnOffImg: './resources/images/button/b1_off.png',
 			src: './resources/images/button/b1_on.png'
-		},{
+		}, {
 			/* 점찍기 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			style:'cursor:pointer;',
-			height:33,
-			width:73,
+			id:'threeDimPointBtn',
+			style: 'cursor:pointer;',
+			groupId: 'threeDimBtnGrp01',
+			height: 33,
+			width: 73,
 			listeners: { el: { click: 'onClickInput' } },
 			btnOnImg: './resources/images/button/b2_on.png',
 			btnOffImg: './resources/images/button/b2_off.png',
 			src: './resources/images/button/b2_off.png'
-		},{
+		}, {
 			/* 이동 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			style:'cursor:pointer;',
-			height:21,
-			width:51,
+			id:'threeDimMoveBtn',
+			style: 'cursor:pointer; margin:6px 0px 6px 10px;',
+			height: 21,
+			width: 51,
 			listeners: { el: { click: 'onClickStart' } },
 			btnOnImg: './resources/images/button/b1_btn2.png',
 			btnOffImg: './resources/images/button/b1_btn1.png',
 			src: './resources/images/button/b1_btn1.png'
-		},{
+		}, {
 			/* 정지 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			style:'cursor:pointer;',
-			height:21,
-			width:51,
-			listeners: { el: { click: 'onClickPause' } },
+			id:'threeDimStopBtn',
+			style: 'cursor:pointer; margin: 6px 0px;',
+			height: 21,
+			width: 51,
+			listeners: { el: { click: 'onClickStop' } },
 			src: './resources/images/button/b1_btn3.png'
-		},{
+		}, {
 			/* 지점추가 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			style:'cursor:pointer;',
-			height:21,
-			width:73,
+			id:'threeDimAddBtn',
+			style: 'cursor:pointer; margin: 6px 0px 6px 10px;',
+			height: 21,
+			width: 73,
 			listeners: { el: { click: 'onClickStop' } },
 			src: './resources/images/button/b2_btn1.png',
-			hidden:true
-		},{
+			hidden: true
+		}, {
 			/* 지점삭제 */
 			xtype: 'image',
 			btnOnOff: 'off',
-			style:'cursor:pointer;',
-			height:21,
-			width:72,
+			id:'threeDimDeleteBtn',
+			style: 'cursor:pointer; margin: 6px 0px;',
+			height: 21,
+			width: 72,
 			listeners: { el: { click: 'onClickClear' } },
 			src: './resources/images/button/b2_btn2.png',
-			hidden:true
+			hidden: true
 		}]
 	}, {
 		xtype: 'container',
