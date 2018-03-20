@@ -212,7 +212,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			hidden: true
 		}, {
 			xtype: 'container',
-			id: 'gabToolbarContainer',
+			id: 'gapToolbarContainer',
 			width: 10
 		}, {
 			xtype: 'image',
