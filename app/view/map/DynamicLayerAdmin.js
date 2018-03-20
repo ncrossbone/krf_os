@@ -17,7 +17,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayer1.visible = true;
 		//		me.dynamicLayer1.showAttribution = true;
 
-		me.dynamicLayer1.setVisibleLayers([1, 2, 3, 4, 5, 76, 77, 53, 54, 55, 62, 63]);
+		me.dynamicLayer1.setVisibleLayers([1, 2, 3, 4, 5, 79, 80, 56, 57, 58, 65, 66]);
 
 		me.map.addLayer(me.dynamicLayer1);
 		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.reachServiceUrl_v3);
