@@ -501,6 +501,23 @@
 		"siteIdCol": "지점코드"
 	}]
 },{
+	"id": "52",
+	"text": "수질예보지점",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "83",
+		"wmsId":"",
+		"text": "HSPF모델경과지점",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer42",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": ""
+	}]
+},{
 	"id": "55",
 	"text": "하천망도",
 	"cls": "khLee-x-tree-node-text-bold",
