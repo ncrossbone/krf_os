@@ -34,7 +34,7 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 			},
 			items: [{
 				id: 'cmbWater1',
-				layerId: '62',
+				layerId: '65',
 				xtype: 'combo',
 				tarCmbId: 'cmbWater2',
 				lnkBtnId: 'btnWater1',
@@ -68,7 +68,7 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 			},
 			items: [{
 				id: 'cmbWater2',
-				layerId: '63',
+				layerId: '66',
 				xtype: 'combo',
 				tarCmbId: 'cmbWater3',
 				lnkBtnId: 'btnWater2',
@@ -102,7 +102,7 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 			},
 			items: [{
 				id: 'cmbWater3',
-				layerId: '64',
+				layerId: '67',
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnWater3',

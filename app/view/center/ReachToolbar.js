@@ -237,7 +237,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 		}, {
 			xtype: 'image',
 			id: 'btnReachLayer',
-			layerId: '55',
+			layerId: '58',
 			groupId: 'btnReachLayer',
 			title: '리치라인',
 			style: 'cursor:pointer;',
@@ -257,7 +257,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 		}, {
 			xtype: 'image',
 			id: 'btnReachNodeLayer',
-			layerId: '55',
+			layerId: '57',
 			groupId: 'btnReachNodeLayer',
 			title: '리치노드',
 			style: 'cursor:pointer;',
