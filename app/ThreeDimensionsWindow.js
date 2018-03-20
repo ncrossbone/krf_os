@@ -33,7 +33,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
     },
 
     receiveMessage: function (param) {
-        console.log(param);
+        
         var me = $KRF_APP.getDesktopModule('threeDim-win');
 
         if (param.data) {

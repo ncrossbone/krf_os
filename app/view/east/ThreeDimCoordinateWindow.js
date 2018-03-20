@@ -91,7 +91,7 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 		}, {
 			xtype: 'container',
 			id: 'threeDimCoordToolbarGapContainer',
-			width: 10
+			width: 40
 		}, {
 			/* 이동 */
 			xtype: 'image',
@@ -102,6 +102,7 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			height: 21,
 			width: 51,
 			listeners: { el: { click: 'onClickStart' } },
+			playMode: 0,
 			btnOnImg: './resources/images/button/b1_btn2.png',
 			btnOffImg: './resources/images/button/b1_btn1.png',
 			src: './resources/images/button/b1_btn1.png'

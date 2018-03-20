@@ -25,9 +25,24 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateController', {
 		Ext.getCmp('threeDimCoordToolbarGapContainer').setWidth(80);
 	},
 	onClickStart: function (obj, el, evt) {
-		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'startAutoMove' });
+		var startBtn = Ext.getCmp(el.id);
+		if(startBtn.playMode == 0){
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'startAutoMove' });
+			startBtn.playMode = 1;
+			startBtn.setSrc(startBtn.btnOnImg);
+		}else if(startBtn.playMode == 1){
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'pauseAutoMove' });
+			startBtn.playMode = 0;
+			startBtn.setSrc(startBtn.btnOffImg);
+		}
 	},
 	onClickStop: function (obj, el, evt) {
+		
+		var startBtn = Ext.getCmp('threeDimMoveBtn');
+		if(startBtn.playMode != 0){
+			startBtn.setSrc(startBtn.btnOffImg);
+			startBtn.playMode = 0;
+		}
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'stopAutoMove' });
 	},
 	onClickPause: function (obj, el, evt) {
