@@ -25,7 +25,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	},
 	listeners: {
 		show: function (w) {
-				w.el.slideIn();
+			w.el.slideIn();
 		}
 	},
 	items: [{
@@ -212,25 +212,25 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var subMapWindow = Ext.getCmp("subMapWindow");
 		DynamicLayerSRiver.setVisibleLayers([-1]);
 		console.info(onOff)
-		if(onOff){
-			DynamicLayerSRiver.setVisibleLayers([0,1,2]);
+		if (onOff) {
+			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
 			console.info(DynamicLayerSRiver);
 			subMapWindow.show();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
-			
+
 			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
-			subDynamicLayerSRiver.setVisibleLayers([0,1,2]);
-			SetBtnOnOff("btnMenu010", "on");	
-		}else{
+			subDynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
+			SetBtnOnOff("btnMenu010", "on");
+		} else {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
-			
+
 			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
 			subDynamicLayerSRiver.setVisibleLayers([-1]);
 			console.info(DynamicLayerSRiver);
 			subMapWindow.hide();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
-			
-			SetBtnOnOff("btnMenu010", "off");	
+
+			SetBtnOnOff("btnMenu010", "off");
 		}
 	},
 
@@ -250,7 +250,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var searchConfigInfo = localStorage['_searchConfigInfo_'];
 		var searchConfigInfoJson = null;
 
-		if (searchConfigInfo != undefined && searchConfigInfo != null) {
+		if (!searchConfigInfo) {
 			searchConfigInfoJson = JSON.parse(searchConfigInfo);
 		} else {
 			// 로컬 스토리지 셋팅
