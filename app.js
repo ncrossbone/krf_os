@@ -24,6 +24,9 @@ Ext.create('Ext.data.Store', {
 }).load(function (a, b, c) {
 	this.each(function (record, cnt, totCnt) {
 		$KRF_DEFINE = record.data;
+		$KRF_DEFINE.mapToolbarHeight = 58;
+		$KRF_DEFINE.windowHeaderHeight = 36;
+		$KRF_DEFINE.westToolbarWidth = 80;
 	});
 });
 /*
@@ -50,7 +53,7 @@ var apiStore = Ext.create('Ext.data.Store', {
 apiStore.load(function (a, b, c) {
 	_API = a[0].data;
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://192.168.0.231:8082');
+	a[0].data.init('http://112.218.1.243:38082');
 });
 
 var $KRF_POSITION = null;
@@ -363,13 +366,12 @@ Ext.application({
 	coreMapLoaded: function (param) {
 		if (param.id == '_mapDiv_') {
 			var centerContainer = Ext.getCmp('center_container');
-			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: 60 });
+			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: $KRF_DEFINE.mapToolbarHeight });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
 			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
 
-			
 			Ext.defer(function () {
 				
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });

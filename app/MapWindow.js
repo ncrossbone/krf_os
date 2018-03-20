@@ -77,14 +77,14 @@ Ext.define('Desktop.MapWindow', {
 				},
 				resize: function (win, width, height) {
 					var mapC = Ext.getCmp('_mapDiv_');
-					mapC.setWidth(width - 80);
-					mapC.setHeight(height - 37);
+					mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+					mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
 					mapC = Ext.getCmp('center_container');
-					mapC.setWidth(width - 80);
-					mapC.setHeight(height - 37);
+					mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+					mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
 					mapC = Ext.getCmp('cont_container');
-					mapC.setWidth(width - 80);
-					mapC.setHeight(height - 37);
+					mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+					mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
 
 					$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 					me.setSubWindowLocation();
@@ -168,7 +168,7 @@ Ext.define('Desktop.MapWindow', {
 		if (gabWidth < 0) {
 			gabWidth = 0;
 		}
-		var gabCon = Ext.getCmp('gabToolbarContainer');
+		var gabCon = Ext.getCmp('gapToolbarContainer');
 		gabCon.setWidth(gabWidth + 40);
 	},
 
@@ -434,7 +434,7 @@ Ext.define('Desktop.MapWindow', {
 
 		var siteListWindow = Ext.getCmp("siteListWindow");
 		if (siteListWindow == undefined) {
-			siteListWindow = Ext.create('krf_new.view.east.SiteListWindow', { x: Ext.getCmp('center_container').getWidth() - 520, y: 60 });
+			siteListWindow = Ext.create('krf_new.view.east.SiteListWindow', { x: Ext.getCmp('center_container').getWidth() - 520, y: $KRF_DEFINE.mapToolbarHeight });
 			Ext.getCmp('center_container').add(siteListWindow);
 		}
 

@@ -89,22 +89,8 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			btnOffImg: './resources/images/button/reach_menu23.png',
 			src: './resources/images/button/reach_menu23.png'
 		}, {
-			xtype: 'image',
-			id: 'btnAutoMoveMap2',
-			title: '경로탐색',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			style: 'cursor:pointer;',
-			listeners: { el: { click: function(){
-				$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'showPoi' });
-			} } },
-			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu23_on.png',
-			btnOffImg: './resources/images/button/reach_menu23.png',
-			src: './resources/images/button/reach_menu23.png'
-		}, {
 			xtype: 'container',
-			id: 'threeDimgabToolbarContainer',
+			id: 'threeDimGapToolbarContainer',
 			width: 10
 		}, {
 			xtype: 'image',
