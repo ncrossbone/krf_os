@@ -127,26 +127,29 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	/* 이미지 버튼 on 가져오기 */
 	getImgBtnOnId: function () {
 		var imgBtnGrpArr = ['west-button', 'searchAreaButton', 'reachToolbar'];
-		var imgBtnObj = {};
+		var imgBtnArr = [];
 
 		for (var i = 0; i < imgBtnGrpArr.length; i++) {
 			var imgBtnGrp = Ext.getCmp(imgBtnGrpArr[i]);
-			var imgBtnArr = [];
-
 			if (imgBtnGrp) {
 				var imgBtn = imgBtnGrp.query('image');
 
 				for (var j = 0; j < imgBtn.length; j++) {
-					if (imgBtn[j].btnOnOff == 'on') {
-						imgBtnArr.push(imgBtn[j].id);
-						imgBtnObj[imgBtnGrpArr[i]] = imgBtnArr;
+					var btnOnOff = imgBtn[j].btnOnOff;
+					if (btnOnOff) {
+						var btnId = imgBtn[j].id;
+						if (btnId != 'btnMenu07' && btnId != 'btnMenu06' && btnId != 'btnMenu05' &&
+							btnId != 'btnMenu04' && btnId != 'btnMenu09' && btnId != 'btnMenu03' && btnId != 'btnMenu02') {
+							if (btnOnOff == 'on') {
+								imgBtnArr.push(btnId);
+							}
+						}
 					}
 				}
 			}
 
 		}
-
-		return imgBtnObj;
+		return imgBtnArr;
 	},
 
 	items: [{
@@ -242,9 +245,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 								extent: krf.coreMap.map.extent.toJson(),
 								level: krf.coreMap.map.getLevel()
 							};
-							
-							console.log(favorObj);
-							return;
+
 							var jsonStr = JSON.stringify(favorObj);
 
 							favorWin.callAjax('putBookmark', { param: jsonStr }).done(function () {
@@ -446,6 +447,19 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 
 											}
 										}
+										var imgBtnObj = selectData.imgBtnOnId;
+
+										for (var i = 0; i < imgBtnObj.length; i++) {
+											var imgBtn = Ext.getCmp(imgBtnObj[i]);
+
+											if (imgBtn.btnOnOff) {
+												if (imgBtn.btnOnOff == 'off') {
+													$('#' + imgBtnObj[i]).trigger('click');
+												}
+											}
+
+										}
+
 									});
 									//var self = this.up('window');
 									//var grid = self.down('gridpanel');

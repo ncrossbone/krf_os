@@ -261,6 +261,14 @@ ReachInfoBinding = function (objs) {
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
+	
+	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
+		tabIdx: tabIdx,
+		title: title,
+		test: test,
+		parentId: parentId,
+		chartFlag: chartFlag
+	});
 
 	var yFieldName = "";
 	var chartId = ""; // 부모아이디
