@@ -11,11 +11,19 @@ Ext.define('krf_new.view.center.ThreeDimToolbarController', {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'getCenter' });
 	},
 	onClick3DDefaultMap: function (obj, el, evt) {
+		var btnObj = Ext.getCmp(el.id);
+		if(btnObj.btnOnOff == 'on'){
+			return;
+		}
 		var currCtl = SetBtnOnOff(el.id);
 		Ext.getCmp('legendDEM').hide();
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'defaultMap' });
 	},
 	onClickDEM: function (obj, el, evt) {
+		var btnObj = Ext.getCmp(el.id);
+		if(btnObj.btnOnOff == 'on'){
+			return;
+		}
 		var currCtl = SetBtnOnOff(el.id);
 		Ext.getCmp('legendDEM').show();
 		$KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_SET_LEGEND_LOCATION);

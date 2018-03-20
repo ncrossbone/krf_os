@@ -70,15 +70,21 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                 id: 'cmbThreeDimMeasured',
                 xtype: 'combo',
                 cls: 'khLee-x-form-item-label-default',
-                fieldLabel: ' <b>기준값/b> ',
+                fieldLabel: ' <b>기준값</b> ',
                 labelWidth: 60,
                 labelAlign: 'right',
                 labelPad: 10,
                 width: 225,
-                store: Ext.create('krf_new.store.west.SearchArea_ADM'),
+                queryMode: 'local',
+                store: Ext.create('krf_new.store.east.ThreeDimMeasuredStore'),
                 editable: false,
                 displayField: 'name',
-                valueField: 'id'
+                valueField: 'id',
+                listeners: {
+                    afterrender: function () {
+                        this.setValue('bod');
+                    }
+                }
             }, {
                 xtype: 'container',
                 width: 10
@@ -87,7 +93,69 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                 xtype: 'button',
                 lnkCmbId: 'cmbThreeDimMeasured',
                 disabled: false,
-                cls: 'khLee-x-button-move'
+                cls: 'khLee-x-button-move',
+                listeners: {
+                    click: function () {
+                        var selectLayer = Ext.getCmp('threeDimMeasuredLayer');
+                        var selectMeasure = Ext.getCmp('cmbThreeDimMeasured');
+
+                        var selVal = selectMeasure.getValue();
+                        var selLayer = selectLayer.getChecked();
+
+                        if (!selLayer || selLayer.length <= 0) {
+                            alert('주제도를 선택하세요.');
+                            return;
+                        }
+                        var layer = selLayer[0].data;
+
+
+                        var measuredDef = Ext.Ajax.request({
+                            url: _API.searchMeasuredValue + '?type=' + layer.measureCode,
+                            method: 'GET',
+                            async: true
+                        });
+
+                        var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + layer.id); // 레이어 URL
+                        var query = new esri.tasks.Query();
+                        query.returnGeometry = true;
+                        query.where = '1=1';
+                        query.outFields = [layer.siteIdCol, layer.siteNmCol];
+                        // query.outSpatialReference = { "wkid": 4019 };
+
+                        var featureDef = queryTask.execute(query);
+                        new dojo.DeferredList([featureDef, measuredDef]).then(function (result) {
+
+                            if (result.length == 2) {
+                                if (result[0][0] && result[1][0]) {
+
+                                    if ('error' == result[1][1].responseText) {
+                                        alert("오류가 발생하였습니다. 관리자에게 문의하세요.");
+                                        return;
+                                    }
+
+                                    var parameterTo3d = { layerType: layer.measureCode, features: [] };
+
+                                    var geoInfo = result[0][1];
+                                    var valInfo = Ext.util.JSON.decode(result[1][1].responseText).data;
+
+                                    for (var i = 0; i < geoInfo.features.length; i++) {
+                                        for (var j = 0; j < valInfo.length; j++) {
+                                            if (valInfo[j].ptNo == geoInfo.features[i].attributes[layer.siteIdCol]) {
+                                                parameterTo3d.features.push({ title: geoInfo.features[i].attributes[layer.siteNmCol], value: valInfo[j][selVal], x: geoInfo.features[i].geometry.x, y: geoInfo.features[i].geometry.y });
+                                                valInfo.splice(j, 1);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'measured', value: parameterTo3d }));
+                                } else {
+                                    alert('조회중 오류가 발생했습니다.');
+                                    return;
+                                }
+                            }
+                        });
+                    }
+                }
             }]
         }, {
             xtype: 'treepanel',
