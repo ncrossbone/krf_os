@@ -171,7 +171,7 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "35",
+		"id": "36",
 		"wmsId":"59",
 		"text": "보 모니터링",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -183,7 +183,7 @@
         "siteAddrCol": "ADDRESS",
 		"layerCode": "I001"
 	},{
-		"id": "36",
+		"id": "37",
 		"wmsId":"58",
 		"text": "상수원구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -195,7 +195,7 @@
 		"siteAddrCol": "주소",
 		"layerCode": "I002"
 	},{
-		"id": "37",
+		"id": "38",
 		"wmsId":"57",
 		"text": "친수활동구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
