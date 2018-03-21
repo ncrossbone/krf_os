@@ -10,7 +10,7 @@ Ext.define('krf_new.view.report.ReportConditionView', {
 	cls: 'patient-view',
 	tpl: '<tpl for=".">' +
 		'<div class="patient-source x-unselectable"><table><tbody>' +
-		'<tr><td class="patient-name">{name}</td></tr>' +
+		'<tr><td class="patient-name">{value}</td></tr>' +
 		'</tbody></table></div>' +
 		'</tpl>',
 	itemSelector: 'div.patient-source',
@@ -19,56 +19,55 @@ Ext.define('krf_new.view.report.ReportConditionView', {
 	singleSelect: true,
 	listeners: {
 		render: function (v) {
-			//debugger;
-			var patients = [];
-			var storeObj = null;
+			// console.log(v);
+			// return;
+			// var patients = [];
+			// var storeObj = null;
 
-			if (v.id == 'reportCondition1') {
-				storeObj = { value: '2016', id: '2016' };
-			} else {
-				storeObj = {};
-			}
+			// if (v.id == 'reportCondition1') {
+			// 	patients.push({ value: '2016', id: '2016' }, { value: '2017', id: '2017' }, { value: '2018', id: '2018' });
+			// } else if (v.id == 'reportCondition3') {
+			// 	patients.push({ value: '전체', id: 'key0' }, { value: '대권역', id: 'key1' }, { value: '본류', id: 'key2' }, { value: '지류', id: 'key3' }, { value: '기타하천', id: 'key4' });
+			// } else if (v.id == 'reportCondition4') {
+			// 	patients.push({ value: '전체', id: 'flag1' }, { value: '부착돌말', id: 'flag2' }, { value: '저서동물', id: 'flag3' }, { value: '어류', id: 'flag4' }, { value: '서식수변환경', id: 'flag5' }, { value: '수변식생', id: 'flag6' });
+			// }
 
-			patients.push(storeObj);
-			debugger;
-			// 동적 스토어 
-			var patientStore = Ext.create('Ext.data.Store', {
-				model: Ext.create('Ext.data.Model', {
-					idProperty: 'insuranceCode',
-					fields: ['value', 'id']
-				}),
-				data: patients
-			});
-			this.setStore(patientStore);
+			// // 동적 스토어 
+			// var patientStore = Ext.create('Ext.data.Store', {
+			// 	model: Ext.create('Ext.data.Model', {
+			// 		idProperty: 'id',
+			// 		fields: ['value', 'id']
+			// 	}),
+			// 	data: patients
+			// });
+			// this.setStore(patientStore);
+			// v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
 
-			return;
-			v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
+			// 	//      On receipt of a mousedown event, see if it is within a draggable element.
+			// 	//      Return a drag data object if so. The data object can contain arbitrary application
+			// 	//      data, but it should also contain a DOM element in the ddel property to provide
+			// 	//      a proxy to drag.
+			// 	getDragData: function (e) {
+			// 		console.log(arguments)
+			// 		var sourceEl = e.getTarget(v.itemSelector, 10), d;
+			// 		if (sourceEl) {
+			// 			d = sourceEl.cloneNode(true);
+			// 			d.id = Ext.id();
+			// 			return (v.dragData = {
+			// 				sourceEl: sourceEl,
+			// 				repairXY: Ext.fly(sourceEl).getXY(),
+			// 				ddel: d,
+			// 				srcData: v.getRecord(sourceEl).data
+			// 			});
+			// 		}
+			// 	},
 
-				//      On receipt of a mousedown event, see if it is within a draggable element.
-				//      Return a drag data object if so. The data object can contain arbitrary application
-				//      data, but it should also contain a DOM element in the ddel property to provide
-				//      a proxy to drag.
-				getDragData: function (e) {
-					console.log(arguments)
-					var sourceEl = e.getTarget(v.itemSelector, 10), d;
-					if (sourceEl) {
-						d = sourceEl.cloneNode(true);
-						d.id = Ext.id();
-						return (v.dragData = {
-							sourceEl: sourceEl,
-							repairXY: Ext.fly(sourceEl).getXY(),
-							ddel: d,
-							srcData: v.getRecord(sourceEl).data
-						});
-					}
-				},
-
-				//      Provide coordinates for the proxy to slide back to on failed drag.
-				//      This is the original XY coordinates of the draggable element.
-				getRepairXY: function () {
-					return this.dragData.repairXY;
-				}
-			});
+			// 	//      Provide coordinates for the proxy to slide back to on failed drag.
+			// 	//      This is the original XY coordinates of the draggable element.
+			// 	getRepairXY: function () {
+			// 		return this.dragData.repairXY;
+			// 	}
+			// });
 		}
 	}
 });

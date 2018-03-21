@@ -38,7 +38,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 					xtype: 'image',
 					width: 135,
 					height: 152,
-					id: 'report01',
+					id: 'rptCase1',
 					style: 'cursor:pointer',
 					src: './resources/images/rpt/report_off.png',
 					mouseOverSrc: './resources/images/rpt/report_ov.png',
@@ -81,7 +81,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 					xtype: 'image',
 					width: 135,
 					height: 152,
-					id: 'report02',
+					id: 'rptCase2_1',
 					style: 'cursor:pointer',
 					src: './resources/images/rpt/report_off.png',
 					mouseOverSrc: './resources/images/rpt/report_ov.png',
@@ -90,7 +90,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 						el: {
 							mouseover: 'imgMouseOver',
 							mouseout: 'imgMouseOut',
-							click: 'reportOn'
+							click: 'imgOnClick'
 						}
 					}
 				}]
@@ -124,7 +124,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 					xtype: 'image',
 					width: 135,
 					height: 152,
-					id: 'report03',
+					id: 'rptCase2_2',
 					style: 'cursor:pointer',
 					src: './resources/images/rpt/report_off.png',
 					mouseOverSrc: './resources/images/rpt/report_ov.png',

@@ -17,8 +17,8 @@ Ext.define('krf_new.view.report.ReportSelectPanelController', {
     imgOnClick: function (evt, el) {
         
         var reportMain = Ext.getCmp('reportMainContents');
+        reportMain.reportType = el.id;
         reportMain.setActiveItem(1);
-        
     },
 
     reportOn: function(evt, el){
