@@ -7,7 +7,7 @@ Ext.define('krf_new.view.east.ThreeDimTerrainCrossWindow', {
 
 	id: 'threeDimTerrainCrossWindow',
 
-	title: '좌표 정보',
+	title: '경사도',
 	header: { cls: 'subWindow-x-form-item-label-default' },
 	cls: 'subWindow-x-form-item-label-default',
 	layout: {

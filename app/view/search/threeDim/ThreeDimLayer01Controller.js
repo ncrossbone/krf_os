@@ -6,8 +6,12 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 
 	control: {
 		'treepanel': {
-			checkchange: 'onCheckChanged'
+			checkchange: 'onCheckChanged',
+			render: 'onRender'
 		}
+	},
+	onRender: function () {
+		Ext.create('krf_new.store.west.ThreeDimLayer01Store', {autoLoad: false}).load();
 	},
 
 	onCheckChanged: function (node, checked, btnId) {
