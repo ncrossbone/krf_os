@@ -2541,6 +2541,7 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 
 	return layer01Infos;
 }
+
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
 
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
