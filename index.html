@@ -8,7 +8,7 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<title>New</title>
+	<title>물환경 지리정보</title>
 
 	<!-- The line below must be kept intact for Sencha Cmd to build your application -->
 	<link rel="shortcut icon" href="./resources/images/mainico.ico" />
@@ -45,7 +45,6 @@
 
 	<style type="text/css">
 		/* 처음 로딩시 window 화면 못잡음 임의적으로 height 지정 */
-
 
 		#chromePop-innerCt .x-autocontainer-innerCt {
 			height: 335px !important;
@@ -595,26 +594,26 @@
 
 		.x-tool-maximize {
 			background: url('./resources/images/button/header-maximize.png');
-			width: 26px;
-			height: 17px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.x-tool-restore {
 			background: url('./resources/images/button/header-restore.png');
-			width: 26px;
-			height: 17px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.x-tool-minimize {
 			background: url('./resources/images/button/header-minimize.png');
-			width: 26px;
-			height: 17px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.x-tool-close {
 			background: url('./resources/images/button/header-close.png');
-			width: 26px;
-			height: 17px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.krf_desktop-start-button-icon {
@@ -774,6 +773,45 @@
 		.patient-selected {
 			background-color: #DFE8F6;
 			cursor: pointer;
+		}
+
+		.report,
+		.report>li {
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.report>li:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		.report {
+			padding: 10px;
+		}
+
+		.report li {
+			margin-bottom: 10px;
+		}
+
+		.report .tit {
+			background: url(./resources/images/rpt/report_blit.png) no-repeat right center;
+			padding-right: 15px;
+			margin-right: 10px;
+			font-weight: bold;
+			float: left;
+		}
+
+		.report .name {
+			color: #032d67 !important;
+			font-weight: bold !important;
+		}
+
+		.report .cont {
+			float: left;
+			width: 88%;
 		}
 	</style>
 </head>

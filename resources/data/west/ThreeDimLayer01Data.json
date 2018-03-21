@@ -75,7 +75,8 @@
 		"checked": false,
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
-		"siteAddrCol": "채수지점"
+		"siteAddrCol": "채수지점",
+		"layerCode": "A006"
 	}, {
 		"id": "7",
 		"wmsId":"poi_a007",
@@ -86,7 +87,8 @@
 		"checked": false,
 		"siteIdCol": "PT_NO",
 		"siteNmCol": "보명",
-		"siteAddrCol": "ADDR"
+		"siteAddrCol": "ADDR",
+		"layerCode": "A007"
 	}]
 }, /*{
 	"id": "8",

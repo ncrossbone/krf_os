@@ -41,7 +41,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 							var layerId = "";
 
 							/* 레이어 정보 가져오기 */
-							var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
+							var layer01Info = Ext.getCmp('threeDimSiteListTreePanel').getLayerInfo("layerCode", parentNodeId, null, null);
 
 							if (layer01Info.length > 0) {
 								layerId = layer01Info[0].id;
@@ -54,7 +54,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 							query.outFields = ["OBJECTID"];
 
 							/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 */
-							var layer01Info = getLayer01Info("id", layerId, null, null);
+							var layer01Info = Ext.getCmp('threeDimSiteListTreePanel').getLayerInfo("id", layerId, null, null);
 
 							if (layer01Info != undefined && layer01Info != null && layer01Info.length > 0) {
 								query.where = layer01Info[0].siteIdCol + " = '" + nodeId + "'";
@@ -100,5 +100,42 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 
 			}
 		}]
-	}]
+	}],
+
+	getLayerInfo: function (attrName, attrValue, childNodes, layer01Infos) {
+
+			if (childNodes == undefined || childNodes == null) {
+		
+				childNodes = Ext.getCmp("threeDimLayer01").store.data.items;
+			}
+		
+			if (layer01Infos == undefined || layer01Infos == null) {
+		
+				layer01Infos = [];
+			}
+		
+			for (var i = 0; i < childNodes.length; i++) {
+		
+				var data = childNodes[i].data;
+		
+				if (data[attrName] == attrValue) {
+		
+					var infoIdx = layer01Infos.indexOf(data);
+		
+					if (infoIdx == -1) {
+		
+						layer01Infos.push(data);
+					}
+				}
+		
+				var tmpChilds = childNodes[i].childNodes;
+		
+				if (tmpChilds != undefined && tmpChilds.length > 0) {
+		
+					return getLayer01Info(attrName, attrValue, tmpChilds, layer01Infos);
+				}
+			}
+		
+			return layer01Infos;
+	}
 });

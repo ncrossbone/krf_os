@@ -261,6 +261,14 @@ ReachInfoBinding = function (objs) {
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
+	
+	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
+		tabIdx: tabIdx,
+		title: title,
+		test: test,
+		parentId: parentId,
+		chartFlag: chartFlag
+	});
 
 	var yFieldName = "";
 	var chartId = ""; // 부모아이디
@@ -2533,6 +2541,7 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 
 	return layer01Infos;
 }
+
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
 
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},

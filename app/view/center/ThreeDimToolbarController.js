@@ -30,16 +30,26 @@ Ext.define('krf_new.view.center.ThreeDimToolbarController', {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'demMap' });
 	},
 	onClickAutoMoveMap: function (obj, el, evt) {
+		
 		var currCtl = SetBtnOnOff(el.id);
 		var threeDimCoordinateWindow = Ext.getCmp("threeDimCoordinateWindow");
-		if (!threeDimCoordinateWindow) {
-			var centerContainer = Ext.getCmp('threeDim_center_container');
-			var winX = centerContainer.getWidth() - 350;
-			var winY = 61;
-			threeDimCoordinateWindow = Ext.create('krf_new.view.east.ThreeDimCoordinateWindow', { x: winX, y: winY });
-			centerContainer.add(threeDimCoordinateWindow);
+		if(currCtl.btnOnOff == 'on'){
+			if (!threeDimCoordinateWindow) {
+				var centerContainer = Ext.getCmp('threeDim_center_container');
+				var winX = centerContainer.getWidth() - 335;
+				threeDimCoordinateWindow = Ext.create('krf_new.view.east.ThreeDimCoordinateWindow', { x: winX, y: $KRF_DEFINE.mapToolbarHeight  });
+				centerContainer.add(threeDimCoordinateWindow);
+			}
+			threeDimCoordinateWindow.show();
+			var btnMeasuredWindow = Ext.getCmp('btnMeasuredWindow');
+			if(btnMeasuredWindow.btnOnOff == 'on'){
+				Ext.getCmp('threeDimMeasured-win').setY( $KRF_DEFINE.mapToolbarHeight+400);
+			}
+		}else{
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
+			threeDimCoordinateWindow.hide();
 		}
-		threeDimCoordinateWindow.show();
+		
 	},
 	onClickSave: function () {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'save' });

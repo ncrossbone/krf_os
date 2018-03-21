@@ -12,28 +12,72 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 	},
 
 	items: [{
-		xtype: 'panel', region: 'north', header: false, layout: { type: 'hbox' }, items: [{
+		xtype: 'panel',
+		region: 'north',
+		header: false,
+		layout: { type: 'hbox' },
+		items: [{
 			xtype: 'panel',
-			title: '조건1',
+			title: '년도',
 			id: 'reportConditionPanel1',
-			items: [{ xtype: 'select-report-condition-view', id: 'reportCondition1', conditionType: 'date' }]
+			items: [{
+				xtype: 'select-report-condition-view',
+				id: 'reportCondition1',
+				conditionType: 'date',
+				width: 300
+			}]
 		}, {
 			xtype: 'panel',
-			title: '조건2',
-			id: 'reportConditionPanel2',
-			items: [{ xtype: 'select-report-condition-view', id: 'reportCondition2', conditionType: 'flagValue' }]
-		}, {
-			xtype: 'panel',
-			title: '조건3',
+			title: '상세범위',
 			id: 'reportConditionPanel3',
-			items: [{ xtype: 'select-report-condition-view', id: 'reportCondition3', conditionType: 'flagValue' }]
+			items: [{
+				xtype: 'select-report-condition-view',
+				id: 'reportCondition3',
+				conditionType: 'flagValue'
+			}]
 		}, {
 			xtype: 'panel',
-			title: '조건4',
+			title: '항목',
 			id: 'reportConditionPanel4',
-			items: [{ xtype: 'select-report-condition-view', id: 'reportCondition4', conditionType: 'flagValue' }]
+			items: [{
+				xtype: 'select-report-condition-view',
+				id: 'reportCondition4',
+				conditionType: 'flagValue'
+			}]
 		}]
 	}, {
+<<<<<<< HEAD
+		xtype: 'panel',
+		region: 'center',
+		title: '조건',
+		id: 'conditiondroppanel',
+		cls: 'conditiondroppanel',
+		layout: { type: 'absolute' },
+		tbar: [{
+			xtype: 'button',
+			text: '레포트',
+			listeners: {
+				click: function () {
+					var reportWin = Ext.getCmp('report-win');
+
+					var offsetX = reportWin.getX();
+					var offsetY = reportWin.getY();
+
+					var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+
+					var keyOffsetX = 0;
+					for (var key in conditionDropPanel.conditions) {
+
+						for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
+							var conditionWin = Ext.getCmp(key + (i + 1) + '');
+							conditionWin.animate({
+								duration: 700,
+								to: {
+									x: offsetX + keyOffsetX,
+									y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 40)
+								}
+							});
+=======
 		xtype: 'panel', region: 'center', title: '조건', id: 'conditiondroppanel', cls: 'conditiondroppanel', layout: { type: 'absolute' },
 
 		tbar: [
@@ -41,33 +85,35 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				xtype: 'button',
 				text: '레포트',
 				listeners: {
-					click:function(){
+					click: function () {
 						var reportWin = Ext.getCmp('report-win');
 
 						var offsetX = reportWin.getX();
 						var offsetY = reportWin.getY();
 
 						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
-						
-						var keyOffsetX = 0;
-						for(var key in conditionDropPanel.conditions){
 
-							for(var i=0; i<conditionDropPanel.conditions[key].length; i++){
-								var conditionWin = Ext.getCmp(key+(i+1)+'');
+						var keyOffsetX = 0;
+						for (var key in conditionDropPanel.conditions) {
+
+							for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
+								var conditionWin = Ext.getCmp(key + (i + 1) + '');
 								conditionWin.animate({
 									duration: 700,
-									 to: {
-										 x: offsetX+keyOffsetX,
-										 y: conditionDropPanel.conditionWindowOffsetTop+offsetY+((i+1)*40)
-									 }
-								 });
+									to: {
+										x: offsetX + keyOffsetX,
+										y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 40)
+									}
+								});
 							}
-							keyOffsetX = keyOffsetX+ 160;
+							keyOffsetX = keyOffsetX + 160;
+>>>>>>> 3649981cc07c31f3358079f638190f406004d630
 						}
+						keyOffsetX = keyOffsetX + 160;
 					}
 				}
 			}
-		],
+		}],
 		listeners: {
 			render: function (v) {
 				console.log('드랍', arguments);
@@ -126,17 +172,17 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							conditionDropPanel.conditions[dd.id] = [];
 						}
 						conditionDropPanel.conditions[dd.id].push(data.srcData);
-						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop+40;
+						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop + 40;
 
 						var windowIdx = conditionDropPanel.conditions[dd.id].length;
 
 						var reportWin = Ext.getCmp('report-win');
 
 						var targetX = e.clientX - reportWin.getX();
-						var targetY = e.clientY - (reportWin.getY() + target.offsetTop+50);
+						var targetY = e.clientY - (reportWin.getY() + target.offsetTop + 50);
 
 						var conditionWindow = Ext.create('Ext.window.Window', {
-							renderTo :'conditiondroppanel',
+							renderTo: 'conditiondroppanel',
 							title: data.srcData.name,
 							id: dd.id + windowIdx,
 							conditionId: dd.id,
@@ -152,14 +198,15 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							x: targetX,
 							y: targetY,
 							width: 150,
-							height: 35,
+							height: 35, 
 							listeners: {
 								render: function () {
 									this.collapse();
+
 								}, close: function (win) {
 									var conditionDropPanel = Ext.getCmp('conditiondroppanel');
-									if(conditionDropPanel.conditions[win.conditionId]){
-										conditionDropPanel.conditions[win.conditionId].splice(win.conditionIndex,1);
+									if (conditionDropPanel.conditions[win.conditionId]) {
+										conditionDropPanel.conditions[win.conditionId].splice(win.conditionIndex, 1);
 									}
 								}
 							}

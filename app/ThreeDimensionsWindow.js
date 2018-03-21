@@ -33,7 +33,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
     },
 
     receiveMessage: function (param) {
-        console.log(param);
+        
         var me = $KRF_APP.getDesktopModule('threeDim-win');
 
         if (param.data) {
@@ -56,7 +56,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         var threeDimIframe = $('#krf3diframe')[0];
         if (threeDimIframe && threeDimIframe.contentWindow) {
             try {
-                threeDimIframe.contentWindow.postMessage(message, 'http://192.168.0.231:8081');
+                threeDimIframe.contentWindow.postMessage(message, 'http://112.218.1.243:38081');
             } catch (e) {
                 console.log(e)
             }
@@ -79,7 +79,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         if (gabWidth < 0) {
             gabWidth = 0;
         }
-        var gabCon = Ext.getCmp('threeDimgabToolbarContainer');
+        var gabCon = Ext.getCmp('threeDimGapToolbarContainer');
         gabCon.setWidth(gabWidth + 40);
     },
     createWindow: function (config) {
@@ -103,22 +103,22 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
             layout: 'border',
             listeners: {
                 move: function (theWin, xP, yP, theOp) {
-                    me.setLegendLocation();
                     $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_SET_LEGEND_LOCATION);
                 },
                 resize: function (win, width, height) {
 
                     var mapC = Ext.getCmp('krf3diframe');
                     if (mapC) {
-                        mapC.setWidth(width - 80);
-                        mapC.setHeight(height - 37);
+                        mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+                        mapC.setHeight(height - $KRF_DEFINE.mapToolbarHeight)-20;
+                        mapC.setY($KRF_DEFINE.mapToolbarHeight+20);
                     }
                     mapC = Ext.getCmp('threedDim_cont_container');
-                    mapC.setWidth(width - 80);
-                    mapC.setHeight(height - 37);
+                    mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+                    mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
                     mapC = Ext.getCmp('threeDim_center_container');
-                    mapC.setWidth(width - 80);
-                    mapC.setHeight(height - 37);
+                    mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+                    mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
 
                     $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_SET_LEGEND_LOCATION);
 
@@ -143,9 +143,9 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                 },
                 show: function () {
                     if (me.once) {
-                        $('#krf3diframe').prop('src', 'http://192.168.0.231:8081/KRF3D.html');
+                        $('#krf3diframe').prop('src', 'http://112.218.1.243:38081/KRF3D.html');
                         var centerContainer = Ext.getCmp("threeDim_center_container");
-                        var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow', { y: 61 });
+                        var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow', { y: $KRF_DEFINE.mapToolbarHeight });
                         centerContainer.add(threeDimSearchWindow);
 
                         threeDimSearchWindow.show();

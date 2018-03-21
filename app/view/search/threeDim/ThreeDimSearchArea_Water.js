@@ -126,9 +126,6 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 				lnkCmbId: 'cmbThreeDimWater3',
 				cls: 'khLee-x-button-move'
 			}]
-		}, {
-			xtype: 'container',
-			height: 17
 		}/*, {
 			xtype: 'container',
 			layout: {

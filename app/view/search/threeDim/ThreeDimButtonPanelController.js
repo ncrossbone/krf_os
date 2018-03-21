@@ -24,21 +24,27 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimButtonPanelController', {
 	// 길따라가기
 	onClickMeasuredValue: function (obj, el, evt) {
 		var currCtl = SetBtnOnOff(el.id);
-		
+
 		var threeDimMeasuredWindow = Ext.getCmp("threeDimMeasured-win");
 
-		if(currCtl.btnOnOff == 'on'){
-			
+		if (currCtl.btnOnOff == 'on') {
 			if (!threeDimMeasuredWindow) {
+
 				var centerContainer = Ext.getCmp('threeDim_center_container');
-				var winX = centerContainer.getWidth() - 350;
-				var winY = 61;
+				var winX = centerContainer.getWidth() - 275;
+				var winY = $KRF_DEFINE.mapToolbarHeight;
+
+				var btnAutoMoveMap = Ext.getCmp('btnAutoMoveMap');
+
+				if (btnAutoMoveMap.btnOnOff == 'on') {
+					winY += 400;
+				}
 				threeDimMeasuredWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', { x: winX, y: winY });
 				centerContainer.add(threeDimMeasuredWindow);
 			}
 			threeDimMeasuredWindow.show();
-		}else{
-			if(threeDimMeasuredWindow){
+		} else {
+			if (threeDimMeasuredWindow) {
 				threeDimMeasuredWindow.hide();
 			}
 		}

@@ -148,9 +148,6 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 				id: 'btnWaterSelect',
 				cls: 'khLee-x-button-select'
 			}]
-		}, {
-			xtype: 'container',
-			height: 7
 		}]
 	}]
 });
