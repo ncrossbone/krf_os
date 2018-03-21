@@ -46,7 +46,6 @@
 	<style type="text/css">
 		/* 처음 로딩시 window 화면 못잡음 임의적으로 height 지정 */
 
-
 		#chromePop-innerCt .x-autocontainer-innerCt {
 			height: 335px !important;
 		}
@@ -774,6 +773,45 @@
 		.patient-selected {
 			background-color: #DFE8F6;
 			cursor: pointer;
+		}
+
+		.report,
+		.report>li {
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.report>li:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		.report {
+			padding: 10px;
+		}
+
+		.report li {
+			margin-bottom: 10px;
+		}
+
+		.report .tit {
+			background: url(./resources/images/rpt/report_blit.png) no-repeat right center;
+			padding-right: 15px;
+			margin-right: 10px;
+			font-weight: bold;
+			float: left;
+		}
+
+		.report .name {
+			color: #032d67 !important;
+			font-weight: bold !important;
+		}
+
+		.report .cont {
+			float: left;
+			width: 88%;
 		}
 	</style>
 </head>
