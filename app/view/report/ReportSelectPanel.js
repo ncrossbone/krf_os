@@ -33,7 +33,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				xtype: 'panel',
 				width: 155,
 				height: '100%',
-				style: 'padding:10px; background: #f3f4f8;',
+				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
 					width: 135,
@@ -76,7 +76,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				xtype: 'panel',
 				width: 155,
 				height: '100%',
-				style: 'padding:10px; background: #f3f4f8;',
+				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
 					width: 135,
@@ -90,15 +90,24 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 						el: {
 							mouseover: 'imgMouseOver',
 							mouseout: 'imgMouseOut',
-							click: 'imgOnClick'
+							click: 'reportOn'
 						}
 					}
 				}]
 			}, {
 				xtype: 'panel',
-				width: '100%',
+				width: '70%',
 				height: '100%',
-				html: '<div>tag</div>'
+				html: '<ul class="report">' +
+					'<li>' +
+					'<span class="tit">제목</span>' +
+					'<span class="name cont">전체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'</li>' +
+					'<li>' +
+					'<span class="tit">내용</span>' +
+					'<span class="cont">전체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'</li>' +
+					'</ul>'
 			}]
 		}, {
 			xtype: 'panel',
@@ -110,7 +119,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				xtype: 'panel',
 				width: 155,
 				height: '100%',
-				style: 'padding:10px; background: #f3f4f8;',
+				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
 					width: 135,
@@ -130,9 +139,18 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				}]
 			}, {
 				xtype: 'panel',
-				width: '100%',
+				width: '70%',
 				height: '100%',
-				html: '<div>tag</div>'
+				html: '<ul class="report">' +
+					'<li>' +
+					'<span class="tit">제목</span>' +
+					'<span class="name cont">전체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'</li>' +
+					'<li>' +
+					'<span class="tit">내용</span>' +
+					'<span class="cont">전체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'</li>' +
+					'</ul>'
 			}]
 		}]
 	}],
