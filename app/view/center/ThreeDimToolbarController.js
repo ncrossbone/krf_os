@@ -51,6 +51,28 @@ Ext.define('krf_new.view.center.ThreeDimToolbarController', {
 		}
 		
 	},
+	onClickTerrainCross: function (obj, el, evt) {
+		
+		var currCtl = SetBtnOnOff(el.id);
+		var threeDimTerrainCrossWindow = Ext.getCmp("threeDimTerrainCrossWindow");
+		if(currCtl.btnOnOff == 'on'){
+			if (!threeDimTerrainCrossWindow) {
+				var centerContainer = Ext.getCmp('threeDim_center_container');
+				var winX = centerContainer.getWidth() - 600;
+				threeDimTerrainCrossWindow = Ext.create('krf_new.view.east.ThreeDimTerrainCrossWindow', { x: winX, y: $KRF_DEFINE.mapToolbarHeight  });
+				centerContainer.add(threeDimTerrainCrossWindow);
+			}
+			threeDimTerrainCrossWindow.show();
+			var btnMeasuredWindow = Ext.getCmp('btnMeasuredWindow');
+			if(btnMeasuredWindow.btnOnOff == 'on'){
+				Ext.getCmp('threeDimMeasured-win').setY( $KRF_DEFINE.mapToolbarHeight+500);
+			}
+		}else{
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
+			threeDimTerrainCrossWindow.hide();
+		}
+	},
+	
 	onClickSave: function () {
 		$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'save' });
 	},

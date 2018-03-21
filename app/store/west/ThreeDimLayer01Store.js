@@ -17,5 +17,8 @@ Ext.define('krf_new.store.west.ThreeDimLayer01Store', {
 	},
 
 	listeners: {
+		load : function(){
+			console.log(arguments);
+		}
 	}
 });

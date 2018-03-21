@@ -340,11 +340,6 @@ Ext.define('Desktop.MapWindow', {
 				this.northLink(nodeObj);
 			}
 		}
-
-		
-
-		
-
 	},
 	northLink: function (node) {
 		if (node.data.siteIdCol != undefined) {

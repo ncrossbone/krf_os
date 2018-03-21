@@ -12,7 +12,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
     x: 0,
     y: 0,
     width: 275,
-	height: 300,
+    height: 300,
     animCollapse: false,
     collapsible: true,
     layout: 'fit',
@@ -98,8 +98,11 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                     click: function () {
                         var selectLayer = Ext.getCmp('threeDimMeasuredLayer');
                         var selectMeasure = Ext.getCmp('cmbThreeDimMeasured');
+                        debugger;
 
                         var selVal = selectMeasure.getValue();
+                        var selTitle = selectMeasure.getSelectedRecord().data.name;
+
                         var selLayer = selectLayer.getChecked();
 
                         if (!selLayer || selLayer.length <= 0) {
@@ -107,7 +110,6 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                             return;
                         }
                         var layer = selLayer[0].data;
-
 
                         var measuredDef = Ext.Ajax.request({
                             url: _API.searchMeasuredValue + '?type=' + layer.measureCode,
@@ -133,7 +135,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                                         return;
                                     }
 
-                                    var parameterTo3d = { layerType: layer.measureCode, features: [] };
+                                    var parameterTo3d = { layerType: layer.measureCode, valueField : selTitle, features: [] };
 
                                     var geoInfo = result[0][1];
                                     var valInfo = Ext.util.JSON.decode(result[1][1].responseText).data;
@@ -148,6 +150,16 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                                         }
                                     }
                                     $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'measured', value: parameterTo3d }));
+
+                                    var layerObj = Ext.getCmp("threeDimLayer01");
+
+                                    for (var i = 0; i < layerObj.store.data.items.length; i++) {
+
+                                        if (layerObj.store.data.items[i].data.wmsId == layer.wmsId) {
+                                            nodeObj = layerObj.store.data.items[i];
+                                            nodeObj.set('checked', false);
+                                        }
+                                    }
                                 } else {
                                     alert('조회중 오류가 발생했습니다.');
                                     return;
