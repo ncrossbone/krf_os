@@ -171,16 +171,40 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					//      We can use the data set up by the DragZone's getDragData method to read
 					//      any data we decided to attach.
 					onNodeDrop: function (target, dd, e, data) {
-						console.log('onNodeDrop', arguments);
-						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 
+						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 						if (!conditionDropPanel.conditions) {
 							conditionDropPanel.conditions = {};
 						}
+
 						if (!conditionDropPanel.conditions[dd.id]) {
 							conditionDropPanel.conditions[dd.id] = [];
+							conditionDropPanel.conditions[dd.id].push(data.srcData);
+						} else {
+							
+							if (dd.id == 'reportCondition1' || dd.id == 'reportCondition2') {
+								Ext.getCmp(conditionDropPanel.conditions[dd.id][0].id).close();
+								conditionDropPanel.conditions[dd.id][0] = data.srcData;
+							} else if (dd.id == 'reportCondition3' || dd.id == 'reportCondition4') {
+								var winObj = conditionDropPanel.conditions[dd.id];
+								var dataId = data.srcData.id;
+								if (dataId == 'cmb1' || dataId == 'scope1') {
+									if (winObj.length > 0) {
+										for (var i = 0; i < winObj.length; i++) {
+											Ext.getCmp(winObj[i].id).close();
+										}
+										winObj = [];
+									} else {
+										winObj.push(data.srcData);
+									}
+								} else {
+									winObj.push(data.srcData);
+								}
+
+							}
 						}
-						conditionDropPanel.conditions[dd.id].push(data.srcData);
+
+
 						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop + 40;
 
 						var windowIdx = conditionDropPanel.conditions[dd.id].length;
@@ -193,7 +217,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 						var conditionWindow = Ext.create('Ext.window.Window', {
 							renderTo: 'conditiondroppanel',
 							title: data.srcData.value,
-							id: dd.id + windowIdx,
+							id: data.srcData.id,
 							conditionId: dd.id,
 							conditionIndex: windowIdx,
 							animCollapse: false,
@@ -221,31 +245,10 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 								}
 							}
 						});
-						// conditionDropPanel.add(conditionWindow);
 
 						conditionWindow.show();
 
 						return true;
-
-						// var rowBody = Ext.fly(target).findParent('.x-grid-rowbody-tr', null, false),
-						// 	mainRow = rowBody.previousSibling,
-						// 	hospital = gridView.getRecord(mainRow),
-						// 	patients = hospital.get('patients'),
-						// 	name = data.patientData.name;
-
-						// if (allowPatient(hospital, name)) {
-						// 	if (!patients) {
-						// 		patients = [];
-						// 		hospital.set('patients', patients);
-						// 	}
-						// 	patients.push(name);
-						// 	Ext.fly(rowBody).down('.x-grid-rowbody').update(patients.join(', '));
-						// 	Ext.Msg.alert('Drop gesture', 'Dropped patient ' + name +
-						// 		' on hospital ' + hospital.get('name'));
-
-						// 	return true;
-						// }
-						// return false;
 					}
 				});
 			}
