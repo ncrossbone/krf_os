@@ -164,7 +164,7 @@
 		"layerCode": "C002"
 	}]
 },{
-	"id": "34",
+	"id": "35",
 	"text": "조류모니터링",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -510,7 +510,7 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "83",
+		"id": "53",
 		"wmsId":"",
 		"text": "HSPF모델경과지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
