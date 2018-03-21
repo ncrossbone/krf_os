@@ -698,10 +698,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					
 		    		/* 지도 이동을 염두에 두고 down일때 이벤트 지정 */
 		    		me.mapMdownObj = on(me.map, "mouse-down", function(evt){
-		    			
 		    			if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
-			    		}
-		    			else{ // 오른클릭이 아닐때만 이벤트 입력
+			    		}else{ // 오른클릭이 아닐때만 이벤트 입력
 		    				
 		    				me.mapClickEvt = evt;
 		    			}
@@ -709,7 +707,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 
 					me.mapClickObj = on(me.map, "mouse-up", function(evt){
-			    		
 			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
 			    			
 				    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
