@@ -6,8 +6,12 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 
 	control: {
 		'treepanel': {
-			checkchange: 'onCheckChanged'
+			checkchange: 'onCheckChanged',
+			render: 'onRender'
 		}
+	},
+	onRender: function () {
+		Ext.create('krf_new.store.west.ThreeDimLayer01Store', {autoLoad: false}).load();
 	},
 
 	onCheckChanged: function (node, checked, btnId) {
@@ -22,10 +26,6 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 			this.checkAllChildren(node, checked);
 		} else {
 			if (checked == false) {
-				// var parentNode = node.parentNode;
-				// if (parentNode != undefined) {
-				// 	parentNode.set('checked', false);
-				// }
 			}
 			var message = { type: 'layerOnOff', layers: [] };
 			message.layers.push({ layerNm: node.data.text, wmsId: node.data.wmsId, checked: checked });
@@ -62,8 +62,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 						btnCtl = SetBtnOnOff(me.node.data.layerBtnId[i]);
 					}
 				}
-			}
-			else if (typeof (me.node.data.layerBtnId) == "string") {
+			} else if (typeof (me.node.data.layerBtnId) == "string") {
 				// 버튼 On/Off
 				btnCtl = SetBtnOnOff(me.node.data.layerBtnId);
 			}

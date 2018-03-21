@@ -8,7 +8,7 @@
 	"children": [{
 		"id": "1",
 		"text": "하천수 <a onclick='metaDataView(\"A001\")'  style='padding-right: 40px; float:right' href='#''> <img width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' /> </a> ",
-		"wmsId":"93",
+		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
 		"leaf": true,
@@ -20,7 +20,7 @@
 		"layerCode": "A001"
 	}, {
 		"id": "2",
-		"wmsId":"92",
+		"wmsId":"poi_a002",
 		"text": "호소수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer2",
@@ -32,7 +32,7 @@
 		"layerCode": "A002"
 	}, {
 		"id": "3",
-		"wmsId":"91",
+		"wmsId":"poi_a003",
 		"text": "농업용수",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer3",
@@ -44,7 +44,7 @@
 		"layerCode": "A003"
 	}, {
 		"id": "4",
-		"wmssId":"90",
+		"wmsId":"poi_a004",
 		"text": "산단하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer4",
@@ -56,7 +56,7 @@
 		"layerCode": "A004"
 	}, {
 		"id": "5",
-		"wmsId":"89",
+		"wmsId":"poi_a005",
 		"text": "도시관류",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer5",
@@ -68,7 +68,7 @@
 		"layerCode": "A005"
 	}, {
 		"id": "6",
-		"wmsId":"88",
+		"wmsId":"poi_a006",
 		"text": "중권역대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer6",
@@ -80,7 +80,7 @@
 		"layerCode": "A006"
 	}, {
 		"id": "7",
-		"wmsId":"87",
+		"wmsId":"poi_a007",
 		"text": "보대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer7",
@@ -171,8 +171,8 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "35",
-		"wmsId":"59",
+		"id": "36",
+		"wmsId":"61",
 		"text": "보 모니터링",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer81",
@@ -183,8 +183,8 @@
         "siteAddrCol": "ADDRESS",
 		"layerCode": "I001"
 	},{
-		"id": "36",
-		"wmsId":"58",
+		"id": "37",
+		"wmsId":"60",
 		"text": "상수원구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer82",
@@ -195,8 +195,8 @@
 		"siteAddrCol": "주소",
 		"layerCode": "I002"
 	},{
-		"id": "37",
-		"wmsId":"57",
+		"id": "38",
+		"wmsId":"59",
 		"text": "친수활동구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer83",

@@ -27,6 +27,7 @@ Ext.create('Ext.data.Store', {
 		$KRF_DEFINE.mapToolbarHeight = 58;
 		$KRF_DEFINE.windowHeaderHeight = 36;
 		$KRF_DEFINE.westToolbarWidth = 80;
+		$KRF_DEFINE.threeDimServerURL = 'http://112.218.1.243:38081'
 	});
 });
 /*
@@ -104,7 +105,8 @@ var $KRF_EVENT = {
 	STOPEDITEVENT: 'stopEditEvent',
 	RESIZE_TOOL_ITEMS: 'resizeToolItems',
 	THREE_DIM_RESIZE_TOOL_ITEMS: 'threeDimResizeToolItems',
-	THREE_DIM_SET_LEGEND_LOCATION : 'threeDimSetLegendLocation'
+	THREE_DIM_SET_LEGEND_LOCATION : 'threeDimSetLegendLocation',
+	SET_TERRAINCROSS_CHART:'setTerrainCrossChart'
 }
 
 var $KRF_WINS = {

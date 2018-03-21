@@ -90,7 +90,6 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 								}
 							});
 						}
-						keyOffsetX = keyOffsetX + 160;
 					}
 				}
 			}

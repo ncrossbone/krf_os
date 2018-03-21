@@ -33,7 +33,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
     },
 
     receiveMessage: function (param) {
-        
+
         var me = $KRF_APP.getDesktopModule('threeDim-win');
 
         if (param.data) {
@@ -47,7 +47,9 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                 case 'addCoord':
                     $KRF_APP.fireEvent($KRF_EVENT.ADD_AUTO_MOVE_COORDINATE, param.data.coord);
                     break;
-
+                case 'tcross':
+                    $KRF_APP.fireEvent($KRF_EVENT.SET_TERRAINCROSS_CHART, param.data.value);
+                    break;
             }
         }
     },
@@ -56,7 +58,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         var threeDimIframe = $('#krf3diframe')[0];
         if (threeDimIframe && threeDimIframe.contentWindow) {
             try {
-                threeDimIframe.contentWindow.postMessage(message, 'http://112.218.1.243:38081');
+                threeDimIframe.contentWindow.postMessage(message, $KRF_DEFINE.threeDimServerURL);
             } catch (e) {
                 console.log(e)
             }
@@ -110,8 +112,8 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                     var mapC = Ext.getCmp('krf3diframe');
                     if (mapC) {
                         mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
-                        mapC.setHeight(height - $KRF_DEFINE.mapToolbarHeight)-20;
-                        mapC.setY($KRF_DEFINE.mapToolbarHeight+20);
+                        mapC.setHeight(height - $KRF_DEFINE.mapToolbarHeight-20);
+                        mapC.setY($KRF_DEFINE.mapToolbarHeight + 20);
                     }
                     mapC = Ext.getCmp('threedDim_cont_container');
                     mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
@@ -143,7 +145,7 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                 },
                 show: function () {
                     if (me.once) {
-                        $('#krf3diframe').prop('src', 'http://112.218.1.243:38081/KRF3D.html');
+                        $('#krf3diframe').prop('src', $KRF_DEFINE.threeDimServerURL+'/KRF3D.html');
                         var centerContainer = Ext.getCmp("threeDim_center_container");
                         var threeDimSearchWindow = Ext.create('krf_new.view.search.threeDim.ThreeDimSearchWindow', { y: $KRF_DEFINE.mapToolbarHeight });
                         centerContainer.add(threeDimSearchWindow);

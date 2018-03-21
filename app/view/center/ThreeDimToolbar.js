@@ -89,6 +89,18 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			btnOffImg: './resources/images/button/reach_menu23.png',
 			src: './resources/images/button/reach_menu23.png'
 		}, {
+			xtype: 'image',
+			id: 'btnTerrainCross',
+			title: '경사도',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: { el: { click: 'onClickTerrainCross' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu23_on.png',
+			btnOffImg: './resources/images/button/reach_menu23.png',
+			src: './resources/images/button/reach_menu23.png'
+		}, {
 			xtype: 'container',
 			id: 'threeDimGapToolbarContainer',
 			width: 10
