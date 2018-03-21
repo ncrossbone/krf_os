@@ -18,31 +18,43 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		layout: { type: 'hbox' },
 		items: [{
 			xtype: 'panel',
-			title: '년도',
+			title: '조사 년도',
 			id: 'reportConditionPanel1',
+			width: 200,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition1',
-				conditionType: 'date',
-				width: 300
+				conditionType: 'id'
 			}]
 		}, {
 			xtype: 'panel',
-			title: '상세범위',
+			title: '조사 년도',
+			id: 'reportConditionPanel2',
+			width: 200,
+			items: [{
+				xtype: 'select-report-condition-view',
+				id: 'reportCondition2',
+				conditionType: 'id'
+			}]
+		}, {
+			xtype: 'panel',
+			title: '상세 범위',
 			id: 'reportConditionPanel3',
+			width: 200,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition3',
-				conditionType: 'flagValue'
+				conditionType: 'id'
 			}]
 		}, {
 			xtype: 'panel',
-			title: '항목',
+			title: '항목 선택',
 			id: 'reportConditionPanel4',
+			width: 200,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition4',
-				conditionType: 'flagValue'
+				conditionType: 'id'
 			}]
 		}]
 	}, {
@@ -72,7 +84,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							conditionWin.animate({
 								duration: 700,
 								to: {
-									x: offsetX + keyOffsetX,
+									x: offsetX + keyOffsetX + 100,
 									y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 40)
 								}
 							});
@@ -80,11 +92,18 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					}
 				}
 			}
+		},{
+			xtype:'button',
+			text:'뒤로가기',
+			listeners:{
+				click: function(){
+					var reportMain = Ext.getCmp('reportMainContents');
+					reportMain.setActiveItem(0);
+				}
+			}
 		}],
 		listeners: {
 			render: function (v) {
-				console.log('드랍', arguments);
-
 				v.dropZone = Ext.create('Ext.dd.DropZone', v.el, {
 
 					//      If the mouse is over a target node, return that node. This is
@@ -150,7 +169,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 						var conditionWindow = Ext.create('Ext.window.Window', {
 							renderTo: 'conditiondroppanel',
-							title: data.srcData.name,
+							title: data.srcData.value,
 							id: dd.id + windowIdx,
 							conditionId: dd.id,
 							conditionIndex: windowIdx,
