@@ -41,33 +41,26 @@ Ext.define('krf_new.view.report.ReportConditionView', {
 			// 	data: patients
 			// });
 			// this.setStore(patientStore);
-			// v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
+			v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
 
-			// 	//      On receipt of a mousedown event, see if it is within a draggable element.
-			// 	//      Return a drag data object if so. The data object can contain arbitrary application
-			// 	//      data, but it should also contain a DOM element in the ddel property to provide
-			// 	//      a proxy to drag.
-			// 	getDragData: function (e) {
-			// 		console.log(arguments)
-			// 		var sourceEl = e.getTarget(v.itemSelector, 10), d;
-			// 		if (sourceEl) {
-			// 			d = sourceEl.cloneNode(true);
-			// 			d.id = Ext.id();
-			// 			return (v.dragData = {
-			// 				sourceEl: sourceEl,
-			// 				repairXY: Ext.fly(sourceEl).getXY(),
-			// 				ddel: d,
-			// 				srcData: v.getRecord(sourceEl).data
-			// 			});
-			// 		}
-			// 	},
+				getDragData: function (e) {
+					var sourceEl = e.getTarget(v.itemSelector, 10), d;
+					if (sourceEl) {
+						d = sourceEl.cloneNode(true);
+						d.id = Ext.id();
+						return (v.dragData = {
+							sourceEl: sourceEl,
+							repairXY: Ext.fly(sourceEl).getXY(),
+							ddel: d,
+							srcData: v.getRecord(sourceEl).data
+						});
+					}
+				},
 
-			// 	//      Provide coordinates for the proxy to slide back to on failed drag.
-			// 	//      This is the original XY coordinates of the draggable element.
-			// 	getRepairXY: function () {
-			// 		return this.dragData.repairXY;
-			// 	}
-			// });
+				getRepairXY: function () {
+					return this.dragData.repairXY;
+				}
+			});
 		}
 	}
 });

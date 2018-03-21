@@ -25,14 +25,13 @@ Ext.define('krf_new.view.report.ReportMain', {
 			type: 'card'
 		},
 		initReportCondition: function (reportType) {
-			var rptCfg = {
-				'rptCase1': { comboCfg: ['전체', '부착돌말류', '어류', '수변식생'] },
-				'rptCase2_1': { comboCfg: ['전체', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'] },
-				'rptCase2_2': { comboCfg: ['전체', '수질', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'] },
-				'rptCase3': { comboCfg: ['전체', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'] }
-			};
 
-			var rptCondition4 = Ext.getCmp('reportCondition4');
+			var rptCfg = {
+				'rptCase1': { comboCfg: ['전체', '부착돌말류', '어류', '수변식생'], hideCmb: ['reportConditionPanel2', 'reportConditionPanel3'] },
+				'rptCase2_1': { comboCfg: ['전체', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'], hideCmb: ['reportConditionPanel2'] },
+				'rptCase2_2': { comboCfg: ['전체', '수질', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'], hideCmb: [] },
+				'rptCase3': { comboCfg: ['전체', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'], hideCmb: ['reportConditionPanel2'] }
+			};
 
 			var comboCfg = rptCfg[reportType].comboCfg;
 
@@ -42,43 +41,57 @@ Ext.define('krf_new.view.report.ReportMain', {
 				comboArr.push({ id: 'cmb' + i, value: comboCfg[i] });
 			}
 
-			var patientStore = Ext.create('Ext.data.Store', {
-				model: Ext.create('Ext.data.Model', {
-					idProperty: 'id',
-					fields: ['value', 'id']
-				}),
-				data: comboArr
-			});
+			var paramObj = {};
 
-			rptCondition4.setStore(patientStore);
+			var startYearArr = [{ id: 'start1', value: '2016' }, { id: 'start2', value: '2017' }, { id: 'start3', value: '2018' }];
+			var endYearArr = [{ id: 'end1', value: '2016' }, { id: 'end2', value: '2017' }, { id: 'end3', value: '2018' }];
+			var scopeArr = [{ id: 'scope1', value: '전체' }, { id: 'scope2', value: '대권역' }, { id: 'scope3', value: '본류' }, { id: 'scope4', value: '지류' }, { id: 'scope5', value: '기타하천' }];
 
-			this.addDragEvent();
+			paramObj['reportCondition1'] = startYearArr;
+			paramObj['reportCondition2'] = endYearArr;
+			paramObj['reportCondition3'] = scopeArr;
+			paramObj['reportCondition4'] = comboArr;
+
+			this.setRptStore(paramObj);
+			this.hideCondition(rptCfg[reportType]);
+			this.closeDragWin();
 
 		},
-		addDragEvent: function () {
+		closeDragWin: function () {
+			var conditiondroppanel = Ext.getCmp('conditiondroppanel');
+			if (conditiondroppanel) {
+				var dragWin = conditiondroppanel.dragWin;
+				for (var i = 0; i < dragWin.length; i++) {
+					var win = Ext.getCmp(dragWin[i]);
+					if (win) {
+						win.close();
+					}
+				}
+			}
+		},
+		hideCondition: function (obj) {
+			var hideCon = obj.hideCmb;
+			for (var i = 0; i < hideCon.length; i++) {
+				Ext.getCmp(hideCon[i]).hide();
+			}
+		},
+		setRptStore: function (paramObj) {
 			var storeArr = ['reportCondition1', 'reportCondition2', 'reportCondition3', 'reportCondition4'];
 			for (var i = 0; i < storeArr.length; i++) {
-				var v = Ext.getCmp(storeArr[i]);
-				v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
 
-					getDragData: function (e) {
-						var sourceEl = e.getTarget(v.itemSelector, 10), d;
-						if (sourceEl) {
-							d = sourceEl.cloneNode(true);
-							d.id = Ext.id();
-							return (v.dragData = {
-								sourceEl: sourceEl,
-								repairXY: Ext.fly(sourceEl).getXY(),
-								ddel: d,
-								srcData: v.getRecord(sourceEl).data
-							});
-						}
-					},
+				Ext.getCmp('reportConditionPanel' + (i + 1)).show();
 
-					getRepairXY: function () {
-						return this.dragData.repairXY;
-					}
+				var rptStore = Ext.getCmp(storeArr[i]);
+
+				var patientStore = Ext.create('Ext.data.Store', {
+					model: Ext.create('Ext.data.Model', {
+						idProperty: 'id',
+						fields: ['value', 'id']
+					}),
+					data: paramObj[storeArr[i]]
 				});
+
+				rptStore.setStore(patientStore);
 			}
 		},
 		items: [{

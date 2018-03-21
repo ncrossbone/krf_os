@@ -64,6 +64,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		id: 'conditiondroppanel',
 		cls: 'conditiondroppanel',
 		layout: { type: 'absolute' },
+		dragWin: [],
 		tbar: [{
 			xtype: 'button',
 			text: '레포트',
@@ -93,13 +94,35 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					}
 				}
 			}
-		},{
-			xtype:'button',
-			text:'뒤로가기',
-			listeners:{
-				click: function(){
+		}, {
+			xtype: 'button',
+			text: '뒤로가기',
+			listeners: {
+				click: function () {
 					var reportMain = Ext.getCmp('reportMainContents');
 					reportMain.setActiveItem(0);
+				}
+			}
+		}, {
+			xtype: 'button',
+			text: '리포트 보기',
+			listeners: {
+				click: function () {
+					var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+					var rptMain = Ext.getCmp('reportMainContents');
+					var rptConfig = { 'rptCase1': '1', 'rptCase2_1': '2-1', 'rptCase2_2': '2-2', 'rptCase3': '3' };
+
+					if (conditionDropPanel) {
+						var conditions = conditionDropPanel.conditions;
+						if (conditions) {
+							if (rptConfig[rptMain.reportType] == '2-1') {
+								window.open('./ClipReport4/krfOsReport.jsp?type=' + rptConfig[rptMain.reportType] + '&year=2016', '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
+							} else {
+								alert('case : ' + rptConfig[rptMain.reportType] + '미생성 리포트');
+							}
+
+						}
+					}
 				}
 			}
 		}],
@@ -190,7 +213,8 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 								render: function () {
 									this.collapse();
 
-								}, close: function (win) {
+								},
+								close: function (win) {
 									var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 									if (conditionDropPanel.conditions[win.conditionId]) {
 										conditionDropPanel.conditions[win.conditionId].splice(win.conditionIndex, 1);
@@ -198,7 +222,6 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 								}
 							}
 						});
-
 						// conditionDropPanel.add(conditionWindow);
 
 						conditionWindow.show();
