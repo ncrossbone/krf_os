@@ -54,17 +54,19 @@ Ext.define('krf_new.view.report.ReportMain', {
 
 			this.setRptStore(paramObj);
 			this.hideCondition(rptCfg[reportType]);
-			this.closeDragWin();
-
 		},
 		closeDragWin: function () {
 			var conditiondroppanel = Ext.getCmp('conditiondroppanel');
 			if (conditiondroppanel) {
-				var dragWin = conditiondroppanel.dragWin;
-				for (var i = 0; i < dragWin.length; i++) {
-					var win = Ext.getCmp(dragWin[i]);
-					if (win) {
-						win.close();
+				var con = conditiondroppanel.conditions;
+
+				if (con) {
+					for (var key in con) {
+						for (var i = con[key].length - 1; i >= 0; i--) {
+							var conObj = con[key][i];
+							var conditionWin = Ext.getCmp(conObj.id);
+							conditionWin.close();
+						}
 					}
 				}
 			}

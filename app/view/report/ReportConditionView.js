@@ -19,28 +19,6 @@ Ext.define('krf_new.view.report.ReportConditionView', {
 	singleSelect: true,
 	listeners: {
 		render: function (v) {
-			// console.log(v);
-			// return;
-			// var patients = [];
-			// var storeObj = null;
-
-			// if (v.id == 'reportCondition1') {
-			// 	patients.push({ value: '2016', id: '2016' }, { value: '2017', id: '2017' }, { value: '2018', id: '2018' });
-			// } else if (v.id == 'reportCondition3') {
-			// 	patients.push({ value: '전체', id: 'key0' }, { value: '대권역', id: 'key1' }, { value: '본류', id: 'key2' }, { value: '지류', id: 'key3' }, { value: '기타하천', id: 'key4' });
-			// } else if (v.id == 'reportCondition4') {
-			// 	patients.push({ value: '전체', id: 'flag1' }, { value: '부착돌말', id: 'flag2' }, { value: '저서동물', id: 'flag3' }, { value: '어류', id: 'flag4' }, { value: '서식수변환경', id: 'flag5' }, { value: '수변식생', id: 'flag6' });
-			// }
-
-			// // 동적 스토어 
-			// var patientStore = Ext.create('Ext.data.Store', {
-			// 	model: Ext.create('Ext.data.Model', {
-			// 		idProperty: 'id',
-			// 		fields: ['value', 'id']
-			// 	}),
-			// 	data: patients
-			// });
-			// this.setStore(patientStore);
 			v.dragZone = Ext.create('Ext.dd.DragZone', v.getEl(), {
 
 				getDragData: function (e) {
