@@ -17,18 +17,21 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		header: false,
 		layout: { type: 'hbox' },
 		items: [{
+			/* 시작 년도 */
 			xtype: 'panel',
-			title: '조사 년도',
+			header: false,
 			id: 'reportConditionPanel1',
 			width: 200,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition1',
+				bodyStyle:'border:none;',
 				conditionType: 'id'
 			}]
 		}, {
+			/* 끝 년도 */
 			xtype: 'panel',
-			title: '조사 년도',
+			header: false,
 			id: 'reportConditionPanel2',
 			width: 200,
 			items: [{
@@ -37,8 +40,9 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				conditionType: 'id'
 			}]
 		}, {
+			/* 상세 범위 */
 			xtype: 'panel',
-			title: '상세 범위',
+			header: false,
 			id: 'reportConditionPanel3',
 			width: 200,
 			items: [{
@@ -47,8 +51,9 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				conditionType: 'id'
 			}]
 		}, {
+			/* 항목 선택 */
 			xtype: 'panel',
-			title: '항목 선택',
+			header: false,
 			id: 'reportConditionPanel4',
 			width: 200,
 			items: [{
