@@ -5,11 +5,38 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 OOFDocument oof = OOFDocument.newOOF();
-String type = request.getParameter("type");
-if("2-1".equals(type)){
-    String year = request.getParameter("year");
-    oof.addField("INVEST_YEAR",year);
-    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/" + type + "/largeArea.crf");
+    
+    String type = request.getParameter("type");
+
+    String startYear = request.getParameter("startYear");
+    String endYear = request.getParameter("endYear");
+
+    String area1 = request.getParameter("area1");
+    String area2 = request.getParameter("area2");
+    String area3 = request.getParameter("area3");
+    String area4 = request.getParameter("area4");
+
+    String item1 = request.getParameter("item1");
+    String item2 = request.getParameter("item2");
+    String item3 = request.getParameter("item3");
+    String item4 = request.getParameter("item4");
+    String item5 = request.getParameter("item5");
+    String item6 = request.getParameter("item6");
+
+if("rptCase2_1".equals(type)){
+    
+    oof.addField("YEAR",startYear);
+    oof.addField("AREA1",area1);
+    oof.addField("AREA2",area2);
+    oof.addField("AREA3",area3);
+    oof.addField("AREA4",area4);
+    oof.addField("ITEM1",item1);
+    oof.addField("ITEM2",item2);
+    oof.addField("ITEM3",item3);
+    oof.addField("ITEM4",item4);
+    oof.addField("ITEM5",item5);
+
+    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-1/2-1all.crf");
 }else{
     return;
 }

@@ -10,7 +10,7 @@ Ext.define('krf_new.view.report.ReportConditionView', {
 	cls: 'patient-view',
 	tpl: '<tpl for=".">' +
 		'<div class="patient-source x-unselectable"><table><tbody>' +
-		'<tr><td class="patient-name">{value}</td></tr>' +
+		'<tr><td class="patient-name"><img draggable="false" src="./resources/images/rpt/{id}.png"/></td></tr>' +
 		'</tbody></table></div>' +
 		'</tpl>',
 	itemSelector: 'div.patient-source',

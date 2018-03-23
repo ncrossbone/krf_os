@@ -15,47 +15,70 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		xtype: 'panel',
 		region: 'north',
 		header: false,
+		bodyStyle: 'background: #f3f4f8',
 		layout: { type: 'hbox' },
 		items: [{
 			/* 시작 년도 */
 			xtype: 'panel',
-			header: false,
+			bodyStyle: 'background: #f3f4f8',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">조사년도</b>',
 			id: 'reportConditionPanel1',
-			width: 200,
+			width: 160,
+			height: 400,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition1',
-				bodyStyle:'border:none;',
+				bodyStyle: 'border:none;',
 				conditionType: 'id'
 			}]
 		}, {
 			/* 끝 년도 */
 			xtype: 'panel',
-			header: false,
+			bodyStyle: 'background: #f3f4f8',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">완료년도</b>',
 			id: 'reportConditionPanel2',
-			width: 200,
+			width: 160,
+			height: 400,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition2',
 				conditionType: 'id'
 			}]
 		}, {
-			/* 상세 범위 */
 			xtype: 'panel',
-			header: false,
+			bodyStyle: 'background: #f3f4f8',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">상세 범위</b>',
 			id: 'reportConditionPanel3',
-			width: 200,
+			width: 160,
+			height: 400,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition3',
 				conditionType: 'id'
 			}]
 		}, {
-			/* 항목 선택 */
 			xtype: 'panel',
-			header: false,
+			bodyStyle: 'background: #f3f4f8',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">항목 선택</b>',
 			id: 'reportConditionPanel4',
-			width: 200,
+			width: 160,
+			height: 400,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition4',
@@ -65,7 +88,11 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 	}, {
 		xtype: 'panel',
 		region: 'center',
-		title: '조건',
+		title: '<b style="color:#000000">조건</b>',
+		header: {
+			style: 'background:#c8dffe;'
+		},
+		bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
 		id: 'conditiondroppanel',
 		cls: 'conditiondroppanel',
 		layout: { type: 'absolute' },
@@ -76,9 +103,11 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 			if (con) {
 				for (var key in con) {
 					con[key].sort(function (a, b) {
-						return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
+						return a.idx < b.idx ? -1 : a.idx > b.idx ? 1 : 0;
 					});
 				}
+
+				console.log(con[key]);
 				var preObj = con;
 				var sortObj = Object.keys(con).sort();
 				this.conditions = {};
@@ -88,73 +117,257 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 			}
 		},
-		tbar: [{
-			xtype: 'button',
-			text: '정렬',
+		items: [{
+			/* 정렬 */
+			xtype: 'image',
+			src: './resources/images/rpt/btn_range.gif',
+			x: 10,
+			y: 10,
+			style: 'cursor: pointer;',
 			listeners: {
-				click: function () {
-					var reportWin = Ext.getCmp('report-win');
+				el: {
+					click: function () {
+						var reportWin = Ext.getCmp('report-win');
 
-					var offsetX = reportWin.getX();
-					var offsetY = reportWin.getY();
+						var offsetX = reportWin.getX();
+						var offsetY = reportWin.getY();
 
-					var keyOffsetX = 0;
+						var keyOffsetX = 0;
 
-					var conditionDropPanel = Ext.getCmp('conditiondroppanel');
-					conditionDropPanel.setSortObj();
-					for (var key in conditionDropPanel.conditions) {
-						if (conditionDropPanel.conditions[key].length > 0) {
-							keyOffsetX += 160;
-						}
-
-						for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
-							var conObj = conditionDropPanel.conditions[key][i];
-
-							var conditionWin = Ext.getCmp(conObj.id);
-							conditionWin.animate({
-								duration: 700,
-								to: {
-									x: offsetX + keyOffsetX,
-									y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 40)
-								}
-							});
-						}
-					}
-				}
-			}
-		}, {
-			xtype: 'button',
-			text: '뒤로가기',
-			listeners: {
-				click: function () {
-					var reportMain = Ext.getCmp('reportMainContents');
-					reportMain.setActiveItem(0);
-					reportMain.closeDragWin();
-				}
-			}
-		}, {
-			xtype: 'button',
-			text: '리포트 보기',
-			listeners: {
-				click: function () {
-					var conditionDropPanel = Ext.getCmp('conditiondroppanel');
-					var rptMain = Ext.getCmp('reportMainContents');
-					var rptConfig = { 'rptCase1': '1', 'rptCase2_1': '2-1', 'rptCase2_2': '2-2', 'rptCase3': '3' };
-
-					if (conditionDropPanel) {
-						var conditions = conditionDropPanel.conditions;
-						if (conditions) {
-							if (rptConfig[rptMain.reportType] == '2-1') {
-								window.open('./ClipReport4/krfOsReport.jsp?type=' + rptConfig[rptMain.reportType] + '&year=2016', '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
-							} else {
-								alert('case : ' + rptConfig[rptMain.reportType] + '미생성 리포트');
+						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+						conditionDropPanel.setSortObj();
+						for (var key in conditionDropPanel.conditions) {
+							if (conditionDropPanel.conditions[key].length > 0) {
+								keyOffsetX += 160;
 							}
 
+							for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
+								var conObj = conditionDropPanel.conditions[key][i];
+
+								var conditionWin = Ext.getCmp(conObj.id);
+								conditionWin.animate({
+									duration: 700,
+									to: {
+										x: offsetX + keyOffsetX,
+										y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 60)
+									}
+								});
+							}
 						}
 					}
 				}
 			}
+
+		}, {
+			/* 뒤로가기 */
+			xtype: 'image',
+			src: './resources/images/rpt/btn_back.gif',
+			x: 68,
+			y: 10,
+			style: 'cursor: pointer;',
+			listeners: {
+				el: {
+					click: function () {
+						var reportMain = Ext.getCmp('reportMainContents');
+						reportMain.setActiveItem(0);
+						reportMain.closeDragWin();
+					}
+				}
+			}
+
+		}, {
+			/* 리포트 보기 */
+			xtype: 'image',
+			src: './resources/images/rpt/btn_rpview.gif',
+			x: 138,
+			y: 10,
+			style: 'cursor: pointer;',
+			setParam: function (param) {
+				var conditiondroppanel = Ext.getCmp('conditiondroppanel');
+				conditiondroppanel.setSortObj();
+
+				var areaStr = 'area';
+				var itemStr = 'item';
+				var startYear = 'startYear=';
+				var endYear = 'endYear=';
+
+				var paramStr = '&';
+
+				for (var j = 1; j < 5; j++) {
+					paramStr += areaStr + j + '=hide&';
+				}
+
+				for (var k = 1; k < 7; k++) {
+					paramStr += itemStr + k + '=hide&';
+				}
+
+				for (var key in param) {
+					var conObj = param[key];
+					if (conObj.length > 0) {
+						if (key == 'reportCondition1') {
+							startYear += conObj[0].value + '&';
+						} else if (key == 'reportCondition2') {
+							endYear += conObj[0].value + '&';
+						} else {
+							for (var i = 0; i < conObj.length; i++) {
+								if (key == 'reportCondition3') {
+									paramStr = paramStr.replace(areaStr + conObj[i].idx + '=hide', areaStr + conObj[i].idx + '=show');
+								} else if (key == 'reportCondition4') {
+									paramStr = paramStr.replace(itemStr + conObj[i].idx + '=hide', itemStr + conObj[i].idx + '=show');
+								}
+							}
+						}
+					}
+				}
+				return paramStr + startYear + endYear;
+			},
+			listeners: {
+				el: {
+					click: function () {
+						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+						var rptMain = Ext.getCmp('reportMainContents');
+
+						if (conditionDropPanel) {
+							var conditions = conditionDropPanel.conditions;
+							if (conditions) {
+
+								// 값 없을 시 처리
+								for (var key in conditions) {
+									if (rptMain.reportType == 'rptCase2_2') {
+									}
+								}
+
+								if (rptMain.reportType == 'rptCase2_1') {
+									var param = Ext.getCmp(this.id).setParam(conditions);
+									window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
+								} else {
+									alert('미생성 리포트');
+								}
+
+							} else {
+								alert('선택된 값이 없습니다.');
+							}
+						}
+					}
+				}
+			}
+
 		}],
+		// tbar: [{
+		// 	xtype: 'button',
+		// 	text: '정렬',
+		// 	listeners: {
+		// 		click: function () {
+		// 			var reportWin = Ext.getCmp('report-win');
+
+		// 			var offsetX = reportWin.getX();
+		// 			var offsetY = reportWin.getY();
+
+		// 			var keyOffsetX = 0;
+
+		// 			var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+		// 			conditionDropPanel.setSortObj();
+		// 			for (var key in conditionDropPanel.conditions) {
+		// 				if (conditionDropPanel.conditions[key].length > 0) {
+		// 					keyOffsetX += 160;
+		// 				}
+
+		// 				for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
+		// 					var conObj = conditionDropPanel.conditions[key][i];
+
+		// 					var conditionWin = Ext.getCmp(conObj.id);
+		// 					conditionWin.animate({
+		// 						duration: 700,
+		// 						to: {
+		// 							x: offsetX + keyOffsetX,
+		// 							y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 60)
+		// 						}
+		// 					});
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }, {
+		// 	xtype: 'button',
+		// 	text: '뒤로가기',
+		// 	listeners: {
+		// 		click: function () {
+		// 			var reportMain = Ext.getCmp('reportMainContents');
+		// 			reportMain.setActiveItem(0);
+		// 			reportMain.closeDragWin();
+		// 		}
+		// 	}
+		// }, {
+		// 	xtype: 'button',
+		// 	text: '리포트 보기',
+		// 	setParam: function (param) {
+		// 		var conditiondroppanel = Ext.getCmp('conditiondroppanel');
+		// 		conditiondroppanel.setSortObj();
+
+		// 		var areaStr = 'area';
+		// 		var itemStr = 'item';
+		// 		var startYear = 'startYear=';
+		// 		var endYear = 'endYear=';
+
+		// 		var paramStr = '&';
+
+		// 		for (var j = 1; j < 5; j++) {
+		// 			paramStr += areaStr + j + '=hide&';
+		// 		}
+
+		// 		for (var k = 1; k < 7; k++) {
+		// 			paramStr += itemStr + k + '=hide&';
+		// 		}
+
+		// 		for (var key in param) {
+		// 			var conObj = param[key];
+		// 			if (conObj.length > 0) {
+		// 				if (key == 'reportCondition1') {
+		// 					startYear += conObj[0].value + '&';
+		// 				} else if (key == 'reportCondition2') {
+		// 					endYear += conObj[0].value + '&';
+		// 				} else {
+		// 					for (var i = 0; i < conObj.length; i++) {
+		// 						if (key == 'reportCondition3') {
+		// 							paramStr = paramStr.replace(areaStr + conObj[i].idx + '=hide', areaStr + conObj[i].idx + '=show');
+		// 						} else if (key == 'reportCondition4') {
+		// 							paramStr = paramStr.replace(itemStr + conObj[i].idx + '=hide', itemStr + conObj[i].idx + '=show');
+		// 						}
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 		return paramStr + startYear + endYear;
+		// 	},
+		// 	listeners: {
+		// 		click: function () {
+		// 			var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+		// 			var rptMain = Ext.getCmp('reportMainContents');
+
+		// 			if (conditionDropPanel) {
+		// 				var conditions = conditionDropPanel.conditions;
+		// 				if (conditions) {
+
+		// 					// 값 없을 시 처리
+		// 					for (var key in conditions) {
+		// 						if (rptMain.reportType == 'rptCase2_2') {
+		// 						}
+		// 					}
+
+		// 					if (rptMain.reportType == 'rptCase2_1') {
+		// 						var param = this.setParam(conditions);
+		// 						window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
+		// 					} else {
+		// 						alert('미생성 리포트');
+		// 					}
+
+		// 				} else {
+		// 					alert('선택된 값이 없습니다.');
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// }],
 		listeners: {
 			render: function (v) {
 				v.dropZone = Ext.create('Ext.dd.DropZone', v.el, {
@@ -242,7 +455,12 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 						var conditionWindow = Ext.create('Ext.window.Window', {
 							renderTo: 'conditiondroppanel',
-							title: data.srcData.value,
+							header: {
+								style: 'border: none;',
+								height: 50,
+								html: ''
+							},
+							border: false,
 							id: data.srcData.id,
 							conditionId: dd.id,
 							animCollapse: false,
@@ -252,15 +470,21 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							resizable: false,
 							constrain: true,
 							constrainHeader: false,
-							closable: true,
+							shadow: false,
+							closable: false,
 							x: targetX,
 							y: targetY,
 							width: 150,
-							height: 35,
+							style: 'border:none !important; background-color: transparent;',
 							listeners: {
 								render: function () {
 									this.collapse();
-
+								},
+								afterRender: function () {
+									var urlStr = 'url(./resources/images/rpt/' + this.id + 'drop.png) no-repeat';
+									this.header.setStyle('background', urlStr);
+									this.header.setStyle('background-color', 'transparent');
+									this.header.setHtml('<div style="position: absolute; top: 7px; right: -4px; width: 25px; height: 24px; cursor: pointer;" onclick=Ext.getCmp("' + this.id + '").close();><div>');
 								},
 								close: function (win) {
 									var conditionDropPanel = Ext.getCmp('conditiondroppanel');

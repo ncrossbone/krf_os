@@ -31,7 +31,7 @@ Ext.define('Desktop.ReportWindow', {
             },
             iconCls: 'krf-os-win-title-report-icon',
             width: 740,
-            height: 480,
+            height: 700,
             minWidth:740,
             animCollapse: false,
             constrainHeader: true,

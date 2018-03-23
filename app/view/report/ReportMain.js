@@ -25,12 +25,22 @@ Ext.define('krf_new.view.report.ReportMain', {
 			type: 'card'
 		},
 		initReportCondition: function (reportType) {
+			/*
+				부착돌말류 : tdi
+				어류 : fai
+				수변식생 : rvi
+				저서동물 : bmi 
+				서식수변환경 : hri
+				수질 : wq
 
+				comboCfg배열 순서 = 리포트 표출 순서
+			*/
+			
 			var rptCfg = {
-				'rptCase1': { comboCfg: ['부착돌말류', '어류', '수변식생'], hideCmb: ['reportConditionPanel2', 'reportConditionPanel3'] },
-				'rptCase2_1': { comboCfg: ['부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'], hideCmb: ['reportConditionPanel2'] },
-				'rptCase2_2': { comboCfg: ['수질', '부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'], hideCmb: [] },
-				'rptCase3': { comboCfg: ['부착돌말류', '저서동물', '어류', '서식수변환경', '수변식생'], hideCmb: ['reportConditionPanel2'] }
+				'rptCase1': { comboCfg: ['tdi', 'fai', 'rvi'], hideCmb: ['reportConditionPanel2', 'reportConditionPanel3'] },
+				'rptCase2_1': { comboCfg: ['tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: ['reportConditionPanel2'] },
+				'rptCase2_2': { comboCfg: ['wq', 'tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: [] },
+				'rptCase3': { comboCfg: ['tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: ['reportConditionPanel2'] }
 			};
 
 			var comboCfg = rptCfg[reportType].comboCfg;
@@ -38,14 +48,14 @@ Ext.define('krf_new.view.report.ReportMain', {
 			var comboArr = [];
 
 			for (var i = 0; i < comboCfg.length; i++) {
-				comboArr.push({ id: 'cmb' + (i + 1), value: comboCfg[i] });
+				comboArr.push({ id: comboCfg[i], value: comboCfg[i], idx: (i + 1) });
 			}
 
 			var paramObj = {};
 
-			var startYearArr = [{ id: 'start1', value: '2016' }, { id: 'start2', value: '2017' }, { id: 'start3', value: '2018' }];
-			var endYearArr = [{ id: 'end1', value: '2016' }, { id: 'end2', value: '2017' }, { id: 'end3', value: '2018' }];
-			var scopeArr = [{ id: 'scope1', value: '대권역' }, { id: 'scope2', value: '본류' }, { id: 'scope3', value: '지류' }, { id: 'scope4', value: '기타하천' }];
+			var startYearArr = [{ id: '2013', value: '2013', idx: 1 }, { id: '2014', value: '2014', idx: 2 }, { id: '2015', value: '2015', idx: 3 }, { id: '2016', value: '2016', idx: 4 }, { id: '2017', value: '2017', idx: 5 }];
+			var endYearArr = [{ id: '2013e', value: '2013', idx: 1 }, { id: '2014e', value: '2014', idx: 2 }, { id: '2015e', value: '2015', idx: 3 }, { id: '2016e', value: '2016', idx: 4 }, { id: '2017e', value: '2017', idx: 5 }];
+			var scopeArr = [{ id: 'scope1', value: '대권역', idx: 1 }, { id: 'scope2', value: '본류', idx: 2 }, { id: 'scope3', value: '지류', idx: 3 }, { id: 'scope4', value: '기타하천', idx: 4 }];
 
 			paramObj['reportCondition1'] = startYearArr;
 			paramObj['reportCondition2'] = endYearArr;
@@ -88,7 +98,7 @@ Ext.define('krf_new.view.report.ReportMain', {
 				var patientStore = Ext.create('Ext.data.Store', {
 					model: Ext.create('Ext.data.Model', {
 						idProperty: 'id',
-						fields: ['value', 'id']
+						fields: ['value', 'id', 'idx']
 					}),
 					data: paramObj[storeArr[i]]
 				});
