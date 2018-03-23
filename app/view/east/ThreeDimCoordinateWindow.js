@@ -72,9 +72,9 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			height: 33,
 			width: 73,
 			listeners: { el: { click: 'onClickGrab' } },
-			btnOnImg: './resources/images/button/b1_on.png',
-			btnOffImg: './resources/images/button/b1_off.png',
-			src: './resources/images/button/b1_on.png'
+			btnOnImg: './resources/images/button/k1_on.png',
+			btnOffImg: './resources/images/button/k1_off.png',
+			src: './resources/images/button/k1_on.png'
 		}, {
 			/* 점찍기 */
 			xtype: 'image',
@@ -85,9 +85,9 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			height: 33,
 			width: 73,
 			listeners: { el: { click: 'onClickInput' } },
-			btnOnImg: './resources/images/button/b2_on.png',
-			btnOffImg: './resources/images/button/b2_off.png',
-			src: './resources/images/button/b2_off.png'
+			btnOnImg: './resources/images/button/k2_on.png',
+			btnOffImg: './resources/images/button/k2_off.png',
+			src: './resources/images/button/k2_off.png'
 		}, {
 			xtype: 'container',
 			id: 'threeDimCoordToolbarGapContainer',
