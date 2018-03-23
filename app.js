@@ -254,20 +254,19 @@ Ext.application({
 		this.showWindow($KRF_WINS.KRF.MAP.id, this.getWindowBoundary(0, 0), coord);
 	},
 	showReportMode: function () {
-		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(0, 0));
+		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(900, 620));
 	},
 	showAdminMode: function () {
-		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(0, 0));
+		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(560, 540));
 	},
 	showStatusMode: function () {
-		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0, 0));
+		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(900, 620));
 	},
 	showThreeDimMode: function (centerCoord) {
 		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10) {
 			alert('3D 지도는 Internet Explorer 11 과 Chrome 에서 사용가능합니다.');
 			return;
 		}
-		centerCoord
 		var boundary = this.getWindowBoundary(0, 0);
 		boundary.coord = centerCoord;
 
@@ -303,11 +302,22 @@ Ext.application({
 				this.showKRFMode();
 		}
 	},
-	getWindowBoundary: function (offsetX, offsetY) {
+	getWindowBoundary: function (width, height) {
 		var dp = $('.ux-wallpaper');
-
 		var dpWidth = dp.width();
 		var dpHeight = dp.height();
+
+		var offsetX = 0;
+		var offsetY = 0;
+
+		if(width && width > 0){
+			offsetX = (dpWidth/2)-(width/2);
+			dpWidth = width;
+		}
+		if(height && height > 0){
+			offsetY = (dpHeight/2)-(height/2);
+			dpHeight = height;
+		}
 
 		return { x: offsetX, y: offsetY, width: dpWidth, height: dpHeight};
 	},
