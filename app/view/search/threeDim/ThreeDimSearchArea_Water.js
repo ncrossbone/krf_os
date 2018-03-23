@@ -34,7 +34,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 			},
 			items: [{
 				id: 'cmbThreeDimWater1',
-				layerId: '62',
+				layerId: $KRF_DEFINE.areaWSLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbThreeDimWater2',
 				lnkBtnId: 'btnThreeDimWater1',
@@ -68,7 +68,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 			},
 			items: [{
 				id: 'cmbThreeDimWater2',
-				layerId: '63',
+				layerId: $KRF_DEFINE.areaAMLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbThreeDimWater3',
 				lnkBtnId: 'btnThreeDimWater2',
@@ -102,7 +102,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Water', {
 			},
 			items: [{
 				id: 'cmbThreeDimWater3',
-				layerId: '64',
+				layerId: $KRF_DEFINE.areaASLayerId,
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnThreeDimWater3',

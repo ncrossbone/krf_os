@@ -13,12 +13,12 @@ Ext.define('krf_new.Desktop.App', {
     requires: [
         'Ext.window.MessageBox',
         'Ext.ux.desktop.ShortcutModel',
-        'Desktop.StatusBoardWindow',
         'Desktop.MapWindow',
+        'Desktop.StatusBoardWindow',
+        'Desktop.ReportWindow',
+        'Desktop.ThreeDimensionsWindow',
         'Desktop.AdminConfigWindow',
         'Desktop.LoginWindow',
-        'Desktop.ThreeDimensionsWindow',
-        'Desktop.ReportWindow',
         'Desktop.BrowserNoticeWindow'
 
         //        'Desktop.SiteListWindow',
@@ -59,9 +59,7 @@ Ext.define('krf_new.Desktop.App', {
         return Ext.apply(ret, {
             //            cls: 'ux-desktop-black',
 
-            contextMenuItems: [
-                // { text: 'Change Settings', handler: me.onSettings, scope: me }
-            ],
+            contextMenuItems: [],
 
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
@@ -95,6 +93,12 @@ Ext.define('krf_new.Desktop.App', {
         });
     },
 
+    createWindow: function (module) {
+        if (module) {
+            $KRF_APP.fireEvent($KRF_EVENT.CREATE_WINDOW, module);
+        }
+    },
+
     getTaskbarConfig: function () {
         var ret = this.callParent();
 
@@ -124,12 +128,5 @@ Ext.define('krf_new.Desktop.App', {
                 }
             ]
         });
-    },
-
-    onSettings: function () {
-        var dlg = new Desktop.Settings({
-            desktop: this.desktop
-        });
-        dlg.show();
     }
 });

@@ -25,75 +25,58 @@ Ext.define('Desktop.AdminConfigWindow', {
 		var win = desktop.getWindow('admin-win');
 		var cfg = Ext.applyIf(config || {}, {
 			id: 'admin-win',
-			//			            title:'현황판',
+			header: {
+				cls: 'krf-os-parentwin-header'
+			},
 			width: 740,
 			height: 480,
-			//			            iconCls: 'icon-grid',
+			iconCls: 'krf-os-win-title-admin-icon',
+			shadow: false,
 			animCollapse: false,
-			constrainHeader: true,
-			layout: 'fit',
-			header: {
-				titlePosition: 2,
-				cls: 'krf-os-parentwin-header',
-				items: [{
-					xtype: 'image',
-					//title: '차트정보',
-					id: 'tabChart',
-					src: './resources/images/tab/tap_01_ov.gif',
-					onImg: './resources/images/tab/tap_01_ov.gif',
-					offImg: './resources/images/tab/tap_01_off.gif',
-					style: 'cursor:pointer; border:0px !important;',
-					width: 95,
-					height: 28,
-					listeners: {
-						el: {
-							click: function (obj, el, evt) {
-								ChangeTabIndex(0);
-							}
-						}
-					}
-				}, {
-					xtype: 'image',
-					id: 'tabSite',
-					//title: '지점정보',
-					src: './resources/images/tab/tap_02_off.gif',
-					onImg: './resources/images/tab/tap_02_ov.gif',
-					offImg: './resources/images/tab/tap_02_off.gif',
-					style: 'cursor:pointer; border:0px !important;',
-					width: 95,
-					height: 28,
-					listeners: {
-						el: {
-							click: function (obj, el, evt) {
-								ChangeTabIndex(1);
-							}
-						}
-					}
-				}]
-			},
+			layout: 'border',
+			constrain: true,
+			constrainHeader: false,
 			items: [{
-				xtype: 'container',
-				id: 'infoContents',
-				layout: {
-					type: 'card'
+				xtype: 'tabpanel', region: 'center',
+				header: false,
+				id: 'adminConfigTabPanel',
+				tabBar: {
+					style: 'background:#fff;'
 				},
+
+				style: 'background-color: #157fcb;',
+				cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 				items: [{
-					xtype: 'component',
-					itemId: 'gis-iframe',
-					autoScroll: true,
-					autoEl: {
-						tag: 'iframe',
-						style: 'height: 100%; width: 100%;',
-						src: 'http://112.217.167.123:40002/arcgis/'
+					id: 'layerConfigTab',
+					title: '주제도',
+					items: [{
+						xtype: 'panel', layout: { type: 'fit' }, width: 600, height: 385, items: [Ext.create('Ext.Img', {
+							src: './resources/images/ready.gif',
+							width: 600,
+							height: 385
+						})]
+					}],
+					tabConfig: {
+						listeners: {
+							click: function () {
+							}
+						}
 					}
 				}, {
-					xtype: 'component',
-					itemId: 'system-iframe',
-					autoScroll: true,
-					autoEl: {
-						tag: 'iframe',
-						style: 'height: 100%; width: 100%;',
-						src: 'http://112.217.167.123:40002/arcgis/'
+					id: 'arcgisTab',
+					title: 'GIS 서버',
+					tabConfig: {
+						listeners: {
+							click: function () {
+
+								window.open('http://112.217.167.123:40002/arcgis/manager/', '_blank', 'width=1000,height=640');
+
+								Ext.defer(function () {
+									var adminConfigTabPanel = Ext.getCmp('adminConfigTabPanel');
+									adminConfigTabPanel.setActiveTab(0);
+								}, 100);
+							}
+						}
 					}
 				}]
 			}]

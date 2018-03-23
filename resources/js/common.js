@@ -1917,7 +1917,10 @@ Layer01OnOff = function (layerId, onoff) {
 	var node = treeCtl.getStore().getNodeById(layerId);
 
 	var isChecked = false;
-
+	if(!node){
+		return;
+	}
+	
 	if (onoff == "on") {
 		node.set("checked", true);
 	} else if (onoff == "off") {

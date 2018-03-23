@@ -90,6 +90,9 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
         var desktop = this.app.getDesktop();
         var win = desktop.getWindow('threeDim-win');
 
+        if(!config){
+            config = {};
+        }
         this.initCoord = config.coord;
 
         var cfg = Ext.applyIf(config || {}, {

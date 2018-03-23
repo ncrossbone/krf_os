@@ -21,7 +21,7 @@ Ext.define('krf_new.view.east.ThreeDimTerrainCrossWindow', {
 			var btnTerrainCross = Ext.getCmp('btnTerrainCross');
 			btnTerrainCross.btnOnOff = 'off';
 			btnTerrainCross.setSrc(btnTerrainCross.btnOffImg);
-			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' , init:true});
 		}, resize: function (win, width, height) {
 
 		}
@@ -40,9 +40,9 @@ Ext.define('krf_new.view.east.ThreeDimTerrainCrossWindow', {
 			height: 33,
 			width: 73,
 			listeners: { el: { click: 'onClickGrab' } },
-			btnOnImg: './resources/images/button/b1_on.png',
-			btnOffImg: './resources/images/button/b1_off.png',
-			src: './resources/images/button/b1_on.png'
+			btnOnImg: './resources/images/button/k1_on.png',
+			btnOffImg: './resources/images/button/k1_off.png',
+			src: './resources/images/button/k1_on.png'
 		}, {
 			xtype: 'image',
 			btnOnOff: 'off',
@@ -52,9 +52,9 @@ Ext.define('krf_new.view.east.ThreeDimTerrainCrossWindow', {
 			height: 33,
 			width: 73,
 			listeners: { el: { click: 'onClickInput' } },
-			btnOnImg: './resources/images/button/b2_on.png',
-			btnOffImg: './resources/images/button/b2_off.png',
-			src: './resources/images/button/b2_off.png'
+			btnOnImg: './resources/images/button/k2_on.png',
+			btnOffImg: './resources/images/button/k2_off.png',
+			src: './resources/images/button/k2_off.png'
 		}]
 	}, {
 		xtype: 'component',
@@ -67,7 +67,7 @@ Ext.define('krf_new.view.east.ThreeDimTerrainCrossWindow', {
 			tag: 'iframe',
 			style: 'height:462px; width: 590px;',
 			id: 'terrainCrossframe',
-			src: $KRF_DEFINE.threeDimServerURL + '/AltitudeChart.html'
+			src: $KRF_DEFINE.threeDimServerURL + '/TempChart.html'
 		}
 	}],
 	initComponent: function () {
