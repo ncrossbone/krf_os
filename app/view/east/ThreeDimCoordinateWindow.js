@@ -54,7 +54,7 @@ Ext.define('krf_new.view.east.ThreeDimCoordinateWindow', {
 			var btnAutoMoveMap = Ext.getCmp('btnAutoMoveMap');
 			btnAutoMoveMap.btnOnOff = 'off';
 			btnAutoMoveMap.setSrc(btnAutoMoveMap.btnOffImg);
-			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab'  , init:true});
 		}
 	},
 	items: [{

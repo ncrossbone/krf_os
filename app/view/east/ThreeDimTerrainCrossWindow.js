@@ -21,7 +21,7 @@ Ext.define('krf_new.view.east.ThreeDimTerrainCrossWindow', {
 			var btnTerrainCross = Ext.getCmp('btnTerrainCross');
 			btnTerrainCross.btnOnOff = 'off';
 			btnTerrainCross.setSrc(btnTerrainCross.btnOffImg);
-			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' });
+			$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'setGrab' , init:true});
 		}, resize: function (win, width, height) {
 
 		}

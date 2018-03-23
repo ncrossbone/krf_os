@@ -25,10 +25,8 @@ Ext.define('Desktop.AdminConfigWindow', {
 		var win = desktop.getWindow('admin-win');
 		var cfg = Ext.applyIf(config || {}, {
 			id: 'admin-win',
-			//			            title:'현황판',
 			width: 740,
 			height: 480,
-			//			            iconCls: 'icon-grid',
 			animCollapse: false,
 			constrainHeader: true,
 			layout: 'fit',
@@ -37,7 +35,6 @@ Ext.define('Desktop.AdminConfigWindow', {
 				cls: 'krf-os-parentwin-header',
 				items: [{
 					xtype: 'image',
-					//title: '차트정보',
 					id: 'tabChart',
 					src: './resources/images/tab/tap_01_ov.gif',
 					onImg: './resources/images/tab/tap_01_ov.gif',
@@ -55,7 +52,6 @@ Ext.define('Desktop.AdminConfigWindow', {
 				}, {
 					xtype: 'image',
 					id: 'tabSite',
-					//title: '지점정보',
 					src: './resources/images/tab/tap_02_off.gif',
 					onImg: './resources/images/tab/tap_02_ov.gif',
 					offImg: './resources/images/tab/tap_02_off.gif',

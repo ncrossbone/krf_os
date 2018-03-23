@@ -96,8 +96,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                     click: function () {
                         var selectLayer = Ext.getCmp('threeDimMeasuredLayer');
                         var selectMeasure = Ext.getCmp('cmbThreeDimMeasured');
-                        debugger;
-
+                        
                         var selVal = selectMeasure.getValue();
                         var selTitle = selectMeasure.getSelectedRecord().data.name;
 
