@@ -41,30 +41,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 					offImg: './resources/images/tab/tap_01_off.gif',
 					style: 'cursor:pointer; border:0px !important;',
 					width: 95,
-					height: 28,
-					listeners: {
-						el: {
-							click: function (obj, el, evt) {
-								ChangeTabIndex(0);
-							}
-						}
-					}
-				}, {
-					xtype: 'image',
-					id: 'tabSite',
-					src: './resources/images/tab/tap_02_off.gif',
-					onImg: './resources/images/tab/tap_02_ov.gif',
-					offImg: './resources/images/tab/tap_02_off.gif',
-					style: 'cursor:pointer; border:0px !important;',
-					width: 95,
-					height: 28,
-					listeners: {
-						el: {
-							click: function (obj, el, evt) {
-								ChangeTabIndex(1);
-							}
-						}
-					}
+					height: 28
 				}]
 			},
 			items: [{
@@ -74,23 +51,20 @@ Ext.define('Desktop.AdminConfigWindow', {
 					type: 'card'
 				},
 				items: [{
-					xtype: 'component',
-					itemId: 'gis-iframe',
-					autoScroll: true,
-					autoEl: {
-						tag: 'iframe',
-						style: 'height: 100%; width: 100%;',
-						src: 'http://112.217.167.123:40002/arcgis/'
-					}
-				}, {
-					xtype: 'component',
-					itemId: 'system-iframe',
-					autoScroll: true,
-					autoEl: {
-						tag: 'iframe',
-						style: 'height: 100%; width: 100%;',
-						src: 'http://112.217.167.123:40002/arcgis/'
-					}
+					xtype: 'panel', layout: { type: 'absolute' }, items: [
+						{
+							xtype: 'component',
+							itemId: 'arcgis-iframe',
+							id: 'arcgisIframe',
+							autoScroll: true,
+							autoEl: {
+								tag: 'iframe',
+								style: 'height: 100%; width: 100%;',
+								id: 'arcgisIframe',
+								src : 'http://211.114.21.35:8080/arcgis/'
+							}
+						}
+					]
 				}]
 			}]
 		});
