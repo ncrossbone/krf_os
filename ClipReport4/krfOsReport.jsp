@@ -8,6 +8,7 @@ OOFDocument oof = OOFDocument.newOOF();
     
     String type = request.getParameter("type");
 
+    String year = request.getParameter("year");
     String startYear = request.getParameter("startYear");
     String endYear = request.getParameter("endYear");
 
@@ -25,7 +26,7 @@ OOFDocument oof = OOFDocument.newOOF();
 
 if("rptCase2_1".equals(type)){
     
-    oof.addField("YEAR",startYear);
+    oof.addField("YEAR",year);
     oof.addField("AREA1",area1);
     oof.addField("AREA2",area2);
     oof.addField("AREA3",area3);

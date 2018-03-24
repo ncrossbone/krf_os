@@ -30,13 +30,17 @@ Ext.define('Desktop.ReportWindow', {
                 cls: 'krf-os-parentwin-header'
             },
             iconCls: 'krf-os-win-title-report-icon',
-            width: 740,
+            width: 690,
             height: 700,
-            minWidth:740,
+            minWidth: 690,
             animCollapse: false,
             constrainHeader: true,
             layout: 'fit',
-            items: [{xtype: 'app-report-main'}]
+            items: [{ xtype: 'app-report-main' }],
+            listeners: {
+                resize: function () {
+                }
+            }
         });
         if (!win) {
             win = desktop.createWindow(cfg);
