@@ -7,7 +7,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "1",
-		"text": "하천수 <a onclick='metaDataView(\"A001\")'  style='padding-right: 40px; float:right' href='#''> <img width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' /> </a> ",
+		"text": "하천수",
 		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",

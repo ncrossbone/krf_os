@@ -140,7 +140,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "13",
-		"wmsId":"81",
+		"wmsId":"84",
 		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer13_2",
@@ -152,7 +152,7 @@
 		"layerCode": "C001"
 	},{
 		"id": "14",
-		"wmsId":"80",
+		"wmsId":"83",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer13_3",
@@ -216,7 +216,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "39",
-		"wmsId":"55",
+		"wmsId":"57",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer77",
@@ -228,7 +228,7 @@
 		"layerCode": "G002"
 	},{
 		"id": "40",
-		"wmsId":"54",
+		"wmsId":"56",
 		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer78",
@@ -248,7 +248,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "16",
-		"wmsId":"78",
+		"wmsId":"81",
 		"text": "수위관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer15",
@@ -260,7 +260,7 @@
 		"layerCode": "D001"
 	}, {
 		"id": "17",
-		"wmsId":"77",
+		"wmsId":"80",
 		"text": "우량관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer16",
@@ -272,7 +272,7 @@
 		"layerCode": "D002"
 	}, {
 		"id": "18",
-		"wmsId":"76",
+		"wmsId":"79",
 		"text": "유량관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer17",
@@ -284,7 +284,7 @@
 		"layerCode": "D003"
 	}, {
 		"id": "19",
-		"wmsId":"75",
+		"wmsId":"78",
 		"text": "댐관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer18",
@@ -296,7 +296,7 @@
 		"layerCode": "D004"
 	}, {
 		"id": "20",
-		"wmsId":"74",
+		"wmsId":"77",
 		"text": "AWS기상관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer19",
@@ -308,7 +308,7 @@
 		"layerCode": "D005"
 	}, {
 		"id": "21",
-		"wmsId":"73",
+		"wmsId":"76",
 		"text": "지상기상관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer20",
@@ -320,7 +320,7 @@
 		"layerCode": "D006"
 	}, {
 		"id": "22",
-		"wmsId":"72",
+		"wmsId":"75",
 		"text": "보관측소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer21",
@@ -333,15 +333,15 @@
 	}]
 }, {
 	"id": "23",
-	"text": "수생태계",
+	"text": "생물측정망",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "24",
-		"wmsId":"70",
-		"text": "수생태계조사지점_하천",
+		"wmsId":"73",
+		"text": "생물측정망_하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer23",
 		"leaf": true,
@@ -352,8 +352,8 @@
 		"layerCode": "E001"
 	},{
 		"id": "25",
-		"wmsId":"71",
-		"text": "수생태계조사지점_하구",
+		"wmsId":"72",
+		"text": "생물측정망_하구",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer23",
 		"leaf": true,
@@ -372,7 +372,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "27",
-		"wmsId":"68",
+		"wmsId":"70",
 		"text": "축산폐수공공처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer25",
@@ -384,7 +384,7 @@
 		"layerCode": "F006"
 	}, {
 		"id": "28",
-		"wmsId":"67",
+		"wmsId":"69",
 		"text": "하수종말처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer26",
@@ -396,7 +396,7 @@
 		"layerCode": "F008"
 	}, {
 		"id": "29",
-		"wmsId":"66",
+		"wmsId":"68",
 		"text": "산업폐수종말처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer27",
@@ -408,7 +408,7 @@
 		"layerCode": "F004"
 	}, {
 		"id": "30",
-		"wmsId":"65",
+		"wmsId":"67",
 		"text": "분뇨처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer28",
@@ -420,7 +420,7 @@
 		"layerCode": "F003"
 	}, {
 		"id": "31",
-		"wmsId":"64",
+		"wmsId":"66",
 		"text": "매립장침출수처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer29",
@@ -432,7 +432,7 @@
 		"layerCode": "F006"
 	}, {
 		"id": "32",
-		"wmsId":"63",
+		"wmsId":"65",
 		"text": "마을하수도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer30",
@@ -444,7 +444,7 @@
 		"layerCode": "F007"
 	}, {
 		"id": "33",
-		"wmsId":"62",
+		"wmsId":"64",
 		"text": "농공단지처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer31",
@@ -456,7 +456,7 @@
 		"layerCode": "F001"
 	}, {
 		"id": "34",
-		"wmsId":"61",
+		"wmsId":"63",
 		"text": "기타공동처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer32",
@@ -511,7 +511,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "53",
-		"wmsId":"",
+		"wmsId":"44",
 		"text": "HSPF모델경과지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer42",
