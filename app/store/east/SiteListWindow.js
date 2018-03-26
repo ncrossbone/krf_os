@@ -589,13 +589,13 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							if(jsonData.data.length > 0 ){
 								sstgString = "{\n";
 								sstgString += "	\"id\": \"Esstg\",\n";
-								sstgString += "		\"text\": \"수생태계\",\n"; 
+								sstgString += "		\"text\": \"생물측정망\",\n"; 
 								sstgString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 								sstgString += "	\"expanded\": false,\n";
 								sstgString += "	\"checked\": null,\n";
 								sstgString += "	\"infoBtnDisabled\": true,\n";
 								sstgString += "	\"chartBtnDisabled\": true,\n";
-								sstgString += "	\"srchBtnDisabled\": false,\n";
+								sstgString += "	\"srchBtnDisabled\": true,\n";
 								sstgString += "	\"children\": [\n";
 	
 	
@@ -608,7 +608,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									sstgString += "	\"expanded\": false,\n";
 									sstgString += "	\"infoBtnDisabled\": true,\n";
 									sstgString += "	\"chartBtnDisabled\": true,\n";
-									sstgString += "	\"srchBtnDisabled\": false,\n";
+									sstgString += "	\"srchBtnDisabled\": true,\n";
 									sstgString += "	\"children\": [";
 									if(ssgtObj.hc.ATAL_SE.length > 0 ){
 										sstgString += "	  { \n";
@@ -791,7 +791,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								sstgString += "	\"expanded\": false,\n";
 								sstgString += "	\"infoBtnDisabled\": true,\n";
 								sstgString += "	\"chartBtnDisabled\": true,\n";
-								sstgString += "	\"srchBtnDisabled\": false,\n";
+								sstgString += "	\"srchBtnDisabled\": true,\n";
 								sstgString += "	\"children\": [";
 								if(ssgtObj.hg.ATAL_SE.length > 0 ){
 									sstgString += "	  { \n";

@@ -333,7 +333,7 @@
 	}]
 }, {
 	"id": "23",
-	"text": "수생태계",
+	"text": "생물측정망",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
@@ -341,7 +341,7 @@
 	"children": [{
 		"id": "24",
 		"wmsId":"73",
-		"text": "수생태계조사지점_하천",
+		"text": "생물측정망_하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer23",
 		"leaf": true,
@@ -353,7 +353,7 @@
 	},{
 		"id": "25",
 		"wmsId":"72",
-		"text": "수생태계조사지점_하구",
+		"text": "생물측정망_하구",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer23",
 		"leaf": true,
