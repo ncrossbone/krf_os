@@ -114,10 +114,10 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 				layer01Infos = [];
 			}
 		
+			
 			for (var i = 0; i < childNodes.length; i++) {
 		
 				var data = childNodes[i].data;
-		
 				if (data[attrName] == attrValue) {
 		
 					var infoIdx = layer01Infos.indexOf(data);
@@ -132,7 +132,12 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 		
 				if (tmpChilds != undefined && tmpChilds.length > 0) {
 		
-					return getLayer01Info(attrName, attrValue, tmpChilds, layer01Infos);
+					var childLayerInfo = getLayer01Info(attrName, attrValue, tmpChilds, layer01Infos);
+					if(childLayerInfo.length > 0){
+						if(layer01Infos.indexOf(childLayerInfo[0]) > -1){
+							layer01Infos.push(childLayerInfo[0]);
+						}
+					}
 				}
 			}
 		
