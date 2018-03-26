@@ -22,11 +22,11 @@ Ext.define("krf_new.global.SstgGridFn", {
         var grid = null;
         if(val == 1){
             grid = [{
-                text: '연도1',
+                text: '연도',
                 dataIndex: 'YEAR',
-                width: 0
+                width: 90
             }, {
-                text: '회차2',
+                text: '회차',
                 dataIndex: 'TME',
                 width: 90
             }, {
@@ -331,7 +331,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             grid = [{
                 text: '연도',
                 dataIndex: 'YEAR',
-                width: 0
+                width: 90
             }, {
                 text: '회차',
                 dataIndex: 'TME',
@@ -665,7 +665,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             [{
                 text: '연도',
                 dataIndex: 'YEAR',
-                width: 0
+                width: 90
             }, {
                 text: '회차',
                 dataIndex: 'TME',
@@ -951,7 +951,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             grid =[{
                 text: '연도',
                 dataIndex: 'YEAR',
-                width: 0
+                width: 90
             }, {
                 text: '회차',
                 dataIndex: 'TME',
@@ -1091,7 +1091,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             grid = [{
                 text: '연도',
                 dataIndex: 'YEAR',
-                width: 0
+                width: 90
             }, {
                 text: '회차',
                 dataIndex: 'TME',
@@ -1175,7 +1175,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             grid = [{
                 text: '연도',
                 dataIndex: 'YEAR',
-                width: 0
+                width: 90
             }, {
                 text: '회차',
                 dataIndex: 'TME',
