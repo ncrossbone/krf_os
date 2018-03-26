@@ -1,2 +1,2 @@
 // @tag full-page
-// @require C:\CE\workspace\krf_os\app.js
+// @require F:\PARKHYEOK\ALL_WORKSPACES\KRF_WORKSPACE\krf_os\app.js

@@ -200,7 +200,7 @@ Ext.define('krf_new.view.common.TabControl', {
 				id: 'sstgCombo',
 				valueField: 'id',
 				displayField: 'name'
-			},{
+			}, {
 				xtype: 'image',
 				src: './resources/images/button/icon_seah.gif', //검색
 				width: 34,
@@ -220,7 +220,7 @@ Ext.define('krf_new.view.common.TabControl', {
 
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
-							
+
 							if (gridCtl.parentIds[0].parentId == undefined) {
 								var parentId = gridCtl.parentIds
 							} else {
@@ -471,7 +471,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		},*/ {
 			xtype: 'container',
 			width: 120
-		},{
+		}, {
 			xtype: 'container',
 			width: 10
 		}]
@@ -479,8 +479,8 @@ Ext.define('krf_new.view.common.TabControl', {
 		xtype: 'tabpanel',
 		id: 'tabpanels',
 		//title: 'tab1',
-		tabBar:{
-			style:'background:#fff;'	
+		tabBar: {
+			style: 'background:#fff; padding:5px;'
 		},
 		style: 'background-color: #157fcb;',
 		//closable: true,
@@ -653,8 +653,8 @@ Ext.define('krf_new.view.common.TabControl', {
 						cmbStartBan.setHidden(false);
 						cmbEndBan.setHidden(false);
 						sstgCombo.setHidden(true);
-					}else if(tab.parentId == "E"){
-						
+					} else if (tab.parentId == "E") {
+
 						startLabel.setText("반기");
 						endLabel.setText("반기");
 						cmbStartMonth.setHidden(true);
@@ -662,13 +662,13 @@ Ext.define('krf_new.view.common.TabControl', {
 						cmbStartBan.setHidden(false);
 						cmbEndBan.setHidden(false);
 						sstgCombo.setHidden(false);
-						
+
 						//tab.items.items[0].items.items[0].items.items[0].hide(true);
-						if(tab.realParentId[0].parentId != undefined){
+						if (tab.realParentId[0].parentId != undefined) {
 							var store = $KRF_APP.global.CommFn.getSstgComboInfo(tab.realParentId[0].parentId);
 							sstgCombo.setStore(store);
-						}else{
-							
+						} else {
+
 						}
 
 					} else {
@@ -680,7 +680,7 @@ Ext.define('krf_new.view.common.TabControl', {
 						cmbEndBan.setHidden(true);
 						sstgCombo.setHidden(true);
 					}
-					
+
 					//resultTab.setHidden(false);		//일반 검색pollResultTab
 
 					pollSearchTab.setHidden(true);	//방유량 (년도/검색)
@@ -713,7 +713,7 @@ Ext.define('krf_new.view.common.TabControl', {
 				}
 			}
 		}
-	},{
+	}, {
 		xtype: 'image',
 		width: 59,
 		height: 24,
