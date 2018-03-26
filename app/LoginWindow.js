@@ -31,7 +31,8 @@ Ext.define('Desktop.LoginWindow', {
                     loginWindow.close();
                 }
 
-                $KRF_APP.showWindowByMode();
+                $KRF_APP.completedLogin(loginUserInfo);
+                // $KRF_APP.showWindowByMode();
             }
         } catch (e) {
             console.log(e);
