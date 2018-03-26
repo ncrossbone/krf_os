@@ -178,10 +178,12 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		// 체크박스 컨트롤 배열
 		var chkCtls = this.query("checkbox");
 		if (chkCtls != undefined && chkCtls != null) {
-			// 로컬 스토리지 존재하면
-
-			if (!searchConfigInfo) {
-
+			
+			// 로컬 스토리지 존재하지 않으면
+			if(searchConfigInfo == undefined || searchConfigInfo == "undefined"){
+				this.setLocalStorage();
+			}else{ // 존재하면
+				
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
 				for (var i = 0; i < chkCtls.length; i++) {
@@ -194,9 +196,6 @@ Ext.define('krf_new.view.center.SearchConfig', {
 						}
 					}
 				}
-			} else {
-				// 로컬 스토리지 셋팅
-
 			}
 		}
 
