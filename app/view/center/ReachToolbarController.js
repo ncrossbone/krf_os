@@ -273,7 +273,8 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		var btnMenu10 = Ext.getCmp("btnMenu010").btnOnOff;
 		
 		if (btnMenu10 == "on") {
-			
+			//미니맵 EDIT EVENT 끄기
+			$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 			SetBtnOnOff("btnMenu010", "off");	
 			subMapWindow.hide();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);

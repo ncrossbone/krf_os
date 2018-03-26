@@ -196,6 +196,11 @@ Ext.define('krf_new.view.common.TabControl', {
 				xtype: 'container',
 				width: 10
 			}, {
+				xtype: 'combo',
+				id: 'sstgCombo',
+				valueField: 'id',
+				displayField: 'name'
+			},{
 				xtype: 'image',
 				src: './resources/images/button/icon_seah.gif', //검색
 				width: 34,
@@ -204,7 +209,7 @@ Ext.define('krf_new.view.common.TabControl', {
 				listeners: {
 					el: {
 						click: function () {
-
+							//console.info("icon_seah");
 							var fName = Ext.getCmp("F_CHANGE");
 							var tabCtl = Ext.getCmp("searchResultTab");
 							tabCtl = tabCtl.items.items[1];
@@ -215,6 +220,7 @@ Ext.define('krf_new.view.common.TabControl', {
 
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
+							
 							if (gridCtl.parentIds[0].parentId == undefined) {
 								var parentId = gridCtl.parentIds
 							} else {
@@ -228,7 +234,6 @@ Ext.define('krf_new.view.common.TabControl', {
 							var title = activeTab.title.split('(');
 
 							setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
-
 							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
 					}
@@ -236,7 +241,7 @@ Ext.define('krf_new.view.common.TabControl', {
 			}, {
 				xtype: 'container',
 				width: 10
-			}, , {
+			}, {
 				xtype: 'combo',
 				id: 'F_CHANGE',
 				valueField: 'id',
@@ -524,7 +529,8 @@ Ext.define('krf_new.view.common.TabControl', {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 
 					var store = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
-
+					//console.info(tab);
+					//console.info(tab.parentId);
 					if (tab.parentId == "D" || tab.parentId == "B") {
 						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
@@ -537,7 +543,7 @@ Ext.define('krf_new.view.common.TabControl', {
 							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
 							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
 						}
-					} else if (tab.parentId == "C") {
+					} else if (tab.parentId == "C" || tab.parentId == "E") {
 						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartBan").setValue("상");
@@ -637,7 +643,8 @@ Ext.define('krf_new.view.common.TabControl', {
 
 					var startLabel = Ext.getCmp("startLabel");
 					var endLabel = Ext.getCmp("endLabel");
-
+					var sstgCombo = Ext.getCmp("sstgCombo");
+					//sstgCombo
 					if (tab.parentId == "C") {
 						startLabel.setText("반기");
 						endLabel.setText("반기");
@@ -645,6 +652,25 @@ Ext.define('krf_new.view.common.TabControl', {
 						cmbEndMonth.setHidden(true);
 						cmbStartBan.setHidden(false);
 						cmbEndBan.setHidden(false);
+						sstgCombo.setHidden(true);
+					}else if(tab.parentId == "E"){
+						
+						startLabel.setText("반기");
+						endLabel.setText("반기");
+						cmbStartMonth.setHidden(true);
+						cmbEndMonth.setHidden(true);
+						cmbStartBan.setHidden(false);
+						cmbEndBan.setHidden(false);
+						sstgCombo.setHidden(false);
+						
+						//tab.items.items[0].items.items[0].items.items[0].hide(true);
+						if(tab.realParentId[0].parentId != undefined){
+							var store = $KRF_APP.global.CommFn.getSstgComboInfo(tab.realParentId[0].parentId);
+							sstgCombo.setStore(store);
+						}else{
+							
+						}
+
 					} else {
 						startLabel.setText("월");
 						endLabel.setText("월");
@@ -652,8 +678,9 @@ Ext.define('krf_new.view.common.TabControl', {
 						cmbEndMonth.setHidden(false);
 						cmbStartBan.setHidden(true);
 						cmbEndBan.setHidden(true);
+						sstgCombo.setHidden(true);
 					}
-
+					
 					//resultTab.setHidden(false);		//일반 검색pollResultTab
 
 					pollSearchTab.setHidden(true);	//방유량 (년도/검색)

@@ -124,6 +124,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				me.moveCommon(record);
 				//PollLoadSearchResult
 				if (record.id.length == 1) {
+					//console.info("if");
 					var childRecord = record.childNodes;
 
 					for (var i = 0; i < childRecord.length; i++) {
@@ -149,7 +150,13 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 						//}
 					}
 				} else {
-					var gridId = "grid_" + record.data.id;
+					
+					var gridId = null;
+					if(record.data.eSiteId != undefined){
+						gridId = "grid_" + record.data.eSiteId;
+					}else{
+						gridId = "grid_" + record.data.id;
+					}
 					me.setSiteIds(record, true);
 					//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
 					// 버튼 On/Off
@@ -161,8 +168,8 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 					var pNm = me.parentIds[0].parentId;
 
 					pNm = pNm.substring(0, 1);
-					//console.info(record.data.text);
 					// 검색결과창 띄우기
+					
 					ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId, "");
 
 					var coreMap = GetCoreMap();
@@ -274,8 +281,15 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				me.siteIds += ", ";
 			}
 
-			me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.id });
-			me.siteIds += "'" + record.data.id + "'";
+			if(record.parentNode.data.id.substring(0,1) == "E"){
+				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.eSiteId });
+				me.siteIds += "'" + record.data.eSiteId + "'";
+			}else{
+				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.id });
+				me.siteIds += "'" + record.data.id + "'";
+			}
+			
+			
 		}
 	},
 

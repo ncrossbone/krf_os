@@ -1,4 +1,4 @@
-{   "domain" : "http://112.217.167.123:40003",
+{   "domain" : "http://localhost:8071",
     "drone_GetRWMDT_MeasureDate":"./resources/jsp/drone/GetRWMDT_MeasureDate.jsp",
     "drone_GetRWMDT":"#host#/krf/drone/getRWMDT",
     "drone_main":"./resources/jsp/drone/main.jsp",
@@ -72,6 +72,7 @@
     "GetSearchPollLoadResultData_SW":"./resources/jsp/GetSearchPollLoadResultData_SW.jsp",
     "GetSearchPollLoadResultData_Total":"#host#/krf/searchResult/searchResult_PollLoad_Total",
     "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",
+    "GetSearchResultData_E":"#host#/krf/searchResult/", // 수생태계
     "GetSearchResultData_B":"#host#/krf/searchResult/searchResult_B",
     "GetSearchResultData_B001_fix":"#host#/krf/searchResult/searchResult_B001_Fix",
     "GetSearchResultData_B001":"#host#/krf/searchResult/searchResult_B001",
@@ -96,6 +97,7 @@
     "LogSession":"./resources/jsp/LogSession.jsp",
     "saveColunmOnOff":"./resources/jsp/saveColunmOnOff.jsp",
     "sessionData":"#host#/krf/common/sessionData",
+    "sstg":"#host#/krf/searchResult/searchSstg",
     "sessionMng":"./resources/jsp/sessionMng.jsp",
     "SessionOut":"./resources/jsp/SessionOut.jsp",
     "setConfig":"./resources/jsp/setConfig.jsp",
