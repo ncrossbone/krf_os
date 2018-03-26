@@ -21,5 +21,7 @@ Ext.define('Ext.ux.desktop.ShortcutModel', {
         name: 'module'
     }, {
         name: 'text'
+    }, {
+        name: 'style'
     }]
 });

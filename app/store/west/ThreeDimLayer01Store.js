@@ -26,7 +26,8 @@ Ext.define('krf_new.store.west.ThreeDimLayer01Store', {
 						records.items[i].data.text == '집수구역' || 
 						records.items[i].data.text == '리치라인' || 
 						records.items[i].data.text == '리치노드' || 
-						records.items[i].data.text == '리치흐름') {
+						records.items[i].data.text == '리치흐름' || 
+						records.items[i].data.text.indexOf('소하천') > -1) {
 						records.items.splice(i, 1);
 						i--;
 						continue;

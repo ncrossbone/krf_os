@@ -8,7 +8,7 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<title>New</title>
+	<title>ë¬¼í™˜ê²? ì§?ë¦¬ì •ë³?</title>
 
 	<!-- The line below must be kept intact for Sencha Cmd to build your application -->
 	<link rel="shortcut icon" href="./resources/images/mainico.ico" />
@@ -264,7 +264,7 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 			cursor: pointer;
 			border: 0px !important;
 			background: transparent url(./resources/images/button/btn_select.gif) 0 0 no-repeat !important;
-			width: 122px;
+			width: 132px;
 			height: 32px;
 			border-radius: 0px !important;
 		}
@@ -273,7 +273,7 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 			cursor: pointer;
 			border: 0px !important;
 			background: transparent url(./resources/images/button/btn_reset.gif) 0 0 no-repeat !important;
-			width: 122px;
+			width: 132px;
 			height: 32px;
 			border-radius: 0px !important;
 		}
@@ -293,8 +293,8 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 		.khLee-x-searcharea-water .x-panel {
 			margin: 10px;
 			padding: 10px;
-			background: #f8f6f9;
-			border: 1px solid #d1d1d1;
+			background: #f8f8f8;
+			border: 1px solid #d8d8d8;
 			color: #000000 !important;
 		}
 
@@ -312,6 +312,7 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 			font-size: 13px !important;
 			font-weight: bold !important;
 			padding: 10px;
+			letter-spacing: -1px;
 		}
 
 		.sub-panel-x-header>.x-tool-img {
@@ -610,6 +611,13 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 			font-weight: bold !important;
 		}
 
+		.metaWindow-x-form-item-label-default {
+			padding: 10px;
+			border-color: #405166 !important;
+			font-size: 16px !important;
+			font-weight: bold !important;
+		}
+
 		#threeDim-win_header {
 			border: none !important;
 			background: url('./resources/images/button/top_bg.jpg')
@@ -639,26 +647,26 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 
 		.x-tool-maximize {
 			background: url('./resources/images/button/header-maximize.png');
-			width: 19px;
-			height: 19px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.x-tool-restore {
 			background: url('./resources/images/button/header-restore.png');
-			width: 19px;
-			height: 19px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.x-tool-minimize {
 			background: url('./resources/images/button/header-minimize.png');
-			width: 19px;
-			height: 19px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.x-tool-close {
 			background: url('./resources/images/button/header-close.png');
-			width: 19px;
-			height: 19px;
+			width: 23px;
+			height: 15px;
 		}
 
 		.krf_desktop-start-button-icon {
@@ -789,11 +797,14 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 
 		.patient-source {
 			cursor: pointer;
+			outline: none !important;
 		}
 
 		.patient-view table {
 			border-collapse: separate;
 			border-spacing: 2px;
+			height: 50px;
+
 		}
 
 		.patient-view td {
@@ -811,13 +822,51 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 		}
 
 		.patient-over {
-			background-color: #EFEFEF;
 			cursor: pointer;
 		}
 
 		.patient-selected {
 			background-color: #DFE8F6;
 			cursor: pointer;
+		}
+
+		.report,
+		.report>li {
+			list-style: none;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.report>li:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+
+		.report {
+			padding: 10px;
+		}
+
+		.report li {
+			margin-bottom: 10px;
+		}
+
+		.report .tit {
+			background: url(./resources/images/rpt/report_blit.png) no-repeat right center;
+			padding-right: 15px;
+			margin-right: 10px;
+			font-weight: bold;
+			float: left;
+		}
+
+		.report .name {
+			color: #032d67 !important;
+			font-weight: bold !important;
+		}
+
+		.report .cont {
+			float: left;
+			width: 88%;
 		}
 	</style>
 </head>

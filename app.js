@@ -188,6 +188,9 @@ Ext.application({
 			if (loginInfo == null) {
 				this.showLoginWindow();
 			} else {
+				$('#Staus-shortcut').show()
+				$('#Admin-shortcut').show()
+
 				this.showWindowByMode();
 			}
 		}
@@ -202,6 +205,16 @@ Ext.application({
 		//loginWindow = loginWindow.show();
 	},
 
+	completedLogin : function(loginInfo){
+		if(loginInfo.userId == 'admin'){
+			$('#Staus-shortcut').show()
+			$('#Admin-shortcut').show()
+		}else{
+			$('#Staus-shortcut').remove();
+			$('#Admin-shortcut').remove()
+		}
+		this.showWindowByMode();
+	},
 	showWindowByMode: function () {
 		var krfMode = this.localStorate.getItem('krfMode');
 
