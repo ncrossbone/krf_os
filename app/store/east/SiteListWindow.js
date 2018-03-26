@@ -595,7 +595,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								sstgString += "	\"checked\": null,\n";
 								sstgString += "	\"infoBtnDisabled\": true,\n";
 								sstgString += "	\"chartBtnDisabled\": true,\n";
-								sstgString += "	\"srchBtnDisabled\": false,\n";
+								sstgString += "	\"srchBtnDisabled\": true,\n";
 								sstgString += "	\"children\": [\n";
 	
 	
@@ -608,7 +608,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									sstgString += "	\"expanded\": false,\n";
 									sstgString += "	\"infoBtnDisabled\": true,\n";
 									sstgString += "	\"chartBtnDisabled\": true,\n";
-									sstgString += "	\"srchBtnDisabled\": false,\n";
+									sstgString += "	\"srchBtnDisabled\": true,\n";
 									sstgString += "	\"children\": [";
 									if(ssgtObj.hc.ATAL_SE.length > 0 ){
 										sstgString += "	  { \n";
@@ -791,7 +791,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								sstgString += "	\"expanded\": false,\n";
 								sstgString += "	\"infoBtnDisabled\": true,\n";
 								sstgString += "	\"chartBtnDisabled\": true,\n";
-								sstgString += "	\"srchBtnDisabled\": false,\n";
+								sstgString += "	\"srchBtnDisabled\": true,\n";
 								sstgString += "	\"children\": [";
 								if(ssgtObj.hg.ATAL_SE.length > 0 ){
 									sstgString += "	  { \n";
