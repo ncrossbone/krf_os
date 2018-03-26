@@ -6,8 +6,8 @@ Ext.define("krf_new.view.map.SriverEvtPop", {
 	id: 'sriverEvtPop',
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
-	//cls: 'dj_toolbarConf',
-	style: "background-image: url(./resources/images/button/option_bg2.png); background-size: 78px 130px; border:0px;",
+	cls: 'dj_toolbarConf_1',
+	style: "background-image: url(./resources/images/button/option_bg2_1.png); background-size: 78px 52px; border:0px; !important",
 	header: {
 		height: 1,
 		style: "background-color: transparent; border: none;"
@@ -34,7 +34,7 @@ Ext.define("krf_new.view.map.SriverEvtPop", {
 		},{
 			xtype: "image", // 점(Point)
 			id: "btnKradPoint",
-			src:"./resources/images/button/btn_option_2_off.gif",
+			src:"./resources/images/button/btn_option_1_off_1.gif",
 			style:"padding-left:4px; padding-top: 0px; padding-right:4px; cursor: pointer;",
 			width: "100%",
 			height: 21,
