@@ -91,7 +91,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                 xtype: 'button',
                 lnkCmbId: 'cmbThreeDimMeasured',
                 disabled: false,
-                cls: 'khLee-x-button-move',
+                cls: 'khLee-x-button-search',
                 listeners: {
                     click: function () {
                         var selectLayer = Ext.getCmp('threeDimMeasuredLayer');
@@ -121,8 +121,16 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                         query.outFields = [layer.siteIdCol, layer.siteNmCol];
                         // query.outSpatialReference = { "wkid": 4019 };
 
+                        var threeDimMeasuredLayer = Ext.getCmp("threeDimMeasuredLayer");
+
+                       threeDimMeasuredLayer.removeCls("dj-mask-noneimg");
+                       threeDimMeasuredLayer.addCls("dj-mask-withimg");
+                       threeDimMeasuredLayer.mask("loading", "loading...");
+
+
                         var featureDef = queryTask.execute(query);
                         new dojo.DeferredList([featureDef, measuredDef]).then(function (result) {
+                            threeDimMeasuredLayer.unmask();
 
                             if (result.length == 2) {
                                 if (result[0][0] && result[1][0]) {
@@ -131,6 +139,8 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                                         alert("오류가 발생하였습니다. 관리자에게 문의하세요.");
                                         return;
                                     }
+
+                                    alert('3D 지도 위에 수질정보 측정값을 표시합니다. 잠시만 기다려 주세요.');
 
                                     var parameterTo3d = { layerType: layer.measureCode, valueField: selTitle, features: [] };
 

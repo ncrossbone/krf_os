@@ -373,5 +373,50 @@ Ext.define("krf_new.global.CommFn", {
 
 	getBookmarkInfo: function () {
 		return this.bookmarkInfo;
+	},
+
+	getSstgComboInfo: function(storeName){
+		// 하천 
+		// -하천
+		// EsstgHcAtalSe : 부착돌말류-
+		// EsstgHcBenmaSe : 저서성대형무척추-
+		// EsstgHcFishSe : 어류-
+		// EsstgHcInhaSe : 서식 및 수변환경
+		// EsstgHcQltwtrSe : 수질
+		// EsstgHcVtnSe : 수변식생
+
+		// -하구
+		// EsstgHgAtalSe : 부착돌말류-
+		// EsstgHgBemaSe : 저서성대형무척추-
+		// EsstgHgFishSe : 어류-
+		// EsstgHgVtnSe : 식생
+		var store = null;
+		if(storeName == 'EsstgHcAtalSe' || storeName == 'EsstgHcBenmaSe' || storeName == 'EsstgHcFishSe' // 하천 부착돌말류,저서성대형무척추,어류
+		|| storeName == 'EsstgHgAtalSe'|| storeName == 'EsstgHgBemaSe'|| storeName == 'EsstgHgFishSe'){	// 하구 부착돌말류,저서성대형무척추,어류
+			store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: '1', name: '조사자료' }
+					,{ id: '2', name: '출현생물종' }]
+			});
+		}else if(storeName = 'EsstgHcVtnSe'){
+			store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: '1', name: '조사자료'}
+					,{ id: '2', name: '출현식생'}
+					,{ id: '3', name: '식생 면적'}
+					,{ id: '4', name: '구간'}
+					,{ id: '5', name: '구간별 정보'}
+					,{ id: '6', name: '우점도'}]
+			});
+		}else{
+			store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: '1', name: '조사자료' }]
+			});
+		}
+		 
+
+
+		return store;
 	}
 });

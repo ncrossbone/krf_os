@@ -41,7 +41,7 @@ Ext.define('Desktop.StatusBoardWindow', {
 			                autoEl: {
 			                    tag: 'iframe',
 			                    style: 'height: 100%; width: 100%;',
-			                    src: 'http://112.217.167.123:48090/egov/main/site/dashboardInfo'
+			                    src: 'http://112.218.1.243:21002/weis_board/egov/main/site/dashboardInfo'
 			                }
 			            }]
 			        });

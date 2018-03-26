@@ -650,7 +650,7 @@ showResultWindow = function () {
 }
 // 검색결과창 띄우기
 ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
-
+	//console.info(siteIds);
 	$KRF_APP.global.CommFn.setBookmarkInfo('searchResult', {
 		siteIds: siteIds,
 		parentIds: parentIds,
@@ -730,6 +730,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		id: gridId + "_container",
 		title: titleText, //_searchType,
 		parentId: parentCheck,
+		realParentId: parentIds,
 		//closable : true,
 		autoResize: true,
 		gridId: gridId
@@ -746,7 +747,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 
-
+	
 	if (parentCheck == "A") {
 
 		//환경기초시설 검색값 히든처리
@@ -1232,6 +1233,45 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		});
 
 		grdCtl.getView().bindStore(gridStore);
+
+	}else if(parentCheck == "E"){
+		
+		//console.info("search");
+		
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + "_container");
+		
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		if (siteIds != "") {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != "") {
+			grdCtl.parentIds = parentIds;
+		}
+
+
+		var sstgCombo = Ext.getCmp("sstgCombo");
+		if(sstgCombo.getValue() != null){
+			grdCtl.reconfigure($KRF_APP.global.SstgGridFn.getEsstgHcAtalSe(sstgCombo.getValue()));
+		}
+
+		//console.info(grdCtl);
+		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl,
+			combo: sstgCombo.getValue()
+		});
+
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
+
+
 
 	}
 }
@@ -2579,7 +2619,8 @@ metaDataView = function (layerId) {
 }
 
 miniMapHide = function(){
-	
+	//미니맵 EDIT EVENT 끄기
+	$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 	var subMapWindow = Ext.getCmp("subMapWindow");
 	subMapWindow.hide();
 	$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);

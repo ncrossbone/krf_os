@@ -61,7 +61,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
      */
     shortcutTpl: [
         '<tpl for=".">',
-            '<div class="ux-desktop-shortcut" id="{name}-shortcut">',
+            '<div class="ux-desktop-shortcut" id="{name}-shortcut" style="{style}">',
                 '<div class="ux-desktop-shortcut-icon {iconCls}" style="margin-bottom: 5px;">',
                     '<img src="',Ext.BLANK_IMAGE_URL,'" title="{text}">',
                 '</div>',
@@ -78,7 +78,10 @@ Ext.define('Ext.ux.desktop.Desktop', {
     taskbarConfig: null,
 
     windowMenu: null,
-
+    plugins: [
+        Ext.create('Ext.ux.DataView.DragSelector', {})
+    ],
+    
     initComponent: function () {
         var me = this;
 
@@ -125,6 +128,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
             trackOver: true,
             itemSelector: me.shortcutItemSelector,
             store: me.shortcuts,
+
             style: {
                 position: 'absolute'
             },

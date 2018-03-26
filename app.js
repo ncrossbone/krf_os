@@ -130,6 +130,7 @@ Ext.application({
 		'krf_new.global.CommFn',
 		'krf_new.global.TabFn',
 		'krf_new.global.AttrFn',
+		'krf_new.global.SstgGridFn',
 		'Ext.util.LocalStorage'
 	],
 
@@ -187,6 +188,9 @@ Ext.application({
 			if (loginInfo == null) {
 				this.showLoginWindow();
 			} else {
+				$('#Staus-shortcut').show()
+				$('#Admin-shortcut').show()
+
 				this.showWindowByMode();
 			}
 		}
@@ -201,6 +205,16 @@ Ext.application({
 		//loginWindow = loginWindow.show();
 	},
 
+	completedLogin : function(loginInfo){
+		if(loginInfo.userId == 'admin'){
+			$('#Staus-shortcut').show()
+			$('#Admin-shortcut').show()
+		}else{
+			$('#Staus-shortcut').remove();
+			$('#Admin-shortcut').remove()
+		}
+		this.showWindowByMode();
+	},
 	showWindowByMode: function () {
 		var krfMode = this.localStorate.getItem('krfMode');
 
@@ -260,7 +274,7 @@ Ext.application({
 		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(560, 540));
 	},
 	showStatusMode: function () {
-		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(900, 620));
+		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0,0));
 	},
 	showThreeDimMode: function (centerCoord) {
 		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10) {

@@ -357,7 +357,7 @@ Ext.define('Ext.window.Window', {
     tabGuard: true,
     
     //<locale>
-    closeToolText: 'Close dialog',
+    closeToolText: '창 닫기',
     //</locale>
 
     keyMap: {
