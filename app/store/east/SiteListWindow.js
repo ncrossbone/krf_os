@@ -589,7 +589,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							if(jsonData.data.length > 0 ){
 								sstgString = "{\n";
 								sstgString += "	\"id\": \"Esstg\",\n";
-								sstgString += "		\"text\": \"수생태계\",\n"; 
+								sstgString += "		\"text\": \"생물측정망\",\n"; 
 								sstgString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 								sstgString += "	\"expanded\": false,\n";
 								sstgString += "	\"checked\": null,\n";
