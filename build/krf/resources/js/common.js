@@ -261,6 +261,14 @@ ReachInfoBinding = function (objs) {
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
+	
+	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
+		tabIdx: tabIdx,
+		title: title,
+		test: test,
+		parentId: parentId,
+		chartFlag: chartFlag
+	});
 
 	var yFieldName = "";
 	var chartId = ""; // 부모아이디
@@ -642,7 +650,7 @@ showResultWindow = function () {
 }
 // 검색결과창 띄우기
 ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
-
+	//console.info(siteIds);
 	$KRF_APP.global.CommFn.setBookmarkInfo('searchResult', {
 		siteIds: siteIds,
 		parentIds: parentIds,
@@ -722,6 +730,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		id: gridId + "_container",
 		title: titleText, //_searchType,
 		parentId: parentCheck,
+		realParentId: parentIds,
 		//closable : true,
 		autoResize: true,
 		gridId: gridId
@@ -738,7 +747,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 
-
+	
 	if (parentCheck == "A") {
 
 		//환경기초시설 검색값 히든처리
@@ -1225,6 +1234,45 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		grdCtl.getView().bindStore(gridStore);
 
+	}else if(parentCheck == "E"){
+		
+		//console.info("search");
+		
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + "_container");
+		
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		if (siteIds != "") {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != "") {
+			grdCtl.parentIds = parentIds;
+		}
+
+
+		var sstgCombo = Ext.getCmp("sstgCombo");
+		if(sstgCombo.getValue() != null){
+			grdCtl.reconfigure($KRF_APP.global.SstgGridFn.getEsstgHcAtalSe(sstgCombo.getValue()));
+		}
+
+		//console.info(grdCtl);
+		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl,
+			combo: sstgCombo.getValue()
+		});
+
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
+
+
+
 	}
 }
 
@@ -1337,7 +1385,7 @@ ShowSearchResultReach = function (catIds) {
 		tab.insert(0, grdContainer);
 	}
 	tab.setActiveTab("searchResultReach_container");
-
+	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 
@@ -1710,6 +1758,10 @@ ResetButtonClick = function () {
 
 	// KRAD 레이어 그래픽 및 변수 초기화
 	$KRF_APP.coreMap._krad.clearKradAll();
+	if($KRF_APP.coreMap._krad.checkSubMap()){
+		$KRF_APP.subMap._krad.clearKradAll();
+	}
+	
 	SetBtnOnOff("btnMenu04", "off");
 	SetBtnOnOff("btnMenu05", "off");
 
@@ -1764,7 +1816,6 @@ ResetButtonClick = function () {
 
 	//리치검색시 초기화 해야될 목록
 	$KRF_APP.coreMap._krad.isSearchStop = true;
-
 	$KRF_APP.coreMap._krad.cmRiRchDid = [];
 	$KRF_APP.coreMap._krad.cmLeRchDid = [];
 	$KRF_APP.coreMap._krad.isNotBon = false;
@@ -1811,7 +1862,8 @@ ResetButtonClick = function () {
 	}
 
 	//리치추가 임시 tmp 제거
-	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;//arrAreaGrp
+	$KRF_APP.coreMap._krad.arrAreaGrp = [];
 	$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
 	$KRF_APP.coreMap._krad.arrLineGrp_s = [];
 	$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
@@ -1905,7 +1957,10 @@ Layer01OnOff = function (layerId, onoff) {
 	var node = treeCtl.getStore().getNodeById(layerId);
 
 	var isChecked = false;
-
+	if(!node){
+		return;
+	}
+	
 	if (onoff == "on") {
 		node.set("checked", true);
 	} else if (onoff == "off") {
@@ -2529,6 +2584,7 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 
 	return layer01Infos;
 }
+
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
 
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
@@ -2563,8 +2619,10 @@ metaDataView = function (layerId) {
 }
 
 miniMapHide = function(){
+	//미니맵 EDIT EVENT 끄기
+	$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 	var subMapWindow = Ext.getCmp("subMapWindow");
 	subMapWindow.hide();
-	console.info($KRF_APP.coreMap._krad.miniLineGrpLayer);
-	//$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+	$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+
 }
