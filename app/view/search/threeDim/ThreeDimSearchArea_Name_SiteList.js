@@ -134,7 +134,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchArea_Name_SiteList', {
 		
 					var childLayerInfo = getLayer01Info(attrName, attrValue, tmpChilds, layer01Infos);
 					if(childLayerInfo.length > 0){
-						if(layer01Infos.indexOf(childLayerInfo[0]) > -1){
+						if(layer01Infos.indexOf(childLayerInfo[0]) == -1){
 							layer01Infos.push(childLayerInfo[0]);
 						}
 					}
