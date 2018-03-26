@@ -37,7 +37,7 @@ if("rptCase2_1".equals(type)){
     oof.addField("ITEM4",item4);
     oof.addField("ITEM5",item5);
 
-    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-1/2-1all.crf");
+    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-1all.crf");
 }else{
     return;
 }

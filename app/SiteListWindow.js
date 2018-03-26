@@ -44,7 +44,6 @@ Ext.define('Desktop.SiteListWindow', {
 			height: 480,
 			iconCls: 'icon-grid',
 			animCollapse: false,
-			constrainHeader: true,
 			style: "padding-top:10px",
 			layout: 'fit',
 			maximizable: false,
