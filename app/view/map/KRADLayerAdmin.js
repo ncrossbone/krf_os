@@ -3186,7 +3186,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	require(["esri/tasks/query",
     	         "esri/tasks/QueryTask"], function(Query, QueryTask){
     		
-					var areaQueryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 집수구역 URL
+					var areaQueryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachAreaLayerId); // 집수구역 URL
 			var query = new Query();
 			query.returnGeometry = true;
 			//query.outFields = ["*"];
@@ -3195,7 +3195,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			query.where = "CAT_DID = '" + catDid + "'";
 			
 			// 집수구역 조회
-			queryTask.execute(query, function(featureSet){
+			areaQueryTask.execute(query, function(featureSet){
 				
 				for(var i = 0; i < featureSet.features.length; i++){
 					
