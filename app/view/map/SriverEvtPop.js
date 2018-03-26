@@ -6,8 +6,7 @@ Ext.define("krf_new.view.map.SriverEvtPop", {
 	id: 'sriverEvtPop',
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
-	cls: 'dj_toolbarConf_1',
-	style: "background-image: url(./resources/images/button/option_bg2_1.png); background-size: 78px 52px; border:0px; !important",
+	style: "background-image: url(./resources/images/button/option_bg2_1.png); background-size: 78px 52px; border:0px; height: 54px !important;",
 	header: {
 		height: 1,
 		style: "background-color: transparent; border: none;"

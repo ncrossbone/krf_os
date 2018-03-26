@@ -547,7 +547,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		  me.popup = Ext.create("krf_new.view.map.SriverEvtPop", {
 			 id: "sriverEvtPop",
 			 width: popWidth,
-			 height: popHeight,
+			 height: 54,
 			 x: x,
 			 y: y
 		  }).show();
