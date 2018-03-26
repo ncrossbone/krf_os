@@ -261,7 +261,7 @@ Ext.application({
 		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(560, 540));
 	},
 	showStatusMode: function () {
-		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(900, 620));
+		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0,0));
 	},
 	showThreeDimMode: function (centerCoord) {
 		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10) {
