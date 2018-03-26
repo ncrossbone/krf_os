@@ -215,7 +215,11 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
+<<<<<<< HEAD
 		"id": "40",
+=======
+		"id": "39",
+>>>>>>> 50be611a2cef7295c9d12fe2ce04d064d12c0203
 		"wmsId":"57",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -227,7 +231,11 @@
 		"siteAddrCol": "주소",
 		"layerCode": "G002"
 	},{
+<<<<<<< HEAD
 		"id": "41",
+=======
+		"id": "40",
+>>>>>>> 50be611a2cef7295c9d12fe2ce04d064d12c0203
 		"wmsId":"56",
 		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",

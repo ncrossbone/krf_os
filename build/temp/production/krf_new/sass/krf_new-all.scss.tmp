@@ -1,5 +1,9 @@
 $app-name:  dynamic( 'krf_new' );
+<<<<<<< HEAD
 $image-search-path: 'F:/PARKHYEOK/ALL_WORKSPACES/KRF_WORKSPACE/krf_os/build/krf/resources';
+=======
+$image-search-path: 'C:/git/KRF_OS/build/krf/resources';
+>>>>>>> 50be611a2cef7295c9d12fe2ce04d064d12c0203
 $theme-name:  dynamic( 'theme-neptune' );
 $include-desktop-accordionwindow: dynamic(false);;
 $include-desktop-adminconfigwindow: dynamic(true);;
