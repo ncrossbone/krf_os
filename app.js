@@ -54,7 +54,7 @@ var apiStore = Ext.create('Ext.data.Store', {
 apiStore.load(function (a, b, c) {
 	_API = a[0].data;
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://localhost:8071');
+	a[0].data.init('http://112.217.167.123:40003');
 });
 
 var $KRF_POSITION = null;
@@ -105,8 +105,9 @@ var $KRF_EVENT = {
 	STOPEDITEVENT: 'stopEditEvent',
 	RESIZE_TOOL_ITEMS: 'resizeToolItems',
 	THREE_DIM_RESIZE_TOOL_ITEMS: 'threeDimResizeToolItems',
-	THREE_DIM_SET_LEGEND_LOCATION : 'threeDimSetLegendLocation',
-	SET_TERRAINCROSS_CHART:'setTerrainCrossChart'
+	THREE_DIM_SET_LEGEND_LOCATION: 'threeDimSetLegendLocation',
+	SET_TERRAINCROSS_CHART: 'setTerrainCrossChart',
+	CREATE_WINDOW: 'createWindow',
 }
 
 var $KRF_WINS = {
@@ -114,6 +115,7 @@ var $KRF_WINS = {
 	STATUS: { MAIN: { id: 'status-win' } },
 	ADMIN: { MAIN: { id: 'admin-win' } },
 	THREEDIM: { MAIN: { id: 'threeDim-win' } },
+	REPORT: { MAIN: { id: 'report-win' } },
 	LOGIN: { MAIN: { id: 'login-win' } },
 	NOTICE: { id: 'browserNoticeWindow' }
 };
@@ -135,11 +137,10 @@ Ext.application({
 	desktopApp: null,
 
 	KRF_MODE: 'KRF_MODE',
-	KRF_MODE: 'STATUS_MODE',
+	STATUS_MODE: 'STATUS_MODE',
 	REPORT_MODE: 'REPORT_MODE',
-	ADMIN_MODE: 'ADMIN_MODE',
 	THREEDIM_MODE: 'THREEDIM_MODE',
-
+	ADMIN_MODE: 'ADMIN_MODE',
 	currentMode: '',
 
 	modeWindows: {
@@ -176,6 +177,7 @@ Ext.application({
 
 		$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
 
+		$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
 	},
 	desktopLoaded: function () {
 
@@ -205,125 +207,71 @@ Ext.application({
 
 		this.modeChanged({ mode: krfMode });
 	},
-	showKRFMode: function (coord) {
-		/*
-		for (var i = 0; i < this.modeWindows.sb.length; i++) {
-			this.modeWindows.sb[i].close();
+
+	//Start 메뉴에서 선택시 호출되는 곳
+	createWindow: function (module) {
+
+		var windowMode;
+
+		switch (module.id) {
+			case $KRF_WINS.KRF.MAP.id:
+				windowMode = this.KRF_MODE;
+				break;
+			case $KRF_WINS.THREEDIM.MAIN.id:
+				windowMode = this.THREEDIM_MODE;
+				break;
+			case $KRF_WINS.STATUS.MAIN.id:
+				windowMode = this.STATUS_MODE;
+				break;
+			case $KRF_WINS.REPORT.MAIN.id:
+				windowMode = this.REPORT_MODE;
+				break;
+			case $KRF_WINS.ADMIN.MAIN.id:
+				windowMode = this.ADMIN_MODE
+				break;
 		}
 
-		*/
+		$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { mode: windowMode });
+	},
+	showWindow: function (windowId, boundary, param) {
+		
+		var targetWindow = $KRF_APP.getDesktopWindow(windowId);
+		var targetModule = $KRF_APP.getDesktopModule(windowId);
 
-		// var dp = $KRF_APP.getDesktop();
-		var dp = $('.ux-wallpaper');
+		if (param) {
+			targetModule.initCoord = param;
+		}
 
-		var dpWidth = dp.width();
-		var dpHeight = dp.height();
-
-		var mapWindow = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.MAP.id);
-		var mapModule = $KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id);
-		mapModule.initCoord = coord;
-
-		if (mapWindow) {
-			mapWindow.show();
+		if (targetWindow) {
+			targetWindow.show();
 			return;
 		}
-		mapWindow = mapModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight});
-		mapWindow = mapWindow.show();
-
-		$KRF_APP.modeWindows.krf.push(mapWindow);
-
-
-		//            var searchModule = this.getDesktopModule($KRF_WINS.KRF.SEARCH.id);
-		//            var searchWindow = searchModule.createWindow({x:82,y:40, height:dpHeight-83});
-		//            searchWindow = searchWindow.show();
-
-
-		//            this.modeWindows.krf.push(searchWindow);
-
-		//    	var dp = this.getDesktop();
-		//    	var dpWidth = dp.getWidth();
-		//    	var dpHeight = dp.getHeight();
-		//    	
-		//        var mapModule = this.getDesktopModule($KRF_WINS.KRF.MAP.id);
-		//        var mapWindow = mapModule.createWindow({x:0,y:0, width:dpWidth, height:dpHeight-35});
-		//        mapWindow = mapWindow.show();
-		//        
-		////        var searchModule = this.getDesktopModule($KRF_WINS.KRF.SEARCH.id);
-		////        var searchWindow = searchModule.createWindow({x:82,y:40, height:dpHeight-83});
-		////        searchWindow = searchWindow.show();
-		//        
-		//        this.modeWindows.krf.push(mapWindow);
-		////        this.modeWindows.krf.push(searchWindow);
+		if(targetModule){
+			targetWindow = targetModule.createWindow(boundary);
+			targetWindow = targetWindow.show();
+		}
+	},
+	showKRFMode: function (coord) {
+		this.showWindow($KRF_WINS.KRF.MAP.id, this.getWindowBoundary(0, 0), coord);
 	},
 	showReportMode: function () {
-		/*
-		$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).release();
-
-		for (var i = 0; i < this.modeWindows.krf.length; i++) {
-			this.modeWindows.krf[i].close();
-		}
-		*/
-		var dp = $KRF_APP.getDesktop();
-		var dpWidth = dp.getWidth();
-		var dpHeight = dp.getHeight();
-
-		var statusWindow = $KRF_APP.getDesktopWindow($KRF_WINS.STATUS.MAIN.id);
-
-		if (statusWindow) {
-			statusWindow.show();
-			return;
-		}
-
-		var statusModule = $KRF_APP.getDesktopModule($KRF_WINS.STATUS.MAIN.id);
-		var statusWindow = statusModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
-		statusWindow = statusWindow.show();
-
-		$KRF_APP.modeWindows.sb.push(statusWindow);
+		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 700));
 	},
 	showAdminMode: function () {
-		//    	$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).release();
-
-		var dp = $KRF_APP.getDesktop();
-		var dpWidth = dp.getWidth();
-		var dpHeight = dp.getHeight();
-
-		var adminWindow = $KRF_APP.getDesktopWindow($KRF_WINS.ADMIN.MAIN.id);
-
-		if (adminWindow) {
-			adminWindow.show();
-			return;
-		}
-
-		var adminModule = $KRF_APP.getDesktopModule($KRF_WINS.ADMIN.MAIN.id);
-		var adminWindow = adminModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight - 35 });
-		adminWindow = adminWindow.show();
-
-
-		//		$KRF_APP.modeWindows.sb.push(statusWindow);
+		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(560, 540));
+	},
+	showStatusMode: function () {
+		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(900, 620));
 	},
 	showThreeDimMode: function (centerCoord) {
-		//    	$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).release();
-		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10){
+		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10) {
 			alert('3D 지도는 Internet Explorer 11 과 Chrome 에서 사용가능합니다.');
 			return;
 		}
+		var boundary = this.getWindowBoundary(0, 0);
+		boundary.coord = centerCoord;
 
-		var threeDimWindow = $KRF_APP.getDesktopWindow($KRF_WINS.THREEDIM.MAIN.id);
-
-		if (threeDimWindow) {
-			var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
-			threeDimModule.initCoord = centerCoord;
-			threeDimWindow.show();
-			return;
-		}
-
-		var dp = $('.ux-wallpaper');
-
-		var dpWidth = dp.width();
-		var dpHeight = dp.height();
-		var threeDimModule = $KRF_APP.getDesktopModule($KRF_WINS.THREEDIM.MAIN.id);
-		var threeDimWindow = threeDimModule.createWindow({ x: 0, y: 0, width: dpWidth, height: dpHeight, coord: centerCoord });
-		threeDimWindow = threeDimWindow.show();
+		this.showWindow($KRF_WINS.THREEDIM.MAIN.id, boundary, centerCoord);
 	},
 	modeChanged: function (param) {
 
@@ -345,6 +293,9 @@ Ext.application({
 			case this.REPORT_MODE:
 				this.showReportMode();
 				break;
+			case this.STATUS_MODE:
+				this.showStatusMode();
+				break;
 			case this.THREEDIM_MODE:
 				this.showThreeDimMode(param.coord);
 				break;
@@ -352,6 +303,26 @@ Ext.application({
 				this.showKRFMode();
 		}
 	},
+	getWindowBoundary: function (width, height) {
+		var dp = $('.ux-wallpaper');
+		var dpWidth = dp.width();
+		var dpHeight = dp.height();
+
+		var offsetX = 0;
+		var offsetY = 0;
+
+		if(width && width > 0){
+			offsetX = (dpWidth/2)-(width/2);
+			dpWidth = width;
+		}
+		if(height && height > 0){
+			offsetY = (dpHeight/2)-(height/2);
+			dpHeight = height;
+		}
+
+		return { x: offsetX, y: offsetY, width: dpWidth, height: dpHeight};
+	},
+
 	minimizeWindows: function () {
 		var desktop = this.getDesktop();
 		desktop.windows.each(function (win) {
@@ -376,12 +347,12 @@ Ext.application({
 			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
 
 			Ext.defer(function () {
-				
+
 				var subMapWindow = Ext.create('krf_new.view.map.SubMapWindow', { id: 'subMapWindow', x: centerContainer.getWidth() - 460, y: centerContainer.getHeight() - 350 });
 				centerContainer.add(subMapWindow);
-				
+
 			}, 500);
-			
+
 		}
 	},
 	checkBrowser: function () {

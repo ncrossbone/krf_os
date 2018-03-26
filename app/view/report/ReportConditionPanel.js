@@ -15,22 +15,59 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		xtype: 'panel',
 		region: 'north',
 		header: false,
+		bodyStyle: 'background: #f3f4f8;',
 		layout: { type: 'hbox' },
 		items: [{
+			/* 조사 년도 */
 			xtype: 'panel',
-			title: '조사 년도',
-			id: 'reportConditionPanel1',
-			width: 200,
+			bodyStyle: 'background: #f3f4f8',
+			style: 'margin-left:5px;',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">조사년도</b>',
+			id: 'reportConditionPanel0',
+			width: 151,
+			height: 380,
 			items: [{
 				xtype: 'select-report-condition-view',
-				id: 'reportCondition1',
+				id: 'reportCondition0',
+				bodyStyle: 'border:none;',
 				conditionType: 'id'
 			}]
 		}, {
+			/* 시작 년도 */
 			xtype: 'panel',
-			title: '조사 년도',
+			bodyStyle: 'background: #f3f4f8',
+			style: 'margin-left:5px;',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">시작년도</b>',
+			id: 'reportConditionPanel1',
+			width: 151,
+			height: 380,
+			items: [{
+				xtype: 'select-report-condition-view',
+				id: 'reportCondition1',
+				bodyStyle: 'border:none;',
+				conditionType: 'id'
+			}]
+		}, {
+			/* 끝 년도 */
+			xtype: 'panel',
+			bodyStyle: 'background: #f3f4f8',
+			style: 'margin-left:5px;',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">완료년도</b>',
 			id: 'reportConditionPanel2',
-			width: 200,
+			width: 151,
+			height: 380,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition2',
@@ -38,9 +75,16 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 			}]
 		}, {
 			xtype: 'panel',
-			title: '상세 범위',
+			bodyStyle: 'background: #f3f4f8',
+			style: 'margin-left:5px;',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">상세 범위</b>',
 			id: 'reportConditionPanel3',
-			width: 200,
+			width: 151,
+			height: 380,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition3',
@@ -48,9 +92,16 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 			}]
 		}, {
 			xtype: 'panel',
-			title: '항목 선택',
+			bodyStyle: 'background: #f3f4f8',
+			style: 'margin-left:5px;',
+			header: {
+				style: 'background:transparent;',
+				height: 27
+			},
+			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">항목 선택</b>',
 			id: 'reportConditionPanel4',
-			width: 200,
+			width: 151,
+			height: 380,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition4',
@@ -60,47 +111,188 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 	}, {
 		xtype: 'panel',
 		region: 'center',
-		title: '조건',
+		title: '<b style="color:#000000">조건 (*조건을 끌어다 놓으세요.)</b>',
+		header: {
+			style: 'background:#c8dffe;'
+		},
+		bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
 		id: 'conditiondroppanel',
 		cls: 'conditiondroppanel',
 		layout: { type: 'absolute' },
-		tbar: [{
-			xtype: 'button',
-			text: '레포트',
-			listeners: {
-				click: function () {
-					var reportWin = Ext.getCmp('report-win');
+		dragWin: [],
+		setSortObj: function () {
 
-					var offsetX = reportWin.getX();
-					var offsetY = reportWin.getY();
+			var con = this.conditions;
+			if (con) {
+				for (var key in con) {
+					con[key].sort(function (a, b) {
+						return a.idx < b.idx ? -1 : a.idx > b.idx ? 1 : 0;
+					});
+				}
+				var preObj = con;
+				var sortObj = Object.keys(con).sort();
+				this.conditions = {};
+				for (var i = 0; i < sortObj.length; i++) {
+					this.conditions[sortObj[i]] = preObj[sortObj[i]];
+				}
 
-					var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+			}
+		},
+		items: [{
+			xtype: 'panel',
+			id: 'rptBtnGrp',
+			bodyStyle: 'background:transparent;',
+			layout: 'hbox',
+			y: 10,
+			items: [{
+				/* 정렬 */
+				xtype: 'image',
+				src: './resources/images/rpt/btn_range.gif',
+				style: 'cursor: pointer; margin-left:10px;',
+				listeners: {
+					el: {
+						click: function () {
+							var reportWin = Ext.getCmp('report-win');
 
-					var keyOffsetX = 0;
-					for (var key in conditionDropPanel.conditions) {
+							var offsetX = reportWin.getX();
+							var offsetY = reportWin.getY();
 
-						for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
-							var conditionWin = Ext.getCmp(key + (i + 1) + '');
-							conditionWin.animate({
-								duration: 700,
-								to: {
-									x: offsetX + keyOffsetX + 100,
-									y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 40)
+							var keyOffsetX = 0;
+
+							var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+							conditionDropPanel.setSortObj();
+							for (var key in conditionDropPanel.conditions) {
+								if (conditionDropPanel.conditions[key].length > 0) {
+									keyOffsetX += 160;
 								}
-							});
+
+								for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
+									var conObj = conditionDropPanel.conditions[key][i];
+
+									var conditionWin = Ext.getCmp(conObj.id);
+									conditionWin.animate({
+										duration: 700,
+										to: {
+											x: offsetX + keyOffsetX,
+											y: conditionDropPanel.conditionWindowOffsetTop + offsetY + ((i + 1) * 60)
+										}
+									});
+								}
+							}
 						}
 					}
 				}
-			}
-		},{
-			xtype:'button',
-			text:'뒤로가기',
-			listeners:{
-				click: function(){
-					var reportMain = Ext.getCmp('reportMainContents');
-					reportMain.setActiveItem(0);
+
+			}, {
+				/* 뒤로가기 */
+				xtype: 'image',
+				src: './resources/images/rpt/btn_back.gif',
+				style: 'cursor: pointer;  margin-left:10px;',
+				listeners: {
+					el: {
+						click: function () {
+							var reportMain = Ext.getCmp('reportMainContents');
+							reportMain.setActiveItem(0);
+							reportMain.closeDragWin();
+						}
+					}
 				}
-			}
+
+			}, {
+				/* 리포트 보기 */
+				xtype: 'image',
+				src: './resources/images/rpt/btn_rpview.gif',
+				style: 'cursor: pointer;  margin-left:10px;',
+				setParam: function (param, reportType) {
+					var conditiondroppanel = Ext.getCmp('conditiondroppanel');
+					conditiondroppanel.setSortObj();
+
+					var areaStr = 'area';
+					var itemStr = 'item';
+					var startYear = 'startYear=';
+					var endYear = 'endYear=';
+					var iYear = 'year=';
+
+					var paramStr = '&';
+
+					for (var j = 1; j < 5; j++) {
+						paramStr += areaStr + j + '=hide&';
+					}
+
+					for (var k = 1; k < 7; k++) {
+						paramStr += itemStr + k + '=hide&';
+					}
+
+					for (var key in param) {
+						var conObj = param[key];
+
+						if (conObj.length > 0) {
+							if (key == 'reportCondition1') {
+								startYear += conObj[0].value + '&';
+							} else if (key == 'reportCondition2') {
+								endYear += conObj[0].value + '&';
+							} else if (key == 'reportCondition0') {
+								iYear += conObj[0].value + '&';
+							} else {
+								for (var i = 0; i < conObj.length; i++) {
+									if (key == 'reportCondition3') {
+										paramStr = paramStr.replace(areaStr + conObj[i].idx + '=hide', areaStr + conObj[i].idx + '=show');
+									} else if (key == 'reportCondition4') {
+										paramStr = paramStr.replace(itemStr + conObj[i].idx + '=hide', itemStr + conObj[i].idx + '=show');
+									}
+								}
+							}
+						}
+					}
+
+					return paramStr + iYear + startYear + endYear;
+				},
+				listeners: {
+					el: {
+						click: function () {
+							var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+							var rptMain = Ext.getCmp('reportMainContents');
+							var requireCom = rptMain.requireCom;
+
+							var alertStr = {
+								'reportCondition0': '조사년도를 선택하세요.',
+								'reportCondition1': '시작년도를 선택하세요.',
+								'reportCondition2': '완료년도를 선택하세요.',
+								'reportCondition3': '상세범위를 선택하세요.',
+								'reportCondition4': '항목을 선택하세요.'
+							};
+
+							if (conditionDropPanel) {
+								var conditions = conditionDropPanel.conditions;
+								if (conditions) {
+									for (var i = 0; i < requireCom.length; i++) {
+										if (conditions[requireCom[i]]) {
+											if (conditions[requireCom[i]].length == 0) {
+												alert(alertStr[requireCom[i]]);
+												return;
+											}
+										} else {
+											alert(alertStr[requireCom[i]]);
+											return;
+										}
+									}
+
+									if (rptMain.reportType == 'rptCase2_1') {
+										var param = Ext.getCmp(this.id).setParam(conditions, rptMain.reportType);
+										window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
+									} else {
+										alert('미생성 리포트');
+									}
+
+								} else {
+									alert('선택된 값이 없습니다.');
+								}
+							}
+						}
+					}
+				}
+
+			}]
 		}],
 		listeners: {
 			render: function (v) {
@@ -109,7 +301,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					//      If the mouse is over a target node, return that node. This is
 					//      provided as the "target" parameter in all "onNodeXXXX" node event handling functions
 					getTargetFromEvent: function (e) {
-						// console.log('getTargetFromEvent', arguments);
+						//console.log('getTargetFromEvent', arguments);
 						return e.getTarget('.conditiondroppanel');
 					},
 
@@ -122,7 +314,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					//      On exit from a target node, unhighlight that node.
 					onNodeOut: function (target, dd, e, data) {
 						//console.log('onNodeOut', arguments);
-
+						//$(dd.proxy.el.dom).html('<div>실패</div>');
 						// Ext.fly(target).removeCls('hospital-target-hover');
 					},
 
@@ -132,7 +324,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 						// 여기서 조건을 넣을수 있는지 체크해서 가능하면 proto.dropAllowed, 불가능은 proto.dropNotAllowed 리턴
 
 						var proto = Ext.dd.DropZone.prototype;
-
+						//$(dd.proxy.el.dom).html('<div>성공</div>');
 						return proto.dropAllowed;
 
 						// var hospital = getHospitalFromTarget(target),
@@ -148,19 +340,39 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					//      We can use the data set up by the DragZone's getDragData method to read
 					//      any data we decided to attach.
 					onNodeDrop: function (target, dd, e, data) {
-						console.log('onNodeDrop', arguments);
-						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 
+						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 						if (!conditionDropPanel.conditions) {
 							conditionDropPanel.conditions = {};
 						}
-						if (!conditionDropPanel.conditions[dd.id]) {
-							conditionDropPanel.conditions[dd.id] = [];
-						}
-						conditionDropPanel.conditions[dd.id].push(data.srcData);
-						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop + 40;
 
-						var windowIdx = conditionDropPanel.conditions[dd.id].length;
+						if (conditionDropPanel.conditions[dd.id]) {
+
+							var conArr = conditionDropPanel.conditions[dd.id];
+
+							if (dd.id == 'reportCondition1' || dd.id == 'reportCondition2' || dd.id == 'reportCondition0') {
+								if (conArr[0]) {
+									Ext.getCmp(conArr[0].id).close();
+								}
+								conArr[0] = data.srcData;
+							} else {
+								var getIdx = conArr.map(function (e) {
+									return e.id;
+								}).indexOf(data.srcData.id);
+
+
+								if (getIdx > -1) {
+									return;
+								} else {
+									conditionDropPanel.conditions[dd.id].push(data.srcData);
+								}
+							}
+						} else {
+							conditionDropPanel.conditions[dd.id] = [];
+							conditionDropPanel.conditions[dd.id].push(data.srcData);
+						}
+
+						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop + 40;
 
 						var reportWin = Ext.getCmp('report-win');
 
@@ -169,10 +381,14 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 						var conditionWindow = Ext.create('Ext.window.Window', {
 							renderTo: 'conditiondroppanel',
-							title: data.srcData.value,
-							id: dd.id + windowIdx,
+							header: {
+								style: 'border: none;',
+								height: 50,
+								html: ''
+							},
+							border: false,
+							id: data.srcData.id,
 							conditionId: dd.id,
-							conditionIndex: windowIdx,
 							animCollapse: false,
 							collapsible: false,
 							maximizable: false,
@@ -180,49 +396,41 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							resizable: false,
 							constrain: true,
 							constrainHeader: false,
-							closable: true,
+							shadow: false,
+							closable: false,
 							x: targetX,
 							y: targetY,
 							width: 150,
-							height: 35,
+							style: 'border:none !important; background-color: transparent;',
 							listeners: {
 								render: function () {
 									this.collapse();
-
-								}, close: function (win) {
+								},
+								afterRender: function () {
+									var urlStr = 'url(./resources/images/rpt/' + this.id + 'drop.png) no-repeat';
+									this.header.setStyle('background', urlStr);
+									this.header.setStyle('background-color', 'transparent');
+									var htmlStr = '<div style="position: absolute; top: 7px; right: -4px; width: 25px; height: 24px; cursor: pointer;" onclick=Ext.getCmp("' + this.id + '").close();><div>';
+									this.header.setHtml(htmlStr);
+								},
+								close: function (win) {
 									var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 									if (conditionDropPanel.conditions[win.conditionId]) {
-										conditionDropPanel.conditions[win.conditionId].splice(win.conditionIndex, 1);
+										var conArr = conditionDropPanel.conditions[win.conditionId];
+
+										var getIdx = conArr.map(function (e) {
+											return e.id;
+										}).indexOf(win.id);
+
+										conditionDropPanel.conditions[win.conditionId].splice(getIdx, 1);
 									}
 								}
 							}
 						});
 
-						// conditionDropPanel.add(conditionWindow);
-
 						conditionWindow.show();
 
 						return true;
-
-						// var rowBody = Ext.fly(target).findParent('.x-grid-rowbody-tr', null, false),
-						// 	mainRow = rowBody.previousSibling,
-						// 	hospital = gridView.getRecord(mainRow),
-						// 	patients = hospital.get('patients'),
-						// 	name = data.patientData.name;
-
-						// if (allowPatient(hospital, name)) {
-						// 	if (!patients) {
-						// 		patients = [];
-						// 		hospital.set('patients', patients);
-						// 	}
-						// 	patients.push(name);
-						// 	Ext.fly(rowBody).down('.x-grid-rowbody').update(patients.join(', '));
-						// 	Ext.Msg.alert('Drop gesture', 'Dropped patient ' + name +
-						// 		' on hospital ' + hospital.get('name'));
-
-						// 	return true;
-						// }
-						// return false;
 					}
 				});
 			}

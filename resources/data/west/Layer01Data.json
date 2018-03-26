@@ -172,7 +172,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "36",
-		"wmsId":"59",
+		"wmsId":"61",
 		"text": "보 모니터링",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer81",
@@ -184,7 +184,7 @@
 		"layerCode": "I001"
 	},{
 		"id": "37",
-		"wmsId":"58",
+		"wmsId":"60",
 		"text": "상수원구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer82",
@@ -196,7 +196,7 @@
 		"layerCode": "I002"
 	},{
 		"id": "38",
-		"wmsId":"57",
+		"wmsId":"59",
 		"text": "친수활동구간",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer83",

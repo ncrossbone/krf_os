@@ -60,21 +60,19 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
         items: [{
             xtype: 'container',
             region: 'north',
+            style: 'background: #f8f8f8; padding: 10px;',
             layout: {
                 type: 'hbox'
             },
             items: [{
-                xtype: 'container',
-                width: 10
-            }, {
                 id: 'cmbThreeDimMeasured',
                 xtype: 'combo',
                 cls: 'khLee-x-form-item-label-default',
-                fieldLabel: ' <b>기준값</b> ',
-                labelWidth: 50,
+                fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit" /> <b>기준값</b> ',
+                labelWidth: 60,
                 labelAlign: 'right',
                 labelPad: 10,
-                width: 175,
+                width: 185,
                 queryMode: 'local',
                 store: Ext.create('krf_new.store.east.ThreeDimMeasuredStore'),
                 editable: false,
@@ -98,8 +96,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                     click: function () {
                         var selectLayer = Ext.getCmp('threeDimMeasuredLayer');
                         var selectMeasure = Ext.getCmp('cmbThreeDimMeasured');
-                        debugger;
-
+                        
                         var selVal = selectMeasure.getValue();
                         var selTitle = selectMeasure.getSelectedRecord().data.name;
 
@@ -135,7 +132,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                                         return;
                                     }
 
-                                    var parameterTo3d = { layerType: layer.measureCode, valueField : selTitle, features: [] };
+                                    var parameterTo3d = { layerType: layer.measureCode, valueField: selTitle, features: [] };
 
                                     var geoInfo = result[0][1];
                                     var valInfo = Ext.util.JSON.decode(result[1][1].responseText).data;

@@ -97,9 +97,9 @@ Ext.define('krf_new.view.center.ThreeDimToolbar', {
 			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickTerrainCross' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu23_on.png',
-			btnOffImg: './resources/images/button/reach_menu23.png',
-			src: './resources/images/button/reach_menu23.png'
+			btnOnImg: './resources/images/button/reach_menu24_on.png',
+			btnOffImg: './resources/images/button/reach_menu24.png',
+			src: './resources/images/button/reach_menu24.png'
 		}, {
 			xtype: 'container',
 			id: 'threeDimGapToolbarContainer',
