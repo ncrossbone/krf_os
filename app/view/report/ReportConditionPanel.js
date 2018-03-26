@@ -153,6 +153,9 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					el: {
 						click: function () {
 							var reportWin = Ext.getCmp('report-win');
+							var rptViewBtn = Ext.getCmp('rptViewBtn');
+
+							rptViewBtn.show();
 
 							var offsetX = reportWin.getX();
 							var offsetY = reportWin.getY();
@@ -192,8 +195,10 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					el: {
 						click: function () {
 							var reportMain = Ext.getCmp('reportMainContents');
+							var rptViewBtn = Ext.getCmp('rptViewBtn');
 							reportMain.setActiveItem(0);
 							reportMain.closeDragWin();
+							rptViewBtn.hide();
 						}
 					}
 				}
@@ -203,6 +208,8 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				xtype: 'image',
 				src: './resources/images/rpt/btn_rpview.gif',
 				style: 'cursor: pointer;  margin-left:10px;',
+				id: 'rptViewBtn',
+				hidden: true,
 				setParam: function (param, reportType) {
 					var conditiondroppanel = Ext.getCmp('conditiondroppanel');
 					conditiondroppanel.setSortObj();
@@ -277,7 +284,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 										}
 									}
 
-									if (rptMain.reportType == 'rptCase2_1') {
+									if (rptMain.reportType == 'rptCase2_1' || rptMain.reportType == 'rptCase2_2') {
 										var param = Ext.getCmp(this.id).setParam(conditions, rptMain.reportType);
 										window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
 									} else {
@@ -340,6 +347,8 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					//      We can use the data set up by the DragZone's getDragData method to read
 					//      any data we decided to attach.
 					onNodeDrop: function (target, dd, e, data) {
+						var rptViewBtn = Ext.getCmp('rptViewBtn');
+
 
 						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 						if (!conditionDropPanel.conditions) {
@@ -353,6 +362,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							if (dd.id == 'reportCondition1' || dd.id == 'reportCondition2' || dd.id == 'reportCondition0') {
 								if (conArr[0]) {
 									Ext.getCmp(conArr[0].id).close();
+									rptViewBtn.hide();
 								}
 								conArr[0] = data.srcData;
 							} else {
@@ -365,11 +375,13 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 									return;
 								} else {
 									conditionDropPanel.conditions[dd.id].push(data.srcData);
+									rptViewBtn.hide();
 								}
 							}
 						} else {
 							conditionDropPanel.conditions[dd.id] = [];
 							conditionDropPanel.conditions[dd.id].push(data.srcData);
+							rptViewBtn.hide();
 						}
 
 						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop + 40;
