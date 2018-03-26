@@ -416,16 +416,34 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 
 		.khLee-tab-active .x-tab-active {
 			background-color: #004a93 !important;
-			color: #ffffff !important;
-			font-size: 14px;
+			
 			width: 135px;
 			height: 35px;
 		}
 
+		.x-tab-bar-strip-default {
+			background-color: transparent;
+		}
+
+		.x-tab.x-tab-active.x-tab-default {
+			border: none;
+		}
+
+		.x-tab.x-tab-active.x-tab-default .x-tab-inner-default{
+			color: #ffffff !important;
+			font-size: 14px;
+		}
+		.x-tab-over{
+			background: #fff !important;
+		}
+
+		.x-tab.x-tab-default .x-tab-inner-default{
+			color: #808080 !important;
+			font-size: 14px;
+		}
+
 		.khLee-tab-unselectable .x-tab-top {
 			background: #ffffff;
-			color: #808080;
-			font-size: 14px;
 			width: 135px;
 			height: 35px;
 			border: 1px solid #d7d7d7;
@@ -524,6 +542,10 @@ a.cache()}c.notifyUpdateReady()},notifyUpdateReady:function(){"checking"!==c.app
 			height: 27px !important;
 			background: url('./resources/images/popup/confBoxBg.png') !important;
 			position: absolute;
+		}
+
+		dj_toolbarConf_1:{
+			height: 52px !important;
 		}
 
 		.dj_spottextfield2 .x-form-item {

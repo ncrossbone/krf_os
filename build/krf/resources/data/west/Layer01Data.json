@@ -7,7 +7,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "1",
-		"text": "하천수 <a onclick='metaDataView(\"A001\")'  style='padding-right: 40px; float:right' href='#''> <img width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' /> </a> ",
+		"text": "하천수",
 		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
@@ -215,11 +215,7 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
-<<<<<<< HEAD
 		"id": "40",
-=======
-		"id": "39",
->>>>>>> 50be611a2cef7295c9d12fe2ce04d064d12c0203
 		"wmsId":"57",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -231,11 +227,7 @@
 		"siteAddrCol": "주소",
 		"layerCode": "G002"
 	},{
-<<<<<<< HEAD
 		"id": "41",
-=======
-		"id": "40",
->>>>>>> 50be611a2cef7295c9d12fe2ce04d064d12c0203
 		"wmsId":"56",
 		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
