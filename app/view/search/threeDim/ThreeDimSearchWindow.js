@@ -24,6 +24,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
     constrain: true,
     constrainHeader: false,
     closable: false,
+    onEsc: false,
     header:{cls :'subWindow-x-form-item-label-default'},
     cls: 'subWindow-x-form-item-label-default',
     listeners: {

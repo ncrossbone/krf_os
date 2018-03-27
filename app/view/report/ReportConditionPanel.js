@@ -174,15 +174,15 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							var rptViewBtn = Ext.getCmp('rptViewBtn');
 
 							var offsetX = reportWin.getX();
-							var offsetY = reportWin.getY();
+							var offsetY = reportWin.getY() - 25;
 
-							var keyOffsetX = 0;
+							var keyOffsetX = -145;
 
 							var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 							conditionDropPanel.setSortObj();
 							for (var key in conditionDropPanel.conditions) {
 								if (conditionDropPanel.conditions[key].length > 0) {
-									keyOffsetX += 160;
+									keyOffsetX += 155;
 									rptViewBtn.show();
 								}
 

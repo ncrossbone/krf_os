@@ -21,6 +21,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 	closable: true,
 	constrain: true,
 	minimizable: true,
+	onEsc: false,
 	header: { cls: 'subWindow-x-form-item-label-default' },
 	cls: 'subWindow-x-form-item-label-default',
 

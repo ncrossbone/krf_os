@@ -1348,6 +1348,7 @@ ShowSearchResultReach = function (catIds) {
 	var options = {
 		id: 'searchResultWindow',
 		title: '검색결과',
+		onEsc: false,
 		constrain: true,
 		width: windowWidth,
 		height: windowHeight,

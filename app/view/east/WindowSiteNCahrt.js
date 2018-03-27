@@ -16,6 +16,8 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 	preY: null,
 	preWidth: null,
 	preHeight: null,
+
+	onEsc:false,
 	
 	cls: 'subWindow-x-form-item-label-default',
 	header: {
