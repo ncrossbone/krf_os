@@ -1253,11 +1253,20 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (parentIds != "") {
 			grdCtl.parentIds = parentIds;
 		}
+		
 
+		var getGrid = "";
+		if(orgParentId == undefined){
+			getGrid = parentIds
+		}else{
+			getGrid = orgParentId
+		}
+
+//		get EsstgHcAtalSe
 
 		var sstgCombo = Ext.getCmp("sstgCombo");
 		if(sstgCombo.getValue() != null){
-			grdCtl.reconfigure($KRF_APP.global.SstgGridFn.getEsstgHcAtalSe(sstgCombo.getValue()));
+			grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
 		}
 
 		//console.info(grdCtl);

@@ -461,7 +461,7 @@ Ext.define('Desktop.MapWindow', {
 		}
 
 		if (param.searchText == "paramSearch") {
-			store.paramType = searchType;
+			store.paramType = param.searchType;
 		}
 		store.searchType = param.searchText;
 		store.load();
@@ -539,7 +539,7 @@ Ext.define('Desktop.MapWindow', {
 						PictureMarkerSymbol,
 						graphicsUtils) {
 
-						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + KRF_DEFINE.siteInfoLayerId);
+						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); 
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];
@@ -585,7 +585,7 @@ Ext.define('Desktop.MapWindow', {
 								}, 500);
 								coreMap.map.addLayer(graphicLayer);
 
-								KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.stationType });
+								$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.stationType });
 
 								// Ext.ShowSiteListWindow("paramSearch", params.stationType);
 							}
