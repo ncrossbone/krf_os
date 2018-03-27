@@ -12,11 +12,18 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 	},
 	width: 520,
 	height: 305,
+
+	preX: null,
+	preY: null,
+	preWidth: null,
+	preHeight: null,
+
 	closable: true,
 	constrain: true,
-    header:{cls :'subWindow-x-form-item-label-default'},
+	minimizable: true,
+	header: { cls: 'subWindow-x-form-item-label-default' },
 	cls: 'subWindow-x-form-item-label-default',
-	
+
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
@@ -324,11 +331,30 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 			if (currCtl.btnOnOff == "on") {
 				SetBtnOnOff(currCtl.id);
 			}
+		},
+		"minimize": function (window, opts) {
+			if (!window.collapsed) {
+				var centerContainer = Ext.getCmp('center_container');
+
+				window.preX = window.getX();
+				window.preY = window.getY();
+				window.preWidth = window.getWidth();
+				window.preHeight = window.getHeight();
+
+
+				window.collapse();
+				window.setWidth(150);
+				window.alignTo(centerContainer, 'bl-bl');
+			} else {
+				window.setX(window.preX);
+				window.setY(window.preY);
+				window.setWidth(window.preWidth);
+				window.setHeight(window.preHeight);
+
+				window.expand();
+			}
+
 		}
-		//        ,"minimize": function (window, opts) {
-		//            window.collapse();
-		//            window.setWidth(150);
-		//        }
 	},
 	//    tools: [{
 	//        type: 'restore',

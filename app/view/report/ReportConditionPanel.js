@@ -118,7 +118,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
 		id: 'conditiondroppanel',
 		cls: 'conditiondroppanel',
-		layout: { type: 'absolute' },
+		layout: { type: 'border' },
 		dragWin: [],
 		setSortObj: function () {
 
@@ -141,10 +141,28 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		items: [{
 			xtype: 'panel',
 			id: 'rptBtnGrp',
-			bodyStyle: 'background:transparent;',
+			bodyStyle: 'background:transparent; padding:10px;',
 			layout: 'hbox',
-			y: 10,
+			region: 'south',
+			flex: 0,
 			items: [{
+				/* 뒤로가기 */
+				xtype: 'image',
+				src: './resources/images/rpt/btn_back.gif',
+				style: 'cursor: pointer;',
+				listeners: {
+					el: {
+						click: function () {
+							var reportMain = Ext.getCmp('reportMainContents');
+							var rptViewBtn = Ext.getCmp('rptViewBtn');
+							reportMain.setActiveItem(0);
+							reportMain.closeDragWin();
+							rptViewBtn.hide();
+						}
+					}
+				}
+
+			}, {
 				/* 정렬 */
 				xtype: 'image',
 				src: './resources/images/rpt/btn_range.gif',
@@ -153,6 +171,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					el: {
 						click: function () {
 							var reportWin = Ext.getCmp('report-win');
+							var rptViewBtn = Ext.getCmp('rptViewBtn');
 
 							var offsetX = reportWin.getX();
 							var offsetY = reportWin.getY();
@@ -164,6 +183,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							for (var key in conditionDropPanel.conditions) {
 								if (conditionDropPanel.conditions[key].length > 0) {
 									keyOffsetX += 160;
+									rptViewBtn.show();
 								}
 
 								for (var i = 0; i < conditionDropPanel.conditions[key].length; i++) {
@@ -184,25 +204,12 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				}
 
 			}, {
-				/* 뒤로가기 */
-				xtype: 'image',
-				src: './resources/images/rpt/btn_back.gif',
-				style: 'cursor: pointer;  margin-left:10px;',
-				listeners: {
-					el: {
-						click: function () {
-							var reportMain = Ext.getCmp('reportMainContents');
-							reportMain.setActiveItem(0);
-							reportMain.closeDragWin();
-						}
-					}
-				}
-
-			}, {
 				/* 리포트 보기 */
 				xtype: 'image',
 				src: './resources/images/rpt/btn_rpview.gif',
-				style: 'cursor: pointer;  margin-left:10px;',
+				style: 'cursor: pointer; margin-left:10px;',
+				id: 'rptViewBtn',
+				hidden: true,
 				setParam: function (param, reportType) {
 					var conditiondroppanel = Ext.getCmp('conditiondroppanel');
 					conditiondroppanel.setSortObj();
@@ -277,7 +284,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 										}
 									}
 
-									if (rptMain.reportType == 'rptCase2_1') {
+									if (rptMain.reportType == 'rptCase2_1' || rptMain.reportType == 'rptCase2_2') {
 										var param = Ext.getCmp(this.id).setParam(conditions, rptMain.reportType);
 										window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
 									} else {
@@ -340,6 +347,8 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 					//      We can use the data set up by the DragZone's getDragData method to read
 					//      any data we decided to attach.
 					onNodeDrop: function (target, dd, e, data) {
+						var rptViewBtn = Ext.getCmp('rptViewBtn');
+
 
 						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
 						if (!conditionDropPanel.conditions) {
@@ -354,6 +363,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 								if (conArr[0]) {
 									Ext.getCmp(conArr[0].id).close();
 								}
+								rptViewBtn.hide();
 								conArr[0] = data.srcData;
 							} else {
 								var getIdx = conArr.map(function (e) {
@@ -365,11 +375,13 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 									return;
 								} else {
 									conditionDropPanel.conditions[dd.id].push(data.srcData);
+									rptViewBtn.hide();
 								}
 							}
 						} else {
 							conditionDropPanel.conditions[dd.id] = [];
 							conditionDropPanel.conditions[dd.id].push(data.srcData);
+							rptViewBtn.hide();
 						}
 
 						conditionDropPanel.conditionWindowOffsetTop = target.offsetTop + 40;
@@ -424,6 +436,10 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 										conditionDropPanel.conditions[win.conditionId].splice(getIdx, 1);
 									}
+								},
+								drag: function () {
+									var rptViewBtn = Ext.getCmp('rptViewBtn');
+									rptViewBtn.hide();
 								}
 							}
 						});

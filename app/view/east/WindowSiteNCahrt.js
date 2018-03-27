@@ -10,7 +10,13 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 
 	id: 'windowSiteNChart',
 	constrain: true,
+	minimizable: true,
 
+	preX: null,
+	preY: null,
+	preWidth: null,
+	preHeight: null,
+	
 	cls: 'subWindow-x-form-item-label-default',
 	header: {
 		cls: 'subWindow-x-form-item-label-default',
@@ -67,6 +73,28 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 			chartPanel.setHeight(height);
 			siteCharttest.setWidth(width);
 			siteCharttest.setHeight(height - 80);
+		}, "minimize": function (window, opts) {
+			if (!window.collapsed) {
+				var centerContainer = Ext.getCmp('center_container');
+
+				window.preX = window.getX();
+				window.preY = window.getY();
+				window.preWidth = window.getWidth();
+				window.preHeight = window.getHeight();
+
+
+				window.collapse();
+				window.setWidth(270);
+				window.alignTo(centerContainer, 'bl-bl');
+			} else {
+				window.setX(window.preX);
+				window.setY(window.preY);
+				window.setWidth(window.preWidth);
+				window.setHeight(window.preHeight);
+
+				window.expand();
+			}
+
 		}
 	},
 	//	cls: 'khLee-window-panel-header khLee-x-window-default ',

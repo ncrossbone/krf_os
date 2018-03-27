@@ -37,7 +37,24 @@ if("rptCase2_1".equals(type)){
     oof.addField("ITEM4",item4);
     oof.addField("ITEM5",item5);
 
-    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-1/2-1all.crf");
+    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-1all.crf");
+
+}else if("rptCase2_2".equals(type)){
+
+    oof.addField("STARTYEAR",startYear);
+    oof.addField("ENDYEAR",endYear);
+    oof.addField("AREA1",area1);
+    oof.addField("AREA2",area2);
+    oof.addField("AREA3",area3);
+    oof.addField("AREA4",area4);
+    oof.addField("ITEM1",item1);
+    oof.addField("ITEM2",item2);
+    oof.addField("ITEM3",item3);
+    oof.addField("ITEM4",item4);
+    oof.addField("ITEM5",item5);
+    oof.addField("ITEM6",item6);
+
+    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-2all.crf");
 }else{
     return;
 }
