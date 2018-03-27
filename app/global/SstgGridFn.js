@@ -1894,13 +1894,13 @@ Ext.define("krf_new.global.SstgGridFn", {
             }];
         }else if(val == 2){
             grid = [{
-                text: '연도',
-                dataIndex: 'EXAMIN_TME'
-            },{
-                text: '회차',
+                text: '연도1',
                 dataIndex: 'EXAMIN_YEAR'
             },{
-                text: '지점코드',
+                text: '회차2',
+                dataIndex: 'EXAMIN_TME'
+            },{
+                text: '지점코드3',
                 dataIndex: 'EXBF_NM'
             },{
                 text: '지점명',
@@ -1916,7 +1916,9 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'INDVD_CO'
             }]
         }
+        console.info(grid);
         return grid;
+        
     },
 
     getEsstgHgBemaSe: function(val){
