@@ -123,7 +123,6 @@ Ext.define('krf_new.view.report.ReportMain', {
 				activate: function () {
 					var rptMain = Ext.getCmp('reportMainContents');
 					var reportType = rptMain.reportType;
-
 					rptMain.initReportCondition(reportType);
 				}
 			}
