@@ -143,7 +143,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		
 		var me = this;
         me.map = map;
-        me.geometryService = geometryService;
+		me.geometryService = geometryService;
         
 		me.setKRADInfo();
 		
@@ -1023,8 +1023,12 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				
     				if(evt.type != "point"){
     					return;
-    				}
-    				
+					}
+					
+					var btn = Ext.getCmp("btnMenu07");
+					if(btn.btnOnOff == "off"){
+						return;
+					}
     				var radiusText = parseFloat(Ext.getCmp("radiusText").getValue());
     				
     				if(isNaN(radiusText)){
@@ -2187,7 +2191,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     //선택된 집수구역에 가장 첫번째 집수구역을 찾는 function
     findReachLineTmp: function(tmpArr){
     	var me = this;
-    	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+		var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+		console.info(reachAdmin);
+		console.info(reachAdmin.arrLineGrp);
     	
     	var firstLine = "";
     	var firstGeo = "";
@@ -2213,10 +2219,17 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		}
     		
     	}
-    	
+    	console.info(firstLine);
+    	console.info(firstGeo);
+		console.info(firstAttributes);
+		
+		console.info("tmpArr::");
+		console.info(tmpArr);
     	//본류를 찾기 0번째 라인에서부터 본류를 만나면 클릭된 하천이 본류 // 아니면 지류 (지류일때 동작 로직)
     	for(var k = 0 ; k < tmpArr.length ; k++){
     		if(tmpArr[k].attributes.GEO_TRIB == firstAttributes.GEO_TRIB){
+				//console.info("배열중에 클릭 geo와 본류 geo")
+				console.info(tmpArr[k].attributes);
     			if(k != 0){
     				//본류를 만났을때 본류에서 우측상류인지 죄측상류인지 확인하기위해 본류 전단계와 본류 좌우측 상류 비교
     				if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.LU_RCH_DID){//좌측일까??
@@ -2230,9 +2243,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     			break;
     		}
     	};
-    	//console.info("removeFirstLine:"+me.removeFirstLine)
-    	//console.info("firstBonBreak:"+me.firstBonBreak);
-    	//console.info("firstLine:"+firstLine);
+    	console.info("removeFirstLine:"+me.removeFirstLine)
+    	console.info("firstBonBreak:"+me.firstBonBreak);
+    	console.info("firstLine:"+firstLine);
     	if(firstLine != ""){
     		// 상류 찾기
     		me.setReachUpLineTmp(firstLine);
@@ -3003,7 +3016,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     
     drawGraphic2: function(graphic, symbol, layer, arrObj, reachArr){
-		console.info(layer.id);
+		
     	var me = this;
     	
     	var currId = graphic.attributes.LINE_EVENT_ID != undefined ? graphic.attributes.LINE_EVENT_ID :
@@ -3054,16 +3067,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	},
 
 	clone: function(obj){
-		console.info(obj);
+		
 		if (obj === null || typeof(obj) !== 'object'){
-			console.info("if");
+			
 			return obj;
 		}
 			
 		var copy = obj.constructor();
-		console.info(copy);
+		
 		for (var attr in obj) {
-			console.info("else");
 			if (obj.hasOwnProperty(attr)) {
 			copy[attr] = obj[attr];
 			}
@@ -3487,8 +3499,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
     	
-    	reachAdmin.arrLineGrp = []; // 기존 리치 라인 그래픽 배열
-    	reachAdmin.arrAreaGrp = []; // 기존 리치 집수구역 그래픽 배열
+    	//reachAdmin.arrLineGrp = []; // 기존 리치 라인 그래픽 배열
+    	//reachAdmin.arrAreaGrp = []; // 기존 리치 집수구역 그래픽 배열
     	
     	me.isSearchStop = true;
     	

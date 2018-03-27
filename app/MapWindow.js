@@ -12,7 +12,7 @@ Ext.define('Desktop.MapWindow', {
 	],
 
 	subWindowIds: ['popSiteInfo', 'reachNameToolbar', 'subMapWindow', 'siteListWindow', 'searchResultWindow'
-		, 'chlLegend', 'phyLegend', 'droneToolbar', 'droneDetailExp', 'reachCountSToolbar', 'reachCountEToolbar', 'metaDataWindow'],
+		, 'chlLegend', 'phyLegend', 'droneToolbar', 'droneDetailExp', 'reachCountSToolbar', 'reachCountEToolbar', 'metaDataWindow', 'radiusToolbar'],
 	id: 'map-win',
 	once: true,
 	initCoord: null,
@@ -222,8 +222,10 @@ Ext.define('Desktop.MapWindow', {
 		var rToolbar = Ext.getCmp("reachToolbar");
 		var cContainer = Ext.getCmp("cont_container");
 		var searchConfig = Ext.getCmp("searchConfig");
+		var radiusToolbar = Ext.getCmp("radiusToolbar");
 
 		var rNameToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu04');
+		var radiusToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu07');
 
 		rToolbar.showReachModeBtn();
 
@@ -237,9 +239,19 @@ Ext.define('Desktop.MapWindow', {
 			cContainer.add(searchConfig);
 		}
 
+		if(radiusToolbar == undefined){
+			radiusToolbar = Ext.create('krf_new.view.center.RadiusToolbar', {});
+			cContainer.add(radiusToolbar);
+		}
+
 		rNameToolbar.show();
 		rNameToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * rNameToolbarIdx) - 8);
 		rNameToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 1.4));
+
+		radiusToolbar.show();
+		radiusToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * radiusToolbarIdx) - 8);
+		radiusToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 1.4));
+		radiusToolbar.hide();
 
 		$KRF_APP.fireEvent($KRF_EVENT.RESIZE_TOOL_ITEMS);
 	},
