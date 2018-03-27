@@ -539,7 +539,7 @@ Ext.define('Desktop.MapWindow', {
 						PictureMarkerSymbol,
 						graphicsUtils) {
 
-						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId);
+						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); 
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];
