@@ -33,7 +33,6 @@ Ext.define('Desktop.ReportWindow', {
             width: 690,
             height: 850,
             minWidth: 690,
-            autoScroll: true,
             animCollapse: false,
             constrainHeader: true,
             layout: 'fit',
