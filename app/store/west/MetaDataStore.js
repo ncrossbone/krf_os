@@ -25,14 +25,12 @@ Ext.define('krf_new.store.west.MetaDataStore', {
 	remoteSort: true,
 	listeners: {
 		beforeload: function (store) {
-			console.info(store);
 			
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.metaId); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.where = "LYR_CODE = '" + store.layerId + "'";
 			query.returnGeometry = false;
 			query.outFields = ["*"];
-			console.info(query);
 			queryTask.execute(query, function (results) {
 				if(results.features.length > 0){
 					for(var i = 0 ; i < store.config.fields.length ; i++){

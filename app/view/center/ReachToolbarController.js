@@ -487,8 +487,18 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		//GetCoreMap().reachLayerAdmin_v3_New.startDraw("circle"); // v3
 		//}
 
-		$KRF_APP.coreMap._krad.onMapDragEvt("circle", el.id);
+		//$KRF_APP.coreMap._krad.onMapDragEvt("circle", el.id);  // 반경 드래그 
 
+		var radiusToolbar = Ext.getCmp("radiusToolbar");
+
+		var btn = Ext.getCmp([el.id]);
+		if(btn.btnOnOff == "off"){
+			radiusToolbar.show();
+		}else{
+			radiusToolbar.hide();
+		}
+		$KRF_APP.coreMap._krad.onMapDragEvt("radius", el.id);    // 반경 클릭
+		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 

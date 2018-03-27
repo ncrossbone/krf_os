@@ -19,6 +19,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 	baseMap: null,
 	editToolbar : null,
 
+	geometryService:null,
+
 
 	me: null,
 	vworldTileInfo: new esri.layers.TileInfo({
@@ -74,6 +76,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 			});
 
 			me.gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+			me.geometryService = new GeometryService($KRF_DEFINE.arcServiceUrl + "/rest/services/Utilities/Geometry/GeometryServer");
 
 			//me.map.resize();
 			me.baseMapInit();
