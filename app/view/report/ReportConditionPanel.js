@@ -360,18 +360,6 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							var conArr = conditionDropPanel.conditions[dd.id];
 
 							if (dd.id == 'reportCondition1' || dd.id == 'reportCondition2' || dd.id == 'reportCondition0') {
-
-								if (dd.id == 'reportCondition1') {
-									debugger;
-									var reportCondition2 = conditionDropPanel.conditions['reportCondition2'];
-									if (reportCondition2) {
-										if (reportCondition2[0].value < conArr[0].value) {
-											Ext.getCmp(conArr[0].id).close();
-											alert('시작년도가 큽니다');
-											return;
-										}
-									}
-								}
 								if (conArr[0]) {
 									Ext.getCmp(conArr[0].id).close();
 								}
