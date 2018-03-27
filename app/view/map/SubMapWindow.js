@@ -19,6 +19,8 @@ Ext.define('krf_new.view.map.SubMapWindow', {
 
 	closable: false,
 
+	onEsc:false,
+
 	layout: {
 		type: 'fit'
 	},

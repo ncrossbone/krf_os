@@ -69,6 +69,7 @@ Ext.define('Desktop.MapWindow', {
 			layout: 'border',
 			constrain: true,
 			constrainHeader: false,
+			onEsc:false,
 			tools: [],
 			listeners: {
 				move: function (theWin, xP, yP, theOp) {

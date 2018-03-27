@@ -12,6 +12,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 	controller: 'chartPanelDateController',
 	cls: 'subWindow-x-form-item-label-default',
 	header:{cls :'subWindow-x-form-item-label-default'},
+	onEsc:false,
 	//x: x,
 	//    cls: 'khLee-window-panel-header khLee-x-window-default ',
 	initComponent: function () {

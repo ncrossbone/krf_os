@@ -27,7 +27,8 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	height: 305,
 	x: 390,
 	y: Ext.getBody().getViewSize().height - 305,
-
+	onEsc: false,
+	
 	listeners: {
 		close: function () {
 			var currCtl = Ext.getCmp("btnFavorites");
