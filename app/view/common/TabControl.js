@@ -228,12 +228,15 @@ Ext.define('krf_new.view.common.TabControl', {
 							}
 
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
+							console.info(gridId);
 
 							$KRF_APP.btnFlag = "date";
 
 							var title = activeTab.title.split('(');
 
 							setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+							console.info(parentId);
+							console.info(gridId);
 							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
 					}

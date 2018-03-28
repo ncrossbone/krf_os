@@ -720,25 +720,47 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var orgParentId = parentIds[0].parentId;
 	var parentCheck;
 
+
+	var pId = "";
 	if (parentIds[0].parentId == undefined) {
 		parentCheck = parentIds.substring(0, 1);
+		pId = parentIds;
 	} else {
 		parentCheck = parentIds[0].parentId.substring(0, 1);
+		pId = parentIds[0].parentId;
 	}
-	options = {
-		//id: "searchResultContainer",
-		id: gridId + "_container",
-		title: titleText, //_searchType,
-		parentId: parentCheck,
-		realParentId: parentIds,
-		//closable : true,
-		autoResize: true,
-		gridId: gridId
-	};
+
+	
+
+	if(parentCheck == "E"){
+		options = {
+			//id: "searchResultContainer",
+			id: pId + gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			realParentId: parentIds,
+			//closable : true,
+			autoResize: true,
+			gridId: pId + gridId
+		};
+	}else{
+		options = {
+			//id: "searchResultContainer",
+			id: gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			realParentId: parentIds,
+			//closable : true,
+			autoResize: true,
+			gridId: gridId
+		};
+	}
+	
 
 	var tab = searchResultTab.items.items[1];
 
 	var gridStore = null;
+	
 	var grdContainer = Ext.getCmp(gridId + "_container");
 
 	var hiddenGrid = Ext.getCmp("F_CHANGE");
@@ -1194,7 +1216,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (typeof (parentIds) == 'string') {
 			orgParentId = parentIds;
 		}
-
+		
 		if (grdContainer == null || grdContainer == undefined) {
 
 			if (orgParentId == "I001") {
@@ -1238,11 +1260,23 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		
 		//console.info("search");
 		
+		var getGrid = "";
+		if(orgParentId == undefined){
+			getGrid = parentIds
+		}else{
+			getGrid = orgParentId
+		}
+		
+		var grdContainer = Ext.getCmp(pId + gridId + "_container");
+		console.info(grdContainer);
+		console.info(orgParentId);
 		if (grdContainer == null || grdContainer == undefined) {
 			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
+			console.info(options);
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(gridId + "_container");
+		console.info(gridId + "_container");
 		
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1253,12 +1287,14 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (parentIds != "") {
 			grdCtl.parentIds = parentIds;
 		}
+		
 
+		
 
-		var sstgCombo = Ext.getCmp("sstgCombo");
-		if(sstgCombo.getValue() != null){
-			grdCtl.reconfigure($KRF_APP.global.SstgGridFn.getEsstgHcAtalSe(sstgCombo.getValue()));
-		}
+//		get EsstgHcAtalSe
+		
+		 var sstgCombo = Ext.getCmp("sstgCombo");
+		 console.info(grdCtl);
 
 		//console.info(grdCtl);
 		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
@@ -1272,7 +1308,11 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		grdCtl.setStore(gridStore);
 
 
-
+		 if(sstgCombo.getValue() != null){
+			 console.info('get'+getGrid);
+			 
+		 	grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
+		 }
 	}
 }
 
@@ -1339,6 +1379,7 @@ ShowSearchResultReach = function (catIds) {
 	var options = {
 		id: 'searchResultWindow',
 		title: '검색결과',
+		onEsc: false,
 		constrain: true,
 		width: windowWidth,
 		height: windowHeight,

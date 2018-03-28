@@ -1,0 +1,86 @@
+[{
+	"id": "0",
+	"text": "수질측정지점",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"expanded": true,
+	"children": [{
+		"id": "1",
+		"text": "하천수",
+		"wmsId":"poi_a001",
+		"measureCode":"A",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer1",
+		"checked": false,
+		"leaf": true,
+		"visible": true,
+		"siteIdCol": "측정소코드",
+		"siteNmCol": "측정소명"
+	}, {
+		"id": "2",
+		"wmsId":"poi_a002",
+		"text": "호소수",
+		"measureCode":"B",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer2",
+		"checked": false,
+		"leaf": true,
+		"siteIdCol": "측정소코드",
+		"siteNmCol": "측정소명"
+	}, {
+		"id": "3",
+		"wmsId":"poi_a003",
+		"text": "농업용수",
+		"measureCode":"D",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer3",
+		"checked": false,
+		"leaf": true,
+		"siteIdCol": "측정소코드",
+		"siteNmCol": "측정소명"
+	}, {
+		"id": "4",
+		"wmsId":"poi_a004",
+		"text": "산단하천",
+		"measureCode":"E",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer4",
+		"checked": false,
+		"leaf": true,
+		"siteIdCol": "측정소코드",
+		"siteNmCol": "측정소명"
+	}, {
+		"id": "5",
+		"wmsId":"poi_a005",
+		"text": "도시관류",
+		"measureCode":"F",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer5",
+		"checked": false,
+		"leaf": true,
+		"siteIdCol": "측정소코드",
+		"siteNmCol": "측정소명"
+	}, {
+		"id": "6",
+		"wmsId":"poi_a006",
+		"text": "중권역대표지점",
+		"measureCode":"G",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer6",
+		"checked": false,
+		"leaf": true,
+		"siteIdCol": "측정소코드",
+		"siteNmCol": "측정소명"
+	}, {
+		"id": "7",
+		"wmsId":"poi_a007",
+		"text": "보대표지점",
+		"measureCode":"H",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer7",
+		"checked": false,
+		"leaf": true,
+		"siteIdCol": "PT_NO",
+		"siteNmCol": "보명"
+	}]
+}]

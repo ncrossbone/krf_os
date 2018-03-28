@@ -4,7 +4,8 @@ Ext.define("krf_new.global.SstgGridFn", {
 
     // -하천
     // EsstgHcAtalSe : 부착돌말류
-    // EsstgHcBenmaSe : 저서성대형무척추
+    // EsstgHcBemaSe : 저서성대형무척추
+    // EsstgHcBemaSe
     // EsstgHcFishSe : 어류
     // EsstgHcInhaSe : 서식 및 수변환경
     // EsstgHcQltwtrSe : 수질
@@ -325,7 +326,7 @@ Ext.define("krf_new.global.SstgGridFn", {
         return grid;
     },
 
-    getEsstgHcBenmaSe: function(val){
+    getEsstgHcBemaSe: function(val){
         var grid = null;
         if(val == 1){
             grid = [{
@@ -662,7 +663,7 @@ Ext.define("krf_new.global.SstgGridFn", {
     getEsstgHcFishSe: function(val){
         var grid = null;
         if(val  == 1){
-            [{
+            grid = [{
                 text: '연도',
                 dataIndex: 'YEAR',
                 width: 90
