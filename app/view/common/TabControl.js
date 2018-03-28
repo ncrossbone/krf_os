@@ -529,8 +529,8 @@ Ext.define('krf_new.view.common.TabControl', {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 
 					var store = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
-					//console.info(tab);
-					//console.info(tab.parentId);
+					console.info(tab);
+					console.info(tab.parentId);
 					if (tab.parentId == "D" || tab.parentId == "B") {
 						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
@@ -543,13 +543,29 @@ Ext.define('krf_new.view.common.TabControl', {
 							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
 							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
 						}
-					} else if (tab.parentId == "C" || tab.parentId == "E") {
+					} else if (tab.parentId == "C") {
 						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartBan").setValue("상");
 							Ext.getCmp("cmbEndYear").setValue("2017");
 							Ext.getCmp("cmbEndBan").setValue("하");
 						} else {
+							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
+							Ext.getCmp("cmbStartBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
+							Ext.getCmp("cmbEndBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+						}
+					} else if (tab.parentId == "E") {
+						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
+							//var sstgCombo = Ext.getCmp("sstgCombo");
+							Ext.getCmp("sstgCombo").setValue(1)
+							Ext.getCmp("cmbStartYear").setValue("2017");
+							Ext.getCmp("cmbStartBan").setValue("상");
+							Ext.getCmp("cmbEndYear").setValue("2017");
+							Ext.getCmp("cmbEndBan").setValue("하");
+						} else {
+							console.info(tab.items.items[0].items.items[0].items.items[0].store)
+							Ext.getCmp("sstgCombo").setValue(tab.items.items[0].items.items[0].items.items[0].store.combo);
 							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
 							Ext.getCmp("cmbStartBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
 							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
