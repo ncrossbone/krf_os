@@ -498,11 +498,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
 			queryWhere = "JIJUM_CODE in (" + inTxt;
 		}else{
+			console.info("else");
 			if(this.catDid.length == 0 ){
 				if(typeof(callback) == 'function'){
-					callback.call(this , sstgString);	
+					callback.call(this , sstgString);
+					return;
 				}
 			}
+			
 			
 			
 			queryWhere += "CAT_DID IN (";
@@ -518,7 +521,6 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		}
 		
 		
-
 		var siteIds = [];
 
 		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
