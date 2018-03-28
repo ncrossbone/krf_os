@@ -502,10 +502,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			if(this.catDid.length == 0 ){
 				if(typeof(callback) == 'function'){
 					callback.call(this , sstgString);
+					return;
 				}
 			}
 			
-			return;
+			
 			
 			queryWhere += "CAT_DID IN (";
 			for(var i = 0 ; i < this.catDid.length; i++){
