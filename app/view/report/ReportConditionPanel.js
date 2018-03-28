@@ -123,9 +123,12 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		items: [{
 			xtype: 'panel',
 			id: 'rptBtnGrp',
-			bodyStyle: 'background:transparent;',
-			layout: 'hbox',
-			region:'south',
+			bodyStyle: 'background:transparent; padding-right:10px;',
+			layout: {
+				type: 'hbox',
+				pack: 'end'
+			},
+			region: 'south',
 			items: [{
 				/* 뒤로가기 */
 				xtype: 'image',
