@@ -1,17 +1,17 @@
-Ext.define('krf_new.view.south.SearchResultGrid_EsstcHcBemaSe', {
+Ext.define('krf_new.view.south.SearchResultGrid_EsstgHcBemaSe', {
 
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
 
 	xtype: 'south-grid-searchresult',
 
-	id: 'searchResultContainer_E',
+	id: 'searchResultContainer_EsstcHcBemaSe',
 	height: '100%',
 	width: '100%',
 	gridId: null,
 
 	initComponent: function () {
-
+		console.info(this);
 		this.items = [{
 			xtype: 'container',
 			id: 'grid-container_' + this.gridId,
@@ -44,7 +44,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_EsstcHcBemaSe', {
 					});
 
 				},
-				columns: $KRF_APP.global.SstgGridFn.getEsstcHcBemaSe(1),
+				columns: $KRF_APP.global.SstgGridFn.getEsstgHcBemaSe(1),
 			}]
 		}];
 

@@ -5,12 +5,12 @@ Ext.define('krf_new.view.south.SearchResultGrid_EsstgHcAtalSe', {
 
 	xtype: 'south-grid-searchresult',
 
-	id: 'searchResultContainer_E',
+	id: 'searchResultContainer_EsstgHcAtalSe',
 	height: '100%',
 	width: '100%',
 	gridId: null,
 	initComponent: function () {
-		
+		console.info(this);
 		this.items = [{
 			xtype: 'container',
 			id: 'grid-container_' + this.gridId,

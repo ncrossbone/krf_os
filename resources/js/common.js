@@ -720,25 +720,50 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var orgParentId = parentIds[0].parentId;
 	var parentCheck;
 
+
+	var pId = "";
+	console.info(parentIds);
+	console.info(parentIds[0].parentId);
 	if (parentIds[0].parentId == undefined) {
 		parentCheck = parentIds.substring(0, 1);
+		pId = parentIds;
 	} else {
 		parentCheck = parentIds[0].parentId.substring(0, 1);
+		pId = parentIds[0].parentId;
 	}
-	options = {
-		//id: "searchResultContainer",
-		id: gridId + "_container",
-		title: titleText, //_searchType,
-		parentId: parentCheck,
-		realParentId: parentIds,
-		//closable : true,
-		autoResize: true,
-		gridId: gridId
-	};
+	console.info(pId);
+	
+
+	if(parentCheck == "E"){
+		console.info("parentCheck:"+parentCheck);
+		options = {
+			//id: "searchResultContainer",
+			id: pId + gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			realParentId: parentIds,
+			//closable : true,
+			autoResize: true,
+			gridId: pId + gridId
+		};
+	}else{
+		options = {
+			//id: "searchResultContainer",
+			id: gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			realParentId: parentIds,
+			//closable : true,
+			autoResize: true,
+			gridId: gridId
+		};
+	}
+	
 
 	var tab = searchResultTab.items.items[1];
 
 	var gridStore = null;
+	
 	var grdContainer = Ext.getCmp(gridId + "_container");
 
 	var hiddenGrid = Ext.getCmp("F_CHANGE");
@@ -1194,7 +1219,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (typeof (parentIds) == 'string') {
 			orgParentId = parentIds;
 		}
-
+		
 		if (grdContainer == null || grdContainer == undefined) {
 
 			if (orgParentId == "I001") {
@@ -1238,11 +1263,30 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		
 		//console.info("search");
 		
+		var getGrid = "";
+		if(orgParentId == undefined){
+			getGrid = parentIds
+		}else{
+			getGrid = orgParentId
+		}
+		console.info(pId + gridId);
+		var grdContainer = null;
+		if(!isFirst){
+			grdContainer = Ext.getCmp(gridId + "_container");
+		}else{
+			grdContainer = Ext.getCmp(pId + gridId + "_container");
+		}
+		 
+		console.info(grdContainer);
+		console.info(orgParentId);
+		console.info(options);
 		if (grdContainer == null || grdContainer == undefined) {
 			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
+			
 			tab.add(grdContainer);
 		}
-		tab.setActiveTab(gridId + "_container");
+		tab.setActiveTab(pId + gridId + "_container");
+		//console.info(gridId + "_container");
 		
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1255,12 +1299,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		}
 		
 
-		var getGrid = "";
-		if(orgParentId == undefined){
-			getGrid = parentIds
-		}else{
-			getGrid = orgParentId
-		}
+		
 
 //		get EsstgHcAtalSe
 		

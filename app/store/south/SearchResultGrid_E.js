@@ -61,7 +61,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 
 			// 로딩중 메세지
 			if (me.gridCtl != null) {
-
+				console.info(me.gridCtl);
 				me.gridCtl.removeCls("dj-mask-noneimg");
 				me.gridCtl.addCls("dj-mask-withimg");
 				me.gridCtl.mask("loading", "loading...");

@@ -1,5 +1,5 @@
 $app-name:  dynamic( 'krf_new' );
-$image-search-path: 'F:/PARKHYEOK/ALL_WORKSPACES/KRF_WORKSPACE/krf_os/build/krf/resources';
+$image-search-path: 'C:/git/KRF_OS/build/krf/resources';
 $theme-name:  dynamic( 'theme-neptune' );
 $include-desktop-accordionwindow: dynamic(false);;
 $include-desktop-adminconfigwindow: dynamic(true);;
@@ -1245,6 +1245,7 @@ $include-krf_new-view-admin-layerchoosepanel: dynamic(false);;
 $include-krf_new-view-admin-usergridpanel: dynamic(false);;
 $include-krf_new-view-center-center: dynamic(true);;
 $include-krf_new-view-center-centercontroller: dynamic(true);;
+$include-krf_new-view-center-radiustoolbar: dynamic(true);;
 $include-krf_new-view-center-reachcountetoolbar: dynamic(true);;
 $include-krf_new-view-center-reachcountstoolbar: dynamic(true);;
 $include-krf_new-view-center-reachnametoolbar: dynamic(true);;
