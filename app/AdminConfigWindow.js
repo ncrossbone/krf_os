@@ -9,6 +9,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 	extend: 'Ext.ux.desktop.Module',
 
 	requires: [
+			'krf_new.view.admin.LayerChoosePanel'
 	],
 
 	id: 'admin-win',
@@ -43,26 +44,11 @@ Ext.define('Desktop.AdminConfigWindow', {
 				tabBar: {
 					style: 'background:#fff;'
 				},
-
+				layout:'absolute',
 				style: 'background-color: #157fcb;',
 				cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
-				items: [{
-					id: 'layerConfigTab',
-					title: '주제도',
-					items: [{
-						xtype: 'panel', layout: { type: 'fit' }, width: 600, height: 385, items: [Ext.create('Ext.Img', {
-							src: './resources/images/ready.gif',
-							width: 600,
-							height: 385
-						})]
-					}],
-					tabConfig: {
-						listeners: {
-							click: function () {
-							}
-						}
-					}
-				}, {
+				items: [{ xtype: 'adminConfig-Center', },
+				{
 					id: 'arcgisTab',
 					title: 'GIS 서버',
 					tabConfig: {
@@ -78,7 +64,8 @@ Ext.define('Desktop.AdminConfigWindow', {
 							}
 						}
 					}
-				}]
+				}
+				]
 			}]
 		});
 		if (!win) {
@@ -88,3 +75,23 @@ Ext.define('Desktop.AdminConfigWindow', {
 	}
 });
 
+
+
+/*{
+					id: 'layerConfigTab',
+					title: '주제도',
+					items: [{
+						xtype: 'panel', layout: { type: 'fit' }, width: 600, height: 385, items: [Ext.create('Ext.Img', {
+							src: './resources/images/ready.gif',
+							width: 600,
+							height: 385
+						})]
+					}],
+					tabConfig: {
+						listeners: {
+							click: function () {
+							}
+						}
+					}
+				}
+				*/

@@ -54,8 +54,7 @@ var apiStore = Ext.create('Ext.data.Store', {
 apiStore.load(function (a, b, c) {
 	_API = a[0].data;
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://112.217.167.123:40003');
-	//a[0].data.init('http://localhost:8071');
+	a[0].data.init('http://112.218.1.243:38082');
 });
 
 var $KRF_POSITION = null;
@@ -109,6 +108,8 @@ var $KRF_EVENT = {
 	THREE_DIM_SET_LEGEND_LOCATION: 'threeDimSetLegendLocation',
 	SET_TERRAINCROSS_CHART: 'setTerrainCrossChart',
 	CREATE_WINDOW: 'createWindow',
+	RELOAD_LAYER_SET: 'reloadLayerSet',
+	RELOAD_USER_LIST: 'relaodUserList'
 }
 
 var $KRF_WINS = {
@@ -189,8 +190,7 @@ Ext.application({
 			if (loginInfo == null) {
 				this.showLoginWindow();
 			} else {
-				$('#Staus-shortcut').show()
-				$('#Admin-shortcut').show()
+				$('#Admin-shortcut').show();
 
 				this.showWindowByMode();
 			}
@@ -208,11 +208,9 @@ Ext.application({
 
 	completedLogin : function(loginInfo){
 		if(loginInfo.userId == 'admin'){
-			$('#Staus-shortcut').show()
-			$('#Admin-shortcut').show()
+			$('#Admin-shortcut').show();
 		}else{
-			$('#Staus-shortcut').remove();
-			$('#Admin-shortcut').remove()
+			$('#Admin-shortcut').remove();
 		}
 		this.showWindowByMode();
 	},
@@ -269,10 +267,10 @@ Ext.application({
 		this.showWindow($KRF_WINS.KRF.MAP.id, this.getWindowBoundary(0, 0), coord);
 	},
 	showReportMode: function () {
-		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 840));
+		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 700));
 	},
 	showAdminMode: function () {
-		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(560, 540));
+		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(1135, 570));
 	},
 	showStatusMode: function () {
 		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0,0));

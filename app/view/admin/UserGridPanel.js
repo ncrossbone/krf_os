@@ -2,87 +2,55 @@ Ext.define('krf_new.view.admin.UserGridPanel', {
 
 	extend: 'Ext.grid.Panel',
 
-	requires: [],
-	xtype:'userGridPanel',
+	requires: ['krf_new.view.admin.UserGridStore'],
+	xtype: 'userGridPanel',
 
-	id:'userGridPanel',
-	title: '사용자',
+	id: 'userGridPanel',
+	header: false,
+
+	title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">사용자 (*주제도를 끌어다 넣으세요.)</b>',
+	// header: {
+	// 	style: 'background:#c8dffe;'
+	// },
+	bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
 	region: 'center',
 	margin: '0 5 5 0',
 	sortableColumns: false,
+	plugins: ['bufferedrenderer', 'gridfilters'],
 	columns: [{
+		dataIndex: 'layerSetName',
+		header: '주제도',
+		width: 200,
+		filter: { type: 'string'}
+	}, {
 		dataIndex: 'userId',
 		header: '사용자ID',
-		width: 200
+		width: 150,
+		filter: { type: 'string'}
 	}, {
-		dataIndex: 'UserNm',
+		dataIndex: 'userNm',
 		header: '사용자명',
-		width: 200
+		width: 150,
+		filter: { type: 'string'}
 	}, {
 		dataIndex: 'orgName',
 		header: '소속',
-		width: 200
+		width: 170,
+		filter: { type: 'string'}
 	}, {
 		dataIndex: 'levelNm',
 		header: '권한',
-		width: 200
-	}, {
-		dataIndex: 'layerSetId',
-		header: '주제도',
-		width: 200
-	}],
-	features: [{
-		ftype: 'rowbody',
-		getAdditionalData: function (data) {
-			var patients = data.patients,
-				html;
-			if (patients) {
-				html = patients.join(', ');
-			} else {
-				html = 'Drop patients here';
-			}
-			return {
-				rowBody: html,
-				rowBodyCls: 'hospital-target'
-			};
-		}
+		width: 250,
+		filter: { type: 'string'}
 	}],
 	viewConfig: {
 		listeners: {
-			// render: initializeHospitalDropZone
 		}
 	},
-	store: Ext.create('Ext.data.Store', {
-        data: [{
-			userId: 'test1',
-			UserNm: '테스트 1',
-			orgName: '과학원 1',
-			levelNm: '관리자 1',
-			layerSetId: '기본'
-		}, {
-			userId: 'test2',
-			UserNm: '테스트 2',
-			orgName: '과학원 2',
-			levelNm: '관리자 2',
-			layerSetId: '기본'
-		}, {
-			userId: 'test3',
-			UserNm: '테스트 3',
-			orgName: '과학원 3',
-			levelNm: '관리자 3',
-			layerSetId: '기본'
-		}, {
-			userId: 'test4',
-			UserNm: '테스트 4',
-			orgName: '과학원 4',
-			levelNm: '관리자 4',
-			layerSetId: '기본'
-		}, {
-			userId: 'test5',
-			UserNm: '테스트 5',
-			orgName: '과학원 5',
-			levelNm: '관리자 5',
-			layerSetId: '기본'
-		}]
-    })
+	store: Ext.create('krf_new.view.admin.UserGridStore'),
+	listeners:{
+		render: function(){
+			this.getStore().load();
+		}
+	}
 });
