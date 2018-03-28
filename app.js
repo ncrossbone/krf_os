@@ -269,7 +269,7 @@ Ext.application({
 		this.showWindow($KRF_WINS.KRF.MAP.id, this.getWindowBoundary(0, 0), coord);
 	},
 	showReportMode: function () {
-		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 850));
+		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 840));
 	},
 	showAdminMode: function () {
 		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(560, 540));

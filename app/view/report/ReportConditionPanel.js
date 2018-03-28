@@ -15,21 +15,17 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		xtype: 'panel',
 		region: 'north',
 		header: false,
-		bodyStyle: 'background: #f3f4f8;',
+		bodyStyle: 'background: url(./resources/images/rpt/r_bg.gif);',
 		layout: { type: 'hbox' },
 		items: [{
 			/* 조사 년도 */
 			xtype: 'panel',
-			bodyStyle: 'background: #f3f4f8',
-			style: 'margin-left:5px;',
-			header: {
-				style: 'background:transparent;',
-				height: 27
-			},
-			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">조사년도</b>',
+			bodyStyle: 'background:transparent;',
+			style: 'margin-left:5px; margin-top:5px;',
+			header: false,
 			id: 'reportConditionPanel0',
 			width: 151,
-			height: 380,
+			height: 350,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition0',
@@ -39,16 +35,12 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		}, {
 			/* 시작 년도 */
 			xtype: 'panel',
-			bodyStyle: 'background: #f3f4f8',
-			style: 'margin-left:5px;',
-			header: {
-				style: 'background:transparent;',
-				height: 27
-			},
-			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">시작년도</b>',
+			bodyStyle: 'background:transparent;',
+			style: 'margin-left:5px; margin-top:5px;',
+			header: false,
 			id: 'reportConditionPanel1',
 			width: 151,
-			height: 380,
+			height: 350,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition1',
@@ -58,50 +50,40 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		}, {
 			/* 끝 년도 */
 			xtype: 'panel',
-			bodyStyle: 'background: #f3f4f8',
-			style: 'margin-left:5px;',
-			header: {
-				style: 'background:transparent;',
-				height: 27
-			},
-			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">완료년도</b>',
+			bodyStyle: 'background:transparent;',
+			style: 'margin-left:5px; margin-top:5px;',
+			header: false,
 			id: 'reportConditionPanel2',
 			width: 151,
-			height: 380,
+			height: 350,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition2',
 				conditionType: 'id'
 			}]
 		}, {
+			/* 상세 범위 */
 			xtype: 'panel',
-			bodyStyle: 'background: #f3f4f8',
-			style: 'margin-left:5px;',
-			header: {
-				style: 'background:transparent;',
-				height: 27
-			},
-			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">상세 범위</b>',
+			bodyStyle: 'background:transparent;',
+			style: 'margin-left:5px; margin-top:5px;',
+			header: false,
 			id: 'reportConditionPanel3',
 			width: 151,
-			height: 380,
+			height: 350,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition3',
 				conditionType: 'id'
 			}]
 		}, {
+			/* 항목선택 */
 			xtype: 'panel',
-			bodyStyle: 'background: #f3f4f8',
-			style: 'margin-left:5px;',
-			header: {
-				style: 'background:transparent;',
-				height: 27
-			},
-			title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">항목 선택</b>',
+			bodyStyle: 'background:transparent;',
+			style: 'margin-left:5px; margin-top:5px;',
+			header: false,
 			id: 'reportConditionPanel4',
 			width: 151,
-			height: 380,
+			height: 350,
 			items: [{
 				xtype: 'select-report-condition-view',
 				id: 'reportCondition4',
@@ -111,11 +93,11 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 	}, {
 		xtype: 'panel',
 		region: 'center',
-		title: '<b style="color:#000000">조건 (*조건을 끌어다 놓으세요.)</b>',
+		title: '<b style="color:#ffffff;">조건 (*조건을 끌어다 놓으세요.)</b>',
 		header: {
-			style: 'background:#c8dffe;'
+			style: 'background: #323C46; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) inset; -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) inset; -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) inset; '
 		},
-		bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
+		bodyStyle: 'background:url(./resources/images/rpt/aa.gif) no-repeat; background-size:cover;',
 		id: 'conditiondroppanel',
 		cls: 'conditiondroppanel',
 		layout: { type: 'border' },
@@ -141,10 +123,12 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 		items: [{
 			xtype: 'panel',
 			id: 'rptBtnGrp',
-			bodyStyle: 'background:transparent; padding:10px;',
-			layout: 'hbox',
+			bodyStyle: 'background:transparent; padding-right:10px;',
+			layout: {
+				type: 'hbox',
+				pack: 'end'
+			},
 			region: 'south',
-			flex: 0,
 			items: [{
 				/* 뒤로가기 */
 				xtype: 'image',
@@ -451,6 +435,11 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				});
 			}
 		}
+	}, {
+		xtype: 'panel',
+		region: 'south',
+		height: 20,
+		bodyStyle: 'background:url(./resources/images/rpt/ab.gif) repeat-x; width:100%;'
 	}],
 	initComponent: function () {
 		this.callParent();
