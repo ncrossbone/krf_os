@@ -489,7 +489,7 @@
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"visible": false,
-	"checked": true,
+	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "80",
@@ -499,7 +499,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer42",
 		"leaf": true,
-		"checked": true,
+		"checked": false,
 		"siteIdCol": "지점코드"
 	}]
 },{

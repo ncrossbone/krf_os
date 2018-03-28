@@ -37,14 +37,16 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 			var startYear = startMonth = endYear = endMonth = "";
 			startYear = Ext.getCmp("cmbStartYear").value;
 			startMonth = Ext.getCmp("cmbStartBan").value;
-			if (startMonth == "상") {
+			
+			if (startMonth == "상" || startMonth == "1") {
 				startMonth = 1;
 			} else {
 				startMonth = 2;
 			}
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndBan").value;
-			if (endMonth == "상") {
+
+			if (endMonth == "상" || endMonth == "1") {
 				endMonth = 1;
 			} else {
 				endMonth = 2;
@@ -102,12 +104,13 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 					}
 				});
 
+				//Tab Combo value 설정
 				firstSearch = "date";
 				Ext.getCmp("cmbStartYear").setValue(startYear);
 				Ext.getCmp("cmbStartBan").setValue(startMonth);
-
 				Ext.getCmp("cmbEndYear").setValue(endYear);
 				Ext.getCmp("cmbEndBan").setValue(endMonth);
+				Ext.getCmp("sstgCombo").setValue(store.combo);
 			}
 
 			Ext.Ajax.request({

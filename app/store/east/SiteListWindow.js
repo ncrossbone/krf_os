@@ -234,7 +234,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 					if(groupFeature[0].attributes.GROUP_CODE == "E"){ //  수생태계는
-						console.info("e");
+				
 						jsonStr += "			\"visible\": \"false\",\n";
 					}
 					if (groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E") {
@@ -383,10 +383,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonStr += "]\n";
 	
 					jsonStr += "}";
-					console.info(jsonStr);
+					
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);
-					console.info(jsonData);
+					
 	
 					store.setRootNode(jsonData);
 					store.setRootVisible(false);
@@ -485,7 +485,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 		var queryWhere = "";
 
-		console.info(this.searchType);
+		
 		if (this.searchType == "paramSearch") {
 			var params = Ext.urlDecode(location.search.substring(1));
 			var siteIds = params.station.split("|");
@@ -516,8 +516,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			}
 			queryWhere += ") AND GROUP_CODE = 'E' ";
 		}
-		console.info(queryWhere);
-		console.info(this.catDid.length);
+		
+		
 
 		var siteIds = [];
 
@@ -527,7 +527,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		query.where = queryWhere;
 		query.returnGeometry = false;
 		query.outFields = ['*'];
-		console.info(query);
+		
 		queryTask.execute(query, function (result) {
 			for(var j = 0 ; j < result.features.length; j++){
 				siteIds.push(result.features[j].attributes.JIJUM_CODE);
@@ -600,7 +600,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 						}
 					}
 					
-					//console.info(ssgtObj);
+					
 					var hcLengChk = ssgtObj.hc.ATAL_SE.length +
 									ssgtObj.hc.BEMA_SE.length +
 									ssgtObj.hc.FISH_SE.length +
@@ -948,7 +948,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					}
 				
 					if(typeof(callback) == 'function'){
-						console.info(sstgString);
+						
 						callback.call(this , sstgString);	
 					}
 				},

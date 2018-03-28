@@ -1263,11 +1263,9 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		}
 
 //		get EsstgHcAtalSe
-
-		var sstgCombo = Ext.getCmp("sstgCombo");
-		if(sstgCombo.getValue() != null){
-			grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
-		}
+		
+		 var sstgCombo = Ext.getCmp("sstgCombo");
+		 console.info(grdCtl);
 
 		//console.info(grdCtl);
 		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
@@ -1281,7 +1279,11 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		grdCtl.setStore(gridStore);
 
 
-
+		 if(sstgCombo.getValue() != null){
+			 console.info('get'+getGrid);
+			 
+		 	grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
+		 }
 	}
 }
 
