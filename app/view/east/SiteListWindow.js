@@ -132,15 +132,13 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				me.moveCommon(record);
 				//PollLoadSearchResult
 				if (record.id.length == 1) {
-					//console.info("if");
+
 					var childRecord = record.childNodes;
 
 					for (var i = 0; i < childRecord.length; i++) {
 						var gridId = "grid_" + childRecord[i].data.id;
 						me.setSiteIds(childRecord[i], true);
-						//console.info(me.parentIds);
-
-						//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
+					
 
 						// 버튼 On/Off
 						currCtl = Ext.getCmp("btnSearchResult");
@@ -289,7 +287,8 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				me.siteIds += ", ";
 			}
 
-			if(record.parentNode.data.id.substring(0,1) == "E"){
+			// E : 생물측정망의 경우 지점 id가 동일한것이 있기 때문에 어떤 검색인지 인자를 하나 더 붙임 ( 그리드아이디만들때 쓰임 , 아이디가 중복되면 그리드 오류발생)
+			if(record.parentNode.data.id.substring(0,1) == "E"){ 
 				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.eSiteId });
 				me.siteIds += "'" + record.data.eSiteId + "'";
 			}else{

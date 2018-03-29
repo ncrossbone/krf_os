@@ -650,7 +650,7 @@ showResultWindow = function () {
 }
 // 검색결과창 띄우기
 ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
-	//console.info(siteIds);
+	
 	$KRF_APP.global.CommFn.setBookmarkInfo('searchResult', {
 		siteIds: siteIds,
 		parentIds: parentIds,
@@ -721,9 +721,9 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var parentCheck;
 
 
+	//pId 는 생물측정망의 ParentId를 정의 한것임 , 지점 id가 같으므로 그리드를 그릴때 id에 다른 조건을 줄떄 씀
 	var pId = "";
-	console.info(parentIds);
-	console.info(parentIds[0].parentId);
+	//지점이 아닌 중or대분류일시 parentId가 배열형태로 들어가 있는 경우
 	if (parentIds[0].parentId == undefined) {
 		parentCheck = parentIds.substring(0, 1);
 		pId = parentIds;
@@ -731,13 +731,11 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		parentCheck = parentIds[0].parentId.substring(0, 1);
 		pId = parentIds[0].parentId;
 	}
-	console.info(pId);
 	
-
+	
+	// 생물 측정망에서 지점코드가 중복되는거 있음, 그리드 아이디에 조건을 하나더 추가
 	if(parentCheck == "E"){
-		console.info("parentCheck:"+parentCheck);
 		options = {
-			//id: "searchResultContainer",
 			id: pId + gridId + "_container",
 			title: titleText, //_searchType,
 			parentId: parentCheck,
@@ -748,7 +746,6 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		};
 	}else{
 		options = {
-			//id: "searchResultContainer",
 			id: gridId + "_container",
 			title: titleText, //_searchType,
 			parentId: parentCheck,
@@ -1261,7 +1258,6 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 	}else if(parentCheck == "E"){
 		
-		//console.info("search");
 		
 		var getGrid = "";
 		if(orgParentId == undefined){
@@ -1269,24 +1265,24 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		}else{
 			getGrid = orgParentId
 		}
-		console.info(pId + gridId);
+		
 		var grdContainer = null;
+
+		// if : 검색결과에서 재검색시 else : 지점목록에서 처음 검색시
 		if(!isFirst){
 			grdContainer = Ext.getCmp(gridId + "_container");
 		}else{
 			grdContainer = Ext.getCmp(pId + gridId + "_container");
 		}
 		 
-		console.info(grdContainer);
-		console.info(orgParentId);
-		console.info(options);
+		
 		if (grdContainer == null || grdContainer == undefined) {
 			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
 			
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(pId + gridId + "_container");
-		//console.info(gridId + "_container");
+		
 		
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1304,9 +1300,9 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 //		get EsstgHcAtalSe
 		
 		 var sstgCombo = Ext.getCmp("sstgCombo");
-		 console.info(grdCtl);
+		 
 
-		//console.info(grdCtl);
+		
 		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
@@ -1319,7 +1315,6 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 
 		 if(sstgCombo.getValue() != null){
-			 console.info('get'+getGrid);
 			 
 		 	grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
 		 }
