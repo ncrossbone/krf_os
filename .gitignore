@@ -1,5 +1,4 @@
 build/**/*.*
-build/
 WEB-INF/clipreport4/temp/
 WEB-INF/clipreport4/License.properties
 WEB-INF/clipreport4/License*

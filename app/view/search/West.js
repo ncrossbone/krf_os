@@ -35,42 +35,52 @@ Ext.define('krf_new.view.search.West', {
 		},
 		items: [{
 			xtype: 'panel', layout: 'border', items: [{
-				id: 'cmbLayerList',
+				xtype: 'container',
 				region: 'north',
-				xtype: 'combo',
-				cls: 'khLee-x-form-item-label-default',
-				fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b>주제도</b> ',
-				labelWidth: 60,
-				labelAlign: 'right',
-				labelPad: 10,
-				width: 225,
-				editable: false,
-				store: Ext.create('krf_new.store.west.LayerSetStore',{autoLoad:true}),
-				displayField: 'layerSetName',
-				valueField: 'layerSetId',
-				listeners: {
-					afterrender: function () {
-						this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
-						$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
-					},
-					change: function(combo, newValue, oldValue, eOpts){
-						var selectedRecord = combo.getSelectedRecord();
-						if(selectedRecord){
-							
-							layerSetInfo = selectedRecord.data;
+				style: 'background: #f8f8f8; padding: 10px; border-bottom: 1px solid #d8d8d8;',
+				items: [{
+					id: 'cmbLayerList',
+					xtype: 'combo',
+					cls: 'khLee-x-form-item-label-default',
+					fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b>주제도</b> ',
+					labelWidth: 60,
+					labelAlign: 'right',
+					labelPad: 10,
+					width: 225,
+					editable: false,
+					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }),
+					displayField: 'layerSetName',
+					valueField: 'layerSetId',
+					listeners: {
+						afterrender: function () {
+							this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
+							$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+						},
+						change: function (combo, newValue, oldValue, eOpts) {
+							var selectedRecord = combo.getSelectedRecord();
+							if (selectedRecord) {
 
-							if($KRF_APP.USER_LAYERS.layerSetId != layerSetInfo.layerSetId){
-								$KRF_APP.USER_LAYERS  =  layerSetInfo;
-								if(typeof(layerSetInfo.layerSetIds) == 'string'){
-									$KRF_APP.USER_LAYERS.layerSetIds =  JSON.parse(layerSetInfo.layerSetIds);
+								layerSetInfo = selectedRecord.data;
+
+								if ($KRF_APP.USER_LAYERS.layerSetId != layerSetInfo.layerSetId) {
+									$KRF_APP.USER_LAYERS = layerSetInfo;
+									if (typeof (layerSetInfo.layerSetIds) == 'string') {
+										$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(layerSetInfo.layerSetIds);
+									}
+
+									Ext.getCmp('layer01').fireEvent('afterrender');
+
+									var threeDimLayer = Ext.getCmp('threeDimLayer01');
+									if (threeDimLayer) {
+										threeDimLayer.fireEvent('afterrender');
+									}
 								}
-	
-								Ext.getCmp('layer01').fireEvent('afterrender');
 							}
 						}
 					}
-				}
-			},
+				}]
+			}
+				,
 			{
 				xtype: 'west-Layer01', region: 'center'
 			}]
@@ -87,10 +97,10 @@ Ext.define('krf_new.view.search.West', {
 
 	initComponent: function () {
 		this.callParent();
-		$KRF_APP.addListener($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE , this.layerComboSetValue , this);
+		$KRF_APP.addListener($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE, this.layerComboSetValue, this);
 	},
-	layerComboSetValue: function(param){
-		console.log($KRF_APP.USER_LAYERS.layerSetId,'layerComboSetValue');
+	layerComboSetValue: function (param) {
+		console.log($KRF_APP.USER_LAYERS.layerSetId, 'layerComboSetValue');
 		Ext.getCmp('cmbLayerList').setSelection(parseInt(param.layerSetId));
 	}
 });

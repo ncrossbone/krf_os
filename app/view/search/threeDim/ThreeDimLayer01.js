@@ -86,6 +86,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 						}
 
 						for (var i = 0; i < userLayerSet.length; i++) {
+							userLayerSet[i].checked = false;
 							if (userLayerSet[i].text == '하천망도' ||
 								userLayerSet[i].text == '소하천') {
 								userLayerSet.splice(i, 1);
@@ -94,6 +95,8 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 							}
 							if (userLayerSet[i].children) {
 								for (var j = 0; j < userLayerSet[i].children.length; j++) {
+									userLayerSet[i].children[j].checked = false;
+									
 									if (userLayerSet[i].children[j].text.indexOf('<') > -1) {
 										userLayerSet[i].children[j].text = userLayerSet[i].children[j].text.substring(0, userLayerSet[i].children[j].text.indexOf('<'));
 									}

@@ -161,8 +161,6 @@ Ext.application({
 
 		desktopApp = new krf_new.Desktop.App();
 
-		$('#pageloaddingDiv').remove();
-
 		me.localStorate = new Ext.util.LocalStorage({
 			id: 'krfStorage'
 		});
@@ -183,6 +181,8 @@ Ext.application({
 		$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
 	},
 	desktopLoaded: function () {
+
+		$('#pageloaddingDiv').remove();
 
 		if (this.checkBrowser()) {
 			// 내부망 로그인정보 조회
