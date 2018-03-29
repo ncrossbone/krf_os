@@ -7,7 +7,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "1",
-		"text": "하천수  <a onclick='metaDataView(\"A001\")'  style='padding-right: 40px; float:right' href='#''> <img src='./resources/images/button/meta.png' /> </a> ",
+		"text": "하천수",
 		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
@@ -17,7 +17,8 @@
 		"siteIdCol": "측정소코드",
 		"siteAddrCol": "채수지점",
 		"siteNmCol": "측정소명",
-		"layerCode": "A001"
+		"layerCode": "A001",
+		"isMetaData": true
 	}, {
 		"id": "2",
 		"wmsId":"poi_a002",
@@ -29,7 +30,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A002"
+		"layerCode": "A002",
+		"isMetaData": true
 	}, {
 		"id": "3",
 		"wmsId":"poi_a003",
@@ -41,7 +43,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A003"
+		"layerCode": "A003",
+		"isMetaData": true
 	}, {
 		"id": "4",
 		"wmsId":"poi_a004",
@@ -53,7 +56,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A004"
+		"layerCode": "A004",
+		"isMetaData": true
 	}, {
 		"id": "5",
 		"wmsId":"poi_a005",
@@ -65,7 +69,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A005"
+		"layerCode": "A005",
+		"isMetaData": true
 	}, {
 		"id": "6",
 		"wmsId":"poi_a006",
@@ -77,7 +82,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "측정소명",
 		"siteAddrCol": "채수지점",
-		"layerCode": "A006"
+		"layerCode": "A006",
+		"isMetaData": true
 	}, {
 		"id": "7",
 		"wmsId":"poi_a007",
@@ -89,7 +95,8 @@
 		"siteIdCol": "PT_NO",
 		"siteNmCol": "보명",
 		"siteAddrCol": "ADDR",
-		"layerCode": "A007"
+		"layerCode": "A007",
+		"isMetaData": true
 	}]
 }, /*{
 	"id": "8",
@@ -149,7 +156,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "채취지점_",
-		"layerCode": "C001"
+		"layerCode": "C001",
+		"isMetaData": true
 	},{
 		"id": "14",
 		"wmsId":"83",
@@ -161,7 +169,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "채취지점_",
-		"layerCode": "C002"
+		"layerCode": "C002",
+		"isMetaData": true
 	}]
 },{
 	"id": "35",
@@ -181,7 +190,8 @@
 		"siteIdCol": "PT_NO",
         "siteNmCol": "PT_NM",
         "siteAddrCol": "ADDRESS",
-		"layerCode": "I001"
+		"layerCode": "I001",
+		"isMetaData": true
 	},{
 		"id": "37",
 		"wmsId":"60",
@@ -193,7 +203,8 @@
 		"siteIdCol": "지점코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "I002"
+		"layerCode": "I002",
+		"isMetaData": true
 	},{
 		"id": "38",
 		"wmsId":"59",
@@ -205,7 +216,8 @@
 		"siteIdCol": "지점코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "I003"
+		"layerCode": "I003",
+		"isMetaData": true
 	}]
 },{
 	"id": "39",
@@ -225,7 +237,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G002"
+		"layerCode": "G002",
+		"isMetaData": true
 	},{
 		"id": "41",
 		"wmsId":"56",
@@ -237,7 +250,8 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G001"
+		"layerCode": "G001",
+		"isMetaData": true
 	}]
 }, {
 	"id": "15",
@@ -257,7 +271,8 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D001"
+		"layerCode": "D001",
+		"isMetaData": true
 	}, {
 		"id": "17",
 		"wmsId":"80",
@@ -269,7 +284,8 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D002"
+		"layerCode": "D002",
+		"isMetaData": true
 	}, {
 		"id": "18",
 		"wmsId":"79",
@@ -281,7 +297,8 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D003"
+		"layerCode": "D003",
+		"isMetaData": true
 	}, {
 		"id": "19",
 		"wmsId":"78",
@@ -293,7 +310,8 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D004"
+		"layerCode": "D004",
+		"isMetaData": true
 	}, {
 		"id": "20",
 		"wmsId":"77",
@@ -305,7 +323,8 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D005"
+		"layerCode": "D005",
+		"isMetaData": true
 	}, {
 		"id": "21",
 		"wmsId":"76",
@@ -317,7 +336,8 @@
 		"siteIdCol": "관측소코드",
 		"siteNmCol": "관측소명",
 		"siteAddrCol": "주소",
-		"layerCode": "D006"
+		"layerCode": "D006",
+		"isMetaData": true
 	}, {
 		"id": "22",
 		"wmsId":"75",
@@ -329,7 +349,8 @@
 		"siteIdCol": "PT_NO",
 		"siteNmCol": "보명",
 		"siteAddrCol": "ADDR",
-		"layerCode": "D007"
+		"layerCode": "D007",
+		"isMetaData": true
 	}]
 }, {
 	"id": "23",
@@ -349,7 +370,8 @@
 		"siteIdCol": "조사지코드",
 		"siteNmCol": "조사지명",
 		"siteAddrCol": "ADDR",
-		"layerCode": "E001"
+		"layerCode": "E001",
+		"isMetaData": true
 	},{
 		"id": "25",
 		"wmsId":"72",
@@ -361,7 +383,8 @@
 		"siteIdCol": "조사지코드",
 		"siteNmCol": "조사지명",
 		"siteAddrCol": "ADDR",
-		"layerCode": "E002"
+		"layerCode": "E002",
+		"isMetaData": true
 	}]
 }, {
 	"id": "26",
@@ -381,7 +404,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F006"
+		"layerCode": "F006",
+		"isMetaData": true
 	}, {
 		"id": "28",
 		"wmsId":"69",
@@ -393,7 +417,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F008"
+		"layerCode": "F008",
+		"isMetaData": true
 	}, {
 		"id": "29",
 		"wmsId":"68",
@@ -405,7 +430,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F004"
+		"layerCode": "F004",
+		"isMetaData": true
 	}, {
 		"id": "30",
 		"wmsId":"67",
@@ -417,7 +443,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F003"
+		"layerCode": "F003",
+		"isMetaData": true
 	}, {
 		"id": "31",
 		"wmsId":"66",
@@ -429,7 +456,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F006"
+		"layerCode": "F006",
+		"isMetaData": true
 	}, {
 		"id": "32",
 		"wmsId":"65",
@@ -441,7 +469,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F007"
+		"layerCode": "F007",
+		"isMetaData": true
 	}, {
 		"id": "33",
 		"wmsId":"64",
@@ -453,7 +482,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F001"
+		"layerCode": "F001",
+		"isMetaData": true
 	}, {
 		"id": "34",
 		"wmsId":"63",
@@ -465,7 +495,8 @@
 		"siteIdCol": "시설코드",
 		"siteNmCol": "시설명",
 		"siteAddrCol": "주소",
-		"layerCode": "F002"
+		"layerCode": "F002",
+		"isMetaData": true
 	}]
 }, /*{
 	"id": "49",
@@ -517,7 +548,8 @@
 		"iconCls": "layerIconSize layer42",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": ""
+		"siteIdCol": "",
+		"metaDataId":"H001"
 	}]
 },{
 	"id": "55",
@@ -535,7 +567,8 @@
 		"iconCls": "layerIconSize layer49",
 		"leaf": true,
 		"checked": true,
-		"siteIdCol": "RCH_FLW"
+		"siteIdCol": "RCH_FLW",
+		"metaDataId":"W001"
 	},{
 		"id": "57",
 		"wmsId":"40",
@@ -545,7 +578,8 @@
 		"iconCls": "layerIconSize layer46",
 		"leaf": true,
 		"checked": true,
-		"siteIdCol": "NODE_DID"
+		"siteIdCol": "NODE_DID",
+		"metaDataId":"W002"
 	}, {
 		"id": "58",
 		"wmsId":"39",
@@ -555,7 +589,8 @@
 		"iconCls": "layerIconSize layer47",
 		"leaf": true,
 		"checked": true,
-		"siteIdCol": "RCH_DID"
+		"siteIdCol": "RCH_DID",
+		"metaDataId":"W003"
 	}, {
 		"id": "59",
 		"wmsId":"38",
@@ -565,7 +600,8 @@
 		"iconCls": "layerIconSize layer48",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "CAT_DID"
+		"siteIdCol": "CAT_DID",
+		"metaDataId":"W004"
 	}]
 },{
 	"id": "S",
@@ -582,7 +618,8 @@
 		"iconCls": "",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "SRIVER"
+		"siteIdCol": "SRIVER",
+		"metaDataId":"S001"
 	},{
 		"id": "S1",
 		//"wmsId":"40",
@@ -591,7 +628,8 @@
 		"iconCls": "",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "SRIVER"
+		"siteIdCol": "SRIVER",
+		"metaDataId":"S002"
 	}, {
 		"id": "S2",
 		//"wmsId":"39",
@@ -600,7 +638,8 @@
 		"iconCls": "",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "SRIVER"
+		"siteIdCol": "SRIVER",
+		"metaDataId":"S003"
 	}]
 }, {
 	"id": "60",
@@ -617,7 +656,8 @@
 		"iconCls": "layerIconSize layer50",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "STRCODE"
+		"siteIdCol": "STRCODE",
+		"metaDataId":"U001"
 	}, {
 		"id": "62",
 		"wmsId":"35",
@@ -626,7 +666,8 @@
 		"iconCls": "layerIconSize layer51",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "STRCODE"
+		"siteIdCol": "STRCODE",
+		"metaDataId":"U002"
 	}]
 }, {
 	"id": "64",
@@ -643,7 +684,8 @@
 		"iconCls": "layerIconSize layer54",
 		"leaf": true,
 		"checked": true,
-		"siteIdCol": "WS_CD"
+		"siteIdCol": "WS_CD",
+		"metaDataId":"T001"
 	}, {
 		"id": "66",
 		"wmsId":"31",
@@ -652,7 +694,8 @@
 		"iconCls": "layerIconSize layer55",
 		"leaf": true,
 		"checked": true,
-		"siteIdCol": "MW_CODE"
+		"siteIdCol": "MW_CODE",
+		"metaDataId":"T002"
 	}, {
 		"id": "67",
 		"wmsId":"30",
@@ -661,7 +704,8 @@
 		"iconCls": "layerIconSize layer56",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "SW_CODE"
+		"siteIdCol": "SW_CODE",
+		"metaDataId":"T003"
 	}]
 }, {
 	"id": "68",
@@ -678,7 +722,8 @@
 		"iconCls": "layerIconSize layer58",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "ADM_CD"
+		"siteIdCol": "ADM_CD",
+		"metaDataId":"V001"
 	}, {
 		"id": "70",
 		"wmsId":"27",
@@ -687,7 +732,8 @@
 		"iconCls": "layerIconSize layer59",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "ADM_CD"
+		"siteIdCol": "ADM_CD",
+		"metaDataId":"V002"
 	}, {
 		"id": "71",
 		"wmsId":"26",
@@ -696,7 +742,8 @@
 		"iconCls": "layerIconSize layer60",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "ADM_CD"
+		"siteIdCol": "ADM_CD",
+		"metaDataId":"V003"
 	}, {
 		"id": "72",
 		"wmsId":"25",
@@ -705,7 +752,8 @@
 		"iconCls": "layerIconSize layer61",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "ADM_CD"
+		"siteIdCol": "ADM_CD",
+		"metaDataId":"V004"
 	}]
 }, /* {
 	"id": "70",
@@ -801,6 +849,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer80",
 		"leaf": true,
-		"checked": false
+		"checked": false,
+		"metaDataId":"R001"
 	}]
 }]

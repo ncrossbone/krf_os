@@ -25,7 +25,7 @@ Ext.define('krf_new.view.search.Layer01', {
 		textAlign: 'center',
 		bodyPadding: 5
 	},
-	items: [ {
+	items: [{
 		//		title: '주제도 선택',
 		xtype: 'treepanel',
 		scroll: false,
@@ -46,7 +46,6 @@ Ext.define('krf_new.view.search.Layer01', {
 					url: 'resources/data/west/Layer01Data.json',
 					success: function (response, opts) {
 						var layers = Ext.util.JSON.decode(response.responseText);
-
 						var userLayerSet = [];
 
 						if ($KRF_APP.USER_LAYERS) {
@@ -64,10 +63,17 @@ Ext.define('krf_new.view.search.Layer01', {
 							for (var j = 0; j < userLayerSet.length; j++) {
 								if (userLayerSet[j].children) {
 									var chuldrenLayer = [];
-
 									for (var z = 0; z < userLayerSet[j].children.length; z++) {
+										var childArr = userLayerSet[j].children[z];
+										if (childArr.isMetaData) {
+											childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.layerCode + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
+										} else {
+											if (childArr.metaDataId) {
+												childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.metaDataId + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
+											}
+										}
 										for (var i = 0; i < $KRF_APP.USER_LAYERS.layerSetIds.length; i++) {
-											if (userLayerSet[j].children[z].id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
+											if (childArr.id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
 												//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
 												chuldrenLayer.push(userLayerSet[j].children.splice(z, 1)[0]);
 												z--;
@@ -76,20 +82,22 @@ Ext.define('krf_new.view.search.Layer01', {
 											}
 										}
 									}
+
 									userLayerSet[j].children = chuldrenLayer;
 								}
 							}
 						} else {
 							userLayerSet = layers;
 						}
-						var layerTreePanel = Ext.getCmp('layer01');
 
+						var layerTreePanel = Ext.getCmp('layer01');
 						layerTreePanel.setRootNode({ text: 'root', expanded: true, leaf: false, children: userLayerSet });
 
 						$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, layerTreePanel.getView().getChecked());
 					}
 				});
-			}
+			},
+
 		}
 	}]
 });

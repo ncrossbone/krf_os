@@ -217,7 +217,12 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						jijum_Cd = jijum[layer01Info[0].siteIdCol];
 					}
 					if (layer01Info[0].text != undefined && layer01Info[0].text != "") {
-						jijum_Gubun = layer01Info[0].text;
+						var splitStr = layer01Info[0].text.split('<a');
+						if (splitStr) {
+							jijum_Gubun = splitStr[0];
+						} else {
+							jijum_Gubun = layer01Info[0].text;
+						}
 					}
 				}
 
