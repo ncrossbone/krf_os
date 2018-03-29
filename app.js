@@ -290,7 +290,7 @@ Ext.application({
 		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 700));
 	},
 	showAdminMode: function () {
-		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(1135, 570));
+		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(1155, 570));
 	},
 	showStatusMode: function () {
 		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0,0));

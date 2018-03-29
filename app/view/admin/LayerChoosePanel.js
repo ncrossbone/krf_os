@@ -27,9 +27,10 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 			bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
 			width: 200,
 			region: 'west',
-			layout: { type: 'vbox' },
+			layout: { type: 'border' },
 			items: [{
 				xtype: 'image',
+				region:'north',
 				id: 'btnAddLayerSet',
 				title: '추가',
 				style: 'left: 0px !important;',
@@ -49,7 +50,7 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 						}
 					}
 				}
-			}, { xtype: 'layerListView', width: 200, store: Ext.create('krf_new.view.admin.LayerConfigStore') }]
+			}, { xtype: 'layerListView', width: 200,region:'center',store: Ext.create('krf_new.view.admin.LayerConfigStore') }]
 		},
 		{ xtype: 'userGridPanel', region: 'center', cls: 'userGridPanelDrop', disableSelection: true }]
 	},
