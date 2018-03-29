@@ -47,7 +47,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 				layout:'absolute',
 				style: 'background-color: #157fcb;',
 				cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
-				items: [{ xtype: 'adminConfig-Center', },
+				items: [{ xtype: 'adminConfig-Center', title:'주제도'},
 				{
 					id: 'arcgisTab',
 					title: 'GIS 서버',

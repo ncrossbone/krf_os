@@ -16,6 +16,7 @@ Ext.define('krf_new.view.admin.LayerListView', {
 	overItemCls: 'layer-over',
 	selectedItemClass: 'layer-selected',
 	singleSelect: true,
+	scrollable : true,
 	listeners: {
 		itemclick: function (view, record, item, index, e, eOpts) {
 			var layerSetWin = Ext.getCmp("layer-set-win");

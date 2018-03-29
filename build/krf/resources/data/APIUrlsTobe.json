@@ -105,7 +105,13 @@
     "SHA_256":"#host#/krf/common/sha256",
     "Bookmark":"#host#/krf/bookmark/",
     "searchMeasuredValue":"#host#/krf/searchResult/searchMeasuredValue",
-
+    "getLayerSetAll":"#host#/krf/config/getLayerSetAll",
+    "getLayerSetForUser":"#host#/krf/config/getLayerSetForUser",
+    "getUsers":"#host#/krf/config/getUsers",
+    "putLayerSet":"#host#/krf/config/putLayerSet",
+    "putLayerSetByUser":"#host#/krf/config/putLayerSetByUser",
+    "updateLayerSet":"#host#/krf/config/updateLayerSet",
+    "delLayerSet":"#host#/krf/config/delLayerSet",
     init: function(host){
               if(host != null){
                   this.domain = host;

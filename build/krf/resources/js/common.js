@@ -722,6 +722,8 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 
 	var pId = "";
+	console.info(parentIds);
+	console.info(parentIds[0].parentId);
 	if (parentIds[0].parentId == undefined) {
 		parentCheck = parentIds.substring(0, 1);
 		pId = parentIds;
@@ -729,10 +731,11 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		parentCheck = parentIds[0].parentId.substring(0, 1);
 		pId = parentIds[0].parentId;
 	}
-
+	console.info(pId);
 	
 
 	if(parentCheck == "E"){
+		console.info("parentCheck:"+parentCheck);
 		options = {
 			//id: "searchResultContainer",
 			id: pId + gridId + "_container",
@@ -1266,17 +1269,24 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		}else{
 			getGrid = orgParentId
 		}
-		
-		var grdContainer = Ext.getCmp(pId + gridId + "_container");
+		console.info(pId + gridId);
+		var grdContainer = null;
+		if(!isFirst){
+			grdContainer = Ext.getCmp(gridId + "_container");
+		}else{
+			grdContainer = Ext.getCmp(pId + gridId + "_container");
+		}
+		 
 		console.info(grdContainer);
 		console.info(orgParentId);
+		console.info(options);
 		if (grdContainer == null || grdContainer == undefined) {
 			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
-			console.info(options);
+			
 			tab.add(grdContainer);
 		}
-		tab.setActiveTab(gridId + "_container");
-		console.info(gridId + "_container");
+		tab.setActiveTab(pId + gridId + "_container");
+		//console.info(gridId + "_container");
 		
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
