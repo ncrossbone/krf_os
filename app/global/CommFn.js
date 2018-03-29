@@ -379,7 +379,7 @@ Ext.define("krf_new.global.CommFn", {
 		// 하천 
 		// -하천
 		// EsstgHcAtalSe : 부착돌말류-
-		// EsstgHcBenmaSe : 저서성대형무척추-
+		// EsstgHcBemaSe : 저서성대형무척추-
 		// EsstgHcFishSe : 어류-
 		// EsstgHcInhaSe : 서식 및 수변환경
 		// EsstgHcQltwtrSe : 수질
@@ -391,7 +391,8 @@ Ext.define("krf_new.global.CommFn", {
 		// EsstgHgFishSe : 어류-
 		// EsstgHgVtnSe : 식생
 		var store = null;
-		if(storeName == 'EsstgHcAtalSe' || storeName == 'EsstgHcBenmaSe' || storeName == 'EsstgHcFishSe' // 하천 부착돌말류,저서성대형무척추,어류
+		console.info(storeName);
+		if(storeName == 'EsstgHcAtalSe' || storeName == 'EsstgHcBemaSe' || storeName == 'EsstgHcFishSe' // 하천 부착돌말류,저서성대형무척추,어류
 		|| storeName == 'EsstgHgAtalSe'|| storeName == 'EsstgHgBemaSe'|| storeName == 'EsstgHgFishSe'){	// 하구 부착돌말류,저서성대형무척추,어류
 			store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],

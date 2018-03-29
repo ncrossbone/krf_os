@@ -5,7 +5,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_EsstgHgVtnSe', {
 
 	xtype: 'south-grid-searchresult',
 
-	id: 'searchResultContainer_E',
+	id: 'searchResultContainer_EsstgHgVtnSe',
 	height: '100%',
 	width: '100%',
 	gridId: null,
