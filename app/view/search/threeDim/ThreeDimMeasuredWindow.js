@@ -60,7 +60,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
         items: [{
             xtype: 'container',
             region: 'north',
-            style: 'background: #f8f8f8; padding: 10px;',
+            style: 'background: #f8f8f8; padding: 10px; border-bottom: 1px solid #d8d8d8;',
             layout: {
                 type: 'hbox'
             },
