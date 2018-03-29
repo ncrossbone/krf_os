@@ -1,6 +1,4 @@
 build/**/*.*
-sass/**/*.*
-sass/
 build/
 WEB-INF/clipreport4/temp/
 WEB-INF/clipreport4/License.properties
