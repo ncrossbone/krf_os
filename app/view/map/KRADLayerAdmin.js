@@ -371,7 +371,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	var me = this;
     	
     	var reachClose = Ext.getCmp('reach_close');
-    	reachClose.setDisabled(true);
+		reachClose.setDisabled(false);
     	
     	//최대 5개 선택되었을 경우
     	if(me.clickFS.length != 0){

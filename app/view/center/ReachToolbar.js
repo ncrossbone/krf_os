@@ -295,6 +295,22 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu18_on.png'
 		}, {
 			xtype: 'image',
+			id: 'btnSave',
+			title: '저장',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			listeners: {
+				el: {
+					click: function () {
+						setActionInfo("", "", "", "", "화면저장");
+						$KRF_APP.coreMap.capture();
+					}
+				}
+			},
+			src: './resources/images/button/reach_menu16.png'
+		}, {
+			xtype: 'image',
 			id: 'btnNotice',
 			title: '공지사항',
 			style: 'cursor:pointer;',
@@ -308,7 +324,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 							boardCtl = Ext.create("Ext.window.Window", {
 								id: "boardNotice",
 								title: "공지사항",
-								width: 670,
+								width: 680,
 								height: 580,
 								onEsc: false,
 								html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>',
@@ -339,7 +355,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 							boardCtl = Ext.create("Ext.window.Window", {
 								id: "boardQNA",
 								title: "Q&A",
-								width: 660,
+								width: 680,
 								height: 600,
 								onEsc: false,
 								cls: 'subWindow-x-form-item-label-default',
@@ -355,22 +371,6 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 				}
 			},
 			src: './resources/images/button/reach_menu19.png'
-		}, {
-			xtype: 'image',
-			id: 'btnSave',
-			title: '저장',
-			style: 'cursor:pointer;',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			listeners: {
-				el: {
-					click: function () {
-						setActionInfo("", "", "", "", "화면저장");
-						$KRF_APP.coreMap.capture();
-					}
-				}
-			},
-			src: './resources/images/button/reach_menu16.png'
 		}, {
 			xtype: 'image',
 			id: 'btnMenual',

@@ -144,7 +144,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 		}
 
 		Ext.getCmp('center_container').add(popCtl);
-		
+
 		////console.info(popCtl.hidden);
 		if (popCtl.hidden == true) {
 			popCtl.show();
@@ -163,6 +163,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 		// 리치모드 버튼
 		if (el.id == "btnModeReach" || el.id == "btnModeReach_center") {
 			var westContents = Ext.getCmp("searchAreaContents");
+			this.btnHidden('reach');
 			var btnName = Ext.getCmp("btnNameSearch");
 			if (btnName.btnOnOff == "off") {
 				btnName = SetBtnOnOff("btnNameSearch");
@@ -226,7 +227,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 		// 일반모드 버튼
 		if (el.id == "btnModeNomal" || el.id == "btnModeNomal_center") {
-
+			this.btnHidden('normal');
 			// 리치 선택 종료
 			$KRF_APP.coreMap.reachLayerAdmin_v3_New.drawEnd();
 
@@ -403,5 +404,16 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 		if (paramMarker != undefined) {
 			paramMarker.hide();
 		}
+	},
+
+	btnHidden: function (mode) {
+		var toggleBtnIdArr = ['btnNotice', 'btnQnA', 'btnMenual'];
+		var isShow = null;
+		mode == 'reach' ? isShow = false : isShow = true;
+		for (var i = 0; i < toggleBtnIdArr.length; i++) {
+			var btnObj = Ext.getCmp(toggleBtnIdArr[i]);
+			isShow ? btnObj.show() : btnObj.hide();
+		}
+
 	}
 });
