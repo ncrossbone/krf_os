@@ -1,5 +1,15 @@
 build/**/*.*
 sass/**/*.*
+sass/
+build/
 WEB-INF/clipreport4/temp/
 WEB-INF/clipreport4/License.properties
 WEB-INF/clipreport4/License*
+bootstrap.css
+bootstrap.js
+bootstrap.json
+build.xml
+Readme.md
+packages/
+resources/downloads/ChromeStandaloneSetup.exe
+resources/saveImgTemp/
