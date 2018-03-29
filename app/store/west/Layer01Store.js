@@ -2,15 +2,7 @@ Ext.define('krf_new.store.west.Layer01Store', {
 
 	extend: 'Ext.data.TreeStore',
 
-	autoLoad: true,
-
-	proxy: {
-		type: 'ajax',
-		url: 'resources/data/west/Layer01Data.json',
-		reader: {
-			type: 'json'
-		}
-	},
+	autoLoad: false,
 
 	constructor: function () {
 		this.callParent();

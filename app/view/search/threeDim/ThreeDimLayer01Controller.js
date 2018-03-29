@@ -11,7 +11,6 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01Controller', {
 		}
 	},
 	onRender: function () {
-		Ext.create('krf_new.store.west.ThreeDimLayer01Store', {autoLoad: false}).load();
 	},
 
 	onCheckChanged: function (node, checked, btnId) {

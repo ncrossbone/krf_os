@@ -109,7 +109,8 @@ var $KRF_EVENT = {
 	SET_TERRAINCROSS_CHART: 'setTerrainCrossChart',
 	CREATE_WINDOW: 'createWindow',
 	RELOAD_LAYER_SET: 'reloadLayerSet',
-	RELOAD_USER_LIST: 'relaodUserList'
+	RELOAD_USER_LIST: 'relaodUserList',
+	LAYER_SET_COMBO_SET_VALUE: 'layerSetComboSetValue'
 }
 
 var $KRF_WINS = {
@@ -190,9 +191,11 @@ Ext.application({
 			if (loginInfo == null) {
 				this.showLoginWindow();
 			} else {
-				$('#Admin-shortcut').show();
 
-				this.showWindowByMode();
+				this.completedLogin({userId:'weis_admin'});
+				// $('#Admin-shortcut').show();
+
+				// this.showWindowByMode();
 			}
 		}
 	},
@@ -207,11 +210,28 @@ Ext.application({
 	},
 
 	completedLogin : function(loginInfo){
-		if(loginInfo.userId == 'admin'){
+		if(loginInfo.userId == 'weis_admin'){
 			$('#Admin-shortcut').show();
 		}else{
 			$('#Admin-shortcut').remove();
 		}
+
+		Ext.Ajax.request({
+			url: _API.getLayerSetForUser,
+			dataType: "text/html",
+			method: 'POST',
+			params:{userId: loginInfo.userId},
+			async: true, // 비동기 = async: true, 동기 = async: false
+			success: function (response, opts) {
+				var result = Ext.util.JSON.decode(response.responseText);
+				if(result.data.length > 0){
+					$KRF_APP.USER_LAYERS = result.data[0];
+					$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
+					// $KRF_APP.fireEvent($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE, $KRF_APP.USER_LAYERS);
+				}
+			}
+		});
+
 		this.showWindowByMode();
 	},
 	showWindowByMode: function () {
