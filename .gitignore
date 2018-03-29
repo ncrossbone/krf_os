@@ -13,3 +13,4 @@ Readme.md
 packages/
 resources/downloads/ChromeStandaloneSetup.exe
 resources/saveImgTemp/
+.vscode/
