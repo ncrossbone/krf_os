@@ -158,7 +158,10 @@ Ext.define('Desktop.ThreeDimensionsWindow', {
                         $KRF_APP.fireEvent($KRF_EVENT.THREE_DIM_RESIZE_TOOL_ITEMS);
                         me.once = false;
                     } else {
-                        $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'move', coord: me.initCoord }));
+                        if(me.initCoord){
+                            $KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, ({ type: 'move', coord: me.initCoord }));
+                            me.initCoord = null;
+                        }
                     }
                 },
                 beforeclose: function () {

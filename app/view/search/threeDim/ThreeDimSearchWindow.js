@@ -45,7 +45,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimSearchWindow', {
             if (treeCtl == undefined)
                 return;
 
-            treeCtl.setHeight(height - 50);
+            treeCtl.setHeight(height - 75);
         }
     },
     tools: [

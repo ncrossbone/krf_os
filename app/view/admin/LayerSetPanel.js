@@ -69,7 +69,7 @@ Ext.define('krf_new.view.admin.LayerSetPanel', {
 
 					var requestUrl = _API.putLayerSet;
 
-					var requestParam = {layerSetName: layerSetName, layerSetIds: JSON.stringify(checkLayerIds)};
+					var requestParam = {layerSetName: layerSetName, layerSetIds: JSON.stringify(checkLayerIds), userId:$KRF_APP.loginInfo.userId};
 
 					var layerSetWindow = Ext.getCmp('layer-set-win');
 
