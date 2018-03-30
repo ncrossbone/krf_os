@@ -3576,7 +3576,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     getSearchConfigInfo: function(){
     	
-    	var searchConfig = Ext.getCmp("searchConfig");
+		var searchConfig = Ext.getCmp("searchConfig");
+		if(searchConfig.getLocalStorage() == undefined || searchConfig.getLocalStorage() == "undefined"){
+			searchConfig.setLocalStorage();
+		}
     	this.searchConfigInfoJson = searchConfig.getLocalStorage();
     	
     }

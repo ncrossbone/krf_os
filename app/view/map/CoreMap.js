@@ -289,19 +289,15 @@ Ext.define('krf_new.view.map.CoreMap', {
 				,"esri/symbols/SimpleLineSymbol"
 				,"esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
 					//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
+					var coreMap = Ext.getCmp("_mapDiv_");
+					var subCoreMap = Ext.getCmp("_subMapDiv_");
+
+
+					//subCoreMap.map.centerAndZoom($KRF_APP.coreMap.map.extent.getCenter(),$KRF_APP.coreMap.map.__LOD.level + 2);
 					
-					console.info("?");
-					var mkInitExtent = new esri.geometry.Extent({
-						xmax:14316370.016699623,
-						xmin:14178783.365786374,
-						ymax:4407185.809862526,
-						ymin:4318824.605164904,
-						spatialReference: {
-							wkid: 102100
-						}
-					});
 					//var polygonGraphic = Polygon.fromExtent(Ext.getCmp("_subMapDiv_").graphicsLayerAdmin.map.extent);
-					var polygonGraphic = Polygon.fromExtent(mkInitExtent);
+					var polygonGraphic = Polygon.fromExtent(subCoreMap.map.extent);
+					//var polygonGraphic = Polygon.fromExtent(mkInitExtent);
 					var graphic = new Graphic(polygonGraphic, $KRF_APP.coreMap._krad.miniMapLineSym);
 
 					if($KRF_APP.coreMap._krad.miniLineGrpLayer.graphics.length == 0){
@@ -330,6 +326,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 					//스케일 조정 stop, 드래그 이벤트 stop
 					coreMap.editToolbar.on('scale-stop', coreMap.subMapSetExtent);
 					coreMap.editToolbar.on('graphic-move-stop', coreMap.subMapSetExtent);
+
+					
 				});
 	},
 
@@ -362,6 +360,19 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 	},
 
+	//미니맵 onOff setExtent
+	subMapOnOffSetExtent: function () { 
+		
+		var me = this;
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var subCoreMap = Ext.getCmp("_subMapDiv_");
+
+		subCoreMap.map.centerAndZoom($KRF_APP.coreMap.map.extent.getCenter(),$KRF_APP.coreMap.map.__LOD.level + 2);
+		$KRF_APP.coreMap.map.testCount = 0;
+		me.miniMapChnage();
+
+	},
+
 	//소하천 미니맵 change 이벤트
 	miniMapChnage: function (map) {
 
@@ -372,11 +383,16 @@ Ext.define('krf_new.view.map.CoreMap', {
 		var polygonGraphic = esri.geometry.Polygon.fromExtent(subMapInstance.map.extent);  // 미니맵 extent를 polygon geometry로 변환
 		var miniLineGrpLayer = $KRF_APP.coreMap._krad.miniLineGrpLayer;  // 미니맵 라인 graphicslayer
 		//coreMap.map.getLayer("DynamicLayerSRiver");
+		
 		if (miniLineGrpLayer != undefined) {
 			if ($KRF_APP.coreMap.map.testCount == 0) {
+				if(miniLineGrpLayer.graphics[0] == undefined){
+					return;
+				}else{
+					miniLineGrpLayer.graphics[0].setGeometry(polygonGraphic);
+					miniLineGrpLayer.refresh();
+				}
 				
-				miniLineGrpLayer.graphics[0].setGeometry(polygonGraphic);
-				miniLineGrpLayer.refresh();
 			}
 			
 		}

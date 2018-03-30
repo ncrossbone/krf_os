@@ -285,13 +285,17 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			SetBtnOnOff("btnMenu010", "on");
 			subMapWindow.show();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
-
-			console.info($KRF_APP.coreMap);
-			console.info($KRF_APP.coreMap.map);
-			console.info($KRF_APP.coreMap.map.extent);
-			console.info($KRF_APP.coreMap.map.__LOD.level);
-
-			Ext.getCmp("btnMenu010").btnOnOff = "on";
+			
+			$KRF_APP.coreMap.subMapOnOffSetExtent();
+			//centerAndZoom__LOD
+			//$KRF_APP.subMap
+			
+			//subMapSetExtent
+			// var coreMap = Ext.getCmp("_mapDiv_");
+			// var subCoreMap = Ext.getCmp("_subMapDiv_");
+			// subCoreMap.map.centerAndZoom($KRF_APP.coreMap.map.extent.getCenter(),$KRF_APP.coreMap.map.__LOD.level + 2);
+			// console.info(subCoreMap.map.extent);
+			//subCoreMap.map.setExtent(evt.graphic._extent, true);
 		}
 	},
 

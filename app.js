@@ -376,7 +376,7 @@ Ext.application({
 		} else {
 			this.subMap = map;
 			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
-			console.info("??");
+			
 		}
 	},
 	// 추후에 초기 맵 extend 변경 가능하게 만들어 놓음
