@@ -30,8 +30,8 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 		},
 		items: [{
 			xtype: 'panel',
-			width: 155,
-			height: 186,
+			width: 300,
+			height: 200,
 			layout: {
 				type: 'vbox',
 				pack: 'center',
@@ -54,10 +54,9 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 			}, {
 				xtype: 'image',
 				width: 134,
-				height: 28,
 				id: 'btnArcManager2',
 				btnFlag: 0,
-				style: 'cursor:pointer',
+				style: 'cursor:pointer; padding-top:20px;',
 				src: './resources/images/button/admin/s1_btn.png',
 				listeners: {
 					el: {
@@ -67,8 +66,8 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 			}]
 		}, {
 			xtype: 'panel',
-			width: 155,
-			height: 186,
+			width: 300,
+			height: 200,
 			layout: {
 				type: 'vbox',
 				pack: 'center',
@@ -90,10 +89,9 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 			}, {
 				xtype: 'image',
 				width: 134,
-				height: 28,
 				id: 'btnArcService2',
 				btnFlag: 0,
-				style: 'cursor:pointer',
+				style: 'cursor:pointer; padding-top:20px;',
 				src: './resources/images/button/admin/s2_btn.png',
 				listeners: {
 					el: {
@@ -103,8 +101,8 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 			}]
 		}, {
 			xtype: 'panel',
-			width: 211,
-			height: 186,
+			width: 300,
+			height: 200,
 			layout: {
 				type: 'vbox',
 				pack: 'center',
@@ -126,10 +124,9 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 			}, {
 				xtype: 'image',
 				width: 134,
-				height: 28,
 				id: 'btnArcAdmin2',
 				btnFlag: 0,
-				style: 'cursor:pointer',
+				style: 'cursor:pointer; padding-top:20px;',
 				src: './resources/images/button/admin/s3_btn.png',
 				listeners: {
 					el: {
