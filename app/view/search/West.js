@@ -73,6 +73,7 @@ Ext.define('krf_new.view.search.West', {
 									var threeDimLayer = Ext.getCmp('threeDimLayer01');
 									if (threeDimLayer) {
 										threeDimLayer.fireEvent('afterrender');
+										$('#cmbThreeDimLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
 									}
 								}
 							}

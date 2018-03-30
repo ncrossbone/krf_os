@@ -103,6 +103,7 @@ Ext.define('Desktop.MapWindow', {
 					} else {
 						if (me.initCoord) {
 							$KRF_APP.fireEvent($KRF_EVENT.CENTERAT, me.initCoord);
+							me.initCoord = null;
 						}
 					}
 				},

@@ -16,7 +16,10 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 	},
 	items: [{
 		xtype: 'panel',
-		title: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b style="color:#000000">주제도 설정 (*주제도를 끌어다 넣으세요.)</b>',
+		title: '<b style="color:#ffffff;">주제도세트 설정 (*주제도세트를 끌어다 사용자 목록에 넣으세요.)</b>',
+		header: {
+			style: 'background: #323C46; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) inset; -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) inset; -moz-box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1) inset; '
+		},
 
 		bodyStyle: 'background:url(./resources/images/rpt/r_bg.gif);',
 		width: 200,
@@ -29,28 +32,32 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 			region: 'west',
 			layout: { type: 'border' },
 			items: [{
-				xtype: 'image',
-				region:'north',
-				id: 'btnAddLayerSet',
-				title: '추가',
-				style: 'left: 0px !important;',
-				width: 30,
-				height: 30,
-				src: './resources/images/button/left_menu01_on.png',
-				listeners: {
-					el: {
-						click: function () {
-							var layerSetWin = Ext.getCmp("layer-set-win");
-							if (layerSetWin == undefined) {
-								layerSetWin = Ext.create('krf_new.view.admin.LayerSetWindow', { x: Ext.getCmp('adminConfigTabPanel').getX() + 100, y: 50 , openType: 'new'});
-								Ext.getCmp('adminConfigTabPanel').add(layerSetWin);
-							}
+				xtype: 'container',
+				region: 'north',
+				style: 'background: #f8f8f8; padding: 0px; border-bottom: 1px solid #d8d8d8; height:30px;',
+				items: [{
+					xtype: 'image',
+					id: 'btnAddLayerSet',
+					title: '추가',
+					style: 'left: 0px !important;',
+					width: 30,
+					height: 30,
+					src: './resources/images/button/left_menu01_on.png',
+					listeners: {
+						el: {
+							click: function () {
+								var layerSetWin = Ext.getCmp("layer-set-win");
+								if (layerSetWin == undefined) {
+									layerSetWin = Ext.create('krf_new.view.admin.LayerSetWindow', { x: Ext.getCmp('adminConfigTabPanel').getX() + 100, y: 50, openType: 'new' });
+									Ext.getCmp('adminConfigTabPanel').add(layerSetWin);
+								}
 
-							layerSetWin.show();
+								layerSetWin.show();
+							}
 						}
 					}
-				}
-			}, { xtype: 'layerListView', width: 200,region:'center',store: Ext.create('krf_new.view.admin.LayerConfigStore') }]
+				}]
+			}, { xtype: 'layerListView', width: 200, region: 'center', store: Ext.create('krf_new.view.admin.LayerConfigStore') }]
 		},
 		{ xtype: 'userGridPanel', region: 'center', cls: 'userGridPanelDrop', disableSelection: true }]
 	},
@@ -60,7 +67,7 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 
 		$KRF_APP.addListener($KRF_EVENT.RELOAD_LAYER_SET, this.reloadLayerSet, this);
 		$KRF_APP.addListener($KRF_EVENT.RELOAD_USER_LIST, this.reloadUserList, this);
-		
+
 
 	}, listeners: {
 		render: function (v) {
@@ -127,7 +134,7 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 						dataType: "text/html",
 						method: 'POST',
 						params: {
-							layerSetId: data.srcData.layerSetId, userId: e.record.data.userId
+							layerSetId: data.srcData.layerSetId, userId: e.record.data.userId, regUserId:$KRF_APP.loginInfo.userId
 						},
 						async: true, // 비동기 = async: true, 동기 = async: false
 						success: function (response, opts) {
