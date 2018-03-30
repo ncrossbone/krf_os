@@ -37,7 +37,8 @@ Ext.define('krf_new.view.search.West', {
 			xtype: 'panel', layout: 'border', items: [{
 				xtype: 'container',
 				region: 'north',
-				style: 'background: #f8f8f8; padding: 10px; border-bottom: 1px solid #d8d8d8;',
+				style: 'background: #f8f8f8; padding: 5px; border-bottom: 1px solid #d8d8d8;',
+				height: 35,
 				items: [{
 					id: 'cmbLayerList',
 					xtype: 'combo',
@@ -79,10 +80,9 @@ Ext.define('krf_new.view.search.West', {
 						}
 					}
 				}]
-			}
-				,
-			{
-				xtype: 'west-Layer01', region: 'center'
+			}, {
+				xtype: 'west-Layer01',
+				region: 'center'
 			}]
 		},
 		{
