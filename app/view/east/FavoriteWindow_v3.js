@@ -84,8 +84,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	callAjax: function (url, param) {
 		param.userId = 'testid';
 		return $.ajax({
-			//url: _API.Bookmark + url,
-			url: 'http://localhost:8070/krf/bookmark/' + url,
+			url: _API.Bookmark + url,
 			data: param,
 			contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 			type: 'post'

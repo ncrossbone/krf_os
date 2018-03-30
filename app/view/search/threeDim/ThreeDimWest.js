@@ -32,7 +32,57 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimWest', {
 			type: 'card'
 		},
 		items: [{
-			xtype: 'threeDim-west-Layer01'
+			xtype: 'panel', layout: 'border', items: [{
+				xtype: 'container',
+				region: 'north',
+				style: 'background: #f8f8f8; padding: 10px; border-bottom: 1px solid #d8d8d8;',
+				items: [{
+					id: 'cmbThreeDimLayerList',
+					xtype: 'combo',
+					cls: 'khLee-x-form-item-label-default',
+					fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b>주제도</b> ',
+					labelWidth: 60,
+					labelAlign: 'right',
+					labelPad: 10,
+					width: 225,
+					editable: false,
+					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }),
+					displayField: 'layerSetName',
+					valueField: 'layerSetId',
+					listeners: {
+						afterrender: function () {
+							this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
+							$('#cmbThreeDimLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+						},
+						change: function (combo, newValue, oldValue, eOpts) {
+							var selectedRecord = combo.getSelectedRecord();
+							if (selectedRecord) {
+
+								layerSetInfo = selectedRecord.data;
+
+								if ($KRF_APP.USER_LAYERS.layerSetId != layerSetInfo.layerSetId) {
+									$KRF_APP.USER_LAYERS = layerSetInfo;
+									if (typeof (layerSetInfo.layerSetIds) == 'string') {
+										$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(layerSetInfo.layerSetIds);
+									}
+
+									Ext.getCmp('threeDimLayer01').fireEvent('afterrender');
+
+									var threeDimLayer = Ext.getCmp('layer01');
+									if (threeDimLayer) {
+										threeDimLayer.fireEvent('afterrender');
+										$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+									}
+								}
+							}
+						}
+					}
+				}]
+			}
+				,
+			{
+				xtype: 'threeDim-west-Layer01', region: 'center'
+			}]
 		}, {
 			xtype: 'threeDim-west-searchArea'
 		}]

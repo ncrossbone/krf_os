@@ -27,7 +27,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 			xtype: 'panel',
 			style: 'border-bottom:1px solid #d1d7e3;',
 			width: '100%',
-			height: 203,
+			height: 205,
 			layout: 'hbox',
 			items: [{
 				xtype: 'panel',
@@ -36,13 +36,13 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
-					width: 134,
-					height: 182,
+					width: 133,
+					height: 186,
 					id: 'rptCase1',
 					style: 'cursor:pointer',
-					src: './resources/images/rpt/report_off.png',
-					mouseOverSrc: './resources/images/rpt/report_ov.png',
-					mouseOutSrc: './resources/images/rpt/report_off.png',
+					src: './resources/images/rpt/case1.png',
+					mouseOverSrc: './resources/images/rpt/case1_on.png',
+					mouseOutSrc: './resources/images/rpt/case1.png',
 					listeners: {
 						el: {
 							mouseover: 'imgMouseOver',
@@ -70,7 +70,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 			xtype: 'panel',
 			style: 'border-bottom:1px solid #d1d7e3;',
 			width: '100%',
-			height: 203,
+			height: 205,
 			layout: 'hbox',
 			items: [{
 				xtype: 'panel',
@@ -79,13 +79,13 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
-					width: 134,
-					height: 182,
+					width: 133,
+					height: 186,
 					id: 'rptCase2_1',
 					style: 'cursor:pointer',
-					src: './resources/images/rpt/report_off.png',
-					mouseOverSrc: './resources/images/rpt/report_ov.png',
-					mouseOutSrc: './resources/images/rpt/report_off.png',
+					src: './resources/images/rpt/case2-1.png',
+					mouseOverSrc: './resources/images/rpt/case2-1_on.png',
+					mouseOutSrc: './resources/images/rpt/case2-1.png',
 					listeners: {
 						el: {
 							mouseover: 'imgMouseOver',
@@ -113,7 +113,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 			xtype: 'panel',
 			style: 'border-bottom:1px solid #d1d7e3;',
 			width: '100%',
-			height: 203,
+			height: 205,
 			layout: 'hbox',
 			items: [{
 				xtype: 'panel',
@@ -122,13 +122,13 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
-					width: 134,
-					height: 182,
+					width: 133,
+					height: 186,
 					id: 'rptCase2_2',
 					style: 'cursor:pointer',
-					src: './resources/images/rpt/report_off.png',
-					mouseOverSrc: './resources/images/rpt/report_ov.png',
-					mouseOutSrc: './resources/images/rpt/report_off.png',
+					src: './resources/images/rpt/case2-2.png',
+					mouseOverSrc: './resources/images/rpt/case2-2_on.png',
+					mouseOutSrc: './resources/images/rpt/case2-2.png',
 					listeners: {
 						el: {
 							mouseover: 'imgMouseOver',
@@ -156,7 +156,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 			xtype: 'panel',
 			style: 'border-bottom:1px solid #d1d7e3;',
 			width: '100%',
-			height: 203,
+			height: 205,
 			layout: 'hbox',
 			items: [{
 				xtype: 'panel',
@@ -165,13 +165,13 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				style: 'padding:10px; background: #f3f4f8; border-right:1px solid #d1d7e3;',
 				items: [{
 					xtype: 'image',
-					width: 134,
-					height: 182,
+					width: 133,
+					height: 186,
 					id: 'rptCase3',
 					style: 'cursor:pointer',
-					src: './resources/images/rpt/report_off.png',
-					mouseOverSrc: './resources/images/rpt/report_ov.png',
-					mouseOutSrc: './resources/images/rpt/report_off.png',
+					src: './resources/images/rpt/case3.png',
+					mouseOverSrc: './resources/images/rpt/case3_on.png',
+					mouseOutSrc: './resources/images/rpt/case3.png',
 					listeners: {
 						el: {
 							mouseover: 'imgMouseOver',

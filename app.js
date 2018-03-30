@@ -186,9 +186,9 @@ Ext.application({
 
 		if (this.checkBrowser()) {
 			// 내부망 로그인정보 조회
-			var loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-			loginInfo = {};
-			if (loginInfo == null) {
+			$KRF_APP.loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+			$KRF_APP.loginInfo = {};
+			if ($KRF_APP.loginInfo == null) {
 				this.showLoginWindow();
 			} else {
 
@@ -210,6 +210,8 @@ Ext.application({
 	},
 
 	completedLogin : function(loginInfo){
+		$KRF_APP.loginInfo = loginInfo;
+		
 		if(loginInfo.userId == 'weis_admin'){
 			$('#Admin-shortcut').show();
 		}else{
@@ -266,6 +268,8 @@ Ext.application({
 		$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { mode: windowMode });
 	},
 	showWindow: function (windowId, boundary, param) {
+
+		var currentWindow = $KRF_APP.getDesktop().getActiveWindow();
 		
 		var targetWindow = $KRF_APP.getDesktopWindow(windowId);
 		var targetModule = $KRF_APP.getDesktopModule(windowId);
@@ -275,7 +279,12 @@ Ext.application({
 		}
 
 		if (targetWindow) {
-			targetWindow.show();
+			// targetWindow.show();
+			if(targetWindow.minimized){
+				targetWindow.show();
+			}else{
+				targetWindow.fireEvent('show');
+			}
 			return;
 		}
 		if(targetModule){

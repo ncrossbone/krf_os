@@ -38,7 +38,7 @@ Ext.define('krf_new.view.search.MapSearchWindow', {
             if (treeCtl == undefined)
                 return;
 
-            treeCtl.setHeight(height - 75);
+            treeCtl.setHeight(height - 90);
         }
     },
     tools: [/*{

@@ -96,7 +96,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 							if (userLayerSet[i].children) {
 								for (var j = 0; j < userLayerSet[i].children.length; j++) {
 									userLayerSet[i].children[j].checked = false;
-									
+
 									if (userLayerSet[i].children[j].text.indexOf('<') > -1) {
 										userLayerSet[i].children[j].text = userLayerSet[i].children[j].text.substring(0, userLayerSet[i].children[j].text.indexOf('<'));
 									}
@@ -105,6 +105,8 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 						}
 
 						Ext.getCmp('threeDimLayer01').setRootNode({ text: 'root', expanded: true, leaf: false, children: userLayerSet });
+
+						$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'layerOffAll' });
 					}
 				});
 			}
