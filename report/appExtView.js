@@ -53,7 +53,7 @@ var store = Ext.create('Ext.data.Store', {
 store.load(function(a, b, c) {
 	
 	this.each(function(record, cnt, totCnt) {
-		
+		console.info(record);
 		_mapServiceUrl_Rpt_Dim = record.data.mapServiceUrl_Rpt_Dim;
 		_mapServiceUrl_Rpt_Site = record.data.mapServiceUrl_Rpt_Site;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
@@ -141,7 +141,7 @@ var apiStore = Ext.create('Ext.data.Store', {
 	}],
 	proxy: {
 		type: 'ajax',
-        url: './resources/data/APIUrlsTobe.json',
+        url: '../resources/data/APIUrlsTobe.json',
 		reader: {
 			type: 'json'
 		}
@@ -149,11 +149,13 @@ var apiStore = Ext.create('Ext.data.Store', {
 });
 
 apiStore.load(function(a, b, c) {
+	console.info(a);
 	_API = a[0].data;
 	
     // API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
     a[0].data.init('http://localhost:8071');
 });
+console.info(apiStore);
 Ext.application({
 	
 	name : 'Report',

@@ -155,7 +155,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				this.up("win-searchConfig").setLocalStorage();
 
 				this.up("win-searchConfig").onClickSRiver(checked);
-				console.info(checked);
+				
 				//$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
 
 			},
@@ -210,22 +210,24 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 		var subMapWindow = Ext.getCmp("subMapWindow");
 		DynamicLayerSRiver.setVisibleLayers([-1]);
-		console.info(onOff)
+
 		if (onOff) {
-			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
-			console.info(DynamicLayerSRiver);
+			DynamicLayerSRiver.setVisibleLayers([0, 1]);
+			
 			subMapWindow.show();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
 
 			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
-			subDynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
+			subDynamicLayerSRiver.setVisibleLayers([0, 1]);
 			SetBtnOnOff("btnMenu010", "on");
+
+			$KRF_APP.coreMap.subMapOnOffSetExtent();
 		} else {
 			DynamicLayerSRiver.setVisibleLayers([-1]);
 
 			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
 			subDynamicLayerSRiver.setVisibleLayers([-1]);
-			console.info(DynamicLayerSRiver);
+			
 			subMapWindow.hide();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
 

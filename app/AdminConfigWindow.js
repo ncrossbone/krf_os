@@ -9,7 +9,8 @@ Ext.define('Desktop.AdminConfigWindow', {
 	extend: 'Ext.ux.desktop.Module',
 
 	requires: [
-			'krf_new.view.admin.LayerChoosePanel'
+			'krf_new.view.admin.LayerChoosePanel',
+			'krf_new.view.admin.AdminConfigGISPanel'
 	],
 
 	id: 'admin-win',
@@ -48,7 +49,8 @@ Ext.define('Desktop.AdminConfigWindow', {
 				style: 'background-color: #157fcb;',
 				cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 				items: [{ xtype: 'adminConfig-Center', title:'주제도'},
-				{
+						{ xtype: 'adminCongig-GIS', title:'GIS 서버'}
+				/*{
 					id: 'arcgisTab',
 					title: 'GIS 서버',
 					tabConfig: {
@@ -64,7 +66,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 							}
 						}
 					}
-				}
+				}*/
 				]
 			}]
 		});

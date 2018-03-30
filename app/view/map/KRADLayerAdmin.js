@@ -1063,10 +1063,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			            	    	          );
 			            	    		
 			            	    		var graphic = new esri.Graphic(evt, symbol);
-			            	    		
-			            	    		me.map.graphics.clear();
+										me.map.graphics.clear();
 			            	    		me.map.graphics.add(graphic);
-			            	    		
 			            	    		
 			                			
 			                			if(me.map.getLevel() < 11){
@@ -1199,7 +1197,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		me.setSRchIdsWithEvent(feature);	
     	}
     	
-    },
+	},
+	
     
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
@@ -1288,11 +1287,16 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 							
 							var lineQueryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
 							var lineQuery = new Query();
-							lineQuery.returnGeometry = false;
+							lineQuery.returnGeometry = true;
 							//lineQuery.outFields = ["*"];
-							lineQuery.outFields = [
+							lineQuery.outFields = [ "CAT_DID",
 													"RCH_ID",
 													"RCH_DID",
+													"RD_RCH_DID",
+													"LD_RCH_DID",
+													"GEO_TRIB",
+													"LU_RCH_DID",
+													"RU_RCH_DID",
 													"RIV_NM"];
 							lineQuery.where = "CAT_DID IN (";
 							
@@ -1350,7 +1354,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			
 			for(var i = 0; i < featureSet.features.length; i++){
         		
-        		var feature = featureSet.features[i];
+				var feature = featureSet.features[i];
+				
         		//if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle"){
         		if(me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "radius"){
         			
@@ -1374,7 +1379,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				//initKradEvt();
     			}else if(me.drawOption == "addPoint"){
     				
-    				var catDid = feature.attributes.CAT_DID;
+					var catDid = feature.attributes.CAT_DID;
+					
     				
     				me.drawGraphic(feature, "addReachLine");
     				me.setReachAreaTmp(catDid);
@@ -1385,14 +1391,25 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	}
     	
     	
-    	
     	//if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint"){
-    	if(me.drawOption == "extent" || me.drawOption == "circle"|| me.drawOption == "radius"){    		
+    	if(me.drawOption == "extent" || me.drawOption == "circle"){    		
     		
-    		me.map.graphics.clear();
+			me.map.graphics.clear();
+			
 	    	// 검색 종료 체크
 			me.isStopCheck();
-    	}
+    	}else if(me.drawOption == "radius"){
+
+			Ext.defer(clear = function(){
+					
+				me.map.graphics.clear();
+			
+				// 검색 종료 체크
+				me.isStopCheck();
+				
+			}, 2000, this);
+			
+		}
     },
     drawTempGrp: function(paramEvtType){
     	
@@ -1849,7 +1866,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					Ext.get('_subMapDiv__gc').setStyle('cursor','default');
 				}
 				
-				console.info();
+				
 
 	        	// 버튼 off
 	        	SetBtnOnOff(btnId, "on");
@@ -2192,8 +2209,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     findReachLineTmp: function(tmpArr){
     	var me = this;
 		var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
-		console.info(reachAdmin);
-		console.info(reachAdmin.arrLineGrp);
     	
     	var firstLine = "";
     	var firstGeo = "";
@@ -2219,12 +2234,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		}
     		
     	}
-    	console.info(firstLine);
-    	console.info(firstGeo);
-		console.info(firstAttributes);
+    	
 		
-		console.info("tmpArr::");
-		console.info(tmpArr);
+		
     	//본류를 찾기 0번째 라인에서부터 본류를 만나면 클릭된 하천이 본류 // 아니면 지류 (지류일때 동작 로직)
     	for(var k = 0 ; k < tmpArr.length ; k++){
     		if(tmpArr[k].attributes.GEO_TRIB == firstAttributes.GEO_TRIB){
@@ -2243,9 +2255,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     			break;
     		}
     	};
-    	console.info("removeFirstLine:"+me.removeFirstLine)
-    	console.info("firstBonBreak:"+me.firstBonBreak);
-    	console.info("firstLine:"+firstLine);
+    	// console.info("removeFirstLine:"+me.removeFirstLine)
+    	// console.info("firstBonBreak:"+me.firstBonBreak);
+    	// console.info("firstLine:"+firstLine);
     	if(firstLine != ""){
     		// 상류 찾기
     		me.setReachUpLineTmp(firstLine);
@@ -3564,7 +3576,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     getSearchConfigInfo: function(){
     	
-    	var searchConfig = Ext.getCmp("searchConfig");
+		var searchConfig = Ext.getCmp("searchConfig");
+		if(searchConfig.getLocalStorage() == undefined || searchConfig.getLocalStorage() == "undefined"){
+			searchConfig.setLocalStorage();
+		}
     	this.searchConfigInfoJson = searchConfig.getLocalStorage();
     	
     }

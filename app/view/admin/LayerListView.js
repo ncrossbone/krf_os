@@ -8,9 +8,8 @@ Ext.define('krf_new.view.admin.LayerListView', {
 	id: 'layerListView',
 	cls: 'patient-view',
 	tpl: '<tpl for=".">' +
-		'<div class="layer-source x-unselectable"><table><tbody>' +
-		'<tr><td class="layer-name">{layerSetName}</td></tr>' +
-		'</tbody></table></div>' +
+		'<div class="layer-source x-unselectable" style="background: #F8F8F8; border:solid #0080AE 2px; margin: 10px 10px 5px 10px;border-radius: 3px;">'+
+		'<div style="height: 35px;padding-top: 9px; padding-left: 10px; padding-right: 10px;">{layerSetName}</div></div>' +
 		'</tpl>',
 	itemSelector: 'div.layer-source',
 	overItemCls: 'layer-over',

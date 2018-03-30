@@ -13,13 +13,14 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 			
 			
 			var siteIds = parentObj.Ext.getCmp("siteListWindow").siteIds;
-			
+			console.info(siteIds);
+			console.info(parentObj);
 			// esri 스크립트 로드 될때까지 타이머
 			var timerId = window.setInterval(function(){
-			
+				//$KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId
 				//console.info(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId);
 				//var queryTask = new esri.tasks.QueryTask(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId); // 레이어 URL v3
-				var queryTask = new esri.tasks.QueryTask(parentObj._mapServiceUrl_v3 + '/' + parentObj._siteInfoLayerId); // 레이어 URL v3
+				var queryTask = new esri.tasks.QueryTask(parentObj.$KRF_DEFINE.reachServiceUrl_v3 + '/' + parentObj.$KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 				var query = new esri.tasks.Query();
 				
 				// esri 스크립트 로드 됐을때 타이머 멈춤

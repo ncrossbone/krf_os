@@ -40,7 +40,7 @@
     "_DivImgSave":"./resources/jsp/_DivImgSave.jsp",
     "ChromeExec":"./resources/jsp/ChromeExec.jsp",
     "ClickSession":"#host#/krf/common/clickSession/",
-    "CustomPrintTask_New":"./resources/jsp/CustomPrintTask_New.jsp",
+    "CustomPrintTask_New":"../resources/jsp/CustomPrintTask_New.jsp",
     "CustomPrintTask":"./resources/jsp/CustomPrintTask.jsp",
     "excelDown":"#host#/krf/common/excelDown",
     "FavoriteInfo":"./resources/jsp/FavoriteInfo.jsp",

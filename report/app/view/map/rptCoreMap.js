@@ -58,7 +58,7 @@ Ext.define('Report.view.map.rptCoreMap', {
         	me.map.centerAt(point);
         	//console.info("dd");
 			
-			me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
+			me.printTask = Ext.create("krf_new.view.map.task.CustomPrintTask",
         			me.map,
         			"_rptMapDiv_",
         			_API.CustomPrintTask_New, //"../resources/jsp/CustomPrintTask_New.jsp",

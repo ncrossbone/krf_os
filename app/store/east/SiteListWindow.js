@@ -237,7 +237,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				
 						jsonStr += "			\"visible\": \"false\",\n";
 					}
-					if (groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E") {
+					if (groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H") {
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if (cnt == 0) {

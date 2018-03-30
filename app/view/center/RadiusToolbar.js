@@ -34,10 +34,16 @@ Ext.define('krf_new.view.center.RadiusToolbar', {
     initComponent: function(){
     
     	this.items = [{
-    		xtype: 'textfield',
+			xtype: 'textfield',
     		id: 'radiusText',
-			width: 80,
-			style: 'border: 2px solid #ff7200;'
+			width: 35,
+			style: 'border-bottom: 2px solid #ff7200; border-top: 2px solid #ff7200; border-left: 2px solid #ff7200; border-right: none;'
+
+    	},{
+			xtype: 'textfield',
+			value: '(Km)',
+			width: 45,
+			style: 'border-bottom: 2px solid #ff7200; border-top: 2px solid #ff7200; border-right: 2px solid #ff7200;  border-left: none;'
 
     	}];
 	    
