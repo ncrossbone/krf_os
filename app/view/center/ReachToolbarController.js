@@ -286,6 +286,11 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			subMapWindow.show();
 			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
 
+			console.info($KRF_APP.coreMap);
+			console.info($KRF_APP.coreMap.map);
+			console.info($KRF_APP.coreMap.map.extent);
+			console.info($KRF_APP.coreMap.map.__LOD.level);
+
 			Ext.getCmp("btnMenu010").btnOnOff = "on";
 		}
 	},

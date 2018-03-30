@@ -352,7 +352,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 	
 	//미니맵 setExtent
-	subMapSetExtent: function (evt) {
+	subMapSetExtent: function (evt) { 
 		
 		var me = this;
 		var coreMap = Ext.getCmp("_mapDiv_");
