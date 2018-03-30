@@ -34,15 +34,20 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 			items: [{
 				xtype: 'container',
 				region: 'north',
-				style: 'background: #f8f8f8; padding: 0px; border-bottom: 1px solid #d8d8d8; height:30px;',
+				style: 'background: #4C71C3; padding: 0px; border-bottom: 1px solid #233f95; height:30px;',
+				layout:{
+					type: 'hbox',
+					pack: 'center',
+					align: 'middle'
+				},
 				items: [{
 					xtype: 'image',
 					id: 'btnAddLayerSet',
 					title: '추가',
 					style: 'left: 0px !important;',
-					width: 30,
+					width: 200,
 					height: 30,
-					src: './resources/images/button/left_menu01_on.png',
+					src: './resources/images/button/admin/layer_btn.gif',
 					listeners: {
 						el: {
 							click: function () {
