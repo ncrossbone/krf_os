@@ -40,7 +40,8 @@ Ext.define('krf_new.view.map.SubMapWindow', {
 		resize: function (win, width, height) {
 		},
 		render: function () {
-			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
+			//$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
+			//$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
 		},
 		afterrender: function () {
 		},

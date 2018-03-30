@@ -290,7 +290,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 				,"esri/symbols/SimpleFillSymbol"], function (Graphic, Edit, event, Polygon, SimpleLineSymbol, SimpleFillSymbol) {
 					//var polygonGraphic = Polygon.fromExtent(subCoreMap.initialExtent);
 					
-					
+					console.info("?");
 					var mkInitExtent = new esri.geometry.Extent({
 						xmax:14316370.016699623,
 						xmin:14178783.365786374,
@@ -311,7 +311,6 @@ Ext.define('krf_new.view.map.CoreMap', {
 					coreMap.editToolbar = new esri.toolbars.Edit(coreMap.map);
 					// 클릭될시 리치 검색 클릭시를 유의 해야함
 					$KRF_APP.coreMap._krad.miniLineGrpLayer.on("click", function (evt) {
-						console.info(evt);
 						event.stop(evt);
 
 						var options = {
@@ -395,6 +394,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 		//미니맵 EXTENT 체인지 될시 이벤트
 		if (me.id == "_subMapDiv_") {
 			$KRF_APP.fireEvent($KRF_EVENT.MINIMAPCHANGE, me);
+
+			//$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE, me);
+
 			// if (coreMap.map.testCount == 0) {
 				
 			// 	coreMap.map.testCount = 1;
