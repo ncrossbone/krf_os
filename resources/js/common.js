@@ -321,6 +321,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 
 		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+		console.info(siteChartCtl);
 
 		var siteText = Ext.getCmp("selectName");  // 지점명
 		//지점명 표출
@@ -377,7 +378,12 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		} else if (parentId == "I") {
 			series.setXField("WMCYMD");
 			yFieldName = "ITEM_TEMP";
-
+		} else if(parentId == "H"){
+			siteChartCtl.series[1]._yField = "BOD_1";
+			siteChartCtl.series[2]._yField = "BOD_2";
+			siteChartCtl.series[3]._yField = "BOD_3";
+			siteChartCtl.series[4]._yField = "BOD_4";
+			yFieldName = "BOD";
 		}
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
@@ -391,6 +397,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			store.load();
 			siteinfoCtl.setStore(store);
 		}
+
 		if (!chartFlag) {
 			// 차트정보 스토어 로드
 			if (siteChartCtl != undefined) {
@@ -571,6 +578,8 @@ SetItemLabelText = function (itemNm, chartId) {
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes = chartCtl.axes[0];
 	var series = chartCtl.series[0];
+
+	//consoele.info(chartCtl);
 
 	series.setYField("ITEM_VALUE");
 	axes.fields = "ITEM_VALUE";
