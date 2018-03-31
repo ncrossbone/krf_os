@@ -161,6 +161,114 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						tooltip.setTitle('측정일 : ' + storeItem.get(series.series[0]._xField) + '<br>' + '측정값 : ' + maVal);
 					}
 				}
+			},{
+				text: 'month',
+				type: 'line',
+				axis: 'left',
+				xField: 'PREDICT_DT',
+				yField: 'BOD_1',
+				marker: true,
+				tips: {
+					trackMouse: true,
+					style: 'background: #FFF',
+					height: 40,
+					showDelay: 0,
+					dismissDelay: 0,
+					hideDelay: 0,
+					renderer: function (tooltip, storeItem) {
+						var series = Ext.getCmp("siteCharttest");
+
+						var format = '';
+						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년" 
+						+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월" 
+						+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일" ;
+
+						var maVal = Ext.util.Format.number(storeItem.get(series.series[1]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
+
+						tooltip.setTitle('측정일 : ' + day + '<br>' + '측정값 : ' + maVal);
+					}
+				}
+			},{
+				text: 'month',
+				type: 'line',
+				axis: 'left',
+				xField: 'PREDICT_DT',
+				yField: 'BOD_2',
+				marker: true,
+				tips: {
+					trackMouse: true,
+					style: 'background: #FFF',
+					height: 40,
+					showDelay: 0,
+					dismissDelay: 0,
+					hideDelay: 0,
+					renderer: function (tooltip, storeItem) {
+						var series = Ext.getCmp("siteCharttest");
+
+						var format = '';
+						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년" 
+						+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월" 
+						+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일" ;
+
+						var maVal = Ext.util.Format.number(storeItem.get(series.series[2]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
+
+						tooltip.setTitle('측정일 : ' + day + '<br>' + '측정값 : ' + maVal);
+					}
+				}
+			},{
+				text: 'month',
+				type: 'line',
+				axis: 'left',
+				xField: 'PREDICT_DT',
+				yField: 'BOD_3',
+				marker: true,
+				tips: {
+					trackMouse: true,
+					style: 'background: #FFF',
+					height: 40,
+					showDelay: 0,
+					dismissDelay: 0,
+					hideDelay: 0,
+					renderer: function (tooltip, storeItem) {
+						var series = Ext.getCmp("siteCharttest");
+
+						var format = '';
+						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년" 
+						+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월" 
+						+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일" ;
+
+						var maVal = Ext.util.Format.number(storeItem.get(series.series[3]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
+
+						tooltip.setTitle('측정일 : ' + day + '<br>' + '측정값 : ' + maVal);
+					}
+				}
+			},{
+				text: 'month',
+				type: 'line',
+				axis: 'left',
+				xField: 'PREDICT_DT',
+				yField: 'BOD_4',
+				marker: true,
+				tips: {
+					trackMouse: true,
+					style: 'background: #FFF',
+					height: 40,
+					showDelay: 0,
+					dismissDelay: 0,
+					hideDelay: 0,
+					renderer: function (tooltip, storeItem) {
+						var series = Ext.getCmp("siteCharttest");
+
+						var format = '';
+						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년" 
+						+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월" 
+						+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일" ;
+
+						var maVal = Ext.util.Format.number(storeItem.get(series.series[4]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
+
+						tooltip.setTitle('측정일 : ' + day + '<br>' + '측정값 : ' + maVal);
+					}
+				}
 			}]
 		}]
 	}],

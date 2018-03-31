@@ -31,6 +31,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		var cStartChartDate = Ext.getCmp("cStartChartDate");
 		var cEndChartDate = Ext.getCmp("cEndChartDate");
 
+		var hChartDate = Ext.getCmp("hChartDate");
+
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
 
@@ -40,6 +42,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		//퇴적물 콤보 박스 히든
 		cStartChartDate.hidden = true;
 		cEndChartDate.hidden = true;
+		
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -48,6 +51,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			//console.info(parentChk);
 			f_Chart.hidden = false;
 			f_ChartText.hidden = false;
+			hChartDate.hidden = true;
 
 			var year = ['', '2012', '2013'];
 			selectYear.setStore(year);
@@ -64,36 +68,24 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			cStartChartDate.hidden = false;
 			cEndChartDate.hidden = false;
 
-			/* var dateArr = [];
-			 var nowDate = KRF_DEV.global.CommFn.nowDate.getYear();
-			 var minDate = 2010;
-			 
-			 var cnt = -1;
-			 
-			 for(var i = minDate; i <= nowDate; i++){
-				 
-				 dateArr.push({id:i + "1",name:i + "상반기"});
-				 dateArr.push({id:i + "2",name:i + "하반기"});
-				 
-				 cnt++;
-			 }
-			 
-			 var store = Ext.create('Ext.data.Store',{
-				 fields: ['id', 'name'],
-				 data:dateArr
-			 });
-			 
-			 cStartChartDate.bindStore(store);
-			 cStartChartDate.setValue(dateArr[cnt * 2 - 2].id);
-			 
-			 cEndChartDate.bindStore(store);
-			 cEndChartDate.setValue(dateArr[cnt * 2 + 1].id);*/
+			hChartDate.hidden = true;
 
+		} else if(parentChk == "H"){
+
+			f_Chart.hidden = true;
+			f_ChartText.hidden = true;
+			startChartDate.hidden = true;
+			endChartDate.hidden = true;
+
+			cStartChartDate.hidden = true;
+			cEndChartDate.hidden = true;
+
+			hChartDate.hidden = false;
 		} else {
 			//console.info(parentChk);
 			f_Chart.hidden = true;
 			f_ChartText.hidden = true;
-
+			hChartDate.hidden = true;
 			var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
 			selectYear.setStore(year);
 			selectYear2.setStore(year);
@@ -238,13 +230,26 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					, { id: 'ITEM_SURFACE_BLUE_GREEN_ALGAE', name: '유해남조류' }]
 			})
 			itemCtl.setValue("ITEM_TEMP");
+		} else if(parentChk == "H"){
+			var store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: 'BOD', name: 'BOD' }
+					, { id: 'CHLA', name: 'CHLA' }
+					, { id: 'DOC', name: 'DOC' }
+					, { id: 'FLUX', name: 'FLUX' }
+					, { id: 'WTRTP', name: 'WTRTP' }
+					, { id: 'NH3', name: 'NH3' }
+					, { id: 'NO3', name: 'NO3' }
+					, { id: 'OP4', name: 'OP4' }]
+			})
+			itemCtl.setValue("BOD");
 		}
 
 		itemCtl.bindStore(store);
 
 		if (_chartDateInfo != null && _chartDateInfo.length != 0) {
 
-			if (parentChk != "C") {
+			if (parentChk != "C" && parentChk != "H") {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
 
@@ -266,6 +271,10 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				selectMonth2.setValue(endMonth);
 
 
+			}else if(parentChk == "H"){
+
+				console.info(_chartDateInfo);
+				
 			} else {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split(' ');
@@ -544,6 +553,51 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		}, {
 			xtype: 'container',
 			height: 5
+		}, {
+			xtype: "container",
+			id: "hChartDate",
+			layout: {
+				type: "hbox"
+			},
+			items: [{
+				xtype: "combo",
+				width: 60,
+				height: 25,
+				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+				//id:"cStartChartDate",
+				id: "hSelectYear",
+				editable: false
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'container',
+				width: 5
+			}, {
+				xtype: 'combo',
+				id: 'hSelectMonth',
+				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+				value: '10',
+				width: 35,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: 'container',
+				width: 5
+			}, {
+				xtype: 'combo',
+				id: 'hSelectDay',
+				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14',
+						'15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
+				value: '10',
+				width: 35,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '일'
+			}]
 		}, {
 			items: [{
 				xtype: 'container',
