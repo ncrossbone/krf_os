@@ -29,7 +29,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			}
 
 			var defaultChart = $KRF_APP.chartFlag;
-			console.info(defaultChart);
+			
 			var f_Chart = Ext.getCmp("f_Chart");
 			var d_Chart = $KRF_APP.chartFlag_D;
 			if (d_Chart != undefined) {
@@ -62,7 +62,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			var search_F = Ext.getCmp("");
 
 			var selectItem = Ext.getCmp("selectItem");
-			console.info(selectItem);
+			
 			var maxDate = "";
 			if (defaultChart == "1") {
 				selectItem = store.yFieldName;
@@ -94,7 +94,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					siteChartCtl.series[2]._yField = selectItem.lastValue+"_2";
 					siteChartCtl.series[3]._yField = selectItem.lastValue+"_3";
 					siteChartCtl.series[4]._yField = selectItem.lastValue+"_4";
-					//console.info(maxDate);
+					
 				}else {
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
@@ -151,11 +151,11 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						// JSON Object로 변경
 						var jsonData = Ext.util.JSON.decode(response.responseText);
 						
-						console.info(jsonData);
+						
 						//var afterVal = dateSplit.split(".");
 						var Hdate = jsonData.maxdata[0].DE.split("-");
 						maxDate = Hdate[0]+ Hdate[1]+ Hdate[2];
-						console.info(maxDate);
+						
 						_chartDateInfo = [];
 						_chartDateInfo.push(Hdate);
 						if (jsonData.data.length > 0) {
@@ -187,7 +187,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			if(store.parentId == "H"){
 				recordId = recordId.replace("Reach","RCH");
 					// 로딩바 표시
-				console.info(maxDate);
+				
 				Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
 				Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
 				Ext.getCmp("siteCharttest").mask("loading", "loading...");
@@ -209,7 +209,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						}
 						// JSON Object로 변경
 						var jsonData = Ext.util.JSON.decode(response.responseText);
-						console.info(jsonData);
+						
 						
 						if (jsonData == -1) {
 							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
@@ -233,7 +233,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				});
 			}else{
 					// 로딩바 표시
-				console.info(maxDate);
+				
 				Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
 				Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
 				Ext.getCmp("siteCharttest").mask("loading", "loading...");
