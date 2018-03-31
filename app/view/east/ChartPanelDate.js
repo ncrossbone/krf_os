@@ -11,8 +11,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 	title: '기간설정',
 	controller: 'chartPanelDateController',
 	cls: 'subWindow-x-form-item-label-default',
-	header:{cls :'subWindow-x-form-item-label-default'},
-	onEsc:false,
+	header: { cls: 'subWindow-x-form-item-label-default' },
+	onEsc: false,
 	//x: x,
 	//    cls: 'khLee-window-panel-header khLee-x-window-default ',
 	initComponent: function () {
@@ -42,7 +42,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		//퇴적물 콤보 박스 히든
 		cStartChartDate.hidden = true;
 		cEndChartDate.hidden = true;
-		
+
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -70,7 +70,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			hChartDate.hidden = true;
 
-		} else if(parentChk == "H"){
+		} else if (parentChk == "H") {
 
 			f_Chart.hidden = true;
 			f_ChartText.hidden = true;
@@ -230,7 +230,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					, { id: 'ITEM_SURFACE_BLUE_GREEN_ALGAE', name: '유해남조류' }]
 			})
 			itemCtl.setValue("ITEM_TEMP");
-		} else if(parentChk == "H"){
+		} else if (parentChk == "H") {
 			var store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
 				data: [{ id: 'BOD', name: 'BOD' }
@@ -271,10 +271,10 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				selectMonth2.setValue(endMonth);
 
 
-			}else if(parentChk == "H"){
+			} else if (parentChk == "H") {
 
 				console.info(_chartDateInfo);
-				
+
 			} else {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split(' ');
@@ -557,50 +557,58 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			xtype: "container",
 			id: "hChartDate",
 			layout: {
-				type: "hbox"
+				type: "vbox"
 			},
 			items: [{
-				xtype: "combo",
-				width: 60,
-				height: 25,
-				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
-				//id:"cStartChartDate",
-				id: "hSelectYear",
-				editable: false
-			}, {
-				xtype: 'label',
-				text: '년'
+				xtype: 'container',
+				layout: 'hbox',
+				style:'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 60,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+					//id:"cStartChartDate",
+					id: "hSelectYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}]
 			}, {
 				xtype: 'container',
-				width: 5
-			}, {
-				xtype: 'combo',
-				id: 'hSelectMonth',
-				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '10',
-				width: 35,
-				height: 25
-			}, {
-				xtype: 'label',
-				text: '월'
-			}, {
-				xtype: 'container',
-				width: 5
-			}, {
-				xtype: 'combo',
-				id: 'hSelectDay',
-				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14',
-						'15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
-				value: '10',
-				width: 35,
-				height: 25
-			}, {
-				xtype: 'label',
-				text: '일'
+				layout: 'hbox',
+				style:'margin-bottom:5px;',
+				items: [{
+					xtype: 'combo',
+					id: 'hSelectMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					value: '10',
+					width: 35,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월'
+				}, {
+					xtype: 'container',
+					width: 5
+				}, {
+					xtype: 'combo',
+					id: 'hSelectDay',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14',
+						'15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+					value: '10',
+					width: 35,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '일'
+				}]
 			}]
 		}, {
 			items: [{
 				xtype: 'container',
+				style:'margin-bottom:5px;',
 				layout: {
 					type: 'hbox',
 					align: 'middle',
