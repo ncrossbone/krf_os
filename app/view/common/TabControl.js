@@ -120,6 +120,27 @@ Ext.define('krf_new.view.common.TabControl', {
 					text: "시"
 				}]
 			}, {
+				xtype: "panel",
+				id: "hStartDayPanel",
+				style: 'margin-left: 10px;',
+				border: false,
+				hidden: true,
+				layout: {
+					type: "hbox",
+					align: 'middle'
+				},
+				items: [{
+					xtype: 'combo',
+					id: "hStartDay",
+					store: $KRF_APP.global.CommFn.bindComboDay("Asc", ""),
+					editable: false,
+					value: "30",
+					width: 50
+				}, {
+					xtype: "label",
+					text: "일"
+				}]
+			}, {
 				xtype: 'container',
 				width: 10
 			}, {
@@ -193,6 +214,27 @@ Ext.define('krf_new.view.common.TabControl', {
 					text: "시"
 				}]
 			}, {
+				xtype: "panel",
+				border: false,
+				hidden: true,
+				style: 'margin-left: 10px;',
+				id: "hEndDayPanel",
+				layout: {
+					type: "hbox",
+					align: "center"
+				},
+				items: [{
+					xtype: 'combo',
+					id: "hEndDay",
+					store: $KRF_APP.global.CommFn.bindComboDay("Asc", ""),
+					editable: false,
+					value: "30",
+					width: 50
+				}, {
+					xtype: "label",
+					text: "일"
+				}]
+			}, {
 				xtype: 'container',
 				width: 10
 			}, {
@@ -200,30 +242,30 @@ Ext.define('krf_new.view.common.TabControl', {
 				id: 'sstgCombo',
 				valueField: 'id',
 				displayField: 'name',
-				listeners:{
+				listeners: {
 					select: function () {
 
-							$KRF_APP.btnFlag = "noDate";
-							var tabCtl = Ext.getCmp("searchResultTab");
-							tabCtl = tabCtl.items.items[1];
-							var activeTab = tabCtl.getActiveTab();
+						$KRF_APP.btnFlag = "noDate";
+						var tabCtl = Ext.getCmp("searchResultTab");
+						tabCtl = tabCtl.items.items[1];
+						var activeTab = tabCtl.getActiveTab();
 
-							// 검색조건 셋팅 (필수!!)
-							$KRF_APP.global.TabFn.searchConditionSet(activeTab.down("grid"));
+						// 검색조건 셋팅 (필수!!)
+						$KRF_APP.global.TabFn.searchConditionSet(activeTab.down("grid"));
 
-							var gridContainer = activeTab.items.items[0];
-							var gridCtl = gridContainer.items.items[0];
-							if (gridCtl.parentIds[0].parentId == undefined) {
-								var parentId = gridCtl.parentIds
-							} else {
-								var parentId = gridCtl.parentIds[0].parentId
-							}
+						var gridContainer = activeTab.items.items[0];
+						var gridCtl = gridContainer.items.items[0];
+						if (gridCtl.parentIds[0].parentId == undefined) {
+							var parentId = gridCtl.parentIds
+						} else {
+							var parentId = gridCtl.parentIds[0].parentId
+						}
 
-							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
-							var title = activeTab.title.split('(');
+						var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
+						var title = activeTab.title.split('(');
 
-							setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
-							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, "", undefined, false);
+						setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+						ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, "", undefined, false);
 					}
 				}
 			}, {
@@ -546,10 +588,20 @@ Ext.define('krf_new.view.common.TabControl', {
 					Ext.getCmp("endTime").setValue(tab.items.items[0].items.items[0].items.items[0].store.endTime);
 
 				} else {
+					var hstartDay = Ext.getCmp('hStartDayPanel');
+					var hEndDay = Ext.getCmp('hEndDayPanel');
+					if (tab.parentId == "H") {
+						hstartDay.setHidden(false);
+						hEndDay.setHidden(false);
+					} else {
+						hstartDay.setHidden(true);
+						hEndDay.setHidden(true);
+					}
 					b001.setHidden(true);
 					startDayTime.setHidden(true);
 					endDayTime.setHidden(true);
 				}
+				
 				if (tab.parentId != "F") {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					var store = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];

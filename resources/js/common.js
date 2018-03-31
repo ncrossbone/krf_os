@@ -650,7 +650,6 @@ showResultWindow = function () {
 }
 // 검색결과창 띄우기
 ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
-	
 	$KRF_APP.global.CommFn.setBookmarkInfo('searchResult', {
 		siteIds: siteIds,
 		parentIds: parentIds,
@@ -1318,6 +1317,44 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			 
 		 	grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
 		 }
+	}else if(parentCheck == 'H'){
+		var getGrid = "";
+		
+		if(orgParentId == undefined){
+			getGrid = parentIds
+		}else{
+			getGrid = orgParentId
+		}
+
+		// if : 검색결과에서 재검색시 else : 지점목록에서 처음 검색시
+		var grdContainer = Ext.getCmp(gridId + "_container");
+
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_H', options);			
+			
+			tab.add(grdContainer);
+		}
+
+		tab.setActiveTab(gridId + "_container");
+
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+
+		if (siteIds != "") {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != "") {
+			grdCtl.parentIds = parentIds;
+		}
+
+		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_H", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
+		});
+
+		grdCtl.setStore(gridStore);
+
 	}
 }
 
