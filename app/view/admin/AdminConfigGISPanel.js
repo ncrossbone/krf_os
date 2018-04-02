@@ -31,7 +31,7 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 		items: [{
 			xtype: 'panel',
 			width: 300,
-			height: 200,
+			height: 250,
 			layout: {
 				type: 'vbox',
 				pack: 'center',
@@ -65,9 +65,14 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 				}
 			}]
 		}, {
+			xtype: 'image',
+			width: 1,
+			height: 300,
+			src: './resources/images/button/admin/s_linebg.gif'
+		},{
 			xtype: 'panel',
 			width: 300,
-			height: 200,
+			height: 250,
 			layout: {
 				type: 'vbox',
 				pack: 'center',
@@ -100,9 +105,14 @@ Ext.define('krf_new.view.admin.AdminConfigGISPanel', {
 				}
 			}]
 		}, {
+			xtype: 'image',
+			width: 1,
+			height: 300,
+			src: './resources/images/button/admin/s_linebg.gif'
+		}, {
 			xtype: 'panel',
 			width: 300,
-			height: 200,
+			height: 250,
 			layout: {
 				type: 'vbox',
 				pack: 'center',
