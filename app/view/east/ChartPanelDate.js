@@ -272,8 +272,13 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 
 			} else if (parentChk == "H") {
-
-				console.info(_chartDateInfo);
+				
+				var hSelectYear = Ext.getCmp("hSelectYear");
+				var hSelectMonth = Ext.getCmp("hSelectMonth");
+				var hSelectDay = Ext.getCmp("hSelectDay");
+				hSelectYear.setValue(_chartDateInfo[0][0]);
+				hSelectMonth.setValue(_chartDateInfo[0][1]);
+				hSelectDay.setValue(_chartDateInfo[0][2]);
 
 			} else {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
@@ -565,10 +570,10 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				style:'margin-bottom:5px;',
 				items: [{
 					xtype: "combo",
-					width: 60,
+					width: 80,
 					height: 25,
 					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
-					//id:"cStartChartDate",
+					value: '2018',
 					id: "hSelectYear",
 					editable: false,
 				}, {
@@ -583,8 +588,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: 'combo',
 					id: 'hSelectMonth',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-					value: '10',
-					width: 35,
+					value: '03',
+					width: 55,
 					height: 25
 				}, {
 					xtype: 'label',
@@ -597,8 +602,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					id: 'hSelectDay',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14',
 						'15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
-					value: '10',
-					width: 35,
+					value: '31',
+					width: 55,
 					height: 25
 				}, {
 					xtype: 'label',

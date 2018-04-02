@@ -321,7 +321,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 
 		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
-		console.info(siteChartCtl);
+		
 
 		var siteText = Ext.getCmp("selectName");  // 지점명
 		//지점명 표출
