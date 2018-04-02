@@ -58,7 +58,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				html: '<ul class="report">' +
 					'<li>' +
 					'<span class="tit">제목</span>' +
-					'<span class="name cont">전체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'<span class="name cont">출현종수 및 세포밀도</span>' +
 					'</li>' +
 					'<li>' +
 					'<span class="tit">내용</span>' +
@@ -101,7 +101,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				html: '<ul class="report">' +
 					'<li>' +
 					'<span class="tit">제목</span>' +
-					'<span class="name cont">전체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'<span class="name cont">값 및 등급 분포</span>' +
 					'</li>' +
 					'<li>' +
 					'<span class="tit">내용</span>' +
@@ -144,7 +144,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				html: '<ul class="report">' +
 					'<li>' +
 					'<span class="tit">제목</span>' +
-					'<span class="name cont">전체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'<span class="name cont">년도별 등급 분포</span>' +
 					'</li>' +
 					'<li>' +
 					'<span class="tit">내용</span>' +
@@ -187,7 +187,7 @@ Ext.define('krf_new.view.report.ReportSelectPanel', {
 				html: '<ul class="report">' +
 					'<li>' +
 					'<span class="tit">제목</span>' +
-					'<span class="name cont">전체 수계의 대권역별 출현종수 및 개채수</span>' +
+					'<span class="name cont">수생태계 건강성 평가결과</span>' +
 					'</li>' +
 					'<li>' +
 					'<span class="tit">내용</span>' +
