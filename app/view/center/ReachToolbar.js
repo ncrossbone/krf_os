@@ -59,17 +59,18 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 
 		this.items = [{
 			xtype: 'image',
-			id: 'btn3DMap',
-			groupId: 'group3D',
-			title: '3D지도',
+			id: 'btnMenu01',
+			groupId: 'groupSmart',
+			title: '데이터셋설정',
 			width: this.itemWidth,
 			height: this.itemHeight,
 			style: 'cursor:pointer;',
-			listeners: { el: { click: 'onClick3D' } },
+			listeners: { el: { click: 'onClickSmart' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu01.png',
-			btnOffImg: './resources/images/button/reach_menu01.png',
-			src: './resources/images/button/reach_menu01.png'
+			btnOnImg: './resources/images/button/reach_menu03_on.png',
+			btnOffImg: './resources/images/button/reach_menu03.png',
+			src: './resources/images/button/reach_menu03.png',
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu010',
@@ -182,21 +183,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOffImg: './resources/images/button/reach_menu11.png',
 			src: './resources/images/button/reach_menu11.png',
 			hidden: true
-		}, {
-			xtype: 'image',
-			id: 'btnMenu01',
-			groupId: 'groupSmart',
-			title: '데이터셋설정',
-			width: this.itemWidth,
-			height: this.itemHeight,
-			style: 'cursor:pointer;',
-			listeners: { el: { click: 'onClickSmart' } },
-			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu03_on.png',
-			btnOffImg: './resources/images/button/reach_menu03.png',
-			src: './resources/images/button/reach_menu03.png',
-			hidden: true
-		}, {
+		},  {
 			xtype: 'image',
 			id: 'btnMenu08',
 			groupId: 'group1',

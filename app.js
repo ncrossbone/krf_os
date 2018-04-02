@@ -126,8 +126,7 @@ var $KRF_APP = null;
 
 Ext.application({
 	name: 'krf_new',
-	requires: ['krf_new.Desktop.App',
-		'krf_new.global.Obj',
+	requires: ['krf_new.global.Obj',
 		'krf_new.global.DroneFn',
 		'krf_new.global.CommFn',
 		'krf_new.global.TabFn',
@@ -135,7 +134,8 @@ Ext.application({
 		'krf_new.global.SstgGridFn',
 		'Ext.util.LocalStorage'
 	],
-
+	autoCreateViewport: 'krf_new.view.main.Main',
+	// mainView :'krf_new.view.main.Main',
 	desktopApp: null,
 
 	KRF_MODE: 'KRF_MODE',
@@ -152,240 +152,106 @@ Ext.application({
 
 	localStorate: null,
 
-	init: function () {
-		var me = this;
-		$KRF_APP = this;
+	launch: function () {
 
-		me.currentMode = me.KRF_MODE;
+		Ext.onReady(function () {
+			$('#pageloaddingDiv').remove();
 
-		desktopApp = new krf_new.Desktop.App();
+			$KRF_APP = krf_new.getApplication();
 
-		me.localStorate = new Ext.util.LocalStorage({
-			id: 'krfStorage'
-		});
+			$KRF_APP.localStorate = new Ext.util.LocalStorage({
+				id: 'krfStorage'
+			});
 
-		$KRF_APP.global = krf_new.global;
-		$KRF_APP.global.CommFn.isIEFunc();
+			$KRF_APP.global = krf_new.global;
+			$KRF_APP.global.CommFn.isIEFunc();
 
-		$KRF_APP.addListener($KRF_EVENT.DESK_TOP_LOADED, me.desktopLoaded, me);
-		$KRF_APP.addListener($KRF_EVENT.MAP_WINDOW_LOADED, me.mapWindowLoaded, me);
-		$KRF_APP.addListener($KRF_EVENT.CORE_MAP_LOADED, me.coreMapLoaded, me);
-		// 모드 변경
-		$KRF_APP.addListener($KRF_EVENT.MODE_CHANGED, me.modeChanged, me);
+			$KRF_APP.addListener($KRF_EVENT.DESK_TOP_LOADED, $KRF_APP.desktopLoaded, this);
+			$KRF_APP.addListener($KRF_EVENT.MAP_WINDOW_LOADED, $KRF_APP.mapWindowLoaded, this);
+			$KRF_APP.addListener($KRF_EVENT.CORE_MAP_LOADED, $KRF_APP.coreMapLoaded, this);
+			// 모드 변경
+			$KRF_APP.addListener($KRF_EVENT.MODE_CHANGED, $KRF_APP.modeChanged, this);
 
-		$KRF_APP.addListener($KRF_EVENT.MINIMIZE_WINDOWS, me.minimizeWindows, me);
+			$KRF_APP.addListener($KRF_EVENT.MINIMIZE_WINDOWS, $KRF_APP.minimizeWindows, this);
 
-		$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
+			$KRF_APP.addListener($KRF_EVENT.CENTERAT, $KRF_APP.centerAt, this);
 
-		$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
-	},
-	desktopLoaded: function () {
+			$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, $KRF_APP.createWindow, this);
 
-		$('#pageloaddingDiv').remove();
+			// 리치 툴바 on/off
+			$KRF_APP.addListener($KRF_EVENT.SHOW_REACH_TOOLBAR, $KRF_APP.showReachToolbar, this);
+			$KRF_APP.addListener($KRF_EVENT.HIDE_REACH_TOOLBAR, $KRF_APP.hideReachToolbar, this);
 
-		if (this.checkBrowser()) {
-			// 내부망 로그인정보 조회
-			$KRF_APP.loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-			$KRF_APP.loginInfo = {};
-			if ($KRF_APP.loginInfo == null) {
-				this.showLoginWindow();
-			} else {
+			$KRF_APP.addListener($KRF_EVENT.SHOW_MAP_TOOLBAR, $KRF_APP.showMapToolbar, this);
 
-				this.completedLogin({userId:'weis_admin'});
-				// $('#Admin-shortcut').show();
 
-				// this.showWindowByMode();
-			}
-		}
-	},
-	showLoginWindow: function () {
-		var dp = $KRF_APP.getDesktop();
-		var dpWidth = dp.getWidth();
-		var dpHeight = dp.getHeight();
+			// drone 툴바 on/off
+			$KRF_APP.addListener($KRF_EVENT.SHOW_DRONE_TOOLBAR, $KRF_APP.showDroneToolbar, this);
+			$KRF_APP.addListener($KRF_EVENT.HIDE_DRONE_TOOLBAR, $KRF_APP.hideDroneToolbar, this);
 
-		var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
-		var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
-		//loginWindow = loginWindow.show();
-	},
+			// Map 툴팁 위치 조정
+			$KRF_APP.addListener($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION, setTooltipXY, this);
 
-	completedLogin : function(loginInfo){
-		$KRF_APP.loginInfo = loginInfo;
-		
-		if(loginInfo.userId == 'weis_admin'){
-			$('#Admin-shortcut').show();
-		}else{
-			$('#Admin-shortcut').remove();
-		}
+			// 지점 목록 window
+			$KRF_APP.addListener($KRF_EVENT.SHOW_SITE_LIST_WINDOW, $KRF_APP.showSiteListWindow, this);
+			$KRF_APP.addListener($KRF_EVENT.HIDE_SITE_LIST_WINDOW, $KRF_APP.hideSiteListWindow, this);
 
-		Ext.Ajax.request({
-			url: _API.getLayerSetForUser,
-			dataType: "text/html",
-			method: 'POST',
-			params:{userId: loginInfo.userId},
-			async: true, // 비동기 = async: true, 동기 = async: false
-			success: function (response, opts) {
-				var result = Ext.util.JSON.decode(response.responseText);
-				if(result.data.length > 0){
-					$KRF_APP.USER_LAYERS = result.data[0];
-					$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
-					// $KRF_APP.fireEvent($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE, $KRF_APP.USER_LAYERS);
-				}
-			}
-		});
+			$KRF_APP.addListener($KRF_EVENT.WEST_TAB_CHANGE, $KRF_APP.westTabChange, this);
 
-		this.showWindowByMode();
-	},
-	showWindowByMode: function () {
-		var krfMode = this.localStorate.getItem('krfMode');
+			$KRF_APP.addListener($KRF_EVENT.CHECK_MAP_PARAMETER, $KRF_APP.checkMapParameter, this);
 
-		this.modeChanged({ mode: krfMode });
-	},
+			$KRF_APP.addListener($KRF_EVENT.SHOWMETADATAWINDOW, $KRF_APP.showMetaDataWindow, this);
+			$KRF_APP.addListener($KRF_EVENT.HIDEMETADATAWINDOW, $KRF_APP.hideMetaDataWindow, this);
 
-	//Start 메뉴에서 선택시 호출되는 곳
-	createWindow: function (module) {
+			// $KRF_APP.addListener($KRF_EVENT.RESIZE_TOOL_ITEMS, $KRF_APP.resizeToolItems, this);
 
-		var windowMode;
+			
+			$KRF_APP.showMapToolbar();
 
-		switch (module.id) {
-			case $KRF_WINS.KRF.MAP.id:
-				windowMode = this.KRF_MODE;
-				break;
-			case $KRF_WINS.THREEDIM.MAIN.id:
-				windowMode = this.THREEDIM_MODE;
-				break;
-			case $KRF_WINS.STATUS.MAIN.id:
-				windowMode = this.STATUS_MODE;
-				break;
-			case $KRF_WINS.REPORT.MAIN.id:
-				windowMode = this.REPORT_MODE;
-				break;
-			case $KRF_WINS.ADMIN.MAIN.id:
-				windowMode = this.ADMIN_MODE
-				break;
-		}
+			$KRF_APP.mapWindowLoaded(Ext.getCmp('_mapDiv_'));
 
-		$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { mode: windowMode });
-	},
-	showWindow: function (windowId, boundary, param) {
+			Ext.on('resize', function () {
 
-		var currentWindow = $KRF_APP.getDesktop().getActiveWindow();
-		
-		var targetWindow = $KRF_APP.getDesktopWindow(windowId);
-		var targetModule = $KRF_APP.getDesktopModule(windowId);
+				var width = window.outerWidth;
+				var height = window.outerHeight;
+				var mapC = Ext.getCmp('_mapDiv_');
+				mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+				mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
+				mapC = Ext.getCmp('center_container');
+				mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+				mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
+				mapC = Ext.getCmp('cont_container');
+				mapC.setWidth(width - $KRF_DEFINE.westToolbarWidth);
+				mapC.setHeight(height - $KRF_DEFINE.windowHeaderHeight);
 
-		if (param) {
-			targetModule.initCoord = param;
-		}
+				$KRF_APP.resizeToolItems();
+				$KRF_APP.setSubWindowLocation();
+			});
 
-		if (targetWindow) {
-			// targetWindow.show();
-			if(targetWindow.minimized){
-				targetWindow.show();
-			}else{
-				targetWindow.fireEvent('show');
-			}
-			return;
-		}
-		if(targetModule){
-			targetWindow = targetModule.createWindow(boundary);
-			targetWindow = targetWindow.show();
-		}
-	},
-	showKRFMode: function (coord) {
-		this.showWindow($KRF_WINS.KRF.MAP.id, this.getWindowBoundary(0, 0), coord);
-	},
-	showReportMode: function () {
-		this.showWindow($KRF_WINS.REPORT.MAIN.id, this.getWindowBoundary(690, 700));
-	},
-	showAdminMode: function () {
-		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(1155, 570));
-	},
-	showStatusMode: function () {
-		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0,0));
-	},
-	showThreeDimMode: function (centerCoord) {
-		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10) {
-			alert('3D 지도는 Internet Explorer 11 과 Chrome 에서 사용가능합니다.');
-			return;
-		}
-		var boundary = this.getWindowBoundary(0, 0);
-		boundary.coord = centerCoord;
-
-		this.showWindow($KRF_WINS.THREEDIM.MAIN.id, boundary, centerCoord);
-	},
-	modeChanged: function (param) {
-
-		this.currentMode = param.mode;
-		// this.localStorate.setItem('krfMode', param.mode);
-		//    	window.location.reload();
-		var currentWindow = $KRF_APP.getDesktop().getActiveWindow();
-		if (currentWindow) {
-			currentWindow.minimize();
-		}
-
-		switch (param.mode) {
-			case this.KRF_MODE:
-				this.showKRFMode(param.coord);
-				break;
-			case this.ADMIN_MODE:
-				this.showAdminMode();
-				break;
-			case this.REPORT_MODE:
-				this.showReportMode();
-				break;
-			case this.STATUS_MODE:
-				this.showStatusMode();
-				break;
-			case this.THREEDIM_MODE:
-				this.showThreeDimMode(param.coord);
-				break;
-			default:
-				this.showKRFMode();
-		}
-	},
-	getWindowBoundary: function (width, height) {
-		var dp = $('.ux-wallpaper');
-		var dpWidth = dp.width();
-		var dpHeight = dp.height();
-
-		var offsetX = 0;
-		var offsetY = 0;
-
-		if(width && width > 0){
-			offsetX = (dpWidth/2)-(width/2);
-			dpWidth = width;
-		}
-		if(height && height > 0){
-			offsetY = (dpHeight/2)-(height/2);
-			dpHeight = height;
-		}
-
-		return { x: offsetX, y: offsetY, width: dpWidth, height: dpHeight};
-	},
-
-	minimizeWindows: function () {
-		var desktop = this.getDesktop();
-		desktop.windows.each(function (win) {
-			win.minimize();
+			Ext.fireEvent('resize');
 		});
 	},
 	mapWindowLoaded: function (map) {
+
+		map.mapRendered();
+
 		if (map.id == '_mapDiv_') {
-			this.coreMap = map;
+			$KRF_APP.coreMap = map;
 		} else {
-			this.subMap = map;
+			$KRF_APP.subMap = map;
 			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
-			
+
 		}
 	},
 	// 추후에 초기 맵 extend 변경 가능하게 만들어 놓음
 	coreMapLoaded: function (param) {
+
 		if (param.id == '_mapDiv_') {
 			var centerContainer = Ext.getCmp('center_container');
 			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: $KRF_DEFINE.mapToolbarHeight });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
-			$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
+			// $KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
 			$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
 
 			Ext.defer(function () {
@@ -410,21 +276,454 @@ Ext.application({
 		}
 		return true;
 	},
-	centerAt: function (coord) {
-		$KRF_APP.coreMap.transCoord(coord, function (transCoord) {
-			$KRF_APP.coreMap.map.centerAt(transCoord[0]);
-		}, 4019, 102100);
+
+	//소하천 dynamic 켜기
+	onClickSRiver: function (obj, el, evt) {
+
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+
+		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
+
+		var subMapWindow = Ext.getCmp("subMapWindow");
+
+		if (btnLayerSRiver == "on") {
+			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+			subMapWindow.show();
+		} else {
+			DynamicLayerSRiver.setVisibleLayers([-1]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+			subMapWindow.hide();
+		}
+		return win;
 	},
-	getDesktopApp: function () {
-		return desktopApp;
+
+	resizeToolItems: function () {
+		
+		var reachToolbar = Ext.getCmp('reachToolbar');
+		if (!reachToolbar) {
+			return;
+		}
+		var toolbarItmes = reachToolbar.items.items;
+
+		var gabWidth = Ext.getCmp('_mapDiv_').getWidth();
+
+		for (var i = 0; i < toolbarItmes.length; i++) {
+			if (!toolbarItmes[i].hidden) {
+				gabWidth = gabWidth - reachToolbar.itemWidth;
+			}
+
+		}
+		if (gabWidth < 0) {
+			gabWidth = 0;
+		}
+		var gabCon = Ext.getCmp('gapToolbarContainer');
+		gabCon.setWidth(gabWidth + 40);
 	},
-	getDesktop: function () {
-		return desktopApp.desktop;
+
+	setSubWindowLocation: function () {
+
+		var rToolbarOnOff = Ext.getCmp("btnModeReach");
+
+		var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
+		var phyLegend = Ext.getCmp("phyLegend"); // 범례 이미지 컨트롤
+
+		var mapWin = Ext.getCmp('map-win');
+		var mapWinX = mapWin.getX();
+		var mapWinY = mapWin.getY();
+		var mapWinWidth = mapWin.getWidth();
+		var mapWinHeight = mapWin.getHeight();
+
+		var legendX = (mapWinWidth + mapWinX) - 244;
+		var legendY = (mapWinHeight + mapWinY) - 61;
+		Ext.defer(function () {
+			if (chlLegend != null && !chlLegend.isHidden()) {
+				chlLegend.show();
+				chlLegend.setX(legendX);
+				chlLegend.setY(legendY);
+			}
+			if (phyLegend != null && !phyLegend.isHidden()) {
+				phyLegend.show();
+				phyLegend.setX(legendX);
+				phyLegend.setY(legendY);
+			}
+		}, 1);
 	},
-	getDesktopWindow: function (id) {
-		return desktopApp.desktop.getWindow(id);
+	showMapToolbar: function () {
+		var rToolbar = Ext.getCmp("reachToolbar");
+		var cContainer = Ext.getCmp("cont_container");
+
+		if (rToolbar == undefined) {
+			rToolbar = Ext.create('krf_new.view.center.ReachToolbar', {
+				id: 'reachToolbar',
+				cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target',
+				style: 'z-index: 19000; position: absolute; padding: 0px 0 0px 0px !important;'
+			});
+			cContainer.add(rToolbar);
+		}
+		rToolbar.show();
+
+		$KRF_APP.resizeToolItems();
 	},
-	getDesktopModule: function (id) {
-		return desktopApp.getModule(id);
+
+	showReachToolbar: function () {
+		var rNameToolbar = Ext.getCmp("reachNameToolbar");
+		var rToolbar = Ext.getCmp("reachToolbar");
+		var cContainer = Ext.getCmp("cont_container");
+		var searchConfig = Ext.getCmp("searchConfig");
+		var radiusToolbar = Ext.getCmp("radiusToolbar");
+
+		var rNameToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu04');
+		var radiusToolbarIdx = rToolbar.getReachModeBtnIdx('btnMenu07');
+
+		rToolbar.showReachModeBtn();
+
+		if (rNameToolbar == undefined) {
+			rNameToolbar = Ext.create('krf_new.view.center.ReachNameToolbar', {});
+			cContainer.add(rNameToolbar);
+		}
+
+		if (searchConfig == undefined) {
+			searchConfig = Ext.create('krf_new.view.center.SearchConfig', {});
+			cContainer.add(searchConfig);
+		}
+
+		if (radiusToolbar == undefined) {
+			radiusToolbar = Ext.create('krf_new.view.center.RadiusToolbar', {});
+			cContainer.add(radiusToolbar);
+		}
+
+		rNameToolbar.show();
+		rNameToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * rNameToolbarIdx) - 8);
+		rNameToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 1.4));
+
+		radiusToolbar.show();
+		radiusToolbar.setX(rToolbar.getX() + (rToolbar.itemWidth * radiusToolbarIdx) - 8);
+		radiusToolbar.setY(rToolbar.getY() + (rToolbar.itemHeight + 1.4));
+		radiusToolbar.hide();
+
+		$KRF_APP.resizeToolItems();
+	},
+	hideReachToolbar: function () {
+		var cContainer = Ext.getCmp("center_container");
+		var rToolbar = Ext.getCmp("reachToolbar");
+		var rNameToolbar = Ext.getCmp("reachNameToolbar");
+		var sConfig = Ext.getCmp("searchConfig");
+		var kConfig = Ext.getCmp("kradSchConf");
+
+		var btnObj = rToolbar.query('image');
+
+		for (var i = 0; i < btnObj.length; i++) {
+			if (btnObj[i].id.indexOf('btnMenu0') > -1) {
+				Ext.getCmp(btnObj[i].id).setVisible(false);
+			}
+		}
+
+		$KRF_APP.resizeToolItems();
+
+		if (rNameToolbar != undefined && rNameToolbar != null)
+			rNameToolbar.close();
+		if (sConfig != undefined && sConfig != null)
+			sConfig.close();
+		if (kConfig != undefined && kConfig != null)
+			kConfig.hide();
+	},
+	showDroneToolbar: function () {
+		var cContainer = Ext.getCmp("cont_container");
+
+		var droneToolbar = Ext.getCmp("droneToolbar");
+		var droneDetailExp = Ext.getCmp("droneDetailExp");
+
+		if (!droneToolbar) {
+			droneToolbar = Ext.create('krf_new.view.center.drone.DroneToolbar', {
+				x: 351,
+				y: 61
+			});
+			cContainer.add(droneToolbar);
+		}
+
+		if (!droneDetailExp) {
+			droneDetailExp = Ext.create('krf_new.view.center.drone.DroneDetailExp', {
+				x: 494
+			});
+			cContainer.add(droneDetailExp);
+		}
+		droneToolbar.show();
+		droneDetailExp.show();
+	},
+	hideDroneToolbar: function () {
+		var droneToolbar = Ext.getCmp("droneToolbar");
+		var droneDetailExp = Ext.getCmp("droneDetailExp");
+
+		if (droneToolbar) {
+			droneToolbar.hide();
+		}
+
+		if (droneDetailExp) {
+			droneDetailExp.hide();
+		}
+
+		var sConfig = Ext.getCmp("searchConfig");
+		var kConfig = Ext.getCmp("kradSchConf");
+
+		if (sConfig != undefined && sConfig != null)
+			sConfig.close();
+		if (kConfig != undefined && kConfig != null)
+			kConfig.hide();
+
+	},
+	searchNodeId: function (btn) {
+
+		var layerObj = Ext.getCmp("layer01");
+		var nodeObj = "";
+		var lyrId = "";
+
+		switch (btn) {
+			case "btnReachLayer": lyrId = "RCH_DID"; break;
+			case "btnAreaLayer": lyrId = "CAT_DID"; break;
+			case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+			case "btnReachNodeLayer": lyrId = "NODE_DID"; break;
+			case "SRIVER": lyrId = "SRIVER"; break;
+			default: break;
+		}
+
+		//소하천일 경우 임시
+		for (var i = 0; i < layerObj.store.data.items.length; i++) {
+
+			if (layerObj.store.data.items[i].data.siteIdCol == lyrId) {
+				nodeObj = layerObj.store.data.items[i];
+
+				var isChecked = nodeObj.get('checked');
+
+				nodeObj.set('checked', !isChecked);
+				layerObj.fireEvent('checkchange', nodeObj, !isChecked);
+
+				$KRF_APP.northLink(nodeObj);
+			}
+		}
+	},
+	northLink: function (node) {
+		if (node.data.siteIdCol != undefined) {
+			if (node.data.siteIdCol == "RCH_DID") {
+				SetBtnOnOff("btnReachLayer");
+			} else if (node.data.siteIdCol == "CAT_DID") {
+				SetBtnOnOff("btnAreaLayer");
+			} else if (node.data.siteIdCol == "RCH_FLW") {
+				SetBtnOnOff("btnFlowLayer");
+			} else if (node.data.siteIdCol == 'NODE_DID') {
+				SetBtnOnOff("btnReachNodeLayer");
+			}
+		}
+	},
+	// 지점 목록 창 띄우기
+	showSiteListWindow: function (param) {
+		if (param == null || param.searchText == null) {
+			return;
+		}
+		// 검샋시 다른 더튼값 초기화
+		var cmbArea1 = Ext.getCmp("cmbArea1");
+		var cmbArea2 = Ext.getCmp("cmbArea2");
+		var cmbArea3 = Ext.getCmp("cmbArea3");
+		var cmbWater1 = Ext.getCmp("cmbWater1");
+		var cmbWater2 = Ext.getCmp("cmbWater2");
+		var cmbWater3 = Ext.getCmp("cmbWater3");
+		var txtSearch = Ext.getCmp("textSearchText");
+
+		var textSearchText_Start = Ext.getCmp("textSearchText_Start");
+		var textSearchText_End = Ext.getCmp("textSearchText_End");
+
+		if (param.searchText == 'waterSearch') {// 수계검색시 행정구역 초기화
+			cmbArea1.setValue("");
+			cmbArea2.setValue("");
+			cmbArea3.setValue("");
+			txtSearch.setValue("");
+
+			textSearchText_Start.setValue("");
+			textSearchText_End.setValue("");
+		} else if (param.searchText == 'admSearch') {// 행정구역검색시 수계
+			// 초기화
+			cmbWater1.setValue("");
+			cmbWater2.setValue("");
+			cmbWater3.setValue("");
+			txtSearch.setValue("");
+			textSearchText_Start.setValue("");
+			textSearchText_End.setValue("");
+		} else if (param.searchText == "nameSearch") {// 명칭찾기시 수계 행정구역
+			// 초기화
+			cmbArea1.setValue("");
+			cmbArea2.setValue("");
+			cmbArea3.setValue("");
+			cmbWater1.setValue("");
+			cmbWater2.setValue("");
+			cmbWater3.setValue("");
+			textSearchText_Start.setValue("");
+			textSearchText_End.setValue("");
+		} else if (param.searchText == "SEnameSearch") {
+			cmbArea1.setValue("");
+			cmbArea2.setValue("");
+			cmbArea3.setValue("");
+			cmbWater1.setValue("");
+			cmbWater2.setValue("");
+			cmbWater3.setValue("");
+			txtSearch.setValue("");
+		} else {
+		}
+
+		var siteListWindow = Ext.getCmp("siteListWindow");
+		if (siteListWindow == undefined) {
+			siteListWindow = Ext.create('krf_new.view.east.SiteListWindow', { x: Ext.getCmp('center_container').getWidth() - 520, y: $KRF_DEFINE.mapToolbarHeight });
+			Ext.getCmp('center_container').add(siteListWindow);
+		}
+
+		siteListWindow.show();
+
+		var store = null;
+		var treeCtl = Ext.getCmp("siteListTree");
+
+		if (param.searchType == "krad") {
+			store = Ext.create('krf_new.store.east.KradListWindow');
+		} else {
+			store = Ext.create('krf_new.store.east.SiteListWindow', {
+				async: true,
+				param: param
+			});
+		}
+
+		if (param.searchText == "paramSearch") {
+			store.paramType = param.searchType;
+		}
+		store.searchType = param.searchText;
+		store.load();
+		treeCtl.setStore(store);
+
+		// 좌측 정보창 버튼 on
+		SetBtnOnOff("btnSiteListWindow", "on");
+	},
+	hideSiteListWindow: function (currCtl) {
+		var listWinCtl = Ext.getCmp("siteListWindow");
+		if (listWinCtl != undefined) {
+			listWinCtl.close();
+		}
+		listWinCtl = Ext.getCmp("siteListWindow_reach");
+		if (listWinCtl != undefined) {
+			listWinCtl.close();
+		}
+		// 좌측 정보창 버튼 off
+		SetBtnOnOff("btnSiteListWindow", "off");
+	},
+	westTabChange: function (btnOnOff) {
+		debugger;
+
+		var tabIdx = 1;
+		var titleNm = '위치검색';
+		if (btnOnOff == 'on') {
+			tabIdx = 0;
+			titleNm = '주제도 선택';
+		}
+
+		var westContents = Ext.getCmp("westContents");
+		westContents.setActiveItem(tabIdx);
+		Ext.getCmp('search-win').setTitle(titleNm);
+	},
+
+	showMetaDataWindow: function () {
+		var cContainer = Ext.getCmp("cont_container");
+		var metaDataWindow = Ext.getCmp('metaDataWindow');
+		if (metaDataWindow == undefined) {
+			metaDataWindow = Ext.create('krf_new.view.search.MetaDataWindow');
+			cContainer.add(metaDataWindow);
+		}
+		metaDataWindow.show();
+	},
+
+	hideMetaDataWindow: function () {
+		var metaDataWindow = Ext.getCmp('metaDataWindow');
+		metaDataWindow.close();
+		//me
+	},
+
+	checkMapParameter: function () {
+		var getParam = window.location.search.substring(1);
+		var params = Ext.urlDecode(getParam);
+		if (params.stationType != undefined) {
+			var paramIdx = 0;
+			if (paramIdx > -1) {
+				var siteIds = params.station.split("|");
+				var where = "JIJUM_CODE IN (";
+
+				for (var i = 0; i < siteIds.length; i++) {
+					if (siteIds[i] != "") {
+						where += "'" + siteIds[i] + "', ";
+					}
+				}
+				where = where.substring(0, where.length - 2) + ")";
+				require(["esri/tasks/query",
+					"esri/tasks/QueryTask",
+					"esri/graphic",
+					"esri/layers/GraphicsLayer",
+					"esri/symbols/PictureMarkerSymbol",
+					"esri/graphicsUtils"],
+					function (Query,
+						QueryTask,
+						Graphic,
+						GraphicsLayer,
+						PictureMarkerSymbol,
+						graphicsUtils) {
+
+						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId);
+						var query = new Query();
+						query.returnGeometry = true;
+						query.outFields = ["*"];
+						query.where = where;
+
+						// 리치라인 조회
+						queryTask.execute(query, function (featureSet) {
+
+							if (featureSet.features.length > 0) {
+
+								var coreMap = $KRF_APP.coreMap;
+
+								var symbol = new PictureMarkerSymbol({
+									"angle": 0,
+									"yoffset": 22,
+									"type": "esriPMS",
+									"url": "./resources/images/symbol/spot_99.gif",
+									"contentType": "image/png",
+									"width": 30,
+									"height": 44
+								});
+
+								var graphicLayer = new GraphicsLayer();
+								graphicLayer.id = "siteSymbolGraphic";
+
+								for (var i = 0; i < featureSet.features.length; i++) {
+									var graphic = new Graphic(featureSet.features[i].geometry, symbol);
+									graphicLayer.add(graphic);
+								}
+								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
+								coreMap.map.setExtent(extent);
+
+								Ext.defer(function () {
+
+									var level = coreMap.map.getLevel() - 1;
+
+									if (level > 12) {
+										coreMap.map.setLevel(12);
+									}
+									else {
+										coreMap.map.setLevel(level);
+									}
+								}, 500);
+								coreMap.map.addLayer(graphicLayer);
+
+								$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.stationType });
+
+								// Ext.ShowSiteListWindow("paramSearch", params.stationType);
+							}
+						});
+					});
+			}
+		}
 	}
 });

@@ -451,10 +451,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     
     setKradOnOff: function(kradLayer){
-    	
-    	var me = this;
-    	me.dynamicLayer.setVisibleLayers(kradLayer);
-    	
+		
+		var me = this;
+		if(me.dynamicLayer){
+			me.dynamicLayer.setVisibleLayers(kradLayer);
+		}
     },
     
     setDynamicLayer: function(){

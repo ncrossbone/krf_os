@@ -149,7 +149,6 @@ var apiStore = Ext.create('Ext.data.Store', {
 });
 
 apiStore.load(function(a, b, c) {
-	console.info(a);
 	_API = a[0].data;
 	
     // API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...

@@ -125,26 +125,14 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			$KRF_APP.addListener($KRF_EVENT.STOPEDITEVENT, me.stopEditEvent);
 
-			//$KRF_EVENT
-			//        	dojo.connect(me.map,'onLoad', function(){
-			//        		debugger;
-			//        		
-			//        		$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, Ext.getCmp('westLayer01').getView().getChecked());
-			//        	});
-
 			$KRF_APP.fireEvent($KRF_EVENT.CORE_MAP_LOADED, me);
 
 			require(["/KRF_DEV/app/view/map/task/CustomPrintTask.js"], function () {
-				//"./resources/jsp/CustomPrintTask_New.jsp"
 				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id
 					, '/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp'
 					, "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
 
 			});
-			//        	$KRF_APP.fireEvent($KRF_EVENT.MAP_RESIZE, this);
-
-			//        	this.map.resize();
-
 		});
 	},
 	transCoord: function (coord, callback, inSr, outSr, scope) {
@@ -161,7 +149,12 @@ Ext.define('krf_new.view.map.CoreMap', {
 		});
 	},
 	mapLoaded: function () {
-		$KRF_APP.fireEvent($KRF_EVENT.MAP_WINDOW_LOADED, me);
+		try{
+			$KRF_APP.fireEvent($KRF_EVENT.MAP_WINDOW_LOADED, me);
+		}catch(e){
+				
+		}
+		
 	},
 	baseMapInit: function () {
 		dojo.declare('CustomMapsLayer', esri.layers.TiledMapServiceLayer, {
@@ -181,8 +174,8 @@ Ext.define('krf_new.view.map.CoreMap', {
 				});
 
 				var size = {
-					width: $KRF_APP.getDesktopWindow('map-win').getWidth() - 80,
-					height: $KRF_APP.getDesktopWindow('map-win').getHeight() - 30
+					width: Ext.getCmp('map-win').getWidth() - 80,
+					height: Ext.getCmp('map-win').getHeight() - 30
 				}
 
 				var xmax, xmin, ymax, ymin;
