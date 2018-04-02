@@ -55,6 +55,15 @@ if("rptCase2_1".equals(type)){
     oof.addField("ITEM6",item6);
 
     OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/2-2all.crf");
+}else if("rptCase3".equals(type)){
+
+    oof.addField("YEAR",year);
+    oof.addField("AREA1",area1);
+    oof.addField("AREA2",area2);
+    oof.addField("AREA3",area3);
+    oof.addField("AREA4",area4);
+
+    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/3all.crf");
 }else{
     return;
 }

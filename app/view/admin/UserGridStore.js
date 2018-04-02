@@ -21,10 +21,6 @@ Ext.define('krf_new.view.admin.UserGridStore', {
 					}
 					var result = Ext.util.JSON.decode(response.responseText);
 
-					for(var i=0; i<100; i++){
-						result.data.push({layerSetName:'기본', userId:'temp'+i, userNm:'임시'+i, orgName:'', levelNm:''});
-					}
-					
 					store.setData(result.data);
 				},
 				failure: function (form, action) {

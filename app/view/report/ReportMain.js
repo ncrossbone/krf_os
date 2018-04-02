@@ -40,7 +40,7 @@ Ext.define('krf_new.view.report.ReportMain', {
 				'rptCase1': { comboCfg: ['tdi', 'fai', 'rvi'], hideCmb: ['reportConditionPanel1', 'reportConditionPanel2', 'reportConditionPanel3'] },
 				'rptCase2_1': { comboCfg: ['tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: ['reportConditionPanel1', 'reportConditionPanel2'] },
 				'rptCase2_2': { comboCfg: ['wq', 'tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: ['reportConditionPanel0'] },
-				'rptCase3': { comboCfg: ['wq', 'tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: ['reportConditionPanel1', 'reportConditionPanel2'] }
+				'rptCase3': { comboCfg: ['wq', 'tdi', 'bmi', 'fai', 'hri', 'rvi'], hideCmb: ['reportConditionPanel1', 'reportConditionPanel2', 'reportConditionPanel4'] }
 			};
 
 			var comboCfg = rptCfg[reportType].comboCfg;
