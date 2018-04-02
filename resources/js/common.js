@@ -379,12 +379,15 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			series.setXField("WMCYMD");
 			yFieldName = "ITEM_TEMP";
 		} else if(parentId == "H"){
+			//_hidden
 			siteChartCtl.series[1]._yField = "BOD_1";
 			siteChartCtl.series[2]._yField = "BOD_2";
 			siteChartCtl.series[3]._yField = "BOD_3";
 			siteChartCtl.series[4]._yField = "BOD_4";
+			
 			yFieldName = "BOD";
 		}
+		console.info(siteChartCtl);
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
 
@@ -408,7 +411,9 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 				chartStore.parentId = parentId;
 				chartStore.orgParentId = orgParentId;
 				chartStore.load();
+				console.info(siteChartCtl);
 				siteChartCtl.setStore(chartStore);
+				
 			}
 		} else {
 			Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");

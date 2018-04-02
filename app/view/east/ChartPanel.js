@@ -102,6 +102,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 			// 	docked: 'bottom',
 			// 	listeners:{
 			// 		boxready: function(a) {
+			// 			console.info(a);
 			// 		}
 			// 	}
 			// },
@@ -150,6 +151,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					dismissDelay: 0,
 					hideDelay: 0,
 					renderer: function (tooltip, storeItem) {
+
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
@@ -185,6 +187,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					dismissDelay: 0,
 					hideDelay: 0,
 					renderer: function (tooltip, storeItem) {
+
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
