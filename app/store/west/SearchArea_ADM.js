@@ -12,25 +12,34 @@ Ext.define('krf_new.store.west.SearchArea_ADM', {
 
 	listeners: {
 		beforeload: function (store) {
-			
+
 
 			var idColumn, nameColumn, whereStr;
 
 			idColumn = "ADM_CD";
 
-			if (store.layerId == $KRF_DEFINE.admSidoLayerId) { nameColumn = "DO_NM"; whereStr = "1=1" }
-			if (store.layerId == $KRF_DEFINE.admSigunguLayerId) { nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0, 2) + "%'" }
-			if (store.layerId == $KRF_DEFINE.admDongLayerId) { nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0, 5) + "%'" }
+			var query = new esri.tasks.Query();
+
+			if (store.layerId == $KRF_DEFINE.admSidoLayerId) {
+				nameColumn = "DO_NM"; whereStr = "1=1";
+			}
+			if (store.layerId == $KRF_DEFINE.admSigunguLayerId) {
+				nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0, 2) + "%'";
+			}
+			if (store.layerId == $KRF_DEFINE.admDongLayerId) {
+				nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0, 5) + "%'";
+			}
 			// id, name 셋팅이 안돼있으면 리턴
-			if (idColumn == undefined || nameColumn == undefined || whereStr == undefined){
+			if (idColumn == undefined || nameColumn == undefined || whereStr == undefined) {
 				return;
 			}
-				
+
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
-			var query = new esri.tasks.Query();
+
 			query.returnGeometry = false;
 			query.where = whereStr;
 			query.outFields = ["*"];
+
 
 			queryTask.execute(query, function (results) {
 				var data = results.features;
