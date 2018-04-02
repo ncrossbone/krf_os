@@ -101,7 +101,6 @@ Ext.define('krf_new.view.search.West', {
 		$KRF_APP.addListener($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE, this.layerComboSetValue, this);
 	},
 	layerComboSetValue: function (param) {
-		console.log($KRF_APP.USER_LAYERS.layerSetId, 'layerComboSetValue');
 		Ext.getCmp('cmbLayerList').setSelection(parseInt(param.layerSetId));
 	}
 });

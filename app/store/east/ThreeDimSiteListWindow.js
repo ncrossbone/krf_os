@@ -192,8 +192,6 @@ Ext.define('krf_new.store.east.ThreeDimSiteListWindow', {
 				
 				var jsonData = Ext.util.JSON.decode(jsonStr);
 				
-				console.log(jsonData);
-
 				store.setRootNode(jsonData);
 				store.setRootVisible(false);
 				// 로딩바 숨김

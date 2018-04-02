@@ -54,7 +54,6 @@ function ReportWebLog(message){
 		//이미지 경로 "," -> "//"로 대체 
 		//2016.10.18 ph
 		imgDelete(imgPathReplace());
-		window.console.log(message);
 	}
 	else{
 		alert(message);
