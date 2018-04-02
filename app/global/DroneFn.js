@@ -13,9 +13,10 @@ Ext.define("krf_new.global.DroneFn", {
 	},
 	//초기화 버튼
 	onClickResetButton: function () {
-		Ext.getCmp("droneDetailExp").hide();
+		if(Ext.getCmp("droneDetailExp") != undefined){
+			Ext.getCmp("droneDetailExp").hide();
 
-		var me = Ext.getCmp('_mapDiv_');
+			var me = Ext.getCmp('_mapDiv_');
 		if (me.map == null) {
 			return;
 		}
@@ -81,6 +82,8 @@ Ext.define("krf_new.global.DroneFn", {
 
 		$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 		$("#check_cboDronePhy").css('background-color', "#353f4b");
+		}
+		
 
 	},
 	LayerVisibility: function () {

@@ -1977,8 +1977,10 @@ ResetButtonClick = function () {
 	// 항공영상 On/Off
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
-
-	Ext.getCmp("cboDroneLayer").down("combo").collapse();
+	if(Ext.getCmp("cboDroneLayer") != undefined){
+		Ext.getCmp("cboDroneLayer").down("combo").collapse();
+	}
+	
 
 	//리치 시작 끝 close 끄기
 	if (Ext.getCmp("reach_close") != undefined) {
