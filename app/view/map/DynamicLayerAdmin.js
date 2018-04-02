@@ -55,7 +55,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 				sLayer.push(selectObj.data.id.substring(1,2));
 			}
 		});
-		console.info(sLayer);
+		
 		me.dynamicLayerSRiver.setVisibleLayers(sLayer);
 
 	},
@@ -119,7 +119,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 				layers1.push(selectObj.data.id);
 			}
 		});
-		console.info(layers1);
+
 		me.dynamicLayer1.setVisibleLayers(layers1);
 		me.dynamicLayer2.setVisibleLayers(layers2);
 	},
