@@ -97,6 +97,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 		}, {
 			xtype: 'cartesian',
 			id: 'siteCharttest',
+			interactions: 'crosszoom',
 			innerPadding: {
 				left: 30,
 				right: 30

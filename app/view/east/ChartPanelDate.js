@@ -272,7 +272,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 
 			} else if (parentChk == "H") {
-				
+
 				var hSelectYear = Ext.getCmp("hSelectYear");
 				var hSelectMonth = Ext.getCmp("hSelectMonth");
 				var hSelectDay = Ext.getCmp("hSelectDay");
@@ -442,10 +442,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					text: '월 까지'
 				}]
 			}]
-		}, {
-			xtype: 'container',
-			height: 5
-		}, {
+		},{
 			items: [{
 				xtype: 'container',
 				layout: {
