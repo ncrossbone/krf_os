@@ -30,6 +30,8 @@ Ext.define('krf_new.view.center.RptInitWindow', {
 		style: "margin-left:120px; background : #333d46; border: 1px solid#000; position:absolute;  top: 240px; z-index:20000;",
 		text: "리포트 보기",
 		handler: function () {
+			var me = this.up("window");
+
 			//리포트 보기
 			var easySelect = Ext.ComponentQuery.query("#easySelect")[0];
 			var detailSelect = Ext.ComponentQuery.query("#detailSelect")[0];
@@ -41,7 +43,7 @@ Ext.define('krf_new.view.center.RptInitWindow', {
 			var height = coreMap.getHeight();
 
 			if (easySelect.getChecked().length == 0) {
-				var url = "./report/rptExtView.html?print=N&l=" + level + "&x=" + center.x + "&y=" + center.y + "&w=" + width + "&h=" + height;
+				var url = "./report/rptExtView.html?print=N&l=" + level + "&x=" + center.x + "&y=" + center.y + "&w=" + width + "&h=" + height+"&pollutionFlag="+me.pollutionFlag;
 				window.open(url, "리포트 설정", "width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
 			}else{
 				var url = "./report/rptExtView.html?print=Y&l=" + level + "&x=" + center.x + "&y=" + center.y + "&w=" + width + "&h=" + height;
