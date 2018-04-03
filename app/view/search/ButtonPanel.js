@@ -53,7 +53,7 @@ Ext.define('krf_new.view.search.ButtonPanel', {
 			title: '주제도선택',
 			style: 'left: 0px !important;',
 			width: this.itemWidth,
-			height: 44,
+			height: 45,
 			listeners: { el: { click: 'onClickLayer' } },
 			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/left_menu02_on.png',
