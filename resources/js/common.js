@@ -2001,7 +2001,7 @@ ResetButtonClick = function () {
 
 	//리치 시작 끝 close 끄기
 	if (Ext.getCmp("reach_close") != undefined) {
-		Ext.getCmp("reach_close").setVisible(false);
+		Ext.getCmp("reach_close").setDisabled(true);
 	}
 
 
