@@ -59,6 +59,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 		height: 300
 	}, {
 		xtype: 'rpt-east-rptPollutionList',
+		id: 'pollutionContainer',
 		title: '오염원',
 		height: 300
 	}, {
