@@ -14,12 +14,15 @@ Ext.define('krf_new.view.main.Main', {
 	},
 
 	items: [{
+		//xtype:'window',
 		id: 'map-win',
 		header: {
-			cls: 'krf-os-parentwin-header'
+			cls: 'krf-os-parentwin-header',
+			style:'padding:10px 0px 5px 0px !important;'
 		},
 		iconCls: 'krf-os-win-title-krf-icon',
 		shadow: false,
+		style:'border-radius: 4px; padding: 0px 0px 0px 0px; border-width: 5px; border-style: solid; background-color: #fff; border-top:none;',
 		animCollapse: false,
 		layout: 'border',
 		constrain: true,
