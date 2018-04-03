@@ -86,7 +86,7 @@ store.load(function (a, b, c) {
 			if (splitStr) {
 				var pollutionFlag = splitStr.split("&")[0];
 				
-				if (pollutionFlag) {
+				if (pollutionFlag == 'true') {
 					pollutionContainer.show();
 				} else {
 					pollutionContainer.hide();
