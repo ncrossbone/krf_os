@@ -21,13 +21,13 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		var btn = Ext.getCmp("btnSearchText");
 
 		var treeResach = Ext.getCmp("siteListTree");
-
+		
 		if (treeResach != undefined) {
 			var store = treeResach.getStore();
 			store.nameInfo = btn.rawValue;
 			store.load();
 			treeResach.getView().refresh();
-			return;
+			//return;
 		} else {
 
 			if (btn.disable == false) {
