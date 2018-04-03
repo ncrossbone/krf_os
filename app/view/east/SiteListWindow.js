@@ -114,74 +114,68 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				}
 			}
 		}, {
-        	xtype: 'actioncolumn',
-            text: '리포트',
-            width: 60,
-            menuDisabled: true,
-            tooltip: '리포트',
-            align: 'center',
-            dataIndex: 'id',
-            icon: "./resources/images/button/icon_report.gif",
-            iconCls: ' khLee-x-default-btn',
-            isDisabled: function(view, rowIdx, colIdx, item, record) {
-            	
-            	if(record.data.id == "A"){
-            		return false;
-            	}
-            	else{
-            		return true;
-            	}
-            },
-            handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
-            	
-            	var me = this.up("window");
-            	
-            	var childRecord = record.childNodes;
-        		
-        		for(var i = 0; i < childRecord.length; i++){
-        			
-        			var isInit = true;
-        			if(i != 0){
-        				isInit = false;
-        			}
-        			me.setSiteIds(childRecord[i], isInit);
-        		}
-            	
-            	var coreMap = GetCoreMap();
+			xtype: 'actioncolumn',
+			text: '리포트',
+			width: 60,
+			menuDisabled: true,
+			tooltip: '리포트',
+			align: 'center',
+			dataIndex: 'id',
+			icon: "./resources/images/button/icon_report.gif",
+			iconCls: ' khLee-x-default-btn',
+			isDisabled: function (view, rowIdx, colIdx, item, record) {
+				if (record.data.id == "A" || record.data.id == 'pollution') {
+					return false;
+				} else {
+					return true;
+				}
+			},
+			handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+
+				var me = this.up("window");
+				var paentNode = record.parentNode;
+				var pollutionFlag = false;
+
+				if (paentNode.childNodes.length > 0) {
+					for (var i = 0; i < paentNode.childNodes.length; i++) {
+						if (paentNode.childNodes[i].data.id == 'A') {
+							var childRecord = paentNode.childNodes[i].childNodes;
+
+							for (var j = 0; j < childRecord.length; j++) {
+
+								var isInit = true;
+								if (j != 0) {
+									isInit = false;
+								}
+								me.setSiteIds(childRecord[j], isInit);
+							}
+							continue;
+						}
+						if (paentNode.childNodes[i].data.id == 'pollution') {
+							pollutionFlag = true;
+							break;
+						}
+					}
+				}
+				var coreMap = GetCoreMap();
 				var center = coreMap.map.extent.getCenter();
 				var level = coreMap.map.getLevel();
 				var width = coreMap.getWidth();
 				var height = coreMap.getHeight();
-				//console.info(width);
-				//console.info(height);
-				//console.info(coreMap.map.extent.getCenter());
-				//console.info(coreMap.map.getLevel());
-				
+
 				var rptwindow = Ext.getCmp("rptinitwindow");
-								
-				if(rptwindow==undefined){
-					var rpt = Ext.create("krf_new.view.center.RptInitWindow");
-					rpt.show(); 
+
+				if (rptwindow == undefined) {
+					var contContainer = Ext.getCmp('cont_container');
+					var rptwindow = Ext.create("krf_new.view.center.RptInitWindow", { pollutionFlag: pollutionFlag });
+					contContainer.add(rptwindow);
+					rptwindow.show();
+				} else {
+					rptwindow.pollutionFlag = pollutionFlag;
+					rptwindow.show();
 				}
-				
-				//var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
-				//"&w=" + width + "&h=" + height;
-				//window.open(url, "리포트 설정", //"width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
-				
-				/*width : 팝업창 가로길이
-				height : 팝업창 세로길이
-				toolbar=no : 단축도구창(툴바) 표시안함
-				menubar=no : 메뉴창(메뉴바) 표시안함
-				location=no : 주소창 표시안함
-				scrollbars=no : 스크롤바 표시안함
-				status=no : 아래 상태바창 표시안함
-				resizable=no : 창변형 하지않음
-				fullscreen=no : 전체화면 하지않음
-				channelmode=yes : F11 키 기능이랑 같음
-				left=0 : 왼쪽에 창을 고정(ex. left=30 이런식으로 조절)
-				top=0 : 위쪽에 창을 고정(ex. top=100 이런식으로 조절)*/
-            }
-        }, {
+			}
+		}, {
 			text: '검색',
 			width: 50,
 			xtype: 'actioncolumn',
@@ -207,7 +201,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 					for (var i = 0; i < childRecord.length; i++) {
 						var gridId = "grid_" + childRecord[i].data.id;
 						me.setSiteIds(childRecord[i], true);
-					
+
 
 						// 버튼 On/Off
 						currCtl = Ext.getCmp("btnSearchResult");
@@ -225,11 +219,11 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 						//}
 					}
 				} else {
-					
+
 					var gridId = null;
-					if(record.data.eSiteId != undefined){
+					if (record.data.eSiteId != undefined) {
 						gridId = "grid_" + record.data.eSiteId;
-					}else{
+					} else {
 						gridId = "grid_" + record.data.id;
 					}
 					me.setSiteIds(record, true);
@@ -244,7 +238,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 
 					pNm = pNm.substring(0, 1);
 					// 검색결과창 띄우기
-					
+
 					ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId, "");
 
 					var coreMap = GetCoreMap();
@@ -357,15 +351,15 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 			}
 
 			// E : 생물측정망의 경우 지점 id가 동일한것이 있기 때문에 어떤 검색인지 인자를 하나 더 붙임 ( 그리드아이디만들때 쓰임 , 아이디가 중복되면 그리드 오류발생)
-			if(record.parentNode.data.id.substring(0,1) == "E"){ 
+			if (record.parentNode.data.id.substring(0, 1) == "E") {
 				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.eSiteId });
 				me.siteIds += "'" + record.data.eSiteId + "'";
-			}else{
+			} else {
 				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.id });
 				me.siteIds += "'" + record.data.id + "'";
 			}
-			
-			
+
+
 		}
 	},
 

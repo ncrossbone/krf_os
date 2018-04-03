@@ -662,7 +662,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	var isMapClickEvt = false;
     	me.isShowPopup = false;
     	
-    	//var reachClose = Ext.getCmp('reach_close');
     	if(me.btnObj != undefined && me.btnObj != null){
 	    	/* 커서 설정 */
 	    	if(me.btnObj.btnOnOff == "on"){

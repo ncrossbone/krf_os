@@ -1048,13 +1048,13 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		$KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_07.push(store7.data.items);
 
 		$KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution.push(
-			["01", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_01],
-			["02", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_02],
-			["03", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_03],
-			["04", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_04],
-			["05", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_05],
-			["06", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_06],
-			["07", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_07]);
+			["01", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_01, '생활계'],
+			["02", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_02, '축산계'],
+			["03", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_03, '산업계'],
+			["04", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_04, '토지계'],
+			["05", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_05, '양식계'],
+			["06", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_06, '매립계'],
+			["07", $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_07, '기타수질오염원']);
 
 		var p01Cnt = $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length;
 		var p02Cnt = $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length;
@@ -1063,7 +1063,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		var p05Cnt = $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length;
 		var p06Cnt = $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length;
 		var p07Cnt = $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length;
+		
 
+		var treeTitle = $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution;
 		if ($KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0].length > 0) {
 			var pollutionString = "{\n";
 			pollutionString += "	\"id\": \"pollution\",\n";
@@ -1081,10 +1083,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 				pollutionString += "	  { \n";
 				pollutionString += "	\"id\": \"pollution_01\",\n";
-				pollutionString += "	\"title\": \"생활계\",\n"; // 외부망 생활계 안보이게
+				pollutionString += "	\"title\": \"" + treeTitle[0][2] + "\",\n"; // 외부망 생활계 안보이게
 				pollutionString += "	\"visible\": \"true\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_01\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>생활계(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[0][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(01);'>";
 				pollutionString += " <img id='catPollutionOnOff_01' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
@@ -1133,9 +1135,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 
 				pollutionString += "	\"id\": \"pollution_02\",\n";
-				pollutionString += "	\"title\": \"축산계\",\n";
+				pollutionString += "	\"title\": \"" + treeTitle[1][2] + "\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_02\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>축산계(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[1][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(02);'>";
 				pollutionString += " <img id='catPollutionOnOff_02' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
@@ -1185,9 +1187,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 
 				pollutionString += "	\"id\": \"pollution_03\",\n";
-				pollutionString += "	\"title\": \"산업계\",\n";
+				pollutionString += "	\"title\": \"" + treeTitle[2][2] + "\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_03\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>산업계(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[2][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(03);'>";
 				pollutionString += " <img id='catPollutionOnOff_03' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
@@ -1235,9 +1237,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					pollutionString += "	 , { \n";
 				}
 				pollutionString += "	\"id\": \"pollution_04\",\n";
-				pollutionString += "	\"title\": \"토지계\",\n";
+				pollutionString += "	\"title\": \"" + treeTitle[3][2] + "\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_04\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>토지계(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[3][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(04);'>";
 				pollutionString += " <img id='catPollutionOnOff_04' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
@@ -1280,9 +1282,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 
 				pollutionString += "	\"id\": \"pollution_05\",\n";
-				pollutionString += "	\"title\": \"양식계\",\n";
+				pollutionString += "	\"title\": \"" + treeTitle[4][2] + "\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_05\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>양식계(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[4][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(05);'>";
 				pollutionString += " <img id='catPollutionOnOff_05' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
@@ -1330,9 +1332,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 
 				pollutionString += "	\"id\": \"pollution_06\",\n";
-				pollutionString += "	\"title\": \"매립계\",\n";
+				pollutionString += "	\"title\": \"" + treeTitle[5][2] + "\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_06\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>매립계(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[5][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(06);'>";
 				pollutionString += " <img id='catPollutionOnOff_06' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
@@ -1378,9 +1380,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 
 				pollutionString += "	\"id\": \"pollution_07\",\n";
-				pollutionString += "	\"title\": \"기타수질오염원\",\n";
+				pollutionString += "	\"title\": \"" + treeTitle[6][2] + "\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_07\",\n";
-				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>기타수질오염원(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length + ")</span>";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>"+treeTitle[6][2]+"(" + $KRF_APP.coreMap.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(07);'>";
 				pollutionString += " <img id='catPollutionOnOff_07' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
