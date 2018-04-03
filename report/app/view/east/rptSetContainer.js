@@ -75,6 +75,9 @@ Ext.define('Report.view.east.rptSetContainer', {
 			listeners: {
 				el: {
 					click: function () {
+						var reportMap = Ext.getCmp('_rptMapDiv_');
+						reportMap.resetMapLayers();
+
 						var paramCode = "";
 						var listStore = Ext.getCmp("treeRptSiteList").getStore();
 						for (var i = 0; i < listStore.data.items.length; i++) {
@@ -89,14 +92,11 @@ Ext.define('Report.view.east.rptSetContainer', {
 						}
 
 						paramCode = paramCode.substring(0, paramCode.length - 2);
-						//console.info(paramCode);
+
 						var radio = Ext.getCmp("rptRadio").lastValue.rb;
 
-						//var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
 						var startYear = Ext.getCmp("cmbRptPeriodStYear").getValue();
-						//console.info(startYear);
 						var endYear = Ext.getCmp("cmbRptPeriodEdYear").getValue();
-						//console.info(endYear);
 
 						if (endYear < startYear) {
 							alert("검색 종료년도가 시작년도보다 작습니다.");
@@ -108,15 +108,36 @@ Ext.define('Report.view.east.rptSetContainer', {
 							return;
 						}
 
-						if (radio == "1") {
-							//							console.info("lkjfsd");
-							Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
-						} else {
+						if (radio != "1") {
 							startYear = Ext.getCmp("cmbRptPeriodStYear").getValue() + "." + Ext.getCmp("cmbRptPeriodStMonth").getValue();
 							endYear = Ext.getCmp("cmbRptPeriodEdYear").getValue() + "." + Ext.getCmp("cmbRptPeriodEdMonth").getValue();
-
-							Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
 						}
+
+						var pollutionStore = Ext.getCmp("treeRptPollutionList").getStore();
+						var pollutionImages = '';
+
+						for (var i = 0; i < pollutionStore.data.items.length; i++) {
+
+							if (pollutionStore.data.items[i].data.leaf == true) {
+
+								if (pollutionStore.data.items[i].data.checked == true) {
+
+									pollutionImages += "'" + pollutionStore.data.items[i].data.siteName + "':'" + pollutionStore.data.items[i].data.imgPath + "', ";
+								}
+							}
+						}
+						pollutionImages = pollutionImages.substring(0, pollutionImages.length - 2);
+
+						console.log(pollutionImages);
+
+						reportMap.report(paramCode, startYear, endYear, function (imagePath) {
+							window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imagePath) +
+								"&paramCode=" + paramCode +
+								"&startYear=" + startYear +
+								"&endYear=" + endYear,
+								"",
+								"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+						});
 
 					}
 				}

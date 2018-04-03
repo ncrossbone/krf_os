@@ -6,6 +6,8 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 	proxyUrl: null,
 	imgSaveUrl: null,
 
+	successCallback : null,
+
 	constructor: function (map, mapDivId, printUrl, proxyUrl, arcServiceUrl, imgSaveUrl) {
 		var me = this;
 		me.map = map;
@@ -30,18 +32,25 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		me.execute("capture");
 	},
 
-	report: function (paramCode, startYear, endYear) {
+	report: function (paramCode, startYear, endYear, callBack) {
 
 		var me = this;
-		//console.info("aaa");
 		me.paramCode = paramCode;
 		me.startYear = startYear;
 		me.endYear = endYear;
+		me.successCallback = callBack;
 
 		me.execute("report");
 	},
+	reportCapture: function (callBack) {
 
-	execute: function (mode) {
+		var me = this;
+		me.successCallback = callBack;
+
+		me.execute("report", 'capture');
+	},
+
+	execute: function (mode, reportType) {
 
 		var me = this;
 		var svgInfo = $('#' + me.mapDivId + ' svg').parent().html();
@@ -115,14 +124,21 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 				}
 				else if (mode == "report") {
 					var imgPath = data.path;
-					window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imgPath) +
-						"&paramCode=" + me.paramCode +
-						"&startYear=" + me.startYear +
-						"&endYear=" + me.endYear,
-						"",
-						"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+					if(reportType == 'capture'){
+						me.successCallback(imgPath);
+					}else{
+						if(me.successCallback){
+							me.successCallback(imgPath);
+						}else{
+							window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imgPath) +
+							"&paramCode=" + me.paramCode +
+							"&startYear=" + me.startYear +
+							"&endYear=" + me.endYear,
+							"",
+							"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+						}
+					}
 				}
-				//console.info(data);
 				me.onComplete("complete");
 			},
 			error: function (err) {

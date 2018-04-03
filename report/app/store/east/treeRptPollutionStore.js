@@ -29,12 +29,8 @@ Ext.define('Report.store.east.treeRptPollutionStore', {
 
             for (var i = 0; i < pollObj.length; i++) {
                 var pollArr = pollObj[i][1][0];
-                var firstDepth = { id: pollObj[i][0], siteName: pollutionNmCfg[pollObj[i][0]], cls: 'khLee-x-tree-node-text-bold', checked: false, expanded: false, leaf:true, iconCls:'layerNoneImg'};
+                var firstDepth = { id: pollObj[i][0], siteName: pollutionNmCfg[pollObj[i][0]], cls: 'khLee-x-tree-node-text-bold', checked: false, expanded: false, leaf:true, iconCls:'layerNoneImg', reachData:pollObj[i][1][0] };
                 treeObj.children.push(firstDepth);
-                // for (var j = 0; j < pollArr.length; j++) {
-                //     var secondDepth = { id: pollArr[j].data.CAT_DID, siteName: pollArr[j].data.CAT_DID, siteAddr: pollArr[j].data.CAT_DID, cls: 'khLee-x-tree-node-text-bold', checked: false, expanded: true };
-                //     treeObj.children[i].children.push(secondDepth);
-                // }
             }
             
             store.setRootNode(treeObj);

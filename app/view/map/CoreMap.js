@@ -137,9 +137,6 @@ Ext.define('krf_new.view.map.CoreMap', {
 					, "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
 
 			});
-			//        	$KRF_APP.fireEvent($KRF_EVENT.MAP_RESIZE, this);
-
-			//        	this.map.resize();
 
 		});
 	},

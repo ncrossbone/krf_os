@@ -86,11 +86,11 @@ store.load(function (a, b, c) {
 			if (splitStr) {
 				var pollutionFlag = splitStr.split("&")[0];
 				
-				if (pollutionFlag) {
-					pollutionContainer.show();
-				} else {
-					pollutionContainer.hide();
-				}
+				// if (pollutionFlag) {
+				// 	pollutionContainer.show();
+				// } else {
+				// 	pollutionContainer.hide();
+				// }
 			}
 			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
 			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;

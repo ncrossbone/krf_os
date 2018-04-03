@@ -39,7 +39,7 @@
 			svgInfo = svgInfo.replace("xmlns=\"http://www.w3.org/2000/svg\"", "");
 			svgInfo = svgInfo.replaceAll("<svg", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" ");
 			
-			svgInfo = svgInfo.replaceAll("./resources/","http://192.168.0.231:8080/KRF_DEV/resources/");
+			svgInfo = svgInfo.replaceAll("./resources/","http://112.217.167.123:40003/KRF_DEV/resources/");
 			int width = Integer.parseInt(request.getParameter("width"));
 			int height = Integer.parseInt(request.getParameter("height"));
 			ImageInfo[] imageInfos = gson.fromJson(request.getParameter("imageInfos"), ImageInfo[].class);
