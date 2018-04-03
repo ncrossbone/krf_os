@@ -1,14 +1,11 @@
-Ext.define('Report.view.east.rptSetSiteList', {
+Ext.define('Report.view.east.rptPollutionList', {
 	
 	extend: 'Ext.container.Container',
 	
-	xtype : 'rpt-east-rptSetSiteList',
+	xtype : 'rpt-east-rptPollutionList',
 	
-	requires: [
-	   	'Report.view.east.rptSetSiteListController'
-	],
 		
-	id: 'rptSetSiteList',
+	id: 'rptPollutionList',
 	
 	title: '지점',
 	
@@ -37,18 +34,18 @@ Ext.define('Report.view.east.rptSetSiteList', {
 		style: "margin-top: 4px; padding-right: 10px;"
 	}, */{
 		xtype: "treepanel",
-		id: "treeRptSiteList",
+		id: "treeRptSiteList1",
 		rootVisible:false,
 		cls: 'khLee-x-grid-cell',
 		width: 430,
 		height: 250,
-		title:"지점목록",
+		title:"오염원",
 		//autoScroll: true,
 		store: Ext.create('Report.store.east.treeRptSiteListStore'),
 		controller: 'rptSetSiteListController',
 		columns: [{
             xtype: 'treecolumn',
-            text: "지점명",
+            text: "리치",
             align: "left",
             style: "color:black;",
             width: 150,
