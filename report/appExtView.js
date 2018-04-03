@@ -31,7 +31,6 @@ if(print == "Y"){
 
 }else{
 	parentObj = opener;
-
 }
 
 var store = Ext.create('Ext.data.Store', {

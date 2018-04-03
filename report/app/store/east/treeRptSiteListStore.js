@@ -9,17 +9,9 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 		
 		load: function(store) {
 			
-			// console.info(opener.Ext.getCmp("siteListWindow").siteIds);
-			
-			
 			var siteIds = parentObj.Ext.getCmp("siteListWindow").siteIds;
-			console.info(siteIds);
-			console.info(parentObj);
 			// esri 스크립트 로드 될때까지 타이머
 			var timerId = window.setInterval(function(){
-				//$KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId
-				//console.info(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId);
-				//var queryTask = new esri.tasks.QueryTask(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId); // 레이어 URL v3
 				var queryTask = new esri.tasks.QueryTask(parentObj.$KRF_DEFINE.reachServiceUrl_v3 + '/' + parentObj.$KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 				var query = new esri.tasks.Query();
 				
@@ -31,9 +23,6 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 				query.outFields = ["*"];
 				
 				queryTask.execute(query, function(result){
-					
-					//console.info(result);
-					
 					var jsonStr = "{\n";
 					jsonStr += "	\"id\": \"0\", \n";
 					jsonStr += "	\"siteName\":  \"root\", \n";
@@ -54,7 +43,6 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 						}
 					});
 					
-					//console.info(arrGroupCodes);
 					/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
 					
 					// 그룹 코드 루프 시작
