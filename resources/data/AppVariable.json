@@ -163,5 +163,15 @@
 		"layerId": "26",
 		"colName": "시설코드",
 		"layerName": "하수종말처리시설"
+	}, {
+		"stationType": "SD1",
+		"layerId": "40",
+		"colName": "시설코드",
+		"layerName": "방사능측정망_호소"
+	}, {
+		"stationType": "SD2",
+		"layerId": "41",
+		"colName": "시설코드",
+		"layerName": "방사능측정망_하천"
 	}]
 }]
