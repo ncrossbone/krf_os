@@ -75,17 +75,13 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			});
 
-			me.gsvc = new GeometryService("https://utility.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
 			me.geometryService = new GeometryService($KRF_DEFINE.arcServiceUrl + "/rest/services/Utilities/Geometry/GeometryServer");
 
-			//me.map.resize();
 			me.baseMapInit();
 			me.baseMap = new CustomMapsLayer();
 			me.map.addLayer(me.baseMap);
 
 			me.map.setLevel(8);
-
-			//        	me.map.setExtent(me.initialExtent);
 
 			/* 외부망 항공사진 주석 */
 			me.dynamicLayerAdmin1 = Ext.create('krf_new.view.drone.map.DynamicLayerAdmin1', me.map);
@@ -152,7 +148,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 		params.geometries = [new esri.geometry.Point(coord.x, coord.y, new esri.SpatialReference({ wkid: inSr }))];
 		params.outSR = new esri.SpatialReference(outSr);
 
-		this.gsvc.project(params, function (projectedPoints) {
+		this.geometryService.project(params, function (projectedPoints) {
 			if (scope) {
 				callback.apply(scope, [projectedPoints])
 			} else {
