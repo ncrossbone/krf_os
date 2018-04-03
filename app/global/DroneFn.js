@@ -243,7 +243,7 @@ Ext.define("krf_new.global.DroneFn", {
 			aciationLayer.setVisibleLayers([-1]);
 			Chlorophyll_a.setVisibleLayers([-1]);
 			Phycocyanin.setVisibleLayers([-1]);
-
+			
 			if (layers.length > 0) {
 				activeLayer.setVisibleLayers(layers);
 			}

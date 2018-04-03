@@ -254,6 +254,40 @@
 		"isMetaData": true
 	}]
 }, {
+	"id": "42",
+	"text": "시설물",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "48",
+		"wmsId":"",
+		"text": "취수장",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer39",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "관측소코드",
+		"siteNmCol": "관측소명",
+		"siteAddrCol": "주소",
+		"layerCode": "J001",
+		"isMetaData": true
+	}, {
+		"id": "49",
+		"wmsId":"",
+		"text": "정수장",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer40",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "관측소코드",
+		"siteNmCol": "관측소명",
+		"siteAddrCol": "주소",
+		"layerCode": "J002",
+		"isMetaData": true
+	}]
+}, {
 	"id": "15",
 	"text": "기타측정지점",
 	"cls": "khLee-x-tree-node-text-bold",
