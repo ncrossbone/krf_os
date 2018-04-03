@@ -434,6 +434,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
 	}
 	SetItemLabelText(yFieldName, chartId, test);
+	siteChartCtl.preText = test;
 }
 
 // 지점/차트 정보 창 닫기
@@ -606,13 +607,14 @@ SetItemLabelText = function (itemNm, chartId, test) {
 
 	siteItemText.setText(itemTxt);
 
-	if(!test){
-		test = chartCtl.preText;
+	var preText = test;
+	if(preText == ''){
+		preText = chartCtl.preText;
 	}
 	
 	var sprObj = {
 		type: 'text',
-		text: "ㆍ" + test + "   " + itemTxt,
+		text: "ㆍ" + preText + "   " + itemTxt,
 		id:'chartText',
 		fontSize: 14,
 		width: 100,
