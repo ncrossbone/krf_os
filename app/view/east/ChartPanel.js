@@ -27,6 +27,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 			layout: {
 				type: 'hbox'
 			},
+			hidden:true,
 			width: "100%",
 			items: [{
 				xtype: 'container',
@@ -97,20 +98,30 @@ Ext.define('krf_new.view.east.ChartPanel', {
 		}, {
 			xtype: 'cartesian',
 			id: 'siteCharttest',
+			preText: '',
+			html:'<div style="position:absolute; right:20px; z-index:5;">'+
+					'<img src="./resources/images/button/btn_date.gif" onclick=$(\"#btnShowSearchWindow\").trigger(\"click\") style="cursor:pointer;"/>'+
+					'<img src="./resources/images/button/icon_save.gif" onclick=$(\"#btnImageDown\").trigger(\"click\") style="cursor:pointer;"/>'+
+				 '</div>',
 			interactions: 'crosszoom',
 			innerPadding: {
 				left: 30,
 				right: 30
 			},
+			insetPadding: {
+				top: 40,
+				left: 10,
+				right: 10,
+				bottom: 10
+			},
 			width: 450,
-			height: 250,
+			height: 500,
 			padding: '10 0 0 0',
 			style: {
 				'background': '#fff'
 			},
 			animate: true,
 			shadow: false,
-			insetPadding: 10,
 
 			axes: [{
 				type: 'numeric',
@@ -127,6 +138,8 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					}
 				}
 			}],
+
+			
 
 			series: [{
 				text: 'month',

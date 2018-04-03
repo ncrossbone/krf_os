@@ -268,12 +268,8 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 										}
 									}
 
-									if (rptMain.reportType == 'rptCase1') {
-										alert('미생성 리포트');
-									} else {
-										var param = Ext.getCmp(this.id).setParam(conditions, rptMain.reportType);
-										window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
-									}
+									var param = Ext.getCmp(this.id).setParam(conditions, rptMain.reportType);
+									window.open('./ClipReport4/krfOsReport.jsp?type=' + rptMain.reportType + param, '', 'width=1000,height=1000,status=no,toolbar=no,scrollbars=no');
 
 								} else {
 									alert('선택된 값이 없습니다.');

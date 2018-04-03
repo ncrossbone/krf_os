@@ -322,10 +322,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		
-
 		var siteText = Ext.getCmp("selectName");  // 지점명
 		//지점명 표출
 		siteText.setText("ㆍ" + test);
+		
 
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
@@ -428,7 +428,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		//클릭 session
 		setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
 	}
-	SetItemLabelText(yFieldName, chartId);
+	SetItemLabelText(yFieldName, chartId, test);
 }
 
 // 지점/차트 정보 창 닫기
@@ -446,7 +446,7 @@ HideWindowSiteNChart = function () {
 
 }
 
-SetItemLabelText = function (itemNm, chartId) {
+SetItemLabelText = function (itemNm, chartId, test) {
 
 	if (itemNm == undefined || itemNm == "") {
 		//item 선택
@@ -586,15 +586,36 @@ SetItemLabelText = function (itemNm, chartId) {
 	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
 
 	var f_Chart = Ext.getCmp("f_Chart");
+
+	var itemTxt = '';
 	if (chartId == "F") {
 		if (f_Chart == undefined) {
-			siteItemText.setText("ㆍ방류유량 > " + itemNm);
+			itemTxt = "ㆍ방류유량 > " + itemNm;
+			
 		} else {
-			siteItemText.setText("ㆍ" + f_Chart.rawValue + " > " + itemNm);
+			itemTxt = "ㆍ" + f_Chart.rawValue + " > " + itemNm;
 		}
 	} else {
-		siteItemText.setText("ㆍ" + itemNm);
+		itemTxt = "ㆍ" + itemNm;
 	}
+
+	siteItemText.setText(itemTxt);
+
+	if(!test){
+		test = chartCtl.preText;
+	}
+	
+	var sprObj = {
+		type: 'text',
+		text: "ㆍ" + test + "   " + itemTxt,
+		id:'chartText',
+		fontSize: 14,
+		width: 100,
+		height: 30,
+		x: 10, // the sprite x position
+		y: 20  // the sprite y position
+	};
+	chartCtl.setSprites(sprObj);
 	//siteItemText.setText(itemNm);
 }
 

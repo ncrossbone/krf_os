@@ -24,7 +24,16 @@ OOFDocument oof = OOFDocument.newOOF();
     String item5 = request.getParameter("item5");
     String item6 = request.getParameter("item6");
 
-if("rptCase2_1".equals(type)){
+if("rptCase1".equals(type)){
+
+    oof.addField("YEAR",year);
+    oof.addField("ITEM1",item1);
+    oof.addField("ITEM2",item2);
+    oof.addField("ITEM3",item3);
+
+    OOFFile file = oof.addFile("crf.root", "%root%/crf/webos/1all.crf");
+
+}else if("rptCase2_1".equals(type)){
     
     oof.addField("YEAR",year);
     oof.addField("AREA1",area1);
