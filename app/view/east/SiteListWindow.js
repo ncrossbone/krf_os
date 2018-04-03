@@ -29,7 +29,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		rootVisible: false,
-		cls: 'khLee-x-grid-cell',
+		//cls: 'khLee-x-grid-cell',
 		columns: [{
 			xtype: 'treecolumn', //this is so we know which column will show the tree
 			text: '지점',

@@ -104,6 +104,14 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					'<img src="./resources/images/button/icon_save.gif" onclick=$(\"#btnImageDown\").trigger(\"click\") style="cursor:pointer;"/>'+
 				 '</div>',
 			interactions: 'crosszoom',
+			// legend:{
+			// 	docked: 'bottom',
+			// 	listeners:{
+			// 		boxready: function(a) {
+			// 			console.info(a);
+			// 		}
+			// 	}
+			// },
 			innerPadding: {
 				left: 30,
 				right: 30
@@ -156,6 +164,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					dismissDelay: 0,
 					hideDelay: 0,
 					renderer: function (tooltip, storeItem) {
+
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
@@ -181,6 +190,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				axis: 'left',
 				xField: 'PREDICT_DT',
 				yField: 'BOD_1',
+				title: '과거수질자료',
 				marker: true,
 				tips: {
 					trackMouse: true,
@@ -190,6 +200,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					dismissDelay: 0,
 					hideDelay: 0,
 					renderer: function (tooltip, storeItem) {
+
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
@@ -208,6 +219,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				axis: 'left',
 				xField: 'PREDICT_DT',
 				yField: 'BOD_2',
+				title: '예보결과D',
 				marker: true,
 				tips: {
 					trackMouse: true,
@@ -235,6 +247,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				axis: 'left',
 				xField: 'PREDICT_DT',
 				yField: 'BOD_3',
+				title: '예보결과D-1',
 				marker: true,
 				tips: {
 					trackMouse: true,
@@ -262,6 +275,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				axis: 'left',
 				xField: 'PREDICT_DT',
 				yField: 'BOD_4',
+				title: '예보결과D-2',
 				marker: true,
 				tips: {
 					trackMouse: true,

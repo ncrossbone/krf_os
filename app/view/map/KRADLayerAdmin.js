@@ -309,10 +309,10 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
 					new Color([255, 255, 0, 0.3]));
 			
-			me.removeReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([1, 2, 3]), 0);
+			me.removeReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 			me.removeReachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([1, 2, 3]), 0),
-					new Color([1, 2, 3, 4]));
+					new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5),
+					new Color([255, 255, 255, 0.1]));
 			
 			
 			me.reachLineSym_s = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([100, 10, 31]), 5);
