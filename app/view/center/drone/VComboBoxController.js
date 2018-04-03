@@ -241,7 +241,7 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	onDroneLayerClick: function (list, record, liEm, index, divEm) {
 		var layerNum = "";
 		layerNum = record.data.layerId;
-
+		
 		var me = Ext.getCmp('_mapDiv_');
 		var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
 		var activeLayer = null;
