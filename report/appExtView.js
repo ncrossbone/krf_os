@@ -25,40 +25,39 @@ var y = location.search.split("y=")[1].split("&")[0];
 var print = location.search.split("print=")[1].split("&")[0];
 
 var parentObj = null;
-			
-if(print == "Y"){
+
+if (print == "Y") {
 	parentObj = parent;
 
-}else{
+} else {
 	parentObj = opener;
 }
 
 var store = Ext.create('Ext.data.Store', {
-	autoLoad : true,
+	autoLoad: true,
 
-	fields : [ {
-		name : 'MapserviceUrl'
-	} ],
+	fields: [{
+		name: 'MapserviceUrl'
+	}],
 
-	proxy : {
-		type : 'ajax',
-		url : '../resources/data/AppVariable.json',
-		reader : {
-			type : 'json'
+	proxy: {
+		type: 'ajax',
+		url: '../resources/data/AppVariable.json',
+		reader: {
+			type: 'json'
 		}
 	}
 });
 
-store.load(function(a, b, c) {
-	
-	this.each(function(record, cnt, totCnt) {
-		console.info(record);
+store.load(function (a, b, c) {
+
+	this.each(function (record, cnt, totCnt) {
 		_mapServiceUrl_Rpt_Dim = record.data.mapServiceUrl_Rpt_Dim;
 		_mapServiceUrl_Rpt_Site = record.data.mapServiceUrl_Rpt_Site;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
 		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
 		_arcServiceUrl = record.data.arcServiceUrl;
-		
+
 		//var selWS = parent.Ext.getCmp("cmbWater1").lastSelection;
 		var selWS = null;
 		var selMW = null;
@@ -66,62 +65,62 @@ store.load(function(a, b, c) {
 		var selSIDO = null;
 		var selSIGUNGU = null;
 		var selDONGRI = null;
-		
-		if(print == "Y"){
-			
+
+		if (print == "Y") {
+
 			selWS = parent.Ext.getCmp("cmbWater1").lastSelection;
 			selMW = parent.Ext.getCmp("cmbWater2").lastSelection;
 			selSW = parent.Ext.getCmp("cmbWater3").lastSelection;
 			selSIDO = parent.Ext.getCmp("cmbArea1").lastSelection;
 			selSIGUNGU = parent.Ext.getCmp("cmbArea2").lastSelection;
 			selDONGRI = parent.Ext.getCmp("cmbArea3").lastSelection;
-			
+
 			_CAT_DID = parent.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		}
-		else{
-			
+		else {
+
 			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
 			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
 			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
 			selSIDO = opener.Ext.getCmp("cmbArea1").lastSelection;
 			selSIGUNGU = opener.Ext.getCmp("cmbArea2").lastSelection;
 			selDONGRI = opener.Ext.getCmp("cmbArea3").lastSelection;
-			
+
 			_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		}
-		
+
 		//console.info(selWS);
-		if(selWS != undefined && selWS != null & selWS.length > 0){
+		if (selWS != undefined && selWS != null & selWS.length > 0) {
 			_WS_CD = selWS[0].data.id;
 			_WS_NM = selWS[0].data.name;
 		}
-		
-		
-		if(selMW != undefined && selMW != null & selMW.length > 0){
+
+
+		if (selMW != undefined && selMW != null & selMW.length > 0) {
 			_MW_CD = selMW[0].data.id;
 			_MW_NM = selMW[0].data.name;
 		}
-		
-		
-		if(selSW != undefined && selSW != null & selSW.length > 0){
+
+
+		if (selSW != undefined && selSW != null & selSW.length > 0) {
 			_SW_CD = selSW[0].data.id;
 			_SW_NM = selSW[0].data.name;
 		}
-		
-		
-		if(selSIDO != undefined && selSIDO != null & selSIDO.length > 0){
+
+
+		if (selSIDO != undefined && selSIDO != null & selSIDO.length > 0) {
 			_ADM_SIDO_CD = selSIDO[0].data.id;
 			_ADM_SIDO_NM = selSIDO[0].data.name;
 		}
-		
-		
-		if(selSIGUNGU != undefined && selSIGUNGU != null & selSIGUNGU.length > 0){
+
+
+		if (selSIGUNGU != undefined && selSIGUNGU != null & selSIGUNGU.length > 0) {
 			_ADM_SIGUNGU_CD = selSIGUNGU[0].data.id;
 			_ADM_SIGUNGU_NM = selSIGUNGU[0].data.name;
 		}
-		
-		
-		if(selDONGRI != undefined && selDONGRI != null & selDONGRI.length > 0){
+
+
+		if (selDONGRI != undefined && selDONGRI != null & selDONGRI.length > 0) {
 			_ADM_DONGRI_CD = selDONGRI[0].data.id;
 			_ADM_DONGRI_NM = selDONGRI[0].data.name;
 		}
@@ -135,31 +134,29 @@ var _API = null;
 var apiStore = Ext.create('Ext.data.Store', {
 	autoLoad: true,
 
-	fields : [{
-		name : 'apiUrls'
+	fields: [{
+		name: 'apiUrls'
 	}],
 	proxy: {
 		type: 'ajax',
-        url: '../resources/data/APIUrlsTobe.json',
+		url: '../resources/data/APIUrlsTobe.json',
 		reader: {
 			type: 'json'
 		}
 	}
 });
 
-apiStore.load(function(a, b, c) {
-	console.info(a);
+apiStore.load(function (a, b, c) {
 	_API = a[0].data;
-	
-    // API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-    a[0].data.init('http://localhost:8071');
+
+	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
+	a[0].data.init('http://localhost:8071');
 });
-console.info(apiStore);
 Ext.application({
-	
-	name : 'Report',
-	
-	launch : function() {
+
+	name: 'Report',
+
+	launch: function () {
 		Ext.create("Report.view.main.rptExtViewMain", {
 			renderTo: Ext.getBody()
 		});

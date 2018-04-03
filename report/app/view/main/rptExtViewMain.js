@@ -40,7 +40,8 @@ Ext.define('Report.view.main.rptExtViewMain', {
         	title: '지점설정',
         	width: 430,
         	height: 880,
-        	style: 'margin-top: 20px;',
+			style: 'margin-top: 20px;',
+			border:false,
         	items: [{
         		xtype: 'rpt-east-rptSetContainer'
         	}]
