@@ -25,6 +25,7 @@ var x = location.search.split("x=")[1].split("&")[0];
 var y = location.search.split("y=")[1].split("&")[0];
 var print = location.search.split("print=")[1].split("&")[0];
 
+
 var parentObj = null;
 
 if (print == "Y") {
@@ -79,9 +80,18 @@ store.load(function (a, b, c) {
 			selDONGRI = parent.Ext.getCmp("cmbArea3").lastSelection;
 
 			_CAT_DID = parent.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
-		}
-		else {
-
+		} else {
+			var splitStr = location.search.split("pollutionFlag=")[1];
+			var pollutionContainer = Ext.getCmp('pollutionContainer');
+			if (splitStr) {
+				var pollutionFlag = splitStr.split("&")[0];
+				
+				if (pollutionFlag) {
+					pollutionContainer.show();
+				} else {
+					pollutionContainer.hide();
+				}
+			}
 			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
 			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
 			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;

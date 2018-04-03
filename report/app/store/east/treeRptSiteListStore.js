@@ -8,10 +8,16 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 	listeners: {
 
 		load: function (store) {
+			var siteObj = parentObj.Ext.getCmp("siteListWindow")
 
-			var siteIds = parentObj.Ext.getCmp("siteListWindow").siteIds;
+			if(!siteObj){
+				//alert('리포트 보기를 재시작 해주세요.');
+				//window.close();
+				return;
+			}
+			var siteIds = siteObj.siteIds;
 			// esri 스크립트 로드 될때까지 타이머
-
+			
 			require(["esri/tasks/QueryTask"],
 				function (QueryTask) {
 
