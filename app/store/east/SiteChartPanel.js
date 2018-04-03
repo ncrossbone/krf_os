@@ -17,8 +17,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 	listeners: {
 		load: function (store) {
 
-			var cfgBtn = Ext.getCmp('btnShowSearchWindow');
-			var saveBtn = Ext.getCmp('btnImageDown');
+			var cfgBtn = $('#btnShowSearchWindow');
+			var saveBtn = $('#btnImageDown');
 			var dateWin = Ext.getCmp('datePanel1');
 
 			cfgBtn.hide();

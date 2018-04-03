@@ -23,85 +23,12 @@ Ext.define('krf_new.view.east.ChartPanel', {
 			type: 'vbox'
 		},
 		items: [{
-			xtype: 'container',
-			layout: {
-				type: 'hbox'
-			},
-			hidden:true,
-			width: "100%",
-			items: [{
-				xtype: 'container',
-				width: 10
-			}, {
-				xtype: 'label',
-				id: 'selectName',
-				style: 'font-weight: bold; padding-left: 7px; margin: 3px;',
-				width: "40%",
-				height: 25
-			}, {
-				xtype: 'label',
-				id: 'selectItemName',
-				style: 'font-family: 돋움;font-size: 12px; margin: 5px;',
-				store: Ext.create('krf_new.store.east.SiteChartPanel'),
-				text: '',
-				width: "32%",
-				height: 25
-			}, {
-				xtype: 'image',
-				id: 'btnShowSearchWindow',
-				listeners: {
-					el: {
-						click: function (obj, el, evt) {
-							var dateWinCtl = Ext.getCmp("datePanel1");
-
-							if (!dateWinCtl) {
-								dateWinCtl = Ext.create("krf_new.view.east.ChartPanelDate");
-							}
-
-							if(dateWinCtl.hidden){
-								Ext.getCmp('center_container').add(dateWinCtl);
-								dateWinCtl.show();
-							}
-						}
-					}
-				},
-				width: 40,
-				height: 24,
-				src: './resources/images/button/btn_date.gif'
-			}, {
-				xtype: 'label',
-				id: 'chartName',
-				labelWidth: 60,
-				labelAlign: 'right'
-			}, {
-
-				xtype: 'image',
-				id: 'btnImageDown',
-				listeners: {
-					el: {
-						click: function (obj, el, evt) {
-							var siteCharttest = Ext.getCmp('siteCharttest');
-							setActionInfo(siteCharttest.store.parentId, siteCharttest.store.orgParentId, "", siteCharttest.store.siteCD, "차트저장");
-							siteCharttest.download({
-								type: 'image/svg+xml',
-								filename: 'image'
-							})
-
-						}
-					}
-				},
-				width: 40,
-				height: 24,
-				src: './resources/images/button/icon_save.gif'
-
-			}]
-		}, {
 			xtype: 'cartesian',
 			id: 'siteCharttest',
 			preText: '',
 			html:'<div style="position:absolute; right:20px; z-index:5;">'+
-					'<img src="./resources/images/button/btn_date.gif" onclick=$(\"#btnShowSearchWindow\").trigger(\"click\") style="cursor:pointer;"/>'+
-					'<img src="./resources/images/button/icon_save.gif" onclick=$(\"#btnImageDown\").trigger(\"click\") style="cursor:pointer;"/>'+
+					'<img id="btnShowSearchWindow" src="./resources/images/button/btn_date.gif" onclick=Ext.create(\"krf_new.view.east.ChartPanelController\").showConfig() style="cursor:pointer;"/>'+
+					'<img id="btnImageDown" src="./resources/images/button/icon_save.gif" onclick=Ext.create(\"krf_new.view.east.ChartPanelController\").imageDown() style="cursor:pointer;"/>'+
 				 '</div>',
 			interactions: 'crosszoom',
 			// legend:{

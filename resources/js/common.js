@@ -322,11 +322,6 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		
-		var siteText = Ext.getCmp("selectName");  // 지점명
-		//지점명 표출
-		siteText.setText("ㆍ" + test);
-		
-
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
 
@@ -458,10 +453,6 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		//item 선택
 		var selectItem = Ext.getCmp("selectItem");
 		if (selectItem == null || selectItem.lastValue == null) {
-			var siteItemText = Ext.getCmp("selectItemName");  // 항목명
-			if (siteItemText != null) {
-				siteItemText.setText("");
-			}
 			return;
 		}
 		itemNm = selectItem.lastValue;
@@ -589,7 +580,6 @@ SetItemLabelText = function (itemNm, chartId, test) {
 
 	series.setYField("ITEM_VALUE");
 	axes.fields = "ITEM_VALUE";
-	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
 
 	var f_Chart = Ext.getCmp("f_Chart");
 
@@ -605,7 +595,6 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemTxt = "ㆍ" + itemNm;
 	}
 
-	siteItemText.setText(itemTxt);
 
 	var preText = test;
 	if(preText == ''){
