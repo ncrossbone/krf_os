@@ -24,7 +24,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 					isDoubleClickZoom: false,
 					isPan: false,
 					logo: false,
-					slider: true,
+					slider: false,
 					showAttribution: false,
 					sliderPosition: "bottom-right",
 					sliderStyle: "large",
@@ -41,11 +41,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 				// Dim처리 레이어
 				me.dimDynamicLayerAdmin = Ext.create('Report.view.map.dimDynamicLayerAdmin', me.map);
 
-				//alert(_mapServiceUrl_Rpt);
-				//var level = location.search.split("l=")[1].split("&")[0];
-				//var x = location.search.split("x=")[1].split("&")[0];
-				//var y = location.search.split("y=")[1].split("&")[0];
-				//var print = location.search.split("print=")[1].split("&")[0];
+				me.pollutionLayerAdmin = Ext.create("Report.view.map.PollutionLayerAdmin", me.map);
 
 				var resolution = me.tileInfo.lods[level].resolution;
 				x = x - (370 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
@@ -54,7 +50,6 @@ Ext.define('Report.view.map.rptCoreMap', {
 
 				me.map.setLevel(level);
 				me.map.centerAt(point);
-				//console.info("dd");
 
 				me.printTask = Ext.create("krf_new.view.map.task.CustomPrintTask",
 					me.map,
@@ -144,7 +139,6 @@ Ext.define('Report.view.map.rptCoreMap', {
 			getTileUrl: function (level, row, col) {
 
 				var baseMapUrl = _baseMapUrl_vworld.replace(/#level#/gi, level).replace(/#row#/gi, row).replace(/#col#/gi, col);
-				//console.info(baseMapUrl);
 
 				return baseMapUrl;
 			}
@@ -154,10 +148,22 @@ Ext.define('Report.view.map.rptCoreMap', {
 		this.map.addLayer(me.baseMap);
 	},
 	report: function (paramCode, startYear, endYear) {
+		this.printTask.report(paramCode, startYear, endYear);
+	},
+	showCatPollutionLayer: function (catDatas, year, colName, kind) {
+		
+		this.dimDynamicLayerAdmin.dimDynamicLayer.setVisibility(false)
 
-		var me = this;
-		//alert("dd");
+		var inStrCatDids = "";
 
-		me.printTask.report(paramCode, startYear, endYear);
+		for (var i = 0; i < catDatas.length; i++) {
+			inStrCatDids += "'" + catDatas[i].CAT_DID + "', ";
+		}
+
+		if (inStrCatDids.length > 0) {
+			inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length - 2);
+		}
+
+		this.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName, kind, catDatas);
 	}
 });

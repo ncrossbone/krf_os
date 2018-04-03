@@ -1,4 +1,4 @@
-Ext.define("krf_new.view.map.PollutionLayerAdmin", {
+Ext.define("Report.view.map.PollutionLayerAdmin", {
 
 	pollutionGraphicLayerCat: null,
 	pollutionLabelLayerCat: null,
@@ -11,11 +11,21 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 	middleColor: "gray",
 	overColor: "transparent",
 
-	constructor: function () {
+	map: null,
+
+	constructor: function (map) {
+		var me = this;
+		me.map = map;
 	},
 
 	// 집수구역별 오염원 주제도 그리기
-	drawTMCatLayer: function (inStrCatDids, year, colName, kind) {
+	drawTMCatLayer: function (inStrCatDids, year, colName, kind, catDatas) {
+		if (catDatas == null) {
+			return;
+		}
+		if (inStrCatDids == null) {
+			return;
+		}
 		var me = this;
 		require([
 			"esri/tasks/QueryTask",
@@ -48,13 +58,13 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 				PictureMarkerSymbol,
 				dom,
 				domClass) {
+
 				var layerId = "1";
 
 				if (year == "2013") {
 					layerId = "1";
 				}
-				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3_TM + "/" + layerId);
-				//console.info(_mapServiceUrl_v3_TM);
+				var queryTask = new QueryTask(_reachServiceUrl_v3_TM + "/" + layerId);
 				var query = new Query();
 				query.returnGeometry = true;
 				query.outFields = ["*"];
@@ -63,22 +73,13 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 				};
 				query.where = "CAT_DID IN (" + inStrCatDids + ")";
 				queryTask.execute(query, function (tmCatFeatureSet) {
-					var tmpCatDids = inStrCatDids.replace(/'/g, "").split(", ");
-					//각 계에 해당하는 store 생성
-					var store = Ext.create('krf_new.store.east.PollutionResult_0' + kind + '_Catdid', {
-						async: false,
-						catDid: tmpCatDids,
-						year: year
-					});
 
-					if (store == undefined) {
-						return;
-					}
-					store.load();
 					for (var i = 0; i < tmCatFeatureSet.features.length; i++) {
-						for (var j = 0; j < store.data.items.length; j++) {
-							if (tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID) {
-								tmCatFeatureSet.features[i].attributes[colName] = Number(store.data.items[j].data[colName]);
+						for (var j = 0; j < catDatas.length; j++) {
+							var catItem = catDatas[j];
+
+							if (tmCatFeatureSet.features[i].attributes.CAT_DID == catItem.CAT_DID) {
+								tmCatFeatureSet.features[i].attributes[colName] = Number(catItem[colName]);
 							}
 						}
 					}
@@ -105,14 +106,6 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 					}
 
 					me.pollutionGraphicLayerCat.setVisibility(true);
-
-					if (me.circleGraphicLayer == undefined || me.circleGraphicLayer == null) {
-						// 원형 심볼 레이어
-						me.circleGraphicLayer = new GraphicsLayer();
-						me.circleGraphicLayer.id = "circleGraphicLayer";
-					}
-
-					me.circleGraphicLayer.setVisibility(true);
 
 					if (me.pollutionbarImgGraphicLayer == undefined || me.pollutionbarImgGraphicLayer == null) {
 						// 막대 심볼 레이어
@@ -175,23 +168,12 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 							tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
 							me.pollutionLabelLayerCat.add(tmCatLabelGraphic);
 
-							//var range = quantize(gnrBodSu);
-							var circle = new Circle({
-								center: centerPoint,
-								radius: getCatRangeRadius(range)
-							});
-
-							// 원형 그래픽 생성
-							var cirCleGraphic = new Graphic(circle, tmCatFillSymbol);
-							// 집수구역 오염원 속성 데이터 카피
-							cirCleGraphic.attributes = tmCatGraphic.attributes;
-							me.circleGraphicLayer.add(cirCleGraphic);
 							// 이미지 심볼 생성
-							var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range / 2)), 25, 63).setOffset(0, 25);
-							var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
-							// 집수구역 오염원 속성 데이터 카피
-							barImgGraphic.attributes = tmCatGraphic.attributes;
-							me.pollutionbarImgGraphicLayer.add(barImgGraphic);
+							// var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range / 2)), 25, 63).setOffset(0, 25);
+							// var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
+							// // 집수구역 오염원 속성 데이터 카피
+							// barImgGraphic.attributes = tmCatGraphic.attributes;
+							// me.pollutionbarImgGraphicLayer.add(barImgGraphic);
 						}
 					}
 
@@ -208,66 +190,64 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 						evt.node.setAttribute("class", "polySymbol_" + range);
 					});
 
-					on(me.pollutionGraphicLayerCat, "mouse-over", function (evt) {
+					// on(me.pollutionGraphicLayerCat, "mouse-over", function (evt) {
 
-						var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-						//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
-						me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
+					// 	var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
+					// 	//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+					// 	me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
 
-						// 범례 스타일 설정
-						var range = evt.graphic.attributes.range;
-						me.setAttributeLegend("on", range);
-					});
-
-
-					//클릭 이벤트
-					on(me.pollutionGraphicLayerCat, "click", function (evt) {
-						var value = Ext.getCmp("pollutionSelect").value;
-						if (value == 11 || value == 22) {
-							return;
-						} else {
-							PollSelectedFocus(evt.graphic.attributes.CAT_DID);
-						}
+					// 	// 범례 스타일 설정
+					// 	var range = evt.graphic.attributes.range;
+					// 	me.setAttributeLegend("on", range);
+					// });
 
 
-					});
+					// //클릭 이벤트
+					// on(me.pollutionGraphicLayerCat, "click", function (evt) {
+					// 	var value = Ext.getCmp("pollutionSelect").value;
+					// 	if (value == 11 || value == 22) {
+					// 		return;
+					// 	} else {
+					// 		PollSelectedFocus(evt.graphic.attributes.CAT_DID);
+					// 	}
+					// });
 
-					on(me.pollutionGraphicLayerCat, "mouse-out", function (evt) {
+					// on(me.pollutionGraphicLayerCat, "mouse-out", function (evt) {
 
-						var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-						//polySymbol[0].setAttribute("opacity", me.initOpacity);
-						var attrs = evt.graphic.attributes;
-						me.setPolyFillColor(polySymbol[0], attrs.color);
+					// 	var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
+					// 	//polySymbol[0].setAttribute("opacity", me.initOpacity);
+					// 	var attrs = evt.graphic.attributes;
+					// 	me.setPolyFillColor(polySymbol[0], attrs.color);
 
-						// 범례 스타일 설정
-						var range = evt.graphic.attributes.range;
-						me.setAttributeLegend("off", range);
-					});
+					// 	// 범례 스타일 설정
+					// 	var range = evt.graphic.attributes.range;
+					// 	me.setAttributeLegend("off", range);
+					// });
 					/* 폴리곤 그래픽 이벤트 끝 */
 
 					/* 이미지 그래픽 이벤트 */
-					on(me.pollutionbarImgGraphicLayer, "mouse-over", function (evt) {
+					// on(me.pollutionbarImgGraphicLayer, "mouse-over", function (evt) {
 
-						var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-						//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
-						me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
+					// 	var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
+					// 	//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+					// 	me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
 
-						// 범례 스타일 설정
-						var range = evt.graphic.attributes.range;
-						me.setAttributeLegend("on", range);
-					});
+					// 	// 범례 스타일 설정
+					// 	var range = evt.graphic.attributes.range;
+					// 	me.setAttributeLegend("on", range);
+					// });
 
-					on(me.pollutionbarImgGraphicLayer, "mouse-out", function (evt) {
+					// on(me.pollutionbarImgGraphicLayer, "mouse-out", function (evt) {
 
-						var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-						//polySymbol[0].setAttribute("opacity", me.initOpacity);
-						var attrs = evt.graphic.attributes;
-						me.setPolyFillColor(polySymbol[0], attrs.color);
+					// 	var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
+					// 	//polySymbol[0].setAttribute("opacity", me.initOpacity);
+					// 	var attrs = evt.graphic.attributes;
+					// 	me.setPolyFillColor(polySymbol[0], attrs.color);
 
-						// 범례 스타일 설정
-						var range = evt.graphic.attributes.range;
-						me.setAttributeLegend("off", range);
-					});
+					// 	// 범례 스타일 설정
+					// 	var range = evt.graphic.attributes.range;
+					// 	me.setAttributeLegend("off", range);
+					// });
 					/* 이미지 그래픽 이벤트 끝 */
 
 					/* 라벨 그래픽 이벤트 */
@@ -286,58 +266,57 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 						evt.node.setAttribute("class", "labelSymbol_" + range);
 					});
 
-					on(me.pollutionLabelLayerCat, "mouse-over", function (evt) {
-						var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-						//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
-						me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
+					// on(me.pollutionLabelLayerCat, "mouse-over", function (evt) {
+					// 	var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
+					// 	//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+					// 	me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
 
-						// 범례 스타일 설정
-						var range = evt.graphic.attributes.range;
-						me.setAttributeLegend("on", range);
-					});
+					// 	// 범례 스타일 설정
+					// 	var range = evt.graphic.attributes.range;
+					// 	me.setAttributeLegend("on", range);
+					// });
 
-					on(me.pollutionLabelLayerCat, "mouse-out", function (evt) {
+					// on(me.pollutionLabelLayerCat, "mouse-out", function (evt) {
 
-						var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-						//polySymbol[0].setAttribute("opacity", me.initOpacity);
-						var attrs = evt.graphic.attributes;
-						me.setPolyFillColor(polySymbol[0], attrs.color);
+					// 	var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
+					// 	//polySymbol[0].setAttribute("opacity", me.initOpacity);
+					// 	var attrs = evt.graphic.attributes;
+					// 	me.setPolyFillColor(polySymbol[0], attrs.color);
 
-						// 범례 스타일 설정
-						var range = evt.graphic.attributes.range;
-						me.setAttributeLegend("off", range);
-					});
-					/* 라벨 그래픽 이벤트 끝 */
+					// 	// 범례 스타일 설정
+					// 	var range = evt.graphic.attributes.range;
+					// 	me.setAttributeLegend("off", range);
+					// });
+					// /* 라벨 그래픽 이벤트 끝 */
 
-					/* 원형 그래픽 이벤트 */
-					on(me.circleGraphicLayer, "graphic-draw", function (evt) {
+					// /* 원형 그래픽 이벤트 */
+					// on(me.circleGraphicLayer, "graphic-draw", function (evt) {
 
-						//////////console.info(evt);
-						var attrs = evt.graphic.attributes,
-							range;
+					// 	//////////console.info(evt);
+					// 	var attrs = evt.graphic.attributes,
+					// 		range;
 
-						range = attrs.range;
+					// 	range = attrs.range;
 
-						// 집수구역별 오염원 원형 그래픽 스타일 셋팅
-						me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, getCatRangeColor(range));
-					});
+					// 	// 집수구역별 오염원 원형 그래픽 스타일 셋팅
+					// 	me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, getCatRangeColor(range));
+					// });
 					/* 원형 그래픽 이벤트 끝 */
 
 					// 집수구역 오염원 폴리곤 레이어 추가
-					$KRF_APP.coreMap.map.addLayer(me.pollutionGraphicLayerCat);
 
-					// 집수구역 오염원 원형 레이어 추가 (사용안함)
-					me.circleGraphicLayer.setVisibility(false);
-					$KRF_APP.coreMap.map.addLayer(me.circleGraphicLayer);
+
+					me.map.addLayer(me.pollutionGraphicLayerCat);
+
 
 					// 집수구역 오염원 이미지 레이어 추가
-					$KRF_APP.coreMap.map.addLayer(me.pollutionbarImgGraphicLayer);
+					me.map.addLayer(me.pollutionbarImgGraphicLayer);
 
 					// 집수구역 오염원 라벨 레이어 추가
-					$KRF_APP.coreMap.map.addLayer(me.pollutionLabelLayerCat);
+					me.map.addLayer(me.pollutionLabelLayerCat);
 
 					/* 레전드 그리기 */
-					me.createLegend(quantizeObj, unint);
+					// me.createLegend(quantizeObj, unint);
 				});
 			});
 	},
@@ -465,21 +444,6 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 						me.setPolyFillColor(polySymbol[i], fillColor);
 					}
 				});
-
-				/*tmLegendSymbol.on("click", function(evt){
-					
-					//////////console.info(evt);
-					var range = evt.target.getAttribute("range");
-					var polySymbol = $(".polySymbol_" + range);
-					
-					for(var i = 0; i < polySymbol.length; i++){
-						
-						//polySymbol[i].setAttribute("stroke", "rgb(0, 150, 150)");
-						//polySymbol[i].setAttribute("stroke-width", "5");
-						//polySymbol[i].setAttribute("box-shadow", "0 0 5px 5px rgb(0, 0, 100)");
-						//polySymbol[i].setAttribute("opacity", "1");
-					}
-				});*/
 			});
 	},
 
