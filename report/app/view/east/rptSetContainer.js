@@ -127,7 +127,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 							}
 						}
 
-						var paramUrl = '../ClipReport4/test.jsp?';
+						var paramUrl = '../ClipReport4/reportView.jsp?';
 
 
 						reportMap.report(paramCode, startYear, endYear, function (imagePath) {
