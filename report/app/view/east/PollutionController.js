@@ -20,6 +20,10 @@ Ext.define('Report.view.east.PollutionController', {
 	},
 
 	onCheckChanged: function (node, checked, btnId) {
+		var reportMap = Ext.getCmp('_rptMapDiv_');
+
+		reportMap.clearPollutionLayers();
+
 		if (checked) {
 			if (node.data.reachData.length > 0) {
 
@@ -35,11 +39,8 @@ Ext.define('Report.view.east.PollutionController', {
 				Ext.getCmp("treeRptPollutionList").addCls("dj-mask-withimg");
 				Ext.getCmp("treeRptPollutionList").mask("loading", "loading...");
 
-
-				var reportMap = Ext.getCmp('_rptMapDiv_');
 				reportMap.showCatPollutionLayer(catDatas, year, collNm, pollutionKind + '', function (imgPath) {
 					node.data.imgPath = imgPath;
-					
 					Ext.getCmp("treeRptPollutionList").unmask();
 				});
 			}
