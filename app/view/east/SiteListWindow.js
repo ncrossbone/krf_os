@@ -453,7 +453,12 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 		siteMovePoint("Cat", nodeId);
 
 		// 지점이동
-		nodeId = record.data.id;
+		if(record.data.parentId.substring(0,1) == "J"){
+			nodeId = record.data.id.split("_")[1];	
+		}else{
+			nodeId = record.data.id;	
+		}
+		console.info(nodeId);
 		var parentNodeId = record.data.parentId;
 		siteMovePoint(parentNodeId, nodeId);
 

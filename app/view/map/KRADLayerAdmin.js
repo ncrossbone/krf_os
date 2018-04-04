@@ -787,7 +787,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			    		}
 					});
 					
+					console.info(me.mapMdownObj);
 					if(me.checkSubMap()){
+						console.info("true");
 						me.mapMdownObj = on($KRF_APP.subMap.map, "mouse-down", function(evt){
 		    			
 							if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){

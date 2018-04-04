@@ -758,14 +758,13 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	}
 	
 	
-	// 생물 측정망에서 지점코드가 중복되는거 있음, 그리드 아이디에 조건을 하나더 추가
+	// 지점코드가 중복되는거 있음, 그리드 아이디에 조건을 하나더 추가
 	if(parentCheck == "E"){
 		options = {
 			id: pId + gridId + "_container",
-			title: titleText, //_searchType,
+			title: titleText,
 			parentId: parentCheck,
 			realParentId: parentIds,
-			//closable : true,
 			autoResize: true,
 			gridId: pId + gridId
 		};
@@ -920,7 +919,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			var arrayT = ['3', '4', '6', '7', '8', '9', '10', '11', '12', '27', '28', '29', '30', '31'];
 			var arrayF = ['5', '13', '14'];
 			var point = ['14', '16', '18', '20', '22', '24', '26'];
-
+			
 			for (hiddenF = 0; hiddenF < arrayF.length; hiddenF++) {
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
@@ -1319,14 +1318,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			grdCtl.parentIds = parentIds;
 		}
 		
-
-		
-
-//		get EsstgHcAtalSe
-		
 		 var sstgCombo = Ext.getCmp("sstgCombo");
-		 
-
 		
 		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
 			siteIds: grdCtl.siteIds,
@@ -1380,6 +1372,49 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		});
 
 		grdCtl.setStore(gridStore);
+
+	} else if (parentCheck == "J") {
+
+		var getGrid = "";
+		if(orgParentId == undefined){
+			getGrid = parentIds
+		}else{
+			getGrid = orgParentId
+		}
+		
+		
+		var grdContainer = Ext.getCmp(gridId + "_container");
+		 
+		
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
+			
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + "_container");
+		
+		
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		if (siteIds != "") {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != "") {
+			grdCtl.parentIds = parentIds;
+		}
+		
+		
+		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_J", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			orgParentIds: orgParentId,
+			gridCtl: grdCtl
+		});
+
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
+
 
 	}
 }
@@ -1842,7 +1877,8 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 	} else {
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
-
+		
+		
 		if (layer01Info.length > 0) {
 			layerId = layer01Info[0].id;
 		}

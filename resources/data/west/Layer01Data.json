@@ -268,8 +268,8 @@
 		"iconCls": "layerIconSize layer39",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "관측소코드",
-		"siteNmCol": "관측소명",
+		"siteIdCol": "FCLTS_NO",
+		"siteNmCol": "FCLTY_NM",
 		"siteAddrCol": "주소",
 		"layerCode": "J001",
 		"isMetaData": true
@@ -281,8 +281,8 @@
 		"iconCls": "layerIconSize layer40",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "관측소코드",
-		"siteNmCol": "관측소명",
+		"siteIdCol": "FCLTS_NO",
+		"siteNmCol": "FCLTY_NM",
 		"siteAddrCol": "주소",
 		"layerCode": "J002",
 		"isMetaData": true

@@ -93,6 +93,8 @@
     "GetSearchResultData_H":"#host#/krf/searchResult/searchResult_H",
     "GetSearchResultData_I_1":"#host#/krf/searchResult/searchResult_I_1",
     "GetSearchResultData_I_2":"#host#/krf/searchResult/searchResult_I_2",
+    "GetSearchResultData_J001":"#host#/krf/searchResult/searchResult_J001",
+    "GetSearchResultData_J002":"#host#/krf/searchResult/searchResult_J002",
     "GetSearchResultData":"#host#/krf/searchResult/searchResult_A",
     "ImgDelete":"./resources/jsp/ImgDelete.jsp",
     "IsIdCheck":"./resources/jsp/IsIdCheck.jsp",

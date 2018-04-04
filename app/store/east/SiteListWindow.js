@@ -42,8 +42,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			}
 
 			var bookParamObj = { searchText: store.param.searchText };
-			
-
+			//console.info(bookParamObj.searchText);
+			console.info(store.searchType);
 			//var catDid = [];
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
@@ -74,12 +74,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			} else if (bookParamObj.searchText == "nameSearch") {
 				bookParamObj.value1 = nameInfo.rawValue;
 				query.where = "JIJUM_NM like '" + nameInfo.rawValue + "%'";
-			} else {
+			} else if(bookParamObj.searchText == "SEnameSearch") {
 				if (endPoint.rawValue == "") {
 					query.where = "JIJUM_NM like '" + startPoint.rawValue + "%'";
 				} else {
 					query.where = "JIJUM_NM like '" + endPoint.rawValue + "%'";
 				}
+			}else{
+				//console.info(SEnameSearch);
 			}
 
 			$KRF_APP.global.CommFn.setBookmarkInfo('spotList', bookParamObj);
@@ -177,7 +179,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			Ext.getCmp("siteListTree").removeCls("dj-mask-noneimg");
 			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");
 			Ext.getCmp("siteListTree").mask("loading", "loading...");
-			
+			console.info(query.where);
 			queryTask.execute(query, function (result) {
 				
 				this.result = result;
@@ -242,7 +244,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				
 						jsonStr += "			\"visible\": \"false\",\n";
 					}
-					if (groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H") {
+					if (groupFeature[0].attributes.GROUP_CODE == "J" ||groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H") {
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if (cnt == 0) {
@@ -301,22 +303,39 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						$.each(layerFeatures, function (cnt, layerFeature) {
 							if (layerFeature.attributes.EXT_DATA_ID == undefined || layerFeature.attributes.EXT_DATA_ID == null) {
-								jsonStr += "{\n";
-								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-								jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-								jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-								jsonStr += "				\"leaf\": true,\n";
-								jsonStr += "				\"checked\": null\n";
-								if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
-									jsonStr += "			,   \"infoBtnDisabled\": true,\n";
+								if (layerFeature.attributes.GROUP_CODE == "J"){
+									jsonStr += "{\n";
+									jsonStr += "				\"id\": \""+ layerFeature.attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+									jsonStr += "				\"leaf\": true,\n";
+									jsonStr += "				\"checked\": null\n";
+									jsonStr += "			,   \"infoBtnDisabled\": false,\n";
 									jsonStr += "				\"chartBtnDisabled\": true,\n";
-									jsonStr += "				\"srchBtnDisabled\": true\n";
+									jsonStr += "				\"srchBtnDisabled\": false\n";
+									jsonStr += "			}, ";
+								}else{
+
+									jsonStr += "{\n";
+									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+									jsonStr += "				\"leaf\": true,\n";
+									jsonStr += "				\"checked\": null\n";
+									if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
+										jsonStr += "			,   \"infoBtnDisabled\": true,\n";
+										jsonStr += "				\"chartBtnDisabled\": true,\n";
+										jsonStr += "				\"srchBtnDisabled\": true\n";
+									}
+									jsonStr += "			}, ";
+
 								}
-								jsonStr += "			}, ";
-							}
-							else {
+								
+							}else{
 								jsonStr += "{\n";
 								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "_" + cnt + "\",\n";
 								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
