@@ -9,6 +9,11 @@ String paramCode = request.getParameter("paramCode");
 String startYear = request.getParameter("startYear");
 String endYear = request.getParameter("endYear");
 String imgPath = request.getParameter("imgPath");
+String[] pollImg = { request.getParameter("img01"), request.getParameter("img02"), request.getParameter("img03"),
+					 request.getParameter("img04"), request.getParameter("img05"), request.getParameter("img06"),
+					 request.getParameter("img07") };
+
+String pollutionCnt = request.getParameter("iCnt");
 
 //경로 "\\" javascript에서 출력불가 "," 로 대체 ph
 String replaceImgPath;
@@ -21,6 +26,15 @@ oof.addField("PARAM_CODE",paramCode);
 oof.addField("START_YR",startYear);
 oof.addField("END_YR",endYear);
 oof.addField("IMG_PATH",imgPath);
+
+oof.addField("POLLIMGCNT",pollutionCnt);
+
+for(int i = 0; i < pollImg.length; i++){
+	if(pollImg[i]!=null){
+		String replacePollImg = pollImg[i].replace("\\",",");
+		oof.addField("POLLIMG0" + (i + 1),replacePollImg); 
+	}
+}
 
 if(startYear.length()==4){
 	OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year.crf");
@@ -126,7 +140,6 @@ function html2xml(divPath){
     	localUrl += splitLocation[i] + "/";
     }
     
-	console.info(urlPath+localUrl);
 	var report = createImportJSPReport(urlPath + localUrl + "Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);

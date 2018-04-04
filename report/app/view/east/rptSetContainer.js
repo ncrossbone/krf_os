@@ -115,28 +115,29 @@ Ext.define('Report.view.east.rptSetContainer', {
 
 						var pollutionStore = Ext.getCmp("treeRptPollutionList").getStore();
 						var pollutionImages = '';
-
+						var pollCnt = 0;
 						for (var i = 0; i < pollutionStore.data.items.length; i++) {
 
 							if (pollutionStore.data.items[i].data.leaf == true) {
 
 								if (pollutionStore.data.items[i].data.checked == true) {
-
-									pollutionImages += "'" + pollutionStore.data.items[i].data.siteName + "':'" + pollutionStore.data.items[i].data.imgPath + "', ";
+									pollCnt++;
+									pollutionImages += '&img0' + (i + 1) + '=' + encodeURIComponent(pollutionStore.data.items[i].data.imgPath);
 								}
 							}
 						}
-						pollutionImages = pollutionImages.substring(0, pollutionImages.length - 2);
 
-						console.log(pollutionImages);
+						var paramUrl = '../ClipReport4/test.jsp?';
+
 
 						reportMap.report(paramCode, startYear, endYear, function (imagePath) {
-							window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imagePath) +
-								"&paramCode=" + paramCode +
-								"&startYear=" + startYear +
-								"&endYear=" + endYear,
-								"",
-								"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+							paramUrl += 'imgPath=' + encodeURIComponent(imagePath);
+							paramUrl += '&paramCode=' + paramCode;
+							paramUrl += '&startYear=' + startYear;
+							paramUrl += '&endYear=' + endYear;
+							paramUrl += '&iCnt=' + pollCnt;
+							paramUrl += pollutionImages;
+							window.open(paramUrl, "", "width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
 						});
 
 					}
