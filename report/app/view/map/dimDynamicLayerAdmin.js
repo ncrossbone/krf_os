@@ -8,26 +8,6 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
         var me = this;
         me.map = map;
         
-        /*console.info(_WS_CD);
-		console.info(_WS_NM);
-		
-		console.info(_MW_CD);
-		console.info(_MW_NM);
-		
-		console.info(_SW_CD);
-		console.info(_SW_NM);
-		
-		console.info(_ADM_SIDO_CD);
-		console.info(_ADM_SIDO_NM);
-		
-		console.info(_ADM_SIGUNGU_CD);
-		console.info(_ADM_SIGUNGU_NM);
-		
-		console.info(_ADM_DONGRI_CD);
-		console.info(_ADM_DONGRI_NM);
-		
-		console.info(_CAT_DID);*/
-        
 		var visibleLayers = [];
 		var layerIds = [];
 		var layerDefs = [];

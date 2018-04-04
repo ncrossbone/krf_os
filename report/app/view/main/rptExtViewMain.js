@@ -46,5 +46,20 @@ Ext.define('Report.view.main.rptExtViewMain', {
 				xtype: 'rpt-east-rptSetContainer'
 			}]
 		}]
-	}]
+	}],
+	initComponent: function () {
+		this.callParent();
+
+		var splitStr = location.search.split("pollutionFlag=")[1];
+		var pollutionContainer = Ext.getCmp('pollutionContainer');
+		if (splitStr) {
+			var pollutionFlag = splitStr.split("&")[0];
+
+			if (pollutionFlag == 'true') {
+				pollutionContainer.show();
+			} else {
+				pollutionContainer.hide();
+			}
+		}
+	}
 });

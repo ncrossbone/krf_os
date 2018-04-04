@@ -194,6 +194,38 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 				style: 'cursor: pointer; margin-left:10px;',
 				id: 'rptViewBtn',
 				hidden: true,
+				isYearCheck: function (id, data) {
+					if (id == 'reportCondition1' || id == 'reportCondition2') {
+						var conditionDropPanel = Ext.getCmp('conditiondroppanel');
+						var preConditions = '';
+
+						id == 'reportCondition1' ? preConditions = 'reportCondition2' : preConditions = 'reportCondition1';
+						var preObj = conditionDropPanel.conditions[preConditions];
+						if (preObj && preObj.length > 0) {
+							var startYear = 0;
+							var endYear = 0;
+							if (id == 'reportCondition1') {
+								startYear = parseInt(data.value);
+								endYear = parseInt(preObj[0].value);
+							} else {
+								startYear = parseInt(preObj[0].value);
+								endYear = parseInt(data.value);
+							}
+
+							if (endYear - startYear >= 0) {
+								return true;
+							} else {
+								alert('시작년도가 완료년도보다 큽니다.');
+								return false;
+							}
+						} else {
+							return true;
+						}
+
+					} else {
+						return true;
+					}
+				},
 				setParam: function (param, reportType) {
 					var conditiondroppanel = Ext.getCmp('conditiondroppanel');
 					conditiondroppanel.setSortObj();
@@ -223,7 +255,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							} else if (key == 'reportCondition2') {
 								endYear += conObj[0].value + '&';
 							} else if (key == 'reportCondition0') {
-								iYear += conObj[0].value + '&';
+								iYear += conObj[0].value;
 							} else {
 								for (var i = 0; i < conObj.length; i++) {
 									if (key == 'reportCondition3') {
@@ -236,7 +268,7 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 						}
 					}
 
-					return paramStr + iYear + startYear + endYear;
+					return paramStr + startYear + endYear + iYear;
 				},
 				listeners: {
 					el: {
@@ -336,10 +368,13 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 						}
 
 						if (conditionDropPanel.conditions[dd.id]) {
-
 							var conArr = conditionDropPanel.conditions[dd.id];
-
 							if (dd.id == 'reportCondition1' || dd.id == 'reportCondition2' || dd.id == 'reportCondition0') {
+								var chk = rptViewBtn.isYearCheck(dd.id, data.srcData);
+
+								if (!chk) {
+									return;
+								}
 								if (conArr[0]) {
 									Ext.getCmp(conArr[0].id).close();
 								}
@@ -359,6 +394,12 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 								}
 							}
 						} else {
+
+							var chk = rptViewBtn.isYearCheck(dd.id, data.srcData);
+
+							if (!chk) {
+								return;
+							}
 							conditionDropPanel.conditions[dd.id] = [];
 							conditionDropPanel.conditions[dd.id].push(data.srcData);
 							rptViewBtn.hide();

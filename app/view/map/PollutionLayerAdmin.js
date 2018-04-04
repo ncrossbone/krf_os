@@ -168,7 +168,7 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 							// 텍스트 라벨 생성
 							var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
 								new esri.Color([255, 255, 255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
-									new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
+									new esri.symbol.Font("10pt", esri.symbol.Font.STYLE_NORMAL, esri.symbol.Font.VARIANT_NORMAL, esri.symbol.Font.WEIGHT_BOLD, "굴림").setDecoration('none')).setOffset(0, -20);
 							// 라벨 그래픽 생성
 							var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 							// 집수구역 오염원 속성 데이터 카피

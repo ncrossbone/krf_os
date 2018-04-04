@@ -104,7 +104,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_2', {
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
-					text: '우량쟈료(mm)',
+					text: '우량자료(mm)',
 					columns: [{
 						text: '측정값',
 						dataIndex: 'CURR_RF',

@@ -58,7 +58,8 @@ Ext.define('Report.view.map.rptCoreMap', {
 					"../resources/jsp/proxy.jsp",
 					//"./proxy.jsp",
 					_arcServiceUrl,
-					"/resources/saveImgTemp/report");
+					"/resources/saveImgTemp/report",
+					'legendDiv');
 
 				if (print == "Y") {
 					var siteListWindow = parentObj.Ext.getCmp("siteListWindow");
@@ -147,12 +148,34 @@ Ext.define('Report.view.map.rptCoreMap', {
 		me.baseMap = new CustomMapsLayer();
 		this.map.addLayer(me.baseMap);
 	},
-	report: function (paramCode, startYear, endYear) {
-		this.printTask.report(paramCode, startYear, endYear);
+	resetMapLayers: function () {
+		this.dimDynamicLayerAdmin.dimDynamicLayer.setVisibility(true);
+		this.clearPollutionLayers();
 	},
-	showCatPollutionLayer: function (catDatas, year, colName, kind) {
-		
-		this.dimDynamicLayerAdmin.dimDynamicLayer.setVisibility(false)
+	clearPollutionLayers: function(){
+		$('#legendDiv').html('');
+
+		if(this.pollutionLayerAdmin.pollutionGraphicLayerCat){
+			this.pollutionLayerAdmin.pollutionGraphicLayerCat.setVisibility(false);
+			this.pollutionLayerAdmin.pollutionGraphicLayerCat.clear();
+			this.pollutionLayerAdmin.pollutionbarImgGraphicLayer.setVisibility(false);
+			this.pollutionLayerAdmin.pollutionbarImgGraphicLayer.clear();
+			this.pollutionLayerAdmin.pollutionLabelLayerCat.setVisibility(false);
+			this.pollutionLayerAdmin.pollutionLabelLayerCat.clear();
+		}
+	},
+	report: function (paramCode, startYear, endYear, callback) {
+		this.printTask.report(paramCode, startYear, endYear, callback);
+	},
+	reportCapture: function (callBack) {
+		this.printTask.reportCapture(callBack);
+	},
+	showCatPollutionLayer: function (catDatas, year, colName, kind, callback) {
+		var me = this;
+
+		// this.clearPollutionLayers();
+
+		this.dimDynamicLayerAdmin.dimDynamicLayer.setVisibility(false);
 
 		var inStrCatDids = "";
 
@@ -164,6 +187,8 @@ Ext.define('Report.view.map.rptCoreMap', {
 			inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length - 2);
 		}
 
-		this.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName, kind, catDatas);
+		this.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName, kind, catDatas, function () {
+			me.reportCapture(callback);
+		});
 	}
 });

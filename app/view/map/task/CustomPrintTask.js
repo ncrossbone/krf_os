@@ -5,8 +5,11 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 	arcServiceUrl: null,
 	proxyUrl: null,
 	imgSaveUrl: null,
+	legendId : null,
 
-	constructor: function (map, mapDivId, printUrl, proxyUrl, arcServiceUrl, imgSaveUrl) {
+	successCallback : null,
+
+	constructor: function (map, mapDivId, printUrl, proxyUrl, arcServiceUrl, imgSaveUrl, legendDivId) {
 		var me = this;
 		me.map = map;
 		me.mapDivId = mapDivId;
@@ -14,6 +17,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		me.arcServiceUrl = arcServiceUrl;
 		me.proxyUrl = proxyUrl;
 		me.imgSaveUrl = imgSaveUrl;
+		me.legendId = legendDivId;
 	},
 
 	onComplete: function (arg) {
@@ -30,21 +34,36 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		me.execute("capture");
 	},
 
-	report: function (paramCode, startYear, endYear) {
+	report: function (paramCode, startYear, endYear, callBack) {
 
 		var me = this;
-		//console.info("aaa");
 		me.paramCode = paramCode;
 		me.startYear = startYear;
 		me.endYear = endYear;
+		me.successCallback = callBack;
 
 		me.execute("report");
 	},
+	reportCapture: function (callBack) {
 
-	execute: function (mode) {
+		var me = this;
+		me.successCallback = callBack;
+
+		me.execute("report", 'capture');
+	},
+
+	execute: function (mode, reportType) {
 
 		var me = this;
 		var svgInfo = $('#' + me.mapDivId + ' svg').parent().html();
+		var legendSvg;
+		var legendHeight;
+
+		if(me.legendId && reportType){
+			legendSvg = $('#' + me.legendId).html();
+			legendHeight = $('#' + me.legendId).height() 
+		}
+
 		var layerIds = me.map.layerIds;
 		var imageInfos = [];
 		
@@ -88,6 +107,8 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		var obj = {
 			imageInfos: strImgInfo,
 			svgInfo: svgInfo,
+			legendInfo:legendSvg,
+			legendHeight:legendHeight,
 			width: $('#' + me.mapDivId).width(),
 			height: $('#' + me.mapDivId).height(),
 			arcServiceUrl: me.arcServiceUrl,
@@ -115,14 +136,21 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 				}
 				else if (mode == "report") {
 					var imgPath = data.path;
-					window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imgPath) +
-						"&paramCode=" + me.paramCode +
-						"&startYear=" + me.startYear +
-						"&endYear=" + me.endYear,
-						"",
-						"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+					if(reportType == 'capture'){
+						me.successCallback(imgPath);
+					}else{
+						if(me.successCallback){
+							me.successCallback(imgPath);
+						}else{
+							window.open("../ClipReport4/reportView.jsp?imgPath=" + encodeURIComponent(imgPath) +
+							"&paramCode=" + me.paramCode +
+							"&startYear=" + me.startYear +
+							"&endYear=" + me.endYear,
+							"",
+							"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+						}
+					}
 				}
-				//console.info(data);
 				me.onComplete("complete");
 			},
 			error: function (err) {
@@ -155,11 +183,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		info.width = img.width();
 		info.height = img.height();
 		info.opacity = img.parent().css('opacity');
-		/*console.info(img.css('left'));
-		console.info(img.css('transform'));
-		console.info(img.css('-webkit-transform'));*/
 		var translateInfo = null;
-		//if(isNaN(parseInt(img.css('left')))){
 		if (translateInfo = img.css('transform')) {
 			var arr = translateInfo.split(',');
 			if (arr.length > 11) {
@@ -173,15 +197,10 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 			var arr = translateInfo.split(',');
 			info.translateX = parseInt(arr[4]) + pTranslateInfo.translateX;
 			info.translateY = parseInt(arr[5]) + pTranslateInfo.translateY;
-		}
-		else {
+		}else {
 			info.translateX = parseInt(img.css('left')) + pTranslateInfo.translateX;
 			info.translateY = parseInt(img.css('top')) + pTranslateInfo.translateY;
 		}
-		/*}else{
-			info.translateX = parseInt(img.css('left')) + pTranslateInfo.translateX;
-			info.translateY = parseInt(img.css('top')) + pTranslateInfo.translateY;
-		}*/
 		return info;
 	},
 
