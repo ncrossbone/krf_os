@@ -81,21 +81,17 @@ store.load(function (a, b, c) {
 
 			_CAT_DID = parent.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		} else {
-<<<<<<< HEAD
-			
-=======
 			var splitStr = location.search.split("pollutionFlag=")[1];
 			var pollutionContainer = Ext.getCmp('pollutionContainer');
 			if (splitStr) {
 				var pollutionFlag = splitStr.split("&")[0];
-				
+
 				// if (pollutionFlag) {
 				// 	pollutionContainer.show();
 				// } else {
 				// 	pollutionContainer.hide();
 				// }
 			}
->>>>>>> f9f29efb76f78224ebf1334ee1725460eb86b7be
 			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
 			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
 			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
@@ -142,6 +138,20 @@ store.load(function (a, b, c) {
 			_ADM_DONGRI_NM = selDONGRI[0].data.name;
 		}
 	});
+
+
+
+	Ext.application({
+
+		name: 'Report',
+
+		launch: function () {
+			Ext.create("Report.view.main.rptExtViewMain", {
+				renderTo: Ext.getBody()
+			});
+		}
+	});
+
 });
 /*
 * 박철 추가 API URL 를 JSON으로 관리
@@ -169,16 +179,7 @@ apiStore.load(function (a, b, c) {
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 	a[0].data.init('http://localhost:8071');
 });
-Ext.application({
 
-	name: 'Report',
-
-	launch: function () {
-		Ext.create("Report.view.main.rptExtViewMain", {
-			renderTo: Ext.getBody()
-		});
-	}
-});
 
 
 var percentile = {
@@ -393,11 +394,11 @@ function getCatRangeColor(range) {
 	return color;
 }
 // 그래픽 오브젝트에서 센터 포인트 가져오기
-function getCenterFromGraphic(graphic){
-	
+function getCenterFromGraphic(graphic) {
+
 	var centerPoint = null;
-	
-	switch(graphic.geometry.type){
+
+	switch (graphic.geometry.type) {
 		case "point":
 			centerPoint = graphic.geometry;
 			break;
@@ -407,6 +408,6 @@ function getCenterFromGraphic(graphic){
 		default:
 			centerPoint = graphic.geometry.getExtent().getCenter();
 	}
-	
+
 	return centerPoint;
 }
