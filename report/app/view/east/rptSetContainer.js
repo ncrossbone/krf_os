@@ -42,17 +42,16 @@ Ext.define('Report.view.east.rptSetContainer', {
 	}, {
 		xtype: 'rpt-east-rptSetItems',
 		title: '항목',
+		hidden: true,
 		style: "margin-left: 20px;"
-	}, {
-		xtype: 'container',
-		height: 10
 	}, {
 		xtype: 'rpt-east-rptSetSiteAttr',
 		title: '지점속성',
-		style: "margin-left: 20px;"
+		style: "margin-left: 20px;",
+		hidden: true
 	}, {
 		xtype: 'container',
-		height: 30
+		height: 10
 	}, {
 		xtype: 'rpt-east-rptSetSiteList',
 		title: '지점',
