@@ -43,8 +43,8 @@ Ext.define('Report.view.map.rptCoreMap', {
 
 				me.pollutionLayerAdmin = Ext.create("Report.view.map.PollutionLayerAdmin", me.map);
 
-				// var resolution = me.tileInfo.lods[level].resolution;
-				// x = x - (370 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+				var resolution = me.tileInfo.lods[level].resolution;
+				x = x - (370 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
 
 				var point = new esri.geometry.Point({ "x": x, "y": y, "spatialReference": { "wkid": 102100 } });
 
@@ -58,7 +58,8 @@ Ext.define('Report.view.map.rptCoreMap', {
 					"../resources/jsp/proxy.jsp",
 					//"./proxy.jsp",
 					_arcServiceUrl,
-					"/resources/saveImgTemp/report");
+					"/resources/saveImgTemp/report",
+					'legendDiv');
 
 				if (print == "Y") {
 					var siteListWindow = parentObj.Ext.getCmp("siteListWindow");
@@ -159,6 +160,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 			this.pollutionLayerAdmin.pollutionbarImgGraphicLayer.clear();
 			this.pollutionLayerAdmin.pollutionLabelLayerCat.setVisibility(false);
 			this.pollutionLayerAdmin.pollutionLabelLayerCat.clear();
+			$('#legendDiv').html('');
 		}
 	},
 	report: function (paramCode, startYear, endYear, callback) {

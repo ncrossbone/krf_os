@@ -33,6 +33,8 @@
 		if(fileName==null){
 			
 			String svgInfo = request.getParameter("svgInfo");
+			String legendInfo = request.getParameter("legendInfo");
+
 			int start = svgInfo.indexOf("<svg");
 			int end = svgInfo.indexOf("</svg");
 			svgInfo = svgInfo.substring(start, end+6);
@@ -47,6 +49,9 @@
 			String randomId =  UUID.randomUUID().toString();
 			String svgFileName = "svg_" + randomId + ".svg";
 			String svgPngFileName = "svg_" + randomId + ".png";
+			String legendSvgFileName = "le_svg_" + randomId + ".svg";
+			String legendPngFileName = "le_svg_" + randomId + ".png";
+
 			String resultPngFileName = "result_" + randomId + ".png";
 			
 			File desti = new File(imgSavePath);
@@ -99,6 +104,29 @@
 				
 				BufferedImage svgImg = ImageIO.read(new File(imgSavePath + "\\" + svgPngFileName));
 				graphic.drawImage(svgImg, null, 0, 0);
+
+				if(legendInfo != null && !"null".equals(legendInfo)){
+					
+					int leHeight = Integer.parseInt(request.getParameter("legendHeight"));
+
+					legendInfo = legendInfo.replace("xmlns=\"http://www.w3.org/2000/svg\"", "");
+					legendInfo = legendInfo.replaceAll("<svg", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" ");
+					writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream(imgSavePath + "\\" + legendSvgFileName), "UTF8"));
+					writer.write(legendInfo);
+					writer.flush();
+					writer.close();
+
+					String le_svg_URI_input = Paths.get(imgSavePath + "\\" + legendSvgFileName).toUri().toURL().toString();
+					TranscoderInput le_input_svg_image = new TranscoderInput(le_svg_URI_input);     
+					
+					OutputStream le_png_ostream = new FileOutputStream(imgSavePath + "\\" + legendPngFileName);
+					TranscoderOutput le_output_png_image = new TranscoderOutput(le_png_ostream);  
+
+					my_converter.transcode(le_input_svg_image, le_output_png_image);
+					BufferedImage le_svgImg = ImageIO.read(new File(imgSavePath + "\\" + legendPngFileName));
+					graphic.drawImage(le_svgImg, null, 10, (height-leHeight-10));
+
+				}
 		    }catch(Exception e){
 				System.out.println("error");
 				e.printStackTrace();
@@ -121,7 +149,24 @@
 		    	hashMap.put("path", imgSavePath + "\\" + resultPngFileName);
 		    }
 		    
-	 		out.println(gson.toJson(hashMap));
+			 out.println(gson.toJson(hashMap));
+			 
+			 // 파일 삭제
+			File file = new File(imgSavePath + "\\" + svgFileName);
+			if( file.exists() ){
+				file.delete();
+			}
+			file = new File(imgSavePath + "\\" + svgPngFileName);
+			if( file.exists() ){
+				file.delete();
+			}
+			file = new File(imgSavePath + "\\" + legendSvgFileName);
+			if( file.exists() ){
+				file.delete();
+			}file = new File(imgSavePath + "\\" + legendPngFileName);
+			if( file.exists() ){
+				file.delete();
+			}
 		}else{
 			
 			//File file = new File("C:\\arcgisserver\\directories\\arcgisoutput\\customPrintTask\\" + fileName);
