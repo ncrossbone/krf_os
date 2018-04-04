@@ -173,5 +173,15 @@
 		"layerId": "41",
 		"colName": "시설코드",
 		"layerName": "방사능측정망_하천"
+	}, {
+		"stationType": "BT1",
+		"layerId": "24",
+		"colName": "시설코드",
+		"layerName": "생물측정망_하천"
+	}, {
+		"stationType": "BT2",
+		"layerId": "25",
+		"colName": "시설코드",
+		"layerName": "생물측정망_하구"
 	}]
 }]
