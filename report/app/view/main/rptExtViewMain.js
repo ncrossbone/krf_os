@@ -51,7 +51,6 @@ Ext.define('Report.view.main.rptExtViewMain', {
 		this.callParent();
 
 		var splitStr = location.search.split("pollutionFlag=")[1];
-
 		var pollutionContainer = Ext.getCmp('pollutionContainer');
 		if (splitStr) {
 			var pollutionFlag = splitStr.split("&")[0];
