@@ -19,7 +19,7 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 	},
 
 	// 집수구역별 오염원 주제도 그리기
-	drawTMCatLayer: function (inStrCatDids, year, colName, kind, catDatas) {
+	drawTMCatLayer: function (inStrCatDids, year, colName, kind, catDatas, callback) {
 		if (catDatas == null) {
 			return;
 		}
@@ -315,8 +315,11 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 					// 집수구역 오염원 라벨 레이어 추가
 					me.map.addLayer(me.pollutionLabelLayerCat);
 
-					/* 레전드 그리기 */
-					// me.createLegend(quantizeObj, unint);
+					Ext.defer(function(){
+						if(callback){
+							callback.call();
+						}
+					}, 1);
 				});
 			});
 	},

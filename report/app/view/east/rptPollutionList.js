@@ -4,7 +4,7 @@ Ext.define('Report.view.east.rptPollutionList', {
 
     xtype: 'rpt-east-rptPollutionList',
 
-
+    requires: ['Report.view.east.PollutionController'],
     id: 'rptPollutionList',
 
     title: '지점',
@@ -41,6 +41,7 @@ Ext.define('Report.view.east.rptPollutionList', {
         height: 250,
         title: "오염원",
         //autoScroll: true,
+        controller: 'pollutionController',
         store: Ext.create('Report.store.east.treeRptPollutionStore'),
         columns: [{
             xtype: 'treecolumn',
