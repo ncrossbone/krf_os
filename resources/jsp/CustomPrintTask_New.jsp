@@ -149,7 +149,24 @@
 		    	hashMap.put("path", imgSavePath + "\\" + resultPngFileName);
 		    }
 		    
-	 		out.println(gson.toJson(hashMap));
+			 out.println(gson.toJson(hashMap));
+			 
+			 // 파일 삭제
+			File file = new File(imgSavePath + "\\" + svgFileName);
+			if( file.exists() ){
+				file.delete();
+			}
+			file = new File(imgSavePath + "\\" + svgPngFileName);
+			if( file.exists() ){
+				file.delete();
+			}
+			file = new File(imgSavePath + "\\" + legendSvgFileName);
+			if( file.exists() ){
+				file.delete();
+			}file = new File(imgSavePath + "\\" + legendPngFileName);
+			if( file.exists() ){
+				file.delete();
+			}
 		}else{
 			
 			//File file = new File("C:\\arcgisserver\\directories\\arcgisoutput\\customPrintTask\\" + fileName);
