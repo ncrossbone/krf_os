@@ -162,7 +162,7 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 							
 							var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
 								new esri.Color([88, 88, 250])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
-									new esri.symbol.Font("10pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
+									new esri.symbol.Font("10pt", esri.symbol.Font.STYLE_NORMAL, esri.symbol.Font.VARIANT_NORMAL, esri.symbol.Font.WEIGHT_BOLD, "굴림").setDecoration('none')).setOffset(0, -20);
 							// 라벨 그래픽 생성
 							var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 							// 집수구역 오염원 속성 데이터 카피
@@ -341,7 +341,7 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 				var svgHtml = '<svg width="250" height="${svgHeight}" version="1.1" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #cccccc; background-color:#ffffff;">'+
 							  '<rect y="0" x="0" width="250" height="${svgHeight}" fillcolor="#FFFFFF" style="fill:#FFFFFF;" ></rect>';
 				var swatchTemplate = '<rect y="${y}" x="10" width="80" height="18" borderColor="${borderColor}"  range="${range}" fillcolor="${fillColor}" class="tmLegendSymbol tmLegendSymbol_${range}" style="fill:${fill};" ></rect>' +
-					'<text x="110" y="${labelY}" font-family="Verdana" font-size="14">${label}</text>';
+					'<text x="110" y="${labelY}" text-decoration="none" font-style="normal" font-variant="normal" font-family="Verdana" font-size="14">${label}</text>';
 
 				var html = "", inverted, data;
 

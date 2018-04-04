@@ -29,10 +29,12 @@
 		
 		// 맵 이미지 저장 폴더
 		String imgSavePath = request.getSession().getServletContext().getRealPath(imgSaveUrl);
+		imgSavePath = imgSavePath.substring(0,imgSavePath.length()-1);
 		
 		if(fileName==null){
 			
 			String svgInfo = request.getParameter("svgInfo");
+			
 			String legendInfo = request.getParameter("legendInfo");
 
 			int start = svgInfo.indexOf("<svg");
@@ -66,16 +68,11 @@
 						new FileOutputStream(imgSavePath + "\\" + svgFileName), "UTF8"));
 		    writer.write(svgInfo);
 		    writer.flush();
-		    writer.close();
-		    
-		    String svg_URI_input = Paths.get(imgSavePath + "\\" + svgFileName).toUri().toURL().toString();
-	        TranscoderInput input_svg_image = new TranscoderInput(svg_URI_input);     
-		    
-		    OutputStream png_ostream = new FileOutputStream(imgSavePath + "\\" + svgPngFileName);
-		    TranscoderOutput output_png_image = new TranscoderOutput(png_ostream);  
+			writer.close();
 		    
 		    BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-		    Graphics2D graphic = newImage.createGraphics();
+			Graphics2D graphic = newImage.createGraphics();
+			
 		    Color color = graphic.getColor();
 		    graphic.setPaint(Color.WHITE);
 		    graphic.fillRect(0, 0, width, height);
@@ -95,8 +92,15 @@
 	            
 	            // 그래픽 그리기
 	            graphic.drawImage(baseImage, imageInfos[i].translateX, imageInfos[i].translateY, null);
-		    }
+			}
+			
 			try{
+				String svg_URI_input = Paths.get(imgSavePath + "\\" + svgFileName).toUri().toURL().toString();
+	        	TranscoderInput input_svg_image = new TranscoderInput(svg_URI_input);     
+		    
+		    	OutputStream png_ostream = new FileOutputStream(imgSavePath + "\\" + svgPngFileName);
+				TranscoderOutput output_png_image = new TranscoderOutput(png_ostream);  
+			
 				PNGTranscoder my_converter = new PNGTranscoder();  
 				my_converter.transcode(input_svg_image, output_png_image);
 				png_ostream.flush();
@@ -106,15 +110,15 @@
 				graphic.drawImage(svgImg, null, 0, 0);
 
 				if(legendInfo != null && !"null".equals(legendInfo)){
-					
+					System.out.println("stqp4");
 					int leHeight = Integer.parseInt(request.getParameter("legendHeight"));
 
 					legendInfo = legendInfo.replace("xmlns=\"http://www.w3.org/2000/svg\"", "");
 					legendInfo = legendInfo.replaceAll("<svg", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" ");
-					writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream(imgSavePath + "\\" + legendSvgFileName), "UTF8"));
-					writer.write(legendInfo);
-					writer.flush();
-					writer.close();
+					BufferedWriter writer2 = new BufferedWriter( new OutputStreamWriter( new FileOutputStream(imgSavePath + "\\" + legendSvgFileName), "UTF8"));
+					writer2.write(legendInfo);
+					writer2.flush();
+					writer2.close();
 
 					String le_svg_URI_input = Paths.get(imgSavePath + "\\" + legendSvgFileName).toUri().toURL().toString();
 					TranscoderInput le_input_svg_image = new TranscoderInput(le_svg_URI_input);     
@@ -122,10 +126,14 @@
 					OutputStream le_png_ostream = new FileOutputStream(imgSavePath + "\\" + legendPngFileName);
 					TranscoderOutput le_output_png_image = new TranscoderOutput(le_png_ostream);  
 
-					my_converter.transcode(le_input_svg_image, le_output_png_image);
+					PNGTranscoder my_converter2 = new PNGTranscoder();  
+
+					my_converter2.transcode(le_input_svg_image, le_output_png_image);
+					le_png_ostream.flush();
+					le_png_ostream.close();  
+
 					BufferedImage le_svgImg = ImageIO.read(new File(imgSavePath + "\\" + legendPngFileName));
 					graphic.drawImage(le_svgImg, null, 10, (height-leHeight-10));
-
 				}
 		    }catch(Exception e){
 				System.out.println("error");
@@ -133,7 +141,7 @@
 			}
 		    
 		    graphic.dispose();
-		    
+			
 		    File outputfile = new File(imgSavePath + "\\" + resultPngFileName);
 		    ImageIO.write(newImage, "png", outputfile);
 		    
@@ -143,16 +151,15 @@
 		    	hashMap.put("url", arcServiceUrl + "/rest/directories/arcgisoutput/customPrintTask/" + resultPngFileName);
 		    }else if(mode.equals("capture")){
 		    	hashMap.put("url", "http://" + request.getServerName()+ ":" + request.getServerPort() + request.getContextPath() + request.getServletPath() + "?fileName=" + resultPngFileName + "&imgSaveUrl=" + imgSaveUrl);
-		    }
-		    else if(mode.equals("report")){
+		    }else if(mode.equals("report")){
+				
 		    	hashMap.put("url", imgSaveUrl + "/" + resultPngFileName);
 		    	hashMap.put("path", imgSavePath + "\\" + resultPngFileName);
-		    }
-		    
-			 out.println(gson.toJson(hashMap));
-			 
-			 // 파일 삭제
-			File file = new File(imgSavePath + "\\" + svgFileName);
+			}
+			out.println(gson.toJson(hashMap));
+			File file = null;
+			
+			file = new File(imgSavePath + "\\" + svgFileName);
 			if( file.exists() ){
 				file.delete();
 			}
@@ -163,13 +170,12 @@
 			file = new File(imgSavePath + "\\" + legendSvgFileName);
 			if( file.exists() ){
 				file.delete();
-			}file = new File(imgSavePath + "\\" + legendPngFileName);
+			}
+			file = new File(imgSavePath + "\\" + legendPngFileName);
 			if( file.exists() ){
 				file.delete();
 			}
 		}else{
-			
-			//File file = new File("C:\\arcgisserver\\directories\\arcgisoutput\\customPrintTask\\" + fileName);
 			File file = new File(imgSavePath + "\\" + fileName);
 			FileInputStream fin = new FileInputStream(file);
 			int ifilesize = (int)file.length();
@@ -192,17 +198,6 @@
 			// 파일 삭제
 			
 			file = new File(imgSavePath + "\\" + fileName);
-			if( file.exists() ){
-				file.delete();
-			}
-			String svgFileNm = fileName.replace("result_", "svg_");
-
-			file = new File(imgSavePath + "\\" + svgFileNm);
-			if( file.exists() ){
-				file.delete();
-			}
-			svgFileNm = svgFileNm.replace(".png", ".svg");
-			file = new File(imgSavePath + "\\" + svgFileNm);
 			if( file.exists() ){
 				file.delete();
 			}

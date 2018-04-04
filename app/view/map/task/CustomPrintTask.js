@@ -59,7 +59,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		var legendSvg;
 		var legendHeight;
 
-		if(me.legendId){
+		if(me.legendId && reportType){
 			legendSvg = $('#' + me.legendId).html();
 			legendHeight = $('#' + me.legendId).height() 
 		}

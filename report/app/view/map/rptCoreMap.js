@@ -153,6 +153,8 @@ Ext.define('Report.view.map.rptCoreMap', {
 		this.clearPollutionLayers();
 	},
 	clearPollutionLayers: function(){
+		$('#legendDiv').html('');
+		
 		if(this.pollutionLayerAdmin.pollutionGraphicLayerCat){
 			this.pollutionLayerAdmin.pollutionGraphicLayerCat.setVisibility(false);
 			this.pollutionLayerAdmin.pollutionGraphicLayerCat.clear();
@@ -160,7 +162,6 @@ Ext.define('Report.view.map.rptCoreMap', {
 			this.pollutionLayerAdmin.pollutionbarImgGraphicLayer.clear();
 			this.pollutionLayerAdmin.pollutionLabelLayerCat.setVisibility(false);
 			this.pollutionLayerAdmin.pollutionLabelLayerCat.clear();
-			$('#legendDiv').html('');
 		}
 	},
 	report: function (paramCode, startYear, endYear, callback) {
