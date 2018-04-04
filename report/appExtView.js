@@ -109,15 +109,6 @@ Ext.application({
 
 		_API = parentObj._API;
 
-		if (print == "Y") {
-		} else {
-			var splitStr = location.search.split("pollutionFlag=")[1];
-			var pollutionContainer = Ext.getCmp('pollutionContainer');
-			if (splitStr) {
-				var pollutionFlag = splitStr.split("&")[0];
-			}
-		}
-
 		if (selWS != undefined && selWS != null & selWS.length > 0) {
 			_WS_CD = selWS[0].data.id;
 			_WS_NM = selWS[0].data.name;

@@ -142,7 +142,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 						if(me.successCallback){
 							me.successCallback(imgPath);
 						}else{
-							window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imgPath) +
+							window.open("../ClipReport4/reportView.jsp?imgPath=" + encodeURIComponent(imgPath) +
 							"&paramCode=" + me.paramCode +
 							"&startYear=" + me.startYear +
 							"&endYear=" + me.endYear,
