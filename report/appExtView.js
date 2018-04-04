@@ -81,17 +81,7 @@ store.load(function (a, b, c) {
 
 			_CAT_DID = parent.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		} else {
-			var splitStr = location.search.split("pollutionFlag=")[1];
-			var pollutionContainer = Ext.getCmp('pollutionContainer');
-			if (splitStr) {
-				var pollutionFlag = splitStr.split("&")[0];
-				
-				if (pollutionFlag == 'true') {
-					pollutionContainer.show();
-				} else {
-					pollutionContainer.hide();
-				}
-			}
+			
 			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
 			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
 			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
