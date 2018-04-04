@@ -111,11 +111,23 @@ Ext.application({
 
 		if (print == "Y") {
 		} else {
+<<<<<<< HEAD
+			
+			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
+			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
+			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
+			selSIDO = opener.Ext.getCmp("cmbArea1").lastSelection;
+			selSIGUNGU = opener.Ext.getCmp("cmbArea2").lastSelection;
+			selDONGRI = opener.Ext.getCmp("cmbArea3").lastSelection;
+
+			_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
+=======
 			var splitStr = location.search.split("pollutionFlag=")[1];
 			var pollutionContainer = Ext.getCmp('pollutionContainer');
 			if (splitStr) {
 				var pollutionFlag = splitStr.split("&")[0];
 			}
+>>>>>>> dc56b19cf5b9f25ec22c0c5ec2ba9e770b097a34
 		}
 
 		if (selWS != undefined && selWS != null & selWS.length > 0) {
