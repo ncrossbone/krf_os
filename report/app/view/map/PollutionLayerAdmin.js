@@ -159,9 +159,10 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 
 							var gnrBodSulabel = gnrBodSu + unint;
 							// 텍스트 라벨 생성
+							
 							var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
-								new esri.Color([255, 255, 255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
-									new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
+								new esri.Color([88, 88, 250])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
+									new esri.symbol.Font("10pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
 							// 라벨 그래픽 생성
 							var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 							// 집수구역 오염원 속성 데이터 카피
@@ -314,9 +315,11 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 
 					// 집수구역 오염원 라벨 레이어 추가
 					me.map.addLayer(me.pollutionLabelLayerCat);
+					/* 레전드 그리기 */
+					me.createLegend(quantizeObj, unint);
 
-					Ext.defer(function(){
-						if(callback){
+					Ext.defer(function () {
+						if (callback) {
 							callback.call();
 						}
 					}, 1);
@@ -328,15 +331,6 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 	createLegend: function (quantizeObj, unint) {
 
 		var me = this;
-		// 레전드 윈도우 생성
-		var tmLegendWindow = Ext.create("krf_new.view.map.TMLegendWindow");
-
-		var cContainer = Ext.getCmp("center_container");
-
-		// 레전드 윈도우 보이기
-		cContainer.add(tmLegendWindow);
-
-		tmLegendWindow.show();
 		require(["dojo/dom",
 			"dojo/_base/array",
 			"dojo/number"],
@@ -344,22 +338,12 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 				array,
 				number) {
 
-				var swatchTemplate =
-					'<div style="height:20px; width: 300px; border:1px solid transparent; padding-left: 10px;">' +
-					'<div class="tmLegendSymbol_${range}" borderColor="${borderColor}" style="width:82px; height:20px; ${borderStyle} float: left;">' +
-					'<svg width="80" height="18" version="1.1" xmlns="https://www.w3.org/2000/svg">' +
-					//'<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
-					'<rect width="80" height="18" range="${range}" fillcolor="${fillColor}" class="tmLegendSymbol" style="fill:${fill};" />' +
-					'</svg>' +
-					'</div>' +
-					'<div style="width:10px; height:18px; float: left;">' +
-					'</div>' +
-					'<div range="${range}" fillcolor="${fillColor}" class="tmLegendSymbol" style="width:100px; height:18px; border:1px solid transparent; float: left;">' +
-					'${label}' +
-					'</div>' +
-					'</div>';
+				var svgHtml = '<svg width="250" height="${svgHeight}" version="1.1" xmlns="http://www.w3.org/2000/svg" style="border: 1px solid #cccccc; background-color:#ffffff;">'+
+							  '<rect y="0" x="0" width="250" height="${svgHeight}" fillcolor="#FFFFFF" style="fill:#FFFFFF;" ></rect>';
+				var swatchTemplate = '<rect y="${y}" x="10" width="80" height="18" borderColor="${borderColor}"  range="${range}" fillcolor="${fillColor}" class="tmLegendSymbol tmLegendSymbol_${range}" style="fill:${fill};" ></rect>' +
+					'<text x="110" y="${labelY}" font-family="Verdana" font-size="14">${label}</text>';
 
-				var html = "", inverted, data, legend = dom.byId("tmLegend");
+				var html = "", inverted, data;
 
 				quantizeObj.sort(function (a, b) {
 					return b.range - a.range;
@@ -368,11 +352,13 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 				var chkCnt = 0;
 
 				array.forEach(quantizeObj, function (obj) {
-
 					if (obj.features[0] != undefined) {
 
 						var fillColor = obj.features[0].attributes.color;
 						var borderStyle = "";
+
+						var y = chkCnt * 18;
+						var labelY = y + 14;
 
 						chkCnt++;
 
@@ -387,66 +373,29 @@ Ext.define("Report.view.map.PollutionLayerAdmin", {
 						}
 
 						data = {
-
-							//label:number.format(obj.stVal, { places:0 }) + " - " + number.format(obj.edVal, { places:0 }),
-							label: paddingLeft("&nbsp;", 8, number.format(obj.maxVal, { places: 0 })) + unint,
-							//label:obj.maxVal + " (명)",
+							label: number.format(obj.maxVal, { places: 0 }) + unint,
 							fill: fillColor,
 							fillColor: fillColor,
 							range: obj.range,
 							borderColor: borderColor,
-							borderStyle: borderStyle
+							borderStyle: borderStyle,
+							y: y,
+							labelY: labelY
 						};
 
 						html += esri.substitute(data, swatchTemplate);
 					}
 				});
 
-				var windowHeight = (quantizeObj.length * 20) + 55;
-				tmLegendWindow.setHeight(windowHeight);
+				var windowHeight = (chkCnt * 18);
 
-				var windowY = Ext.getBody().getHeight() - tmLegendWindow.getHeight();
-				tmLegendWindow.setY(windowY);
+				html =  esri.substitute({svgHeight:windowHeight}, svgHtml)  + html + '</svg>';
 
-				legend.innerHTML = legend.innerHTML + html;
+				$('#legendDiv').css('height', windowHeight);
+				$('#legendDiv').css('top', Ext.getCmp('_rptMapDiv_').getHeight()-windowHeight+20);
 
-				var tmLegendSymbol = dojo.query("#tmLegend .tmLegendSymbol");
+				$('#legendDiv').html(html);
 
-				tmLegendSymbol.on("mouseover", function (evt) {
-
-					var range = evt.target.getAttribute("range");
-
-					// 범례 스타일 설정
-					me.setAttributeLegend("on", range);
-
-					// 폴리곤 투명도 조절
-					var polySymbol = $(".polySymbol_" + range);
-
-					for (var i = 0; i < polySymbol.length; i++) {
-
-						//polySymbol[i].setAttribute("opacity", me.mouseOverOpacity);
-						me.setPolyFillColor(polySymbol[i], me.mouseOverColor);
-					}
-				});
-
-				tmLegendSymbol.on("mouseout", function (evt) {
-
-					//////////console.info(evt);
-					var range = evt.target.getAttribute("range");
-					var fillColor = evt.target.getAttribute("fillcolor");
-					//////////console.info(fillColor);
-					// 범례 스타일 설정
-					me.setAttributeLegend("off", range);
-
-					// 폴리곤 투명도 조절
-					var polySymbol = $(".polySymbol_" + range);
-
-					for (var i = 0; i < polySymbol.length; i++) {
-
-						//polySymbol[i].setAttribute("opacity", me.initOpacity);
-						me.setPolyFillColor(polySymbol[i], fillColor);
-					}
-				});
 			});
 	},
 

@@ -156,6 +156,8 @@ Ext.application({
 		Ext.create("Report.view.main.rptExtViewMain", {
 			renderTo: Ext.getBody()
 		});
+
+		$('#pageloaddingDiv').remove();
 	}
 });
 
