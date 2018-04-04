@@ -35,74 +35,89 @@ if (print == "Y") {
 	parentObj = opener;
 }
 
-var store = Ext.create('Ext.data.Store', {
-	autoLoad: true,
+// var store = Ext.create('Ext.data.Store', {
+// 	autoLoad: true,
 
-	fields: [{
-		name: 'MapserviceUrl'
-	}],
+// 	fields: [{
+// 		name: 'MapserviceUrl'
+// 	}],
 
-	proxy: {
-		type: 'ajax',
-		url: '../resources/data/AppVariable.json',
-		reader: {
-			type: 'json'
-		}
-	}
-});
+// 	proxy: {
+// 		type: 'ajax',
+// 		url: '../resources/data/AppVariable.json',
+// 		reader: {
+// 			type: 'json'
+// 		}
+// 	}
+// });
 
-store.load(function (a, b, c) {
+// store.load(function (a, b, c) {
 
-	this.each(function (record, cnt, totCnt) {
+// 	this.each(function (record, cnt, totCnt) {
 
-		_mapServiceUrl_Rpt_Dim = record.data.mapServiceUrl_Rpt_Dim;
-		_mapServiceUrl_Rpt_Site = record.data.mapServiceUrl_Rpt_Site;
-		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
-		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
-		_arcServiceUrl = record.data.arcServiceUrl;
-		_reachServiceUrl_v3_TM = record.data.reachServiceUrl_v3_TM;
 
-		//var selWS = parent.Ext.getCmp("cmbWater1").lastSelection;
-		var selWS = null;
-		var selMW = null;
-		var selSW = null;
-		var selSIDO = null;
-		var selSIGUNGU = null;
-		var selDONGRI = null;
+// 	});
+// });
+/*
+* 박철 추가 API URL 를 JSON으로 관리
+*/
+// var _API = null;
+
+// var apiStore = Ext.create('Ext.data.Store', {
+// 	autoLoad: true,
+
+// 	fields: [{
+// 		name: 'apiUrls'
+// 	}],
+// 	proxy: {
+// 		type: 'ajax',
+// 		url: '../resources/data/APIUrlsTobe.json',
+// 		reader: {
+// 			type: 'json'
+// 		}
+// 	}
+// });
+
+// apiStore.load(function (a, b, c) {
+// 	_API = a[0].data;
+
+// 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
+// 	a[0].data.init('http://localhost:8071');
+// });
+
+
+Ext.application({
+
+	name: 'Report',
+
+	launch: function () {
+		_mapServiceUrl_Rpt_Dim = parentObj.$KRF_DEFINE.mapServiceUrl_Rpt_Dim;
+		_mapServiceUrl_Rpt_Site = parentObj.$KRF_DEFINE.mapServiceUrl_Rpt_Site;
+		_mapServiceUrl_v3_2 = parentObj.$KRF_DEFINE.reachServiceUrl_v3_2;
+		_baseMapUrl_vworld = parentObj.$KRF_DEFINE.baseMapUrl_vworld;
+		_arcServiceUrl = parentObj.$KRF_DEFINE.arcServiceUrl;
+		_reachServiceUrl_v3_TM = parentObj.$KRF_DEFINE.reachServiceUrl_v3_TM;
+
+		var selWS = parentObj.Ext.getCmp("cmbWater1").lastSelection;
+		var selMW = parentObj.Ext.getCmp("cmbWater2").lastSelection;
+		var selSW = parentObj.Ext.getCmp("cmbWater3").lastSelection;
+		var selSIDO = parentObj.Ext.getCmp("cmbArea1").lastSelection;
+		var selSIGUNGU = parentObj.Ext.getCmp("cmbArea2").lastSelection;
+		var selDONGRI = parentObj.Ext.getCmp("cmbArea3").lastSelection;
+
+		_CAT_DID = parentObj.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
+
+		_API = parentObj._API;
 
 		if (print == "Y") {
-
-			selWS = parent.Ext.getCmp("cmbWater1").lastSelection;
-			selMW = parent.Ext.getCmp("cmbWater2").lastSelection;
-			selSW = parent.Ext.getCmp("cmbWater3").lastSelection;
-			selSIDO = parent.Ext.getCmp("cmbArea1").lastSelection;
-			selSIGUNGU = parent.Ext.getCmp("cmbArea2").lastSelection;
-			selDONGRI = parent.Ext.getCmp("cmbArea3").lastSelection;
-
-			_CAT_DID = parent.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		} else {
 			var splitStr = location.search.split("pollutionFlag=")[1];
 			var pollutionContainer = Ext.getCmp('pollutionContainer');
 			if (splitStr) {
 				var pollutionFlag = splitStr.split("&")[0];
-
-				// if (pollutionFlag) {
-				// 	pollutionContainer.show();
-				// } else {
-				// 	pollutionContainer.hide();
-				// }
 			}
-			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
-			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
-			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
-			selSIDO = opener.Ext.getCmp("cmbArea1").lastSelection;
-			selSIGUNGU = opener.Ext.getCmp("cmbArea2").lastSelection;
-			selDONGRI = opener.Ext.getCmp("cmbArea3").lastSelection;
-
-			_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		}
 
-		//console.info(selWS);
 		if (selWS != undefined && selWS != null & selWS.length > 0) {
 			_WS_CD = selWS[0].data.id;
 			_WS_NM = selWS[0].data.name;
@@ -137,49 +152,12 @@ store.load(function (a, b, c) {
 			_ADM_DONGRI_CD = selDONGRI[0].data.id;
 			_ADM_DONGRI_NM = selDONGRI[0].data.name;
 		}
-	});
 
-
-
-	Ext.application({
-
-		name: 'Report',
-
-		launch: function () {
-			Ext.create("Report.view.main.rptExtViewMain", {
-				renderTo: Ext.getBody()
-			});
-		}
-	});
-
-});
-/*
-* 박철 추가 API URL 를 JSON으로 관리
-*/
-var _API = null;
-
-var apiStore = Ext.create('Ext.data.Store', {
-	autoLoad: true,
-
-	fields: [{
-		name: 'apiUrls'
-	}],
-	proxy: {
-		type: 'ajax',
-		url: '../resources/data/APIUrlsTobe.json',
-		reader: {
-			type: 'json'
-		}
+		Ext.create("Report.view.main.rptExtViewMain", {
+			renderTo: Ext.getBody()
+		});
 	}
 });
-
-apiStore.load(function (a, b, c) {
-	_API = a[0].data;
-
-	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://localhost:8071');
-});
-
 
 
 var percentile = {
