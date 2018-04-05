@@ -1,4 +1,4 @@
-Ext.define('KRF_krf_new.store.south.SearchResultGrid_F_2', {
+Ext.define('krf_new.store.south.SearchResultGrid_F_2', {
 	extend: 'Ext.data.Store',
 	fields: [
 		'FACI_CD',
@@ -24,9 +24,9 @@ Ext.define('KRF_krf_new.store.south.SearchResultGrid_F_2', {
 	siteIds: "",
 	parentIds: [],
 	gridCtl: null,
-
 	listeners: {
 		load: function (store) {
+
 			var me = this;
 			var startYear = startMonth = endYear = endMonth = "";
 			startYear = Ext.getCmp("cmbStartYear").value;
@@ -47,7 +47,6 @@ Ext.define('KRF_krf_new.store.south.SearchResultGrid_F_2', {
 				me.gridCtl.addCls("dj-mask-withimg");
 				me.gridCtl.mask("loading", "loading...");
 			}
-
 			if (firstSearch == "noDate") {
 				Ext.Ajax.request({
 					url: _API.GetSearchResultData_F_2, //'./resources/jsp/GetSearchResultData_F_2.jsp',
@@ -68,6 +67,7 @@ Ext.define('KRF_krf_new.store.south.SearchResultGrid_F_2', {
 									return;
 								}
 								var afterVal = dateSplit.split("-");
+
 								startYear = afterVal[0];
 								if (afterVal[1] == "1" || afterVal[1] == "01") {
 									startMonth = "12";
@@ -83,9 +83,6 @@ Ext.define('KRF_krf_new.store.south.SearchResultGrid_F_2', {
 								endMonth = afterVal[1];
 							}
 						}
-					},
-					failure: function (form, action) {
-						console.info("error");
 					}
 				});
 				firstSearch = "date";
@@ -101,7 +98,7 @@ Ext.define('KRF_krf_new.store.south.SearchResultGrid_F_2', {
 					, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 					, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch
 				},
-				async: true, // 비동기 = async: true, 동기 = async: false
+				async: false, // 비동기 = async: true, 동기 = async: false
 				success: function (response, opts) {
 					store.startYear = startYear;
 					store.startMonth = startMonth;

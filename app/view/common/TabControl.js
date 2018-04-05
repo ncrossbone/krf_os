@@ -721,7 +721,7 @@ Ext.define('krf_new.view.common.TabControl', {
 
 				} else {
 
-					if (tab.id == "searchResultReach_container") {
+					if (tab.id == "searchResultReach_container" || tab.parentId == "J") {
 						Ext.getCmp("resultTab").hide();
 						Ext.getCmp("tabCondition").hide();
 					} else {
@@ -759,7 +759,9 @@ Ext.define('krf_new.view.common.TabControl', {
 
 						}
 
-					} else {
+					} else if(tab.parentId == "J"){
+
+					}else {
 						startLabel.setText("월");
 						endLabel.setText("월");
 						cmbStartMonth.setHidden(false);
