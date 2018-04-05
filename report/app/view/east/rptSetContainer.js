@@ -128,7 +128,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 
 						var paramUrl = '../ClipReport4/reportView.jsp?';
 
-
+						
 						reportMap.report(paramCode, startYear, endYear, function (imagePath) {
 							paramUrl += 'imgPath=' + encodeURIComponent(imagePath);
 							paramUrl += '&paramCode=' + paramCode;

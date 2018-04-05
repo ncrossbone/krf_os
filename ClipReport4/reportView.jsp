@@ -29,9 +29,11 @@ oof.addField("IMG_PATH",imgPath);
 
 oof.addField("POLLIMGCNT",pollutionCnt);
 
+String pollImgAllStr = "";
 for(int i = 0; i < pollImg.length; i++){
 	if(pollImg[i]!=null){
 		String replacePollImg = pollImg[i].replace("\\",",");
+		pollImgAllStr += replacePollImg + "@";
 		oof.addField("POLLIMG0" + (i + 1),replacePollImg); 
 	}
 }
@@ -67,60 +69,48 @@ String resultKey =  ReportUtil.createReport(request, oof, "false", "false", requ
 
 var _imgPath = "<%=replaceImgPath%>";
 
+var _pollPath = "<%=pollImgAllStr%>";
 	//이미지 경로 "," -> "//"로 대체
 	//UserConfig.js 에서 호출
 	//2016.10.18 ph
 	function imgPathReplace() {
+		var replaceImgPath = _imgPath.replace(/,/g, "\\");
+		var imageArr = [];
+		if(_pollPath != ""){
+			var pollPath = _pollPath.split('@');
+			for(var i = 0; i < pollPath.length; i++){
+				if(i != pollPath.length - 1){
+					imageArr.push(pollPath[i].replace(/,/g, "\\"));
+				}
+			}
+		}
 
-		var replaceImgPath;
-		replaceImgPath = _imgPath.replace(/,/g, "\\");
+		imageArr.push(replaceImgPath);
 
-		return replaceImgPath;
+		return imageArr;
 	}
 
 	//이미지 제거
 	//UserConfig.js 에서 호출
 	//2016.10.18 ph
-	function imgDelete(replaceImgPath) {
+	function imgDelete(imageArr) {
+		var imgPath = '';
 
-		var svgPath = getSvgPngPath(replaceImgPath, "svg");
-		var pngPath = getSvgPngPath(replaceImgPath, "png");
-		
+		for(var i = 0; i < imageArr.length; i++){
+			if(i != imageArr.length - 1){
+				imgPath += imageArr[i] + ',';
+			}else{
+				imgPath += imageArr[i];
+			}
+		}
+
+		var params = { resultParam : imgPath };
 		$.ajax({
 			type : "POST",
 			url : "../resources/jsp/ImgDelete.jsp",
-			data : {
-				resultParam : replaceImgPath,
-				svgParam : svgPath,
-				pngParam : pngPath
-			}
-		}).done(function(response) {
-		});
+			data : params
+		})
 
-	}
-	
-	// svg,png 경로 가져오기
-	// 2016.10.19 ph
-	function getSvgPngPath(replaceImgPath, condition) {
-
-		var splitReplaceImgPath = replaceImgPath.split("\\");
-		var splitName = splitReplaceImgPath[splitReplaceImgPath.length-1].split("_");
-		var splitExt = splitName[1].split(".");
-		var path = "";
-
-		for (var i = 0; i < splitReplaceImgPath.length - 1; i++) {
-			path += splitReplaceImgPath[i] + "\\";
-		}
-
-		var result = path + "svg_" + splitExt[0];
-
-		if (condition == "svg") {
-			result += ".svg";
-		} else if (condition == "png") {
-			result += ".png";
-		}
-
-		return result; 
 	}
 </script>
 <script type='text/javascript' src='./js/clipreport.js'></script>
