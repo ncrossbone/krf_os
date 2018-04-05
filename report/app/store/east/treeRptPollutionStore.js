@@ -14,16 +14,16 @@ Ext.define('Report.store.east.treeRptPollutionStore', {
             if (!pollObj) {
                 return;
             }
-            
+
             var treeObj = { id: '0', siteName: '오염원', cls: 'khLee-x-tree-node-text-bold', checked: null, expanded: true, children: [] };
 
 
             for (var i = 0; i < pollObj.length; i++) {
                 var pollArr = pollObj[i][1][0];
-                if(pollObj[i][1][0] == null || pollObj[i][1][0].length <= 0 ){
+                if (pollObj[i][1][0] == null || pollObj[i][1][0].length <= 0) {
                     continue;
                 }
-                var firstDepth = { id: pollObj[i][0], siteName: pollObj[i][2]+'( '+pollObj[i][1][0].length+' )', cls: 'khLee-x-tree-node-text-bold', checked: false, expanded: false, leaf: true, iconCls: 'layerNoneImg', reachData: pollObj[i][1][0] };
+                var firstDepth = { id: pollObj[i][0], imgFlag: '미생성', siteName: pollObj[i][2] + '( ' + pollObj[i][1][0].length + ' )', cls: 'khLee-x-tree-node-text-bold', checked: false, expanded: false, leaf: true, iconCls: 'layerNoneImg', reachData: pollObj[i][1][0] };
                 treeObj.children.push(firstDepth);
             }
 
