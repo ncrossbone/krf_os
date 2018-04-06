@@ -43,7 +43,11 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 	onAreaChange: function (combo, record, eOpts) {
 
 		if (combo.tarCmbId != undefined && combo.tarCmbId != "") {
-			this.setComboData(combo.tarCmbId, record.data.id);
+			if(record.data){
+				this.setComboData(combo.tarCmbId, record.data.id);
+			}else{
+				this.setComboData(combo.tarCmbId, record);
+			}
 		}
 
 		this.setCtlDisable(combo.id);
