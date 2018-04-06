@@ -35,13 +35,22 @@ Ext.define('Report.view.east.PollutionController', {
 				for (var i = 0; i < node.data.reachData.length; i++) {
 					catDatas.push(node.data.reachData[i].data);
 				}
+
 				Ext.getCmp("treeRptPollutionList").removeCls("dj-mask-noneimg");
 				Ext.getCmp("treeRptPollutionList").addCls("dj-mask-withimg");
 				Ext.getCmp("treeRptPollutionList").mask("loading", "loading...");
 
 				reportMap.showCatPollutionLayer(catDatas, year, collNm, pollutionKind + '', function (imgPath) {
 					node.data.imgPath = imgPath;
-					Ext.getCmp("treeRptPollutionList").unmask();
+					var treeRptPollutionList = Ext.getCmp('treeRptPollutionList');
+					var models = treeRptPollutionList.getStore().getRange();
+
+					for (var i = 0; i < models.length; i++) {
+						if (models[i].id == node.id) {
+							models[i].set('imgFlag', '생성 완료');
+						}
+					}
+					treeRptPollutionList.unmask();
 				});
 			}
 		}

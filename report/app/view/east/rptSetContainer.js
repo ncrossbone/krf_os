@@ -121,14 +121,14 @@ Ext.define('Report.view.east.rptSetContainer', {
 
 								if (pollutionStore.data.items[i].data.checked == true) {
 									pollCnt++;
-									pollutionImages += '&img0' + (i + 1) + '=' + encodeURIComponent(pollutionStore.data.items[i].data.imgPath);
+									pollutionImages += '&img' + pollutionStore.data.items[i].data.id + '=' + encodeURIComponent(pollutionStore.data.items[i].data.imgPath);
 								}
 							}
 						}
 
 						var paramUrl = '../ClipReport4/reportView.jsp?';
 
-
+						
 						reportMap.report(paramCode, startYear, endYear, function (imagePath) {
 							paramUrl += 'imgPath=' + encodeURIComponent(imagePath);
 							paramUrl += '&paramCode=' + paramCode;

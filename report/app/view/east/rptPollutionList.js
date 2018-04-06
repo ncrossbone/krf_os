@@ -48,7 +48,7 @@ Ext.define('Report.view.east.rptPollutionList', {
             text: "리치",
             align: "left",
             style: "color:black;",
-            width: 150,
+            width: 221,
             sortable: false,
             dataIndex: 'siteName',
             //dataIndex: 'text',
@@ -56,11 +56,12 @@ Ext.define('Report.view.east.rptPollutionList', {
             locked: true
         }, {
             //xtype: 'treecolumn',
-            text: "주소",
-            width: 300,
+            text: "이미지 생성",
+            width: 206,
             style: "color:black; text-align:center;",
             sortable: false,
-            dataIndex: 'siteAddr',
+            dataIndex: 'imgFlag',
+            align: 'center',
             checked: false
         }/*, {
             //xtype: 'treecolumn',

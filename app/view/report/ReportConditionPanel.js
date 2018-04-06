@@ -232,8 +232,8 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 					var areaStr = 'area';
 					var itemStr = 'item';
-					var startYear = 'startYear=';
-					var endYear = 'endYear=';
+					var startYear = 'startYear=&';
+					var endYear = 'endYear=&';
 					var iYear = 'year=';
 
 					var paramStr = '&';
@@ -251,9 +251,9 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 
 						if (conObj.length > 0) {
 							if (key == 'reportCondition1') {
-								startYear += conObj[0].value + '&';
+								startYear = 'startYear=' + conObj[0].value + '&';
 							} else if (key == 'reportCondition2') {
-								endYear += conObj[0].value + '&';
+								endYear = 'endYear=' + conObj[0].value + '&';
 							} else if (key == 'reportCondition0') {
 								iYear += conObj[0].value;
 							} else {
@@ -267,7 +267,6 @@ Ext.define('krf_new.view.report.ReportConditionPanel', {
 							}
 						}
 					}
-
 					return paramStr + startYear + endYear + iYear;
 				},
 				listeners: {

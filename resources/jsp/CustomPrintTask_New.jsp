@@ -29,7 +29,6 @@
 		
 		// 맵 이미지 저장 폴더
 		String imgSavePath = request.getSession().getServletContext().getRealPath(imgSaveUrl);
-		imgSavePath = imgSavePath.substring(0,imgSavePath.length()-1);
 		
 		if(fileName==null){
 			
