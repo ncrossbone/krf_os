@@ -410,7 +410,8 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 												if (comboDatas && comboDatas.length > 0) {
 													comInstance.setValue(selectData.cmb[i].value);
 												}
-												comInstance.fireEvent('select', comInstance, null, selectData.cmb[i].value, selectData.cmb[i].childValue);
+												
+												comInstance.fireEvent('select', comInstance, selectData.cmb[i].value);
 											}
 										}
 
