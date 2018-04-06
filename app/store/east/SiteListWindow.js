@@ -1019,10 +1019,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 							sstgString += "	  } \n";
 
-						} else {
+						} 
+					} else {
 
-							sstgString = "";
-						}
+						sstgString = "";
 					}
 
 					if (typeof (callback) == 'function') {
