@@ -420,6 +420,27 @@
 		"layerCode": "EsstgHg",
 		"isMetaData": true
 	}]
+},{
+	"id": "P0",
+	"text": "생활안전",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "P1",
+		"wmsId":"",
+		"text": "폐수방류량",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": true
+	}]
 }, {
 	"id": "26",
 	"text": "환경기초시설",

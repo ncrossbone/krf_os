@@ -29,6 +29,8 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 			//소하천의경우 layer01 json 에서 아이디를 다르게 해줌 / 맵서비스가 다르기때문에 on/off 핸들러를 다르게 씀
 			if (node.id.substring(0,1) == "S") {
 				$KRF_APP.fireEvent($KRF_EVENT.SRIVER_DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
+			}else if(node.id.substring(0,1) == "P"){
+				$KRF_APP.fireEvent($KRF_EVENT.PULL_WATER_DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
 			}else{
 				$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
 			}
@@ -49,8 +51,9 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 
 				// 1 dep 선택시 소하천일경우 ( 소하천의 경우 다른 케이스로 서비스가 달라서 나눔)
 				if(child.data.parentId == 'S'){
-					console.info("here");
 					$KRF_APP.fireEvent('sRiverdynamicLayerOnOff', me.getView().getChecked());
+				}else if(child.data.parentId == 'P0'){
+					$KRF_APP.fireEvent('pullWaterdynamicLayerOnOff', me.getView().getChecked());
 				}else{
 					$KRF_APP.fireEvent('dynamicLayerOnOff', me.getView().getChecked());
 				}

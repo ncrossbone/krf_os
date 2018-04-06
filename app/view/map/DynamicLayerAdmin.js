@@ -33,15 +33,36 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayerSRiver.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayerSRiver);
 
+		me.dynamicLayerPullWater = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.pullWater);
+		me.dynamicLayerPullWater.id = "DynamicLayerPullWater";
+		me.dynamicLayerPullWater.visible = true;
+		me.dynamicLayerPullWater.setVisibleLayers([-1]);
+		me.map.addLayer(me.dynamicLayerPullWater);
+
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DRON_DYNAMIC_LAYER_ON_OFF, me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.SRIVER_DYNAMIC_LAYER_ON_OFF, me.sRiverdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
+		$KRF_APP.addListener($KRF_EVENT.PULL_WATER_DYNAMIC_LAYER_ON_OFF, me.pullWaterdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 	},
 	applyRenderer: function (renderer) {
 	},
 
 	// 레이어 on/off 핸들러 정의
 	drondynamicLayerOnOffHandler: function (selectInfo) {
+	},
+
+	pullWaterdynamicLayerOnOffHandler: function(selectInfo){
+		var me = this;
+		var pullWater = [-1];
+		me.dynamicLayerPullWater.setVisibleLayers(pullWater);
+
+		Ext.each(selectInfo, function (selectObj, index, eObjs) {
+			if(selectObj.data.id.indexOf("P") > -1){
+				pullWater.push(0);
+			}
+		});
+		
+		me.dynamicLayerPullWater.setVisibleLayers(pullWater);
 	},
 
 	//소하천 레이어 on/off 핸들러 정의
