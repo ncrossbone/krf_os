@@ -1868,6 +1868,7 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 	}
 
 	var layerId = "";
+	
 	if (parentNodeId == "Cat") { // 집수구역
 		layerId = $KRF_DEFINE.reachAreaLayerId;
 		$KRF_APP.fireEvent($KRF_EVENT.SET_SELECTED_CAT_AREA, layerId, nodeId);
@@ -1875,6 +1876,9 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 		$KRF_APP.fireEvent($KRF_EVENT.SET_SELECTED_RCHLINE, layerId, nodeId);
 		return;
 	} else {
+		if(parentNodeId.substring(0,1) == "E"){
+			parentNodeId = parentNodeId.substring(0,7);
+		}
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
 		

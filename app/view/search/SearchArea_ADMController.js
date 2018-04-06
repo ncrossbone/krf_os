@@ -191,6 +191,7 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
 				searchText: 'admSearch',
+				searchType: null,
 				isBookmark: false
 			});
 

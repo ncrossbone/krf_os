@@ -25,25 +25,27 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			var startPoint = Ext.getCmp("textSearchText_Start");
 			var endPoint = Ext.getCmp("textSearchText_End");
 
-
+			var bookParamObj = "";
 			if (store.param.isBookmark) {
 				var bookmarkData = store.param.bookmarkData;
-				if (store.param.searchText = 'waterSearch') {
+				if (bookmarkData.searchText = 'waterSearch') {
 					buttonInfo1.lastValue = bookmarkData.value1;
 					buttonInfo2.lastValue = bookmarkData.value2;
 					buttonInfo3.lastValue = bookmarkData.value3;
-				} else if (store.param.searchText = 'admSearch') {
+				} else if (bookmarkData.searchText = 'admSearch') {
 					amdBtn1.lastValue = bookmarkData.value1;
 					amdBtn2.lastValue = bookmarkData.value2;
 					amdBtn3.lastValue = bookmarkData.value3;
 				} else if (store.param.searchText = 'nameSearch') {
 					nameInfo.rawValue = bookmarkData.value1;
 				}
+				bookParamObj ={ searchText: store.param.searchText };
+			}else{
+				bookParamObj ={ searchText: store.param.searchText };
 			}
 
-			var bookParamObj = { searchText: store.param.searchText };
 			//console.info(bookParamObj.searchText);
-			console.info(store.searchType);
+			
 			//var catDid = [];
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
@@ -179,7 +181,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			Ext.getCmp("siteListTree").removeCls("dj-mask-noneimg");
 			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");
 			Ext.getCmp("siteListTree").mask("loading", "loading...");
-			console.info(query.where);
+			
 			queryTask.execute(query, function (result) {
 				
 				this.result = result;
@@ -509,9 +511,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 		var queryWhere = "";
 
+		var sstgSearchType = this.searchType;
 		
 		if (this.searchType == "paramSearch") {
 			var params = Ext.urlDecode(location.search.substring(1));
+			
 			var siteIds = params.station.split("|");
 			var inTxt = "";
 			for (var i = 0; i < siteIds.length; i++) {
@@ -579,52 +583,82 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										};
 
 					
-
-					for(var k = 0 ; k < jsonData.data.length; k++){
-						
-						if(jsonData.data[k].SE == "하구"){
-							if(jsonData.data[k].ATAL_SE == "1"){
-								ssgtObj.hg.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].BEMA_SE == "1"){
-								ssgtObj.hg.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].FISH_SE == "1"){
-								ssgtObj.hg.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].VTN_SE == "1"){
-								ssgtObj.hg.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-						}else if(jsonData.data[k].SE == "하천"){
-							if(jsonData.data[k].ATAL_SE == "1"){
-								ssgtObj.hc.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].BEMA_SE == "1"){
-								ssgtObj.hc.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].FISH_SE == "1"){
-								ssgtObj.hc.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].VTN_SE == "1"){
-								ssgtObj.hc.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].QLTWTR_SE == "1"){
-								ssgtObj.hc.QLTWTR_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-							}
-
-							if(jsonData.data[k].INHA_SE == "1"){
-								ssgtObj.hc.INHA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+						for(var k = 0 ; k < jsonData.data.length; k++){
+							
+							
+							if (sstgSearchType == "paramSearch") {
+								if(params.stationType == "BT1"){
+									if(params.flag == "HcAtalSe"){
+										ssgtObj.hc.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HcBemaSe"){
+										ssgtObj.hc.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HcFishSe"){
+										ssgtObj.hc.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HcInhaSe"){
+										ssgtObj.hc.INHA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HcQltwtrSe"){
+										ssgtObj.hc.QLTWTR_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HcVtnSe"){
+										ssgtObj.hc.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+								}else if(params.stationType == "BT2"){
+									if(params.flag == "HgAtalSe"){
+										ssgtObj.hg.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HgBemaSe"){
+										ssgtObj.hg.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HgFishSe"){
+										ssgtObj.hg.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}else if(params.flag == "HgVtnSe"){
+										ssgtObj.hg.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+								}
+							}else{
+								if(jsonData.data[k].SE == "하구"){
+									if(jsonData.data[k].ATAL_SE == "1"){
+										ssgtObj.hg.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].BEMA_SE == "1"){
+										ssgtObj.hg.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].FISH_SE == "1"){
+										ssgtObj.hg.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].VTN_SE == "1"){
+										ssgtObj.hg.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+								}else if(jsonData.data[k].SE == "하천"){
+									if(jsonData.data[k].ATAL_SE == "1"){
+										ssgtObj.hc.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].BEMA_SE == "1"){
+										ssgtObj.hc.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].FISH_SE == "1"){
+										ssgtObj.hc.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].VTN_SE == "1"){
+										ssgtObj.hc.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].QLTWTR_SE == "1"){
+										ssgtObj.hc.QLTWTR_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+		
+									if(jsonData.data[k].INHA_SE == "1"){
+										ssgtObj.hc.INHA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
+									}
+								}
 							}
 						}
-					}
+
+					
 					
 					
 					var hcLengChk = ssgtObj.hc.ATAL_SE.length +
@@ -645,7 +679,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							sstgString += "	\"id\": \"Esstg\",\n";
 							sstgString += "		\"text\": \"생물측정망\",\n"; 
 							sstgString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-							sstgString += "	\"expanded\": false,\n";
+							sstgString += "	\"expanded\": true,\n";
 							sstgString += "	\"checked\": null,\n";
 							sstgString += "	\"infoBtnDisabled\": true,\n";
 							sstgString += "	\"chartBtnDisabled\": true,\n";
@@ -659,7 +693,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								sstgString += "	\"title\": \"하천\",\n"; 
 								sstgString += "	\"visible\": \"true\",\n";
 								sstgString += "	\"text\": \"하천\",\n"; 
-								sstgString += "	\"expanded\": false,\n";
+								sstgString += "	\"expanded\": true,\n";
 								sstgString += "	\"infoBtnDisabled\": true,\n";
 								sstgString += "	\"chartBtnDisabled\": true,\n";
 								sstgString += "	\"srchBtnDisabled\": true,\n";
@@ -842,7 +876,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							sstgString += "	\"title\": \"하구\",\n"; 
 							sstgString += "	\"visible\": \"true\",\n";
 							sstgString += "	\"text\": \"하구\",\n"; 
-							sstgString += "	\"expanded\": false,\n";
+							sstgString += "	\"expanded\": true,\n";
 							sstgString += "	\"infoBtnDisabled\": true,\n";
 							sstgString += "	\"chartBtnDisabled\": true,\n";
 							sstgString += "	\"srchBtnDisabled\": true,\n";

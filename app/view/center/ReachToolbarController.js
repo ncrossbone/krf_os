@@ -106,15 +106,18 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		} else {
 
 			//tmp에 저장되어 있는 graphic을 지우고 원래 graphic으로 배열을 넘겨준다.
-
+//graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp
 			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+			console.info($KRF_APP.subMap._krad.arrLineGrpTmp);
 			for (var i = 0; i < $KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++) {
 				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrLineGrpTmp[i], $KRF_APP.coreMap._krad.reachLineSym
-					, $KRF_APP.coreMap._krad.lineGrpLayer, $KRF_APP.coreMap._krad.arrLineGrp, reachAdmin.arrLineGrp)
+					, $KRF_APP.coreMap._krad.lineGrpLayer, $KRF_APP.coreMap._krad.arrLineGrp, reachAdmin.arrLineGrp);
+					
 			};
 			for (var j = 0; j < $KRF_APP.coreMap._krad.arrAreaGrpTmp.length; j++) {
 				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrAreaGrpTmp[j], $KRF_APP.coreMap._krad.reachAreaSym
 					, $KRF_APP.coreMap._krad.areaGrpLayer, $KRF_APP.coreMap._krad.arrAreaGrp, reachAdmin.arrAreaGrp);
+					
 			};
 
 			// 검색 종료 체크(지점목록,검색결과)
@@ -123,6 +126,12 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 			$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
 			$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
+			if($KRF_APP.coreMap._krad.checkSubMap()){
+				$KRF_APP.subMap._krad.arrLineGrpTmp = [];
+				$KRF_APP.subMap._krad.arrAreaGrpTmp = [];
+			}
+			
+
 			reachAdmin.arrLineGrpTmp = [];
 			reachAdmin.arrAreaGrpTmp = [];
 		}

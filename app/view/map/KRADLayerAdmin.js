@@ -2979,7 +2979,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     
     /* 그래픽 그리기 */
     drawGraphic: function(graphic, grpType){
-    	
+    	console.info(grpType);
     	var me = this;
     	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
     	if(grpType == "reachLine"){
@@ -3056,6 +3056,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		var me = this;
 		//subMap 레이어 올리기 ( ** object copy ** );
 		if(me.checkSubMap()){ // 미니맵이 켜져있는지 확인
+			console.info("?");
 			me.subMapLayerDraw(layer,symbol,graphic);
 		}
 
@@ -3090,14 +3091,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(currId);
 		
 		if(idx == -1){
-			
+			console.info(layer.id)
 
 			//subMap 레이어 올리기 ( ** object copy ** );
 			if(me.checkSubMap()){// 미니맵이 켜져있는지 확인
 				me.subMapLayerDraw(layer,symbol,graphic);
 			}
-			
-
+			console.info($KRF_APP.coreMap._krad[layer.id]);
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
 			layer.add(graphic);
@@ -3111,7 +3111,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	
 	//미니맵 레이어 
 	subMapLayerDraw: function(layer,symbol,graphic){
-
+		
 		var subGraphic = $.extend({}, graphic);
 		var subSymbol = $.extend({}, symbol);
 		
