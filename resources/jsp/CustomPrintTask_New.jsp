@@ -109,7 +109,6 @@
 				graphic.drawImage(svgImg, null, 0, 0);
 
 				if(legendInfo != null && !"null".equals(legendInfo)){
-					System.out.println("stqp4");
 					int leHeight = Integer.parseInt(request.getParameter("legendHeight"));
 
 					legendInfo = legendInfo.replace("xmlns=\"http://www.w3.org/2000/svg\"", "");
