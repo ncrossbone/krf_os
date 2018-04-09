@@ -885,16 +885,25 @@ Ext.define('krf_new.view.common.TabControl', {
 						dataArr = store.data.map[1].value;
 
 					}
+					console.info(dataArr);
 					for (var i = 0; i < dataArr.length; i++) {
+
+
 						// khLee 수정 값 변경
 						var strData = JSON.stringify(dataArr[i].data);
-						console.info(strData);
-						//고려 해봐야함
+						//console.info(Object.values(dataArr[i].data));
+						//고려 해봐야함    " : " 포함
 						//if (strData == "888888888" || strData == "999999999") {
-							strData = strData.replace(/888888888/gi, "\"\"");
-							strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+							if(strData.indexOf("\:888888888")){
+								strData = strData.replace(/888888888/gi, "\"\"");
+							}
+							
+							if(strData.indexOf(':999999999')){
+								strData = strData.replace(/:999999999/gi, "\:\"정량한계미만\"");
+							}
+							
+							
 						//}
-
 						var convertData = JSON.parse(strData);
 						//datas.push(dataArr[i].data);
 						datas.push(convertData);
