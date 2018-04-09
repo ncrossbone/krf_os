@@ -19,7 +19,7 @@ Ext.define('Desktop.MapWindow', {
 
 	init: function () {
 		this.launcher = {
-			text: '<span class="krf-os-startmenu-text">KRF</span>',
+			text: '<span class="krf-os-startmenu-text">물환경 지리정보</span>',
 			iconCls: 'krf-os-startmenu-krf-icon'
 		};
 
