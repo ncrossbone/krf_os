@@ -87,8 +87,8 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 
 						for (var i = 0; i < userLayerSet.length; i++) {
 							userLayerSet[i].checked = false;
-							if (userLayerSet[i].text == '하천망도' ||
-								userLayerSet[i].text == '소하천') {
+							if (userLayerSet[i].text == '하천망도' /*||
+						userLayerSet[i].text == '소하천'*/) {
 								userLayerSet.splice(i, 1);
 								i--;
 								continue;

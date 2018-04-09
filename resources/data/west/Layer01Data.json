@@ -668,7 +668,7 @@
 	"children": [{
 		"id": "S0",
 		"text": "소하천 노드",
-		//"wmsId":"41",
+		"wmsId":"S2",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer87",
 		"leaf": true,
@@ -677,7 +677,7 @@
 		"metaDataId":"S001"
 	},{
 		"id": "S1",
-		//"wmsId":"40",
+		"wmsId":"S1",
 		"text": "소하천 리치라인",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer88",
