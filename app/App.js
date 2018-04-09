@@ -64,7 +64,7 @@ Ext.define('krf_new.Desktop.App', {
             shortcuts: Ext.create('Ext.data.Store', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
-                    { name: 'KRF', text: 'KRF', iconCls: 'krf-os-krf-icon', module: $KRF_APP.KRF_MODE },
+                    { name: 'KRF', text: '물환경<br>지리정보', iconCls: 'krf-os-krf-icon', module: $KRF_APP.KRF_MODE },
                     { name: 'Staus', text: '현황판', iconCls: 'krf-os-status-icon',  module: $KRF_APP.STATUS_MODE },
                     { name: 'Report', text: '레포트', iconCls: 'krf-os-report-icon', module: $KRF_APP.REPORT_MODE },
                     { name: 'threeDim', text: '3D지도', iconCls: 'krf-os-threedim-icon', module: $KRF_APP.THREEDIM_MODE },
