@@ -2768,12 +2768,13 @@ metaDataView = function (layerId) {
 	metaStore.load();
 		
 }
-
+ 
 miniMapHide = function(){
 	//미니맵 EDIT EVENT 끄기
 	$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 	var subMapWindow = Ext.getCmp("subMapWindow");
 	subMapWindow.hide();
+	SetBtnOnOff("btnMenu010", "off");
 	$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
 
 }
