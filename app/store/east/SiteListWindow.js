@@ -28,7 +28,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			var endPoint = Ext.getCmp("textSearchText_End");
 
 			var bookParamObj = "";
-			console.info(store)
+			
 			if (store.param.isBookmark) {
 				var bookmarkData = store.param.bookmarkData;
 				if (bookmarkData.searchText == 'waterSearch') {
@@ -415,7 +415,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonStr += "]\n";
 
 					jsonStr += "}";
-					console.info(sstgString);
+					
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);
 
@@ -518,9 +518,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		var queryWhere = "";
 
 		var sstgSearchType = this.searchType;
-		console.info(this);
-		console.info(this.query);
-		console.info(this.searchType);
+		
 		if (this.searchType == "paramSearch") {
 			var params = Ext.urlDecode(location.search.substring(1));
 			
