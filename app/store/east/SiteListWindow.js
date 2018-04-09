@@ -4,11 +4,13 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 	remoteSort: true,
 	catDid: [],
 	result: null,
+	query : null,
 	listeners: {
 
 		load: function (store) {
 			//this.searchType = "";
 			this.searchType = store.searchType;
+			this.store = store;
 			var nameInfo = Ext.getCmp("textSearchText");
 			//대권역
 			var buttonInfo1 = Ext.getCmp("cmbWater1");
@@ -26,7 +28,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			var endPoint = Ext.getCmp("textSearchText_End");
 
 			var bookParamObj = "";
-			console.info(store)
+			
 			if (store.param.isBookmark) {
 				var bookmarkData = store.param.bookmarkData;
 				if (bookmarkData.searchText == 'waterSearch') {
@@ -185,7 +187,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			Ext.getCmp("siteListTree").removeCls("dj-mask-noneimg");
 			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");
 			Ext.getCmp("siteListTree").mask("loading", "loading...");
-			
+			this.query = query;
 			queryTask.execute(query, function (result) {
 
 				this.result = result;
@@ -413,7 +415,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonStr += "]\n";
 
 					jsonStr += "}";
-
+					
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);
 
@@ -531,25 +533,30 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			queryWhere = "JIJUM_CODE in (" + inTxt;
 		} else {
 
-			if (this.catDid.length == 0) {
-				if (typeof (callback) == 'function') {
-					callback.call(this, sstgString);
-					return;
+			// if (this.catDid.length == 0) {
+			// 	if (typeof (callback) == 'function') {
+			// 		callback.call(this, sstgString);
+			// 		return;
+			// 	}
+			// }
+
+			// 리치검색시
+			if(this.searchType == "selectReach"){
+				queryWhere += "CAT_DID IN (";
+				for (var i = 0; i < this.catDid.length; i++) {
+					if (i == this.catDid.length - 1) {
+						queryWhere += "'" + this.catDid[i] + "'";
+					} else {
+						queryWhere += "'" + this.catDid[i] + "',";
+					}
+
 				}
+				queryWhere += ") AND GROUP_CODE = 'E' ";
+			}else{ // 일반검색시
+				//console.info(this.query.where + "AND GROUP_CODE = 'E' ");
+				queryWhere = this.query.where + "AND GROUP_CODE = 'E' ";
 			}
-
-
-
-			queryWhere += "CAT_DID IN (";
-			for (var i = 0; i < this.catDid.length; i++) {
-				if (i == this.catDid.length - 1) {
-					queryWhere += "'" + this.catDid[i] + "'";
-				} else {
-					queryWhere += "'" + this.catDid[i] + "',";
-				}
-
-			}
-			queryWhere += ") AND GROUP_CODE = 'E' ";
+			
 		}
 
 
@@ -844,50 +851,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								}
 								sstgString += "	]},";
 							}
-							sstgString += "	 ]}, \n";
-						}
-						
-						if(hgLengChk > 0){
-		
-							sstgString += "	  { \n";
-							sstgString += "	\"id\": \"EsstgHg\",\n";
-							sstgString += "	\"title\": \"하구\",\n"; 
-							sstgString += "	\"visible\": \"true\",\n";
-							sstgString += "	\"text\": \"하구\",\n"; 
-							sstgString += "	\"expanded\": true,\n";
-							sstgString += "	\"infoBtnDisabled\": true,\n";
-							sstgString += "	\"chartBtnDisabled\": true,\n";
-							sstgString += "	\"srchBtnDisabled\": true,\n";
-							sstgString += "	\"children\": [";
-							if(ssgtObj.hg.ATAL_SE.length > 0 ){
-								sstgString += "	  { \n";
-								sstgString += "	\"id\": \"EsstgHgAtalSe\",\n";
-								sstgString += "	\"title\": \"부착돌말류\",\n"; 
-								sstgString += "	\"visible\": \"true\",\n";
-								sstgString += "	\"text\": \"부착돌말류\",\n"; 
-								sstgString += "	\"expanded\": false,\n";
-								sstgString += "	\"infoBtnDisabled\": true,\n";
-								sstgString += "	\"chartBtnDisabled\": true,\n";
-								sstgString += "	\"srchBtnDisabled\": false,\n";
-								sstgString += "	\"children\": [";
-								for(var sstgHgAtalSe = 0 ; sstgHgAtalSe < ssgtObj.hg.ATAL_SE.length; sstgHgAtalSe++){
-									sstgString += "{\n";
-									sstgString += "			\"id\": \"EsstgHgAtalSe" + ssgtObj.hg.ATAL_SE[sstgHgAtalSe].id + "\",\n";
-									sstgString += "			\"text\": \"" + ssgtObj.hg.ATAL_SE[sstgHgAtalSe].name + "\",\n";
-									sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.ATAL_SE[sstgHgAtalSe].id + "\",\n";
-									sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
-									sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
-									sstgString += "			\"leaf\": true,\n";
-									sstgString += "			\"checked\": null,\n";
-									sstgString += "			\"infoBtnDisabled\": true,\n";
-									sstgString += "			\"chartBtnDisabled\": true,\n";
-									sstgString += "			\"srchBtnDisabled\": false,\n";
-									sstgString += "		}, ";
-								}
-								sstgString += "	 ]}, \n";
-							}
-
-							if (hgLengChk > 0) {
+							if(hgLengChk > 0){
 
 								sstgString += "	  { \n";
 								sstgString += "	\"id\": \"EsstgHg\",\n";
@@ -926,7 +890,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									}
 									sstgString += "	]},";
 								}
-
+	
 								if (ssgtObj.hg.BEMA_SE.length > 0) {
 									sstgString += "	  { \n";
 									sstgString += "	\"id\": \"EsstgHgBemaSe\",\n";
@@ -954,7 +918,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									}
 									sstgString += "	]},";
 								}
-
+	
 								if (ssgtObj.hg.FISH_SE.length > 0) {
 									sstgString += "	  { \n";
 									sstgString += "	\"id\": \"EsstgHgFishSe\",\n";
@@ -982,7 +946,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									}
 									sstgString += "	]},";
 								}
-
+	
 								if (ssgtObj.hg.VTN_SE.length > 0) {
 									sstgString += "	  { \n";
 									sstgString += "	\"id\": \"EsstggcVtnSe\",\n";
@@ -1010,16 +974,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									}
 									sstgString += "	]},";
 								}
-
-								sstgString += "	 ]} \n";
+						
 							}
+							
+							sstgString += "	 ]}, \n";
+						}
+						 
+						sstgString += "	  ]} \n";
 
-
-							sstgString += "	  ] \n";
-
-							sstgString += "	  } \n";
-
-						} 
 					} else {
 
 						sstgString = "";
