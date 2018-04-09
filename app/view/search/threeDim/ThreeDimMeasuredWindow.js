@@ -140,7 +140,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                                         return;
                                     }
 
-                                    alert('3D 지도 위에 수질정보 측정값을 표시합니다. 잠시만 기다려 주세요.');
+                                   // alert('3D 지도 위에 수질정보 측정값을 표시합니다. 잠시만 기다려 주세요.');
 
                                     var parameterTo3d = { layerType: layer.measureCode, valueField: selTitle, features: [] };
 
