@@ -432,14 +432,14 @@
 		"wmsId":"",
 		"text": "폐수방류량",
 		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize",
+		"iconCls": "layerIconSize layerP1",
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "",
 		"siteNmCol": "",
 		"siteAddrCol": "",
 		"layerCode": "",
-		"isMetaData": true
+		"isMetaData": false
 	}]
 }, {
 	"id": "26",
