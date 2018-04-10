@@ -807,7 +807,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		xtype: 'image',
 		width: 59,
 		height: 24,
-		style: 'top: 5px; z-index: 2; right: 10px; position:absolute;',
+		style: 'top: 5px; z-index: 2; right: 10px; position:absolute; cursor:pointer;',
 		src: './resources/images/button/btn_exl.gif', // 엑셀 다운
 		listeners: {
 			el: {
