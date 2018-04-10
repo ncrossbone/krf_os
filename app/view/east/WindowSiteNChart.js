@@ -26,11 +26,10 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 		titlePosition: 2,
 		items: [{
 			xtype: 'label',
-			//title: '차트정보',
 			text: '차트정보',
 			id: 'tabChart',
 			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
-			width: 95,
+			width: 75,
 			height: 21,
 			listeners: {
 				el: {
@@ -43,9 +42,8 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 			xtype: 'label',
 			text: '지점정보',
 			id: 'tabSite',
-			//title: '지점정보',
 			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
-			width: 95,
+			width: 75,
 			height: 20,
 			listeners: {
 				el: {
