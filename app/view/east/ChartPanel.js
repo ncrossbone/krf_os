@@ -61,6 +61,9 @@ Ext.define('krf_new.view.east.ChartPanel', {
 			}, {
 				type: 'category',
 				position: 'bottom',
+				style: {
+                    textPadding: 50
+                },
 				grid: true,
 				label: {
 					rotate: {
