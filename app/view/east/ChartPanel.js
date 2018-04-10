@@ -234,12 +234,12 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				}
 			}],
 			listeners: {
-				redraw: function () {
+				storechange: function () {
 					var parentWIndow = this.up('window');
 					if (parentWIndow.parentId == 'H') {
-						$('#chartPanelLegend').show();
+						Ext.getCmp('chartPanelLegend').show();
 					} else {
-						$('#chartPanelLegend').hide();
+						Ext.getCmp('chartPanelLegend').hide();
 					}
 				}
 			}
