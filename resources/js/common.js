@@ -302,6 +302,9 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { width: 520, height: 355, x: winX, y: winY , parentId: parentId });
 			centerContainer.add(winCtl);
 		}
+		
+		winCtl.parentId = parentId;
+
 		winCtl.show();
 
 		//		var dp = $KRF_APP.getDesktop();
