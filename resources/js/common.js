@@ -324,7 +324,9 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
-
+		 
+		//series.setStyle('dilplay','none');
+		//series._chart.legend.store.data.items[0].setHidden(true);
 		//환경기초시설 표출시 라벨 표시
 		/*var fName = Ext.getCmp("selectFName"); //selectFName
 		var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
@@ -382,7 +384,9 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			
 			yFieldName = "BOD";
 		}
-		console.info(siteChartCtl);
+		
+
+
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
 
@@ -406,7 +410,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 				chartStore.parentId = parentId;
 				chartStore.orgParentId = orgParentId;
 				chartStore.load();
-				console.info(siteChartCtl);
+				 
 				siteChartCtl.setStore(chartStore);
 				
 			}

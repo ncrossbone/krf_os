@@ -72,6 +72,9 @@ Ext.define('krf_new.view.east.ChartPanel', {
 			}, {
 				type: 'category',
 				position: 'bottom',
+				style: {
+                    textPadding: 50
+                },
 				grid: true,
 				label: {
 					rotate: {
@@ -86,6 +89,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 				axis: 'left',
 				xField: 'WMCYMD',
 				yField: 'ITEM_VALUE',
+				title: '측정값',
 				marker: true,
 				tips: {
 					trackMouse: true,
@@ -95,7 +99,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					dismissDelay: 0,
 					hideDelay: 0,
 					renderer: function (tooltip, storeItem) {
-
+						
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
@@ -135,9 +139,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
-						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년"
-							+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월"
-							+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일";
+						var day = storeItem.get(series.series[1]._xField) ;
 
 						var maVal = Ext.util.Format.number(storeItem.get(series.series[1]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
 
@@ -163,9 +165,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
-						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년"
-							+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월"
-							+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일";
+						var day = storeItem.get(series.series[2]._xField);
 
 						var maVal = Ext.util.Format.number(storeItem.get(series.series[2]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
 
@@ -191,9 +191,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
-						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년"
-							+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월"
-							+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일";
+						var day = storeItem.get(series.series[3]._xField);
 
 						var maVal = Ext.util.Format.number(storeItem.get(series.series[3]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
 
@@ -219,9 +217,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 						var series = Ext.getCmp("siteCharttest");
 
 						var format = '';
-						var day = storeItem.get(series.series[4]._xField).substring(0, 4) + "년"
-							+ storeItem.get(series.series[4]._xField).substring(4, 6) + "월"
-							+ storeItem.get(series.series[4]._xField).substring(6, 8) + "일";
+						var day = storeItem.get(series.series[4]._xField);
 
 						var maVal = Ext.util.Format.number(storeItem.get(series.series[4]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
 
