@@ -450,6 +450,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		//클릭 session
 		setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
 	}
+	console.info(chartStore);
 	SetItemLabelText(yFieldName, chartId, test);
 	siteChartCtl.preText = test;
 }
@@ -610,10 +611,12 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		if (f_Chart == undefined) {
 			itemTxt = "ㆍ방류유량 > " + itemNm;
 			
-		} else {
+		}else {
 			itemTxt = "ㆍ" + f_Chart.rawValue + " > " + itemNm;
 		}
-	} else {
+	} else if(chartId == "H"){
+		itemTxt = "ㆍ" + itemNm + "   ㆍ기준일 : " + _chartDateInfo[0][0]+"."+_chartDateInfo[0][1]+"."+_chartDateInfo[0][2];
+	}  else {
 		itemTxt = "ㆍ" + itemNm;
 	}
 
@@ -623,6 +626,8 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		preText = chartCtl.preText;
 	}
 	
+	var sprObj = "";
+
 	var sprObj = {
 		type: 'text',
 		text: "ㆍ" + preText + "   " + itemTxt,
@@ -641,13 +646,19 @@ SetItemLabelText = function (itemNm, chartId, test) {
 // 기간설정 검색 시 파라메터 모두 공백으로.. 지점목록에서 검색 시 해당 값 파라메터
 SetChartMaxData = function (store) {
 
-	var ITEM_VALUE = parseFloat(store.arrMax[0].ITEM_VALUE);
+	var maxValue = "";
+	if(typeof(store) == 'number'){
+		maxValue = store;
+	}else{
+		maxValue = store.arrMax[0].ITEM_VALUE;
+	}
 
+
+	var ITEM_VALUE = parseFloat(maxValue);
 
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes = chartCtl.axes[0];
 	axes.setMaximum(ITEM_VALUE);
-
 
 	chartCtl.redraw();
 

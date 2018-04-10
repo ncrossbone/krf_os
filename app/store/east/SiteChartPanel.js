@@ -217,8 +217,36 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						} else {
 							Ext.getCmp("siteCharttest").unmask();
-							store.loadData(jsonData.data);	
+							store.loadData(jsonData.data);
+
+							//수질측정 2번째
+							var VAL_2= [];
+							for(max = 0 ; max  < jsonData.data.length; max ++){
+									VAL_2.push(jsonData.data[max][selectItem+"_2"]);
+							}
+							//수질측정 3번째
+							var VAL_3= [];
+							for(max = 0 ; max  < jsonData.data.length; max ++){
+									VAL_3.push(jsonData.data[max][selectItem+"_3"]);
+							}
+							//수질측정 4번째
+							var VAL_4= [];
+							for(max = 0 ; max  < jsonData.data.length; max ++){
+									VAL_4.push(jsonData.data[max][selectItem+"_4"]);
+							}
 							
+							var maxValue2 = VAL_2.slice(0).sort(function(a,b){a<b})[0];
+							var maxValue3 = VAL_3.slice(0).sort(function(a,b){a<b})[0];
+							var maxValue4 = VAL_4.slice(0).sort(function(a,b){a<b})[0];
+							//세 측정값을 비교하여 가장 큰값의 /2 를 더한 값이 max 값
+							var maxData = [maxValue2,maxValue3,maxValue4].slice(0).sort(function(a,b){a<b})[0] 
+										+ [maxValue2,maxValue3,maxValue4].slice(0).sort(function(a,b){a<b})[0];
+							
+							// 차트 컨트롤에 max 데이터 셋팅
+							console.info(VAL_2.slice(0).sort(function(a,b){a<b})[0]);
+							
+							// 차트 컨트롤에 max 데이터 셋팅
+							SetChartMaxData(maxData);
 
 						}
 						
