@@ -787,9 +787,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			    		}
 					});
 					
-					console.info(me.mapMdownObj);
+					
 					if(me.checkSubMap()){
-						console.info("true");
+						
 						me.mapMdownObj = on($KRF_APP.subMap.map, "mouse-down", function(evt){
 		    			
 							if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
@@ -1395,7 +1395,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				
 					var catDid = feature.attributes.CAT_DID;
 					
-					console.info(catDid);
+					
 					var me = this;
     				var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
 					
@@ -2196,7 +2196,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 						    			
 
 										me.clickFS = [];
-										console.info("2186");
+										
 						    			me.clearVariable();
 				    					//만나는 하류가 없을경우 클릭 카운트 --
 				    					if(me.stCnt > 0 && me.edCnt > 0){
@@ -2283,7 +2283,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	for(var k = 0 ; k < tmpArr.length ; k++){
     		if(tmpArr[k].attributes.GEO_TRIB == firstAttributes.GEO_TRIB){
 				//console.info("배열중에 클릭 geo와 본류 geo")
-				console.info(tmpArr[k].attributes);
+				
     			if(k != 0){
     				//본류를 만났을때 본류에서 우측상류인지 죄측상류인지 확인하기위해 본류 전단계와 본류 좌우측 상류 비교
     				if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.LU_RCH_DID){//좌측일까??
@@ -2979,7 +2979,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     
     /* 그래픽 그리기 */
     drawGraphic: function(graphic, grpType){
-    	console.info(grpType);
+    	
     	var me = this;
     	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
     	if(grpType == "reachLine"){
@@ -3056,7 +3056,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		var me = this;
 		//subMap 레이어 올리기 ( ** object copy ** );
 		if(me.checkSubMap()){ // 미니맵이 켜져있는지 확인
-			console.info("?");
+			
 			me.subMapLayerDraw(layer,symbol,graphic);
 		}
 
@@ -3091,13 +3091,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(currId);
 		
 		if(idx == -1){
-			console.info(layer.id)
+			
 
 			//subMap 레이어 올리기 ( ** object copy ** );
 			if(me.checkSubMap()){// 미니맵이 켜져있는지 확인
 				me.subMapLayerDraw(layer,symbol,graphic);
 			}
-			console.info($KRF_APP.coreMap._krad[layer.id]);
+			
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
 			layer.add(graphic);
@@ -3114,7 +3114,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		
 		var subGraphic = $.extend({}, graphic);
 		var subSymbol = $.extend({}, symbol);
-		
+
 		subGraphic.setSymbol(subSymbol);
 		$KRF_APP.subMap._krad[layer.id].add(subGraphic);
 		

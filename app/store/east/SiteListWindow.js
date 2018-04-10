@@ -569,7 +569,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		query.where = queryWhere;
 		query.returnGeometry = false;
 		query.outFields = ['*'];
-		console.info(queryWhere);
+		 
 		queryTask.execute(query, function (result) {
 			if(result.features.length == 0){
 				if (typeof (callback) == 'function') {

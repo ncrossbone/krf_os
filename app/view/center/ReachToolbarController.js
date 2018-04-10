@@ -108,7 +108,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			//tmp에 저장되어 있는 graphic을 지우고 원래 graphic으로 배열을 넘겨준다.
 //graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp
 			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
-			console.info($KRF_APP.subMap._krad.arrLineGrpTmp);
+			//console.info($KRF_APP.subMap._krad.arrLineGrpTmp);
 			for (var i = 0; i < $KRF_APP.coreMap._krad.arrLineGrpTmp.length; i++) {
 				$KRF_APP.coreMap._krad.drawGraphic2($KRF_APP.coreMap._krad.arrLineGrpTmp[i], $KRF_APP.coreMap._krad.reachLineSym
 					, $KRF_APP.coreMap._krad.lineGrpLayer, $KRF_APP.coreMap._krad.arrLineGrp, reachAdmin.arrLineGrp);

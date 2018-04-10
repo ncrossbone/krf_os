@@ -19,7 +19,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_J', {
 			} else {
 				requestUrl = _API.GetSearchResultData_J002;
 			}
-			console.info(requestUrl);
+			 
 			var firstSearch = $KRF_APP.btnFlag;
 
 
