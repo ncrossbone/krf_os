@@ -317,6 +317,19 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		//    		siteInfoChartWindow = siteInfoChartWindow.show();
 		//    	}else{
 		//    		siteInfoWin.show();
+		//    	}//		var dp = $KRF_APP.getDesktop();
+		//    	var dpWidth = dp.getWidth();
+		//    	var dpHeight = dp.getHeight();
+		//    	
+		//    	
+		//    	var siteInfoWin = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.SITE_INFO.id);
+		//    	
+		//    	if(siteInfoWin == null){
+		//    		var siteInfoChartModule = $KRF_APP.getDesktopModule($KRF_WINS.KRF.SITE_INFO.id);
+		//    		var siteInfoChartWindow = siteInfoChartModule.createWindow({title:'지점정보', x:dpWidth-500,y:dpHeight-(480+35), constrain:true});
+		//    		siteInfoChartWindow = siteInfoChartWindow.show();
+		//    	}else{
+		//    		siteInfoWin.show();
 		//    	}
 
 		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
@@ -324,7 +337,9 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
-		 
+	
+		//$('#' + lenendInstance.id).hide();
+		//chartPanelLegend
 		//series.setStyle('dilplay','none');
 		//series._chart.legend.store.data.items[0].setHidden(true);
 		//환경기초시설 표출시 라벨 표시
