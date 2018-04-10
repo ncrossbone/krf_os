@@ -2,8 +2,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 	extend: 'Ext.data.Store',
 	fields: [
 		'PT_NO',
-		'PT_NM',
+		'PT_NM',// xtype: 'datecolumn',   format:'Y-m-d'
 		'WMCYMD',
+		// { name: 'PREDICT_DT', xtype: 'datecolumn',   format:'Y-m-d' },
 		'ITEM_NAME',
 		{ name: 'ITEM_VALUE', type: 'float' },
 		'ITEM_VALUE_1' //정량한계 미만처리를 위한 copy 컬럼
@@ -216,6 +217,12 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						} else {
 							Ext.getCmp("siteCharttest").unmask();
+							for(var a = 0 ; a < jsonData.data.length; a++){
+								jsonData.data[a].PREDICT_DT = jsonData.data[a].PREDICT_DT.substring(0, 4) + "년" 
+								+ jsonData.data[a].PREDICT_DT.substring(4, 6) + "월" 
+								+ jsonData.data[a].PREDICT_DT.substring(6, 8) + "일"
+								+ jsonData.data[a].PREDICT_DT.substring(8, 10) + "시" ;
+							}
 							store.loadData(jsonData.data);	
 						}
 						

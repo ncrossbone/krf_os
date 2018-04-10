@@ -1917,7 +1917,6 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'INDVD_CO'
             }]
         }
-        console.info(grid);
         return grid;
         
     },

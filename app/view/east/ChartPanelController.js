@@ -14,7 +14,7 @@ Ext.define('krf_new.view.east.ChartPanelController', {
 			filename: 'image'
 		})
 	},
-	
+
 	showConfig: function () {
 		var dateWinCtl = Ext.getCmp("datePanel1");
 
@@ -28,8 +28,14 @@ Ext.define('krf_new.view.east.ChartPanelController', {
 		}
 	},
 	onAxisLabelRender: function (axis, label, layoutContext) {
-		var axisSize = layoutContext.data.length;
+		var chartPanel = Ext.getCmp('windowSiteNChart');
 		
-        return layoutContext.renderer(label);
-    },
+		if (chartPanel.parentId == 'H') {
+			return layoutContext.renderer(Ext.String.format('{0}.{1}.{2}',label.substring(0,4), label.substring(4,6), label.substring(6,8)));
+		} else {
+
+			return layoutContext.renderer(label);
+		}
+
+	},
 });

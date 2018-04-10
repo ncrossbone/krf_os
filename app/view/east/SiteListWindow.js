@@ -458,7 +458,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 		}else{
 			nodeId = record.data.id;	
 		}
-		console.info(nodeId);
+		 
 		var parentNodeId = record.data.parentId;
 		siteMovePoint(parentNodeId, nodeId);
 

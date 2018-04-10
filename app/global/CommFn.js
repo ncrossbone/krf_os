@@ -391,7 +391,6 @@ Ext.define("krf_new.global.CommFn", {
 		// EsstgHgFishSe : 어류-
 		// EsstgHgVtnSe : 식생
 		var store = null;
-		console.info(storeName);
 		if(storeName == 'EsstgHcAtalSe' || storeName == 'EsstgHcBemaSe' || storeName == 'EsstgHcFishSe' // 하천 부착돌말류,저서성대형무척추,어류
 		|| storeName == 'EsstgHgAtalSe'|| storeName == 'EsstgHgBemaSe'|| storeName == 'EsstgHgFishSe'){	// 하구 부착돌말류,저서성대형무척추,어류
 			store = Ext.create('Ext.data.Store', {
