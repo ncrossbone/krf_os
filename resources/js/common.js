@@ -299,7 +299,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		var winCtl = Ext.getCmp("windowSiteNChart");
 
 		if (winCtl == undefined) {
-			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { width: 520, height: 255, x: winX, y: winY });
+			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { width: 520, height: 355, x: winX, y: winY , parentId: parentId });
 			centerContainer.add(winCtl);
 		}
 		winCtl.show();
