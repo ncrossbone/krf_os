@@ -26,5 +26,10 @@ Ext.define('krf_new.view.east.ChartPanelController', {
 			Ext.getCmp('center_container').add(dateWinCtl);
 			dateWinCtl.show();
 		}
-	}
+	},
+	onAxisLabelRender: function (axis, label, layoutContext) {
+		var axisSize = layoutContext.data.length;
+		
+        return layoutContext.renderer(label);
+    },
 });

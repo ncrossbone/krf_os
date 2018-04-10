@@ -6,7 +6,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 	//renderTo: Ext.getBody(),
 	title: '차트정보',
 	header: false,
-
+	controller: 'chartPanelController',
 	layout: {
 		type: 'fit'
 	},
@@ -77,7 +77,8 @@ Ext.define('krf_new.view.east.ChartPanel', {
 					rotate: {
 						degrees: -45
 					}
-				}
+				},
+				renderer: 'onAxisLabelRender'
 			}],
 			series: [{
 				text: 'month',
