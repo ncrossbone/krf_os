@@ -18,7 +18,7 @@ Ext.define('krf_new.view.main.Main', {
 		id: 'map-win',
 		header: {
 			cls: 'krf-os-parentwin-header',
-			style:'padding:10px 0px 5px 0px !important;'
+			style:'padding:10px 0px 5px 0px !important; background: url(\'./resources/images/button/top_bg.jpg\') !important; '
 		},
 		iconCls: 'krf-os-win-title-krf-icon',
 		shadow: false,

@@ -260,7 +260,6 @@ Ext.application({
 				centerContainer.add(subMapWindow);
 
 			}, 500);
-
 		}
 	},
 	checkBrowser: function () {
