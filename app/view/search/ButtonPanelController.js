@@ -8,7 +8,6 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 	// 조류항공사진버튼
 	onClickDrone: function (obj, el, evt) {
-		debugger;
 
 		var currCtl = SetBtnOnOff(el.id);
 		//		var btnModeReach = Ext.getCmp("btnModeReach");

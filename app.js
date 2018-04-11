@@ -613,8 +613,7 @@ Ext.application({
 		SetBtnOnOff("btnSiteListWindow", "off");
 	},
 	westTabChange: function (btnOnOff) {
-		debugger;
-
+		
 		var tabIdx = 1;
 		var titleNm = '위치검색';
 		if (btnOnOff == 'on') {
