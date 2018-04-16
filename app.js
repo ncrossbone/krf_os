@@ -7,7 +7,7 @@ var $KRF_DEFINE = null;
 
 
 // 버전 관리
-//Ext.manifest.loader = { 'cache': '1.0.2', 'cacheParam': '_ver' };
+Ext.manifest.loader = { 'cache': '1.0.5', 'cacheParam': '_ver' };
 
 Ext.create('Ext.data.Store', {
 	autoLoad: true,
