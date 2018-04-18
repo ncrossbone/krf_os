@@ -473,12 +473,13 @@ pollutionLayerOnOff = function(onOff, value){
 		pollutionMapSetValue.close();
 	}
 	pollutionMapSetValue =  Ext.create("krf_new.view.east.PollutionMapSetValue", {
-		x: $KRF_APP.getDesktopWindow($KRF_WINS.KRF.MAP.id).getWidth() - 261,
+		x: Ext.getCmp('_mapDiv_').width - 261,
 		pollvalue: value,
 		async: false		
 	});
+	  
 	
-	Ext.getCmp('center_container').add(pollutionMapSetValue);
+	Ext.getCmp('cont_container').add(pollutionMapSetValue);
 	
 	var year = Ext.getCmp("setPollutionYear").value;
 	var colName = Ext.getCmp("setPollutionItems").value;
@@ -535,7 +536,7 @@ catTMLayerOnOff = function(onOff){
 		pollMapSetValue =  Ext.create("krf_new.view.east.PollMapSetValue", {
 			x: Ext.getBody().getWidth() - 261
 		});
-		Ext.getCmp('center_container').add(pollMapSetValue);
+		Ext.getCmp('cont_container').add(pollMapSetValue);
 //		pollMapSetValue.show();
 	}
 	

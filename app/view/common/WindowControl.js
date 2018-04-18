@@ -77,7 +77,7 @@ Ext.define('krf_new.view.common.WindowControl', {
 
 						me.winSizeMode = "minimize";
 
-						var centerContainer = Ext.getCmp('center_container');
+						var centerContainer = Ext.getCmp('cont_container');
 
 						window.collapse();
 						window.setWidth(150);
@@ -158,7 +158,7 @@ Ext.define('krf_new.view.common.WindowControl', {
 
 						me.winSizeMode = "maximize";
 
-						var centerContainer = Ext.getCmp('center_container');
+						var centerContainer = Ext.getCmp('cont_container');
 
 						if (me.winSizeMode == "minimize") {
 							window.expand('', false);

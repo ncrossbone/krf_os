@@ -339,7 +339,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"</html>                                                                                                                                                                            "
 				});
 
-				Ext.getCmp('center_container').add(mapToolTip);
+				Ext.getCmp('cont_container').add(mapToolTip);
 				mapToolTip.show();
 
 				// 툴팁 XY 셋팅

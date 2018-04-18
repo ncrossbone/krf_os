@@ -19,7 +19,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
 		var kradMetaInfo = Ext.getCmp("kradMetaInfo");
-		var cContainer = Ext.getCmp("center_container");
+		var cContainer = Ext.getCmp("cont_container");
 		var rToolbar = Ext.getCmp("reachToolbar");
 
 		var popCtlIdx = rToolbar.getReachModeBtnIdx(el.id);

@@ -51,7 +51,7 @@ var windowMode = "";
 
 function CreateWindow(params) {
 
-	var center = Ext.getCmp('center_container');
+	var center = Ext.getCmp('cont_container');
 
 	windowWidth = center.getWidth();
 	windowHeight = 300;

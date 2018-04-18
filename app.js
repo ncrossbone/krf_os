@@ -247,7 +247,7 @@ Ext.application({
 	coreMapLoaded: function (param) {
 
 		if (param.id == '_mapDiv_') {
-			var centerContainer = Ext.getCmp('center_container');
+			var centerContainer = Ext.getCmp('cont_container');
 			var searchWindow = Ext.create('krf_new.view.search.MapSearchWindow', { y: $KRF_DEFINE.mapToolbarHeight });
 			centerContainer.add(searchWindow);
 			searchWindow.show();
@@ -405,7 +405,7 @@ Ext.application({
 		$KRF_APP.resizeToolItems();
 	},
 	hideReachToolbar: function () {
-		var cContainer = Ext.getCmp("center_container");
+		var cContainer = Ext.getCmp("cont_container");
 		var rToolbar = Ext.getCmp("reachToolbar");
 		var rNameToolbar = Ext.getCmp("reachNameToolbar");
 		var sConfig = Ext.getCmp("searchConfig");
@@ -422,9 +422,9 @@ Ext.application({
 		$KRF_APP.resizeToolItems();
 
 		if (rNameToolbar != undefined && rNameToolbar != null)
-			rNameToolbar.close();
+			rNameToolbar.hide();
 		if (sConfig != undefined && sConfig != null)
-			sConfig.close();
+			sConfig.hide();
 		if (kConfig != undefined && kConfig != null)
 			kConfig.hide();
 	},
@@ -467,7 +467,7 @@ Ext.application({
 		var kConfig = Ext.getCmp("kradSchConf");
 
 		if (sConfig != undefined && sConfig != null)
-			sConfig.close();
+			sConfig.hide();
 		if (kConfig != undefined && kConfig != null)
 			kConfig.hide();
 
@@ -571,8 +571,8 @@ Ext.application({
 
 		var siteListWindow = Ext.getCmp("siteListWindow");
 		if (siteListWindow == undefined) {
-			siteListWindow = Ext.create('krf_new.view.east.SiteListWindow', { x: Ext.getCmp('center_container').getWidth() - 520, y: $KRF_DEFINE.mapToolbarHeight });
-			Ext.getCmp('center_container').add(siteListWindow);
+			siteListWindow = Ext.create('krf_new.view.east.SiteListWindow', { x: Ext.getCmp('cont_container').getWidth() - 520, y: $KRF_DEFINE.mapToolbarHeight });
+			Ext.getCmp('cont_container').add(siteListWindow);
 		}
 
 		siteListWindow.show();

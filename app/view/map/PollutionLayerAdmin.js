@@ -350,7 +350,7 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 		// 레전드 윈도우 생성
 		var tmLegendWindow = Ext.create("krf_new.view.map.TMLegendWindow");
 
-		var cContainer = Ext.getCmp("center_container");
+		var cContainer = Ext.getCmp("cont_container");
 
 		// 레전드 윈도우 보이기
 		cContainer.add(tmLegendWindow);

@@ -58,7 +58,7 @@ Ext.define('krf_new.view.east.ChartPanel', {
 							}
 
 							if(dateWinCtl.hidden){
-								Ext.getCmp('center_container').add(dateWinCtl);
+								Ext.getCmp('cont_container').add(dateWinCtl);
 								dateWinCtl.show();
 							}
 						}

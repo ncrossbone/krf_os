@@ -213,7 +213,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+						$KRF_APP.searchNodeId(el.id);
 					}
 				}
 			},
@@ -233,7 +233,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+						$KRF_APP.searchNodeId(el.id);
 					}
 				}
 			},
@@ -253,7 +253,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+						$KRF_APP.searchNodeId(el.id);
 					}
 				}
 			},
@@ -272,7 +272,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+						$KRF_APP.searchNodeId(el.id);
 					}
 				}
 			},
@@ -320,7 +320,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								constrain: true
 							});
 						}
-						Ext.getCmp('center_container').add(boardCtl);
+						Ext.getCmp('cont_container').add(boardCtl);
 						boardCtl.show();
 					}
 				}
@@ -351,7 +351,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 								html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
 							});
 						}
-						Ext.getCmp('center_container').add(boardCtl);
+						Ext.getCmp('cont_container').add(boardCtl);
 						boardCtl.show();
 
 					}

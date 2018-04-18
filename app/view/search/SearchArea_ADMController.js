@@ -117,7 +117,7 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 		var searchText = combo.getValue();
 		$KRF_APP.fireEvent($KRF_EVENT.AREA_SELECT, { admCd: searchText, layerId: searchLayerId });
 
-		var centerCtl = Ext.getCmp("center_container");
+		var centerCtl = Ext.getCmp("cont_container");
 
 		if (combo.id == "cmbArea1") {
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);

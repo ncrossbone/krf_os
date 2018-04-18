@@ -690,12 +690,12 @@ Ext.application({
 				//sConfig.show();
 			}
 			
-			var cContainer = Ext.getCmp("center_container");
+			var cContainer = Ext.getCmp("cont_container");
 			cContainer.add(rToolbar);
 		}
 
 		Ext.HideReachToolbar = function() {
-			var cContainer = Ext.getCmp("center_container");
+			var cContainer = Ext.getCmp("cont_container");
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var rNameToolbar = Ext.getCmp("reachNameToolbar");
 			var sConfig = Ext.getCmp("searchConfig");

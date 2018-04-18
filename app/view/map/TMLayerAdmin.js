@@ -362,7 +362,7 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 		// 레전드 윈도우 생성
 		var tmLegendWindow = Ext.create("krf_new.view.map.TMLegendWindow");
 		// 레전드 윈도우 보이기
-		Ext.getCmp('center_container').add(tmLegendWindow);
+		Ext.getCmp('cont_container').add(tmLegendWindow);
 
 		tmLegendWindow.show();
 

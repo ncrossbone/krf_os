@@ -402,7 +402,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 		},
 		"minimize": function (window, opts) {
 			if (!window.collapsed) {
-				var centerContainer = Ext.getCmp('center_container');
+				var centerContainer = Ext.getCmp('cont_container');
 
 				window.preX = window.getX();
 				window.preY = window.getY();

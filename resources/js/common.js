@@ -285,7 +285,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		$KRF_APP.parentFlag = parentId;
 		$KRF_APP.chartFlag = "1";
 
-		var centerContainer = Ext.getCmp('center_container');
+		var centerContainer = Ext.getCmp('cont_container');
 
 		var winX = centerContainer.getWidth() - 520;
 		var winY = 98;
@@ -687,7 +687,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		return;
 	}
 
-	var centerContainer = Ext.getCmp('center_container');
+	var centerContainer = Ext.getCmp('cont_container');
 
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -1418,7 +1418,7 @@ ShowSearchResultReach = function (catIds) {
 	$KRF_APP.global.CommFn.setBookmarkInfo('showSearchResultReach', {
 		catIds: catIds
 	});
-	var centerContainer = Ext.getCmp('center_container');
+	var centerContainer = Ext.getCmp('cont_container');
 
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -1978,8 +1978,11 @@ ResetButtonClick = function () {
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
 
-	Ext.getCmp("cboDroneLayer").down("combo").collapse();
-
+	
+	if(Ext.getCmp("cboDroneLayer")){
+		Ext.getCmp("cboDroneLayer").down("combo").collapse();	
+	}
+	
 	//리치 시작 끝 close 끄기
 	if (Ext.getCmp("reach_close") != undefined) {
 		Ext.getCmp("reach_close").setVisible(false);
@@ -2298,11 +2301,9 @@ setTooltipXY = function () {
 	if (popCtl != undefined && popCtl != null) {
 		var extent = me.map.extent;
 
-		var mapWin = $KRF_APP.getDesktopWindow('map-win');
-
 		var centerPoint = esri.geometry.toScreenPoint(extent, Ext.getCmp('_mapDiv_').width, Ext.getCmp('_mapDiv_').height, popCtl.point);
-		xPx = (centerPoint.x + 76 + mapWin.getX()) - popCtl.getWidth() / 2;
-		yPx = (centerPoint.y + mapWin.getY()) - popCtl.getHeight() + 12;
+		xPx = (centerPoint.x + 86 ) - popCtl.getWidth() / 2;
+		yPx = (centerPoint.y ) - popCtl.getHeight() + 12;
 		// 이미지 사이즈 절반만큼 offset
 		xPx += 11;
 		yPx += 11;
