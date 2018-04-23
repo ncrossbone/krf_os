@@ -22,6 +22,7 @@
 	"sRiverNode" : "0",   //소하천 노드
 	"sRiverReach" : "1",   //소하천 리치
 	"sRiverCat" : "2",   //소하천 집수구역
+	"pullWater" : "http://112.217.167.123:40002/arcgis/rest/services/pullWater/MapServer",   //생활안전
 
     "StreamSectionLayerId" : "54", // 하천단면 레이어 아이디
     "StreamNetworkLayerId" : "55", // 하천망도 레이어 아이디
@@ -163,5 +164,15 @@
 		"layerId": "26",
 		"colName": "시설코드",
 		"layerName": "하수종말처리시설"
+	}, {
+		"stationType": "SD1",
+		"layerId": "40",
+		"colName": "시설코드",
+		"layerName": "방사능측정망_호소"
+	}, {
+		"stationType": "SD2",
+		"layerId": "41",
+		"colName": "시설코드",
+		"layerName": "방사능측정망_하천"
 	}]
 }]

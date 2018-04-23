@@ -9,7 +9,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 
 	id: 'searchConfig',
 
-	style: 'border: 5px solid #043264; border-radius: 5px; z-index:40000;',
+	style: 'border: 5px solid #043264; border-radius: 5px;',
 
 	width: 185,
 	height: 120,
@@ -30,7 +30,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	},
 	items: [{
 		xtype: 'container',
-		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; z-index:40000;",
+		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
 		layout: {
 			type: 'vbox'
 		},
