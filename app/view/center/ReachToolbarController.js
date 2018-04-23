@@ -216,10 +216,10 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
-		if ($KRF_APP.coreMap._krad.maxSelect == true) {
-			alert("최대 5개 까지 선택 가능합니다.");
-			return;
-		}
+		// if ($KRF_APP.coreMap._krad.maxSelect == true) {
+		// 	alert("최대 5개 까지 선택 가능합니다.");
+		// 	return;
+		// }
 
 		// 맵 클릭 이벤트 켜기
 		$KRF_APP.coreMap._krad.clickCnt("startPoint");
@@ -241,10 +241,10 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		//미니맵 EDIT EVENT 끄기
 		$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 
-		if ($KRF_APP.coreMap._krad.maxSelect == true) {
-			alert("최대 5개 까지 선택 가능합니다.");
-			return;
-		}
+		// if ($KRF_APP.coreMap._krad.maxSelect == true) {
+		// 	alert("최대 5개 까지 선택 가능합니다.");
+		// 	return;
+		// }
 
 		$KRF_APP.coreMap._krad.clickCnt("endPoint");
 		if ($KRF_APP.coreMap._krad.realTimeEnBtnChk == false) {

@@ -98,50 +98,11 @@
 		"layerCode": "A007",
 		"isMetaData": true
 	}]
-}, /*{
-	"id": "8",
-	"text": "수질자동측정지점",
-	"cls": "khLee-x-tree-node-text-bold",
-	"iconCls": "layerNoneImg",
-	"checked": false,
-	"expanded": true,
-	"children": [{
-		"id": "9",
-		"text": "수질TMS",
-		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize layer9",
-		"leaf": true,
-		"checked": false,
-		"siteIdCol": "ST_ID",
-		"siteNmCol": "ST_NM",
-		"siteAddrCol": ""
-	}, {
-		"id": "11",
-		"text": "사업장TMS",
-		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize layer11",
-		"leaf": true,
-		"checked": false,
-		"siteIdCol": "사업장코드",
-		"siteNmCol": "사업장명칭",
-		"siteAddrCol": "사업장주소",
-		"layerCode": "B002"
-	},{
-		"id": "10",
-		"text": "수질자동측정망",
-		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize layer10",
-		"leaf": true,
-		"checked": false,
-		"siteIdCol": "CODE",
-		"siteNmCol": "PT_NM",
-		"siteAddrCol": "ADDR",
-		"layerCode": "B001"
-	}]
-},*/ {
+},{
 	"id": "12",
 	"text": "퇴적물조사지점",
 	"cls": "khLee-x-tree-node-text-bold",
+	"visible": false, //외부망
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
@@ -225,6 +186,7 @@
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
+	"visible": false, //외부망
 	"expanded": true,
 	"children": [{
 		"id": "40",
@@ -277,6 +239,7 @@
 		"id": "17",
 		"wmsId":"80",
 		"text": "우량관측소",
+		"visible": false, //외부망
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer16",
 		"leaf": true,
@@ -316,6 +279,7 @@
 		"id": "20",
 		"wmsId":"77",
 		"text": "AWS기상관측소",
+		"visible": false, //외부망
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer19",
 		"leaf": true,
@@ -329,6 +293,7 @@
 		"id": "21",
 		"wmsId":"76",
 		"text": "지상기상관측소",
+		"visible": false, //외부망
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer20",
 		"leaf": true,
@@ -342,6 +307,7 @@
 		"id": "22",
 		"wmsId":"75",
 		"text": "보관측소",
+		"visible": false, //외부망
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer21",
 		"leaf": true,
@@ -536,6 +502,7 @@
 },{
 	"id": "52",
 	"text": "수질예보지점",
+	"visible": false, //외부망
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
@@ -606,6 +573,7 @@
 },{
 	"id": "S",
 	"text": "소하천",
+	"visible": false, //외부망
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,

@@ -206,6 +206,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			id: 'btnAreaLayer',
 			groupId: 'btnAreaLayer',
 			title: '집수구역',
+			hidden: true,
 			style: 'cursor:pointer;',
 			width: this.itemWidth,
 			height: this.itemHeight,

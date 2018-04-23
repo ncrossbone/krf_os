@@ -117,21 +117,21 @@ Ext.define('krf_new.view.search.SearchArea_ADMController', {
 		var searchText = combo.getValue();
 		$KRF_APP.fireEvent($KRF_EVENT.AREA_SELECT, { admCd: searchText, layerId: searchLayerId });
 
-		var centerCtl = Ext.getCmp("cont_container");
+		//var centerCtl = Ext.getCmp("cont_container");
 
-		if (combo.id == "cmbArea1") {
-			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
-		}
+		// if (combo.id == "cmbArea1") {
+		// 	centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
+		// }
 
-		if (combo.id == "cmbArea2") {
-			var wsCtl = Ext.getCmp("cmbArea1");
-			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
-		}
-		if (combo.id == "cmbArea3") {
-			var wsCtl = Ext.getCmp("cmbArea1");
-			var msCtl = Ext.getCmp("cmbArea2");
-			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + msCtl.rawValue + " > " + combo.rawValue);
-		}
+		// if (combo.id == "cmbArea2") {
+		// 	var wsCtl = Ext.getCmp("cmbArea1");
+		// 	centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
+		// }
+		// if (combo.id == "cmbArea3") {
+		// 	var wsCtl = Ext.getCmp("cmbArea1");
+		// 	var msCtl = Ext.getCmp("cmbArea2");
+		// 	centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + msCtl.rawValue + " > " + combo.rawValue);
+		// }
 	},
 
 	// 선택 버튼
