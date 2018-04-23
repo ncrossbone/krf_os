@@ -959,7 +959,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								}
 								
 								
-							}
+							} 
 							 
 							sstgString += "	  ]} \n";
 	
