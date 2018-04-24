@@ -24,6 +24,7 @@ Ext.define('Desktop.BrowserNoticeWindow', {
             title: '알림',
             width: 460,
             height: 370,
+            alwaysOnTop: true,
             animCollapse: false,
             constrainHeader: true,
             maximizable: false,
