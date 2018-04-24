@@ -109,7 +109,7 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			style: 'cursor:pointer;',
 			listeners: { el: { click: 'onClickRemoveReach' } },
 			btnOnOff: 'off',
-			btnOnImg: './resources/images/button/reach_menu07_on.png',
+			btnOnImg: './resources/images/button/reach_menu06_on.png',
 			btnOffImg: './resources/images/button/reach_menu07.png',
 			src: './resources/images/button/reach_menu07.png',
 			hidden: true

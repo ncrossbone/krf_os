@@ -1201,7 +1201,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     execLineFeature: function(featureSet){
     	var me = this;
-    	
+		
+		var overlap = false;
+		
     	if(me.drawOption == "endPoint" || me.drawOption == "startPoint"){
     		//첫번쨰 feature 선택
     		
@@ -1247,7 +1249,18 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
         		}
         		else if(me.drawOption == "removePoint"){
         			
-        			var catDid = feature.attributes.CAT_DID;
+					var catDid = feature.attributes.CAT_DID;
+					
+					for(var a = 0 ; a < me.arrAreaGrp.length; a ++){
+						if(me.arrAreaGrp[a].attributes.CAT_DID == catDid){
+							overlap = true;
+						}
+					}
+					
+					if(!overlap){ 
+						return alert("선택되어 있지 않은 지점");
+					}
+
         			me.drawGraphic(feature, "removeReachLine");
         			me.setReachAreaTmp(catDid);
         			
@@ -1256,7 +1269,21 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				
 					var catDid = feature.attributes.CAT_DID;
 					
-    				
+					
+					var me = this;
+    				var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+					
+					
+					for(var a = 0 ; a < me.arrAreaGrp.length; a ++){
+						if(me.arrAreaGrp[a].attributes.CAT_DID == catDid){
+							overlap = true;
+						}
+					}
+					
+					if(overlap){ 
+						return alert("중복된 지점");
+					}
+
     				me.drawGraphic(feature, "addReachLine");
     				me.setReachAreaTmp(catDid);
     				
@@ -1272,7 +1299,20 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.map.graphics.clear();
 			
 	    	// 검색 종료 체크
-			me.isStopCheck();
+			//me.isStopCheck();
+			
+			
+			Ext.defer(clear = function(){
+					
+				// 지점 목록 창 띄우기
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
+				
+				// 검색결과 창 띄우기
+				ShowSearchResultReach("");
+				
+			}, 2000, this);
+			
+			
     	}else if(me.drawOption == "radius"){
 
 			Ext.defer(clear = function(){
