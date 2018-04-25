@@ -4,7 +4,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 	dynamicLayer1: null,
 	dynamicLayer2: null,
 
-	dynamicLayerSRiver:null,
+	dynamicLayerSRiver: null,
 	//읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
 	fLayers: [], // 투명도 주기위한 레이어 아이디
 
@@ -39,10 +39,17 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayerPullWater.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayerPullWater);
 
+		me.dynamicLayerDrought = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.pullWater);
+		me.dynamicLayerDrought.id = "DynamicLayerDrought";
+		me.dynamicLayerDrought.visible = true;
+		me.dynamicLayerDrought.setVisibleLayers([-1]);
+		me.map.addLayer(me.dynamicLayerDrought);
+
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DRON_DYNAMIC_LAYER_ON_OFF, me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.SRIVER_DYNAMIC_LAYER_ON_OFF, me.sRiverdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.PULL_WATER_DYNAMIC_LAYER_ON_OFF, me.pullWaterdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
+		$KRF_APP.addListener($KRF_EVENT.DROUGHT_DYNAMIC_LAYER_ON_OFF, me.droughtdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 	},
 	applyRenderer: function (renderer) {
 	},
@@ -51,32 +58,47 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 	drondynamicLayerOnOffHandler: function (selectInfo) {
 	},
 
-	pullWaterdynamicLayerOnOffHandler: function(selectInfo){
+	droughtdynamicLayerOnOffHandler: function (selectInfo) {
+		var me = this;
+		var drought = [-1];
+		me.dynamicLayerDrought.setVisibleLayers(drought);
+		Ext.each(selectInfo, function (selectObj, index, eObjs) {
+			if (selectObj.data.id.indexOf("D") > -1) {
+				if (selectObj.data.id.substring(1, 2) != 0) {
+					drought.push(selectObj.data.id.substring(1, 2));
+				}
+			}
+		});
+
+		me.dynamicLayerDrought.setVisibleLayers(drought);
+	},
+
+	pullWaterdynamicLayerOnOffHandler: function (selectInfo) {
 		var me = this;
 		var pullWater = [-1];
 		me.dynamicLayerPullWater.setVisibleLayers(pullWater);
 
 		Ext.each(selectInfo, function (selectObj, index, eObjs) {
-			if(selectObj.data.id.indexOf("P") > -1){
+			if (selectObj.data.id.indexOf("P") > -1) {
 				pullWater.push(0);
 			}
 		});
-		
+
 		me.dynamicLayerPullWater.setVisibleLayers(pullWater);
 	},
 
 	//소하천 레이어 on/off 핸들러 정의
-	sRiverdynamicLayerOnOffHandler: function(selectInfo){
+	sRiverdynamicLayerOnOffHandler: function (selectInfo) {
 		var me = this;
 		var sLayer = [-1];
 		me.dynamicLayerSRiver.setVisibleLayers(sLayer);
 
 		Ext.each(selectInfo, function (selectObj, index, eObjs) {
-			if(selectObj.data.id.indexOf("S") > -1){
-				sLayer.push(selectObj.data.id.substring(1,2));
+			if (selectObj.data.id.indexOf("S") > -1) {
+				sLayer.push(selectObj.data.id.substring(1, 2));
 			}
 		});
-		
+
 		me.dynamicLayerSRiver.setVisibleLayers(sLayer);
 
 	},

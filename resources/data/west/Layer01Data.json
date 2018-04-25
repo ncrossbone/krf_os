@@ -907,4 +907,51 @@
 		"checked": false,
 		"metaDataId":"R001"
 	}]
+},{
+	"id": "D0",
+	"text": "가뭄정보",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "D1",
+		"wmsId":"",
+		"text": "현재",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": false
+	},{
+		"id": "D2",
+		"wmsId":"",
+		"text": "1개월",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": false
+	},{
+		"id": "D3",
+		"wmsId":"",
+		"text": "2개월",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": false
+	}]
 }]

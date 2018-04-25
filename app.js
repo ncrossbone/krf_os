@@ -111,7 +111,8 @@ var $KRF_EVENT = {
 	RELOAD_LAYER_SET: 'reloadLayerSet',
 	RELOAD_USER_LIST: 'relaodUserList',
 	LAYER_SET_COMBO_SET_VALUE: 'layerSetComboSetValue',
-	PULL_WATER_DYNAMIC_LAYER_ON_OFF: 'pullWaterdynamicLayerOnOff'
+	PULL_WATER_DYNAMIC_LAYER_ON_OFF: 'pullWaterdynamicLayerOnOff',
+	DROUGHT_DYNAMIC_LAYER_ON_OFF: 'droughtDynamicLayerOnOff'
 }
 
 var $KRF_WINS = {
