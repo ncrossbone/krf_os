@@ -953,5 +953,18 @@
 		"siteAddrCol": "",
 		"layerCode": "",
 		"isMetaData": false
+	},{
+		"id": "D4",
+		"wmsId":"",
+		"text": "3개월",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": false
 	}]
 }]
