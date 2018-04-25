@@ -185,20 +185,22 @@ Ext.application({
 
 		$('#pageloaddingDiv').remove();
 
-		if (this.checkBrowser()) {
-			// 내부망 로그인정보 조회
-			$KRF_APP.loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
-			$KRF_APP.loginInfo = {};
-			if ($KRF_APP.loginInfo == null) {
-				this.showLoginWindow();
-			} else {
 
-				this.completedLogin({userId:'weis_admin'});
-				// $('#Admin-shortcut').show();
+		// 내부망 로그인정보 조회
+		$KRF_APP.loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
+		$KRF_APP.loginInfo = {};
+		if ($KRF_APP.loginInfo == null) {
+			this.showLoginWindow();
+		} else {
 
-				// this.showWindowByMode();
-			}
+			this.completedLogin({ userId: 'weis_admin' });
+			// $('#Admin-shortcut').show();
+
+			// this.showWindowByMode();
 		}
+
+		this.checkBrowser();
+
 	},
 	showLoginWindow: function () {
 		var dp = $KRF_APP.getDesktop();
@@ -210,12 +212,12 @@ Ext.application({
 		//loginWindow = loginWindow.show();
 	},
 
-	completedLogin : function(loginInfo){
+	completedLogin: function (loginInfo) {
 		$KRF_APP.loginInfo = loginInfo;
-		
-		if(loginInfo.userId == 'weis_admin'){
+
+		if (loginInfo.userId == 'weis_admin') {
 			$('#Admin-shortcut').show();
-		}else{
+		} else {
 			$('#Admin-shortcut').remove();
 		}
 
@@ -223,11 +225,11 @@ Ext.application({
 			url: _API.getLayerSetForUser,
 			dataType: "text/html",
 			method: 'POST',
-			params:{userId: loginInfo.userId},
+			params: { userId: loginInfo.userId },
 			async: true, // 비동기 = async: true, 동기 = async: false
 			success: function (response, opts) {
 				var result = Ext.util.JSON.decode(response.responseText);
-				if(result.data.length > 0){
+				if (result.data.length > 0) {
 					$KRF_APP.USER_LAYERS = result.data[0];
 					$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
 					// $KRF_APP.fireEvent($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE, $KRF_APP.USER_LAYERS);
@@ -271,7 +273,7 @@ Ext.application({
 	showWindow: function (windowId, boundary, param) {
 
 		var currentWindow = $KRF_APP.getDesktop().getActiveWindow();
-		
+
 		var targetWindow = $KRF_APP.getDesktopWindow(windowId);
 		var targetModule = $KRF_APP.getDesktopModule(windowId);
 
@@ -281,14 +283,14 @@ Ext.application({
 
 		if (targetWindow) {
 			// targetWindow.show();
-			if(targetWindow.minimized){
+			if (targetWindow.minimized) {
 				targetWindow.show();
-			}else{
+			} else {
 				targetWindow.fireEvent('show');
 			}
 			return;
 		}
-		if(targetModule){
+		if (targetModule) {
 			targetWindow = targetModule.createWindow(boundary);
 			targetWindow = targetWindow.show();
 		}
@@ -303,7 +305,7 @@ Ext.application({
 		this.showWindow($KRF_WINS.ADMIN.MAIN.id, this.getWindowBoundary(1155, 570));
 	},
 	showStatusMode: function () {
-		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0,0));
+		this.showWindow($KRF_WINS.STATUS.MAIN.id, this.getWindowBoundary(0, 0));
 	},
 	showThreeDimMode: function (centerCoord) {
 		if (Ext.browser.is.IE == true && Ext.browser.version.major <= 10) {
@@ -353,16 +355,16 @@ Ext.application({
 		var offsetX = 0;
 		var offsetY = 0;
 
-		if(width && width > 0){
-			offsetX = (dpWidth/2)-(width/2);
+		if (width && width > 0) {
+			offsetX = (dpWidth / 2) - (width / 2);
 			dpWidth = width;
 		}
-		if(height && height > 0){
-			offsetY = (dpHeight/2)-(height/2);
+		if (height && height > 0) {
+			offsetY = (dpHeight / 2) - (height / 2);
 			dpHeight = height;
 		}
 
-		return { x: offsetX, y: offsetY, width: dpWidth, height: dpHeight};
+		return { x: offsetX, y: offsetY, width: dpWidth, height: dpHeight };
 	},
 
 	minimizeWindows: function () {
@@ -377,7 +379,7 @@ Ext.application({
 		} else {
 			this.subMap = map;
 			$KRF_APP.fireEvent($KRF_EVENT.INITMINIMAPLINE);
-			
+
 		}
 	},
 	// 추후에 초기 맵 extend 변경 가능하게 만들어 놓음
@@ -400,7 +402,7 @@ Ext.application({
 		}
 	},
 	checkBrowser: function () {
-		if (Ext.browser.is.IE == true && Ext.browser.version.major < 10) { // IE11 아래 버전 막기
+		if (Ext.browser.is.IE) {
 			var dp = $KRF_APP.getDesktop();
 			var dpWidth = dp.getWidth();
 			var dpHeight = dp.getHeight();
@@ -408,9 +410,7 @@ Ext.application({
 			var noticeModule = $KRF_APP.getDesktopModule($KRF_WINS.NOTICE.id);
 			var noticeWindow = noticeModule.createWindow();
 			noticeWindow.show();
-			return false;
 		}
-		return true;
 	},
 	centerAt: function (coord) {
 		$KRF_APP.coreMap.transCoord(coord, function (transCoord) {
