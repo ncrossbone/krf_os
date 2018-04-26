@@ -78,12 +78,19 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	symGrpLayer: null, // 심볼 그래픽 레이어
 	lineGrpLayer: null, // 리치라인 그래픽 레이어
 	areaGrpLayer: null, // 집수구역 그래픽 레이어
+
+	lineGrpLayer_sub: null, // 리치라인 그래픽 레이어
+	areaGrpLayer_sub: null, // 집수구역 그래픽 레이어
+
 	areaGrpLayer_sub: null, // 집수구역 그래픽 레이어
 
 	miniLineGrpLayer: null, //미니맵 그래픽 레이어
 	
 	lineGrpLayer_s: null, //소하천 리치라인 그래픽 레이어
 	areaGrpLayer_s: null, //소하천 집수구역 그래픽 레이어
+
+	lineGrpLayer_s_sub: null, //소하천 리치라인 그래픽 레이어
+	areaGrpLayer_s_sub: null, //소하천 집수구역 그래픽 레이어
 	
 	stSymbol: null, // 시작위치 심볼
 	edSymbol: null, // 끝위치 심볼
@@ -249,16 +256,36 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.lineGrpLayer.id = "lineGrpLayer";
 			me.lineGrpLayer.visible = true;
 			me.map.addLayer(me.lineGrpLayer);
+
+			if(me.map.id == "_subMapDiv_"){
+				me.lineGrpLayer_sub = new GraphicsLayer();
+				me.lineGrpLayer_sub.id = "lineGrpLayer_sub";
+				me.lineGrpLayer_sub.visible = true;
+				me.map.addLayer(me.lineGrpLayer_sub);
+
+				me.areaGrpLayer_sub = new GraphicsLayer();
+				me.areaGrpLayer_sub.id = "areaGrpLayer_sub";
+				me.areaGrpLayer_sub.visible = true;
+				me.map.addLayer(me.areaGrpLayer_sub);
+
+				me.lineGrpLayer_s_sub = new GraphicsLayer();
+				me.lineGrpLayer_s_sub.id = "lineGrpLayer_s_sub";
+				me.lineGrpLayer_s_sub.visible = true;
+				me.map.addLayer(me.lineGrpLayer_s_sub);
+				
+				me.areaGrpLayer_s_sub = new GraphicsLayer();
+				me.areaGrpLayer_s_sub.id = "areaGrpLayer_s_sub";
+				me.areaGrpLayer_s_sub.visible = true;
+				me.map.addLayer(me.areaGrpLayer_s_sub);
+			}
+			
 			
 			me.areaGrpLayer = new GraphicsLayer();
 			me.areaGrpLayer.id = "areaGrpLayer";
 			me.areaGrpLayer.visible = true;
 			me.map.addLayer(me.areaGrpLayer);
 
-			me.areaGrpLayer_sub = new GraphicsLayer();
-			me.areaGrpLayer_sub.id = "areaGrpLayer_sub";
-			me.areaGrpLayer_sub.visible = true;
-			me.map.addLayer(me.areaGrpLayer_sub);
+			
 			
 			me.lineGrpLayer_s = new GraphicsLayer();
 			me.lineGrpLayer_s.id = "lineGrpLayer_s";
@@ -269,6 +296,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			me.areaGrpLayer_s.id = "areaGrpLayer_s";
 			me.areaGrpLayer_s.visible = true;
 			me.map.addLayer(me.areaGrpLayer_s);
+
+			
 			
 			me.tmpGrpLayer = new GraphicsLayer();
 			me.tmpGrpLayer.id = "tmpGrpLayer";
@@ -2953,7 +2982,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		var subSymbol = $.extend({}, symbol);
 		
 		subGraphic.setSymbol(subSymbol);
-		$KRF_APP.subMap._krad[layer.id].add(subGraphic);
+
+
+		console.info(layer.id);
+		if(layer.id != "tmpGrpLayer"){
+		//if(layer.id != "tmpGrpLayer" || layer.id !=  "areaGrpLayer_s" || layer.id !=  "lineGrpLayer_s"){
+			$KRF_APP.subMap._krad[layer.id+"_sub"].add(subGraphic);
+		}
+        
 		
 	},
 
@@ -3035,7 +3071,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(currId);
 		
 		if(grpIdx > -1){
-			
+
 			layer.remove(layer.graphics[grpIdx]);
 		}
 		
@@ -3354,6 +3390,26 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 		if (me.areaGrpLayer_s != undefined && me.areaGrpLayer_s != null) {
 			me.areaGrpLayer_s.clear();
+		}
+
+		
+
+		if(me.checkSubMap()){
+			if($KRF_APP.subMap._krad.lineGrpLayer_sub != undefined && $KRF_APP.subMap._krad.lineGrpLayer_sub != null){
+				$KRF_APP.subMap._krad.lineGrpLayer_sub.clear();
+			}
+			
+			if($KRF_APP.subMap._krad.areaGrpLayer_sub != undefined && $KRF_APP.subMap._krad.areaGrpLayer_sub != null){
+				$KRF_APP.subMap._krad.areaGrpLayer_sub.clear();
+			}
+			
+			if ($KRF_APP.subMap._krad.lineGrpLayer_s_sub != undefined && $KRF_APP.subMap._krad.lineGrpLayer_s_sub != null) {
+				$KRF_APP.subMap._krad.lineGrpLayer_s_sub.clear();
+			}
+
+			if ($KRF_APP.subMap._krad.areaGrpLayer_s_sub != undefined && $KRF_APP.subMap._krad.areaGrpLayer_s_sub != null) {
+				$KRF_APP.subMap._krad.areaGrpLayer_s_sub.clear();
+			}
 		}
     },
     
