@@ -277,26 +277,26 @@ Ext.application({
 	},
 
 	//소하천 dynamic 켜기
-	onClickSRiver: function (obj, el, evt) {
+	// onClickSRiver: function (obj, el, evt) {
 
-		var coreMap = Ext.getCmp("_mapDiv_");
-		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+	// 	var coreMap = Ext.getCmp("_mapDiv_");
+	// 	//var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
 
-		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
+	// 	var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
 
-		var subMapWindow = Ext.getCmp("subMapWindow");
+	// 	var subMapWindow = Ext.getCmp("subMapWindow");
 
-		if (btnLayerSRiver == "on") {
-			DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
-			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
-			subMapWindow.show();
-		} else {
-			DynamicLayerSRiver.setVisibleLayers([-1]);
-			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
-			subMapWindow.hide();
-		}
-		return win;
-	},
+	// 	if (btnLayerSRiver == "on") {
+	// 		//DynamicLayerSRiver.setVisibleLayers([0, 1, 2]);
+	// 		//Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+	// 		subMapWindow.show();
+	// 	} else {
+	// 		//DynamicLayerSRiver.setVisibleLayers([-1]);
+	// 		//Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+	// 		subMapWindow.hide();
+	// 	}
+	// 	return win;
+	// },
 
 	resizeToolItems: function () {
 		

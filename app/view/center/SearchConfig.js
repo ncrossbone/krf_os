@@ -144,24 +144,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				this.up("win-searchConfig").setLocalStorage();
 			},
 			inputValue: 'isJiDraw'
-		}
-			, {
-			xtype: 'checkbox',
-			boxLabel: '소하천',
-			checked: false,
-			width: 70,
-			handler: function (obj, checked) {
-				// 로컬 스토리지 셋팅
-				this.up("win-searchConfig").setLocalStorage();
-
-				this.up("win-searchConfig").onClickSRiver(checked);
-				
-				//$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId("SRIVER");
-
-			},
-			inputValue: 'isSRiver'
-		}
-		]
+		}]
 	}],
 
 	initComponent: function () {
@@ -187,13 +170,8 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
 				// 체크박스 셋팅
 				for (var i = 0; i < chkCtls.length; i++) {
-					if (i == chkCtls.length - 1) {// 예외 ) 소하천인 경우 로컬스토리지에 저장되기 때문에 init storage를 비활성으로 초기 세팅
-						searchConfigInfoJson[chkCtls[i].inputValue] = false;
-						chkCtls[i].setValue(false);
-					} else {
-						if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
-							chkCtls[i].setValue(searchConfigInfoJson[chkCtls[i].inputValue]);
-						}
+					if (chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null) {
+						chkCtls[i].setValue(searchConfigInfoJson[chkCtls[i].inputValue]);
 					}
 				}
 			}
@@ -204,36 +182,36 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	},
 
 	//소하천 dynamic 켜기
-	onClickSRiver: function (onOff) {
+	// onClickSRiver: function (onOff) {
 
-		var coreMap = Ext.getCmp("_mapDiv_");
-		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
-		var subMapWindow = Ext.getCmp("subMapWindow");
-		DynamicLayerSRiver.setVisibleLayers([-1]);
+	// 	var coreMap = Ext.getCmp("_mapDiv_");
+	// 	//var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+	// 	var subMapWindow = Ext.getCmp("subMapWindow");
+	// 	//DynamicLayerSRiver.setVisibleLayers([-1]);
 
-		if (onOff) {
-			DynamicLayerSRiver.setVisibleLayers([0, 1]);
+	// 	if (onOff) {
+	// 		//DynamicLayerSRiver.setVisibleLayers([0, 1]);
 			
-			subMapWindow.show();
-			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
+	// 		subMapWindow.show();
+	// 		$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(true);
 
-			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
-			subDynamicLayerSRiver.setVisibleLayers([0, 1]);
-			SetBtnOnOff("btnMenu010", "on");
+	// 		// var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
+	// 		// subDynamicLayerSRiver.setVisibleLayers([0, 1]);
+	// 		SetBtnOnOff("btnMenu010", "on");
 
-			$KRF_APP.coreMap.subMapOnOffSetExtent();
-		} else {
-			DynamicLayerSRiver.setVisibleLayers([-1]);
+	// 		$KRF_APP.coreMap.subMapOnOffSetExtent();
+	// 	} else {
+	// 		//DynamicLayerSRiver.setVisibleLayers([-1]);
 
-			var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
-			subDynamicLayerSRiver.setVisibleLayers([-1]);
+	// 		// var subDynamicLayerSRiver = $KRF_APP.subMap.map.getLayer("DynamicLayerSRiver");
+	// 		// subDynamicLayerSRiver.setVisibleLayers([-1]);
 			
-			subMapWindow.hide();
-			$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
+	// 		subMapWindow.hide();
+	// 		$KRF_APP.coreMap._krad.miniLineGrpLayer.setVisibility(false);
 
-			SetBtnOnOff("btnMenu010", "off");
-		}
-	},
+	// 		SetBtnOnOff("btnMenu010", "off");
+	// 	}
+	// },
 
 	// 로컬 스토리지 셋팅
 	setLocalStorage: function () {

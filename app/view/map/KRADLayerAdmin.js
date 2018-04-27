@@ -2975,7 +2975,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}
 	},
 	
-	//미니맵 레이어 
+	//미니맵 레이어 add
 	subMapLayerDraw: function(layer,symbol,graphic){
 
 		var subGraphic = $.extend({}, graphic);
@@ -2989,6 +2989,24 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		//if(layer.id != "tmpGrpLayer" || layer.id !=  "areaGrpLayer_s" || layer.id !=  "lineGrpLayer_s"){
 			$KRF_APP.subMap._krad[layer.id+"_sub"].add(subGraphic);
 		}
+        
+		
+	},
+
+	//미니맵 레이어 remove
+	subMapLayerRemove: function(layer,removeLayer){
+
+		//$KRF_APP.subMap._krad[layer.id+"_sub"].remove(removeLayer);
+		console.info("!!!!!!!!!!");
+		console.info(removeLayer.attributes);
+		console.info("!!!!!!!!!!");
+		for(var a = 0 ; a < $KRF_APP.subMap._krad[layer.id+"_sub"].graphics.length ; a++){
+			console.info($KRF_APP.subMap._krad[layer.id+"_sub"].graphics[a].attributes);
+			if($KRF_APP.subMap._krad[layer.id+"_sub"].graphics[a].attributes.CAT_DID == removeLayer.attributes.CAT_DID ||
+			$KRF_APP.subMap._krad[layer.id+"_sub"].graphics[a].attributes.RCH_ID == removeLayer.attributes.RCH_ID ){
+        		$KRF_APP.subMap._krad[layer.id+"_sub"].remove(removeLayer);
+        	}
+        }
         
 		
 	},
@@ -3071,7 +3089,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(currId);
 		
 		if(grpIdx > -1){
-
+			
+			me.subMapLayerRemove(layer,layer.graphics[grpIdx]);
 			layer.remove(layer.graphics[grpIdx]);
 		}
 		
