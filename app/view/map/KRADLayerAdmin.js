@@ -335,45 +335,54 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
             me.miniLineGrpLayer.visible = true;
             me.map.addLayer(me.miniLineGrpLayer);
 			
-			me.lineGrpLayer = new GraphicsLayer();
-			me.lineGrpLayer.id = "lineGrpLayer";
-			me.lineGrpLayer.visible = true;
-			me.map.addLayer(me.lineGrpLayer);
 			
-			me.areaGrpLayer = new GraphicsLayer();
-			me.areaGrpLayer.id = "areaGrpLayer";
-			me.areaGrpLayer.visible = true;
-			me.map.addLayer(me.areaGrpLayer);
+			
+			if(me.map.id == "_subMapDiv_"){
+				me.lineGrpLayer_sub = new GraphicsLayer();
+				me.lineGrpLayer_sub.id = "lineGrpLayer_sub";
+				me.lineGrpLayer_sub.visible = true;
+				me.map.addLayer(me.lineGrpLayer_sub);
+				
+				me.areaGrpLayer_sub = new GraphicsLayer();
+				me.areaGrpLayer_sub.id = "areaGrpLayer_sub";
+				me.areaGrpLayer_sub.visible = true;
+				me.map.addLayer(me.areaGrpLayer_sub);
 
-			me.lineGrpLayer_sub = new GraphicsLayer();
-			me.lineGrpLayer_sub.id = "lineGrpLayer_sub";
-			me.lineGrpLayer.visible = true;
-			me.map.addLayer(me.lineGrpLayer_sub);
-			
-			me.areaGrpLayer_sub = new GraphicsLayer();
-			me.areaGrpLayer_sub.id = "areaGrpLayer_sub";
-			me.areaGrpLayer_sub.visible = true;
-			me.map.addLayer(me.areaGrpLayer_sub);
-			
-			me.lineGrpLayer_s = new GraphicsLayer();
-			me.lineGrpLayer_s.id = "lineGrpLayer_s";
-			me.lineGrpLayer_s.visible = true;
-			me.map.addLayer(me.lineGrpLayer_s);
-			
-			me.areaGrpLayer_s_sub = new GraphicsLayer();
-			me.areaGrpLayer_s_sub.id = "areaGrpLayer_s_sub";
-			me.areaGrpLayer_s_sub.visible = true;
-			me.map.addLayer(me.areaGrpLayer_s_sub);
+				me.areaGrpLayer_s_sub = new GraphicsLayer();
+				me.areaGrpLayer_s_sub.id = "areaGrpLayer_s_sub";
+				me.areaGrpLayer_s_sub.visible = true;
+				me.map.addLayer(me.areaGrpLayer_s_sub);
 
-			me.lineGrpLayer_s_sub = new GraphicsLayer();
-			me.lineGrpLayer_s_sub.id = "lineGrpLayer_s_sub";
-			me.lineGrpLayer_s_sub.visible = true;
-			me.map.addLayer(me.lineGrpLayer_s_sub);
+				me.lineGrpLayer_s_sub = new GraphicsLayer();
+				me.lineGrpLayer_s_sub.id = "lineGrpLayer_s_sub";
+				me.lineGrpLayer_s_sub.visible = true;
+				me.map.addLayer(me.lineGrpLayer_s_sub);
+			}else{
+
+				me.lineGrpLayer = new GraphicsLayer();
+				me.lineGrpLayer.id = "lineGrpLayer";
+				me.lineGrpLayer.visible = true;
+				me.map.addLayer(me.lineGrpLayer);
+				
+				me.areaGrpLayer = new GraphicsLayer();
+				me.areaGrpLayer.id = "areaGrpLayer";
+				me.areaGrpLayer.visible = true;
+				me.map.addLayer(me.areaGrpLayer);
+
+				me.lineGrpLayer_s = new GraphicsLayer();
+				me.lineGrpLayer_s.id = "lineGrpLayer_s";
+				me.lineGrpLayer_s.visible = true;
+				me.map.addLayer(me.lineGrpLayer_s);
+				
+				me.areaGrpLayer_s = new GraphicsLayer();
+				me.areaGrpLayer_s.id = "areaGrpLayer_s";
+				me.areaGrpLayer_s.visible = true;
+				me.map.addLayer(me.areaGrpLayer_s);
+			}
+
 			
-			me.areaGrpLayer_s = new GraphicsLayer();
-			me.areaGrpLayer_s.id = "areaGrpLayer_s";
-			me.areaGrpLayer_s.visible = true;
-			me.map.addLayer(me.areaGrpLayer_s);
+			
+			
 			
 			me.tmpGrpLayer = new GraphicsLayer();
 			me.tmpGrpLayer.id = "tmpGrpLayer";
@@ -760,8 +769,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			    				
 			    				me.showPopup();
 			    			}*/
-			    		}
-			    		else{
+			    		}else{
 			    			
 			    			// 오른버튼 컨텍스트 메뉴 풀기
 			    			// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
@@ -856,8 +864,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 									
 									me.showPopup();
 								}*/
-							}
-							else{
+							}else{
 								
 								// 오른버튼 컨텍스트 메뉴 풀기
 								// 검색설정 JSON 셋팅 ($KRF_APP.coreMap._krad.searchConfigInfoJson)
@@ -1294,7 +1301,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				if(featureSet.features.length > 0){
 					me.execLineFeature(featureSet);
 				} else {
-					//console.info(_mapServiceUrl_v3 + "/" + _reachAreaLayerId);
+					
 					var areaQueryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachAreaLayerId); // 집수구역 URL
 					var areaQuery = new Query();
 					areaQuery.returnGeometry = true;
@@ -1872,8 +1879,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				// 하류 및 공통하류 셋팅
 				me.setDownAndComm([rchDid], [], 0, "RCH_DID");
 				
-			}
-			else{
+			}else{
 				// 하류 및 공통하류 셋팅
 				me.setDownAndComm(rchIds, [], 0, "RCH_ID");
 				
@@ -2116,7 +2122,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				    								me.arrCommGrp.push(tmpArr[tmpCnt]);
 				    								
 												}else{//isPush 시작지점과 끝지점이 같을시
-													//console.info("else");
+													
 													//me.sRiverDraw(tmpArr[0]);
 												}
 				    						}
@@ -2147,8 +2153,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 										if(me.stRchIds == me.edRchIds){
 											me.sRiverDraw(tmpArr[0]);
 										}else{
+											
 											for(var i = 0; i < me.arrCommGrp.length; i++){
-					    					
+												
 												var commRchDid = me.arrCommGrp[i].attributes.RCH_DID;
 												var commGeoTrib = me.arrCommGrp[i].attributes.GEO_TRIB;
 												
@@ -2173,9 +2180,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 														SetBtnOnOff("btnMenu05", "off");
 													}
 													//버튼 off
-													
-													
-													
 													
 													//시작지점 끝지점 공통하류 존재시 option 줄곳
 													
@@ -2317,9 +2321,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     			break;
     		}
     	};
-    	// console.info("removeFirstLine:"+me.removeFirstLine)
-    	// console.info("firstBonBreak:"+me.firstBonBreak);
-    	// console.info("firstLine:"+firstLine);
+    	
     	if(firstLine != ""){
     		// 상류 찾기
     		me.setReachUpLineTmp(firstLine);
@@ -2420,7 +2422,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	/* 초기화 시 검색 종료 */
     	//if(me.searchStopCheck(cnt) == false){ return false };
-    	
     	me.searchCnt++; // 검색 카운트 증가
 
     	rchDid = rchDid.replace(/ /gi, "");
@@ -2495,10 +2496,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					
 					
 					if(cnt == 0){
-						
+						debugger;
 						//me.sRiverLineArray //소하천 배열
 						if(me.sRiverLineArray.length > 0){
 							for(var sRiver = 0 ; sRiver < me.sRiverLineArray.length; sRiver++){
+								
 								me.drawGraphic(me.sRiverLineArray[sRiver], "reachLine_s");	
 							}
 							//me.drawGraphic(me.sRiverAreaArray[sRiver], "reachArea_s");
@@ -2777,7 +2779,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					else if(evtType == "Line"){
 						
 						if(arrIdx > -1 && eLineIdx > -1){
-							////console.info(rchDid);
+							
 							// 그래픽 그리기
 							me.drawGraphic(me.arrEvtLineGrp[arrIdx][eLineIdx], "kradLine");
 							
@@ -2786,7 +2788,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 							
 							// 시작위치 또는 끝위치 일때
 							if(stIdx != -1 || edIdx != -1){
-								////console.info("dd");
+								
 								// 라인이벤트 집수구역 그리기
 								me.setKradAreaGrp(evtId, extId);
 							}
@@ -2808,17 +2810,19 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		    				// 좌측 상류 검색 (재귀호출)
 							me.setReachUpLine(luRchDid, cnt);
 							
+							
 	    				}
 						
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
 	    				
 	    				if(ruRchDid != undefined && ruRchDid.trim() != "" ){
 	    					// 우측 상류 검색 (재귀호출)
-	    					me.setReachUpLine(ruRchDid, cnt);
+							me.setReachUpLine(ruRchDid, cnt);
+							
 	    				}
 					}
 					else{
-						////console.info(me.arrDownGrp);
+						
 					}
 				}
 			});
@@ -2976,6 +2980,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		//me.sRiverLineArray //소하천 배열
 		if(me.sRiverLineArray.length > 0){
 			for(var sRiver = 0 ; sRiver < me.sRiverLineArray.length; sRiver++){
+				debugger;
 				me.drawGraphic(me.sRiverLineArray[sRiver], "reachLine_s");	
 			}
 		}
@@ -3119,7 +3124,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			// 그래픽 그린다.
 			graphic.setSymbol(symbol);
 			layer.add(graphic);
-			console.info(graphic);
 			
 			
 			// 배열에 넣기
@@ -3131,18 +3135,67 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	
 	//미니맵 레이어 
 	subMapLayerDraw: function(layer,symbol,graphic){
-		
+		var me = this;
 		var subGraphic = $.extend({}, graphic);
 		var subSymbol = $.extend({}, symbol);
 
 		subGraphic.setSymbol(subSymbol);
-		subGraphic.sub = true;
+		if(layer.id != "tmpGrpLayer"){
+
+			// Object 가 중복인지 아닌지 처음 false
+			var eqChk = false;
+
+			// 현제 그래픽레이어에 그래픽이 있을시  // 가지고 있는 그래픽 Object와 새로 그려질 Object를 비교하여 중복Object 인지 아닌지 판별
+			if($KRF_APP.subMap._krad[layer.id+"_sub"].graphics.length > 0){	
+				for(var a = 0 ; a < $KRF_APP.subMap._krad[layer.id+"_sub"].graphics.length ; a++){
+					if(me.objectEqualsChk($KRF_APP.subMap._krad[layer.id+"_sub"].graphics[a].attributes, subGraphic.attributes)){
+						eqChk = true;
+					}
+				}
+			}
+
+			// 현제 그릴 그래픽이 기존에 그래픽에 존재하면 그리지 않는다
+			if(!eqChk){
+				$KRF_APP.subMap._krad[layer.id+"_sub"].add(subGraphic);
+			}
+			
+		}
 		
-		console.info("=======");
-		console.info(layer.id+"_sub");
-		console.info($KRF_APP.subMap._krad[layer.id+"_sub"]);
-		$KRF_APP.subMap._krad[layer.id+"_sub"].add(subGraphic);
 	},
+
+	//object 끼리 같은지 확인하는 function
+	objectEqualsChk: function(x, y) { 
+		var me = this;
+		if (x === y) return true; // x와 y가 모두 null이거나 정의되지 않았고 정확히 같으면
+		if (!(x instanceof Object) || !(y instanceof Object)) return false; // if they are not strictly equal, they both need to be Objects 
+		if (x.constructor !== y.constructor) return false; // they must have the exact same prototype chain, the closest we can do is // test there constructor. 
+		for (var p in x) { if (!x.hasOwnProperty(p)) continue; // other properties were tested using x.constructor === y.constructor 
+			if (!y.hasOwnProperty(p)) return false; // allows to compare x[ p ] and y[ p ] when set to undefined 
+			if (x[p] === y[p]) continue; // if they have the same strict value or identity then they are equal 
+			if (typeof(x[p]) !== "object") return false; // Numbers, Strings, Functions, Booleans must be strictly equal 
+			if (!me.objectEqualsChk(x[p], y[p])) return false; // Objects and Arrays must be tested recursively 
+		} 
+		for (p in y) { 
+			if (y.hasOwnProperty(p) && !x.hasOwnProperty(p)) return false; // allows x[ p ] to be set to undefined 
+		} return true; 
+	},
+
+
+
+
+	//미니맵 레이어 remove
+	subMapLayerRemove: function(layer,removeLayer){
+
+		for(var a = 0 ; a < $KRF_APP.subMap._krad[layer.id+"_sub"].graphics.length ; a++){
+			if($KRF_APP.subMap._krad[layer.id+"_sub"].graphics[a].attributes.CAT_DID == removeLayer.attributes.CAT_DID ||
+			$KRF_APP.subMap._krad[layer.id+"_sub"].graphics[a].attributes.RCH_ID == removeLayer.attributes.RCH_ID ){
+				$KRF_APP.subMap._krad[layer.id+"_sub"].remove(removeLayer);
+			}
+		}
+		
+		
+	},
+	
 
 	clone: function(obj){
 		
@@ -3222,7 +3275,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(currId);
 		
 		if(grpIdx > -1){
-			
+
+			me.subMapLayerRemove(layer,layer.graphics[grpIdx]);
 			layer.remove(layer.graphics[grpIdx]);
 		}
 		
