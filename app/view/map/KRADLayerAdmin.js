@@ -2496,7 +2496,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					
 					
 					if(cnt == 0){
-						debugger;
 						//me.sRiverLineArray //소하천 배열
 						if(me.sRiverLineArray.length > 0){
 							for(var sRiver = 0 ; sRiver < me.sRiverLineArray.length; sRiver++){
@@ -3283,6 +3282,24 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				for(var a = 0 ; a < $KRF_APP.coreMap._krad[layer.id+"_s"].graphics.length; a++){
 					if(currId.substring(0,8) ==  $KRF_APP.coreMap._krad[layer.id+"_s"].graphics[a].attributes.SCAT_ID.substring(0,8)){
 						$KRF_APP.coreMap._krad[layer.id+"_s"].remove($KRF_APP.coreMap._krad[layer.id+"_s"].graphics[a]);
+					}
+				}
+
+				
+			}
+
+			if(me.checkSubMap()){ // 미니맵이 켜져있는지 확인
+				if(layer.id == "lineGrpLayer" || layer.id == "areaGrpLayer"){
+					for(var a = 0 ; a < $KRF_APP.subMap._krad[layer.id+"_s_sub"].graphics.length; a++){
+						if(currId.substring(0,8) ==  $KRF_APP.subMap._krad[layer.id+"_s_sub"].graphics[a].attributes.SCAT_ID.substring(0,8)){
+							$KRF_APP.subMap._krad[layer.id+"_s_sub"].remove($KRF_APP.subMap._krad[layer.id+"_s_sub"].graphics[a]);
+						}
+					}
+
+					for(var b = 0 ; b < $KRF_APP.subMap._krad[layer.id+"_sub"].graphics.length; b++){
+						if(currId ==  $KRF_APP.subMap._krad[layer.id+"_sub"].graphics[b].attributes.CAT_DID){
+							$KRF_APP.subMap._krad[layer.id+"_sub"].remove($KRF_APP.subMap._krad[layer.id+"_sub"].graphics[b]);
+						}
 					}
 				}
 			}
