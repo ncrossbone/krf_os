@@ -3278,6 +3278,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 			me.subMapLayerRemove(layer,layer.graphics[grpIdx]);
 			layer.remove(layer.graphics[grpIdx]);
+
+			if(layer.id == "lineGrpLayer" || layer.id == "areaGrpLayer"){
+				for(var a = 0 ; a < $KRF_APP.coreMap._krad[layer.id+"_s"].graphics.length; a++){
+					if(currId.substring(0,8) ==  $KRF_APP.coreMap._krad[layer.id+"_s"].graphics[a].attributes.SCAT_ID.substring(0,8)){
+						$KRF_APP.coreMap._krad[layer.id+"_s"].remove($KRF_APP.coreMap._krad[layer.id+"_s"].graphics[a]);
+					}
+				}
+			}
 		}
 		
 		if(idx > -1){
