@@ -22,8 +22,8 @@ Ext.define('Desktop.BrowserNoticeWindow', {
         var cfg = Ext.applyIf(config || {}, {
             id: 'browserNoticeWindow',
             title: '알림',
-            width: 460,
-            height: 370,
+            width: 886,
+            height: 658,
             alwaysOnTop: true,
             animCollapse: false,
             constrainHeader: true,
@@ -34,38 +34,14 @@ Ext.define('Desktop.BrowserNoticeWindow', {
             title: '알림',
             style: 'border: 0px; margin: 0 0 0 0',
             items: [{
-                xtype: 'panel',
-                header: false,
-                items: [{
-                    html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
-                        + '<html xmlns="http://www.w3.org/1999/xhtml">'
-                        + '<head>'
-                        + '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
-                        + '<title>Untitled Document</title>'
-                        + '<style>'
-                        + 'html, body,'
-                        + 'div, span,'
-                        + 'dl, dt, dd, ul, ol, li,'
-                        + 'h1, h2, h3, h4, h5, h6,'
-                        + 'blockquote, p, address, pre, cite,'
-                        + 'form, fieldset, input, textarea, select,'
-                        + 'table, th, td {'
-                        + 'margin:0;'
-                        + 'padding:0;'
-                        + '},'
-                        + 'background-color:#D9E5FF;'
-                        + '</style>'
-                        + '</head>'
-                        + '<body>'
-                        + '<div><img src="./resources/images/chrome_pop_2.jpg" usemap="#Map" border="0" />'
-                        + '<map name="Map" id="Map">'
-                        // + '<area shape="rect" coords="431,0,460,29" onclick=\"chromePopClose();\" title="닫기" />'
-                        + '</map>'
-                        + '</div>'
-                        + '</body>'
-                        + '</html>'
-                }]
-            }]
+                xtype: 'image',
+                src: './resources/images/chrome_pop.jpg'
+            }],
+            html: '<span style="position: absolute; width: 605px; left: 140px; height: 130px; top: 185px; cursor: pointer;" onclick="Ext.getCmp(\'chromePop\').chromeDown()"></span>',
+            chromeDown: function () {
+                var url = './resources/file/standalone.zip';
+                window.location.assign(url);
+            }
         });
         if (!win) {
             win = desktop.createWindow(cfg);
