@@ -10,15 +10,16 @@ Ext.define('krf_new.view.east.PollutionMapSetValue', {
 
 	title: '오염원 지도 보기설정',
 	constrain: true,
+	cls: 'subWindow-x-form-item-label-default',
 	//	cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
 	//bodyStyle: 'border: 0px;',
-
+	header: { cls: 'subWindow-x-form-item-label-default' },
 	layout: {
 		type: 'fit'
 	},
 
-	width: 260,
-	height: 165,
+	width: 280,
+	height: 180,
 
 	items: [{
 		xtype: 'container',

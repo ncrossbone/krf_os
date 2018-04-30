@@ -5,6 +5,7 @@ Ext.define('krf_new.view.map.TMLegendWindow', {
 	id: 'tmLegendWindow',
 	title: '범례',
 	constrain: true,
+	cls: 'subWindow-x-form-item-label-default',
 	//cls: 'khLee-window-panel-header khLee-x-window-default ',
 	//bodyStyle: 'border: 0px;',
 	//	closable:false,
@@ -14,6 +15,7 @@ Ext.define('krf_new.view.map.TMLegendWindow', {
 		type: 'fit'
 	},
 	header: {
+		cls: 'subWindow-x-form-item-label-default',
 		items: [
 			//        	{
 			//	            xtype:'image',
