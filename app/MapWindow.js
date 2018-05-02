@@ -69,7 +69,11 @@ Ext.define('Desktop.MapWindow', {
 			layout: 'border',
 			constrain: true,
 			constrainHeader: false,
-			onEsc:false,
+			maximizable: false,
+			minimizable: false,
+			resizable: false,
+			closable: false,
+			onEsc: false,
 			tools: [],
 			listeners: {
 				move: function (theWin, xP, yP, theOp) {
@@ -241,7 +245,7 @@ Ext.define('Desktop.MapWindow', {
 			cContainer.add(searchConfig);
 		}
 
-		if(radiusToolbar == undefined){
+		if (radiusToolbar == undefined) {
 			radiusToolbar = Ext.create('krf_new.view.center.RadiusToolbar', {});
 			cContainer.add(radiusToolbar);
 		}
@@ -342,10 +346,10 @@ Ext.define('Desktop.MapWindow', {
 
 		//소하천일 경우 임시
 		for (var i = 0; i < layerObj.store.data.items.length; i++) {
-			
+
 			if (layerObj.store.data.items[i].data.siteIdCol == lyrId) {
 				nodeObj = layerObj.store.data.items[i];
-				
+
 				var isChecked = nodeObj.get('checked');
 
 				nodeObj.set('checked', !isChecked);
@@ -540,7 +544,7 @@ Ext.define('Desktop.MapWindow', {
 						PictureMarkerSymbol,
 						graphicsUtils) {
 
-						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); 
+						var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId);
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];

@@ -6,8 +6,9 @@
 var $KRF_DEFINE = null;
 
 
+
 // 버전 관리
-Ext.manifest.loader = { 'cache': '1.0.5', 'cacheParam': '_ver' };
+//Ext.manifest.loader = { 'cache': '1.0.5', 'cacheParam': '_ver' };
 
 Ext.create('Ext.data.Store', {
 	autoLoad: true,
@@ -227,13 +228,12 @@ Ext.application({
 			dataType: "text/html",
 			method: 'POST',
 			params: { userId: loginInfo.userId },
-			async: true, // 비동기 = async: true, 동기 = async: false
+			async: true, 
 			success: function (response, opts) {
 				var result = Ext.util.JSON.decode(response.responseText);
 				if (result.data.length > 0) {
 					$KRF_APP.USER_LAYERS = result.data[0];
 					$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
-					// $KRF_APP.fireEvent($KRF_EVENT.LAYER_SET_COMBO_SET_VALUE, $KRF_APP.USER_LAYERS);
 				}
 			}
 		});
@@ -244,6 +244,8 @@ Ext.application({
 		var krfMode = this.localStorate.getItem('krfMode');
 
 		this.modeChanged({ mode: krfMode });
+
+		this.modeChanged({mode:this.REPORT_MODE});
 	},
 
 	//Start 메뉴에서 선택시 호출되는 곳
@@ -323,11 +325,12 @@ Ext.application({
 		this.currentMode = param.mode;
 		// this.localStorate.setItem('krfMode', param.mode);
 		//    	window.location.reload();
+		/*
 		var currentWindow = $KRF_APP.getDesktop().getActiveWindow();
 		if (currentWindow) {
 			currentWindow.minimize();
 		}
-
+*/
 		switch (param.mode) {
 			case this.KRF_MODE:
 				this.showKRFMode(param.coord);

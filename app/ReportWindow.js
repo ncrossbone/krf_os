@@ -37,10 +37,17 @@ Ext.define('Desktop.ReportWindow', {
             constrainHeader: true,
             layout: 'fit',
             items: [{ xtype: 'app-report-main' }],
-            onEsc:false,
+            onEsc: false,
+            isFirst: true,
             listeners: {
                 resize: function () {
 
+                },
+                show: function (win) {
+                    if (win.isFirst) {
+                        win.minimize();
+                        win.isFirst = false;
+                    }
                 }
             }
         });

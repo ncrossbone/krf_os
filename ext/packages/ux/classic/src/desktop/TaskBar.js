@@ -44,28 +44,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         me.tray = new Ext.toolbar.Toolbar(me.getTrayConfig());
 
         me.items = [
-            {
-                xtype: 'button',
-                cls: 'krf_desktop-start-button-icon',
-                border:false,
-                // iconCls: 'krf_desktop-start-button-icon',
-                menu: me.startMenu,
-                arrowVisible:false,
-                // menuAlign: 'bl-tl',
-                width: 80,
-                height: 35,
-                text:''
-            },
-            // '&nbsp;',
-            // me.quickStart,
-            // {
-            //     xtype: 'splitter', html: '&#160;',
-            //     height: 14, width: 4, // TODO - there should be a CSS way here
-            //     cls: 'x-toolbar-separator x-toolbar-separator-horizontal'
-            // },
-            me.windowBar,
-            '-',
-            me.tray
+            me.windowBar
         ];
 
         me.callParent();
@@ -123,7 +102,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         return {
             flex: 1,
             cls: 'krf_taskbar-ux-taskbar',
-            items: [ '&#160;' ],
+            items: [  ],
             layout: { overflowHandler: 'Scroller' }
         };
     },
@@ -147,6 +126,8 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     
     onButtonContextMenu: function (e) {
         var me = this, t = e.getTarget(), btn = me.getWindowBtnFromEl(t);
+        debugger;
+
         if (btn) {
             e.stopEvent();
             me.windowMenu.theWin = btn.win;
@@ -157,6 +138,9 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     onWindowBtnClick: function (btn) {
         var win = btn.win;
 
+        if(win.id == 'map-win'){
+            return;
+        }
         if (win.minimized || win.hidden) {
             btn.disable();
             win.show(null, function() {
