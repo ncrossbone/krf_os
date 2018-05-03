@@ -25,7 +25,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     alias: 'widget.taskbar',
 
     cls: 'krf_taskbar-ux-taskbar',
-    height:40,
+    height: 40,
     /**
      * @cfg {String} startBtnText
      * The text for the Start Button.
@@ -34,7 +34,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
 
     initComponent: function () {
         var me = this;
-        
+
         me.startMenu = new Ext.ux.desktop.StartMenu(me.startConfig);
 
         me.quickStart = new Ext.toolbar.Toolbar(me.getQuickStart());
@@ -91,7 +91,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
      */
     getTrayConfig: function () {
         var ret = {
-            cls:'krf_taskbar-ux-taskbar',
+            cls: 'krf_taskbar-ux-taskbar',
             items: this.trayItems
         };
         delete this.trayItems;
@@ -102,7 +102,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         return {
             flex: 1,
             cls: 'krf_taskbar-ux-taskbar',
-            items: [  ],
+            items: [],
             layout: { overflowHandler: 'Scroller' }
         };
     },
@@ -119,11 +119,11 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         if (module) {
             window = module.createWindow();
             window.show();
-        }else{
-        	$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, {'mode':btn.module});
+        } else {
+            $KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { 'mode': btn.module });
         }
     },
-    
+
     onButtonContextMenu: function (e) {
         var me = this, t = e.getTarget(), btn = me.getWindowBtnFromEl(t);
         debugger;
@@ -138,26 +138,34 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     onWindowBtnClick: function (btn) {
         var win = btn.win;
 
-        if(win.id == 'map-win'){
+        if (win.id == 'map-win') {
+            win.toFront();
             return;
         }
         if (win.minimized || win.hidden) {
             btn.disable();
-            win.show(null, function() {
+            var option = null;
+
+            win.show(null, function (window) {
                 btn.enable();
+                if (win.id == 'report-win' && win.y == 0) {
+                    var dp = $('.ux-wallpaper');
+                    var dpHeight = dp.height();
+                    win.setY(parseInt((dpHeight / 2) - (700 / 2)))
+                }
             });
         } else if (win.active) {
             btn.disable();
-            win.on('hide', function() {
+            win.on('hide', function () {
                 btn.enable();
-            }, null, {single: true});
+            }, null, { single: true });
             win.minimize();
         } else {
             win.toFront();
         }
     },
 
-    addTaskButton: function(win) {
+    addTaskButton: function (win) {
         var config = {
             iconCls: win.iconCls,
             enableToggle: true,
@@ -191,7 +199,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         return found;
     },
 
-    setActiveButton: function(btn) {
+    setActiveButton: function (btn) {
         if (btn) {
             btn.toggle(true);
         } else {
@@ -227,7 +235,7 @@ Ext.define('Ext.ux.desktop.TrayClock', {
 
         me.callParent();
 
-        if (typeof(me.tpl) == 'string') {
+        if (typeof (me.tpl) == 'string') {
             me.tpl = new Ext.XTemplate(me.tpl);
         }
     },

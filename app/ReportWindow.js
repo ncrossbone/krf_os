@@ -30,24 +30,32 @@ Ext.define('Desktop.ReportWindow', {
                 cls: 'krf-os-parentwin-header'
             },
             iconCls: 'krf-os-win-title-report-icon',
+            y:100,
             width: 690,
             height: 840,
             minWidth: 690,
             animCollapse: false,
             constrainHeader: true,
+            closable: false,
             layout: 'fit',
             items: [{ xtype: 'app-report-main' }],
             onEsc: false,
             isFirst: true,
             listeners: {
+                render: function(window){
+
+                    if (window.isFirst) {
+                        window.minimize();
+                        window.isFirst = false;
+                    }
+                },
                 resize: function () {
 
                 },
                 show: function (win) {
-                    if (win.isFirst) {
-                        win.minimize();
-                        win.isFirst = false;
-                    }
+                    
+                },
+                minimize : function(){
                 }
             }
         });
