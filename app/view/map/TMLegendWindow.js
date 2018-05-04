@@ -34,8 +34,6 @@ Ext.define('krf_new.view.map.TMLegendWindow', {
 	width: 230,
 	height: 290,
 
-	x: 120,
-	y: 700,
 
 	items: [{
 		xtype: "panel",

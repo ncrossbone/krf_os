@@ -423,8 +423,10 @@ Ext.define("krf_new.view.map.PollutionLayerAdmin", {
 				var windowHeight = (quantizeObj.length * 20) + 55;
 				tmLegendWindow.setHeight(windowHeight);
 
-				var windowY = Ext.getBody().getHeight() - tmLegendWindow.getHeight();
-				tmLegendWindow.setY(windowY);
+				var windowY = Ext.getCmp($KRF_WINS.KRF.MAP.id).getHeight() - tmLegendWindow.getHeight();
+
+				tmLegendWindow.setY(windowY-5);
+				tmLegendWindow.setX($KRF_DEFINE.westToolbarWidth+15);
 
 				legend.innerHTML = legend.innerHTML + html;
 

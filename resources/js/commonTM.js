@@ -533,7 +533,7 @@ catTMLayerOnOff = function(onOff){
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 	if(pollMapSetValue == undefined){
 		pollMapSetValue =  Ext.create("krf_new.view.east.PollMapSetValue", {
-			x: Ext.getBody().getWidth() - 261
+			x: Ext.getCmp($KRF_WINS.KRF.MAP.id).getWidth() - 261
 		});
 		Ext.getCmp('center_container').add(pollMapSetValue);
 //		pollMapSetValue.show();
@@ -567,8 +567,7 @@ catTMLayerOnOff = function(onOff){
 			
 			/*// 주제도 레이어 클리어
 			tmCatLayerClear();*/
-		}
-		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
+		} else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
 			
 			pollutionLayerOnOff("off", undefined)
 			

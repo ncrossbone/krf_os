@@ -357,8 +357,6 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 	createLegend: function (quantizeObj) {
 
 		var me = this;
-		var test = Ext.getCmp("tmLegendWindow");
-		//console.info(test);
 		// 레전드 윈도우 생성
 		var tmLegendWindow = Ext.create("krf_new.view.map.TMLegendWindow");
 		// 레전드 윈도우 보이기
@@ -431,12 +429,14 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 						html += esri.substitute(data, swatchTemplate);
 					}
 				});
-
 				var windowHeight = (quantizeObj.length * 20) + 55;
 				tmLegendWindow.setHeight(windowHeight);
 
-				var windowY = Ext.getBody().getHeight() - tmLegendWindow.getHeight();
-				tmLegendWindow.setY(windowY);
+				var windowY = Ext.getCmp($KRF_WINS.KRF.MAP.id).getHeight() - tmLegendWindow.getHeight();
+
+				tmLegendWindow.setY(windowY-5);
+				tmLegendWindow.setX($KRF_DEFINE.westToolbarWidth+15);
+
 
 				legend.innerHTML = legend.innerHTML + html;
 
