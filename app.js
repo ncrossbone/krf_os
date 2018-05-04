@@ -289,6 +289,9 @@ Ext.create('Ext.data.Store', {
 				if (targetWindow.minimized) {
 					targetWindow.show();
 				} else {
+					
+					targetWindow.toFront();
+
 					targetWindow.fireEvent('show');
 				}
 				return;
