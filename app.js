@@ -438,3 +438,14 @@ Ext.create('Ext.data.Store', {
 	});
 
 });
+
+
+Ext.on('resize', function(){
+	var loadWidth = window.innerWidth;
+	var loadHeight = window.innerHeight;
+	var mapWin = Ext.getCmp('map-win');
+
+	mapWin.setWidth(loadWidth);
+	mapWin.setHeight(loadHeight-40);
+});
+

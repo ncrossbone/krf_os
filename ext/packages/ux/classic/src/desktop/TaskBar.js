@@ -126,8 +126,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
 
     onButtonContextMenu: function (e) {
         var me = this, t = e.getTarget(), btn = me.getWindowBtnFromEl(t);
-        debugger;
-
+        
         if (btn) {
             e.stopEvent();
             me.windowMenu.theWin = btn.win;
