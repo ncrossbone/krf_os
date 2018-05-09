@@ -76,8 +76,7 @@ var $KRF_WINS = {
 	ADMIN: { MAIN: { id: 'admin-win' } },
 	THREEDIM: { MAIN: { id: 'threeDim-win' } },
 	REPORT: { MAIN: { id: 'report-win' } },
-	LOGIN: { MAIN: { id: 'login-win' } },
-	NOTICE: { id: 'browserNoticeWindow' }
+	LOGIN: { MAIN: { id: 'login-win' } }
 };
 
 var $KRF_APP = null;
@@ -409,19 +408,18 @@ Ext.create('Ext.data.Store', {
 		},
 		checkBrowser: function () {
 			if (Ext.browser.is.IE) {
-			var dp = $KRF_APP.getDesktop();
-			var dpWidth = dp.getWidth();
-			var dpHeight = dp.getHeight();
+				var dp = $KRF_APP.getDesktop();
+				var dpWidth = dp.getWidth();
+				var dpHeight = dp.getHeight();
 
-			var noticeWin = Ext.getCmp($KRF_WINS.NOTICE.id);
-			var centerContainer = Ext.getCmp('center_container');
-			if (!noticeWin) {
-				Ext.create('krf_new.view.common.BrowserNotice');
-				noticeWin = Ext.getCmp($KRF_WINS.NOTICE.id);
-			}
-			
-			centerContainer.add(noticeWin);
-			noticeWin.show();
+				var noticeWin = Ext.getCmp('browserNoticeWindow');
+				var centerContainer = Ext.getCmp('center_container');
+				if (!noticeWin) {
+					Ext.create('krf_new.view.common.BrowserNotice');
+					noticeWin = Ext.getCmp('browserNoticeWindow');
+				}
+				centerContainer.add(noticeWin);
+				noticeWin.show();
 			}
 		},
 		centerAt: function (coord) {
