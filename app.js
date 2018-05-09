@@ -289,7 +289,7 @@ Ext.create('Ext.data.Store', {
 				if (targetWindow.minimized) {
 					targetWindow.show();
 				} else {
-					
+
 					targetWindow.toFront();
 
 					targetWindow.fireEvent('show');
@@ -409,13 +409,19 @@ Ext.create('Ext.data.Store', {
 		},
 		checkBrowser: function () {
 			if (Ext.browser.is.IE) {
-				var dp = $KRF_APP.getDesktop();
-				var dpWidth = dp.getWidth();
-				var dpHeight = dp.getHeight();
+			var dp = $KRF_APP.getDesktop();
+			var dpWidth = dp.getWidth();
+			var dpHeight = dp.getHeight();
 
-				var noticeModule = $KRF_APP.getDesktopModule($KRF_WINS.NOTICE.id);
-				var noticeWindow = noticeModule.createWindow();
-				noticeWindow.show();
+			var noticeWin = Ext.getCmp($KRF_WINS.NOTICE.id);
+			var centerContainer = Ext.getCmp('center_container');
+			if (!noticeWin) {
+				Ext.create('krf_new.view.common.BrowserNotice');
+				noticeWin = Ext.getCmp($KRF_WINS.NOTICE.id);
+			}
+			
+			centerContainer.add(noticeWin);
+			noticeWin.show();
 			}
 		},
 		centerAt: function (coord) {
@@ -440,12 +446,12 @@ Ext.create('Ext.data.Store', {
 });
 
 
-Ext.on('resize', function(){
+Ext.on('resize', function () {
 	var loadWidth = window.innerWidth;
 	var loadHeight = window.innerHeight;
 	var mapWin = Ext.getCmp('map-win');
 
 	mapWin.setWidth(loadWidth);
-	mapWin.setHeight(loadHeight-40);
+	mapWin.setHeight(loadHeight - 40);
 });
 

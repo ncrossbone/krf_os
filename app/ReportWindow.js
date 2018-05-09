@@ -41,6 +41,7 @@ Ext.define('Desktop.ReportWindow', {
             items: [{ xtype: 'app-report-main' }],
             onEsc: false,
             isFirst: true,
+            shadow: false,
             listeners: {
                 render: function(window){
 
