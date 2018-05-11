@@ -55,6 +55,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 		me = this;
 		this.on('afterrender', me.mapLoaded, this);
 		this.callParent();
+		
 	},
 
 	mapRendered: function (p) {
