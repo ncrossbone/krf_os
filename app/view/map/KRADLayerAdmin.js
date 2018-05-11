@@ -3621,6 +3621,33 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		if (me.areaGrpLayer_s != undefined && me.areaGrpLayer_s != null) {
 			me.areaGrpLayer_s.clear();
 		}
+
+		//미니맵
+		if(me.checkSubMap()){
+			if(me.tmpGrpLayer != undefined && me.tmpGrpLayer != null){
+				me.tmpGrpLayer.clear();
+			}
+			
+			if(me.symGrpLayer != undefined && me.symGrpLayer != null){
+				me.symGrpLayer.clear();
+			}
+			
+			if(me.lineGrpLayer_sub != undefined && me.lineGrpLayer_sub != null){
+				me.lineGrpLayer_sub.clear();
+			}
+			
+			if(me.areaGrpLayer_sub != undefined && me.areaGrpLayer_sub != null){
+				me.areaGrpLayer.clear();
+			}
+			
+			if (me.lineGrpLayer_s_sub != undefined && me.lineGrpLayer_s_sub != null) {
+				me.lineGrpLayer_s.clear();
+			}
+	
+			if (me.areaGrpLayer_s_sub != undefined && me.areaGrpLayer_s_sub != null) {
+				me.areaGrpLayer_s.clear();
+			}
+		}
     },
     
     clearVariable: function(){

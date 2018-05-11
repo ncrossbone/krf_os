@@ -1932,7 +1932,22 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 }
 
 OpenMenualPop = function () {
-	window.open("./resources/menual/KRF_USER_MANUAL.html", "하천망 분석도 사용자 메뉴얼", "width=1024, height=768, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
+	//window.open("./resources/menual/KRF_USER_MANUAL.html", "하천망 분석도 사용자 메뉴얼", "width=1024, height=768, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
+	
+	Ext.create('Ext.window.Window', {
+		title: '메뉴얼_(내부망)물환경지리정보시스템',
+		height: 900,
+		width: 600,
+		cls: 'subWindow-x-form-item-label-default',
+		header: { cls: 'subWindow-x-form-item-label-default' },
+		layout: 'fit',
+		items:[{
+			xtype: 'component',
+			height: '100%',
+			html: "<iframe src=\"./resources/menual/krf_menual.pdf\" width=\"100%\" height=\"100%\"></iframe>"
+		}]
+	}).show();
+
 }
 
 ResetButtonClick = function () {

@@ -86,7 +86,6 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin2', {
 			}
 
 			var jsonData;
-
 			Ext.Ajax.request({
 				url: _API.drone_GetRWMDT, //'./resources/jsp/drone/GetRWMDT.jsp',    // To Which url you wanna POST.
 				params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
@@ -222,10 +221,10 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin2', {
 
 			var dialog, highlightSymbol;
 
-			require(["dijit/TooltipDialog"], function (TooltipDialog) {
+			require(["dijit/TooltipDialog", "dojo/dom"], function (TooltipDialog) {
 				dialog = new TooltipDialog({
-					//id: "tooltipDialog",
-					style: "position: absolute; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100"
+					// id: "tooltipDialog",
+					style: "position: absolute; width: 377px; font: normal normal normal 10pt Helvetica;"
 				});
 				dialog.startup();
 			});
@@ -400,7 +399,7 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin2', {
 
 				dialog.setContent(content);
 
-				require(["dojo/dom-style", "dijit/popup"], function (domStyle, dijitPopup) {
+				require(["dojo/dom-style", "dijit/popup", "dojo/dom"], function (domStyle, dijitPopup, dom) {
 					domStyle.set(dialog.domNode, "opacity", 1);
 					dijitPopup.open({
 						popup: dialog,
