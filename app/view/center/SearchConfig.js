@@ -3,7 +3,7 @@
  */
 Ext.define('krf_new.view.center.SearchConfig', {
 	/* 데이터셋 설정 창 */
-	extend: 'Ext.panel.Panel',
+	extend: 'Ext.window.Window',
 
 	xtype: 'win-searchConfig',
 
@@ -15,7 +15,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	height: 120,
 
 	header: false,
-
+	alwaysOnTop:true,
 	resizable: false,
 
 	hidden: true,
