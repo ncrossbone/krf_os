@@ -109,7 +109,10 @@ Ext.define("krf_new.view.map.SearchReachUp", {
 				for (var i = 0; i < areaFeatures.length; i++) {
 
 					/* 중권역 체크 여부 확인 */
-					if (isMWDraw == true) {
+					if(isDaemBoDraw == false && isMWDraw == false){
+                        // 증권역과 댐/보가 선택되지 않았을시 계속 상류검색
+                    }else if (isMWDraw == true) {
+
 
 						var tmpMbId = areaFeatures[i].attributes.MB_ID.replace(/ /gi, ""); // 중권역 아이디
 
@@ -131,7 +134,19 @@ Ext.define("krf_new.view.map.SearchReachUp", {
 			}
 
 			/* 댐/보 체크 여부 확인 */
-			if (isDaemBoDraw == false) {
+			if(isDaemBoDraw == false && isMWDraw == false){
+				                // 그래픽 그리기
+				me.drawGraphic(isDrawGraphic, lineFeature, areaFeatures);
+
+				cnt++; // 상류 검색 전 카운트 증가
+				
+				// 좌측 상류 검색
+				me.searchUpWithWhere(isUpSearch, "RCH_DID = '" + luRchDid + "'", cnt);
+				// 우측 상류 검색
+				me.searchUpWithWhere(isUpSearch, "RCH_DID = '" + ruRchDid + "'", cnt);
+				
+            }else if (isDaemBoDraw == false) {
+
 
 				// 그래픽 그리기
 				me.drawGraphic(isDrawGraphic, lineFeature, areaFeatures);

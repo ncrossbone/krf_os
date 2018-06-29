@@ -83,12 +83,6 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				disabled: true,
 				width: 65,
 				handler: function (obj, checked) {
-					var chkDaemBoDraw = Ext.getCmp('chkDaemBoDraw');
-					if (checked == true) {
-						chkDaemBoDraw.setValue(false);
-					} else {
-						chkDaemBoDraw.setValue(true);
-					}
 					// 로컬 스토리지 셋팅
 					this.up("win-searchConfig").setLocalStorage();
 				},
@@ -103,12 +97,6 @@ Ext.define('krf_new.view.center.SearchConfig', {
 				disabled: true,
 				width: 80,
 				handler: function (obj, checked) {
-					var chkMWDraw = Ext.getCmp('chkMWDraw');
-					if (checked == true) {
-						chkMWDraw.setValue(false);
-					} else {
-						chkMWDraw.setValue(true);
-					}
 					// 로컬 스토리지 셋팅
 					this.up("win-searchConfig").setLocalStorage();
 				},
