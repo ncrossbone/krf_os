@@ -652,7 +652,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 								/* 검색설정 "상류" 체크 시 */
 								if ($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true) {
 
-									_rchUpSearch.searchWithEvent(evt);
+									$KRF_APP.coreMap._rchUpSearch.searchWithEvent(evt);
 									// 종료 검색 체크
 									me.isStopCheck();
 								} else { /* 검색설정 "상류" 체크 시 끝 */
@@ -746,7 +746,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 									/* 검색설정 "상류" 체크 시 */
 									if ($KRF_APP.coreMap._krad.searchConfigInfoJson.isUpDraw == true) {
 
-										_rchUpSearch.searchWithEvent(evt);
+										$KRF_APP.coreMap._rchUpSearch.searchWithEvent(evt);
 										// 종료 검색 체크
 										me.isStopCheck();
 									}
