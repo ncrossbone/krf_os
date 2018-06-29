@@ -134,7 +134,15 @@ Ext.define("krf_new.view.map.SearchReachUp", {
 
 			/* 댐/보 체크 여부 확인 */
 			if(isDaemBoDraw == false && isMWDraw == false){
+				// 그래픽 그리기
+				me.drawGraphic(isDrawGraphic, lineFeature, areaFeatures);
 
+				cnt++; // 상류 검색 전 카운트 증가
+
+				// 좌측 상류 검색
+				me.searchUpWithWhere(isUpSearch, "RCH_DID = '" + luRchDid + "'", cnt);
+				// 우측 상류 검색
+				me.searchUpWithWhere(isUpSearch, "RCH_DID = '" + ruRchDid + "'", cnt);
 			}else if (isDaemBoDraw == false) {
 
 				// 그래픽 그리기
