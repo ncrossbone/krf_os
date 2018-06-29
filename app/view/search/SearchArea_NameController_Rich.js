@@ -60,14 +60,14 @@ Ext.define('krf_new.view.search.SearchArea_NameController_Rich', {
 
 				var listCtl = Ext.getCmp("searchAreaList");
 				listCtl.removeAll();
-				listCtl.doLayout();
+				//listCtl.doLayout();
 
 				var layerCnt = 0;
 
 				var saveCnt = [];
 
 				var listCtl_Total = Ext.getCmp("searchAreaList_Total");
-				listCtl_Total.doLayout();
+				//listCtl_Total.doLayout();
 				listCtl_Total.removeAll();
 
 				if (button.id == "btnSearchText_Start") {
@@ -150,8 +150,8 @@ Ext.define('krf_new.view.search.SearchArea_NameController_Rich', {
 					}
 				}
 
-				listCtl.doLayout();
-				listCtl_Total.doLayout();
+				//listCtl.doLayout();
+				//listCtl_Total.doLayout();
 
 				var layerCount = [];
 				layerCount = saveCnt.split("_");

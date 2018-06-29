@@ -33,12 +33,13 @@ Ext.define('krf_new.view.search.SearchArea', {
 			xtype: 'west-searchArea_Water'
 		}, {
 			xtype: 'west-searchArea_ADM'
-		}
-			, {
+		}, {
 			xtype: 'west-searchArea_Name'
-		}
-			, {
-			xtype: 'container',
+		}, {
+			xtype: 'panel',
+            height: 320,
+            autoScroll: true,
+
 			items: [{
 				xtype: 'west-searchArea_Name_Rich'
 			}, {
