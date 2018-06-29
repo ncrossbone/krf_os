@@ -810,15 +810,15 @@
 		"siteIdCol": "ADM_CD",
 		"metaDataId":"V004"
 	}]
-}, /* {
-	"id": "70",
+},  {
+	"id": "73",
 	"text": "식생도(전국)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "71",
+		"id": "74",
 		"text": "식생도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer63",
@@ -826,14 +826,14 @@
 		"checked": false
 	}]
 }, {
-	"id": "72",
+	"id": "75",
 	"text": "토지피복도(전국)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "72",
+		"id": "76",
 		"text": "토지피복도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer65",
@@ -841,56 +841,56 @@
 		"checked": false
 	}]
 },{
-	"id": "78",
+	"id": "81",
 	"text": "수질보호구역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "79",
+		"id": "82",
 		"text": "특별대책지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer71",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "80",
+		"id": "83",
 		"text": "오수처리대책지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer72",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "81",
+		"id": "84",
 		"text": "상수원보호구역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer73",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "82",
+		"id": "85",
 		"text": "배출시설제한지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer74",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "83",
+		"id": "86",
 		"text": "수변구역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer75",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "84",
+		"id": "87",
 		"text": "그린벨트",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer76",
 		"leaf": true,
 		"checked": false
 	}]
-}, */ {
+},  {
 	"id": "90",
 	"text": "총량관리단위유역",
 	"cls": "khLee-x-tree-node-text-bold",

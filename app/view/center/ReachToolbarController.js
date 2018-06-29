@@ -218,7 +218,19 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 		// console.info($KRF_APP.subMap);
 		// console.info($KRF_APP.subMap._krad);
 	},
-
+	// test : function(){
+	// 	$KRF_APP.coreMap._krad.testRechUpLine(5004010302)
+	// },
+	// test2 : function(){
+	// 	//$KRF_APP.coreMap._krad.testArray
+	// 	var string = "";
+	// 	for(var i = 0 ; i < $KRF_APP.coreMap._krad.testArray.length ; i++){
+	// 		string += "집수구역 = "+$KRF_APP.coreMap._krad.testArray[i].CAT_DID;
+	// 		string += "리치라인 = "+$KRF_APP.coreMap._krad.testArray[i].RCH_ID;
+	// 		string += "\n"
+	// 	}
+	// 	console.info(string);
+	// },
 	// 시작위치 버튼 클릭
 	onClickStartReach: function (obj, el, evt) {
 

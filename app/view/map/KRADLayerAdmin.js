@@ -1,7 +1,7 @@
 Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	
 	kradServiceUrl: "",
-	
+	testArray :[],
 	map: null,
 	popup: null,
 	mapClickObj: null,
@@ -2412,7 +2412,62 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		
     },
     
-    
+	//상류 뽑아내기 (DB팀 지원)
+	// testRechUpLine: function(rchDid){
+    	
+    // 	var me = this;    	
+    // 	if(rchDid == ""){
+    		
+    // 		return;
+    // 	}
+    	
+    // 	require(["esri/tasks/query",
+    // 	         "esri/tasks/QueryTask"],
+    // 	         function(Query,
+    // 	        		 QueryTask){
+    		
+	// 		var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
+	// 		var query = new Query();
+	// 		query.returnGeometry = true;
+	// 		//query.outFields = ["*"];
+	// 		query.outFields = [ "CAT_DID",
+	// 							"RCH_ID",
+	// 							"RCH_DID",
+	// 							"RD_RCH_DID",
+	// 							"LD_RCH_DID",
+	// 							"GEO_TRIB",
+	// 							"LU_RCH_DID",
+	// 							"RU_RCH_DID",
+	// 							"RIV_NM"];
+	// 		query.where = "RCH_DID = '" + rchDid + "'";
+			
+	// 		// 리치라인 조회
+	// 		queryTask.execute(query, function(featureSet){
+				
+	// 			if(featureSet.features.length > 0){
+	// 				var feature = featureSet.features[0];
+	// 				$KRF_APP.coreMap._krad.testArray.push(feature.attributes);
+	// 				var luRchDid = feature.attributes.LU_RCH_DID;
+	// 				if(luRchDid != undefined && luRchDid.trim() != "" ){
+	// 					// 좌측 상류 검색 (재귀호출)
+	// 					me.testRechUpLine(luRchDid);
+	// 				}
+					
+	// 				var ruRchDid = feature.attributes.RU_RCH_DID;
+					
+	// 				if(ruRchDid != undefined && ruRchDid.trim() != "" ){
+	// 					// 우측 상류 검색 (재귀호출)
+	// 					me.testRechUpLine(ruRchDid);
+	// 				}
+
+	// 			}
+	// 		});
+    // 	});
+	
+	// },
+	
+
+
     /* 상류 리치라인 조회 및 그리기
      * rchDid: 검색될 리치 아이디(DID)
      * cnt: 상류검색 카운트 */

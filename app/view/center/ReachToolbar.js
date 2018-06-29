@@ -211,6 +211,30 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			src: './resources/images/button/reach_menu14.png',
 			hidden: true
 		}, {
+		// 	xtype: 'image',
+		// 	id: 'aaaa',
+		// 	title: '검색',
+		// 	width: this.itemWidth,
+		// 	height: this.itemHeight,
+		// 	style: 'cursor:pointer;',
+		// 	listeners: { el: { click: 'test' } },
+		// 	btnOnOff: 'off',
+		// 	btnOnImg: './resources/images/button/reach_menu14.png',
+		// 	btnOffImg: './resources/images/button/reach_menu14.png',
+		// 	src: './resources/images/button/reach_menu14.png'
+		// }, {
+		// 	xtype: 'image',
+		// 	id: 'aaaaa',
+		// 	title: '데이터',
+		// 	width: this.itemWidth,
+		// 	height: this.itemHeight,
+		// 	style: 'cursor:pointer;',
+		// 	listeners: { el: { click: 'test2' } },
+		// 	btnOnOff: 'off',
+		// 	btnOnImg: './resources/images/button/reach_menu14.png',
+		// 	btnOffImg: './resources/images/button/reach_menu14.png',
+		// 	src: './resources/images/button/reach_menu14.png'
+		// }, {
 			xtype: 'container',
 			id: 'gapToolbarContainer',
 			width: 10
