@@ -4,7 +4,7 @@
 Ext.define('krf_new.view.center.ReachNameToolbar', {
 	/*리치 이름 제어용 툴바*/
 
-	extend: 'Ext.panel.Panel',
+	extend: 'Ext.window.Window',
 
 	xtype: 'center-reachnametoolbar',
 
@@ -17,13 +17,12 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 	resizable: false,
 
 	border: false,
-
 	bodyStyle: 'background:#043264 !important; padding:5px; border-radius:5px;',
 	/* 사이즈 지정 */
 	//itemWidth: 69,
 
 	//cls: 'dj_toolbarNm dj_spottextfield2',
-	height: 38,
+	//height: 38,
 
 	width: 188,
 
