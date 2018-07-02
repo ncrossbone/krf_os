@@ -140,7 +140,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
 			if(store.searchType != "paramSearch"){
-				query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'G' AND GROUP_CODE <> 'F' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
+				query.where += "	AND  GROUP_CODE <> 'B'  AND GROUP_CODE <> 'G' AND GROUP_CODE <> 'F' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}
 			//query.where += "AND GROUP_CODE <> 'E'";
 			
@@ -698,7 +698,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcAtalSe = 0; sstgHcAtalSe < ssgtObj.hc.ATAL_SE.length; sstgHcAtalSe++) {
 											sstgString += "{\n";
@@ -711,7 +711,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 	
@@ -727,7 +727,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcBemaSe = 0; sstgHcBemaSe < ssgtObj.hc.BEMA_SE.length; sstgHcBemaSe++) {
 											sstgString += "{\n";
@@ -740,7 +740,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -755,7 +755,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcFishSe = 0; sstgHcFishSe < ssgtObj.hc.FISH_SE.length; sstgHcFishSe++) {
 											sstgString += "{\n";
@@ -768,7 +768,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -783,7 +783,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcInhaSe = 0; sstgHcInhaSe < ssgtObj.hc.INHA_SE.length; sstgHcInhaSe++) {
 											sstgString += "{\n";
@@ -796,7 +796,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -811,7 +811,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcQltwtrSe = 0; sstgHcQltwtrSe < ssgtObj.hc.QLTWTR_SE.length; sstgHcQltwtrSe++) {
 											sstgString += "{\n";
@@ -824,7 +824,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -852,7 +852,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHgAtalSe = 0; sstgHgAtalSe < ssgtObj.hg.ATAL_SE.length; sstgHgAtalSe++) {
 											sstgString += "{\n";
@@ -865,7 +865,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -880,7 +880,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHgBemaSe = 0; sstgHgBemaSe < ssgtObj.hg.BEMA_SE.length; sstgHgBemaSe++) {
 											sstgString += "{\n";
@@ -893,7 +893,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -908,7 +908,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcFishSe = 0; sstgHcFishSe < ssgtObj.hg.FISH_SE.length; sstgHcFishSe++) {
 											sstgString += "{\n";
@@ -921,7 +921,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -936,7 +936,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"srchBtnDisabled\": true,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hg.VTN_SE.length; sstgHcVtnSe++) {
 											sstgString += "{\n";
@@ -949,7 +949,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "			\"srchBtnDisabled\": true,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";

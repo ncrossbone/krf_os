@@ -1879,9 +1879,9 @@ ResetButtonClick = function () {
 
 	// KRAD 레이어 그래픽 및 변수 초기화
 	$KRF_APP.coreMap._krad.clearKradAll();
-	if($KRF_APP.coreMap._krad.checkSubMap()){
-		$KRF_APP.subMap._krad.clearKradAll();
-	}
+	// if($KRF_APP.coreMap._krad.checkSubMap()){
+	// 	$KRF_APP.subMap._krad.clearKradAll();
+	// }
 	
 	SetBtnOnOff("btnMenu04", "off");
 	SetBtnOnOff("btnMenu05", "off");

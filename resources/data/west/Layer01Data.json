@@ -359,6 +359,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"visible": false, //외부망
 	"children": [{
 		"id": "27",
 		"wmsId":"70",
