@@ -296,7 +296,6 @@ Ext.create('Ext.data.Store', {
 			// },
 
 			resizeToolItems: function () {
-
 				var reachToolbar = Ext.getCmp('reachToolbar');
 				if (!reachToolbar) {
 					return;
@@ -316,6 +315,16 @@ Ext.create('Ext.data.Store', {
 				}
 				var gabCon = Ext.getCmp('gapToolbarContainer');
 				gabCon.setWidth(gabWidth + 40);
+
+				var reachNameToolbar = Ext.getCmp('reachNameToolbar');
+				if(reachNameToolbar){
+					if(!reachNameToolbar.hidden){
+						setTimeout(function(){
+							reachNameToolbar.setX(368);
+							reachNameToolbar.setY(96)
+						},100);
+					}
+				}
 			},
 
 			setSubWindowLocation: function () {
