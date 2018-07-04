@@ -956,7 +956,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		
 									if (ssgtObj.hg.VTN_SE.length > 0) {
 										sstgString += "	  { \n";
-										sstgString += "	\"id\": \"EsstggcVtnSe\",\n";
+										sstgString += "	\"id\": \"EsstgHgVtnSe\",\n";
 										sstgString += "	\"title\": \"식생\",\n";
 										sstgString += "	\"visible\": \"true\",\n";
 										sstgString += "	\"text\": \"식생\",\n";
@@ -967,7 +967,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"children\": [";
 										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hg.VTN_SE.length; sstgHcVtnSe++) {
 											sstgString += "{\n";
-											sstgString += "			\"id\": \"EsstggcVtnSe" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
 											sstgString += "			\"text\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].name + "\",\n";
 											sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
 											sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";

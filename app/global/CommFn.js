@@ -398,7 +398,7 @@ Ext.define("krf_new.global.CommFn", {
 				data: [{ id: '1', name: '조사자료' }
 					,{ id: '2', name: '출현생물종' }]
 			});
-		}else if(storeName = 'EsstgHcVtnSe'){
+		}else if(storeName == 'EsstgHcVtnSe'){
 			store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
 				data: [{ id: '1', name: '조사자료'}
