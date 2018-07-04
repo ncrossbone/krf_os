@@ -698,7 +698,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcAtalSe = 0; sstgHcAtalSe < ssgtObj.hc.ATAL_SE.length; sstgHcAtalSe++) {
 											sstgString += "{\n";
@@ -711,7 +711,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 	
@@ -727,7 +727,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcBemaSe = 0; sstgHcBemaSe < ssgtObj.hc.BEMA_SE.length; sstgHcBemaSe++) {
 											sstgString += "{\n";
@@ -740,7 +740,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -755,7 +755,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcFishSe = 0; sstgHcFishSe < ssgtObj.hc.FISH_SE.length; sstgHcFishSe++) {
 											sstgString += "{\n";
@@ -768,7 +768,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -783,7 +783,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcInhaSe = 0; sstgHcInhaSe < ssgtObj.hc.INHA_SE.length; sstgHcInhaSe++) {
 											sstgString += "{\n";
@@ -796,7 +796,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -811,7 +811,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcQltwtrSe = 0; sstgHcQltwtrSe < ssgtObj.hc.QLTWTR_SE.length; sstgHcQltwtrSe++) {
 											sstgString += "{\n";
@@ -824,7 +824,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -852,7 +852,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHgAtalSe = 0; sstgHgAtalSe < ssgtObj.hg.ATAL_SE.length; sstgHgAtalSe++) {
 											sstgString += "{\n";
@@ -865,7 +865,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -880,7 +880,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHgBemaSe = 0; sstgHgBemaSe < ssgtObj.hg.BEMA_SE.length; sstgHgBemaSe++) {
 											sstgString += "{\n";
@@ -893,7 +893,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -908,7 +908,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcFishSe = 0; sstgHcFishSe < ssgtObj.hg.FISH_SE.length; sstgHcFishSe++) {
 											sstgString += "{\n";
@@ -921,7 +921,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
@@ -929,18 +929,18 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		
 									if (ssgtObj.hg.VTN_SE.length > 0) {
 										sstgString += "	  { \n";
-										sstgString += "	\"id\": \"EsstggcVtnSe\",\n";
+										sstgString += "	\"id\": \"EsstgHgVtnSe\",\n";
 										sstgString += "	\"title\": \"식생\",\n";
 										sstgString += "	\"visible\": \"true\",\n";
 										sstgString += "	\"text\": \"식생\",\n";
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
-										sstgString += "	\"srchBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
 										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hg.VTN_SE.length; sstgHcVtnSe++) {
 											sstgString += "{\n";
-											sstgString += "			\"id\": \"EsstggcVtnSe" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
 											sstgString += "			\"text\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].name + "\",\n";
 											sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
 											sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
@@ -949,7 +949,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": true,\n";
 											sstgString += "			\"chartBtnDisabled\": true,\n";
-											sstgString += "			\"srchBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
 										sstgString += "	]},";
