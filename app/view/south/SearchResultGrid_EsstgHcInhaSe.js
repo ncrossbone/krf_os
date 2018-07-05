@@ -1,11 +1,11 @@
-Ext.define('krf_new.view.south.SearchResultGrid_EsstgInhaSe', {
+Ext.define('krf_new.view.south.SearchResultGrid_EsstgHcInhaSe', {
 
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
 
 	xtype: 'south-grid-searchresult',
 
-	id: 'searchResultContainer_EsstgInhaSe',
+	id: 'searchResultContainer_EsstgHcInhaSe',
 	height: '100%',
 	width: '100%',
 	gridId: null,
