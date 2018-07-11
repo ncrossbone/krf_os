@@ -3329,8 +3329,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}).indexOf(currId);
 		
 		if(grpIdx > -1){
-
-			me.subMapLayerRemove(layer,layer.graphics[grpIdx]);
+			if(me.checkSubMap()){ // 미니맵이 켜져있는지 확인
+				me.subMapLayerRemove(layer,layer.graphics[grpIdx]);
+			}
 			layer.remove(layer.graphics[grpIdx]);
 
 			if(layer.id == "lineGrpLayer" || layer.id == "areaGrpLayer"){

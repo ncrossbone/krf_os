@@ -856,6 +856,35 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
+
+									if (ssgtObj.hc.VTN_SE.length > 0) {
+										sstgString += "	  { \n";
+										sstgString += "	\"id\": \"EsstgHcVtnSe\",\n";
+										sstgString += "	\"title\": \"식생\",\n";
+										sstgString += "	\"visible\": \"true\",\n";
+										sstgString += "	\"text\": \"식생\",\n";
+										sstgString += "	\"expanded\": false,\n";
+										sstgString += "	\"infoBtnDisabled\": true,\n";
+										sstgString += "	\"chartBtnDisabled\": true,\n";
+										sstgString += "	\"srchBtnDisabled\": false,\n";
+										sstgString += "	\"children\": [";
+										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hc.VTN_SE.length; sstgHcVtnSe++) {
+											sstgString += "{\n";
+											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hc.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"text\": \"" + ssgtObj.hc.VTN_SE[sstgHcVtnSe].name + "\",\n";
+											sstgString += "			\"eSiteId\": \"" + ssgtObj.hc.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
+											sstgString += "			\"leaf\": true,\n";
+											sstgString += "			\"checked\": null,\n";
+											sstgString += "			\"infoBtnDisabled\": true,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"srchBtnDisabled\": false,\n";
+											sstgString += "		}, ";
+										}
+										sstgString += "	]},";
+									}
+
 									sstgString += "	]},";
 								}
 								if(hgLengChk > 0){
@@ -965,11 +994,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"chartBtnDisabled\": true,\n";
 										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
-										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hg.VTN_SE.length; sstgHcVtnSe++) {
+										for (var sstgHgVtnSe = 0; sstgHgVtnSe < ssgtObj.hg.VTN_SE.length; sstgHgVtnSe++) {
 											sstgString += "{\n";
-											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
-											sstgString += "			\"text\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].name + "\",\n";
-											sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hg.VTN_SE[sstgHgVtnSe].id + "\",\n";
+											sstgString += "			\"text\": \"" + ssgtObj.hg.VTN_SE[sstgHgVtnSe].name + "\",\n";
+											sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.VTN_SE[sstgHgVtnSe].id + "\",\n";
 											sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";

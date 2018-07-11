@@ -107,18 +107,12 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 	        					afterVal.push(dateSplit.substring(0,4));
 	        					afterVal.push(dateSplit.substring(4,6));
 		        				
-		        				startYear = afterVal[0];
-		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
-		        					startMonth = "12";
-		        					startYear = startYear-1;
-		        				}else{
-		        					startMonth = afterVal[1]-1;
-		        				}
-		        				
-		        				if(startMonth < 10){
-		        					startMonth = "0"+startMonth;
-		        				}
-		        				
+                                var dtS = new Date(dateSplit1.substring(0, 4), dateSplit1.substring(4, 6));
+                                    dtS.setMonth(dtS.getMonth() - 1);
+
+								startYear = dtS.toISOString().substring(0, 4);
+								startMonth = dtS.toISOString().substring(5, 7);
+	
 		        				endYear = afterVal[0];
 		        				endMonth = afterVal[1];
 		        				
