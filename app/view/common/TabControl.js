@@ -887,9 +887,17 @@ Ext.define('krf_new.view.common.TabControl', {
 						// khLee 수정 값 변경
 						var strData = JSON.stringify(dataArr[i].data);
 
+						// //null 정량한계미만 string 수정
+						// strData = strData.replace(/:888888888,/gi, ":\"\",");
+						// strData = strData.replace(/:999999999,/gi, ":\"정량한계미만\",");
 						//null 정량한계미만 string 수정
-						strData = strData.replace(/:888888888,/gi, ":\"\",");
-						strData = strData.replace(/:999999999,/gi, ":\"정량한계미만\",");
+						if(strData.indexOf("\:888888888")){
+							strData = strData.replace(/888888888/gi, "\"\"");
+						}
+						
+						if(strData.indexOf(':999999999')){
+							strData = strData.replace(/:999999999/gi, "\:\"정량한계미만\"");
+						}
 
 						var convertData = JSON.parse(strData);
 						//datas.push(dataArr[i].data);
