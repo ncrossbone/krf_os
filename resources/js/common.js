@@ -2268,6 +2268,7 @@ ResetStEdSiteName = function () {
 
 	textSearchText_Start.setValue("");
 	textSearchText_End.setValue("");
+	
 }
 
 var westPreWidth = 0;
