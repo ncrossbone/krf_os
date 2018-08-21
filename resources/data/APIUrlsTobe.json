@@ -1,4 +1,4 @@
-{   "domain" : "http://112.217.167.123:40003",
+{   "domain" : "http://localhost:8082",
     "drone_GetRWMDT_MeasureDate":"./resources/jsp/drone/GetRWMDT_MeasureDate.jsp",
     "drone_GetRWMDT":"#host#/krf/drone/getRWMDT",
     "drone_main":"./resources/jsp/drone/main.jsp",
@@ -117,6 +117,10 @@
     "putLayerSetByUser":"#host#/krf/config/putLayerSetByUser",
     "updateLayerSet":"#host#/krf/config/updateLayerSet",
     "delLayerSet":"#host#/krf/config/delLayerSet",
+    "getDroneLayer":"#host#/krf/config/getDroneLayer",
+    "deleteDroneLayer":"#host#/krf/config/deleteDroneLayer",
+    "insertDroneLayer":"#host#/krf/config/insertDroneLayer",
+    "testDroneLayer":"#host#/krf/config/testDroneLayer",
     init: function(host){
               if(host != null){
                   this.domain = host;

@@ -122,7 +122,7 @@ Ext.create('Ext.data.Store', {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 		//a[0].data.init('http://112.217.167.123:40003');
-		a[0].data.init('http://112.217.167.123:40003');
+		a[0].data.init('http://localhost:8082');
 
 		Ext.application({
 			name: 'krf_new',
@@ -226,7 +226,6 @@ Ext.create('Ext.data.Store', {
 					params: { userId: loginInfo.userId },
 					async: true,
 					success: function (response, opts) {
-
 						var result = Ext.util.JSON.decode(response.responseText);
 						if (result.data.length > 0) {
 							$KRF_APP.USER_LAYERS = result.data[0];
@@ -235,6 +234,19 @@ Ext.create('Ext.data.Store', {
 					}
 				});
 
+
+				Ext.Ajax.request({
+					url: _API.getDroneLayer,
+					dataType: "text/plain",
+					method: 'POST',
+					async: true,
+					success: function (response, opts) {
+						var droneLyaer = Ext.util.JSON.decode(response.responseText);
+						if (droneLyaer.data.length > 0) {
+							$KRF_APP.DRONELAYERS = droneLyaer;
+						}
+					}
+				});
 				this.showWindowByMode();
 			},
 			showWindowByMode: function () {

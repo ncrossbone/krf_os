@@ -3034,7 +3034,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		//me.sRiverLineArray //소하천 배열
 		if(me.sRiverLineArray.length > 0){
 			for(var sRiver = 0 ; sRiver < me.sRiverLineArray.length; sRiver++){
-				debugger;
 				me.drawGraphic(me.sRiverLineArray[sRiver], "reachLine_s");	
 			}
 		}
