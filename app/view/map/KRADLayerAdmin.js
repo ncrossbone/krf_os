@@ -2748,14 +2748,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 						me.isStopCheck();
 					}
-				}, 1000, this);
+				}, 3000, this);
 			}
 			else {
 
 				// 검색카운트 다르면 체크용 변수에 저장
 				me.tmpSearchCnt = me.searchCnt;
 			}
-		}, 1000);
+		}, 3000);
 	},
 
 

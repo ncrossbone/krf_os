@@ -1,31 +1,37 @@
-Ext.define('krf_new.view.center.AdminConfigDRONEPanel', { 
+Ext.define('krf_new.view.center.AdminConfigDRONEPanel', {
 
-	extend: 'Ext.window.Window',
-	
-	id:'AdminConfigDRONEPanel',
-	title: '항공영상 수정',
-	header: true,
-	items:[{
-		xtype: 'panel',			
-		controller: 'AdminConfigDRONEController',
-		autoScroll: true,
-		items:[{
-			xtype: 'container',
-			width:1200,
-			height: 800,
+	extend: 'Ext.panel.Panel',
+
+	xtype: 'adminConfig-DRONE',
+
+	id: 'adminConfigDRONEPanel',
+
+	requires: ['krf_new.view.center.AdminConfigDRONEController'],
+	//controller: 'adminConfigDRONEController',
+	initComponent: function () {
+
+
+		var store = Ext.create('Ext.data.Store', {
+			autoLoad  : true,
+			data: $KRF_APP.DRONELAYERS.data
+		});
+
+		this.items = [{
+			xtype: 'panel',
+			controller: 'AdminConfigDRONEController',
+			autoScroll: true,
 			items:[{
 				xtype: 'grid',
 				id: 'droneLayer',
+				height: 400,
+				//controller: 'adminConfigDRONEController',
 				plugins: ['cellediting'],
-				store: Ext.create('Ext.data.Store', {
-					fields: [],
-					data: $KRF_APP.DRONELAYERS.data
-				}),
+				store: store,
 				columns: [{
 					text: '수계',
 					dataIndex:'RIVER',
 					width: 110,
-					editor: { xtype: 'textfield'}
+					editor: {xtype: 'textareafield', grow: true}
 				},{
 					text: '수계 한글',
 					dataIndex:'RIVER',
@@ -49,42 +55,42 @@ Ext.define('krf_new.view.center.AdminConfigDRONEPanel', {
 					text: '항공 영상 ID',
 					dataIndex:'DRONELAYERID',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '항공 영상 날짜',
 					dataIndex:'DRONEDATE',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '항공 영상 주차',
 					dataIndex:'MEASUREDATE',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '클로로필 ID',
 					dataIndex:'CHLALAYERID',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '클로로필 날짜',
 					dataIndex:'CHLADATE',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '피코시아닌 ID',
 					dataIndex:'PHYLAYERID',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '피코시아닌 날짜',
 					dataIndex:'PHYDATE',
 					width: 110,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: 'ETC',
 					dataIndex:'ETC',
 					width: 50,
-					editor: { xtype: 'textfield' }
+					editor: {xtype: 'textareafield', grow: true}
 				}, {
 					text: '삭제',
 					align: 'center',
@@ -106,38 +112,44 @@ Ext.define('krf_new.view.center.AdminConfigDRONEPanel', {
 					}
 				}]
 			},{
-				xtype:'button',
-				text:'추가',
-				width: 100,
-				listeners: {
-					click: function(){
-						var store = Ext.getCmp('droneLayer').getStore();
-						store.add({});
+				xtype: 'container',
+				items:[{
+					xtype:'button',
+					text:'추가',
+					listeners: {
+						click: function(){
+							store.add({});
+						}
 					}
-				}
-			},{
-				xtype:'button',
-				text:'저장',
-				width: 100,
-				listeners: {
-					el : {
-						click : 'saveClick'
+				},{
+					xtype:'button',
+					text:'저장',
+					listeners: {
+						el : {
+							click : 'saveClick'
+						}
 					}
-				}
-			},{
-				xtype:'button',
-				text:'갱신',
-				width: 100,
-				listeners: {
-					el : {
-						click : 'refreshClick'
+				},{
+					xtype:'button',
+					text:'갱신',
+					listeners: {
+						el : {
+							click : 'refreshClick'
+						}
 					}
-				}
+				},{
+					xtype:'button',
+					text:'닫기',
+					listeners: {
+						el : {
+							click : 'closeClick'
+						}
+					}
+				}]
 			}]
-		}]
+		}];
 
-	}],
-	initComponent: function () {
+
 		
 		this.callParent();
 	}

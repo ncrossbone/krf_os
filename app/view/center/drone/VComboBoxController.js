@@ -27,23 +27,23 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 
 		/* 항공영상 바인딩 */
 		var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
-		this.comboBind(newValue, cboDroneDate, "DroneLayerId", "DESC");
+		this.comboBind(newValue, cboDroneDate, "DRONELAYERID", "DESC");
 		cboDroneDate.setValue(""); //동일데이터가 있을수 있음 
 		//		cboDroneDate.emptyText = "선택하세요";
 
 		/* 클로로필a 바인딩 */
 		var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
-		this.comboBind(newValue, cboDroneChla, "ChlaLayerId", "DESC");
+		this.comboBind(newValue, cboDroneChla, "CHLALAYERID", "DESC");
 		cboDroneChla.setValue("");
 
 		/* 조류측정자료 바인딩 */
 		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
-		this.comboBind(newValue, cboDroneWBSite, "MeasureDate", "DESC");
+		this.comboBind(newValue, cboDroneWBSite, "MEASUREDATE", "DESC");
 		cboDroneWBSite.setValue("");
 
 		/* 피코시안 바인딩 */
 		var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
-		this.comboBind(newValue, cboDronePhy, "PhyLayerId", "DESC");
+		this.comboBind(newValue, cboDronePhy, "PHYLAYERID", "DESC");
 		cboDronePhy.setValue("");
 
 
@@ -83,10 +83,10 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 		Ext.defer(function () {
 
 			var store = cboDroneDate.getStore();
-			droneLayerId = store.data.items[0].data.DroneLayerId;
+			droneLayerId = store.data.items[0].data.DRONELAYERID;
 			drone = store.data.items[0].data;
-			measureDate = store.data.items[0].data.MeasureDate;
-			phyLayerId = store.data.items[0].data.PhyLayerId;
+			measureDate = store.data.items[0].data.MEASUREDATE;
+			phyLayerId = store.data.items[0].data.PHYLAYERID;
 			me.defaultDate(droneLayerId, measureDate, drone, phyLayerId);
 
 		}, 1000);
@@ -129,9 +129,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	/* 항공영상 Change Event */
 	onDroneDateChange: function (item, newValue, oldValue, evt) {
 		if (newValue != null && newValue != "") {
-			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
-			var phyLayerId = item.lastSelectedRecords[0].data.PhyLayerId;
-			var measureDate = item.lastSelectedRecords[0].data.MeasureDate;
+			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
+			var phyLayerId = item.lastSelectedRecords[0].data.PHYLAYERID;
+			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
 			var dateValue = item.lastSelectedRecords[0].data;
 
 			/* 클로로필a Set Value */
@@ -156,9 +156,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	onDroneChlaChange: function (item, newValue, oldValue, evt) {
 
 		if (newValue != null && newValue != "") {
-			var droneLayerId = item.lastSelectedRecords[0].data.DroneLayerId;
-			var phyLayerId = item.lastSelectedRecords[0].data.PhyLayerId;
-			var measureDate = item.lastSelectedRecords[0].data.MeasureDate;
+			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
+			var phyLayerId = item.lastSelectedRecords[0].data.PHYLAYERID;
+			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
 
 			/* 항공영상 Set Value */
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
@@ -185,9 +185,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	onDronePhyChange: function (item, newValue, oldValue, evt) {
 		if (newValue != null && newValue != "") {
 
-			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
-			var droneLayerId = item.lastSelectedRecords[0].data.DroneLayerId;
-			var measureDate = item.lastSelectedRecords[0].data.MeasureDate;
+			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
+			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
+			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
 
 			/* 항공영상 Set Value */
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
@@ -214,9 +214,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	onDroneWBSiteChange: function (item, newValue, oldValue, evt) {
 
 		if (newValue != null && newValue != "") {
-			var droneLayerId = item.lastSelectedRecords[0].data.DroneLayerId;
-			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
-			var phyLayerId = item.lastSelectedRecords[0].data.PhyLayerId;
+			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
+			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
+			var phyLayerId = item.lastSelectedRecords[0].data.PHYLAYERID;
 
 			/* 항공영상 Set Value */
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
@@ -390,8 +390,11 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	// 콤보 데이터 바인딩
 	comboBind: function (dataRoot, comboCtl, keyName, sort) {
 
-		var fields = ["layerId", "layerName", "layerOnOff", "layerImg", "layerOnImg", "layerOffImg",
-			"DroneDate", "MeasureDate", "ChlaLayerId", "ChlaDate", "layerNm", "PhyData", "PhyLayerId"];
+		/*var fields = ["layerId", "layerName", "layerOnOff", "layerImg", "layerOnImg", "layerOffImg",
+			"DroneDate", "MeasureDate", "ChlaLayerId", "ChlaDate", "layerNm", "PhyData", "PhyLayerId"];*/
+		var fields = ["LAYERID", "LAYERNAME", "LAYERONOFF", "LAYERIMG", "LAYERONIMG", "LAYEROFFIMG",
+		"DRONEDATE", "MEASUREDATE", "CHLALAYERID", "CHLADATE", "LAYERNM", "PHYDATE", "PHYLAYERID"];
+	
 		var jsonUrl = "./resources/data/drone/LayerMapper.json";
 
 		var sorters = [];
@@ -404,14 +407,25 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			});
 		}
 
+		//$KRF_APP.DRONELAYERS
+		var dataStore = [];
+        if($KRF_APP.DRONELAYERS.data.length > 0){
+            for(var i = 0; i < $KRF_APP.DRONELAYERS.data.length ; i++){
+                if($KRF_APP.DRONELAYERS.data[i].RIVER == dataRoot){
+                    dataStore.push($KRF_APP.DRONELAYERS.data[i]);
+                }
+            }
+		}
+
 		var comboStore = Ext.create("Ext.data.Store", {
 			fields: fields,
-			proxy: {
+			/*proxy: {
 				type: "ajax",
 				url: jsonUrl,
 				reader: { type: "json", rootProperty: dataRoot }
 			},
-			sorters: sorters
+			sorters: sorters*/
+			data: dataStore
 		});
 
 		comboStore.load();

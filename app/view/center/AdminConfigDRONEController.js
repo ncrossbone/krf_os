@@ -1,4 +1,4 @@
-Ext.define('krf_new.view.center.AdminConfigDRONEController', { 
+Ext.define('krf_new.view.center.AdminConfigDRONEController', {
 
 	extend: 'Ext.app.ViewController',
 
@@ -23,7 +23,7 @@ Ext.define('krf_new.view.center.AdminConfigDRONEController', {
 				if (droneLyaer.data.length > 0) {
 					$KRF_APP.DRONELAYERS = droneLyaer;
 					var store = Ext.create('Ext.data.Store', {
-						fields:[],
+						autoLoad  : true,
 						data: $KRF_APP.DRONELAYERS.data
 					});
 					
@@ -34,6 +34,10 @@ Ext.define('krf_new.view.center.AdminConfigDRONEController', {
 		});
 
 		
+	},
+
+	closeClick : function(){
+		$KRF_APP.hideDroneEdit();
 	},
 
 	deleteDroneLayer : function(){

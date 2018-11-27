@@ -333,9 +333,9 @@
 		"iconCls": "layerIconSize layer84",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "조사지코드",
-		"siteNmCol": "조사지명",
-		"siteAddrCol": "ADDR",
+		"siteIdCol": "분류번호",
+		"siteNmCol": "조사지점명",
+		"siteAddrCol": "주소",
 		"layerCode": "E001",
 		"isMetaData": true
 	},{
@@ -346,9 +346,9 @@
 		"iconCls": "layerIconSize layer85",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "조사지코드",
-		"siteNmCol": "조사지명",
-		"siteAddrCol": "ADDR",
+		"siteIdCol": "분류번호",
+		"siteNmCol": "조사지점명",
+		"siteAddrCol": "주소",
 		"layerCode": "E002",
 		"isMetaData": true
 	}]
