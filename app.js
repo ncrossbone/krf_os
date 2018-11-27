@@ -124,7 +124,7 @@ Ext.create('Ext.data.Store', {
 		//a[0].data.init('http://112.217.167.123:40003');
 		a[0].data.init('http://localhost:8082');
 
-		Ext.application({
+		Ext.application({ 
 			name: 'krf_new',
 			requires: ['krf_new.Desktop.App',
 				'krf_new.global.Obj',
