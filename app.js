@@ -19,6 +19,7 @@ var $KRF_EVENT = {
 	DYNAMIC_LAYER_ON_OFF: 'dynamicLayerOnOff',
 	DRON_DYNAMIC_LAYER_ON_OFF: 'drondynamicLayerOnOff',
 	SRIVER_DYNAMIC_LAYER_ON_OFF: 'sRiverdynamicLayerOnOff',
+	BO_DYNAMIC_LAYER_ON_OFF: 'bodynamicLayerOnOff',
 	AREA_SELECT: 'areaSelect',
 	POINT_DRAW_CLICK: 'pointDrawClick',
 	DRAW_END: 'drawEnd',
@@ -33,6 +34,8 @@ var $KRF_EVENT = {
 	SET_SELECTED_POP_SITE: 'setSelectedPopSite',
 	SHOW_SITE_LIST_WINDOW: 'showSiteListWindow',
 	HIDE_SITE_LIST_WINDOW: 'hideSiteListWindow',
+	SHOW_BO_LIST_WINDOW: 'showBoListWindow',
+	HIDE_BO_LIST_WINDOW: 'hideBoListWindowBo',
 	SHOW_REACH_TOOLBAR: 'ShowReachToolbar',
 	HIDE_REACH_TOOLBAR: 'HideReachToolbar',
 	SHOW_DRONE_TOOLBAR: 'ShowDroneToolbar',
@@ -121,8 +124,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		//a[0].data.init('http://112.217.167.123:40003');
-		a[0].data.init('http://localhost:8082'); 
+		a[0].data.init('http://112.217.167.123:40003');
+		//a[0].data.init('http://localhost:8082'); 
 
 		Ext.application({
 			name: 'krf_new',

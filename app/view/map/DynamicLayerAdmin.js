@@ -4,6 +4,8 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 	dynamicLayer1: null,
 	dynamicLayer2: null,
 
+	dynamicLayerBo: null,
+
 	dynamicLayerSRiver: null,
 	//읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
 	fLayers: [], // 투명도 주기위한 레이어 아이디
@@ -45,13 +47,44 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.dynamicLayerDrought.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayerDrought);
 
+		
+		var imageParameters = new esri.layers.ImageParameters();
+
+		var layerDefs = [];
+		layerDefs[18] = "BO_CD='1007A60'";
+		layerDefs[21] = "BO_CD='1007A60'";
+		
+		imageParameters.layerDefinitions = layerDefs;
+		imageParameters.layerIds = [18,21];
+		imageParameters.layerOption = 'show';
+		imageParameters.transparent = true;
+		
+		me.dynamicLayerBo = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.boServiceUrl, {
+			"imageParameters": imageParameters,
+			"opacity": 1,
+			id:'DynamicLayerBo'
+		});
+
+		
+
+		me.map.addLayer(me.dynamicLayerBo);
+
+		
+
+
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DRON_DYNAMIC_LAYER_ON_OFF, me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.SRIVER_DYNAMIC_LAYER_ON_OFF, me.sRiverdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.PULL_WATER_DYNAMIC_LAYER_ON_OFF, me.pullWaterdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DROUGHT_DYNAMIC_LAYER_ON_OFF, me.droughtdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
+		$KRF_APP.addListener($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, me.bodynamicLayerOnOffHandler, me); // 보 레이어 on/off 핸들러 추가
 	},
 	applyRenderer: function (renderer) {
+	},
+
+	bodynamicLayerOnOffHandler: function(){
+		//$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, '');
+
 	},
 
 	// 레이어 on/off 핸들러 정의
