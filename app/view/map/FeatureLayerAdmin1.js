@@ -275,6 +275,14 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				if (popCtl != undefined) {
 					popCtl.close();
 				}
+
+				var selectButton = "";
+				if(parentCheck.substring(0,1) != "E"){
+					selectButton += "<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" /></a>" +
+									"<a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowToolTipSearchResult('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" /></a>" ;
+				}
+				
+
 				var mapToolTip = Ext.create("Ext.window.Window", {
 					header: false,
 					id: 'popSiteInfo',
@@ -326,8 +334,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" /></a>" +
 						"    <ul>                                                                                                                                                                           " +
 						"    	<li style=\"float: left;\">                                                                                                                                                   " +
-						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" /></a>                                                                                                                    " +
-						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowToolTipSearchResult('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" /></a>                                                                                                                  " +
+						+ selectButton +
 						"        </li>                                                                                                                                                                   " +
 						"        <li id =\"reachTable\"  style=\"float: right; padding-right: 25px;\">                                                                                                                          " +
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('" + parentCheck + "','" + jijum_Cd + "' , 'start' );\"  /></a>                                                                                                                " +
