@@ -10,7 +10,7 @@ Ext.define('krf_new.view.east.BoListWindow', {
 	layout: {
 		type: 'fit'
 	},
-	width: 520,
+	width: 650,
 	height: 305,
 
 	preX: null,
@@ -102,6 +102,12 @@ Ext.define('krf_new.view.east.BoListWindow', {
 				// 집수구역, 지점 이동, 리치정보 하이라이트
 				var me = this.up("window");
 				me.moveCommon(record);
+			},
+			isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+				if (record.data.chartBtnDisabled != undefined) {
+					return record.data.chartBtnDisabled;
+				}
 			}
 		}, {
 			xtype: 'actioncolumn',
@@ -115,6 +121,12 @@ Ext.define('krf_new.view.east.BoListWindow', {
 			iconCls: ' khLee-x-default-btn',
 			handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
 
+			},
+			isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+				if (record.data.rptBtnDisabled != undefined) {
+					return record.data.rptBtnDisabled;
+				}
 			}
 		}, {
 			xtype: 'actioncolumn',
@@ -128,6 +140,12 @@ Ext.define('krf_new.view.east.BoListWindow', {
 			iconCls: ' khLee-x-default-btn',
 			handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
 
+			},
+			isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+				if (record.data.scensBtnDisabled != undefined) {
+					return record.data.scensBtnDisabled;
+				}
 			}
 		}, {
 			text: '검색',

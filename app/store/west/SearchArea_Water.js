@@ -11,7 +11,8 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 		beforeload: function (store) {
 			var idColumn, nameColumn, whereStr, pId;
 			idColumn = "";
-			
+
+			var url = $KRF_DEFINE.reachServiceUrl_v3 + "/" + store.layerId;
 			var query = new esri.tasks.Query();
 
 			if (store.layerId == $KRF_DEFINE.areaWSLayerId) {
@@ -31,11 +32,21 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 				nameColumn = "SW_NAME";
 				whereStr = "MBSNCD = '" + store.parentId + "'";
 			}
+
+			if (store.layerId == $KRF_DEFINE.areaBOLayerId) {
+				idColumn = "PT_NO";
+				nameColumn = "PT_NM";
+				whereStr = "1=1";
+				url = $KRF_DEFINE.boServiceUrl + "/" + store.layerId
+			}
+
 			if (idColumn == undefined || nameColumn == undefined || whereStr == undefined) {
 				return;
 			}
 
-			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
+			
+
+			var queryTask = new esri.tasks.QueryTask(url); // 레이어 URL
 			
 			query.returnGeometry = false;
 			query.where = whereStr;

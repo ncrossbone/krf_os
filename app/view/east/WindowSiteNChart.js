@@ -52,6 +52,20 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 					}
 				}
 			}
+		}, {
+			xtype: 'label',
+			text: '하이차트',
+			id: 'tabHighChart',
+			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
+			width: 75,
+			height: 20,
+			listeners: {
+				el: {
+					click: function (obj, el, evt) {
+						ChangeTabIndex(2);
+					}
+				}
+			}
 		}]
 	},
 
@@ -110,6 +124,8 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 			xtype: 'east-chartpanel'
 		}, {
 			xtype: 'east-siteinfopanel'
+		}, {
+			xtype: 'east-highChartpanel'
 		}]
 	}],
 	initComponent: function () {

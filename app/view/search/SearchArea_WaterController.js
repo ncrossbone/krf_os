@@ -15,6 +15,9 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 		'#cmbWater3': {
 			select: 'onAreaChange'
 		},
+		'#cmbWater4': {
+			afterrender: 'onComboBoRender'
+		},
 		'#btnWater1': {
 			click: 'onAreaSearch'
 		},
@@ -36,6 +39,11 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 	onCombo1Render: function (combo) {
 		this.setComboData(combo.id, "");
 
+	},
+
+	// 보 랜더링
+	onComboBoRender: function(combo, record, parentId, comboValue){
+		this.setComboData(combo.id, parentId, comboValue);
 	},
 
 	// 콤보 체인지
@@ -133,65 +141,86 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 
 	onWaterSelect: function (button, eOpts, bookmark) {
 
-		// if(ChkSearchCondition("수계찾기")){
-		var btnCtl = null;
+		if($KRF_APP.BOMODE){
+			var treeResach = Ext.getCmp("boListTree");
+			if (treeResach != undefined) {
 
-		var btn1 = Ext.getCmp("btnWater1");
-		if (btn1.disabled == false) {
-			btnCtl = btn1;
-		}
-
-		var btn2 = Ext.getCmp("btnWater2");
-		if (btn2.disabled == false) {
-			btnCtl = btn2;
-		}
-
-		var btn3 = Ext.getCmp("btnWater3");
-		if (btn3.disabled == false) {
-			btnCtl = btn3;
-		}
-
-		if (btnCtl != null) {
-			this.onAreaSearch(btnCtl, null, null);
-
-			// 대역권 선택창 레이어 정보
-			var buttonInfo = Ext.getCmp("cmbWater1");
-
-			// 중역권
-			var buttonInfo2 = Ext.getCmp("cmbWater2");
-
-			// 소역권
-			var buttonInfo3 = Ext.getCmp("cmbWater3");
-
-			if (btnCtl.lnkCmbId == "cmbWater1") {
-				alert("중권역을 선택하여 주세요");
-				return;
-			}
-
-			if (buttonInfo.rawValue != "") {
-
-				var treeResach = Ext.getCmp("siteListTree");
-				if (treeResach != undefined) {
+				var boCd = Ext.getCmp("cmbWater4").getValue();
+				if(boCd != ""){
 					var store = treeResach.getStore();
-					store.buttonInfo = buttonInfo.lastValue;
-					store.buttonInfo2 = buttonInfo2.lastValue;
-					store.buttonInfo3 = buttonInfo3.lastValue;
-					//console.info(store);
+					store.boCd = boCd;
 					store.load();
 					treeResach.getView().refresh();
 
 
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : boCd});
+					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd : boCd});
+					
 				}
 			}
-			// 지점목록 창 띄우기
-			//			Ext.ShowSiteListWindow("waterSearch");
+		}else{
+			// if(ChkSearchCondition("수계찾기")){
+			var btnCtl = null;
 
-			$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
-				searchText: 'waterSearch',
-				searchType: null,
-				isBookmark: false
-			});
+			var btn1 = Ext.getCmp("btnWater1");
+			if (btn1.disabled == false) {
+				btnCtl = btn1;
+			}
+
+			var btn2 = Ext.getCmp("btnWater2");
+			if (btn2.disabled == false) {
+				btnCtl = btn2;
+			}
+
+			var btn3 = Ext.getCmp("btnWater3");
+			if (btn3.disabled == false) {
+				btnCtl = btn3;
+			}
+
+			if (btnCtl != null) {
+				this.onAreaSearch(btnCtl, null, null);
+
+				// 대역권 선택창 레이어 정보
+				var buttonInfo = Ext.getCmp("cmbWater1");
+
+				// 중역권
+				var buttonInfo2 = Ext.getCmp("cmbWater2");
+
+				// 소역권
+				var buttonInfo3 = Ext.getCmp("cmbWater3");
+
+				if (btnCtl.lnkCmbId == "cmbWater1") {
+					alert("중권역을 선택하여 주세요");
+					return;
+				}
+				
+				if (buttonInfo.rawValue != "") {
+
+					var treeResach = Ext.getCmp("siteListTree");
+					if (treeResach != undefined) {
+						var store = treeResach.getStore();
+						store.buttonInfo = buttonInfo.lastValue;
+						store.buttonInfo2 = buttonInfo2.lastValue;
+						store.buttonInfo3 = buttonInfo3.lastValue;
+						//console.info(store);
+						store.load();
+						treeResach.getView().refresh();
+
+
+					}
+				}
+				// 지점목록 창 띄우기
+				//			Ext.ShowSiteListWindow("waterSearch");
+
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, {
+					searchText: 'waterSearch',
+					searchType: null,
+					isBookmark: false
+				});
+			}	
 		}
+
+		
 	},
 
 	onWaterReset: function (button, eOpts) {

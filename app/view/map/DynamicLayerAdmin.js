@@ -48,26 +48,26 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.map.addLayer(me.dynamicLayerDrought);
 
 		
-		var imageParameters = new esri.layers.ImageParameters();
+		// var imageParameters = new esri.layers.ImageParameters();
 
-		var layerDefs = [];
-		layerDefs[18] = "BO_CD='1007A60'";
-		layerDefs[21] = "BO_CD='1007A60'";
+		// var layerDefs = [];
+		// layerDefs[18] = "BO_CD='1007A60'";
+		// layerDefs[21] = "BO_CD='1007A60'";
 		
-		imageParameters.layerDefinitions = layerDefs;
-		imageParameters.layerIds = [18,21];
-		imageParameters.layerOption = 'show';
-		imageParameters.transparent = true;
+		// imageParameters.layerDefinitions = layerDefs;
+		// imageParameters.layerIds = [18,21];
+		// imageParameters.layerOption = 'show';
+		// imageParameters.transparent = true;
 		
-		me.dynamicLayerBo = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.boServiceUrl, {
-			"imageParameters": imageParameters,
-			"opacity": 1,
-			id:'DynamicLayerBo'
-		});
+		// me.dynamicLayerBo = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.boServiceUrl, {
+		// 	"imageParameters": imageParameters,
+		// 	"opacity": 1,
+		// 	id:'DynamicLayerBo'
+		// });
 
 		
-
-		me.map.addLayer(me.dynamicLayerBo);
+		me.bodynamicLayerOnOffHandler();
+		//me.map.addLayer(me.dynamicLayerBo);
 
 		
 
@@ -82,9 +82,32 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 	applyRenderer: function (renderer) {
 	},
 
-	bodynamicLayerOnOffHandler: function(){
+	bodynamicLayerOnOffHandler: function(layerInfo){
 		//$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, '');
+		var me = this;
+		if(me.map.getLayer('DynamicLayerBo')){
+			me.map.removeLayer(me.map.getLayer('DynamicLayerBo'));
+		}
 
+		if(layerInfo){
+			var imageParameters = new esri.layers.ImageParameters();
+			var layerDefs = [];
+			layerDefs[18] = "BO_CD='"+layerInfo.boCd+"'";
+			layerDefs[21] = "BO_CD='"+layerInfo.boCd+"'";
+			
+			imageParameters.layerDefinitions = layerDefs;
+			imageParameters.layerIds = [18,21];
+			imageParameters.layerOption = 'show';
+			imageParameters.transparent = true;
+			
+			me.dynamicLayerBo = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.boServiceUrl, {
+				"imageParameters": imageParameters,
+				"opacity": 0.5,
+				id:'DynamicLayerBo'
+			});
+			me.map.addLayer(me.dynamicLayerBo);	
+		}
+		
 	},
 
 	// 레이어 on/off 핸들러 정의

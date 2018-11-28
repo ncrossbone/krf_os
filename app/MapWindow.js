@@ -41,7 +41,7 @@ Ext.define('Desktop.MapWindow', {
 		$KRF_APP.addListener($KRF_EVENT.SHOW_SITE_LIST_WINDOW, this.showSiteListWindow, this);
 		$KRF_APP.addListener($KRF_EVENT.HIDE_SITE_LIST_WINDOW, this.hideSiteListWindow, this);
 
-		// 지점 목록 window
+		// 보 지점 목록 window
 		$KRF_APP.addListener($KRF_EVENT.SHOW_BO_LIST_WINDOW, this.showBoListWindow, this);
 		$KRF_APP.addListener($KRF_EVENT.HIDE_BO_LIST_WINDOW, this.hideBoListWindow, this);
 
@@ -396,24 +396,32 @@ Ext.define('Desktop.MapWindow', {
 			Ext.getCmp('center_container').add(boListWindow);
 		}
 
-
 		boListWindow.show();
 
 		var store = null;
 		var treeCtl = Ext.getCmp("boListTree");
 		
 		store = Ext.create('krf_new.store.east.BoListWindow', {
-			async: true,
-			param: param
+			async: true
 		});
 
-		if (param.searchText == "paramSearch") {
-			store.paramType = param.searchType;
-		}
-		store.searchType = param.searchText;
+		store.boCd = param.boCd;
 		store.load();
 		treeCtl.setStore(store);
 
+	},
+
+	hideBoListWindow: function (currCtl) {
+		var listWinCtl = Ext.getCmp("boListWindow");
+		if (listWinCtl != undefined) {
+			listWinCtl.close();
+		}
+		listWinCtl = Ext.getCmp("boListWindow_reach");
+		if (listWinCtl != undefined) {
+			listWinCtl.close();
+		}
+		// 좌측 정보창 버튼 off
+		SetBtnOnOff("btnBoListWindow", "off");
 	},
 
 	// 지점 목록 창 띄우기
@@ -633,7 +641,7 @@ Ext.define('Desktop.MapWindow', {
 						});
 					});
 			}
-		}else if(params.boType = "boType"){ //params
+		}else if(params.boType == "boType"){ //params
 			//parameter에 bo에대한 정보가 넘오오면 KRF_APP에 BOMODE 추가
 			$KRF_APP.BOMODE = true;
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.boType });

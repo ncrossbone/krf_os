@@ -34,7 +34,9 @@ Ext.define('krf_new.store.east.BoListWindow', {
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 
-
+			if(!store.boCd){
+				return;
+			}
 			//물환경 연동
 			// if (store.searchType == "paramSearch") {
 			// 	query.where = "JIJUM_CODE in (" + inTxt;
@@ -44,7 +46,7 @@ Ext.define('krf_new.store.east.BoListWindow', {
 			// 		paramMarker.hide();
 			// 	}
 			// }
-			query.where = "BO_CD IN ('1007A20','1007A27')";
+			query.where = "BO_CD IN ('"+store.boCd+"')";
 
 			// if (store.searchType == "selectReach") {
 			// 	/* 리치모드 지점목록 조건 설정 */
@@ -159,6 +161,7 @@ Ext.define('krf_new.store.east.BoListWindow', {
 					jsonStr += "		\"id\": \"BO_" + groupFeatureBo[0].attributes.BO_CD + "\",\n";
 					jsonStr += "		\"text\": \"" + groupFeatureBo[0].attributes.BO_NM + "(" + groupFeatureBo.length + ")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+					jsonStr += "		\"chartBtnDisabled\": true,\n";
 					if (cnt == 0) {
 						jsonStr += "		\"expanded\": true,\n";
 					} else {
@@ -203,6 +206,9 @@ Ext.define('krf_new.store.east.BoListWindow', {
 							jsonStr += "		\"expanded\": false,\n";
 						}
 						jsonStr += "		\"checked\": null,\n";
+						jsonStr += "		\"scensBtnDisabled\": true,\n";
+						jsonStr += "		\"chartBtnDisabled\": true,\n";
+						jsonStr += "		\"rptBtnDisabled\": true,\n";
 						jsonStr += "		\"children\": [";
 
 						/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
@@ -235,6 +241,7 @@ Ext.define('krf_new.store.east.BoListWindow', {
 							jsonStr += "{\n";
 							jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
 							jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
+							
 
 
 							if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y") {
@@ -248,6 +255,9 @@ Ext.define('krf_new.store.east.BoListWindow', {
 							} else {
 								jsonStr += "			\"expanded\": false,\n"; // 펼치기..
 							}
+							jsonStr += "				\"scensBtnDisabled\": true,\n";
+							jsonStr += "				\"chartBtnDisabled\": true,\n";
+							jsonStr += "				\"rptBtnDisabled\": true,\n";
 							jsonStr += "			\"children\": [";
 
 
@@ -264,6 +274,8 @@ Ext.define('krf_new.store.east.BoListWindow', {
 										jsonStr += "				\"checked\": null\n";
 										jsonStr += "			,   \"infoBtnDisabled\": false,\n";
 										jsonStr += "				\"chartBtnDisabled\": true,\n";
+										jsonStr += "				\"scensBtnDisabled\": true,\n";
+										jsonStr += "				\"rptBtnDisabled\": true,\n";
 										jsonStr += "				\"srchBtnDisabled\": false\n";
 										jsonStr += "			}, ";
 									} else {
@@ -275,12 +287,16 @@ Ext.define('krf_new.store.east.BoListWindow', {
 										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
 										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 										jsonStr += "				\"leaf\": true,\n";
+										jsonStr += "				\"scensBtnDisabled\": true,\n";
+										jsonStr += "				\"rptBtnDisabled\": true,\n";
 										jsonStr += "				\"checked\": null\n";
+										
 										if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
 											jsonStr += "			,   \"infoBtnDisabled\": true,\n";
 											jsonStr += "				\"chartBtnDisabled\": true,\n";
 											jsonStr += "				\"srchBtnDisabled\": true\n";
 										}
+										
 										jsonStr += "			}, ";
 
 									}
@@ -294,6 +310,8 @@ Ext.define('krf_new.store.east.BoListWindow', {
 									jsonStr += "				\"infoBtnDisabled\": true,\n";
 									jsonStr += "				\"chartBtnDisabled\": true,\n";
 									jsonStr += "				\"srchBtnDisabled\": true,\n";
+									jsonStr += "				\"scensBtnDisabled\": true,\n";
+									jsonStr += "				\"rptBtnDisabled\": true,\n";
 									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 									jsonStr += "				\"leaf\": true,\n";
 									jsonStr += "				\"checked\": null\n";
