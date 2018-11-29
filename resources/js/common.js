@@ -453,6 +453,172 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 	console.info(chartStore);
 	SetItemLabelText(yFieldName, chartId, test);
 	siteChartCtl.preText = test;
+
+	TestHighChart();
+}
+
+TestHighChart = function(data){
+
+	data = [{BOOBSCD: "1007803"
+	,MAX_WLV: "28.5"
+	,MESURE_DE: "2017-06-01"
+	,MESURE_DE_D: "1"
+	,MESURE_DE_M: "5"
+	,MESURE_DE_Y: "2017"
+	,MIN_WLV: "25"
+	,OBSNM: "이포보"
+	,WATER_SYS: "한강"
+	,WATER_SYS_CD: "10"
+	,WLV: "28.02"},{
+	BOOBSCD: "1007803"
+	,MAX_WLV: "28.5"
+	,MESURE_DE: "2017-06-02"
+	,MESURE_DE_D: "2"
+	,MESURE_DE_M: "5"
+	,MESURE_DE_Y: "2017"
+	,MIN_WLV: "25"
+	,OBSNM: "이포보"
+	,WATER_SYS: "한강"
+	,WATER_SYS_CD: "10"
+	,WLV: "28.02"},{
+	BOOBSCD: "1007803"
+	,MAX_WLV: "28.5"
+	,MESURE_DE: "2017-06-03"
+	,MESURE_DE_D: "3"
+	,MESURE_DE_M: "5"
+	,MESURE_DE_Y: "2017"
+	,MIN_WLV: "25"
+	,OBSNM: "이포보"
+	,WATER_SYS: "한강"
+	,WATER_SYS_CD: "10"
+	,WLV: "28.05"},{
+	BOOBSCD: "1007803"
+	,MAX_WLV: "28.5"
+	,MESURE_DE: "2017-06-04"
+	,MESURE_DE_D: "4"
+	,MESURE_DE_M: "5"
+	,MESURE_DE_Y: "2017"
+	,MIN_WLV: "25"
+	,OBSNM: "이포보"
+	,WATER_SYS: "한강"
+	,WATER_SYS_CD: "10"
+	,WLV: "28.04"},{
+	BOOBSCD: "1007803"
+	,MAX_WLV: "28.5"
+	,MESURE_DE: "2017-06-05"
+	,MESURE_DE_D: "5"
+	,MESURE_DE_M: "5"
+	,MESURE_DE_Y: "2017"
+	,MIN_WLV: "25"
+	,OBSNM: "이포보"
+	,WATER_SYS: "한강"
+	,WATER_SYS_CD: "10"
+	,WLV: "28.01"},{
+	BOOBSCD: "1007803"
+	,MAX_WLV: "28.5"
+	,MESURE_DE: "2017-06-06"
+	,MESURE_DE_D: "6"
+	,MESURE_DE_M: "5"
+	,MESURE_DE_Y: "2017"
+	,MIN_WLV: "25"
+	,OBSNM: "이포보"
+	,WATER_SYS: "한강"
+	,WATER_SYS_CD: "10"
+	,WLV: "28.01"
+	}];
+	
+	var dataArray = [];
+	$('#waterLevelTitle').html($('#boSelect>option:selected').text()+' 수위 현황');
+	if(!data[0]){
+		return;
+	}
+	var code = data[0].BOOBSCD;
+	var plotLinesTextObj = {
+			'1007801':{managementLevel:'35.0',lowerLimitLevel:'38.0',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'1007802':{managementLevel:'33.0',lowerLimitLevel:'31.7',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'1007803':{managementLevel:'28.0',lowerLimitLevel:'25.3',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'2007801':{managementLevel:'47.0',lowerLimitLevel:'43.6',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'2009801':{managementLevel:'40.0',lowerLimitLevel:'37.4',min:parseFloat(data[0].MIN_WLV) + 5,max:parseFloat(data[0].MAX_WLV) - 0.4},
+			'2009802':{managementLevel:'32.5',lowerLimitLevel:'22.6',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'2011801':{managementLevel:'25.5',lowerLimitLevel:'24.5',min:parseFloat(data[0].MIN_WLV) + 2,max:parseFloat(data[0].MAX_WLV) - 0.9},
+			'2011802':{managementLevel:'19.5',lowerLimitLevel:'14.9',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'2014801':{managementLevel:'14.0',lowerLimitLevel:'6.6',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'2014802':{managementLevel:'10.5',lowerLimitLevel:'2.3',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'2017801':{managementLevel:'5.0',lowerLimitLevel:'1.5',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'3010801':{managementLevel:'11.8',lowerLimitLevel:'8.2',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'3012801':{managementLevel:'8.8',lowerLimitLevel:'2.6',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'3012802':{managementLevel:'4.2',lowerLimitLevel:'1.0',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'5004801':{managementLevel:'7.5',lowerLimitLevel:'2.5',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)},
+			'5004802':{managementLevel:'3.5',lowerLimitLevel:'1.5',min:parseFloat(data[0].MIN_WLV),max:parseFloat(data[0].MAX_WLV)}
+	};
+	
+	for(var i = 0; i<data.length; i++){
+		var dataSetArray = [
+							Date.UTC( parseInt(data[i].MESURE_DE_Y), parseInt(data[i].MESURE_DE_M), parseInt(data[i].MESURE_DE_D)),
+							parseFloat(data[i].WLV)
+						];
+		dataArray.push(dataSetArray);
+	}
+	
+	var series = [{ type: 'area', name: '수위', data: dataArray ,animation:{
+		duration:5000
+	}}];
+	var yAxis = { min: plotLinesTextObj[code].min < 0?0:plotLinesTextObj[code].min, max: plotLinesTextObj[code].max, title: {text: ''} 
+	,plotLines: [
+					{ value: plotLinesTextObj[code].managementLevel, color: 'black', dashStyle: 'shortdash', width: 2, zIndex: 4, label: { text: plotLinesTextObj[code].managementLevel + ' (관리수위, EL.m)' } }
+					,{ value: plotLinesTextObj[code].lowerLimitLevel, color: 'red', dashStyle: 'shortdash', width: 2, zIndex: 4, label: { text: plotLinesTextObj[code].lowerLimitLevel + ' (하한수위, EL.m)' } }
+				]
+			};
+	
+	var xAxis = {
+			   type: 'datetime',
+			   labels: {
+				 enabled:false,
+				 format: '{value:%y/%m/%d}'
+			   }
+			};
+	var tooltip = {
+			formatter: function() {
+					return  '<b>' + Highcharts.dateFormat('%Y-%m-%d', new Date(this.x)) +'</b><br/>' +
+					'<b>' + this.series.name + '</b>' + ' : ' + this.y + ' EL.m';
+				}
+			};
+	Highcharts.chart('waterLevelChartDiv', {
+		title:false,
+		xAxis:xAxis,
+		tooltip:tooltip,
+		plotOptions : {
+			area: {
+				fillColor: {
+					linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+					stops: [
+							[0, Highcharts.getOptions().colors[0]],
+							[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+							]
+				},
+				marker: {
+					radius: 2
+				},
+				lineWidth: 1,
+				states: {
+					hover: {
+						lineWidth: 1
+					}
+				},
+				threshold: null
+			}
+		},
+		yAxis : yAxis,
+		series: series,
+		legend:false,
+		credits:false,
+		exporting:false,
+		chart:{
+			 zoomType: 'x'
+		}
+	});
+
+
 }
 
 // 지점/차트 정보 창 닫기

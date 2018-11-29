@@ -401,11 +401,11 @@
 		"iconCls": "layerIconSize layer84",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "지점코드",
-		"siteNmCol": "조사지점명",
-		"siteAddrCol": "주소",
-		"layerCode": "EsstgHc",
-		"isMetaData": true
+		"siteIdCol": "분류번호",
+        "siteNmCol": "조사지점명",
+        "siteAddrCol": "주소",
+        "layerCode": "E001",
+        "isMetaData": true
 	},{
 		"id": "25",
 		"wmsId":"72",
@@ -414,11 +414,11 @@
 		"iconCls": "layerIconSize layer85",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "지점코드",
-		"siteNmCol": "조사지점명",
-		"siteAddrCol": "ADDR",
-		"layerCode": "EsstgHg",
-		"isMetaData": true
+		"siteIdCol": "분류번호",
+        "siteNmCol": "조사지점명",
+        "siteAddrCol": "주소",
+        "layerCode": "E002",
+        "isMetaData": true
 	}]
 },{
 	"id": "P0",
