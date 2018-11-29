@@ -334,7 +334,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" /></a>" +
 						"    <ul>                                                                                                                                                                           " +
 						"    	<li style=\"float: left;\">                                                                                                                                                   " +
-						+ selectButton +
+						""+selectButton + ""+
 						"        </li>                                                                                                                                                                   " +
 						"        <li id =\"reachTable\"  style=\"float: right; padding-right: 25px;\">                                                                                                                          " +
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('" + parentCheck + "','" + jijum_Cd + "' , 'start' );\"  /></a>                                                                                                                " +
