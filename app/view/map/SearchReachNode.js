@@ -8,7 +8,7 @@ Ext.define("krf_new.view.map.SearchReachNode", {
 				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachNodeLayerId); // 집수구역 URL
 				var query = new Query();
 				query.returnGeometry = true;
-				query.outFields = ["CAT_DID", "DAM_FLAG", "BO_FLAG"];
+				query.outFields = ["*"];
 				query.where = where;
 				// 리치라인 조회
 				queryTask.execute(query, function (featureSet) {

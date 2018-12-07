@@ -21,8 +21,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			var saveBtn = Ext.getCmp('btnImageDown');
 			var dateWin = Ext.getCmp('datePanel1');
 
-			cfgBtn.hide();
-			saveBtn.hide();
+			//cfgBtn.hide();
+			//saveBtn.hide();
 
 			if (dateWin) {
 				dateWin.hide();

@@ -30,7 +30,7 @@ Ext.define("krf_new.view.map.SearchReachUp", {
 		// 심볼 그리기
 		$KRF_APP.coreMap._krad.drawSymbol(evt);
 
-		$KRF_APP.coreMap._rchLine.getFeaturesWithEvent(evt, function (features) {
+		$KRF_APP.coreMap._rchLine.getFeaturesWithEvent(evt, function (features) { 
 
 			for (var i = 0; i < features.length; i++) {
 

@@ -140,7 +140,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
 			if(store.searchType != "paramSearch"){
-				query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'G' AND GROUP_CODE <> 'F' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
+				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'C' AND GROUP_CODE <> 'F'  AND GROUP_CODE <> 'G' AND GROUP_CODE <> 'H'  AND GROUP_CODE <> 'J' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}
 			//query.where += "AND GROUP_CODE <> 'E'";
 			
@@ -801,23 +801,24 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-	
-									if (ssgtObj.hc.QLTWTR_SE.length > 0) {
+
+
+									if (ssgtObj.hc.VTN_SE.length > 0) {
 										sstgString += "	  { \n";
-										sstgString += "	\"id\": \"EsstgHcQltwtrSe\",\n";
-										sstgString += "	\"title\": \"수질\",\n";
+										sstgString += "	\"id\": \"EsstgHcVtnSe\",\n";
+										sstgString += "	\"title\": \"식생\",\n";
 										sstgString += "	\"visible\": \"true\",\n";
-										sstgString += "	\"text\": \"수질\",\n";
+										sstgString += "	\"text\": \"식생\",\n";
 										sstgString += "	\"expanded\": false,\n";
 										sstgString += "	\"infoBtnDisabled\": true,\n";
 										sstgString += "	\"chartBtnDisabled\": true,\n";
 										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
-										for (var sstgHcQltwtrSe = 0; sstgHcQltwtrSe < ssgtObj.hc.QLTWTR_SE.length; sstgHcQltwtrSe++) {
+										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hc.VTN_SE.length; sstgHcVtnSe++) {
 											sstgString += "{\n";
-											sstgString += "			\"id\": \"EsstgHcQltwtrSe" + ssgtObj.hc.QLTWTR_SE[sstgHcQltwtrSe].id + "\",\n";
-											sstgString += "			\"text\": \"" + ssgtObj.hc.QLTWTR_SE[sstgHcQltwtrSe].name + "\",\n";
-											sstgString += "			\"eSiteId\": \"" + ssgtObj.hc.QLTWTR_SE[sstgHcQltwtrSe].id + "\",\n";
+											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hc.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"text\": \"" + ssgtObj.hc.VTN_SE[sstgHcVtnSe].name + "\",\n";
+											sstgString += "			\"eSiteId\": \"" + ssgtObj.hc.VTN_SE[sstgHcVtnSe].id + "\",\n";
 											sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
@@ -829,6 +830,34 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
+									// if (ssgtObj.hc.QLTWTR_SE.length > 0) {
+									// 	sstgString += "	  { \n";
+									// 	sstgString += "	\"id\": \"EsstgHcQltwtrSe\",\n";
+									// 	sstgString += "	\"title\": \"수질\",\n";
+									// 	sstgString += "	\"visible\": \"true\",\n";
+									// 	sstgString += "	\"text\": \"수질\",\n";
+									// 	sstgString += "	\"expanded\": false,\n";
+									// 	sstgString += "	\"infoBtnDisabled\": true,\n";
+									// 	sstgString += "	\"chartBtnDisabled\": true,\n";
+									// 	sstgString += "	\"srchBtnDisabled\": false,\n";
+									// 	sstgString += "	\"children\": [";
+									// 	for (var sstgHcQltwtrSe = 0; sstgHcQltwtrSe < ssgtObj.hc.QLTWTR_SE.length; sstgHcQltwtrSe++) {
+									// 		sstgString += "{\n";
+									// 		sstgString += "			\"id\": \"EsstgHcQltwtrSe" + ssgtObj.hc.QLTWTR_SE[sstgHcQltwtrSe].id + "\",\n";
+									// 		sstgString += "			\"text\": \"" + ssgtObj.hc.QLTWTR_SE[sstgHcQltwtrSe].name + "\",\n";
+									// 		sstgString += "			\"eSiteId\": \"" + ssgtObj.hc.QLTWTR_SE[sstgHcQltwtrSe].id + "\",\n";
+									// 		sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+									// 		sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
+									// 		sstgString += "			\"leaf\": true,\n";
+									// 		sstgString += "			\"checked\": null,\n";
+									// 		sstgString += "			\"infoBtnDisabled\": true,\n";
+									// 		sstgString += "			\"chartBtnDisabled\": true,\n";
+									// 		sstgString += "			\"srchBtnDisabled\": false,\n";
+									// 		sstgString += "		}, ";
+									// 	}
+									// 	sstgString += "	]},";
+									// }
+
 									sstgString += "	]},";
 								}
 								if(hgLengChk > 0){
@@ -929,7 +958,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		
 									if (ssgtObj.hg.VTN_SE.length > 0) {
 										sstgString += "	  { \n";
-										sstgString += "	\"id\": \"EsstggcVtnSe\",\n";
+										sstgString += "	\"id\": \"EsstgHgVtnSe\",\n";
 										sstgString += "	\"title\": \"식생\",\n";
 										sstgString += "	\"visible\": \"true\",\n";
 										sstgString += "	\"text\": \"식생\",\n";
@@ -938,11 +967,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										sstgString += "	\"chartBtnDisabled\": true,\n";
 										sstgString += "	\"srchBtnDisabled\": false,\n";
 										sstgString += "	\"children\": [";
-										for (var sstgHcVtnSe = 0; sstgHcVtnSe < ssgtObj.hg.VTN_SE.length; sstgHcVtnSe++) {
+										for (var sstgHgVtnSe = 0; sstgHgVtnSe < ssgtObj.hg.VTN_SE.length; sstgHgVtnSe++) {
 											sstgString += "{\n";
-											sstgString += "			\"id\": \"EsstggcVtnSe" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
-											sstgString += "			\"text\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].name + "\",\n";
-											sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.VTN_SE[sstgHcVtnSe].id + "\",\n";
+											sstgString += "			\"id\": \"EsstgHgVtnSe" + ssgtObj.hg.VTN_SE[sstgHgVtnSe].id + "\",\n";
+											sstgString += "			\"text\": \"" + ssgtObj.hg.VTN_SE[sstgHgVtnSe].name + "\",\n";
+											sstgString += "			\"eSiteId\": \"" + ssgtObj.hg.VTN_SE[sstgHgVtnSe].id + "\",\n";
 											sstgString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";

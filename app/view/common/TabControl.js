@@ -887,10 +887,16 @@ Ext.define('krf_new.view.common.TabControl', {
 						// khLee 수정 값 변경
 						var strData = JSON.stringify(dataArr[i].data);
 
-						//고려 해봐야함
-						if (strData == "888888888" || strData == "999999999") {
+						// //null 정량한계미만 string 수정
+						// strData = strData.replace(/:888888888,/gi, ":\"\",");
+						// strData = strData.replace(/:999999999,/gi, ":\"정량한계미만\",");
+						//null 정량한계미만 string 수정
+						if(strData.indexOf("\:888888888")){
 							strData = strData.replace(/888888888/gi, "\"\"");
-							strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+						}
+						
+						if(strData.indexOf(':999999999')){
+							strData = strData.replace(/:999999999/gi, "\:\"정량한계미만\"");
 						}
 
 						var convertData = JSON.parse(strData);

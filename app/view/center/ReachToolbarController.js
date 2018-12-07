@@ -126,10 +126,10 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 			$KRF_APP.coreMap._krad.arrLineGrpTmp = [];
 			$KRF_APP.coreMap._krad.arrAreaGrpTmp = [];
-			if($KRF_APP.coreMap._krad.checkSubMap()){
-				$KRF_APP.subMap._krad.arrLineGrpTmp = [];
-				$KRF_APP.subMap._krad.arrAreaGrpTmp = [];
-			}
+			// if($KRF_APP.coreMap._krad.checkSubMap()){
+			// 	$KRF_APP.subMap._krad.arrLineGrpTmp = [];
+			// 	$KRF_APP.subMap._krad.arrAreaGrpTmp = [];
+			// }
 			
 
 			reachAdmin.arrLineGrpTmp = [];

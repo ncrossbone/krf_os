@@ -56,6 +56,69 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 
+			if (firstSearch == "noDate") {
+				Ext.Ajax.request({
+					url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
+					params: {
+						WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+						, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+						, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch
+					},
+					async: false, // 비동기 = async: true, 동기 = async: false
+					success: function (response, opts) {
+						jsonData = Ext.util.JSON.decode(response.responseText);
+						if (jsonData.data.length > 0) {
+							if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
+								//store.setData(jsonData.data);
+								var dateSplit1 = jsonData.data[0].WMCYMD;
+								endYear = dateSplit1.substring(0,4);
+								endMonth = dateSplit1.substring(4,6);
+
+								var dtS = new Date(dateSplit1.substring(0, 4), dateSplit1.substring(4, 6));
+									dtS.setMonth(dtS.getMonth() - 1);
+								
+								startYear = dtS.toISOString().substring(0, 4);
+								startMonth = dtS.toISOString().substring(5, 7);
+
+								
+								
+								console.info(startYear+startMonth);
+								console.info(endYear+endMonth);
+								
+								
+								// 로딩바 숨김
+								if (me.gridCtl != null) {
+									me.gridCtl.unmask();
+								}
+							} else {
+								if (me.gridCtl != null) {
+									me.gridCtl.addCls("dj-mask-noneimg");
+									me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+								}
+							}
+						} else {
+							if (me.gridCtl != null) {
+								me.gridCtl.addCls("dj-mask-noneimg");
+								me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+							}
+						}
+					},
+					failure: function (form, action) {
+						if (me.gridCtl != null) {
+							me.gridCtl.addCls("dj-mask-noneimg");
+							me.gridCtl.mask("오류가 발생하였습니다.");
+						}
+					}
+				});
+			}
+			
+			firstSearch = "date";
+			Ext.getCmp("cmbStartYear").setValue(startYear);
+			Ext.getCmp("cmbStartMonth").setValue(startMonth);
+
+			Ext.getCmp("cmbEndYear").setValue(endYear);
+			Ext.getCmp("cmbEndMonth").setValue(endMonth);
+
 			Ext.Ajax.request({
 				url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
 				params: {
@@ -68,7 +131,13 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 					jsonData = Ext.util.JSON.decode(response.responseText);
 					if (jsonData.data.length > 0) {
 						if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
+							
 							store.setData(jsonData.data);
+							store.startYear = cmbStartYear.value;
+							store.startMonth = cmbStartMonth.value;
+							store.endYear = cmbEndYear.value;
+							store.endMonth = cmbEndMonth.value;
+
 							// 로딩바 숨김
 							if (me.gridCtl != null) {
 								me.gridCtl.unmask();
@@ -93,6 +162,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 					}
 				}
 			});
+			
 		}
 	},
 	addZero: function (n, width) {

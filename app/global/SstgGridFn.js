@@ -38,15 +38,18 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'MDT_NM',
                 width: 90
-            }, {
+            }
+            /*, {
                 text: '지점코드',
                 dataIndex: 'SPOT_CODE',
                 width: 90
-            }, {
+            }*/
+            , {
                 text: '지점명',
                 dataIndex: 'SPOT_NM',
                 width: 90
-            }, {
+            }
+            /*, {
                 text: '조사정보',
                 columns: [{
                     text: '위도',
@@ -293,7 +296,8 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: '영양염오염지수',
                 dataIndex: 'TDI'
-            },{
+            }*/
+            ,{
                 text: '건강성등급',
                 dataIndex: 'HEALTH_GRAD'
             }];
@@ -304,10 +308,12 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: '회차',
                 dataIndex: 'TME'
-            },{
+            }
+            /*,{
                 text: '지점코드',
                 dataIndex: 'SPOT_CODE'
-            },{
+            }*/
+            ,{
                 text: '지점명',
                 dataIndex: 'SPOT_NAME'
             },{
@@ -345,291 +351,295 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'MDT_NM',
                 width: 90
-            }, {
-                text: '지점코드',
-                dataIndex: 'SPOT_CODE',
-                width: 90
-            }, {
+            }
+            // , {
+            //     text: '지점코드',
+            //     dataIndex: 'SPOT_CODE',
+            //     width: 90
+            // }
+            , {
                 text: '지점명',
                 dataIndex: 'SPOT_NM',
                 width: 90
-            }, {
-                text: '조사정보',
-                columns: [{
-                    text: '위도',
-                    dataIndex: 'LA',
-                    width: 100
-                },{
-                    text: '경도',
-                    dataIndex: 'LO',
-                    width: 100
-                },{
-                    text: '조사일',
-                    dataIndex: 'DE',
-                    width: 100
-                },{
-                    text: '날씨',
-                    dataIndex: 'WETHR_SE',
-                    width: 100
-                },{
-                    text: '조사기관',
-                    dataIndex: 'EXAMIN_INSTT_NM',
-                    width: 100
-                },{
-                    text: '조사자',
-                    dataIndex: 'EXMNR_NM',
-                    width: 100
-                }]
-            }, {
-                text: '조사환경',
-                columns: [{
-                    text: '기상조건',
-                    columns: [{
-                        text: '기온',
-                        dataIndex: 'TMPRT',
-                        width: 100
-                    },{
-                        text: '수온',
-                        dataIndex: 'WTRTP',
-                        width: 100
-                    }]
-                }]
-            },{
-                text: '조사방법',
-                columns: [{
-                    text: 'Surber net(30*30)',
-                    dataIndex: 'SBN30_EXAMIN_CO',
-                    width: 100
-                },{
-                    text: 'Surber net(50*50)',
-                    dataIndex: 'SBN50_EXAMIN_CO',
-                    width: 100
-                },{
-                    text: '드렛지',
-                    dataIndex: 'DR_EXAMIN_CO',
-                    width: 100
-                },{
-                    text: '에크만',
-                    dataIndex: 'EK_EXAMIN_CO',
-                    width: 100
-                }]
-            },{
-                text: '유역환경',
-                columns:[{
-                    text: '유역이용',
-                    columns:[{
-                        text: '산림',
-                        dataIndex: 'DRGUSE_MTST_AT'
-                    },{
-                        text: '목초지',
-                        dataIndex: 'DRGUSE_FORAGE_AT'
-                    },{
-                        text: '마을',
-                        dataIndex: 'DRGUSE_VILAGE_AT'
-                    },{
-                        text: '상가, 음식점',
-                        dataIndex: 'DRGUSE_SOPSRT_AT'
-                    },{
-                        text: '농경지',
-                        dataIndex: 'DRGUSE_FRLND_AT'
-                    },{
-                        text: '공장',
-                        dataIndex: 'DRGUSE_FCTRY_AT'
-                    },{
-                        text: '주거',
-                        dataIndex: 'DRGUSE_RESIDE_AT'
-                    },{
-                        text: '기타',
-                        dataIndex: 'DRGUSE_ETC_AT'
-                    },{
-                        text: '기타내용',
-                        dataIndex: 'DRGUSE_ETC_CN'
-                    }]
-                },{
-                    text: '오염원',
-                    columns:[{
-                        text: '생활하수',
-                        dataIndex: 'POLTNSRC_LVSEWG_AT'
-                    },{
-                        text: '축산폐수',
-                        dataIndex: 'POLTNSRC_LSKR_AT'
-                    },{
-                        text: '산업폐수',
-                        dataIndex: 'POLTNSRC_WSTR_AT'
-                    },{
-                        text: '기타',
-                        dataIndex: 'POLTNSRC_ETC_AT'
-                    },{
-                        text: '기타내용',
-                        dataIndex: 'POLTNSRC_ETC_CN'
-                    }]
-                }]
-            },{
-                text: '수변환경',
-                columns:[{
-                    text:'식생',
-                    columns:[{
-                        text: '교목',
-                        dataIndex: 'RE_VTN_TRE_RT'
-                    },{
-                        text: '관목',
-                        dataIndex: 'RE_VTN_SRB_RT'
-                    },{
-                        text: '식생',
-                        dataIndex: 'RE_VTN_HRB_RT'
-                    }]
-                },{
-                    text: '수피도',
-                    dataIndex: 'RE_CNPY_SE'
-                },{
-                    text: '범량원의이용',
-                    dataIndex: 'RE_FLD_USE_SE'
-                },{
-                    text: '제방(좌안)',
-                    columns:[{
-                        text: '자연',
-                        dataIndex: 'RE_LFTBNK_NATURE_AT'
-                    },{
-                        text:'석축',
-                        dataIndex: 'RE_LFTBNK_STON_AT'
-                    },{
-                        text:'돌망태',
-                        dataIndex: 'RE_LFTBNK_GABN_AT'
-                    },{
-                        text:'콘트리트',
-                        dataIndex: 'RE_LFTBNK_CNCRT_AT'
-                    },{
-                        text:'수직',
-                        dataIndex: 'RE_LFTBNK_VERTCL_AT'
-                    },{
-                        text:'자연형',
-                        dataIndex: 'RE_RHTBNK_NATURE_AT'
-                    }]
-                },{
-                    text: '제방(우안)',
-                    columns:[{
-                        text: '석축',
-                        dataIndex: 'RE_RHTBNK_STON_AT'
-                    },{
-                        text:'돌망태',
-                        dataIndex: 'RE_RHTBNK_GABN_AT'
-                    },{
-                        text:'콘트리트',
-                        dataIndex: 'RE_RHTBNK_CNCRT_AT'
-                    },{
-                        text:'수직',
-                        dataIndex: 'RE_RHTBNK_VERTCL_AT'
-                    }]
-                }]
-            },{
-                text: '하상구조',
-                columns:[{
-                    text: '진흙',
-                    dataIndex: 'STR_MD_RT'
-                },{
-                    text: '모래',
-                    dataIndex: 'STR_SAND_RT'
-                },{
-                    text: '잔자갈',
-                    dataIndex: 'STR_SBAL_RT'
-                },{
-                    text: '자갈',
-                    dataIndex: 'STR_PEBB_RT'
-                },{
-                    text: '작은돌',
-                    dataIndex: 'STR_SS_RT'
-                },{
-                    text: '큰돌',
-                    dataIndex: 'STR_LS_RT'
-                }]
-            },{
-                text: '하천현황',
-                columns:[{
-                    text: '하천유형',
-                    dataIndex: 'RIVER_TY_SE'
-                },{
-                    text: '수리수문',
-                    columns:[{
-                        text: '하폭',
-                        dataIndex: 'BTRV'
-                    },{
-                        text: '수폭',
-                        dataIndex: 'WTRBT'
-                    },{
-                        text: '평균수심',
-                        dataIndex: 'AVRG_DPWT'
-                    },{
-                        text: '평균유속',
-                        dataIndex: 'AVRG_SPFLD'
-                    }]
-                },{
-                    text: '지형',
-                    columns:[{
-                        text: '여울',
-                        dataIndex: 'RIVER_RAP_RT'
-                    },{
-                        text: '흐름역',
-                        dataIndex: 'RIVER_FLOW_RT'
-                    },{
-                        text: '소',
-                        dataIndex: 'RIVER_POND_RT'
-                    }]
-                },{
-                    text: '기타',
-                    columns:[{
-                        text: '투명도',
-                        dataIndex: 'TRNSPRC_SE'
-                    }]
-                }]
-            },{
-                text: '채집불가',
-                columns:[{
-                    text: '특이사항',
-                    dataIndex: 'CLIMP_PARTCLR_MATTER'
-                }]
-            },{
-                text: '우점종 및 점유율',
-                columns:[{
-                    text: '학명',
-                    dataIndex: 'DKPAR_SCNCENM'
-                },{
-                    text: '점유율',
-                    dataIndex: 'DKPAR_POSSESN_RT'
-                },{
-                    text: '개체수',
-                    dataIndex: 'DKPAR_INDVD_CO'
-                }]
-            },{
-                text: '다양도',
-                dataIndex: 'DIV_IDEX'
-            },{
-                text: '종풍부도',
-                dataIndex: 'RIC_IDEX'
-            },{
-                text: '균등도',
-                dataIndex: 'EVN_IDEX'
-            },{
-                text: '지표종',
-                columns: [{
-                    text: 'EPT',
-                    columns: [{
-                        text: '출현종수',
-                        dataIndex: 'EPT_SPCS_CO'
-                    },{
-                        text: '출현종수비',
-                        dataIndex: 'EPT_SPCS_RT'
-                    },{
-                        text: '출현개체밀도',
-                        dataIndex: 'EPT_INDVD_CO'
-                    },{
-                        text: '출현개체밀도비율',
-                        dataIndex: 'EPT_INDVD_RT'
-                    }]
-                }]
-            },{
-                text: 'BMI',
-                dataIndex: 'BMI'
-            },{
+            }
+            // , {
+            //     text: '조사정보',
+            //     columns: [{
+            //         text: '위도',
+            //         dataIndex: 'LA',
+            //         width: 100
+            //     },{
+            //         text: '경도',
+            //         dataIndex: 'LO',
+            //         width: 100
+            //     },{
+            //         text: '조사일',
+            //         dataIndex: 'DE',
+            //         width: 100
+            //     },{
+            //         text: '날씨',
+            //         dataIndex: 'WETHR_SE',
+            //         width: 100
+            //     },{
+            //         text: '조사기관',
+            //         dataIndex: 'EXAMIN_INSTT_NM',
+            //         width: 100
+            //     },{
+            //         text: '조사자',
+            //         dataIndex: 'EXMNR_NM',
+            //         width: 100
+            //     }]
+            // }, {
+            //     text: '조사환경',
+            //     columns: [{
+            //         text: '기상조건',
+            //         columns: [{
+            //             text: '기온',
+            //             dataIndex: 'TMPRT',
+            //             width: 100
+            //         },{
+            //             text: '수온',
+            //             dataIndex: 'WTRTP',
+            //             width: 100
+            //         }]
+            //     }]
+            // },{
+            //     text: '조사방법',
+            //     columns: [{
+            //         text: 'Surber net(30*30)',
+            //         dataIndex: 'SBN30_EXAMIN_CO',
+            //         width: 100
+            //     },{
+            //         text: 'Surber net(50*50)',
+            //         dataIndex: 'SBN50_EXAMIN_CO',
+            //         width: 100
+            //     },{
+            //         text: '드렛지',
+            //         dataIndex: 'DR_EXAMIN_CO',
+            //         width: 100
+            //     },{
+            //         text: '에크만',
+            //         dataIndex: 'EK_EXAMIN_CO',
+            //         width: 100
+            //     }]
+            // },{
+            //     text: '유역환경',
+            //     columns:[{
+            //         text: '유역이용',
+            //         columns:[{
+            //             text: '산림',
+            //             dataIndex: 'DRGUSE_MTST_AT'
+            //         },{
+            //             text: '목초지',
+            //             dataIndex: 'DRGUSE_FORAGE_AT'
+            //         },{
+            //             text: '마을',
+            //             dataIndex: 'DRGUSE_VILAGE_AT'
+            //         },{
+            //             text: '상가, 음식점',
+            //             dataIndex: 'DRGUSE_SOPSRT_AT'
+            //         },{
+            //             text: '농경지',
+            //             dataIndex: 'DRGUSE_FRLND_AT'
+            //         },{
+            //             text: '공장',
+            //             dataIndex: 'DRGUSE_FCTRY_AT'
+            //         },{
+            //             text: '주거',
+            //             dataIndex: 'DRGUSE_RESIDE_AT'
+            //         },{
+            //             text: '기타',
+            //             dataIndex: 'DRGUSE_ETC_AT'
+            //         },{
+            //             text: '기타내용',
+            //             dataIndex: 'DRGUSE_ETC_CN'
+            //         }]
+            //     },{
+            //         text: '오염원',
+            //         columns:[{
+            //             text: '생활하수',
+            //             dataIndex: 'POLTNSRC_LVSEWG_AT'
+            //         },{
+            //             text: '축산폐수',
+            //             dataIndex: 'POLTNSRC_LSKR_AT'
+            //         },{
+            //             text: '산업폐수',
+            //             dataIndex: 'POLTNSRC_WSTR_AT'
+            //         },{
+            //             text: '기타',
+            //             dataIndex: 'POLTNSRC_ETC_AT'
+            //         },{
+            //             text: '기타내용',
+            //             dataIndex: 'POLTNSRC_ETC_CN'
+            //         }]
+            //     }]
+            // },{
+            //     text: '수변환경',
+            //     columns:[{
+            //         text:'식생',
+            //         columns:[{
+            //             text: '교목',
+            //             dataIndex: 'RE_VTN_TRE_RT'
+            //         },{
+            //             text: '관목',
+            //             dataIndex: 'RE_VTN_SRB_RT'
+            //         },{
+            //             text: '식생',
+            //             dataIndex: 'RE_VTN_HRB_RT'
+            //         }]
+            //     },{
+            //         text: '수피도',
+            //         dataIndex: 'RE_CNPY_SE'
+            //     },{
+            //         text: '범량원의이용',
+            //         dataIndex: 'RE_FLD_USE_SE'
+            //     },{
+            //         text: '제방(좌안)',
+            //         columns:[{
+            //             text: '자연',
+            //             dataIndex: 'RE_LFTBNK_NATURE_AT'
+            //         },{
+            //             text:'석축',
+            //             dataIndex: 'RE_LFTBNK_STON_AT'
+            //         },{
+            //             text:'돌망태',
+            //             dataIndex: 'RE_LFTBNK_GABN_AT'
+            //         },{
+            //             text:'콘트리트',
+            //             dataIndex: 'RE_LFTBNK_CNCRT_AT'
+            //         },{
+            //             text:'수직',
+            //             dataIndex: 'RE_LFTBNK_VERTCL_AT'
+            //         },{
+            //             text:'자연형',
+            //             dataIndex: 'RE_RHTBNK_NATURE_AT'
+            //         }]
+            //     },{
+            //         text: '제방(우안)',
+            //         columns:[{
+            //             text: '석축',
+            //             dataIndex: 'RE_RHTBNK_STON_AT'
+            //         },{
+            //             text:'돌망태',
+            //             dataIndex: 'RE_RHTBNK_GABN_AT'
+            //         },{
+            //             text:'콘트리트',
+            //             dataIndex: 'RE_RHTBNK_CNCRT_AT'
+            //         },{
+            //             text:'수직',
+            //             dataIndex: 'RE_RHTBNK_VERTCL_AT'
+            //         }]
+            //     }]
+            // },{
+            //     text: '하상구조',
+            //     columns:[{
+            //         text: '진흙',
+            //         dataIndex: 'STR_MD_RT'
+            //     },{
+            //         text: '모래',
+            //         dataIndex: 'STR_SAND_RT'
+            //     },{
+            //         text: '잔자갈',
+            //         dataIndex: 'STR_SBAL_RT'
+            //     },{
+            //         text: '자갈',
+            //         dataIndex: 'STR_PEBB_RT'
+            //     },{
+            //         text: '작은돌',
+            //         dataIndex: 'STR_SS_RT'
+            //     },{
+            //         text: '큰돌',
+            //         dataIndex: 'STR_LS_RT'
+            //     }]
+            // },{
+            //     text: '하천현황',
+            //     columns:[{
+            //         text: '하천유형',
+            //         dataIndex: 'RIVER_TY_SE'
+            //     },{
+            //         text: '수리수문',
+            //         columns:[{
+            //             text: '하폭',
+            //             dataIndex: 'BTRV'
+            //         },{
+            //             text: '수폭',
+            //             dataIndex: 'WTRBT'
+            //         },{
+            //             text: '평균수심',
+            //             dataIndex: 'AVRG_DPWT'
+            //         },{
+            //             text: '평균유속',
+            //             dataIndex: 'AVRG_SPFLD'
+            //         }]
+            //     },{
+            //         text: '지형',
+            //         columns:[{
+            //             text: '여울',
+            //             dataIndex: 'RIVER_RAP_RT'
+            //         },{
+            //             text: '흐름역',
+            //             dataIndex: 'RIVER_FLOW_RT'
+            //         },{
+            //             text: '소',
+            //             dataIndex: 'RIVER_POND_RT'
+            //         }]
+            //     },{
+            //         text: '기타',
+            //         columns:[{
+            //             text: '투명도',
+            //             dataIndex: 'TRNSPRC_SE'
+            //         }]
+            //     }]
+            // },{
+            //     text: '채집불가',
+            //     columns:[{
+            //         text: '특이사항',
+            //         dataIndex: 'CLIMP_PARTCLR_MATTER'
+            //     }]
+            // },{
+            //     text: '우점종 및 점유율',
+            //     columns:[{
+            //         text: '학명',
+            //         dataIndex: 'DKPAR_SCNCENM'
+            //     },{
+            //         text: '점유율',
+            //         dataIndex: 'DKPAR_POSSESN_RT'
+            //     },{
+            //         text: '개체수',
+            //         dataIndex: 'DKPAR_INDVD_CO'
+            //     }]
+            // },{
+            //     text: '다양도',
+            //     dataIndex: 'DIV_IDEX'
+            // },{
+            //     text: '종풍부도',
+            //     dataIndex: 'RIC_IDEX'
+            // },{
+            //     text: '균등도',
+            //     dataIndex: 'EVN_IDEX'
+            // },{
+            //     text: '지표종',
+            //     columns: [{
+            //         text: 'EPT',
+            //         columns: [{
+            //             text: '출현종수',
+            //             dataIndex: 'EPT_SPCS_CO'
+            //         },{
+            //             text: '출현종수비',
+            //             dataIndex: 'EPT_SPCS_RT'
+            //         },{
+            //             text: '출현개체밀도',
+            //             dataIndex: 'EPT_INDVD_CO'
+            //         },{
+            //             text: '출현개체밀도비율',
+            //             dataIndex: 'EPT_INDVD_RT'
+            //         }]
+            //     }]
+            // },{
+            //     text: 'BMI',
+            //     dataIndex: 'BMI'
+            // }
+            ,{
                 text: '건강성등급',
                 dataIndex: 'HEALTH_GRAD'
             }]
@@ -640,10 +650,12 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: '회차',
                 dataIndex: 'TME'
-            },{
-                text: '지점코드',
-                dataIndex: 'SPOT_CODE'
-            },{
+            }
+            // ,{
+            //     text: '지점코드',
+            //     dataIndex: 'SPOT_CODE'
+            // }
+            ,{
                 text: '지점명',
                 dataIndex: 'SPOT_NAME'
             },{
@@ -679,15 +691,18 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'MDT_NM',
                 width: 90
-            }, {
-                text: '지점코드',
-                dataIndex: 'SPOT_CODE',
-                width: 90
-            }, {
+            }
+            // , {
+            //     text: '지점코드',
+            //     dataIndex: 'SPOT_CODE',
+            //     width: 90
+            // }
+            , {
                 text: '지점명',
                 dataIndex: 'SPOT_NM',
                 width: 90
-            }, {
+            }
+            /*, {
                 text: '조사정보',
                 columns: [{
                     text: '위도',
@@ -822,10 +837,13 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: 'FAI',
                 dataIndex: 'FAI',
-            },{
+            }
+            */
+            ,{
                 text: '건강성등급',
                 dataIndex: 'HEALTH_GRAD',
-            },{
+            }
+            /*,{
                 text: '총종수',
                 dataIndex: 'TOT_SPCS_CO',
             },{
@@ -903,7 +921,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                     text: '개체수비',
                     dataIndex: 'ASP_INDVD_RT'
                 }]	
-            }]
+            }*/]
         }else{
             grid = [{
                 text: '연도',
@@ -926,7 +944,8 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: '개체수',
                 dataIndex: 'INDVD_CO'
-            },{
+            }
+            /*,{
                 text: '외래종 여부',
                 dataIndex: 'EXO_AT'
             },{
@@ -941,7 +960,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: '천연기념물 여부',
                 dataIndex: 'NTRMN_AT'
-            }]
+            }*/]
         }
         return grid;
     },
@@ -965,15 +984,18 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'MDT_NM',
                 width: 90
-            }, {
-                text: '지점코드',
-                dataIndex: 'SPOT_CODE',
-                width: 90
-            }, {
+            }
+            // , {
+            //     text: '지점코드',
+            //     dataIndex: 'SPOT_CODE',
+            //     width: 90
+            // }
+            , {
                 text: '지점명',
                 dataIndex: 'SPOT_NM',
                 width: 90
-            }, {
+            }
+            /*, {
                 text: '조사정보',
                 columns: [{
                     text: '위도',
@@ -1077,7 +1099,8 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: 'HRI',
                 dataIndex: 'HRI',
                 width: 100
-            },{
+            }*/
+            ,{
                 text: '건강성 등급',
                 dataIndex: 'HEALTH_GRAD',
                 width: 100
@@ -1189,15 +1212,18 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'MDT_NM',
                 width: 90
-            }, {
-                text: '지점코드',
-                dataIndex: 'SPOT_CODE',
-                width: 90
-            },{
+            }
+            // , {
+            //     text: '지점코드',
+            //     dataIndex: 'SPOT_CODE',
+            //     width: 90
+            // }
+            ,{
                 text: '지점명',
                 dataIndex: 'SPOT_NM',
                 width: 100
-            },{
+            }
+            /*,{
                 text: '조사정보',
                 columns: [{
                     text: '위도',
@@ -1415,7 +1441,9 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: 'RVI',
                 dataIndex: 'RVI'
-            },{
+            }
+            */
+            ,{
                 text: '건강성등급',
                 dataIndex: 'HEALTH_GRAD'
             }];
@@ -1657,7 +1685,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'AM_NM',
                 width: 90
-            }, {
+            }/*, {
                 text: '지점코드',
                 dataIndex: 'EXBF_CD',
                 width: 90
@@ -1699,7 +1727,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                         text: '모래',
                         dataIndex: 'HBTT_SAND_RT'
                     },{
-                        text: '자살',
+                        text: '자갈',
                         dataIndex: 'HBTT_PEBB_RT'
                     },{
                         text: '기반암',
@@ -1889,7 +1917,8 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: '영양염오염지수',
                 dataIndex: 'TDI_LVB_IDEX'
-            },{
+            }*/
+            ,{
                 text: '건강성등급',
                 dataIndex: 'TDI_GRAD'
             }];
@@ -1941,7 +1970,8 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'AM_NM',
                 width: 90
-            }, {
+            }
+            /*, {
                 text: '지점코드',
                 dataIndex: 'EXBF_CD',
                 width: 90
@@ -2128,7 +2158,8 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: 'KEBI',
                 dataIndex: 'KEBI_TOTAL'
-            },{
+            }*/
+            ,{
                 text: '건강성등급',
                 dataIndex: 'KEBI_GRAD'
             }];
@@ -2178,7 +2209,8 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'AM_NM',
                 width: 90
-            }, {
+            }
+            /*, {
                 text: '지점코드',
                 dataIndex: 'EXBF_CD',
                 width: 90
@@ -2293,7 +2325,8 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: 'BMI',
                 dataIndex: 'IBI_IDEX',
                 width: 100
-            },{
+            }*/
+            ,{
                 text: '건강성등급',
                 dataIndex: 'IBI_GRAD',
                 width: 100
@@ -2344,7 +2377,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 text: '중권역',
                 dataIndex: 'AM_NM',
                 width: 90
-            }, {
+            }/*, {
                 text: '지점코드',
                 dataIndex: 'EXBF_CD',
                 width: 90
@@ -2470,7 +2503,8 @@ Ext.define("krf_new.global.SstgGridFn", {
             },{
                 text: 'HDV',
                 dataIndex: 'VTNTEL_IDEX'
-            },{
+            }*/
+            ,{
                 text: '건강성등급',
                 dataIndex: 'VTNTEL_GRAD'
             }];

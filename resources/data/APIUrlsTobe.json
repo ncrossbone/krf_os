@@ -115,6 +115,13 @@
     "putLayerSetByUser":"#host#/krf/config/putLayerSetByUser",
     "updateLayerSet":"#host#/krf/config/updateLayerSet",
     "delLayerSet":"#host#/krf/config/delLayerSet",
+
+    
+    
+    "getDroneLayer":"#host#/krf/config/getDroneLayer",
+    "deleteDroneLayer":"#host#/krf/config/deleteDroneLayer",
+    "insertDroneLayer":"#host#/krf/config/insertDroneLayer",
+    "testDroneLayer":"#host#/krf/config/testDroneLayer",
     init: function(host){
               if(host != null){
                   this.domain = host;

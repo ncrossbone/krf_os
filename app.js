@@ -206,6 +206,9 @@ Ext.create('Ext.data.Store', {
 
 					$KRF_APP.showMapToolbar();
 
+					//항공영상 윈도우 생성
+					$KRF_APP.showDroneEdit();
+
 					$KRF_APP.mapWindowLoaded(Ext.getCmp('_mapDiv_'));
 
 					Ext.on('resize', function () {
@@ -271,6 +274,49 @@ Ext.create('Ext.data.Store', {
 					return false;
 				}
 				return true;
+			},
+
+			showDroneEdit: function(){
+				//console.info($KRF_APP.getDroneLayer);
+				if($KRF_APP.DRONELAYERS != undefined){
+					var dronePanel = Ext.getCmp('adminConfigDRONEPanel');
+					if(dronePanel != undefined){
+						if(dronePanel == undefined){
+							dronePanel = Ext.create('krf_new.view.center.AdminConfigDRONEPanel', { x: Ext.getCmp('cont_container').getWidth() - 1220, y: $KRF_DEFINE.mapToolbarHeight });
+							Ext.getCmp('cont_container').add(dronePanel);
+							dronePanel.hide();
+						}
+					}
+					dronePanel.show();
+				}else{
+					Ext.Ajax.request({
+						url: _API.getDroneLayer,
+						dataType: "text/plain",
+						method: 'POST',
+						async: true,
+						success: function (response, opts) {
+							var droneLyaer = Ext.util.JSON.decode(response.responseText);
+							if (droneLyaer.data.length > 0) {
+								$KRF_APP.DRONELAYERS = droneLyaer;
+								var dronePanel = Ext.getCmp('adminConfigDRONEPanel');
+								if(dronePanel == undefined){
+									dronePanel = Ext.create('krf_new.view.center.AdminConfigDRONEPanel', { x: Ext.getCmp('cont_container').getWidth() - 1220, y: $KRF_DEFINE.mapToolbarHeight });
+									Ext.getCmp('cont_container').add(dronePanel);
+									dronePanel.hide();
+								}
+							}
+						}
+					});
+				}
+				
+				
+			},
+
+			hideDroneEdit: function(){
+				var dronePanel = Ext.getCmp('adminConfigDRONEPanel');
+				if(dronePanel != undefined){
+					dronePanel.hide();
+				}
 			},
 
 			//소하천 dynamic 켜기
