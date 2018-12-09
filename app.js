@@ -69,6 +69,20 @@ var $KRF_EVENT = {
 	LAYER_SET_COMBO_SET_VALUE: 'layerSetComboSetValue',
 	PULL_WATER_DYNAMIC_LAYER_ON_OFF: 'pullWaterdynamicLayerOnOff',
 	DROUGHT_DYNAMIC_LAYER_ON_OFF: 'droughtDynamicLayerOnOff'
+
+	,HIGH_CHART_CONTROL: 'highChartControl'
+	,CREATE_HIGH_CHART: 'createHighChart'
+	,SET_HIGH_CHART_DATE: 'setHighChartDate'
+	,GET_BO_CODE: 'getBoCode'
+	,SET_BO_DATA_MARKER:'setBoDataMarker'
+	,REMOVE_BO_DATA_MARKER:'removeBoDataMarker'
+	,VIEW_01_GRAPHIC_LAYER: 'view01GraphicLayer'
+	,VIEW_02_GRAPHIC_LAYER: 'view02GraphicLayer'
+	,VIEW_GRAPHIC_LAYER_CONTROLLER: 'viewGraphicLayerController'
+	,SHOWVIEWDATAWINDOW:'showViewDataWindow'
+	,HIDEVIEWDATAWINDOW:'hideViewDataWindow'
+	,REMOVE_VIEW_GRAPHIC_LAYER: 'removeViewGraphicLayer'
+	,MAIN_BO_GRAPHIC_LAYER: 'mainBoGraphicLayer'
 }
 
 var $KRF_WINS = {
@@ -124,8 +138,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		a[0].data.init('http://112.217.167.123:40003');
-		//a[0].data.init('http://localhost:8082'); 
+		//a[0].data.init('http://112.217.167.123:40003');
+		a[0].data.init('http://localhost:8082'); 
 
 		Ext.application({
 			name: 'krf_new',
@@ -181,6 +195,10 @@ Ext.create('Ext.data.Store', {
 				$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
 
 				$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
+
+				$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{}
+									, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
+									, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
 			},
 			desktopLoaded: function () {
 
@@ -222,21 +240,25 @@ Ext.create('Ext.data.Store', {
 					$('#Admin-shortcut').remove();
 				}
 
-				Ext.Ajax.request({
-					url: _API.getLayerSetForUser,
-					dataType: "text/plain",
-					method: 'POST',
-					params: { userId: loginInfo.userId },
-					async: true,
-					success: function (response, opts) {
-						var result = Ext.util.JSON.decode(response.responseText);
-						if (result.data.length > 0) {
-							$KRF_APP.USER_LAYERS = result.data[0];
-							$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
-						}
-					}
-				});
-
+				// Ext.Ajax.request({
+				// 	url: _API.getLayerSetForUser,
+				// 	dataType: "text/plain",
+				// 	method: 'POST',
+				// 	params: { userId: loginInfo.userId },
+				// 	async: true,
+				// 	success: function (response, opts) {
+				// 		var result = Ext.util.JSON.decode(response.responseText);
+				// 		if (result.data.length > 0) {
+				// 			$KRF_APP.USER_LAYERS = result.data[0];
+				// 			$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
+				// 		}
+				// 	}
+				// });
+				var result = {"data":[{"layerSetName":"기본 설정","layerSetId":1,"layerSetIds":"[\"0\",\"1\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"12\",\"13\",\"14\",\"35\",\"36\",\"37\",\"38\",\"39\",\"40\",\"41\",\"42\",\"48\",\"49\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\",\"23\",\"24\",\"25\",\"P0\",\"P1\",\"26\",\"27\",\"28\",\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"52\",\"53\",\"55\",\"56\",\"57\",\"58\",\"59\",\"S\",\"S0\",\"S1\",\"S2\",\"60\",\"61\",\"62\",\"64\",\"65\",\"66\",\"67\",\"68\",\"69\",\"70\",\"71\",\"72\",\"90\",\"91\",\"D0\",\"D1\",\"D2\",\"D3\",\"D4\",\"V0\",\"V1\",\"V2\"]"}]};
+				if (result.data.length > 0) {
+					$KRF_APP.USER_LAYERS = result.data[0];
+					$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
+				}
 
 				Ext.Ajax.request({
 					url: _API.getDroneLayer,

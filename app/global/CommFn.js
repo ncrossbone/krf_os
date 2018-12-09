@@ -419,5 +419,206 @@ Ext.define("krf_new.global.CommFn", {
 
 
 		return store;
+	},
+
+	initParamBo: function(){
+
+	},
+
+
+
+	// high차트 변수 reset
+	resetHighChart: function(){
+		$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{}
+									, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
+									, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
+	},
+
+	// high차트 배열에 요소 삭제
+	removeByValue: function(array, value){
+		return array.filter(function(elem, _index){
+			return value != elem;
+		});
+	},
+
+	// high차트 삭제
+	removeHighChartData: function(recordId , recordName){
+
+		//$KRF_APP.highChart.seriesArr = [];
+
+		//배열 요소 삭제
+		$KRF_APP.highChart.ulIdArr = this.removeByValue($KRF_APP.highChart.ulIdArr, recordId);
+		$KRF_APP.highChart.ulNameArr = this.removeByValue($KRF_APP.highChart.ulNameArr, recordName);
+
+		//차트 새로 그리기
+		this.getHighChartData();
+		
+	},
+
+	// high차트 검색
+	getHighChartData: function (selectItem){
+
+		Ext.getCmp('highChartContiner').mask('loading','loading');
+
+		//항목버튼에서 넘어온 값을 전역변수에 설정
+		if(selectItem != undefined){
+			$KRF_APP.highChart.param.selectItem = selectItem;
+			$('#highChartSelectItem').find('a').removeClass('active');
+			$('#button_'+selectItem).addClass('active');
+		}
+		
+		
+
+		var highChartDatas = [];
+		var ajaxArry = [];
+		$KRF_APP.highChart.seriesArr = [];
+		
+
+		for(var a = 0 ; a < $KRF_APP.highChart.ulIdArr.length ; a++){
+			ajaxArry.push(this.getHighchartAjax($KRF_APP.highChart.ulIdArr[a],$KRF_APP.highChart.param.selectItem));
+		}
+		
+
+		var	defList = new dojo.DeferredList(ajaxArry);
+		defList.then(function(){
+			try{
+				for(var j=0; j<arguments[0].length; j++){
+					 var jsonData = Ext.util.JSON.decode(arguments[0][j][1].responseText);
+					 highChartDatas.push(jsonData);
+				}
+
+				//라벨 삭제
+				$('#chartUl li').remove();
+				var noDate = [];
+
+				//arguments 에 저정된 값을 chart에 뿌리기
+				for(var k = 0 ; k < highChartDatas.length; k++){
+					 $KRF_APP.fireEvent($KRF_EVENT.CREATE_HIGH_CHART
+					 , {"data":highChartDatas[k].data,"ulIdArr":$KRF_APP.highChart.ulIdArr[k],"ulNameArr":$KRF_APP.highChart.ulNameArr[k]});	
+
+					 // 데이터가 없는 경우 배열에일단 push
+					 if(highChartDatas[k].data.length == 0 ){
+						noDate.push({"ulIdArr":$KRF_APP.highChart.ulIdArr[k],"ulNameArr":$KRF_APP.highChart.ulNameArr[k]});
+					 }
+
+					 // 데이터없는 지점이 있으면 삭제
+					 if(noDate.length > 0){
+						for(var i = 0 ; i < noDate.length ; i++){
+							this.removeHighChartData(noDate[i].ulIdArr , noDate[i].ulNameArr);
+						}
+					 }
+				}
+
+			}catch(e){
+				console.log(e);
+			}	
+		});
+
+	},
+
+	//chart ajax defferd사용  ,  변수는 전역변수 사용
+	getHighchartAjax: function(recordId, selectItem){
+		
+		return Ext.Ajax.request({
+			url: requestUrl,    // To Which url you wanna POST.
+			params: {
+				recordId: recordId
+				, recordYear: $KRF_APP.highChart.param.startYearHigh
+				, recordYear2: $KRF_APP.highChart.param.endYearHigh
+				, recordMonth: $KRF_APP.highChart.param.startMonthHigh
+				, recordMonth2: $KRF_APP.highChart.param.endMonthHigh
+				, defaultChart: $KRF_APP.highChart.param.defaultChart
+				, selectItem: selectItem
+				, hMaxDate: $KRF_APP.highChart.param.maxDate
+			},
+			failure: function (form, action) {
+				// 로딩바 숨김
+				Ext.getCmp("bositeCharttest").unmask();
+				alert("오류가 발생하였습니다.");
+			}
+		});
+	},
+
+	//  경관, 보고서 combobox 세팅 (동일한 combobox 사용)
+	fileTabComboBindDate : function(store){
+
+		var comboId =  ['fileStartYear','fileStartMonth','fileEndYear','fileEndMonth'];
+		var storeComboId =  ['minData','minData','maxData','maxData'];
+		for(var a = 0 ; a < comboId.length; a++){
+			if(store[storeComboId[a]] != undefined){
+				Ext.getCmp([comboId[a]]).setValue(store[storeComboId[a]][comboId[a]])
+			}
+		}
+
+	},
+
+	//경관 data call
+	getViewDataAjax: function(spotCode,fileGubun){
+		
+		return Ext.Ajax.request({
+			url: 'http://localhost:8082/krf/searchResult/searchResult_View',
+			params: {
+				spotCode: spotCode
+				,fileGubun:fileGubun
+			},
+			failure: function (form, action) {
+				// 로딩바 숨김
+				Ext.getCmp("siteCharttest").unmask();
+				alert("오류가 발생하였습니다.");
+			}
+		});
+	},	
+
+	//경관 window
+	createViewWindow: function(data){
+
+		console.info(data);
+		$KRF_APP.fireEvent($KRF_EVENT.SHOWVIEWDATAWINDOW);
+		var imageHtml = '';
+
+		var display = ' style="display:block;" ';
+		for(var i = 0 ; i < data.length ; i++){
+			if(i != 0){
+				display = ' style="display:none;" ';
+			}
+			imageHtml += ' <li><img '+display+'  style="margin-left:-40px;" src="'
+						+'http://112.218.1.243:25555/weis_board/cms/landscape/dronePhotoGallery?spotCode='+data[i].SPOT_CODE
+						+'&brrerCode='+data[i].BRRER_CODE
+						+'&potogrfDe='+data[i].POTOGRF_DE
+						+'&fileId='+data[i].FILE_ID
+						+'&fileSn='+data[i].FILE_SN
+						+ '" width="150px" height="150px" /> </li> ';
+		}
+
+		var viewDataWindow = Ext.getCmp('viewDataWindow');
+		var html = '<table style="margin-bottom:10px;" class="metaDataTbl01">' 
+						+'<tr>' 
+						+'<td>'+data[0].OBSNM+'</td>' 
+						+'</tr>' 
+						+'<tr>' 
+						+'<td> '
+						+ '<ul id="boImages">'
+						+ imageHtml
+						+ '</ul>'
+						+ '</td>'
+						+'</tr>' 
+						+'<tr>' 
+						+'<td>수 계 : '+data[0].WRSSM_NM+'</td>' 
+						+'</tr>' 
+						+'<tr>' 
+						+'<td>보구간 : '+data[0].SPOT_NM+'</td>' 
+						+'</tr>' 
+						+'<tr>' 
+						+'<td>촬영일시 : '+data[0].POTOGRF_DE+'</td>' 
+						+'</tr>' 
+						+'<tr>' 
+						+'<td>특이사항 : '+data[0].POTOGRF_DE+'</td>' 
+						+'</tr>' 
+					+'</table>';
+		viewDataWindow.setHtml(html);
+
+		var gallery = new Viewer($(viewDataWindow.body.dom).find('#boImages')[0]);
+
 	}
+
 });

@@ -260,7 +260,149 @@ ReachInfoBinding = function (objs) {
 
 
 //지점/차트 정보 창 띄우기
+ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag, nodeInfo) {
+	
+	$KRF_APP.global.CommFn.setBookmarkInfo('siteNHighChart', {
+		tabIdx: tabIdx,
+		title: title,
+		test: test,
+		parentId: parentId,
+		chartFlag: chartFlag
+	});
+
+	var yFieldName = "";
+	var chartId = ""; // 부모아이디
+
+	if (parentId != "") { // 기간설정 검색 버튼 클릭 시 공백
+		var orgParentId = parentId
+
+		parentId = parentId.substring(0, 1);
+
+		if (parentId == "D") {
+			$KRF_APP.chartFlag_D = orgParentId;
+		}
+
+		$KRF_APP.parentFlag = parentId;
+		$KRF_APP.chartFlag = "1";
+
+		var centerContainer = Ext.getCmp('center_container');
+
+		var winX = centerContainer.getWidth() - 520;
+		var winY = 98;
+
+		var listCtl = Ext.getCmp("boListWindow");
+
+		if (listCtl != undefined) {
+			winY = listCtl.getHeight() + 3;
+		}
+
+		var winCtl = Ext.getCmp("windowSiteNHighChart");
+
+		if (winCtl == undefined) {
+			winCtl = Ext.create('krf_new.view.east.WindowSiteNHighChart', { width: 520, height: 390, x: winX, y: winY , parentId: parentId });
+			centerContainer.add(winCtl);
+		}
+		
+		winCtl.parentId = parentId;
+
+		winCtl.show();
+
+		var bositeinfoCtl = Ext.getCmp("bositeinfotest");  // 지점정보 ID
+		var siteChartCtl = Ext.getCmp("highChartPanel");  //차트 ID
+
+		// 정보창 탭 체인지
+		ChangeBoTabIndex(tabIdx);
+
+
+		if (parentId == "A") {
+			yFieldName = "ITEM_BOD";
+		} else if (parentId == "B") {
+			yFieldName = "ITEM_COD";
+		} else if (parentId == "C") {
+			yFieldName = "ITEM_COD";
+		} else if (parentId == "F") {
+			yFieldName = "ITEM_BOD";
+		} else if (orgParentId == "D001") {
+			yFieldName = "WL";
+		} else if (orgParentId == "D002") {
+			yFieldName = "RF";
+		} else if (orgParentId == "D003") {
+			yFieldName = "FW";
+		} else if (orgParentId == "D004") {
+			yFieldName = "SWL";
+		} else if (orgParentId == "D005") {
+			yFieldName = "WD";
+		} else if (orgParentId == "D006") {
+			yFieldName = "RND";
+		} else if (orgParentId == "D007") {
+			yFieldName = "SWL";
+		} else if (parentId == "I") {
+			yFieldName = "ITEM_TEMP";
+		} else if(parentId == "H"){
+			//_hidden
+			siteChartCtl.series[1]._yField = "BOD_1";
+			siteChartCtl.series[2]._yField = "BOD_2";
+			siteChartCtl.series[3]._yField = "BOD_3";
+			siteChartCtl.series[4]._yField = "BOD_4";
+			
+			yFieldName = "BOD";
+		}
+
+		// 지점정보 스토어 로드
+		if (bositeinfoCtl != undefined) {
+			var store = Ext.create('krf_new.store.east.BoSiteInfoPanel');
+			store.siteCD = title;
+			store.parentId = parentId;
+			store.load();
+			bositeinfoCtl.setStore(store);
+		}
+
+		if (!chartFlag) {
+			// 차트정보 스토어 로드
+			if (siteChartCtl != undefined) {
+				//var chartStore = siteChartCtl.getStore();
+				var chartStore = Ext.create('krf_new.store.east.HighChartPanel');
+				chartStore.siteCD = title;
+				chartStore.yFieldName = yFieldName;
+				chartStore.parentId = parentId;
+				chartStore.orgParentId = orgParentId;
+				chartStore.load();
+				 
+				//siteChartCtl.setStore(chartStore);
+				
+			}
+		} else {
+			Ext.getCmp("boCharttest").addCls("dj-mask-noneimg");
+			Ext.getCmp("boCharttest").mask("차트정보가 없습니다.", "noData");
+		}
+
+		chartId = parentId;
+	} else {
+		//$KRF_APP.chartFlag = "0";
+		//var siteChartCtl = Ext.getCmp("highChartPanel");  //차트 ID
+		//var chartStore = siteChartCtl.getStore();
+		//chartStore.load();
+		if (chartStore.parentId == "F") {
+			chartId = chartStore.parentId;
+		}
+
+		//클릭 session
+		setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
+	}
+	
+	//지점명칭 붙이기
+	$('#siteNameLabel').text(nodeInfo.parentNode.data.text.split('(')[0]+'_'+test);
+
+}
+
+BoSetItemLabelText = function(){
+
+}
+
+
+//지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
+
 	
 	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
 		tabIdx: tabIdx,
@@ -454,7 +596,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 	SetItemLabelText(yFieldName, chartId, test);
 	siteChartCtl.preText = test;
 
-	TestHighChart();
+
+	
+
+	//TestHighChart();
 }
 
 TestHighChart = function(data){
@@ -859,6 +1004,32 @@ ChangeTabIndex = function (tabIdx) {
 	}
 }
 
+// 정보창 탭 체인지
+ChangeBoTabIndex = function (tabIdx) {
+	var chartCtl = Ext.getCmp("tabBoChart");
+	var siteCtl = Ext.getCmp("tabBoSite");
+	var contCtl = Ext.getCmp("infoContentsHigh");
+
+	//if (chartCtl && siteCtl && contCtl) {
+	if (chartCtl) {	
+		if (tabIdx == 0) {
+			chartCtl.setStyle('background','#003873');
+			chartCtl.setStyle('color','#fff');
+
+			siteCtl.setStyle('background','#fff');
+			siteCtl.setStyle('color','#808080');
+		} else {
+			chartCtl.setStyle('background','#fff');
+			chartCtl.setStyle('color','#808080');
+
+			siteCtl.setStyle('background','#003873');
+			siteCtl.setStyle('color','#fff');
+		}
+
+		contCtl.setActiveItem(tabIdx);
+	}
+}
+
 ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 	//처음검색
 	$KRF_APP.btnFlag = "noDate";
@@ -873,6 +1044,149 @@ showResultWindow = function () {
 
 	return resultWindow;
 }
+
+
+//보고서 경관 검색결과
+ShowFileSearchResult = function(boCode,boName){
+
+	
+	// test
+	//boCode = "2007801";
+
+	var centerContainer = Ext.getCmp('center_container');
+
+	var windowWidth = centerContainer.getWidth()-600;
+	var windowHeight = 300;
+	var windowY = centerContainer.getHeight() - windowHeight;
+	// window 창 옵션
+	var options = {
+		id: 'searchFileResultWindow',
+		width: windowWidth,
+		height: windowHeight,
+		title: '',
+		header: { 
+			cls: 'subWindow-x-form-item-label-default',
+			titlePosition: 2,
+			items: [{
+				xtype: 'label',
+				text: '보고서',
+				id: 'tabFile',
+				style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px; background:#fff;  color:#808080;',
+				width: 75,
+				height: 21,
+				listeners: {
+					el: {
+						click: function (obj, el, evt) {
+							Ext.getCmp('filetabpanels').show();
+							Ext.getCmp('viewtabpanels').hide();
+
+							this.setStyle('background','#003873');
+							this.setStyle('color','#fff');
+
+							Ext.getCmp('tabView').setStyle('background','#fff');
+							Ext.getCmp('tabView').setStyle('color','#808080');
+
+							$KRF_APP.global.CommFn.fileTabComboBindDate(
+								Ext.getCmp(Ext.getCmp('filetabpanels').activeTab.id).items.items[0].items.items[0].getStore()
+							)
+							//
+						}
+					}
+				}
+			}, {
+				xtype: 'label',
+				text: '경관',
+				id: 'tabView',
+				style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px; background:#003873;  color:#fff;',
+				width: 75,
+				height: 20,
+				listeners: {
+					el: {
+						click: function (obj, el, evt) {
+							Ext.getCmp('filetabpanels').hide();
+							Ext.getCmp('viewtabpanels').show();
+
+							this.setStyle('background','#003873');
+							this.setStyle('color','#fff');
+
+							Ext.getCmp('tabFile').setStyle('background','#fff');
+							Ext.getCmp('tabFile').setStyle('color','#808080');
+
+							$KRF_APP.global.CommFn.fileTabComboBindDate(
+								Ext.getCmp(Ext.getCmp('viewtabpanels').activeTab.id).items.items[0].items.items[0].getStore()
+							)
+						}
+					}
+				}
+			}] 
+		},
+		y: windowY
+	};
+
+
+	// window 창 생성
+	var searchFileResultWindow = this.GetFileWindowControl(options);
+	centerContainer.add(searchFileResultWindow);
+	searchFileResultWindow.show();
+
+	//$KRF_APP.searchFileResultWindow = searchFileResultWindow;
+
+	if (boCode == undefined)
+		return;
+		options = {
+			id: 'searchFileResultTab',
+			header: false
+		};
+
+	var tabCtl = Ext.getCmp("searchFileResultTab");
+	// TabControl 생성
+	var searchFileResultTab = GetFileTabControl(options);
+
+	if (tabCtl == undefined) {
+		searchFileResultWindow.add(searchFileResultTab); // window에 tab추가
+	}
+
+	for(var i = 1 ; i < 3; i++){
+		options = {
+			id: boCode + "_container_"+i,
+			title: boName,
+			autoResize: true,
+			gridId: boCode
+		};
+	
+		var tab = searchFileResultTab.items.items[i];
+	
+		var gridStore = null;	
+		var grdContainer = Ext.getCmp(boCode + "_container_"+i);
+	
+		var firstSearch = false;
+		if(grdContainer == null || grdContainer == undefined){
+			grdContainer = Ext.create("krf_new.view.south.SearchFileResultGrid_"+i, options);
+			tab.add(grdContainer);
+			tab.setActiveTab(boCode + "_container_"+i);
+			firstSearch = true;
+		}
+		
+
+		var gridCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+			gridCtl = gridCtl.items.items[0]; // 그리드 컨트롤
+	
+			gridStore = Ext.create("krf_new.store.south.SearchFileResultGrid_"+i, {
+				boCode: boCode
+				,firstSearch : firstSearch
+				,gridCtl : gridCtl
+			});
+			gridCtl.setStore(gridStore);
+
+			
+
+	}
+	
+
+
+
+}
+
 // 검색결과창 띄우기
 ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 	$KRF_APP.global.CommFn.setBookmarkInfo('searchResult', {
@@ -1650,11 +1964,29 @@ GetWindowControl = function (options) {
 	return winCtl;
 }
 
+// WindowControl 오브젝트 리턴
+GetFileWindowControl = function (options) {
+	var winCtl = Ext.getCmp(options.id);
+	if (winCtl == undefined) {
+		winCtl = Ext.create('krf_new.view.common.FileWindowControl', options);
+	}
+	return winCtl;
+}
+
 // TabControl 오브젝트 리턴
 GetTabControl = function (options) {
 	var tabCtl = Ext.getCmp(options.id);
 	if (tabCtl == undefined) {
 		tabCtl = Ext.create('krf_new.view.common.TabControl', options);
+	}
+	return tabCtl;
+}
+
+// TabControl 오브젝트 리턴
+GetFileTabControl = function (options) {
+	var tabCtl = Ext.getCmp(options.id);
+	if (tabCtl == undefined) {
+		tabCtl = Ext.create('krf_new.view.common.FileTabControl', options);
 	}
 	return tabCtl;
 }

@@ -7,7 +7,7 @@ Ext.define('krf_new.view.common.TabControl', {
 
 	xtype: 'common-tabcontrol',
 
-	controller: 'tabControlController',
+	controller: 'tabControlController', 
 
 	id: 'tabControl',
 

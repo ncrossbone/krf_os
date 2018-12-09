@@ -967,4 +967,30 @@
 		"layerCode": "",
 		"isMetaData": false
 	}]
+},{
+	"id": "V0",
+	"text": "경관",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "V1",
+		"wmsId":"",
+		"text": "드론",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerv1",
+		"leaf": true,
+		"checked": false,
+		"isMetaData": false
+	},{
+		"id": "V2",
+		"wmsId":"",
+		"text": "항공",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerv2",
+		"leaf": true,
+		"checked": false,
+		"isMetaData": false
+	}]
 }]

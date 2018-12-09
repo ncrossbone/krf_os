@@ -1,23 +1,12 @@
-Ext.define('krf_new.store.east.SiteChartPanel', {
+Ext.define('krf_new.store.east.HighChartPanel', {
 	extend: 'Ext.data.Store',
-	fields: [
-		'PT_NO',
-		'PT_NM',// xtype: 'datecolumn',   format:'Y-m-d'
-		'WMCYMD',
-		// { name: 'PREDICT_DT', xtype: 'datecolumn',   format:'Y-m-d' },
-		'ITEM_NAME',
-		{ name: 'ITEM_VALUE', type: 'float' },
-		'ITEM_VALUE_1' //정량한계 미만처리를 위한 copy 컬럼
-	],
 	remoteSort: true,
-	arrMax: [],
-	parentId: '',
-	siteCD: '',
-	yFieldName: '',
 
 	listeners: {
 		load: function (store) {
 
+			Ext.getCmp('highChartContiner').mask('loading...','loading...');
+			
 			var cfgBtn = $('#btnShowSearchWindow');
 			var saveBtn = $('#btnImageDown');
 			var dateWin = Ext.getCmp('datePanel1');
@@ -91,7 +80,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					maxDate = Ext.getCmp("hSelectYear").lastValue+Ext.getCmp("hSelectMonth").lastValue+Ext.getCmp("hSelectDay").lastValue;
 
 					//selectItem.lastValue
-					var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+					var siteChartCtl = Ext.getCmp("highChartPanel");  //차트 ID
 					siteChartCtl.series[1]._yField = selectItem.lastValue+"_1";
 					siteChartCtl.series[2]._yField = selectItem.lastValue+"_2";
 					siteChartCtl.series[3]._yField = selectItem.lastValue+"_3";
@@ -134,13 +123,10 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			} else if(store.parentId == "H"){
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			}
-
-
-			
-
-
 			
 			if(store.parentId == "H" && defaultChart == "1"){
+
+				Ext.getCmp('highChartContiner').mask('loading...','loading...');
 
 				Ext.Ajax.request({
 					url: _API.GetRWMDT_HDate,    // To Which url you wanna POST.
@@ -151,8 +137,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					success: function (response, opts) {
 						if ('error' == response.responseText) {
 							Ext.Msg.alert("알림", "차트정보 조회중 예외가 발생했습니다.");
-							Ext.getCmp("siteCharttest").unmask();
-							Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
+							Ext.getCmp("highChartContiner").unmask();
+							Ext.getCmp("highChartContiner").mask("차트정보를 조회하지 못했습니다.", "noData");
 							return;
 						}
 						// JSON Object로 변경
@@ -169,11 +155,11 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							// 차트 컨트롤에 max 데이터 셋팅
 							//SetChartMaxData(store);
 							// 로딩바 숨김
-							Ext.getCmp("siteCharttest").unmask();
+							Ext.getCmp("highChartContiner").unmask();
 	
 						} else {
-							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
-							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+							Ext.getCmp("highChartContiner").addCls("dj-mask-noneimg");
+							Ext.getCmp("highChartContiner").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						}
 	
 						cfgBtn.show();
@@ -182,7 +168,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					},
 					failure: function (form, action) {
 						// 로딩바 숨김
-						Ext.getCmp("siteCharttest").unmask();
+						Ext.getCmp("highChartContiner").unmask();
 						alert("오류가 발생하였습니다.");
 					}
 				});
@@ -192,13 +178,27 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 
 			}
 
+
+			// 보 highChart 변수 저장 ( 새로 차트가 생성될때, parent가 달라졌을때 )
+			if($KRF_APP.highChart.saveParentId != store.parentId){
+				$KRF_APP.highChart.ulIdArr = []; // 지점 id 비우기
+				$KRF_APP.highChart.seriesArr = []; // highchart 데이터  비우기
+
+				$KRF_APP.highChart.ulIdArr.push(recordId);  //지점 id 추가
+				$KRF_APP.highChart.param.url = requestUrl; // ajax query url 
+				$KRF_APP.highChart.param.selectItem = selectItem; //  검색 조건 저장
+				$KRF_APP.highChart.saveParentId = store.parentId; // parentId 저장
+				$KRF_APP.highChart.removeLabel = true; // 라벨 새로 그리기
+			}
+
+
 			if(store.parentId == "H"){
 				recordId = recordId.replace("Reach","RCH");
 					// 로딩바 표시
 				
-				Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
-				Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
-				Ext.getCmp("siteCharttest").mask("loading", "loading...");
+				Ext.getCmp("highChartContiner").removeCls("dj-mask-noneimg");
+				Ext.getCmp("highChartContiner").addCls("dj-mask-withimg");
+				Ext.getCmp("highChartContiner").mask("loading", "loading...");
 				Ext.Ajax.request({
 					url: requestUrl,    // To Which url you wanna POST.
 					params: {
@@ -211,8 +211,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					success: function (response, opts) {
 						if ('error' == response.responseText) {
 							Ext.Msg.alert("알림", "차트정보 조회중 예외가 발생했습니다.");
-							Ext.getCmp("siteCharttest").unmask();
-							Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
+							Ext.getCmp("highChartContiner").unmask();
+							Ext.getCmp("highChartContiner").mask("차트정보를 조회하지 못했습니다.", "noData");
 							return;
 						}
 						// JSON Object로 변경
@@ -220,10 +220,10 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						
 						
 						if (jsonData == -1) {
-							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
-							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+							// Ext.getCmp("highChartContiner").addCls("dj-mask-noneimg");
+							// Ext.getCmp("highChartContiner").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						} else {
-							Ext.getCmp("siteCharttest").unmask();
+							Ext.getCmp("highChartContiner").unmask();
 							store.loadData(jsonData.data);
 
 							//수질측정 2번째
@@ -253,7 +253,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							console.info(VAL_2.slice(0).sort(function(a,b){a<b})[0]);
 							
 							// 차트 컨트롤에 max 데이터 셋팅
-							SetChartMaxData(maxData);
+							//SetChartMaxData(maxData);
 
 						}
 						
@@ -265,16 +265,16 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					},
 					failure: function (form, action) {
 						// 로딩바 숨김
-						Ext.getCmp("siteCharttest").unmask();
+						Ext.getCmp("highChartContiner").unmask();
 						alert("오류가 발생하였습니다.");
 					}
 				});
 			}else{
 					// 로딩바 표시
 				
-				Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
-				Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
-				Ext.getCmp("siteCharttest").mask("loading", "loading...");
+				// Ext.getCmp("highChartContiner").removeCls("dj-mask-noneimg");
+				// Ext.getCmp("highChartContiner").addCls("dj-mask-withimg");
+				// Ext.getCmp("highChartContiner").mask("loading", "loading...");
 				Ext.Ajax.request({
 					url: requestUrl,    // To Which url you wanna POST.
 					params: {
@@ -291,8 +291,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					success: function (response, opts) {
 						if ('error' == response.responseText) {
 							Ext.Msg.alert("알림", "차트정보 조회중 예외가 발생했습니다.");
-							Ext.getCmp("siteCharttest").unmask();
-							Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
+							Ext.getCmp("highChartContiner").unmask();
+							Ext.getCmp("highChartContiner").mask("차트정보를 조회하지 못했습니다.", "noData");
 							return;
 						}
 						// JSON Object로 변경
@@ -322,17 +322,23 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						store.arrMax = jsonData.maxdata;
 
 						if(jsonData.data.length > 0){
+							$KRF_APP.highChart.param.maxDate = jsonData.data[jsonData.data.length - 1];
+							$KRF_APP.highChart.param.minDate = jsonData.data[0];
 						}
+						// 보 차트
+						$KRF_APP.fireEvent($KRF_EVENT.CREATE_HIGH_CHART
+										, {"data":jsonData.data,"ulIdArr":$KRF_APP.highChart.ulIdArr,"ulNameArr":$KRF_APP.highChart.ulNameArr
+										,"removeLabel":$KRF_APP.highChart.removeLabel ,"parentId":$KRF_APP.highChart.parentId});
 										
 						if (jsonData.data.length > 0) {
 							// 차트 컨트롤에 max 데이터 셋팅
-							SetChartMaxData(store);
+							//SetChartMaxData(store);
 							// 로딩바 숨김
-							Ext.getCmp("siteCharttest").unmask();
+							Ext.getCmp("highChartContiner").unmask();
 
 						} else {
-							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
-							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+							// Ext.getCmp("highChartContiner").addCls("dj-mask-noneimg");
+							// Ext.getCmp("highChartContiner").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						}
 
 						cfgBtn.show();
@@ -341,7 +347,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					},
 					failure: function (form, action) {
 						// 로딩바 숨김
-						Ext.getCmp("siteCharttest").unmask();
+						Ext.getCmp("highChartContiner").unmask();
 						alert("오류가 발생하였습니다.");
 					}
 				});

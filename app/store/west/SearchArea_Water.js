@@ -78,9 +78,16 @@ Ext.define('krf_new.store.west.SearchArea_Water', {
 						name: nameVal
 					});
 
+					
+
 					if (data.length == index + 1) {
 						store.setData(receiveData);
 						store.customOnLoaded();
+
+						if(store.layerId == 0){
+							$KRF_APP.BO_STORE = receiveData;
+						}
+
 					}
 				});
 			});

@@ -52,6 +52,9 @@ Ext.define('Desktop.MapWindow', {
 		$KRF_APP.addListener($KRF_EVENT.SHOWMETADATAWINDOW, this.showMetaDataWindow, this);
 		$KRF_APP.addListener($KRF_EVENT.HIDEMETADATAWINDOW, this.hideMetaDataWindow, this);
 
+		$KRF_APP.addListener($KRF_EVENT.SHOWVIEWDATAWINDOW, this.showViewDataWindow, this);
+		$KRF_APP.addListener($KRF_EVENT.HIDEVIEWDATAWINDOW, this.hideViewDataWindow, this);
+
 		$KRF_APP.addListener($KRF_EVENT.RESIZE_TOOL_ITEMS, this.resizeToolItems, this);
 	},
 
@@ -559,6 +562,22 @@ Ext.define('Desktop.MapWindow', {
 		//me
 	},
 
+	showViewDataWindow: function () {
+		var cContainer = Ext.getCmp("cont_container");
+		var viewDataWindow = Ext.getCmp('viewDataWindow');
+		if (viewDataWindow == undefined) {
+			viewDataWindow = Ext.create('krf_new.view.search.ViewDataWindow');
+			cContainer.add(viewDataWindow);
+		}
+		viewDataWindow.show();
+	},
+
+	hideViewDataWindow: function () {
+		var viewDataWindow = Ext.getCmp('viewDataWindow');
+		viewDataWindow.close();
+		//me
+	},
+
 	checkMapParameter: function () {
 		var getParam = window.location.search.substring(1);
 		var params = Ext.urlDecode(getParam);
@@ -641,10 +660,21 @@ Ext.define('Desktop.MapWindow', {
 						});
 					});
 			}
-		}else if(params.boType == "boType"){ //params
-			//parameter에 bo에대한 정보가 넘오오면 KRF_APP에 BOMODE 추가
+		}else if(params.boMode == "boMode"){ //params//parameter에 bo에대한 정보가 넘오오면 KRF_APP에 BOMODE 추가
 			$KRF_APP.BOMODE = true;
-			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.boType });
+
+			//보 모드로 들어오게 되면 bolistwindow 창을 생성
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.code });
+			$KRF_APP.fireEvent($KRF_EVENT.HIDE_BO_LIST_WINDOW, '');
+
+			if(params.boCd != undefined ){
+			
+			}
+
+			if(params.boX != undefined && params.boY != undefined){
+				$KRF_APP.fireEvent($KRF_EVENT.GET_BO_CODE, '');
+				//$KRF_APP.global.CommFn.initParamBo();
+			}
 
 		}
 	}

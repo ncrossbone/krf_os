@@ -1157,7 +1157,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		
 			var queryTask = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverReach); // 소하천 리치라인
 			var query = new Query();
-			query.returnGeometry = true;
+			query.returnGeometry = true; 
 			query.outFields = ["*"];
 			
 			if(feature == undefined){

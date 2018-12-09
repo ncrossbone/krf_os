@@ -1,6 +1,6 @@
-Ext.define('krf_new.view.east.WindowSiteNChart', {
+Ext.define('krf_new.view.east.WindowSiteNHighChart', {
 	extend: 'Ext.window.Window',
-	xtype: 'east-windowsitenchart',
+	xtype: 'east-windowsitenhighchart',
 
 	requires: [
 
@@ -8,7 +8,7 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 		'Ext.window.MessageBox'
 	],
 
-	id: 'windowSiteNChart',
+	id: 'windowSiteNHighChart',
 	constrain: true,
 	minimizable: true,
 
@@ -26,29 +26,29 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 		titlePosition: 2,
 		items: [{
 			xtype: 'label',
-			text: '차트정보',
-			id: 'tabChart',
+			text: '하이차트정보',
+			id: 'tabBoChart',
 			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
 			width: 75,
 			height: 21,
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						ChangeTabIndex(0);
+						ChangeBoTabIndex(0);
 					}
 				}
 			}
 		}, {
 			xtype: 'label',
 			text: '지점정보',
-			id: 'tabSite',
+			id: 'tabBoSite',
 			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
 			width: 75,
 			height: 20,
 			listeners: {
 				el: {
 					click: function (obj, el, evt) {
-						ChangeTabIndex(1);
+						ChangeBoTabIndex(1);
 					}
 				}
 			}
@@ -60,20 +60,20 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 	},
 
 	width: 500,
-	height: 350,
+	height: 550,
 	draggable: true,
 	listeners: {//resize될때 chart panel width값 변경
 		'resize': function (win, width, height, opt) {
-			var chartPanel = Ext.getCmp("chartPanel");
-			var siteCharttest = Ext.getCmp("siteCharttest");
+			var highChartPanel = Ext.getCmp("highChartPanel");
+			//var siteCharttest = Ext.getCmp("siteCharttest");
 			//var siteinfotest = Ext.getCmp("siteinfotest");
-			var siteInfoPanel = Ext.getCmp("siteInfoPanel");
-			siteInfoPanel.setWidth(width);//정보창 사이즈 조절
+			var bositeInfoPanel = Ext.getCmp("bositeInfoPanel");
+			bositeInfoPanel.setWidth(width);//정보창 사이즈 조절
 
-			chartPanel.setWidth(width);
-			chartPanel.setHeight(height);
-			siteCharttest.setWidth(width);
-			siteCharttest.setHeight(height - 80);
+			highChartPanel.setWidth(width);
+			highChartPanel.setHeight(height);
+			// siteCharttest.setWidth(width);
+			// siteCharttest.setHeight(height - 80);
 		}, "minimize": function (window, opts) {
 			if (!window.collapsed) {
 				var centerContainer = Ext.getCmp('center_container');
@@ -102,22 +102,21 @@ Ext.define('krf_new.view.east.WindowSiteNChart', {
 
 	items: [{
 		xtype: 'container',
-		id: 'infoContents',
+		id: 'infoContentsHigh',
 		layout: {
 			type: 'card'
 		},
 		items: [{
-			xtype: 'east-chartpanel'
-		}, {
-			xtype: 'east-siteinfopanel'
-		}]
+			xtype: 'east-highChartpanel'
+		}
+		, {
+			xtype: 'east-bositeinfopanel'
+		}
+	]
 	}],
 	initComponent: function () {
 		this.on("beforeclose", function windSitreNChartClose() {
-			var datePanel1 = Ext.getCmp("datePanel1");
-			if (datePanel1 != undefined) {
-				datePanel1.close();
-			}
+			$KRF_APP.global.CommFn.resetHighChart();
 		});
 		this.callParent();
 	}

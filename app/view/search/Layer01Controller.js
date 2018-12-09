@@ -33,6 +33,8 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 				$KRF_APP.fireEvent($KRF_EVENT.PULL_WATER_DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
 			} else if (node.id.substring(0, 1) == 'D') {
 				$KRF_APP.fireEvent($KRF_EVENT.DROUGHT_DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
+			} else if (node.id.substring(0, 1) == 'V') {
+				$KRF_APP.fireEvent($KRF_EVENT.VIEW_GRAPHIC_LAYER_CONTROLLER, [node,checked]);
 			} else {
 				$KRF_APP.fireEvent($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, this.getView().getChecked());
 			}
@@ -58,6 +60,8 @@ Ext.define('krf_new.view.search.Layer01Controller', {
 					$KRF_APP.fireEvent('pullWaterdynamicLayerOnOff', me.getView().getChecked());
 				} else if (child.data.parentId == 'D0') {
 					$KRF_APP.fireEvent('droughtDynamicLayerOnOff', me.getView().getChecked());
+				} else if (child.data.parentId == 'V0') {
+					$KRF_APP.fireEvent('viewGraphicLayerController', [node,checked]);
 				} else {
 					$KRF_APP.fireEvent('dynamicLayerOnOff', me.getView().getChecked());
 				}

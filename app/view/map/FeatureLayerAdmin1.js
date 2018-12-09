@@ -26,11 +26,220 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 		me.movePopGraphicLayer.id = "movePopGraphicLayer";
 		me.map.addLayer(me.movePopGraphicLayer);
 
+		me.view01GraphicLayer = new esri.layers.GraphicsLayer();
+		me.view01GraphicLayer.id = "view01GraphicLayer";
+		me.map.addLayer(me.view01GraphicLayer);
+
+		me.view02GraphicLayer = new esri.layers.GraphicsLayer();
+		me.view02GraphicLayer.id = "view02pGraphicLayer";
+		me.map.addLayer(me.view02GraphicLayer);
+
+
+		me.boGraphicLayer = new esri.layers.GraphicsLayer();
+		me.boGraphicLayer.id = "boGraphicLayer";
+		me.map.addLayer(me.boGraphicLayer);
+
+
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_SITE, me.setSelectedSiteHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_CAT_AREA, me.setSelectedCatAreaHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_RCHLINE, me.setSelectedRchLineHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_POP_SITE, me.setSelectedPopSiteHandler, me);
+
+
+		$KRF_APP.addListener($KRF_EVENT.VIEW_01_GRAPHIC_LAYER, me.view01GraphicLayerController, me);
+		$KRF_APP.addListener($KRF_EVENT.VIEW_02_GRAPHIC_LAYER, me.view02GraphicLayerController, me);
+		$KRF_APP.addListener($KRF_EVENT.REMOVE_VIEW_GRAPHIC_LAYER, me.removeViewGraphicLayer, me);
+		$KRF_APP.addListener($KRF_EVENT.VIEW_GRAPHIC_LAYER_CONTROLLER, me.viewGraphicLayerController, me);
+
+		$KRF_APP.addListener($KRF_EVENT.MAIN_BO_GRAPHIC_LAYER, me.mainBoGraphicLayer, me);
+		this.mainBoGraphicLayer(); //bo main grpahic layer;
 	},
+
+
+	mainBoGraphicLayer: function(){
+
+		var me = this;
+
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/0");
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = { "wkid": 102100 };
+		query.outFields = ["*"];
+		query.where = "1=1";
+		queryTask.execute(query, function (results) {
+			if(results.features.length > 0 ){
+
+				var coreMap = $KRF_APP.coreMap;
+				var symbol = new esri.symbol.PictureMarkerSymbol({
+					"angle": 0,
+					"yoffset": 22,
+					"type": "esriPMS",
+					"url": "./resources/images/symbol/symbol_1_7.gif",
+					"contentType": "image/png",
+					"width": 22,
+					"height": 22
+				});
+
+				for(var i = 0 ; i < results.features.length ; i ++){
+					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
+					graphic.attributes = results.features[i].attributes;
+					me.boGraphicLayer.add(graphic);	
+				}
+		
+				
+
+			}
+		})
+
+
+	},
+
+	// 경관 featurelayer controller
+	viewGraphicLayerController: function(node){
+		if(node[1]){
+			if(node[0].data.id.substr(1,1) == 1){
+				this.view01GraphicLayerController();
+			}else if(node[0].data.id.substr(1,1) == 2){
+				this.view02GraphicLayerController();
+			}else{
+				this.view01GraphicLayerController();
+				this.view02GraphicLayerController();
+			}
+		}else{
+			if(node[0].id == 'V1'){
+				this.removeViewGraphicLayer('view01GraphicLayer');
+			}else if(node[0].id == 'V2'){
+				this.removeViewGraphicLayer('view02GraphicLayer');
+			}else{
+				this.removeViewGraphicLayer('view01GraphicLayer');
+				this.removeViewGraphicLayer('view02GraphicLayer');
+			}
+			
+			
+		}
+	},
+
+	//경관 remove layer
+	removeViewGraphicLayer: function(layerId){
+		var me = this;
+		if(layerId == "view01GraphicLayer"){
+			me.view01GraphicLayer.clear();
+		}else if(layerId == "view02GraphicLayer"){
+			me.view02GraphicLayer.clear();
+		}
+		
+	},
+
+	//드론 레이어 controller
+	view01GraphicLayerController: function(){
+
+		var me = this;
+
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/29");
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = { "wkid": 102100 };
+		query.outFields = ["*"];
+		query.where = "1=1";
+		queryTask.execute(query, function (results) {
+			if(results.features.length > 0 ){
+
+				var coreMap = $KRF_APP.coreMap;
+				var symbol = new esri.symbol.PictureMarkerSymbol({
+					"angle": 0,
+					"yoffset": 22,
+					"type": "esriPMS",
+					"url": "./resources/images/symbol/symbol_v1.gif",
+					"contentType": "image/png",
+					"width": 22,
+					"height": 22
+				});
+
+				for(var i = 0 ; i < results.features.length ; i ++){
+					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
+					graphic.attributes = results.features[i].attributes;
+					me.view01GraphicLayer.add(graphic);	
+				}
+
+				me.view01GraphicLayer.on("click", function(evt){
+					console.info(evt.graphic);
+					//경관사진 가져오기 (검색결과랑 같은 ajax)
+					$KRF_APP.global.CommFn.getViewDataAjax(evt.graphic.attributes.SPOT_CODE,'드론촬영').then(function(response) {
+						var jsonData = Ext.util.JSON.decode(response.responseText);
+						if (jsonData.data.length > 0) {
+						 	if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
+								console.info(jsonData.data);
+								$KRF_APP.global.CommFn.createViewWindow(jsonData.data);
+						 	}
+						}
+					}, function(error) {
+						console.log(error);
+					}).then(function() {
+						console.log('success');
+					});
+
+				})
+			}
+		})
+
+	},
+
+	//경관 레이어 controller
+	view02GraphicLayerController: function(){
+
+		var me = this;
+
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/30");
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = { "wkid": 102100 };
+		query.outFields = ["*"];
+		query.where = "1=1";
+		queryTask.execute(query, function (results) {
+			if(results.features.length > 0 ){
+				console.info(results.features);
+
+				var coreMap = $KRF_APP.coreMap;
+				var symbol = new esri.symbol.PictureMarkerSymbol({
+					"angle": 0,
+					"yoffset": 22,
+					"type": "esriPMS",
+					"url": "./resources/images/symbol/symbol_v2.gif",
+					"contentType": "image/png",
+					"width": 22,
+					"height": 22
+				});
+
+				for(var i = 0 ; i < results.features.length ; i ++){
+					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
+					graphic.attributes = results.features[i].attributes;
+					me.view02GraphicLayer.add(graphic);	
+				}
+
+				me.view02GraphicLayer.on("click", function(evt){
+					//경관사진 가져오기 (검색결과랑 같은 ajax)
+					$KRF_APP.global.CommFn.getViewDataAjax(evt.graphic.attributes.SPOT_CODE,'항공촬영').then(function(response) {
+						var jsonData = Ext.util.JSON.decode(response.responseText);
+						if (jsonData.data.length > 0) {
+						 	if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
+								$KRF_APP.global.CommFn.createViewWindow(jsonData.data);
+						 	}
+						}
+					}, function(error) {
+						console.log(error);
+					}).then(function() {
+						console.log('success');
+					});
+
+				})
+		
+				
+
+			}
+		})
+
+	},
+
 	setSelectedPopSiteHandler: function (layerId, siteId) {
 
 		var me = this;

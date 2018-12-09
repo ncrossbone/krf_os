@@ -48,28 +48,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		me.map.addLayer(me.dynamicLayerDrought);
 
 		
-		// var imageParameters = new esri.layers.ImageParameters();
-
-		// var layerDefs = [];
-		// layerDefs[18] = "BO_CD='1007A60'";
-		// layerDefs[21] = "BO_CD='1007A60'";
-		
-		// imageParameters.layerDefinitions = layerDefs;
-		// imageParameters.layerIds = [18,21];
-		// imageParameters.layerOption = 'show';
-		// imageParameters.transparent = true;
-		
-		// me.dynamicLayerBo = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.boServiceUrl, {
-		// 	"imageParameters": imageParameters,
-		// 	"opacity": 1,
-		// 	id:'DynamicLayerBo'
-		// });
-
-		
 		me.bodynamicLayerOnOffHandler();
-		//me.map.addLayer(me.dynamicLayerBo);
-
-		
 
 
 		$KRF_APP.addListener($KRF_EVENT.DYNAMIC_LAYER_ON_OFF, me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
@@ -78,8 +57,136 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		$KRF_APP.addListener($KRF_EVENT.PULL_WATER_DYNAMIC_LAYER_ON_OFF, me.pullWaterdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.DROUGHT_DYNAMIC_LAYER_ON_OFF, me.droughtdynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
 		$KRF_APP.addListener($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, me.bodynamicLayerOnOffHandler, me); // 보 레이어 on/off 핸들러 추가
+		$KRF_APP.addListener($KRF_EVENT.SET_BO_DATA_MARKER, me.setBoDataMarker, me); // 보 데이터 마커 추가
+		$KRF_APP.addListener($KRF_EVENT.GET_BO_CODE, me.getBoCode, me); // 보 레이어 on/off 핸들러 추가
 	},
 	applyRenderer: function (renderer) {
+	},
+
+	setBoDataMarker: function(markerData){
+
+		var me = Ext.getCmp("_mapDiv_");
+
+		var symbol = new esri.symbol.PictureMarkerSymbol({
+			"angle": 0,
+			"yoffset": 22,
+			"type": "esriPMS",
+			"url": "./resources/images/symbol/spot_99.gif",
+			"contentType": "image/png",
+			"width": 30,
+			"height": 44
+		});
+
+		var graphicLayer = new esri.layers.GraphicsLayer();
+		graphicLayer.id = "boSymbolGraphic";
+
+		var graphic = new esri.Graphic(markerData,symbol);
+
+			graphicLayer.add(graphic);
+
+		coreMap.map.addLayer(graphicLayer);
+
+	},
+
+	// bo layer remove
+	removeBoDataMarker: function(markerData){
+		
+		var coreMap = $KRF_APP.coreMap;
+
+		if(coreMap.map.getLayer('boSymbolGraphic')){
+			coreMap.map.removeLayer(coreMap.map.getLayer('boSymbolGraphic'))
+		}
+
+	},
+
+	setBoDataMarker: function(markerData){
+
+		var coreMap = $KRF_APP.coreMap;
+
+		var symbol = new esri.symbol.PictureMarkerSymbol({
+			"angle": 0,
+			"yoffset": 22,
+			"type": "esriPMS",
+			"url": "./resources/images/symbol/spot_99.gif",
+			"contentType": "image/png",
+			"width": 30,
+			"height": 44
+		});
+
+		var graphicLayer = new esri.layers.GraphicsLayer();
+		graphicLayer.id = "boSymbolGraphic";
+
+		var graphic = new esri.Graphic(markerData,symbol);
+
+			graphicLayer.add(graphic);
+
+		coreMap.map.addLayer(graphicLayer);
+	},
+
+	removeBoDataMarker: function(markerData){
+
+	},
+
+	//
+	getBoCode: function(){
+
+		var me = Ext.getCmp("_mapDiv_");
+
+		var spatialReference = new esri.SpatialReference({ wkid: 102100 });
+
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/21"); // 보
+		var query = new esri.tasks.Query();
+
+		var x = 127.53323299990313;
+		var y = 37.13428899993744;
+		var convertXY = esri.geometry.lngLatToXY(x,y);
+
+
+		var centerPoint = new esri.geometry.Point(convertXY[0], convertXY[1], new esri.SpatialReference({ wkid: 102100 }));
+		var mapWidth = me.map.extent.getWidth();
+		var pixelWidth = mapWidth / me.map.width;
+		var tolerance = 10 * pixelWidth;
+
+
+		var queryExtent = new esri.geometry.Extent(1, 1, tolerance, tolerance, new esri.SpatialReference({ wkid: 102100 }));
+		query.geometry = queryExtent.centerAt(centerPoint);
+		query.returnGeometry = true; 
+		query.outFields = ["*"];
+		queryTask.execute(query, function(featureSet){
+			console.info(featureSet);
+			if(featureSet.features.length > 0){
+				$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd:featureSet.features[0].attributes.BO_CD});	
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : featureSet.features[0].attributes.BO_CD});
+			}	
+		});
+
+		$KRF_APP.fireEvent($KRF_EVENT.SET_BO_DATA_MARKER, centerPoint);
+		this.boCenterMove(centerPoint);
+		
+	},
+
+	moveBoExtent : function(boCd){
+		if(boCd){
+			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/18"); // 보
+			var query = new esri.tasks.Query();
+			query.where = "BO_CD='"+boCd+"'";
+			query.returnGeometry = true; 
+			query.outFields = ["*"];
+			queryTask.execute(query, function(featureSet){
+				if(featureSet.features.length> 0 ){
+					var me = Ext.getCmp("_mapDiv_");
+					var extent = featureSet.features[0].geometry.getExtent();
+					me.map.setExtent(extent, true);
+				}
+				//console.info(featureSet);
+			});
+		}
+
+	},
+
+	boCenterMove : function(centerPoint){
+		var me = Ext.getCmp("_mapDiv_");
+		me.map.centerAndZoom(centerPoint, $KRF_APP.coreMap.map.__LOD.level + 2);
 	},
 
 	bodynamicLayerOnOffHandler: function(layerInfo){
@@ -106,7 +213,12 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 				id:'DynamicLayerBo'
 			});
 			me.map.addLayer(me.dynamicLayerBo);	
+
+			
+			this.moveBoExtent(layerInfo.boCd);	
 		}
+
+		
 		
 	},
 

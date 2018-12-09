@@ -1,0 +1,49 @@
+
+		.gcwrap { display:table-cell; width:20%; vertical-align:middle;}
+		.z_name { line-height:12px; vertical-align:middle; display:table-cell; width:80%;}
+
+		.c_tab { margin-bottom:5px; }
+		.c_tabwrap:after, .c_tab:after, .c_tab_cont:after, .c_tab_contbox> ul:after { content:""; display:block; clear:both; }
+		.c_tab li { float: left; text-align:center; cursor: pointer; border-left:2px solid #fff; }
+		.c_tab li a { color:#000; font-size:12px; letter-spacing:0 !important; background:#e2e2e2; display:inline-block; width:75Px; padding:2px 0; } 
+		.c_tab li:first-child { border-left:none !important; }
+		.c_tab li a.active {  background:#065381;  color:#fff;  }
+
+		#chartUl { margin-top:10px; }
+		#chartUl> li {
+			padding:0 20px 0 5px;
+			height:30px;
+			font-size:11px;
+			font-family:Dotum, "돋움";
+			background:url(../images/bo_monitoring/on_close2.png) no-repeat right 5px center #e9e9e9;
+			cursor:pointer;
+			display:inline-table;
+			float: left;
+			margin-right: 3px;
+		}
+		.gc{
+		width: 12px;
+			height: 5px;
+			display: inline-block;
+			margin-right: 3px;
+		}
+		.z_name {
+			line-height: 12px;
+			vertical-align: middle;
+			display: table-cell;
+			width: 80%;
+		}
+
+
+		.division ul li img { vertical-align:sub; margin-right:2px; }
+		.gc { width:12px; height:5px; display:inline-block; margin-right:3px; }
+		.g_c1 { background:#d3144c;}
+		.g_c2 { background:#02568e;}
+		.g_c3 { background:#f7941d;}
+		.g_c4 { background:#10a700;}
+		.g_c5 { background:#92278f;}
+
+
+		.con_right rs,  .c_tab, #krfHighChartDiv, #chartUl{
+			padding-top: 10px;
+		}
