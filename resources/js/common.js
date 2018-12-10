@@ -299,7 +299,12 @@ ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) 
 		var winCtl = Ext.getCmp("windowSiteNHighChart");
 
 		if (winCtl == undefined) {
-			winCtl = Ext.create('krf_new.view.east.WindowSiteNHighChart', { width: 520, height: 390, x: winX, y: winY , parentId: parentId });
+
+			var height = 390;
+			if($KRF_APP.BOMODE){
+				height = 450;
+			}
+			winCtl = Ext.create('krf_new.view.east.WindowSiteNHighChart', { zIndex:10000,width: 520, height: height, x: winX, y: winY , parentId: parentId });
 			centerContainer.add(winCtl);
 		}
 		
@@ -390,7 +395,8 @@ ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) 
 		setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
 	}
 	
-	
+	//지점명칭 붙이기
+	$('#siteNameLabel').text(nodeInfo.parentNode.data.text.split('(')[0]);
 
 }
 

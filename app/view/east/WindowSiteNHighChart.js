@@ -26,7 +26,7 @@ Ext.define('krf_new.view.east.WindowSiteNHighChart', {
 		titlePosition: 2,
 		items: [{
 			xtype: 'label',
-			text: '하이차트정보',
+			text: '차트정보',
 			id: 'tabBoChart',
 			style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px;',
 			width: 75,
