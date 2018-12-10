@@ -47,3 +47,20 @@
 		.con_right rs,  .c_tab, #krfHighChartDiv, #chartUl{
 			padding-top: 10px;
 		}
+
+		#siteNameLabel{
+			padding: 10px 0px 10px 20px;
+			font-size: 15px;
+			letter-spacing: -1px;
+			background: url(./resources/images/button/blit.gif) 10px no-repeat;
+			font-weight: bold;
+		}
+		
+		.con_right{
+		   padding: 5px 20px;
+		}
+		
+		.con_right > select{
+			width: 70px;
+			height: 22px;
+		}

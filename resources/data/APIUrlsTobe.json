@@ -1,4 +1,4 @@
-{   "domain" : "http://localhost:8082",
+{   "domain" : "http://192.168.0.109:8082",
     "drone_GetRWMDT_MeasureDate":"./resources/jsp/drone/GetRWMDT_MeasureDate.jsp",
     "drone_GetRWMDT":"#host#/krf/drone/getRWMDT",
     "drone_main":"./resources/jsp/drone/main.jsp",

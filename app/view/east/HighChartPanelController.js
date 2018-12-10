@@ -176,7 +176,7 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 				var sname = '';
 				//기존 차트 범례 새로생성
 
-				$('#chartUl').append('<li style="width:'+$KRF_APP.highChart.ulNameArr[0].length*21+'px" value="'+$KRF_APP.highChart.ulIdArr[i]+'" onClick="$KRF_APP.global.CommFn.removeHighChartData(\'' + $KRF_APP.highChart.ulIdArr[i] + '\' , \'' + $KRF_APP.highChart.ulNameArr[i] + '\')"> <div class="gcwrap"><span class="gc g_c'+parseInt(i+1)+'"></span></div><span class="z_name">'+ $KRF_APP.highChart.ulNameArr[i] +'</span></li>');
+				$('#chartUl').append('<li style="width:'+$KRF_APP.highChart.ulNameArr[0].length*21+'px" value="'+$KRF_APP.highChart.ulIdArr[i]+'" onClick="$KRF_APP.global.CommFn.removeHighChartData(\'' + $KRF_APP.highChart.ulIdArr[i] + '\' , \'' + $KRF_APP.highChart.ulNameArr[i] + '\')"> <div class="gcwrap"><span class="gc g_c'+parseInt(i+1)+'"></span></div><span class="z_name">'+ $KRF_APP.highChart.parentName.split('(')[0] + ':' + $KRF_APP.highChart.ulNameArr[i] +'</span></li>');
 
 				for(var j=0; j<$KRF_APP.highChart.dateArr.length; j++){
 					if($KRF_APP.highChart.chartObj[$KRF_APP.highChart.ulIdArr[i]]){
@@ -438,6 +438,22 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 
 
 		$KRF_APP.highChart.param.defaultChart = "0";
+
+		
+		// 차트 라벨 설정
+		var labelText = "";
+		if($KRF_APP.highChart.ulNameArr.length > 0){
+			for(var j = 0 ; j < $KRF_APP.highChart.ulNameArr.length ; j++){
+				if(j = $KRF_APP.highChart.ulNameArr.length-1){
+					labelText += $KRF_APP.highChart.ulNameArr[j];
+				}else{
+					labelText += $KRF_APP.highChart.ulNameArr[j]+", ";
+				}
+			}
+		}
+		
+		//지점명칭 붙이기
+		$('#siteNameLabel').text($KRF_APP.highChart.parentName.split('(')[0]+':'+labelText);
 		
 	}
 

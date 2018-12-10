@@ -69,7 +69,7 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 
 		var symbol = new esri.symbol.PictureMarkerSymbol({
 			"angle": 0,
-			"yoffset": 22,
+			"yoffset": 0,
 			"type": "esriPMS",
 			"url": "./resources/images/symbol/spot_99.gif",
 			"contentType": "image/png",
@@ -80,11 +80,27 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		var graphicLayer = new esri.layers.GraphicsLayer();
 		graphicLayer.id = "boSymbolGraphic";
 
-		var graphic = new esri.Graphic(markerData,symbol);
+		
+		var textGraphic = new esri.Graphic(markerData[0], new esri.symbol.TextSymbol(markerData[1]));
+			textGraphic.symbol.yoffset = -30;
+			textGraphic.symbol.haloColor = new esri.Color([255, 255, 255]);
+			textGraphic.symbol.haloSize = 2;
+			textGraphic.symbol.font = {
+				size: 12,
+				family: "NanumGothic",
+				weight: "bolder",
+				color: new esri.Color([255, 255, 255])
+			};
+
+		var graphic = new esri.Graphic(markerData[0],symbol);
 
 			graphicLayer.add(graphic);
+			graphicLayer.add(textGraphic);
+			graphicLayer.on('click', function(){
+				graphicLayer.clear();
+			})
 
-		coreMap.map.addLayer(graphicLayer);
+		me.map.addLayer(graphicLayer);
 
 	},
 
@@ -99,36 +115,36 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 
 	},
 
-	setBoDataMarker: function(markerData){
+	// setBoDataMarker: function(markerData){
 
-		var coreMap = $KRF_APP.coreMap;
+	// 	var coreMap = $KRF_APP.coreMap;
 
-		var symbol = new esri.symbol.PictureMarkerSymbol({
-			"angle": 0,
-			"yoffset": 22,
-			"type": "esriPMS",
-			"url": "./resources/images/symbol/spot_99.gif",
-			"contentType": "image/png",
-			"width": 30,
-			"height": 44
-		});
+	// 	var symbol = new esri.symbol.PictureMarkerSymbol({
+	// 		"angle": 0,
+	// 		"yoffset": 22,
+	// 		"type": "esriPMS",
+	// 		"url": "./resources/images/symbol/spot_99.gif",
+	// 		"contentType": "image/png",
+	// 		"width": 30,
+	// 		"height": 44
+	// 	});
 
-		var graphicLayer = new esri.layers.GraphicsLayer();
-		graphicLayer.id = "boSymbolGraphic";
+	// 	var graphicLayer = new esri.layers.GraphicsLayer();
+	// 	graphicLayer.id = "boSymbolGraphic";
 
-		var graphic = new esri.Graphic(markerData,symbol);
+	// 	var graphic = new esri.Graphic(markerData,symbol);
 
-			graphicLayer.add(graphic);
+	// 		graphicLayer.add(graphic);
 
-		coreMap.map.addLayer(graphicLayer);
-	},
+	// 	coreMap.map.addLayer(graphicLayer);
+	// },
 
 	removeBoDataMarker: function(markerData){
 
 	},
 
-	//
-	getBoCode: function(){
+	//보 PARAMETER 값 넘어올시
+	getBoCode: function(parameter){
 
 		var me = Ext.getCmp("_mapDiv_");
 
@@ -137,8 +153,8 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/21"); // 보
 		var query = new esri.tasks.Query();
 
-		var x = 127.53323299990313;
-		var y = 37.13428899993744;
+		var x = parameter.boX;
+		var y = parameter.boY;
 		var convertXY = esri.geometry.lngLatToXY(x,y);
 
 
@@ -160,8 +176,10 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 			}	
 		});
 
-		$KRF_APP.fireEvent($KRF_EVENT.SET_BO_DATA_MARKER, centerPoint);
+		$KRF_APP.fireEvent($KRF_EVENT.SET_BO_DATA_MARKER, [centerPoint,parameter.boNm]);
 		this.boCenterMove(centerPoint);
+
+
 		
 	},
 

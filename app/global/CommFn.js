@@ -429,7 +429,7 @@ Ext.define("krf_new.global.CommFn", {
 
 	// high차트 변수 reset
 	resetHighChart: function(){
-		$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{}
+		$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{} ,parentName:''
 									, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
 									, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
 	},
@@ -451,6 +451,9 @@ Ext.define("krf_new.global.CommFn", {
 		//배열 요소 삭제
 		$KRF_APP.highChart.ulIdArr = this.removeByValue($KRF_APP.highChart.ulIdArr, recordId);
 		$KRF_APP.highChart.ulNameArr = this.removeByValue($KRF_APP.highChart.ulNameArr, recordName);
+
+		$KRF_APP.highChart.dateArr = [];
+		$KRF_APP.highChart.chartObj = [];
 
 		//차트 새로 그리기
 		this.getHighChartData();
@@ -543,8 +546,8 @@ Ext.define("krf_new.global.CommFn", {
 	//  경관, 보고서 combobox 세팅 (동일한 combobox 사용)
 	fileTabComboBindDate : function(store){
 
-		var comboId =  ['fileStartYear','fileStartMonth','fileEndYear','fileEndMonth'];
-		var storeComboId =  ['minData','minData','maxData','maxData'];
+		var comboId =  ['fileStartYear','fileStartMonth','fileEndYear','fileEndMonth','fileTextField'];
+		var storeComboId =  ['minData','minData','maxData','maxData','fileTextField'];
 		for(var a = 0 ; a < comboId.length; a++){
 			if(store[storeComboId[a]] != undefined){
 				Ext.getCmp([comboId[a]]).setValue(store[storeComboId[a]][comboId[a]])
@@ -571,9 +574,10 @@ Ext.define("krf_new.global.CommFn", {
 	},	
 
 	//경관 window
-	createViewWindow: function(data){
+	createViewWindow: function(data,type){
 
 		console.info(data);
+		console.info(type);
 		$KRF_APP.fireEvent($KRF_EVENT.SHOWVIEWDATAWINDOW);
 		var imageHtml = '';
 
@@ -583,7 +587,7 @@ Ext.define("krf_new.global.CommFn", {
 				display = ' style="display:none;" ';
 			}
 			imageHtml += ' <li><img '+display+'  style="margin-left:-40px;" src="'
-						+'http://112.218.1.243:25555/weis_board/cms/landscape/dronePhotoGallery?spotCode='+data[i].SPOT_CODE
+						+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
 						+'&brrerCode='+data[i].BRRER_CODE
 						+'&potogrfDe='+data[i].POTOGRF_DE
 						+'&fileId='+data[i].FILE_ID

@@ -139,7 +139,7 @@ Ext.create('Ext.data.Store', {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 		//a[0].data.init('http://112.217.167.123:40003');
-		a[0].data.init('http://localhost:8082'); 
+		a[0].data.init('http://192.168.0.109:8082'); 
 
 		Ext.application({
 			name: 'krf_new',
@@ -196,7 +196,7 @@ Ext.create('Ext.data.Store', {
 
 				$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
 
-				$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{}
+				$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{} , parentName: ''
 									, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
 									, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
 			},

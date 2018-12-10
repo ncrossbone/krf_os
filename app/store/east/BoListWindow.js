@@ -160,7 +160,7 @@ Ext.define('krf_new.store.east.BoListWindow', {
 					jsonStr += "{\n";
 					jsonStr += "		\"id\": \"BO_" + groupFeatureBo[0].attributes.BO_CD + "\",\n";
 					jsonStr += "		\"text\": \"" + groupFeatureBo[0].attributes.BO_NM + "(" + groupFeatureBo.length + ")\",\n";
-					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+					jsonStr += "		\"cls\": \"boTreeName\",\n";
 					jsonStr += "		\"chartBtnDisabled\": true,\n";
 					if (cnt == 0) {
 						jsonStr += "		\"expanded\": true,\n";
