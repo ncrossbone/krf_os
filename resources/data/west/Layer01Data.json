@@ -621,7 +621,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer49",
 		"leaf": true,
-		"checked": true,
+		"checked": false,
 		"siteIdCol": "RCH_FLW",
 		"metaDataId":"W001"
 	},{
@@ -632,7 +632,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer46",
 		"leaf": true,
-		"checked": true,
+		"checked": false,
 		"siteIdCol": "NODE_DID",
 		"metaDataId":"W002"
 	}, {
@@ -643,7 +643,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer47",
 		"leaf": true,
-		"checked": true,
+		"checked": false,
 		"siteIdCol": "RCH_DID",
 		"metaDataId":"W003"
 	}, {

@@ -23,8 +23,8 @@ Ext.define('krf_new.store.south.SearchFileResultGrid_2', {
 
 			var me = this;
 
-			var comboList = {'StartYear':'','StartMonth':'','EndYear':'','EndMonth':''};
-			var comboId =  ['fileStartYear','fileStartMonth','fileEndYear','fileEndMonth'];
+			var comboList = {'StartYear':'','StartMonth':'','EndYear':'','EndMonth':'' , 'TextField':''};
+			var comboId =  ['fileStartYear','fileStartMonth','fileEndYear','fileEndMonth' , 'fileTextField'];
 			if(!store.firstSearch){
 				for(var i = 0 ; i < comboId.length; i ++){
 					comboList[comboId[i].split('file')[1]] = Ext.getCmp(comboId[i]).getValue()
@@ -39,6 +39,7 @@ Ext.define('krf_new.store.south.SearchFileResultGrid_2', {
 					,startMonth : comboList.StartMonth
 					,endYear : comboList.EndYear
 					,endMonth : comboList.EndMonth
+					,textField : comboList.TextField
 				},
 				async: true, // 비동기 = async: true, 동기 = async: false
 				success: function (response, opts) {
@@ -46,7 +47,8 @@ Ext.define('krf_new.store.south.SearchFileResultGrid_2', {
 					if (jsonData.data.length > 0) {
 						if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
 							
-							
+							store.fileTextField = comboList.TextField;
+
 							for(var i = 0 ; i < jsonData.data.length; i++){
 								if(i == 0){
 									store.maxData = {'fileEndYear' : jsonData.data[i].YYYY , 'fileEndMonth' : jsonData.data[i].MM}

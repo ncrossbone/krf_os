@@ -274,10 +274,10 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 					}
 				}
 			},
-			btnOnOff: 'on',
+			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu13_on.png',
 			btnOffImg: './resources/images/button/reach_menu13.png',
-			src: './resources/images/button/reach_menu13_on.png'
+			src: './resources/images/button/reach_menu13.png'
 		}, {
 			xtype: 'image',
 			id: 'btnReachNodeLayer',
@@ -294,10 +294,10 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 					}
 				}
 			},
-			btnOnOff: 'on',
+			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu20_on.png',
 			btnOffImg: './resources/images/button/reach_menu20.png',
-			src: './resources/images/button/reach_menu20_on.png'
+			src: './resources/images/button/reach_menu20.png'
 		}, {
 			xtype: 'image',
 			id: 'btnFlowLayer',
@@ -313,10 +313,10 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 					}
 				}
 			},
-			btnOnOff: 'on',
+			btnOnOff: 'off',
 			btnOnImg: './resources/images/button/reach_menu18_on.png',
 			btnOffImg: './resources/images/button/reach_menu18.png',
-			src: './resources/images/button/reach_menu18_on.png'
+			src: './resources/images/button/reach_menu18.png'
 		}, {
 			xtype: 'image',
 			id: 'btnSave',

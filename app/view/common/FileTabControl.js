@@ -98,6 +98,14 @@ Ext.define('krf_new.view.common.FileTabControl', {
 				xtype: 'container',
 				width: 10
 			}, {
+				xtype: 'textareafield',
+				id: 'fileTextField',
+				width: 300,
+				height: 25
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
 				xtype: 'image',
 				src: './resources/images/button/icon_seah.gif', //검색
 				width: 34,
@@ -107,14 +115,18 @@ Ext.define('krf_new.view.common.FileTabControl', {
 					el: {
 						click: function () {
 							var boCode = "";
+							var searchType = "";
 							//Ext.getCmp("filetabpanels").isVisible()
 							if(Ext.getCmp("filetabpanels").isVisible()){
 								boCode = Ext.getCmp(Ext.getCmp("filetabpanels").activeTab.id).gridId;
+								searchType = 1;
 							}else if(Ext.getCmp("viewtabpanels").isVisible()){
 								boCode = Ext.getCmp(Ext.getCmp("viewtabpanels").activeTab.id).gridId;
+								searchType = 2;
 							}
+							//var fileTextField = Ext.getCmp("fileTextField").value;
 
-							ShowFileSearchResult(boCode,'');
+							ShowFileSearchResult(boCode,'',searchType);
 							
 						}
 					}
@@ -150,6 +162,19 @@ Ext.define('krf_new.view.common.FileTabControl', {
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
 				$KRF_APP.global.CommFn.fileTabComboBindDate(tab.items.items[0].items.items[0].getStore());
+			}
+		}
+	}, {
+		xtype: 'image',
+		src: './resources/images/button/btn_save.gif', //다운로드
+		width: 34,
+		height: 19,
+		style: 'top: 5px; z-index: 2; right: 10px; position:absolute; cursor:pointer;',
+		listeners: {
+			el: {
+				click: function () {
+					
+				}
 			}
 		}
 	}]

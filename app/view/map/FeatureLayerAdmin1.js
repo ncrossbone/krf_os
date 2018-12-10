@@ -72,18 +72,32 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				var coreMap = $KRF_APP.coreMap;
 				var symbol = new esri.symbol.PictureMarkerSymbol({
 					"angle": 0,
-					"yoffset": 22,
+					"yoffset": 0,
 					"type": "esriPMS",
-					"url": "./resources/images/symbol/symbol_1_7.gif",
-					"contentType": "image/png",
+					"url": "./resources/images/symbol/boLayer.gif",
+					"contentType": "image/gif",
 					"width": 22,
 					"height": 22
 				});
 
+
+
 				for(var i = 0 ; i < results.features.length ; i ++){
 					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
+					var textGraphic = new esri.Graphic(results.features[i].geometry, new esri.symbol.TextSymbol(results.features[i].attributes.PT_NM));
+					textGraphic.symbol.yoffset = -30;
+					textGraphic.symbol.haloColor = new esri.Color([255, 255, 255]);
+					textGraphic.symbol.haloSize = 2;
+					textGraphic.symbol.font = {
+						size: 12,
+						family: "NanumGothic",
+						weight: "bolder",
+						color: new esri.Color([255, 255, 255])
+					};
+
 					graphic.attributes = results.features[i].attributes;
 					me.boGraphicLayer.add(graphic);	
+					me.boGraphicLayer.add(textGraphic);	
 				}
 		
 				
@@ -169,7 +183,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						if (jsonData.data.length > 0) {
 						 	if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
 								console.info(jsonData.data);
-								$KRF_APP.global.CommFn.createViewWindow(jsonData.data);
+								$KRF_APP.global.CommFn.createViewWindow(jsonData.data,'dronePhotoGallery');
 						 	}
 						}
 					}, function(error) {
@@ -222,7 +236,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						var jsonData = Ext.util.JSON.decode(response.responseText);
 						if (jsonData.data.length > 0) {
 						 	if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
-								$KRF_APP.global.CommFn.createViewWindow(jsonData.data);
+								$KRF_APP.global.CommFn.createViewWindow(jsonData.data,'flightPhotoGallery');
 						 	}
 						}
 					}, function(error) {

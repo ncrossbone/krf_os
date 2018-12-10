@@ -260,7 +260,7 @@ ReachInfoBinding = function (objs) {
 
 
 //지점/차트 정보 창 띄우기
-ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag, nodeInfo) {
+ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) {
 	
 	$KRF_APP.global.CommFn.setBookmarkInfo('siteNHighChart', {
 		tabIdx: tabIdx,
@@ -1052,7 +1052,7 @@ showResultWindow = function () {
 
 
 //보고서 경관 검색결과
-ShowFileSearchResult = function(boCode,boName){
+ShowFileSearchResult = function(boCode,boName,searchType){
 
 	
 	// test
@@ -1125,7 +1125,8 @@ ShowFileSearchResult = function(boCode,boName){
 				}
 			}] 
 		},
-		y: windowY
+		y: windowY,
+		cls: 'subWindow-x-form-item-label-default'
 	};
 
 
@@ -1151,44 +1152,79 @@ ShowFileSearchResult = function(boCode,boName){
 		searchFileResultWindow.add(searchFileResultTab); // window에 tab추가
 	}
 
-	for(var i = 1 ; i < 3; i++){
+
+	if(searchType == undefined){
+		for(var i = 1 ; i < 3; i++){
+			options = {
+				id: boCode + "_container_"+i,
+				title: boName,
+				autoResize: true,
+				gridId: boCode
+			};
+		
+			var tab = searchFileResultTab.items.items[i];
+		
+			var gridStore = null;	
+			var grdContainer = Ext.getCmp(boCode + "_container_"+i);
+		
+			var firstSearch = false;
+			if(grdContainer == null || grdContainer == undefined){
+				grdContainer = Ext.create("krf_new.view.south.SearchFileResultGrid_"+i, options);
+				tab.add(grdContainer);
+				tab.setActiveTab(boCode + "_container_"+i);
+				firstSearch = true;
+			}
+			
+	
+			var gridCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+				gridCtl = gridCtl.items.items[0]; // 그리드 컨트롤
+		
+				gridStore = Ext.create("krf_new.store.south.SearchFileResultGrid_"+i, {
+					boCode: boCode
+					,firstSearch : firstSearch
+					,gridCtl : gridCtl
+				});
+				gridCtl.setStore(gridStore);
+		}
+	}else{
 		options = {
-			id: boCode + "_container_"+i,
+			id: boCode + "_container_"+searchType,
 			title: boName,
 			autoResize: true,
 			gridId: boCode
 		};
 	
-		var tab = searchFileResultTab.items.items[i];
+		var tab = searchFileResultTab.items.items[searchType];
 	
 		var gridStore = null;	
-		var grdContainer = Ext.getCmp(boCode + "_container_"+i);
+		var grdContainer = Ext.getCmp(boCode + "_container_"+searchType);
 	
 		var firstSearch = false;
 		if(grdContainer == null || grdContainer == undefined){
-			grdContainer = Ext.create("krf_new.view.south.SearchFileResultGrid_"+i, options);
+			grdContainer = Ext.create("krf_new.view.south.SearchFileResultGrid_"+searchType, options);
 			tab.add(grdContainer);
-			tab.setActiveTab(boCode + "_container_"+i);
+			tab.setActiveTab(boCode + "_container_"+searchType);
 			firstSearch = true;
 		}
 		
+		
+		var textField = Ext.getCmp("fileTextField").getValue();
 
 		var gridCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 			gridCtl = gridCtl.items.items[0]; // 그리드 컨트롤
+
+			gridCtl.getStore().fileTextField = textField;
 	
-			gridStore = Ext.create("krf_new.store.south.SearchFileResultGrid_"+i, {
+			gridStore = Ext.create("krf_new.store.south.SearchFileResultGrid_"+searchType, {
 				boCode: boCode
 				,firstSearch : firstSearch
 				,gridCtl : gridCtl
+				,textField : gridCtl.getStore().fileTextField
 			});
 			gridCtl.setStore(gridStore);
-
-			
-
 	}
+
 	
-
-
 
 }
 

@@ -664,15 +664,15 @@ Ext.define('Desktop.MapWindow', {
 			$KRF_APP.BOMODE = true;
 
 			//보 모드로 들어오게 되면 bolistwindow 창을 생성
-			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', searchType: params.code });
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, '');
 			$KRF_APP.fireEvent($KRF_EVENT.HIDE_BO_LIST_WINDOW, '');
 
 			if(params.boCd != undefined ){
-			
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', boCd: params.boCd});
 			}
 
-			if(params.boX != undefined && params.boY != undefined){
-				$KRF_APP.fireEvent($KRF_EVENT.GET_BO_CODE, '');
+			if(params.boX != undefined && params.boY != undefined && params.boNm != undefined){
+				$KRF_APP.fireEvent($KRF_EVENT.GET_BO_CODE, {'boNm':params.boNm,'boX':params.boX,'boY':params.boY});
 				//$KRF_APP.global.CommFn.initParamBo();
 			}
 

@@ -42,26 +42,43 @@ Ext.define('krf_new.view.south.SearchFileResultGrid_2', {
 
 				},
 				columns: [{
-					text: '선택',
-					dataIndex: ''
+					xtype: 'checkcolumn',
+					header: '선택',
+					dataIndex: 'admin',
+					listeners: {
+						beforecheckchange: function() {
+							return true;
+						}
+					},
+					width: 60,
+					editor: {
+						xtype: 'checkbox',
+						cls: 'x-grid-checkheader-editor',
+						inputValue: true,
+						uncheckedValue: false
+					}
 				},{
 					text: '구분',
-					dataIndex: 'SE'
+					dataIndex: 'SE',
+					width: 120
 				},{
 					text: '수계',
 					dataIndex: 'WRSSM_NM'
 				},{
 					text: '보 구간',
-					dataIndex: 'OBSNM'
+					dataIndex: 'OBSNM',
+					width: 120
 				},{
 					text: '지점명',
-					dataIndex: 'SPOT_NM'
+					dataIndex: 'SPOT_NM',
+					width: 120
 				},{
 					text: '촬영일시',
 					dataIndex: 'POTOGRF_DE'
 				},{
 					text: '파일명',
-					dataIndex: 'FILE_REAL_NM'
+					dataIndex: 'FILE_REAL_NM',
+					width: 300
 				}]
 			}]
 		}];

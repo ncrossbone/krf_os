@@ -439,6 +439,22 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 
 
 		$KRF_APP.highChart.param.defaultChart = "0";
+
+		
+		// 차트 라벨 설정
+		var labelText = "";
+		if($KRF_APP.highChart.ulNameArr.length > 0){
+			for(var j = 0 ; j < $KRF_APP.highChart.ulNameArr.length ; j++){
+				if(j = $KRF_APP.highChart.ulNameArr.length-1){
+					labelText += $KRF_APP.highChart.ulNameArr[j];
+				}else{
+					labelText += $KRF_APP.highChart.ulNameArr[j]+", ";
+				}
+			}
+		}
+		
+		//지점명칭 붙이기
+		$('#siteNameLabel').text($KRF_APP.highChart.parentName.split('(')[0]+':'+labelText);
 		
 	}
 

@@ -8,7 +8,7 @@ Ext.define('krf_new.view.search.ViewDataWindow', {
 	height:550,
 	width:250,
 
-	title: '경관데이터',
+	title: '경관/항공 데이터',
 	resizable: false,
 	constrain: true,
 	header: { cls: 'subWindow-x-form-item-label-default' },

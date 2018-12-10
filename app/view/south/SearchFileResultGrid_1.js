@@ -42,23 +42,40 @@ Ext.define('krf_new.view.south.SearchFileResultGrid_1', {
 
 				},
 				columns: [{
-					text: '선택',
-					dataIndex: ''
+					xtype: 'checkcolumn',
+					header: '선택',
+					dataIndex: 'admin',
+					listeners: {
+						beforecheckchange: function() {
+							return true;
+						}
+					},
+					width: 60,
+					editor: {
+						xtype: 'checkbox',
+						cls: 'x-grid-checkheader-editor',
+						inputValue: true,
+						uncheckedValue: false
+					}
 				},{
 					text: '보 명칭',
 					dataIndex: 'OBSNM'
+
 				},{
 					text: '자료 명칭',
-					dataIndex: 'DTA_NM'
+					dataIndex: 'DTA_NM',
+					width: 300
 				},{
 					text: '제목',
-					dataIndex: 'DOC_SJ'
+					dataIndex: 'DOC_SJ',
+					width: 300
 				},{
 					text: '발행일',
 					dataIndex: 'DOC_PBLICTE_DE'
 				},{
 					text: '발행기관',
-					dataIndex: 'DOC_PBLICTE_INSTT_NM'
+					dataIndex: 'DOC_PBLICTE_INSTT_NM',
+					width: 120
 				}]
 			}]
 		}];

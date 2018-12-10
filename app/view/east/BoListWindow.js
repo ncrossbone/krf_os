@@ -63,15 +63,20 @@ Ext.define('krf_new.view.east.BoListWindow', {
 				var chkText = record.id;
 				var parentId = record.data.parentId;
 
+				
+				
 				//새로 차트 생성할때 , 다른 parent일때 
 				if(parentId.substring(0,1) != $KRF_APP.highChart.saveParentId){
 					// high차트 전여변수 초기화
 					$KRF_APP.global.CommFn.resetHighChart();
-					
+
+					//parent node text 저장
+					$KRF_APP.highChart.parentName = record.parentNode.data.text;
+
 					//전역변수에 저장 ( 지점명 )
 					$KRF_APP.highChart.ulNameArr.push(test);
 
-					ShowWindowSiteNHighChart(0, chkText, test, parentId, undefined, record); // 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
+					ShowWindowSiteNHighChart(0, chkText, test, parentId, undefined); // 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
 				}else{
 
 					var insertChart = true;
@@ -123,17 +128,19 @@ Ext.define('krf_new.view.east.BoListWindow', {
 				var chkText = record.id;
 				var parentId = record.data.parentId;
 
-				//Ext.getCmp('highChartContiner').mask('loading...','loading...');
-
+				//parent node text 저장
+				$KRF_APP.highChart.parentName = record.parentNode.data.text;
 				//새로 차트 생성할때 , 다른 parent일때 
 				if(parentId.substring(0,1) != $KRF_APP.highChart.saveParentId){
 					// high차트 전여변수 초기화
 					$KRF_APP.global.CommFn.resetHighChart();
+
+					//parent node text 저장
+					$KRF_APP.highChart.parentName = record.parentNode.data.text;
 					
 					//전역변수에 저장 ( 지점명 )
 					$KRF_APP.highChart.ulNameArr.push(test);
-
-					ShowWindowSiteNHighChart(0, chkText, test, parentId, undefined, record); // 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
+					ShowWindowSiteNHighChart(0, chkText, test, parentId, undefined); // 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
 				}else{
 
 					var insertChart = true;
