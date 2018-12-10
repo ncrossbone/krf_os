@@ -557,7 +557,7 @@ Ext.define("krf_new.global.CommFn", {
 	getViewDataAjax: function(spotCode,fileGubun){
 		
 		return Ext.Ajax.request({
-			url: 'http://localhost:8082/krf/searchResult/searchResult_View',
+			url: _API.domain + '/krf/searchResult/searchResult_View',
 			params: {
 				spotCode: spotCode
 				,fileGubun:fileGubun
