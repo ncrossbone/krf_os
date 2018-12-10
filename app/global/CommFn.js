@@ -581,43 +581,43 @@ Ext.define("krf_new.global.CommFn", {
 		$KRF_APP.fireEvent($KRF_EVENT.SHOWVIEWDATAWINDOW);
 		var imageHtml = '';
 
-		var display = ' style="display:block;" ';
+		var display = 'display:block;';
 		for(var i = 0 ; i < data.length ; i++){
 			if(i != 0){
-				display = ' style="display:none;" ';
+				display = 'display:none;';
 			}
-			imageHtml += ' <li><img '+display+'  style="margin-left:-40px;" src="'
+			imageHtml += ' <li><img style="margin-left: -30px; '+display+'" src="'
 						+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
 						+'&brrerCode='+data[i].BRRER_CODE
 						+'&potogrfDe='+data[i].POTOGRF_DE
 						+'&fileId='+data[i].FILE_ID
 						+'&fileSn='+data[i].FILE_SN
-						+ '" width="150px" height="150px" /> </li> ';
+						+ '" width="230px" height="150px" /> </li> ';
 		}
 
 		var viewDataWindow = Ext.getCmp('viewDataWindow');
-		var html = '<table style="margin-bottom:10px;" class="metaDataTbl01">' 
+		var html = '<table style="margin-bottom:10px; width:270px;" class="metaDataTbl01">' 
 						+'<tr>' 
-						+'<td>'+data[0].OBSNM+'</td>' 
+						+'<td colspan="2" style="font-weight: bold; text-align: center; background: rgb(239, 244, 249);">'+data[0].OBSNM+'</td>' 
 						+'</tr>' 
 						+'<tr>' 
-						+'<td> '
+						+'<td colspan="2"> '
 						+ '<ul id="boImages">'
 						+ imageHtml
 						+ '</ul>'
 						+ '</td>'
 						+'</tr>' 
 						+'<tr>' 
-						+'<td>수 계 : '+data[0].WRSSM_NM+'</td>' 
+						+'<td style="font-weight: bold; background: rgb(239, 244, 249);">수계</td>' 
+						+'<td>' + data[0].WRSSM_NM + '</td>' 
 						+'</tr>' 
 						+'<tr>' 
-						+'<td>보구간 : '+data[0].SPOT_NM+'</td>' 
+						+'<td style="font-weight: bold; background: rgb(239, 244, 249);">보구간</td>'
+						+'<td>'+data[0].SPOT_NM+'</td>'  
 						+'</tr>' 
 						+'<tr>' 
-						+'<td>촬영일시 : '+data[0].POTOGRF_DE+'</td>' 
-						+'</tr>' 
-						+'<tr>' 
-						+'<td>특이사항 : '+data[0].POTOGRF_DE+'</td>' 
+						+'<td style="font-weight: bold; background: rgb(239, 244, 249);">촬영일시</td>' 
+						+'<td>'+data[0].POTOGRF_DE+'</td>' 
 						+'</tr>' 
 					+'</table>';
 		viewDataWindow.setHtml(html);

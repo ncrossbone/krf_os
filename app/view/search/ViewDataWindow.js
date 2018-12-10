@@ -5,8 +5,8 @@ Ext.define('krf_new.view.search.ViewDataWindow', {
 	xtype: 'search-viewDataWindow',
 
 	id: 'viewDataWindow',
-	height:550,
-	width:250,
+	height:430,
+	width:300,
 
 	title: '경관/항공 데이터',
 	resizable: false,
