@@ -586,29 +586,65 @@ Ext.define("krf_new.global.CommFn", {
 		var imageHtml = '';
 
 		var display = 'display:block;';
+
+		var viewImage = '<div class="row">';
+		var img1 = '' ;
+		var img2 = '';
+		
 		for(var i = 0 ; i < data.length ; i++){
 			if(i != 0){
 				display = 'display:none;';
 			}
-			imageHtml += ' <li><img style="margin-left: -30px; '+display+'" src="'
-						+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
-						+'&brrerCode='+data[i].BRRER_CODE
-						+'&potogrfDe='+data[i].POTOGRF_DE
-						+'&fileId='+data[i].FILE_ID
-						+'&fileSn='+data[i].FILE_SN
-						+ '" width="230px" height="150px" /> </li> ';
-		}
+			
+			viewImage += '<div class="imageColumn">';
+			viewImage += '<img src="'
+			+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
+			+'&brrerCode='+data[i].BRRER_CODE
+			+'&potogrfDe='+data[i].POTOGRF_DE
+			+'&fileId='+data[i].FILE_ID
+			+'&fileSn='+data[i].FILE_SN
+			+ '" width="250px" height="150px" style="'+display+'" onclick="$KRF_APP.global.CommFn.openModal();$KRF_APP.global.CommFn.currentSlide('+(i+1)+')" class="imageView imageHover-shadow imageCursor">';
+			viewImage += '</div>';
 
+
+			img1+= '<div class="imageMySlides">';
+			img1+= '<div class="imageNumbertext">'+(i+1)+ '/'+(data.length)+ '</div>';
+			img1+= '<img src="'
+			+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
+			+'&brrerCode='+data[i].BRRER_CODE
+			+'&potogrfDe='+data[i].POTOGRF_DE
+			+'&fileId='+data[i].FILE_ID
+			+'&fileSn='+data[i].FILE_SN
+			+ '" style="width:100%">';
+			img1+= '</div>';
+
+			img2+='<div class="imageColumn">';
+			img2+='<img class="imageDemo imageCursor" src="'
+			+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
+			+'&brrerCode='+data[i].BRRER_CODE
+			+'&potogrfDe='+data[i].POTOGRF_DE
+			+'&fileId='+data[i].FILE_ID
+			+'&fileSn='+data[i].FILE_SN
+			+ '" style="width:100%" alt="'+data[i].FILE_REAL_NM+'" onclick="$KRF_APP.global.CommFn.currentSlide('+(i+1)+')">';
+			img2+='</div>';
+		}
+		viewImage += '</div>';
+
+		var headerImage = '<div id="imageMyModal" class="imageModal"> <span class="imageClose imageCursor" onclick="$KRF_APP.global.CommFn.closeModal()">&times;</span> <div class="imageModal-content">';
+		headerImage += img1 + ' <a class="imagePrev" onclick="$KRF_APP.global.CommFn.plusSlides(-1)">&#10094;</a>'
+		headerImage += '<a class="imageNext" onclick="$KRF_APP.global.CommFn.plusSlides(1)">&#10095;</a><div class="imageCaption-container"><p id="imageCaption"></p></div>' + img2;
+		headerImage += '</div></div>';
 		var viewDataWindow = Ext.getCmp('viewDataWindow');
+
+		$('#imageFull').html(headerImage);
+		$('#imageFull').show();
 		var html = '<table style="margin-bottom:10px; width:270px;" class="metaDataTbl01">' 
 						+'<tr>' 
 						+'<td colspan="2" style="font-weight: bold; text-align: center; background: rgb(239, 244, 249);">'+data[0].OBSNM+'</td>' 
 						+'</tr>' 
 						+'<tr>' 
 						+'<td colspan="2"> '
-						+ '<ul id="boImages">'
-						+ imageHtml
-						+ '</ul>'
+						+ viewImage
 						+ '</td>'
 						+'</tr>' 
 						+'<tr>' 
@@ -626,8 +662,44 @@ Ext.define("krf_new.global.CommFn", {
 					+'</table>';
 		viewDataWindow.setHtml(html);
 
-		var gallery = new Viewer($(viewDataWindow.body.dom).find('#boImages')[0]);
+		slideIndex = 1;
+		$KRF_APP.global.CommFn.showSlides(slideIndex);
+		//var gallery = new Viewer($(viewDataWindow.body.dom).find('#boImages')[0]);
 
+	},
+
+	openModal : function() {
+		document.getElementById('imageMyModal').style.display = "block";
+	},
+	  
+	closeModal : function() {
+		document.getElementById('imageMyModal').style.display = "none";
+	},
+
+	slideIndex : 1,
+
+	plusSlides : function(n){
+		$KRF_APP.global.CommFn.showSlides(slideIndex += n);
+	},
+    currentSlide : function(n){
+		$KRF_APP.global.CommFn.showSlides(slideIndex = n);
+	},
+	showSlides : function(n){
+		var i;
+		var slides = document.getElementsByClassName("imageMySlides");
+		var dots = document.getElementsByClassName("imageDemo");
+		var captionText = document.getElementById("imageCaption");
+
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		dots[slideIndex-1].className += " active";
+		captionText.innerHTML = dots[slideIndex-1].alt;
 	}
-
 });
