@@ -444,8 +444,10 @@ Ext.define("krf_new.global.CommFn", {
 	// high차트 삭제
 	removeHighChartData: function(recordId , recordName){
 
-		//$KRF_APP.highChart.seriesArr = [];
-
+		// 차트가 마지막 하나 남았을때는 remove 안되게
+		if($KRF_APP.highChart.ulIdArr.length == 1){
+			return;
+		}
 		//배열 요소 삭제
 		$KRF_APP.highChart.ulIdArr = this.removeByValue($KRF_APP.highChart.ulIdArr, recordId);
 		$KRF_APP.highChart.ulNameArr = this.removeByValue($KRF_APP.highChart.ulNameArr, recordName);
@@ -473,7 +475,6 @@ Ext.define("krf_new.global.CommFn", {
 		var ajaxArry = [];
 		$KRF_APP.highChart.seriesArr = [];
 		
-
 		for(var a = 0 ; a < $KRF_APP.highChart.ulIdArr.length ; a++){
 			ajaxArry.push(this.getHighchartAjax($KRF_APP.highChart.ulIdArr[a],$KRF_APP.highChart.param.selectItem));
 		}
