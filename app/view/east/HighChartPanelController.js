@@ -176,7 +176,7 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 				var sname = '';
 				//기존 차트 범례 새로생성
 
-				$('#chartUl').append('<li style="width:'+$KRF_APP.highChart.ulNameArr[0].length*21+'px" value="'+$KRF_APP.highChart.ulIdArr[i]+'" onClick="$KRF_APP.global.CommFn.removeHighChartData(\'' + $KRF_APP.highChart.ulIdArr[i] + '\' , \'' + $KRF_APP.highChart.ulNameArr[i] + '\')"> <div class="gcwrap"><span class="gc g_c'+parseInt(i+1)+'"></span></div><span class="z_name">'+ $KRF_APP.highChart.ulNameArr[i] +'</span></li>');
+				$('#chartUl').append('<li style="width:100px;" value="'+$KRF_APP.highChart.ulIdArr[i]+'" onClick="$KRF_APP.global.CommFn.removeHighChartData(\'' + $KRF_APP.highChart.ulIdArr[i] + '\' , \'' + $KRF_APP.highChart.ulNameArr[i] + '\')"> <div class="gcwrap"><span class="gc g_c'+parseInt(i+1)+'"></span></div><span class="z_name">'+ $KRF_APP.highChart.ulNameArr[i] +'</span></li>');
 
 				for(var j=0; j<$KRF_APP.highChart.dateArr.length; j++){
 					if($KRF_APP.highChart.chartObj[$KRF_APP.highChart.ulIdArr[i]]){
@@ -283,7 +283,8 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			credits:false,
 			exporting:false,
 			chart:{
-				height: 210
+				height: 210,
+				width:500
 			},
 			lang: {
 				noData: "측정자료가 없습니다."

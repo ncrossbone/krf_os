@@ -5,9 +5,15 @@
 		.c_tab { margin-bottom:5px; }
 		.c_tabwrap:after, .c_tab:after, .c_tab_cont:after, .c_tab_contbox> ul:after { content:""; display:block; clear:both; }
 		.c_tab li { float: left; text-align:center; cursor: pointer; border-left:2px solid #fff; }
-		.c_tab li a { color:#000; font-size:12px; letter-spacing:0 !important; background:#e2e2e2; display:inline-block; width:75Px; padding:2px 0; } 
+		.c_tab li a {         color: #000;
+			font-size: 13px;
+			letter-spacing: 0px !important;
+			background: #e2e2e2;
+			display: inline-block;
+			padding: 3px 25px;		
+		    font-weight: normal; } 
 		.c_tab li:first-child { border-left:none !important; }
-		.c_tab li a.active {  background:#065381;  color:#fff;  }
+		.c_tab li a.active {  background:#065381;  color:#fff;  font-weight: bold;}
 
 		#chartUl { margin-top:10px; }
 		#chartUl> li {
@@ -15,7 +21,7 @@
 			height:30px;
 			font-size:11px;
 			font-family:Dotum, "돋움";
-			background:url(../images/bo_monitoring/on_close2.png) no-repeat right 5px center #e9e9e9;
+			background:url(../images/button/on_close2.png) no-repeat right 5px center #e9e9e9;
 			cursor:pointer;
 			display:inline-table;
 			float: left;
@@ -46,4 +52,30 @@
 
 		.con_right rs,  .c_tab, #krfHighChartDiv, #chartUl{
 			padding-top: 10px;
+		}
+
+		#siteNameLabel{
+			padding: 10px 0px 8px 20px;
+			font-size: 13px;
+			letter-spacing: -1px;
+			background: url(../images/button/blit.gif) 10px no-repeat;
+			font-weight: bold;
+			font-family: 돋움;
+		}
+		
+		.con_right{
+		   padding: 5px 10px;
+		}
+		
+		.con_right > select{
+			width: 70px;
+			height: 22px;
+		}
+
+		#highChartSelectItem{
+			padding: 10px 10px;
+		}
+
+		#chartUl{
+			padding: 0px 15px;
 		}
