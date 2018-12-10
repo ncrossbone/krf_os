@@ -667,8 +667,8 @@ Ext.define('Desktop.MapWindow', {
 			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, '');
 			$KRF_APP.fireEvent($KRF_EVENT.HIDE_BO_LIST_WINDOW, '');
 
-			if(params.boCd != undefined ){
-				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', boCd: params.boCd});
+			if(params.boCode != undefined ){
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', boCd: params.boCode});
 			}
 
 			if(params.boX != undefined && params.boY != undefined && params.boNm != undefined){
