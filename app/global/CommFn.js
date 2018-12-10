@@ -597,7 +597,7 @@ Ext.define("krf_new.global.CommFn", {
 			}
 			
 			viewImage += '<div class="imageColumn">';
-			viewImage += '<img src="'
+			viewImage += '<img id="imageViewer'+i+'" src="'
 			+'http://112.218.1.243:25555/weis_board/cms/landscape/'+type+'?spotCode='+data[i].SPOT_CODE
 			+'&brrerCode='+data[i].BRRER_CODE
 			+'&potogrfDe='+data[i].POTOGRF_DE
@@ -635,10 +635,10 @@ Ext.define("krf_new.global.CommFn", {
 		headerImage += '<a class="imageNext" onclick="$KRF_APP.global.CommFn.plusSlides(1)">&#10095;</a><div class="imageCaption-container"><p id="imageCaption"></p></div>' + img2;
 		headerImage += '</div></div>';
 		var viewDataWindow = Ext.getCmp('viewDataWindow');
-
-		$('#imageFull').html(headerImage);
-		$('#imageFull').show();
-		var html = '<table style="margin-bottom:10px; width:270px;" class="metaDataTbl01">' 
+		var dim = '<div id="imageDim" style="display:none; position: absolute; z-index: 100000; width: 100%; background: black; top: 0px; height: 100%; opacity: 0.5;"></div>';
+		$('#imageFull').html(dim + headerImage);
+		
+		var html = '<table style="margin-bottom:20px; width:270px;" class="metaDataTbl01">' 
 						+'<tr>' 
 						+'<td colspan="2" style="font-weight: bold; text-align: center; background: rgb(239, 244, 249);">'+data[0].OBSNM+'</td>' 
 						+'</tr>' 
@@ -659,7 +659,7 @@ Ext.define("krf_new.global.CommFn", {
 						+'<td style="font-weight: bold; background: rgb(239, 244, 249);">촬영일시</td>' 
 						+'<td>'+data[0].POTOGRF_DE+'</td>' 
 						+'</tr>' 
-					+'</table>';
+					+'</table><div><a onclick="$(\'#imageViewer0\').trigger(\'click\')" style="padding: 8px 10px; background: #405166; margin-left: 100px; color: #fff; font-size: 12px; cursor: pointer;">상세보기</a></div>';
 		viewDataWindow.setHtml(html);
 
 		slideIndex = 1;
@@ -669,10 +669,15 @@ Ext.define("krf_new.global.CommFn", {
 	},
 
 	openModal : function() {
+		$('#imageFull').show();
+		$('#imageDim').show();
 		document.getElementById('imageMyModal').style.display = "block";
+		
 	},
 	  
 	closeModal : function() {
+		$('#imageFull').hide();
+		$('#imageDim').hide();
 		document.getElementById('imageMyModal').style.display = "none";
 	},
 
