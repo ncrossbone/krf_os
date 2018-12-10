@@ -98,6 +98,7 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 		var me = this;
 
 		$KRF_APP.addListener($KRF_EVENT.CREATE_HIGH_CHART, me.createHighChart, me); // HIGHCHART CONTROL
+		$KRF_APP.addListener($KRF_EVENT.CREATE_HIGH_CHART_DATE, me.createHighChartDate, me); // HIGHCHART CONTROL
 		me.createHighChart();
 		$KRF_APP.addListener($KRF_EVENT.HIGH_CHART_CONTROL, me.highChartControl, me); // HIGHCHART CONTROL
 		$KRF_APP.addListener($KRF_EVENT.SET_HIGH_CHART_DATE, me.setHighChartDate, me); // HIGHCHART CONTROL
@@ -129,6 +130,18 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 	},
 
 
+	createHighChartDate: function(datas){
+		var me  = this;
+
+		var data = datas.data;
+		for(var j = 0; j < (data.length - 1); j++){
+			if($KRF_APP.highChart.dateArr.indexOf(data[j].WMCYMD) == -1){
+				$KRF_APP.highChart.dateArr.push(data[j].WMCYMD);
+			}
+		}
+		$KRF_APP.highChart.dateArr.sort();
+
+	},
 
 	createHighChart: function(datas){
 
@@ -149,15 +162,16 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			me.chartItemInsert($KRF_APP.highChart.saveParentId);
 			$KRF_APP.fireEvent($KRF_EVENT.SET_HIGH_CHART_DATE,null);
 			me.setHighChartEvent();
+			me.createHighChartDate(datas);
 		}
 		
 
 
 
 		for(var j = 0; j < (data.length - 1); j++){
-			if($KRF_APP.highChart.dateArr.indexOf(data[j].WMCYMD) == -1){
-				$KRF_APP.highChart.dateArr.push(data[j].WMCYMD);
-			}
+			// if($KRF_APP.highChart.dateArr.indexOf(data[j].WMCYMD) == -1){
+			// 	$KRF_APP.highChart.dateArr.push(data[j].WMCYMD);
+			// }
 			if(!$KRF_APP.highChart.chartObj[data[j].PT_NO]){
 				$KRF_APP.highChart.chartObj[data[j].PT_NO] = {data:{PT_NM:data[j].PT_NM}};
 				$KRF_APP.highChart.chartObj[data[j].PT_NO].data[data[j].WMCYMD] = parseFloat(data[j].ITEM_VALUE);
@@ -166,8 +180,11 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			}
 		}
 
-		$KRF_APP.highChart.dateArr.sort();
+		//$KRF_APP.highChart.dateArr.sort();
 
+		if($KRF_APP.highChart.ulIdArr.length == datas.number){
+			
+		}
 		
 		for(var i = 0; i < $KRF_APP.highChart.ulIdArr.length; i++){
 

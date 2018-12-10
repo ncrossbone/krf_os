@@ -496,9 +496,13 @@ Ext.define("krf_new.global.CommFn", {
 				var noDate = [];
 
 				//arguments 에 저정된 값을 chart에 뿌리기
+				for(var a = 0 ;a < highChartDatas.length; a++){
+					$KRF_APP.fireEvent($KRF_EVENT.CREATE_HIGH_CHART_DATE ,{"data":highChartDatas[a].data});
+				}
+
 				for(var k = 0 ; k < highChartDatas.length; k++){
 					 $KRF_APP.fireEvent($KRF_EVENT.CREATE_HIGH_CHART
-					 , {"data":highChartDatas[k].data,"ulIdArr":$KRF_APP.highChart.ulIdArr[k],"ulNameArr":$KRF_APP.highChart.ulNameArr[k]});	
+					 , {"data":highChartDatas[k].data,"ulIdArr":$KRF_APP.highChart.ulIdArr[k],"ulNameArr":$KRF_APP.highChart.ulNameArr[k],'number':k});	
 
 					 // 데이터가 없는 경우 배열에일단 push
 					 if(highChartDatas[k].data.length == 0 ){
