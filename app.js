@@ -83,6 +83,7 @@ var $KRF_EVENT = {
 	,HIDEVIEWDATAWINDOW:'hideViewDataWindow'
 	,REMOVE_VIEW_GRAPHIC_LAYER: 'removeViewGraphicLayer'
 	,MAIN_BO_GRAPHIC_LAYER: 'mainBoGraphicLayer'
+	,CREATE_HIGH_CHART_DATE:'createHighChartDate'
 }
 
 var $KRF_WINS = {
@@ -138,8 +139,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		//a[0].data.init('http://112.217.167.123:40003');
-		a[0].data.init('http://192.168.0.109:8082'); 
+		a[0].data.init('http://112.217.167.123:40003');
+		//a[0].data.init('http://192.168.0.109:8082'); 
 
 		Ext.application({
 			name: 'krf_new',

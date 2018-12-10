@@ -396,7 +396,7 @@ ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) 
 	}
 	
 	//지점명칭 붙이기
-	$('#siteNameLabel').text(nodeInfo.parentNode.data.text.split('(')[0]);
+	//$('#siteNameLabel').text(nodeInfo.parentNode.data.text.split('(')[0]);
 
 }
 
