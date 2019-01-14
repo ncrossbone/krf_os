@@ -425,13 +425,103 @@ Ext.define("krf_new.global.CommFn", {
 
 	},
 
+	//환경기초시설 검색 재설정
+	setFHighChart : function(fFlag){
+		
+		// 환경기초시설 flag 변경
+		$KRF_APP.highChart.fFlag = fFlag;
+
+		// 라벨 새로그리기
+		$KRF_APP.highChart.removeLabel = true;
+		
+		// ajax requestUrl 변경
+		$KRF_APP.highChart.param.url = _API['GetRWMDT_F_'+$KRF_APP.highChart.fFlag];
+		$KRF_APP.highChart.dateArr = [];
+		$KRF_APP.highChart.chartObj = [];
+		
+		//재검색
+		$KRF_APP.global.CommFn.getHighChartData($KRF_APP.highChart.param.selectItem);
+
+	},
+
+
+	//  bolistwinodw button function 가져옴
+	chartInfoConrtoller: function(grid, rowIndex, colIndex, actionItem, node, record, row, activeTab){
+		
+		var test = record.data.text;
+		var chkText = record.id;
+		var parentId = record.data.parentId;
+
+		var parentIdName = parentId.substring(0,1);
+		if(parentIdName.substring(0,1) == 'D'){
+			parentIdName = parentId;
+		}
+
+		//새로 차트 생성할때 , 다른 parent일때 
+		if(parentIdName != $KRF_APP.highChart.saveParentId){
+			// high차트 전여변수 초기화
+			$KRF_APP.global.CommFn.resetHighChart();
+
+			//parent node text 저장
+			$KRF_APP.highChart.parentName = record.parentNode.data.text;
+
+			//보명칭
+			var boName = Ext.getCmp('boListTree').getStore().data.items[0].data.text.split('(')[0];
+
+			//전역변수에 저장 ( 지점명 )
+			$KRF_APP.highChart.ulNameArr.push(boName+':'+test);
+
+			// 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
+			ShowWindowSiteNHighChart(activeTab, chkText, test, parentId, undefined); 
+		}else{
+
+			var insertChart = true;
+			if($KRF_APP.highChart.ulIdArr.length < 5){ // 차트 갯수 확인
+				// 지점id가 지점 전역변수에 있는지 없는지(중복체크) 확인
+				for(var a = 0 ; a < $KRF_APP.highChart.ulIdArr.length; a++){
+					if($KRF_APP.highChart.ulIdArr[a] == chkText){
+						insertChart = false;
+					}
+				}
+				
+				// 전역변수에 같은 지점이 없을시 chart add
+				if(insertChart){
+					//보명칭
+					var boName = Ext.getCmp('boListTree').getStore().data.items[0].data.text.split('(')[0];
+					$KRF_APP.highChart.ulNameArr.push(boName+':'+test); //전역변수에 저장 ( 지점명 )
+					$KRF_APP.highChart.ulIdArr.push(chkText); //전역변수에 저장 ( 지점 id )
+					$KRF_APP.highChart.removeLabel = false; // 같은 parent에 추가 검색
+					$KRF_APP.global.CommFn.getHighChartData(); // ajax chart data 검색
+					ChangeBoTabIndex(activeTab);
+				}
+			}else{
+				alert("차트는 최대 5개까지 추가하실수 있습니다.");
+			}
+			
+			
+		}
+
+	},
 
 
 	// high차트 변수 reset
 	resetHighChart: function(){
-		$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{} ,parentName:''
-									, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
-									, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
+
+		//라벨 지우기
+		$('#chartUl li').remove();
+
+		// 하이차트 전역변수 reset
+		$KRF_APP.highChart = {saveParentId: '' //그룹코드
+		, ulIdArr:[] //지점코드
+		, ulNameArr:[] //지점명칭
+		, seriesArr:[] // 하이차트 데이터
+		, removeLabel:false //
+		, dateArr: [] // 차트 날짜
+		, chartObj:{} // 
+		, fFlag : '' // 환경기초시설 구분
+		, parentName: '' // 상위 그룹 이름
+		, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
+				, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
 	},
 
 	// high차트 배열에 요소 삭제
@@ -462,6 +552,8 @@ Ext.define("krf_new.global.CommFn", {
 
 	// high차트 검색
 	getHighChartData: function (selectItem){
+
+		
 
 		Ext.getCmp('highChartContiner').mask('loading','loading');
 
@@ -515,7 +607,19 @@ Ext.define("krf_new.global.CommFn", {
 							this.removeHighChartData(noDate[i].ulIdArr , noDate[i].ulNameArr);
 						}
 					 }
+
 				}
+				
+				// 차트에 데이터가 없을시
+				if($KRF_APP.highChart.chartObj.length == 0){
+					Ext.getCmp("highChartContiner").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요. <br> *메세지 삭제 (클릭).", "noData")
+					// 로딩바 클릭 삭제
+					$('.x-mask-msg.noData').on('click',function(){
+						Ext.getCmp("highChartContiner").unmask();
+					});
+				}
+
+				
 
 			}catch(e){
 				console.log(e);
@@ -528,7 +632,7 @@ Ext.define("krf_new.global.CommFn", {
 	getHighchartAjax: function(recordId, selectItem){
 		
 		return Ext.Ajax.request({
-			url: requestUrl,    // To Which url you wanna POST.
+			url: $KRF_APP.highChart.param.url,    // To Which url you wanna POST.
 			params: {
 				recordId: recordId
 				, recordYear: $KRF_APP.highChart.param.startYearHigh
@@ -580,8 +684,6 @@ Ext.define("krf_new.global.CommFn", {
 	//경관 window
 	createViewWindow: function(data,type){
 
-		console.info(data);
-		console.info(type);
 		$KRF_APP.fireEvent($KRF_EVENT.SHOWVIEWDATAWINDOW);
 		var imageHtml = '';
 
@@ -665,6 +767,121 @@ Ext.define("krf_new.global.CommFn", {
 		slideIndex = 1;
 		$KRF_APP.global.CommFn.showSlides(slideIndex);
 		//var gallery = new Viewer($(viewDataWindow.body.dom).find('#boImages')[0]);
+
+	},
+
+	//보고서 다운로드
+	fileDownloadButton: function(downType){
+
+		var window = Ext.create('krf_new.view.map.innorixWindow');
+					window.show();
+
+					var control;
+					var _currentDay = "";
+
+					// 현제날짜
+					var d = new Date();
+					var strDate = "-"+d.toISOString().substring(0, 10);
+					
+
+					var dtaCode = "";
+					var filePath = "";
+					var fileNm = "";
+					var fileSize = "";
+					var dtaCodeNm = "";
+					var downTab ="downTab";
+
+					control = innorix.create({
+						el: '#fileControl',
+						uploadUrl: './innorix/upload.jsp',
+						installUrl: './innorix/install/install.html',
+						agent: 'true',
+						resumeType: 'relay',
+						custom: {"product":"webpages","subproduct":"codegenerator"},
+						transferMode: 'download',
+						width: 550,
+						height: 200,
+						showGraph: 'true',
+						transferDownloadPolicy: 'continue',
+						isHighSpeed: 'true',
+						reliableTransfer: 'true',
+						folderIntact: 'true',
+						onDblClickRows: 'true',
+						loadTransfer: 'true'
+					});
+
+
+					control.on('loadComplete', function (p) { 
+						console.log('loadComplete: event fire ');
+					});
+					control.on('downloadComplete', function (p) { 
+						console.log('downloadComplete: event fire ');
+				
+					});
+					control.on('onDblClickRows', function (p) { control.downloadAndOpenFile(p); });
+
+					var store = null; 
+					//파일 visible
+					if(Ext.getCmp('filetabpanels').isVisible()){
+						store = Ext.getCmp(Ext.getCmp('filetabpanels').activeTab.id).items.items[0].items.items[0].getStore()
+					}else if(Ext.getCmp('viewtabpanels').isVisible()){
+						store = Ext.getCmp(Ext.getCmp('viewtabpanels').activeTab.id).items.items[0].items.items[0].getStore()
+					}
+
+					
+
+
+					//store가 있을경우 down 실행
+					if(store.data.items.length > 0){
+
+						var dataObj = [];
+
+						// 폴더 명칭
+						_currentDay = store.data.items[0].data.OBSNM + strDate;
+						//store.data.items[i].data.
+						for(var i = 0 ; i < store.data.items.length; i++){
+							
+							var src = store.data.items[i].data.FILE_COURS.replace('C:/water/test/',
+							'http://water.nier.go.kr/innorix/download.jsp?fileName=/usr/local/tomcat/webapps/monitor/')+'/'+store.data.items[i].data.FILE_VIRTL_NM + '.' + store.data.items[i].data.FILE_REAL_NM.split('.')[1];
+							/*var src = store.data.items[i].data.FILE_COURS +'/'+store.data.items[i].data.FILE_VIRTL_NM + '.' + store.data.items[0].data.FILE_REAL_NM.split('.')[1];*/
+							
+							if(downType == "select"){
+								if(store.data.items[i].checked != undefined){
+									if(store.data.items[i].checked == true){
+										dataObj.push({'downloadUrl':src,
+										'fileSize':store.data.items[i].data.FILE_SIZE,
+										'folder':store.data.items[i].data.DTA_NM,
+										'printFileName':store.data.items[i].data.FILE_REAL_NM})
+									}
+								}
+							}else{
+								dataObj.push({'downloadUrl':src,
+										  'fileSize':store.data.items[i].data.FILE_SIZE,
+										  'folder':store.data.items[i].data.DTA_NM,
+										  'printFileName':store.data.items[i].data.FILE_REAL_NM})
+							}
+						}
+
+						//control.removeAllFiles();
+						control.presetDownloadFiles( dataObj );
+		
+						setTimeout(function() {
+							
+							var fileinfo = control.getAllFiles(); //다운로드 리스트 파일정보 획득
+							if(fileinfo.length == 0){
+								alert("다운로드받을 파일이 존재하지 않습니다");
+								return;
+							}
+
+							var UUID = _currentDay; //상위 폴더 값 입력 
+							for(var i = 0; i < fileinfo.length; i++){
+								var fileName = fileinfo[i].folder; // 파일명 추출 // "test.zip"
+								fileinfo[i].rootName = UUID + "/" + fileName; //rootName을 파일별 확장자로 수정 
+							}	
+							control.download();
+
+						}, 1500);
+					}
 
 	},
 

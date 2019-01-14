@@ -346,6 +346,7 @@ Ext.define('Desktop.MapWindow', {
 			case "btnReachLayer": lyrId = "RCH_DID"; break;
 			case "btnAreaLayer": lyrId = "CAT_DID"; break;
 			case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+			case "btnViewLayer": lyrId = "FILE_VIEW"; break;
 			case "btnReachNodeLayer": lyrId = "NODE_DID"; break;
 			case "SRIVER": lyrId = "SRIVER"; break;
 			default: break;
@@ -376,6 +377,8 @@ Ext.define('Desktop.MapWindow', {
 				SetBtnOnOff("btnFlowLayer");
 			} else if (node.data.siteIdCol == 'NODE_DID') {
 				SetBtnOnOff("btnReachNodeLayer");
+			} else if (node.data.siteIdCol == 'FILE_VIEW') {
+				SetBtnOnOff("btnViewLayer");
 			}
 		}
 	},
@@ -411,6 +414,8 @@ Ext.define('Desktop.MapWindow', {
 		store.boCd = param.boCd;
 		store.load();
 		treeCtl.setStore(store);
+
+
 
 	},
 
@@ -669,6 +674,16 @@ Ext.define('Desktop.MapWindow', {
 
 			if(params.boCode != undefined ){
 				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', boCd: params.boCode});
+				
+
+				var sec = 0;
+				var timer = setInterval(function(){
+					sec++;
+					if(sec >= 2){
+						$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd : params.boCode});
+						clearInterval(timer);
+					}
+				}, 1000);
 			}
 
 			if(params.boX != undefined && params.boY != undefined && params.boNm != undefined){

@@ -9,6 +9,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_J001', {
 	height: '100%',
 	width: '100%',
 	gridId: null,
+	closable: true,
+	closeText: '×',
 	//취수장
 	initComponent: function () {
 		

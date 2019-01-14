@@ -20,12 +20,14 @@ Ext.define('krf_new.view.east.HighChartPanel', {
 			+' <div class="con_right rs"> '
 			+'	<select style="display: none;" id="startYearHigh"><option></option></select> '
 			+'	<select style="display: none;" id="startMonthHigh"><option></option></select> '
+			+'	<select style="display: none;" id="startCFlagHigh"><option></option></select> '
 			+'	<select style="display: none;" id="startGFlagHigh"><option></option></select> '
 			+'	<select style="display: none;" id="startDayHigh"><option></option></select> '
 			+'	<select style="display: none;" id="startHFlagHigh"><option></option></select> '
 			+'	<span class="ml5 mr5">~</span> '
 			+'	<select style="display: none;" id="endYearHigh"><option></option></select> '
 			+'	<select style="display: none;" id="endMonthHigh"><option></option></select> '
+			+'	<select style="display: none;" id="endCFlagHigh"><option></option></select> '
 			+'	<select style="display: none;" id="endGFlagHigh"><option></option></select> '
 			+'	<select style="display: none;" id="endDayHigh"><option></option></select> '
 			+'	<select style="display: none;" id="endHFlagHigh"><option></option></select> '
@@ -40,6 +42,8 @@ Ext.define('krf_new.view.east.HighChartPanel', {
 	
 	initComponent: function () {
 		this.callParent();
-		
+		$('.x-mask-msg.noData').on('click',function(){
+			Ext.getCmp("highChartContiner").unmask();
+		})
 	}
 });

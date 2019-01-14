@@ -259,7 +259,7 @@ ReachInfoBinding = function (objs) {
 }
 
 
-//지점/차트 정보 창 띄우기
+//지점/하이차트 정보 창 띄우기
 ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) {
 	
 	$KRF_APP.global.CommFn.setBookmarkInfo('siteNHighChart', {
@@ -300,9 +300,9 @@ ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) 
 
 		if (winCtl == undefined) {
 
-			var height = 390;
+			var height = 500;
 			if($KRF_APP.BOMODE){
-				height = 450;
+				height = 500;
 			}
 			winCtl = Ext.create('krf_new.view.east.WindowSiteNHighChart', { zIndex:10000,width: 520, height: height, x: winX, y: winY , parentId: parentId });
 			centerContainer.add(winCtl);
@@ -384,9 +384,9 @@ ShowWindowSiteNHighChart = function (tabIdx, title, test, parentId, chartFlag ) 
 		chartId = parentId;
 	} else {
 		//$KRF_APP.chartFlag = "0";
-		//var siteChartCtl = Ext.getCmp("highChartPanel");  //차트 ID
-		//var chartStore = siteChartCtl.getStore();
-		//chartStore.load();
+		var siteChartCtl = Ext.getCmp("highChartPanel");  //차트 ID
+		var chartStore = siteChartCtl.getStore();
+		chartStore.load();
 		if (chartStore.parentId == "F") {
 			chartId = chartStore.parentId;
 		}
@@ -1052,7 +1052,7 @@ showResultWindow = function () {
 
 
 //보고서 경관 검색결과
-ShowFileSearchResult = function(boCode,boName,searchType){
+ShowFileSearchResult = function(boCode,boName,searchType, activeId){
 
 	
 	// test
@@ -1062,6 +1062,7 @@ ShowFileSearchResult = function(boCode,boName,searchType){
 
 	var windowWidth = centerContainer.getWidth()-600;
 	var windowHeight = 300;
+	var windowX = centerContainer.getWidth() - 1220;
 	var windowY = centerContainer.getHeight() - windowHeight;
 	// window 창 옵션
 	var options = {
@@ -1076,9 +1077,9 @@ ShowFileSearchResult = function(boCode,boName,searchType){
 				xtype: 'label',
 				text: '보고서',
 				id: 'tabFile',
-				style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px; background:#fff;  color:#808080;',
-				width: 75,
-				height: 21,
+				style: 'cursor:pointer; border:none !important; padding:5px 0; text-align:center; font-size: 14px; background:#fff;  color:#808080;',
+				width: 85,
+				height: 27,
 				listeners: {
 					el: {
 						click: function (obj, el, evt) {
@@ -1094,7 +1095,11 @@ ShowFileSearchResult = function(boCode,boName,searchType){
 							$KRF_APP.global.CommFn.fileTabComboBindDate(
 								Ext.getCmp(Ext.getCmp('filetabpanels').activeTab.id).items.items[0].items.items[0].getStore()
 							)
-							//
+							
+							//경관파일 다운로드 막기
+							//Ext.getCmp('buttonSelect').setStyle('display','block');
+							//Ext.getCmp('buttonSelectAll').setStyle('display','block');
+
 						}
 					}
 				}
@@ -1102,9 +1107,9 @@ ShowFileSearchResult = function(boCode,boName,searchType){
 				xtype: 'label',
 				text: '경관',
 				id: 'tabView',
-				style: 'cursor:pointer; border:none !important; padding:2px 0; text-align:center; font-size: 13px; background:#003873;  color:#fff;',
-				width: 75,
-				height: 20,
+				style: 'cursor:pointer; border:none !important; padding:5px 0; text-align:center; font-size: 14px; background:#003873;  color:#fff;',
+				width: 85,
+				height: 27,
 				listeners: {
 					el: {
 						click: function (obj, el, evt) {
@@ -1120,11 +1125,17 @@ ShowFileSearchResult = function(boCode,boName,searchType){
 							$KRF_APP.global.CommFn.fileTabComboBindDate(
 								Ext.getCmp(Ext.getCmp('viewtabpanels').activeTab.id).items.items[0].items.items[0].getStore()
 							)
+
+							//경관파일 다운로드 풀기
+							//Ext.getCmp('buttonSelect').setStyle('display','none');
+							//Ext.getCmp('buttonSelectAll').setStyle('display','none');
+
 						}
 					}
 				}
 			}] 
 		},
+		x: windowX,
 		y: windowY,
 		cls: 'subWindow-x-form-item-label-default'
 	};
@@ -1223,6 +1234,13 @@ ShowFileSearchResult = function(boCode,boName,searchType){
 			});
 			gridCtl.setStore(gridStore);
 	}
+
+	//activeId
+	if(activeId != undefined){
+		Ext.getCmp(activeId).getFocusEl().dom.click();
+	}
+
+	
 
 	
 

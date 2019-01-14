@@ -55,8 +55,8 @@
 		}
 
 		#siteNameLabel{
-			padding: 10px 0px 8px 20px;
-			font-size: 13px;
+			padding: 7px 0px 8px 20px;
+			font-size: 15px;
 			letter-spacing: -1px;
 			background: url(../images/button/blit.gif) 10px no-repeat;
 			font-weight: bold;
@@ -212,4 +212,8 @@
 
 		  .imageView.imageHover-shadow {
 			transition: 0.3s;
-		  }
+			}
+			
+			li {
+					list-style: none
+			}

@@ -32,7 +32,7 @@ Ext.define('krf_new.store.south.SearchFileResultGrid_2', {
 			}
 
 			Ext.Ajax.request({
-				url: 'http://localhost:8082/krf/searchResult/searchResult_View', 
+				url:_API.GetSearchResultData_View,
 				params: {
 					boCode : store.boCode
 					,startYear : comboList.StartYear

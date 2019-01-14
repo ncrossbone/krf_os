@@ -8,7 +8,10 @@ Ext.define('krf_new.store.south.SearchFileResultGrid_1', {
 		'YYYY',
 		'MM',
 		'DOC_PBLICTE_DE',
-		'DOC_PBLICTE_INSTT_NM'
+		'DOC_PBLICTE_INSTT_NM',
+		'FILE_REAL_NM',
+		'FILE_SIZE',
+		'FILE_COURS'
 	],
 
 	autoLoad: true,
@@ -26,13 +29,10 @@ Ext.define('krf_new.store.south.SearchFileResultGrid_1', {
 				for(var i = 0 ; i < comboId.length; i ++){
 					comboList[comboId[i].split('file')[1]] = Ext.getCmp(comboId[i]).getValue();
 				}
-
 			}
-			
-
 
 			Ext.Ajax.request({
-				url: 'http://localhost:8082/krf/searchResult/searchResult_File', 
+				url:_API.GetSearchResultData_File,
 				params: {
 					boCode : store.boCode
 					,startYear : comboList.StartYear

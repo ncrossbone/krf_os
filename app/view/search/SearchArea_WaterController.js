@@ -72,31 +72,15 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 	// 대권역 선택시 보 comboBox change
 	boComboChange: function(value){ //  value ==  대권역 코드
 		var boCombo = Ext.getCmp('cmbWater4');
-		// shp 데이터 미완성  하드코딩
-		var boObj = [
-			{'ptNo':'1007A20','wSys':'R01'},
-			{'ptNo':'1007A27','wSys':'R01'},
-			{'ptNo':'1007A60','wSys':'R01'},
-			{'ptNo':'2007A25','wSys':'R02'},
-			{'ptNo':'2009A05','wSys':'R02'},
-			{'ptNo':'2009A30','wSys':'R02'},
-			{'ptNo':'2011A25','wSys':'R02'},
-			{'ptNo':'2011A55','wSys':'R02'},
-			{'ptNo':'2014A25','wSys':'R02'},
-			{'ptNo':'2014A70','wSys':'R02'},
-			{'ptNo':'2020A32','wSys':'R02'},
-			{'ptNo':'3012A07','wSys':'R03'},
-			{'ptNo':'3012A32','wSys':'R03'},
-			{'ptNo':'3012A42','wSys':'R03'},
-			{'ptNo':'5004A10','wSys':'R04'},
-			{'ptNo':'5004A35','wSys':'R04'}];
+
+		
 
 		var storeData = [];
 
-		for(var a = 0 ; a <  boObj.length ; a++){
-			if(boObj[a].wSys == value){
+		for(var a = 0 ; a <  $KRF_APP.boObj.length ; a++){
+			if($KRF_APP.boObj[a].wSys == value){
 				for(var i  = 0 ; i < $KRF_APP.BO_STORE.length ; i ++){
-					if(boObj[a].ptNo == $KRF_APP.BO_STORE[i].id){
+					if($KRF_APP.boObj[a].ptNo == $KRF_APP.BO_STORE[i].id){
 						storeData.push($KRF_APP.BO_STORE[i]);
 					}
 				}		
@@ -195,8 +179,9 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 					treeResach.getView().refresh();
 
 
-					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : boCd});
 					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd : boCd});
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : boCd});
+					//$KRF_APP.fireEvent($KRF_EVENT.BO_CENTER_MOVE, {boCd : boCd});
 					
 				}
 			}

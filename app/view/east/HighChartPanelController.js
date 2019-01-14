@@ -34,7 +34,54 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			, { code: 'ITEM_HG', text: 'HG' }
 			, { code: 'ITEM_AL', text: 'AL' }
 			, { code: 'ITEM_LI', text: 'LI' }]
-		,'F':[{ code: 'AMT_PHYS', text: '방류량_물리적' }
+		
+		,'D001':[{ code: 'WL', text: '수위(cm)' }]
+		,'D002':[{ code: 'RF', text: '우량자료(mm)' }]
+		,'D003':[{ code: 'FW', text: '유량(CMS)' }]
+		,'D004':[{ code: 'SWL', text: '저수위(cm)' },
+				{ code: 'INF', text: '유입량(cms)' },
+				{ code: 'OTF', text: '방류량(cms)' },
+				{ code: 'SFW', text: '저수량(만㎥)' },
+				{ code: 'ECPC', text: '공용량(백만㎥)' }]
+		,'D005':[{ code: 'WD', text: '풍향(m/s)' },
+				{ code: 'WS', text: '풍속(m/s)' },
+				{ code: 'TA', text: '기온(℃)' },
+				{ code: 'HM', text: '습도' },
+				{ code: 'PA', text: '현지기압' },
+				{ code: 'PS', text: '해면기압' },
+				{ code: 'RNYN', text: '강수감지' },
+				{ code: 'RN1HR', text: '강수량(mm)' },
+				{ code: 'RNDAY', text: '누적강수량(mm)' }]
+		,'D006':[{ code: 'RND', text: '강수량자료(mm)' },
+				{ code: 'TA', text: '기온(℃)' },
+				{ code: 'SIDAY', text: '일사(MJ/m2)' }]
+		,'D007':[{ code: 'SWL', text: '보 상류수위' },
+				{ code: 'OWL', text: '보 하류수위' },
+				{ code: 'SFW', text: '저수량' },
+				{ code: 'ECPC', text: '공용량' },
+				{ code: 'INF', text: '유입량' },
+				{ code: 'TOTOTF', text: '총 방류량' },
+				{ code: 'EGOTF', text: '발전 방류량' },
+				{ code: 'GTOTF', text: '가동보 방류량' },
+				{ code: 'CBOTF', text: '고정보 방류량' },
+				{ code: 'FWOTF', text: '어도 방류량' },
+				{ code: 'ETCOTF', text: '기타 방류량' }]
+		,'E':[{ code: 'SWL', text: '보 상류수위' },
+				{ code: 'OWL', text: '보 하류수위' },
+				{ code: 'SFW', text: '저수량' },
+				{ code: 'ECPC', text: '공용량' },
+				{ code: 'INF', text: '유입량' },
+				{ code: 'TOTOTF', text: '총 방류량' },
+				{ code: 'EGOTF', text: '발전 방류량' },
+				{ code: 'GTOTF', text: '가동보 방류량' }, 
+				{ code: 'CBOTF', text: '고정보 방류량' },
+				{ code: 'FWOTF', text: '어도 방류량' },
+				{ code: 'ETCOTF', text: '기타 방류량' }]
+		,'F':[{code: '1' , text:'방류유량'}
+			,{code: '2' , text:'직접이송량'}
+			,{code: '3' , text:'총유입량'}
+			,{code: '4' , text:'관거이송량'}]
+		,'F_1':[{ code: 'AMT_PHYS', text: '방류량_물리적' }
 			, { code: 'AMT_BIO', text: '방류량_생물학적' }
 			, { code: 'AMT_HIGHTEC', text: '방류량_고도' }
 			, { code: 'ITEM_BOD', text: 'BOD' }
@@ -43,19 +90,64 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			, { code: 'ITEM_TN', text: 'TN' }
 			, { code: 'ITEM_TP', text: 'TP' }
 			, { code: 'ITEM_COLI', text: '대장균군수' }]
+		,'F_2':[{ code: 'ITEM_AMT', text: '유량' }
+			, { code: 'ITEM_BOD', text: 'BOD' }
+			, { code: 'ITEM_COD', text: 'COD' }
+			, { code: 'ITEM_SS', text: 'SS' }
+			, { code: 'ITEM_TN', text: 'TN' }
+			, { code: 'ITEM_TP', text: 'TP' }
+			, { code: 'ITEM_COLI', text: '대장균군수' }]
+		,'F_3':[{ code: 'ITEM_AMT', text: '유량' }
+			, { code: 'ITEM_BOD', text: 'BOD' }
+			, { code: 'ITEM_COD', text: 'COD' }
+			, { code: 'ITEM_SS', text: 'SS' }
+			, { code: 'ITEM_TN', text: 'TN' }
+			, { code: 'ITEM_TP', text: 'TP' }
+			, { code: 'ITEM_COLI', text: '대장균군수' }]
+		,'F_4':[{ code: 'ITEM_AMT', text: '유량' }
+			, { code: 'ITEM_BOD', text: 'BOD' }
+			, { code: 'ITEM_COD', text: 'COD' }
+			, { code: 'ITEM_SS', text: 'SS' }
+			, { code: 'ITEM_TN', text: 'TN' }
+			, { code: 'ITEM_TP', text: 'TP' }
+			, { code: 'ITEM_COLI', text: '대장균군수' }
+			, { code: 'ITEM_BYPASS_AMT', text: '미처리배제유량' }]
+		,'I':[{ code: 'ITEM_TEMP', text: '수온' }
+			, { code: 'ITEM_AVERAGE_CLOA', text: 'Chl-a' }
+			, { code: 'ITEM_SURFACE_BLUE_GREEN_ALGAE', text: '유해남조류' }]
+		
 	},
 
 	selectVisibleObj : {'A':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					   ,'B':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					   ,'C':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
-					   ,'D':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D001':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D002':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D003':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D004':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D005':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D006':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'D007':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					   ,'E':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					   ,'F':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					   ,'G':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					   ,'H':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'I':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
+					   ,'J':['startYearHigh','startMonthHigh','endYearHigh','endMonthHigh']
 					},
 
-	selectBoxArr : ['startYearHigh','startMonthHigh','startDayHigh','endYearHigh','endMonthHigh','startGFlagHigh','endGFlagHigh','endDayHigh','endHFlagHigh','startHFlagHigh'],
+	selectBoxArr : ['startYearHigh'
+					,'startMonthHigh'
+					,'startDayHigh'
+					,'startCFlagHigh'
+					,'endYearHigh'
+					,'endMonthHigh'
+					,'startGFlagHigh'
+					,'endCFlagHigh'
+					,'endGFlagHigh'
+					,'endDayHigh'
+					,'endHFlagHigh'
+					,'startHFlagHigh'],
 
 	unitValueObj : {
 		ITEM_BOD:'(㎎/L)',
@@ -119,13 +211,15 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			
 			//전역변수 날짜값 바꾸기
 			$KRF_APP.highChart.param[$(this).attr('id')] = $(this).val();
-
+			
 			$KRF_APP.global.CommFn.getHighChartData();
 		});
 		
 		$('#startYearHigh, #startMonthHigh, #endYearHigh, #endMonthHigh, #startGFlagHigh, #endGFlagHigh, #startDayHigh, #endDayHigh').off('focus').on('focus', function () {
 			$(this).data('previous',$(this).val());
 		});
+
+		
 
 	},
 
@@ -134,7 +228,7 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 		var me  = this;
 
 		var data = datas.data;
-		for(var j = 0; j < (data.length - 1); j++){
+		for(var j = 0; j < data.length; j++){
 			if($KRF_APP.highChart.dateArr.indexOf(data[j].WMCYMD) == -1){
 				$KRF_APP.highChart.dateArr.push(data[j].WMCYMD);
 			}
@@ -157,18 +251,32 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 		// $KRF_APP.highChart.dateArr = [];
 		// $KRF_APP.highChart.chartObj = {};
 		
-		//parent 값이 바뀌면서 초기 세팅
-		if(datas.removeLabel){
-			me.chartItemInsert($KRF_APP.highChart.saveParentId);
-			$KRF_APP.fireEvent($KRF_EVENT.SET_HIGH_CHART_DATE,null);
-			me.setHighChartEvent();
-			me.createHighChartDate(datas);
+		//parent 값이 바뀌면서 초기 세팅 // 환경기초시설 예외 처리
+		if($KRF_APP.highChart.saveParentId == "F"){
+			if($KRF_APP.highChart.removeLabel){
+				// 환경기초시설 초기 chartItemInsert 함수에서 fFlag 값을 설정함 
+				// 환경기초시설은 selectbox가 이중구조여서 버튼 재생성이 필요하나 날짜는 combobox는 남겨야 하므로
+				if($KRF_APP.highChart.fFlag == ""){ 
+					$KRF_APP.fireEvent($KRF_EVENT.SET_HIGH_CHART_DATE,null);
+				}
+				me.chartItemInsert($KRF_APP.highChart.saveParentId);
+				me.setHighChartEvent();
+				me.createHighChartDate(datas);
+			}
+		}else{
+			if(datas.removeLabel){
+				me.chartItemInsert($KRF_APP.highChart.saveParentId);
+				$KRF_APP.fireEvent($KRF_EVENT.SET_HIGH_CHART_DATE,null);
+				me.setHighChartEvent();
+				me.createHighChartDate(datas);
+			}
 		}
+		
 		
 
 
 
-		for(var j = 0; j < (data.length - 1); j++){
+		for(var j = 0; j < data.length ; j++){
 			// if($KRF_APP.highChart.dateArr.indexOf(data[j].WMCYMD) == -1){
 			// 	$KRF_APP.highChart.dateArr.push(data[j].WMCYMD);
 			// }
@@ -179,21 +287,15 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 				$KRF_APP.highChart.chartObj[data[j].PT_NO].data[data[j].WMCYMD] = parseFloat(data[j].ITEM_VALUE);
 			}
 		}
-
-		//$KRF_APP.highChart.dateArr.sort();
-
-		if($KRF_APP.highChart.ulIdArr.length == datas.number){
-			
-		}
 		
 		for(var i = 0; i < $KRF_APP.highChart.ulIdArr.length; i++){
 
 			if($KRF_APP.highChart.ulIdArr[i] == ulIdArr){
 				var datas = [];
 				var sname = '';
+				
 				//기존 차트 범례 새로생성
-
-				$('#chartUl').append('<li style="width:100px;" value="'+$KRF_APP.highChart.ulIdArr[i]+'" onClick="$KRF_APP.global.CommFn.removeHighChartData(\'' + $KRF_APP.highChart.ulIdArr[i] + '\' , \'' + $KRF_APP.highChart.ulNameArr[i] + '\')"> <div class="gcwrap"><span class="gc g_c'+parseInt(i+1)+'"></span></div><span class="z_name">'+ $KRF_APP.highChart.parentName.split('(')[0] + ':' + $KRF_APP.highChart.ulNameArr[i] +'</span></li>');
+				$('#chartUl').append('<li style="width:100px;" value="'+$KRF_APP.highChart.ulIdArr[i]+'" onClick="$KRF_APP.global.CommFn.removeHighChartData(\'' + $KRF_APP.highChart.ulIdArr[i] + '\' , \'' + $KRF_APP.highChart.ulNameArr[i] + '\')"> <div class="gcwrap"><span class="gc g_c'+parseInt(i+1)+'"></span></div><span class="z_name">'+ $KRF_APP.highChart.ulNameArr[i] +'</span></li>');
 
 				for(var j=0; j<$KRF_APP.highChart.dateArr.length; j++){
 					if($KRF_APP.highChart.chartObj[$KRF_APP.highChart.ulIdArr[i]]){
@@ -359,13 +461,37 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 
 		$('#highChartSelectItem li').remove();
 
+		//$KRF_APP.highChart.fFlag
 		var html = '';
-		for(var i  = 0 ; i < me.itemArry[parentId].length ; i++){
-			html += '<li style="float:left; text-align:center; cursor:pointer;" id="' + me.itemArry[parentId][i].code + '">';
-			me.itemArry[parentId][i].code==$KRF_APP.highChart.param.selectItem?html += '<a class="active" ':html+='<a ';
-			html+= ' id="button_'+me.itemArry[parentId][i].code+'" onClick="$KRF_APP.global.CommFn.getHighChartData(\'' + me.itemArry[parentId][i].code + '\')">' + me.itemArry[parentId][i].text + '</a>';
+		
+		if($KRF_APP.highChart.fFlag == ""){
+			$KRF_APP.highChart.fFlag = "1";
+		}
+
+
+		var reParentId = parentId;
+
+		if(parentId == "F"){
+			reParentId = parentId+'_'+$KRF_APP.highChart.fFlag;
+		}
+
+		// 환경기초시설일경우
+		if($KRF_APP.highChart.saveParentId == "F"){
+			for(var i  = 0 ; i < me.itemArry[parentId].length ; i++){
+				html += '<li style="float:left; text-align:center; cursor:pointer;" id="' + me.itemArry[parentId][i].code + '">';
+				me.itemArry[parentId][i].code==$KRF_APP.highChart.fFlag?html += '<a class="active" ':html+='<a ';
+				html+= ' id="button_'+me.itemArry[parentId][i].code+'" onClick="$KRF_APP.global.CommFn.setFHighChart(\'' + me.itemArry[parentId][i].code + '\')">' + me.itemArry[parentId][i].text + '</a>';
+				html += '</li>';
+			}
+		}
+
+		for(var i  = 0 ; i < me.itemArry[reParentId].length ; i++){
+			html += '<li style="float:left; text-align:center; cursor:pointer;" id="' + me.itemArry[reParentId][i].code + '">';
+			me.itemArry[reParentId][i].code==$KRF_APP.highChart.param.selectItem?html += '<a class="active" ':html+='<a ';
+			html+= ' id="button_'+me.itemArry[reParentId][i].code+'" onClick="$KRF_APP.global.CommFn.getHighChartData(\'' + me.itemArry[reParentId][i].code + '\')">' + me.itemArry[reParentId][i].text + '</a>';
 			html += '</li>';
 		}
+
 
 		$('#highChartSelectItem').html(html);
 
@@ -407,6 +533,44 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 			$('#startHFlagHigh').html(optionPreHFlag);
 			$('#endHFlagHigh').html(optionNowHFlag);
 			
+		}else if($KRF_APP.highChart.saveParentId == 'C'){
+				dateStr=$KRF_APP.highChart.param.maxDate.WMYR;
+				lastDateStr=$KRF_APP.highChart.param.minDate.WMYR;
+
+				var nowDate = new Date(dateStr);
+				var lastDate = new Date(lastDateStr);
+				var optionNowCFlag = '';
+				var optionPreCFlag = '';
+
+				for(var i = nowDate.getFullYear(); i >= parseInt($KRF_APP.highChart.param.minDate.WMYR)-5 ; i--){
+					i==nowDate.getFullYear()?optionEndYear += '<option selected value="'+i+'">'+i+'년</option>':optionEndYear += '<option value="'+i+'">'+i+'년</option>';
+				}
+	
+				for(var i = lastDate.getFullYear(); i >= parseInt($KRF_APP.highChart.param.minDate.WMYR)-3 ; i--){
+					i==parseInt($KRF_APP.highChart.param.minDate.WMYR)?optionStartYear += '<option selected value="'+i+'">'+i+'년</option>':optionStartYear += '<option value="'+i+'">'+i+'년</option>';
+				}
+
+				for(var i = 1; i <= 2; i++){
+					i==$KRF_APP.highChart.param.maxDate.TME?optionNowHFlag += '<option selected value="'+i+'">'+(i==1?'상':'하')+'반기</option>':optionNowCFlag += '<option value="'+i+'">'+(i==1?'상':'하')+'반기</option>';
+					i==1?optionPreCFlag += '<option selected value="'+i+'">'+(i==1?'상':'하')+'반기</option>':optionPreCFlag += '<option value="'+i+'">'+(i==1?'상':'하')+'반기</option>';
+				}
+
+
+				////////////////
+				$('#startYearHigh').html(optionStartYear);
+				$KRF_APP.highChart.param.startYearHigh = $('#startYearHigh').focus().val();
+
+				$('#startMonthHigh').html(optionPreCFlag);
+				$KRF_APP.highChart.param.startMonthHigh = $('#startMonthHigh').focus().val();
+
+				////////////////
+				$('#endYearHigh').html(optionEndYear);
+				$KRF_APP.highChart.param.endYearHigh = $('#endYearHigh').focus().val();
+
+				$('#endMonthHigh').html(optionNowCFlag);
+				$KRF_APP.highChart.param.endMonthHigh = $('#endMonthHigh').focus().val();
+				
+
 		}else{
 			if($KRF_APP.highChart.param.maxDate.WMYR == undefined && $KRF_APP.highChart.param.maxDate.WMOD == undefined){
 				
@@ -420,39 +584,42 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 
 			dateStr=$KRF_APP.highChart.param.maxDate.WMYR + '-' + $KRF_APP.highChart.param.maxDate.WMOD;
 			lastDateStr = $KRF_APP.highChart.param.minDate.WMYR + '-' + $KRF_APP.highChart.param.minDate.WMOD;
+
+			
+			var nowDate = new Date(dateStr);
+			var lastDate = new Date(lastDateStr);
+			
+			for(var i = nowDate.getFullYear(); i >= parseInt($KRF_APP.highChart.param.minDate.WMYR)-5 ; i--){
+				i==nowDate.getFullYear()?optionEndYear += '<option selected value="'+i+'">'+i+'년</option>':optionEndYear += '<option value="'+i+'">'+i+'년</option>';
+			}
+
+			for(var i = lastDate.getFullYear(); i >= parseInt($KRF_APP.highChart.param.minDate.WMYR)-3 ; i--){
+				i==parseInt($KRF_APP.highChart.param.minDate.WMYR)?optionStartYear += '<option selected value="'+i+'">'+i+'년</option>':optionStartYear += '<option value="'+i+'">'+i+'년</option>';
+			}
+			
+			for(var i = 1; i < 13; i++){
+				var numStr = i<10?'0'+i:i;
+				var preMonth = $KRF_APP.highChart.saveParentId=='D'?preMonth=(nowDate.getMonth()+1):preMonth=1;
+				(i==(parseInt($KRF_APP.highChart.param.minDate.WMOD)))?optionPreMonth += '<option selected value="'+numStr+'">'+i+'월</option>':optionPreMonth += '<option value="'+numStr+'">'+i+'월</option>';
+				(i==(nowDate.getMonth()+1))?optionNowMonth += '<option selected value="'+numStr+'">'+i+'월</option>':optionNowMonth += '<option value="'+numStr+'">'+i+'월</option>';
+			}
+			
+			
+			$('#startYearHigh').html(optionStartYear);
+			$KRF_APP.highChart.param.startYearHigh = $('#startYearHigh').focus().val();
+
+			$('#startMonthHigh').html(optionPreMonth);
+			$KRF_APP.highChart.param.startMonthHigh = $('#startMonthHigh').focus().val();
+
+			$('#endYearHigh').html(optionEndYear);
+			$KRF_APP.highChart.param.endYearHigh = $('#endYearHigh').focus().val();
+
+			$('#endMonthHigh').html(optionNowMonth);
+			$KRF_APP.highChart.param.endMonthHigh = $('#endMonthHigh').focus().val();
 			
 		}
 		
-		var nowDate = new Date(dateStr);
-		var lastDate = new Date(lastDateStr);
 		
-		for(var i = nowDate.getFullYear(); i >= parseInt($KRF_APP.highChart.param.minDate.WMYR)-5 ; i--){
-			i==nowDate.getFullYear()?optionEndYear += '<option selected value="'+i+'">'+i+'년</option>':optionEndYear += '<option value="'+i+'">'+i+'년</option>';
-		}
-
-		for(var i = lastDate.getFullYear(); i >= parseInt($KRF_APP.highChart.param.minDate.WMYR)-3 ; i--){
-			i==parseInt($KRF_APP.highChart.param.minDate.WMYR)?optionStartYear += '<option selected value="'+i+'">'+i+'년</option>':optionStartYear += '<option value="'+i+'">'+i+'년</option>';
-		}
-		
-		for(var i = 1; i < 13; i++){
-			var numStr = i<10?'0'+i:i;
-			var preMonth = $KRF_APP.highChart.saveParentId=='D'?preMonth=(nowDate.getMonth()+1):preMonth=1;
-			(i==(parseInt($KRF_APP.highChart.param.minDate.WMOD)))?optionPreMonth += '<option selected value="'+numStr+'">'+i+'월</option>':optionPreMonth += '<option value="'+numStr+'">'+i+'월</option>';
-			(i==(nowDate.getMonth()+1))?optionNowMonth += '<option selected value="'+numStr+'">'+i+'월</option>':optionNowMonth += '<option value="'+numStr+'">'+i+'월</option>';
-		}
-		
-		
-		$('#startYearHigh').html(optionStartYear);
-		$KRF_APP.highChart.param.startYearHigh = $('#startYearHigh').focus().val();
-
-		$('#startMonthHigh').html(optionPreMonth);
-		$KRF_APP.highChart.param.startMonthHigh = $('#startMonthHigh').focus().val();
-
-		$('#endYearHigh').html(optionEndYear);
-		$KRF_APP.highChart.param.endYearHigh = $('#endYearHigh').focus().val();
-
-		$('#endMonthHigh').html(optionNowMonth);
-		$KRF_APP.highChart.param.endMonthHigh = $('#endMonthHigh').focus().val();
 
 
 		$KRF_APP.highChart.param.defaultChart = "0";
@@ -471,7 +638,12 @@ Ext.define('krf_new.view.east.HighChartPanelController', {
 		}
 		
 		//지점명칭 붙이기
-		$('#siteNameLabel').text($KRF_APP.highChart.parentName.split('(')[0]);
+
+		
+
+
+		
+		$('#siteNameLabel').text('자료 : '+$KRF_APP.highChart.parentName.split('(')[0]);
 		
 	}
 

@@ -10,7 +10,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_H', {
 	height: '100%',
 	width: '100%',
 	gridId: null,
-
+	closable: true,
+	closeText: '×',
 	initComponent: function () {
 		this.items = [{
 			xtype: 'container',

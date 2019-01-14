@@ -18,7 +18,7 @@ Ext.define('krf_new.store.east.HighChartPanel', {
 				dateWin.hide();
 			}
 
-			var defaultChart = $KRF_APP.chartFlag;
+			var defaultChart = $KRF_APP.highChart.param.defaultChart;
 			
 			var f_Chart = Ext.getCmp("f_Chart");
 			var d_Chart = $KRF_APP.chartFlag_D;
@@ -30,17 +30,12 @@ Ext.define('krf_new.store.east.HighChartPanel', {
 
 
 			if (store.parentId == "F") {
-				if (f_Chart == undefined || f_Chart.lastValue == "방류유량") {
+				if($KRF_APP.highChart.fFlag == ''){
 					f_parentId = "F_1";
-				} else if (f_Chart.lastValue == "1") {
-					f_parentId = "F_1";
-				} else if (f_Chart.lastValue == "2") {
-					f_parentId = "F_2";
-				} else if (f_Chart.lastValue == "3") {
-					f_parentId = "F_3";
-				} else if (f_Chart.lastValue == "4") {
-					f_parentId = "F_4";
+				}else{
+					f_parentId = "F_"+$KRF_APP.highChart.fFlag;
 				}
+
 			} else if (store.parentId == "D") {
 				store.parentId = d_Chart;
 			}
@@ -52,7 +47,7 @@ Ext.define('krf_new.store.east.HighChartPanel', {
 
 			var search_F = Ext.getCmp("");
 
-			var selectItem = Ext.getCmp("selectItem");
+			//var selectItem = Ext.getCmp("selectItem");
 			
 			var maxDate = "";
 			if (defaultChart == "1") {

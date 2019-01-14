@@ -51,8 +51,23 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 		$KRF_APP.addListener($KRF_EVENT.REMOVE_VIEW_GRAPHIC_LAYER, me.removeViewGraphicLayer, me);
 		$KRF_APP.addListener($KRF_EVENT.VIEW_GRAPHIC_LAYER_CONTROLLER, me.viewGraphicLayerController, me);
 
-		$KRF_APP.addListener($KRF_EVENT.MAIN_BO_GRAPHIC_LAYER, me.mainBoGraphicLayer, me);
+		$KRF_APP.addListener($KRF_EVENT.BO_CENTER_MOVE, me.boCenterMove, me);
+
+
 		this.mainBoGraphicLayer(); //bo main grpahic layer;
+	},
+
+	boCenterMove: function(boCd){
+		
+		var me = this;
+
+		for(var i = 0 ; i < me.boGraphicLayer.graphics.length ; i++){
+			if(me.boGraphicLayer.graphics[i].attributes!= undefined){
+				if(me.boGraphicLayer.graphics[i].attributes.PT_NO == boCd.boCd){
+					me.map.centerAndZoom(me.boGraphicLayer.graphics[i].geometry, 11);
+				}
+			}
+		}
 	},
 
 
@@ -69,20 +84,37 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 		queryTask.execute(query, function (results) {
 			if(results.features.length > 0 ){
 
+				
+
 				var coreMap = $KRF_APP.coreMap;
-				var symbol = new esri.symbol.PictureMarkerSymbol({
-					"angle": 0,
-					"yoffset": 0,
-					"type": "esriPMS",
-					"url": "./resources/images/symbol/boLayer.gif",
-					"contentType": "image/gif",
-					"width": 22,
-					"height": 22
-				});
+				
 
 
 
 				for(var i = 0 ; i < results.features.length ; i ++){
+
+					var image = "";
+					//$KRF_APP.boObj.ptNo
+					for(var a = 0 ; a < $KRF_APP.boObj.length ; a ++){
+						if($KRF_APP.boObj[a].ptNo == results.features[i].attributes.PT_NO){
+							if($KRF_APP.boObj[a].isOpen){
+								image = "boLayer.gif";
+							}else{
+								image = "boLayer_off.png";
+							}
+						}
+					}
+
+					var symbol = new esri.symbol.PictureMarkerSymbol({
+						"angle": 0,
+						"yoffset": 0,
+						"type": "esriPMS",
+						"url": "./resources/images/symbol/"+image,
+						"contentType": "image/gif",
+						"width": 22,
+						"height": 22
+					});
+
 					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
 					var textGraphic = new esri.Graphic(results.features[i].geometry, new esri.symbol.TextSymbol(results.features[i].attributes.PT_NM));
 					textGraphic.symbol.yoffset = -30;
@@ -99,8 +131,11 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 					me.boGraphicLayer.add(graphic);	
 					me.boGraphicLayer.add(textGraphic);	
 				}
-		
-				
+				me.boGraphicLayer.on("click", function(evt){	
+
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : evt.graphic.attributes.PT_NO});
+					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd:evt.graphic.attributes.PT_NO});
+				})
 
 			}
 		})

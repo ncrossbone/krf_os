@@ -240,6 +240,26 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			width: 10
 		}, {
 			xtype: 'image',
+			id: 'btnViewLayer',
+			groupId: 'btnViewLayer',
+			title: '경관',
+			style: 'cursor:pointer;',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: {
+				el: {
+					click: function (obj, el, evt) {
+						$KRF_APP.getDesktopModule($KRF_WINS.KRF.MAP.id).searchNodeId(el.id);
+					}
+				}
+			},
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menuv0_on.png',
+			btnOffImg: './resources/images/button/reach_menuv0.png',
+			src: './resources/images/button/reach_menuv0.png'
+		}, {
+			xtype: 'image',
 			id: 'btnAreaLayer',
 			groupId: 'btnAreaLayer',
 			title: '집수구역',

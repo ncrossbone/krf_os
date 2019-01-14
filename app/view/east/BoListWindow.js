@@ -59,48 +59,8 @@ Ext.define('krf_new.view.east.BoListWindow', {
 			icon: './resources/images/button/icon_branch.gif',
 			iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
 			handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-				var test = record.data.text;
-				var chkText = record.id;
-				var parentId = record.data.parentId;
 
-				
-				
-				//새로 차트 생성할때 , 다른 parent일때 
-				if(parentId.substring(0,1) != $KRF_APP.highChart.saveParentId){
-					// high차트 전여변수 초기화
-					$KRF_APP.global.CommFn.resetHighChart();
-
-					//parent node text 저장
-					$KRF_APP.highChart.parentName = record.parentNode.data.text;
-
-					//전역변수에 저장 ( 지점명 )
-					$KRF_APP.highChart.ulNameArr.push(test);
-
-					ShowWindowSiteNHighChart(0, chkText, test, parentId, undefined); // 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
-				}else{
-
-					var insertChart = true;
-					if($KRF_APP.highChart.ulIdArr.length < 5){ // 차트 갯수 확인
-						// 지점id가 지점 전역변수에 있는지 없는지(중복체크) 확인
-						for(var a = 0 ; a < $KRF_APP.highChart.ulIdArr.length; a++){
-							if($KRF_APP.highChart.ulIdArr[a] == chkText){
-								insertChart = false;
-							}
-						}
-						
-						// 전역변수에 같은 지점이 없을시 chart add
-						if(insertChart){
-							$KRF_APP.highChart.ulNameArr.push(test); //전역변수에 저장 ( 지점명 )
-							$KRF_APP.highChart.ulIdArr.push(chkText); //전역변수에 저장 ( 지점 id )
-							$KRF_APP.highChart.removeLabel = false; // 같은 parent에 추가 검색
-							$KRF_APP.global.CommFn.getHighChartData(); // ajax chart data 검색
-						}
-					}else{
-						alert("차트는 최대 5개까지 추가하실수 있습니다.");
-					}
-					
-					
-				}
+				$KRF_APP.global.CommFn.chartInfoConrtoller(grid, rowIndex, colIndex, actionItem, node, record, row, 1);
 
 				// 집수구역, 지점 이동, 리치정보 하이라이트
 				var me = this.up("window");
@@ -124,48 +84,8 @@ Ext.define('krf_new.view.east.BoListWindow', {
 			icon: './resources/images/button/icon_chart.gif',
 			iconCls: ' khLee-x-default-btn',
 			handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-				var test = record.data.text;
-				var chkText = record.id;
-				var parentId = record.data.parentId;
 
-				//parent node text 저장
-				$KRF_APP.highChart.parentName = record.parentNode.data.text;
-				//새로 차트 생성할때 , 다른 parent일때 
-				if(parentId.substring(0,1) != $KRF_APP.highChart.saveParentId){
-					// high차트 전여변수 초기화
-					$KRF_APP.global.CommFn.resetHighChart();
-
-					//parent node text 저장
-					$KRF_APP.highChart.parentName = record.parentNode.data.text;
-					
-					//전역변수에 저장 ( 지점명 )
-					$KRF_APP.highChart.ulNameArr.push(test);
-					ShowWindowSiteNHighChart(0, chkText, test, parentId, undefined); // 기존 차트 store 변형으로 초기 데이터 및 전역변수 설정
-				}else{
-
-					var insertChart = true;
-					if($KRF_APP.highChart.ulIdArr.length < 5){ // 차트 갯수 확인
-						// 지점id가 지점 전역변수에 있는지 없는지(중복체크) 확인
-						for(var a = 0 ; a < $KRF_APP.highChart.ulIdArr.length; a++){
-							if($KRF_APP.highChart.ulIdArr[a] == chkText){
-								insertChart = false;
-							}
-						}
-						
-						// 전역변수에 같은 지점이 없을시 chart add
-						if(insertChart){
-							$KRF_APP.highChart.ulNameArr.push(test); //전역변수에 저장 ( 지점명 )
-							$KRF_APP.highChart.ulIdArr.push(chkText); //전역변수에 저장 ( 지점 id )
-							$KRF_APP.highChart.removeLabel = false; // 같은 parent에 추가 검색
-							$KRF_APP.global.CommFn.getHighChartData(); // ajax chart data 검색
-						}
-					}else{
-						alert("차트는 최대 5개까지 추가하실수 있습니다.");
-					}
-					
-					
-				}
-				
+				$KRF_APP.global.CommFn.chartInfoConrtoller(grid, rowIndex, colIndex, actionItem, node, record, row, 0);
 
 				var clickText = record.raw.text;
 				var clickId = record.raw.id;
@@ -202,7 +122,7 @@ Ext.define('krf_new.view.east.BoListWindow', {
 				if(boName && boCode){
 					boName = record.data.text.split('(')[0];
 					boCode = record.id.split('BO_')[1];
-					ShowFileSearchResult(boCode,boName);
+					ShowFileSearchResult(boCode, boName, undefined, 'tabFile');
 				}
 				
 			},
@@ -230,7 +150,7 @@ Ext.define('krf_new.view.east.BoListWindow', {
 				if(boName && boCode){
 					boName = record.data.text.split('(')[0];
 					boCode = record.id.split('BO_')[1];
-					ShowFileSearchResult(boCode,boName);
+					ShowFileSearchResult(boCode, boName, undefined, 'tabView');
 				}
 				
 			},

@@ -23,7 +23,7 @@ Ext.define('krf_new.view.common.FileTabControl', {
 			align: 'middle',
 			pack: 'end'
 		},
-		height: 30,
+		height: 35,
 		items: [{
 			xtype: 'container',
 			id: 'resultFileTab',
@@ -165,14 +165,33 @@ Ext.define('krf_new.view.common.FileTabControl', {
 			}
 		}
 	}, {
-		xtype: 'image',
-		src: './resources/images/button/btn_save.gif', //다운로드
-		width: 34,
-		height: 19,
-		style: 'top: 5px; z-index: 2; right: 10px; position:absolute; cursor:pointer;',
+		xtype: 'button',
+		id: 'buttonSelect',
+		text : '선택 다운로드',
+		width: 107,
+		height: 26,
+		style: 'top: 5px; z-index: 2; right: 127px; position:absolute; cursor:pointer; padding: 4px 10px; background: #347ada; border: 1px solid #1459b9; color: #fff; font-weight: bold; letter-spacing: -1px; font-size: 11px; font-family: Dotum;',
 		listeners: {
 			el: {
 				click: function () {
+					
+					$KRF_APP.global.CommFn.fileDownloadButton('select');
+					
+				}
+			}
+		}
+	}, {
+		xtype: 'button',
+		text: '전체 다운로드',
+		id: 'buttonSelectAll',
+		width: 107,
+		height: 26,
+		style: 'top: 5px; z-index: 2; right: 10px; position:absolute; cursor:pointer; padding: 4px 10px; background: #34afda; border: 1px solid #148db9; color: #fff; font-weight: bold; letter-spacing: -1px; font-size: 11px; font-family: Dotum;',
+		listeners: {
+			el: {
+				click: function () {
+					
+					$KRF_APP.global.CommFn.fileDownloadButton('all');
 					
 				}
 			}

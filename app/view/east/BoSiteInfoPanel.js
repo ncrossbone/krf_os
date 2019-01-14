@@ -16,7 +16,7 @@ Ext.define('krf_new.view.east.BoSiteInfoPanel', {
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 
 	width: 450,
-	height: 300,
+	height: 400,
 
 	items: [{
 		xtype: 'grid',

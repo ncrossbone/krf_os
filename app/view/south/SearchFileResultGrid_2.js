@@ -7,6 +7,8 @@ Ext.define('krf_new.view.south.SearchFileResultGrid_2', {
 	id: 'searchFileResultContainer_2',
 	height: '100%',
 	width: '100%',
+	closable: true,
+	closeText: '×',
 
 	gridId: null,
 
@@ -46,7 +48,9 @@ Ext.define('krf_new.view.south.SearchFileResultGrid_2', {
 					header: '선택',
 					dataIndex: 'admin',
 					listeners: {
-						beforecheckchange: function() {
+						beforecheckchange: function(a,b,c,d,e) {
+							// 체크 되었는지 확인
+							d.checked = c;
 							return true;
 						}
 					},

@@ -84,6 +84,7 @@ var $KRF_EVENT = {
 	,REMOVE_VIEW_GRAPHIC_LAYER: 'removeViewGraphicLayer'
 	,MAIN_BO_GRAPHIC_LAYER: 'mainBoGraphicLayer'
 	,CREATE_HIGH_CHART_DATE:'createHighChartDate'
+	,BO_CENTER_MOVE: 'boCenterMove'
 }
 
 var $KRF_WINS = {
@@ -140,7 +141,7 @@ Ext.create('Ext.data.Store', {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 		a[0].data.init('http://112.217.167.123:40003');
-		//a[0].data.init('http://192.168.0.109:8082'); 
+		//a[0].data.init('http://localhost:8082'); 
 
 		Ext.application({
 			name: 'krf_new',
@@ -197,9 +198,38 @@ Ext.create('Ext.data.Store', {
 
 				$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
 
-				$KRF_APP.highChart = {saveParentId: '', ulIdArr:[], ulNameArr:[], seriesArr:[] ,removeLabel:false, dateArr: [], chartObj:{} , parentName: ''
-									, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
-									, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
+				$KRF_APP.highChart = {saveParentId: '' //그룹코드
+				, ulIdArr:[] //지점코드
+				, ulNameArr:[] //지점명칭
+				, seriesArr:[] // 하이차트 데이터
+				, removeLabel:false //
+				, dateArr: [] // 차트 날짜
+				, chartObj:{} // 
+				, fFlag : '' // 환경기초시설 구분
+				, parentName: '' // 상위 그룹 이름
+				, param:{'url':'', 'startYearHigh':'', 'endYearHigh':'' , 'startMonthHigh': '', 'endMonthHigh':'' 
+						, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
+				$KRF_APP.centerPoint = "";
+									// shp 데이터 미완성  하드코딩
+				$KRF_APP.boObj = 
+						[{'ptNo':'1007A20','wSys':'R01', 'isOpen':false ,'ptNm':'강천보' },
+						{'ptNo':'1007A27','wSys':'R01', 'isOpen':false ,'ptNm':'여주보'  },
+						{'ptNo':'1007A60','wSys':'R01', 'isOpen':false  ,'ptNm':'이포보'  },
+						{'ptNo':'2007A25','wSys':'R02', 'isOpen':false ,'ptNm':'상주보' },
+						{'ptNo':'2009A05','wSys':'R02', 'isOpen':false ,'ptNm':'낙단보'  },
+						{'ptNo':'2009A30','wSys':'R02', 'isOpen':false ,'ptNm':'구미보' },
+						{'ptNo':'2011A25','wSys':'R02', 'isOpen':false ,'ptNm':'칠곡보' },
+						{'ptNo':'2011A55','wSys':'R02', 'isOpen':true  ,'ptNm':'강정고령보'},
+						{'ptNo':'2014A25','wSys':'R02', 'isOpen':true  ,'ptNm':'달성보' },
+						{'ptNo':'2014A70','wSys':'R02', 'isOpen':true  ,'ptNm':'합천창녕보'},
+						{'ptNo':'2020A32','wSys':'R02', 'isOpen':true  ,'ptNm':'창녕함안보'},
+						{'ptNo':'3012A07','wSys':'R03', 'isOpen':true  ,'ptNm':'세종보'},
+						{'ptNo':'3012A32','wSys':'R03', 'isOpen':true  ,'ptNm':'공주보'},
+						{'ptNo':'3012A42','wSys':'R03', 'isOpen':true  ,'ptNm':'백제보'},
+						{'ptNo':'5004A10','wSys':'R04', 'isOpen':true  ,'ptNm':'승촌보'},
+						{'ptNo':'5004A35','wSys':'R04', 'isOpen':true  ,'ptNm':'죽산보'}];
+
+
 			},
 			desktopLoaded: function () {
 

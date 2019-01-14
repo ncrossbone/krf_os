@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="client.css">
+    <script src="../innorix.js"></script>
+    <script>
+        var winInstallFileURL = "./INNORIX-Agent.exe";
+        var macInstallFileURL = "./INNORIX-Agent.pkg";
+		var linuxX64InstallFileURL = "./INNORIX-Agent-x64.deb";
+		var linuxX86InstallFileURL = "./INNORIX-Agent-x86.deb";
+
+        var innoJquery = innorix._load("innoJquery");
+        var browserOf = navigator.userAgent.toLowerCase();
+
+        innoJquery(window).load(function () {
+            if (browserOf.indexOf("chrome") != -1 && browserOf.indexOf("opr") === -1 && browserOf.indexOf("edge") === -1) {
+                innoJquery('.type-chrome').show();
+            } else if (navigator.appName == "Microsoft Internet Explorer" || browserOf.indexOf("trident") != -1 || browserOf.indexOf("mise") != -1) {
+                innoJquery('.type-ie').show();
+            } else if (browserOf.match("firefox")) {
+                innoJquery('.type-firefox').show();
+            } else if (browserOf.match("opr")) {
+                innoJquery('.type-opera').show();
+            } else if (browserOf.match("edge")) {
+                innoJquery('.type-edge').show();
+            } else if (browserOf.match("safari")) {
+                innoJquery('.type-common').show();
+            } else {
+                innoJquery('.type-common').show();
+            }
+
+            setTimeout(function () {
+                var installRetryCookie = getCookie('installRetryCookie');
+                if (installRetryCookie.length == 0) {
+                    setCookie('installRetryCookie', 1, 9999);
+                } else {
+                    setCookie('installRetryCookie', (parseInt(installRetryCookie)+1), 9999);
+                }
+                
+                if (parseInt(installRetryCookie) > innorix_install_retry_count) {
+                    var confirmResult =  confirm("Do you want to force agent to html5 mode?");
+                    if (confirmResult == true) {
+                        setCookie('forceHtml5Mode', true, 9999);
+                        setCookie('installRetryCookie', 0, 9999);
+                        var util = innorix._load('util');
+                        var redirectURL = util.string.deparam(location.search).redirect;
+                        if (redirectURL) {
+                            location.href = redirectURL;
+                            return;
+                        } else {
+                            history.go(-1);
+                        }
+                    }
+                }
+
+                if (navigator.platform == "Win32") {
+                    location.href = winInstallFileURL;
+                } else if (navigator.platform == "Win64") {
+                    location.href = winInstallFileURL;
+				} else if (navigator.platform == "Linux x86_64") {
+                    location.href = linuxX64InstallFileURL;
+                } else if (navigator.platform == "Linux i686") {
+                    location.href = linuxX86InstallFileURL;
+                } else {
+                    location.href = macInstallFileURL;
+                }
+                checkLoop();
+            }, 3000);
+        });
+
+        function getCookie( name ) {
+            var nameOfCookie = name + "=", endOfCookie, x = 0;
+
+            while ( x <= document.cookie.length ) {
+              var y = (x+nameOfCookie.length);
+              if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+                if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+                  endOfCookie = document.cookie.length;
+                return unescape( document.cookie.substring( y, endOfCookie ) );
+              }
+              x = document.cookie.indexOf( " ", x ) + 1;
+              if ( x === 0 )
+                break;
+            }
+            return "";
+        }
+
+        function setCookie( name, value, expiredays ) {
+            var todayDate = new Date();
+            todayDate.setDate( todayDate.getDate() + expiredays);
+            document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" ;
+        }
+
+        function checkLoop() {
+            irx_inst_timer = setInterval(function () {
+                innorix.checkVersion(function (result) {
+                    if (result !== null) {
+                        var util = innorix._load('util');
+                        var redirectURL = util.string.deparam(location.search).redirect;
+                        if (result != false) {
+                            clearInterval(irx_inst_timer);
+                            if (redirectURL) {
+                                location.href = redirectURL;
+                                return;
+                            } else {
+                                history.go(-1);
+                            }
+                        }
+                    }
+                });
+            }, 3000);
+        }
+    </script>
+
+    <head>
+
+    <body>
+        <div class="bgImg"></div>
+        <div class="bgPtrn"></div>
+        <div class="bglogo"></div>
+        <div class="bglogo2"></div>
+        <div class="bgrightBottonLog"></div>
+        <div class="browserImg"> </div>
+        <div class="container"><div class="inner clearfix"><div class="main"></div></div></div>
+
+        <div class="download-layer type-common" style="display: none">
+            <label>
+                <h2>
+                <span class="downLoadcontent1">Thank you for downloading INNORIX Agent</span> </br></br>
+                <span class="downLoadcontent2">
+                    Select "Open" and click "OK" - you may need to wait a little bit for the file to download. Click "Install" in the window that opens
+                </h2>
+            </label>
+        </div>
+
+        <div class="guide-arrow type-chrome" style="display: none;"></div>
+        <div class="download-layer type-chrome" style="display: none;">
+            <label>
+            <h2>
+                <span class="downLoadcontent1">Thank you for downloading INNORIX Agent</span> </br></br>
+                <span class="downLoadcontent2">
+                      To install it, press the button that the arrow is pointing at, launch the installer, then follow the instructions.
+            </h2>
+            </label>
+        </div>
+
+        <div class="guide-arrow type-ie type-edge" style="display: none;"></div>
+        <div class="download-layer type-ie type-edge" style="display: none">
+            <label>
+            <h2>
+                <span class="downLoadcontent1">Thank you for downloading INNORIX Agent</span> </br></br>
+                <span class="downLoadcontent2">
+                    When the download finishes, save it, and then press "Run" in the panel at the bottom of the screen.
+            </h2>
+            </label>
+        </div>
+
+        <div class="download-layer type-firefox" style="display: none">
+            <label>
+            <h2>
+                <span class="downLoadcontent1">Thank you for downloading INNORIX Agent</span> </br></br>
+                <span class="downLoadcontent2">
+                    Select "Open" and click "OK" - you may need to wait a little bit for the file to download. Click "Install" in the window that opens
+            </h2>
+            </label>
+        </div>
+
+        <div class="guide-arrow type-opera" style="display: none;"></div>
+        <div class="download-layer type-opera" style="display: none">
+            <label>
+            <h2>
+                <span class="downLoadcontent1">Thank you for downloading INNORIX Agent</span> </br></br>
+                <span class="downLoadcontent2">
+                    Thank you for downloading INNORIX Agent To install it, open your downloads list, run the installer that you downloaded, and follow the instructions
+            </h2>
+            </label>
+        </div>
+    </body>
+</html>

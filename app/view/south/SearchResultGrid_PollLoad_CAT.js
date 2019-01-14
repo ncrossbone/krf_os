@@ -9,7 +9,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_PollLoad_CAT', {
 
 	height: '100%',
 	width: '100%',
-
+	closable: true,
+	closeText: '×',
 	items: [{
 		xtype: 'container',
 		width: '100%',

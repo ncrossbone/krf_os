@@ -30,12 +30,28 @@ Ext.define('krf_new.store.east.BoListWindow', {
 			var endPoint = Ext.getCmp("textSearchText_End");
 
 
+			
+
+
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 
 			if(!store.boCd){
 				return;
+			}
+
+
+			// 보명칭 저장
+			if($KRF_APP.coreMap.map.getLayer('boGraphicLayer').graphics.length > 0){
+				for(var i = 0 ; i < $KRF_APP.coreMap.map.getLayer('boGraphicLayer').graphics.length ; i++){
+					if($KRF_APP.coreMap.map.getLayer('boGraphicLayer').graphics[i].attributes != undefined){
+						if($KRF_APP.coreMap.map.getLayer('boGraphicLayer').graphics[i].attributes.PT_NO == store.boCd){
+							//$KRF_APP.boName.push($KRF_APP.coreMap.map.getLayer('boGraphicLayer').graphics[i].attributes.PT_NM);
+							//$KRF_APP.boName = $KRF_APP.coreMap.map.getLayer('boGraphicLayer').graphics[i].attributes.PT_NM;
+						}
+					}
+				}
 			}
 			//물환경 연동
 			// if (store.searchType == "paramSearch") {
@@ -152,6 +168,8 @@ Ext.define('krf_new.store.east.BoListWindow', {
 				$.each(boGroup, function (cnt, groupCodeBo) {
 
 					var groupFeatureBo = result.features.filter(function (feature) {
+						
+						//$KRF_APP.highChart.parentName = groupFeatureBo[0].attributes.BO_NM;
 
 						if (feature.attributes.BO_CD === groupCodeBo)
 							return feature;
@@ -278,6 +296,22 @@ Ext.define('krf_new.store.east.BoListWindow', {
 										jsonStr += "				\"rptBtnDisabled\": true,\n";
 										jsonStr += "				\"srchBtnDisabled\": false\n";
 										jsonStr += "			}, ";
+									}else if (layerFeature.attributes.GROUP_CODE == "H") {
+
+										jsonStr += "{\n";
+										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+										jsonStr += "				\"leaf\": true,\n";
+										jsonStr += "				\"scensBtnDisabled\": true,\n";
+										jsonStr += "				\"rptBtnDisabled\": true,\n";
+										jsonStr += "				\"checked\": null,\n";
+										jsonStr += "			    \"infoBtnDisabled\": true,\n";
+										jsonStr += "				\"chartBtnDisabled\": true\n";
+										jsonStr += "			}, ";
+
 									} else {
 
 										jsonStr += "{\n";

@@ -101,6 +101,8 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 			})
 
 		me.map.addLayer(graphicLayer);
+		this.boCenterMove(markerData[0]);
+		
 
 	},
 
@@ -163,20 +165,29 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 		var pixelWidth = mapWidth / me.map.width;
 		var tolerance = 10 * pixelWidth;
 
+		$KRF_APP.getParam = centerPoint;
+
 
 		var queryExtent = new esri.geometry.Extent(1, 1, tolerance, tolerance, new esri.SpatialReference({ wkid: 102100 }));
 		query.geometry = queryExtent.centerAt(centerPoint);
 		query.returnGeometry = true; 
 		query.outFields = ["*"];
 		queryTask.execute(query, function(featureSet){
-			console.info(featureSet);
+			//console.info(featureSet);
 			if(featureSet.features.length > 0){
-				$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd:featureSet.features[0].attributes.BO_CD});	
+				
 				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : featureSet.features[0].attributes.BO_CD});
+				$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd:featureSet.features[0].attributes.BO_CD});	
+				$KRF_APP.fireEvent($KRF_EVENT.SET_BO_DATA_MARKER, [centerPoint,parameter.boNm]);
+				
+			}else{
+
+				$KRF_APP.fireEvent($KRF_EVENT.SET_BO_DATA_MARKER, [centerPoint,parameter.boNm]);
+
 			}	
 		});
-
-		$KRF_APP.fireEvent($KRF_EVENT.SET_BO_DATA_MARKER, [centerPoint,parameter.boNm]);
+		
+		//BO_CENTER_MOVE
 		this.boCenterMove(centerPoint);
 
 
@@ -199,13 +210,14 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 				//console.info(featureSet);
 			});
 		}
-
 	},
+
 
 	boCenterMove : function(centerPoint){
 		var me = Ext.getCmp("_mapDiv_");
-		me.map.centerAndZoom(centerPoint, $KRF_APP.coreMap.map.__LOD.level + 2);
+		me.map.centerAndZoom(centerPoint, $KRF_APP.coreMap.map.__LOD.level + 4);
 	},
+	
 
 	bodynamicLayerOnOffHandler: function(layerInfo){
 		//$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, '');
@@ -227,13 +239,14 @@ Ext.define('krf_new.view.map.DynamicLayerAdmin', {
 			
 			me.dynamicLayerBo = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.boServiceUrl, {
 				"imageParameters": imageParameters,
-				"opacity": 0.5,
+				"opacity": 0.3,
 				id:'DynamicLayerBo'
 			});
 			me.map.addLayer(me.dynamicLayerBo);	
 
-			
-			this.moveBoExtent(layerInfo.boCd);	
+			//this.moveBoExtent(layerInfo.boCd);	
+			$KRF_APP.fireEvent($KRF_EVENT.BO_CENTER_MOVE, {boCd : layerInfo.boCd});
+			//this.moveBoExtent(layerInfo.boCd);	
 		}
 
 		
