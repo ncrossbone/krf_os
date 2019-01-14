@@ -100,11 +100,11 @@
 		  .imageModal {
 			display: none;
 			position: fixed;
-			z-index: 1;
+			z-index: 100000;
 			padding-top: 50px;
-			left: 0;
+			left: 25%;
 			top: 0;
-			width: 100%;
+			width: 50%;
 			height: 100%;
 			overflow: auto;
 			background-color: black;
@@ -116,7 +116,7 @@
 			background-color: #fefefe;
 			margin: auto;
 			padding: 0;
-			width: 45%;
+			width: 90%;
 			max-width: 1200px;
 		  }
 		  
