@@ -121,8 +121,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		//a[0].data.init('http://112.217.167.123:40003');
-		a[0].data.init('http://localhost:8082');
+		a[0].data.init('http://112.217.167.123:40003');
+		//a[0].data.init('http://localhost:8082');
 
 		Ext.application({ 
 			name: 'krf_new',
@@ -424,14 +424,43 @@ Ext.create('Ext.data.Store', {
 
 					var noticeWin = Ext.getCmp('browserNoticeWindow');
 					var centerContainer = Ext.getCmp('center_container');
+					
+					//ie chech cookie 7일동안 열지 않기
+					var blnCookie = this.getCookie( 'browserNoticeWindow' ); 
 					if (!noticeWin) {
+						
 						Ext.create('krf_new.view.common.BrowserNotice');
 						noticeWin = Ext.getCmp('browserNoticeWindow');
 					}
 					centerContainer.add(noticeWin);
 					noticeWin.show();
+
+					// session 확인
+					if( blnCookie ) { 
+						noticeWin.hide();
+					}
 				}
 			},
+
+			getCookie: function(Name){
+				var nameOfCookie = Name + "="; 
+				var x = 0; 
+				while ( x <= document.cookie.length ) { 
+					var y = (x+nameOfCookie.length); 
+					if ( document.cookie.substring( x, y ) == nameOfCookie ) { 
+						if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) { 
+							endOfCookie = document.cookie.length; 
+						} 
+						return unescape( document.cookie.substring( y, endOfCookie ) ); 
+					} 
+
+					x = document.cookie.indexOf( " ", x ) + 1; 
+					if ( x == 0 ) break; 
+				} 
+
+				return ""; 
+			},
+
 			centerAt: function (coord) {
 				$KRF_APP.coreMap.transCoord(coord, function (transCoord) {
 					$KRF_APP.coreMap.map.centerAt(transCoord[0]);

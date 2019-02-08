@@ -1,11 +1,8 @@
 <%@ page language="java" import="java.sql.*" %>
 <%
-//String DB_URL = "jdbc:oracle:thin:@10.101.95.15:51521:weis";
-String DB_URL = "jdbc:oracle:thin:@cetech.iptime.org:31521:orcl";
-//String DB_USER    = "WATER";
-String DB_USER    = "WATER";
-//String DB_PASSWORD = "WATER123";
-String DB_PASSWORD = "WATER";
+String DB_URL = "jdbc:oracle:thin:@112.217.167.123:31720:STKDIV";
+String DB_USER    = "WATER_2";
+String DB_PASSWORD = "WATER_2";
 
 Connection con = null;
 Statement stmt = null;
