@@ -71,21 +71,20 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			btnOffImg: './resources/images/button/reach_menu03.png',
 			src: './resources/images/button/reach_menu03.png',
 			hidden: true
-		// }, {
-		// 	xtype: 'image',
-		// 	id: 'btnMenu010',
-		// 	groupId: 'group1',
-		// 	title: '미니맵',
-		// 	width: this.itemWidth,
-		// 	height: this.itemHeight,
-		// 	style: 'cursor:pointer;',
-		// 	listeners: { el: { click: 'onClickMiniMap' } },
-		// 	btnOnOff: 'off',
-		// 	btnOnImg: './resources/images/button/reach_menu02_on.png',
-		// 	btnOffImg: './resources/images/button/reach_menu02.png',
-		// 	src: './resources/images/button/reach_menu02.png',
-		// 	hidden: true
-		// }, {
+		}, {
+			xtype: 'image',
+			id: 'btnMenu010',
+			groupId: 'group1',
+			title: '미니맵',
+			width: this.itemWidth,
+			height: this.itemHeight,
+			style: 'cursor:pointer;',
+			listeners: { el: { click: 'onClickMiniMap' } },
+			btnOnOff: 'off',
+			btnOnImg: './resources/images/button/reach_menu02_on.png',
+			btnOffImg: './resources/images/button/reach_menu02.png',
+			src: './resources/images/button/reach_menu02.png',
+			hidden: true
 		}, {
 			xtype: 'image',
 			id: 'btnMenu02',
