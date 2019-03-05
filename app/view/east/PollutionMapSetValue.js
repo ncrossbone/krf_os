@@ -44,8 +44,8 @@ Ext.define('krf_new.view.east.PollutionMapSetValue', {
 			}, {
 				xtype: 'combo',
 				id: 'setPollutionYear',
-				store: ['2012', '2013'],
-				value: '2013',
+				store: ['2012', '2013', '2014', '2015'],
+				value: '2015',
 				//labelWidth: 30,
 				//labelAlign: 'right',
 				width: 65,

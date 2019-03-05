@@ -114,7 +114,13 @@ Ext.define('krf_new.view.east.ChartPanel', {
 							}
 						}
 
-						var maVal = Ext.util.Format.number(storeItem.get(series.series[0]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
+						var maVal = "";
+						//2019-02-25 정량한계 미만
+						if(storeItem.get("ITEM_VALUE_1") == "정량한계미만 "){
+							maVal = "정량한계미만";
+						}else{
+							maVal = Ext.util.Format.number(storeItem.get(series.series[0]._yField), $KRF_APP.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId, format));
+						}
 
 						tooltip.setTitle('측정일 : ' + storeItem.get(series.series[0]._xField) + '<br>' + '측정값 : ' + maVal);
 					}

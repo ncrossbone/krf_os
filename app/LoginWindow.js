@@ -14,7 +14,10 @@ Ext.define('Desktop.LoginWindow', {
     id: 'login-win',
 
     init: function () {
-
+        this.launcher = {
+			text: '<span class="krf-os-startmenu-text">로그인</span>',
+			iconCls: 'krf-os-startmenu-admin-icon'
+		};
     },
 
     receiveMessage: function (message) {
@@ -39,7 +42,6 @@ Ext.define('Desktop.LoginWindow', {
         }
     },
     createWindow: function () {
-
         window.addEventListener("message", this.receiveMessage, false);
 
         var desktop = this.app.getDesktop();
@@ -59,7 +61,7 @@ Ext.define('Desktop.LoginWindow', {
                 minimizable: false,
                 closable: false,
                 layout: 'fit',
-                draggable: false,
+                //draggable: false,
                 items: [{
                     xtype: 'component',
                     itemId: 'login-iframe',
@@ -67,7 +69,7 @@ Ext.define('Desktop.LoginWindow', {
                         tag: 'iframe',
                         style: 'height: 100%; width: 100%;',
                         //내부망 url 변경
-                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url=' + window.location.origin
+                        src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url=' + window.location.origin 
                     }
                 }]
             });

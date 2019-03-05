@@ -82,6 +82,7 @@ var $KRF_APP = null;
 // 버전 관리
 Ext.manifest.loader = { 'cache': '1.0.7', 'cacheParam': '_ver' };
 
+
 Ext.create('Ext.data.Store', {
 	autoLoad: true,
 	fields: [{
@@ -122,7 +123,7 @@ Ext.create('Ext.data.Store', {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 		a[0].data.init('http://112.217.167.123:40003');
-		//a[0].data.init('http://localhost:8082');
+		//a[0].data.init('http://localhost:80');
 
 		Ext.application({ 
 			name: 'krf_new',
@@ -187,7 +188,8 @@ Ext.create('Ext.data.Store', {
 				// 내부망 로그인정보 조회
 				$KRF_APP.loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
 				$KRF_APP.loginInfo = {};
-				if ($KRF_APP.loginInfo == null) {
+
+				if ($KRF_APP.loginInfo == null || $KRF_APP.loginInfo == undefined) {
 					this.showLoginWindow();
 				} else {
 
@@ -207,7 +209,7 @@ Ext.create('Ext.data.Store', {
 
 				var loginModule = $KRF_APP.getDesktopModule($KRF_WINS.LOGIN.MAIN.id);
 				var loginWindow = loginModule.createWindow({ x: (dpWidth / 2) - 200, y: (dpHeight / 2) - 300, width: 400, height: 600 });
-				//loginWindow = loginWindow.show();
+				loginWindow = loginWindow.show();
 			},
 
 			completedLogin: function (loginInfo) {
@@ -288,6 +290,7 @@ Ext.create('Ext.data.Store', {
 
 				var targetWindow = $KRF_APP.getDesktopWindow(windowId);
 				var targetModule = $KRF_APP.getDesktopModule(windowId);
+				console.info(windowId)
 
 				if (param) {
 					targetModule.initCoord = param;

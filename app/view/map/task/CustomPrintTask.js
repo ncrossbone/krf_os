@@ -52,7 +52,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 		me.execute("report", 'capture');
 	},
 
-	execute: function (mode, reportType) {
+	execute: function (mode, reportType) { 
 
 		var me = this;
 		var svgInfo = $('#' + me.mapDivId + ' svg').parent().html();
@@ -113,7 +113,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 			height: $('#' + me.mapDivId).height(),
 			arcServiceUrl: me.arcServiceUrl,
 			imgSaveUrl: me.imgSaveUrl,
-			mode: mode
+			mode: "print"
 		};
 
 		$.ajax({

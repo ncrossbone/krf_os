@@ -202,7 +202,7 @@ Ext.define('Desktop.SiteListWindow', {
 							// 검색결과창 띄우기
 							ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId, "");
 
-							var year = "2013";
+							var year = "2015";
 							//검색결과 "검색"시 부하량 표출
 							if (record.id == "pollLoad") {
 								PollLoadSearchResult("");

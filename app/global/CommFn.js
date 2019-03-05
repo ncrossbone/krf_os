@@ -275,7 +275,7 @@ Ext.define("krf_new.global.CommFn", {
 		src = src + '';
 		return src.length >= width ? src : src + new Array(width - src.length + 1).join(fix);
 	},
-	dateFormatter: function (src, chartFlag) {
+	dateFormatter: function (src, chartFlag) { 
 		if (src == null) {
 			return '';
 		}

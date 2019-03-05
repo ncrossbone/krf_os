@@ -1041,7 +1041,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 	getPollutionString: function () {
 
-		var year = "2013";
+		var year = "2015";
+		
 		if (this.catDid.length == 0) {
 			return "";
 		}

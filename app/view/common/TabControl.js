@@ -475,8 +475,8 @@ Ext.define('krf_new.view.common.TabControl', {
 			items: [{
 				xtype: 'combo',
 				id: 'pollutionYear',
-				store: ['2013', '2012', '2011'],
-				value: '2013',
+				store: ['2015','2014','2013', '2012', '2011'],
+				value: '2015',
 				width: 80,
 				height: 25
 			}, {
@@ -707,6 +707,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					|| tab.id == "searchResultpollution_05_container"
 					|| tab.id == "searchResultpollution_06_container"
 					|| tab.id == "searchResultpollution_07_container") {
+					Ext.getCmp("tabCondition").show();
 
 					//일반 검색
 					resultTab.setHidden(true);
@@ -796,7 +797,7 @@ Ext.define('krf_new.view.common.TabControl', {
 
 					var pollutionYear = Ext.getCmp("pollutionYear");
 					if (pollutiongrdCtl.store.year == undefined || pollutiongrdCtl.store.year == "") {
-						pollutionYear.setValue("2013");
+						pollutionYear.setValue("2015");
 					} else {
 						pollutionYear.setValue(pollutiongrdCtl.store.year);
 					}
