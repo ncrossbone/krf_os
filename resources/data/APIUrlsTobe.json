@@ -124,6 +124,7 @@
     "insertDroneLayer":"#host#/krf/config/insertDroneLayer",
     "testDroneLayer":"#host#/krf/config/testDroneLayer",
     "innorixUrl":"http://localhost:8080/KRF_DEV/innorix/download.jsp?fileName=/usr/local/tomcat/webapps/monitor/",
+    "getBoInfo":"#host#/krf/config/getBoInfo",
     init: function(host){
               if(host != null){
                   this.domain = host;

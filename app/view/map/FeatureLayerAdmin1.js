@@ -97,7 +97,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 					//$KRF_APP.boObj.ptNo
 					for(var a = 0 ; a < $KRF_APP.boObj.length ; a ++){
 						if($KRF_APP.boObj[a].ptNo == results.features[i].attributes.PT_NO){
-							if($KRF_APP.boObj[a].isOpen){
+							if($KRF_APP.boObj[a].isOpen == "true"){
 								image = "boLayer.gif";
 							}else{
 								image = "boLayer_off.png";

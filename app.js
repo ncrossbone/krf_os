@@ -140,8 +140,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		a[0].data.init('http://112.217.167.123:40003');
-		//a[0].data.init('http://localhost:8082'); 
+		//a[0].data.init('http://112.217.167.123:40003');
+		a[0].data.init('http://localhost:80'); 
 
 		Ext.application({
 			name: 'krf_new',
@@ -211,23 +211,42 @@ Ext.create('Ext.data.Store', {
 						, 'selectItem':'', 'maxDate':'', 'minDate':'', 'defaultChart':'1'}};
 				$KRF_APP.centerPoint = "";
 									// shp 데이터 미완성  하드코딩
-				$KRF_APP.boObj = 
-						[{'ptNo':'1007A20','wSys':'R01', 'isOpen':false ,'ptNm':'강천보' },
-						{'ptNo':'1007A27','wSys':'R01', 'isOpen':false ,'ptNm':'여주보'  },
-						{'ptNo':'1007A60','wSys':'R01', 'isOpen':false  ,'ptNm':'이포보'  },
-						{'ptNo':'2007A25','wSys':'R02', 'isOpen':false ,'ptNm':'상주보' },
-						{'ptNo':'2009A05','wSys':'R02', 'isOpen':false ,'ptNm':'낙단보'  },
-						{'ptNo':'2009A30','wSys':'R02', 'isOpen':false ,'ptNm':'구미보' },
-						{'ptNo':'2011A25','wSys':'R02', 'isOpen':false ,'ptNm':'칠곡보' },
-						{'ptNo':'2011A55','wSys':'R02', 'isOpen':true  ,'ptNm':'강정고령보'},
-						{'ptNo':'2014A25','wSys':'R02', 'isOpen':true  ,'ptNm':'달성보' },
-						{'ptNo':'2014A70','wSys':'R02', 'isOpen':true  ,'ptNm':'합천창녕보'},
-						{'ptNo':'2020A32','wSys':'R02', 'isOpen':true  ,'ptNm':'창녕함안보'},
-						{'ptNo':'3012A07','wSys':'R03', 'isOpen':true  ,'ptNm':'세종보'},
-						{'ptNo':'3012A32','wSys':'R03', 'isOpen':true  ,'ptNm':'공주보'},
-						{'ptNo':'3012A42','wSys':'R03', 'isOpen':true  ,'ptNm':'백제보'},
-						{'ptNo':'5004A10','wSys':'R04', 'isOpen':true  ,'ptNm':'승촌보'},
-						{'ptNo':'5004A35','wSys':'R04', 'isOpen':true  ,'ptNm':'죽산보'}];
+				$KRF_APP.boObj = [{'ptNo':'1007A20','wSys':'R01', 'isOpen':false ,'ptNm':'강천보' },
+								{'ptNo':'1007A27','wSys':'R01', 'isOpen':false ,'ptNm':'여주보'  },
+								{'ptNo':'1007A60','wSys':'R01', 'isOpen':false  ,'ptNm':'이포보'  },
+								{'ptNo':'2007A25','wSys':'R02', 'isOpen':false ,'ptNm':'상주보' },
+								{'ptNo':'2009A05','wSys':'R02', 'isOpen':false ,'ptNm':'낙단보'  },
+								{'ptNo':'2009A30','wSys':'R02', 'isOpen':false ,'ptNm':'구미보' },
+								{'ptNo':'2011A25','wSys':'R02', 'isOpen':false ,'ptNm':'칠곡보' },
+								{'ptNo':'2011A55','wSys':'R02', 'isOpen':true  ,'ptNm':'강정고령보'},
+								{'ptNo':'2014A25','wSys':'R02', 'isOpen':true  ,'ptNm':'달성보' },
+								{'ptNo':'2014A70','wSys':'R02', 'isOpen':true  ,'ptNm':'합천창녕보'},
+								{'ptNo':'2020A32','wSys':'R02', 'isOpen':true  ,'ptNm':'창녕함안보'},
+								{'ptNo':'3012A07','wSys':'R03', 'isOpen':true  ,'ptNm':'세종보'},
+								{'ptNo':'3012A32','wSys':'R03', 'isOpen':true  ,'ptNm':'공주보'},
+								{'ptNo':'3012A42','wSys':'R03', 'isOpen':true  ,'ptNm':'백제보'},
+								{'ptNo':'5004A10','wSys':'R04', 'isOpen':true  ,'ptNm':'승촌보'},
+								{'ptNo':'5004A35','wSys':'R04', 'isOpen':true  ,'ptNm':'죽산보'}];
+
+				Ext.Ajax.request({
+					url: _API.getBoInfo,
+					dataType: "text/html",
+					method: 'POST',
+					async: true,
+					success: function (response, opts) {
+						var result = Ext.util.JSON.decode(response.responseText);
+						if(result.result.length > 0 ) {
+							for(var i = 0 ; i < result.result.length; i ++){
+								$KRF_APP.boObj.map(function(mapValue){
+									if(result.result[i].SPOT_CODE == mapValue.ptNo){
+										mapValue.isOpen = result.result[i].OPN_AT;
+									}
+								})
+							}
+						}
+						
+					}
+				});
 
 
 			},
