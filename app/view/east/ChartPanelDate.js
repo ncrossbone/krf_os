@@ -86,7 +86,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			f_Chart.hidden = true;
 			f_ChartText.hidden = true;
 			hChartDate.hidden = true;
-			var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+			var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
 			selectYear.setStore(year);
 			selectYear2.setStore(year);
 		}

@@ -86,6 +86,12 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 									me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 									return;
 								}
+
+								// 콤마로 들어오는 경우가 간혹가다 있음.. 데이터상 문제
+								if(dateSplit.replace(',','.')){
+									dateSplit = dateSplit.replace(',','.');
+								}
+
 								var afterVal = dateSplit.split(".");
 								startYear = afterVal[0];
 								if (afterVal[1] == "1" || afterVal[1] == "01") {

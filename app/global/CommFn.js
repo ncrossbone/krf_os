@@ -406,8 +406,9 @@ Ext.define("krf_new.global.CommFn", {
 					,{ id: '2', name: '출현식생'}
 					,{ id: '3', name: '식생 면적'}
 					,{ id: '4', name: '구간'}
-					,{ id: '5', name: '구간별 정보'}
-					,{ id: '6', name: '우점도'}]
+					// ,{ id: '5', name: '구간별 정보'}
+					// ,{ id: '6', name: '우점도'}
+				]
 			});
 		}else{
 			store = Ext.create('Ext.data.Store', {

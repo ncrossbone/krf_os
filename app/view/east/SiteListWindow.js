@@ -4,7 +4,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 	xtype: 'east-sitelistindow',
 	id: 'siteListWindow',
 	title: '지점 목록',
-
+ 
 	//	cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
 
 	layout: {

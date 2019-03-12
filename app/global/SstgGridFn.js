@@ -309,7 +309,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'SPOT_CODE'
             },{
                 text: '지점명',
-                dataIndex: 'SPOT_NAME'
+                dataIndex: 'SPOT_NM'
             },{
                 text: '학명',
                 dataIndex: 'SCNCENM'
@@ -645,7 +645,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'SPOT_CODE'
             },{
                 text: '지점명',
-                dataIndex: 'SPOT_NAME'
+                dataIndex: 'SPOT_NM'
             },{
                 text: '학명',
                 dataIndex: 'SCNCENM'
@@ -916,7 +916,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'SPOT_CODE'
             },{
                 text: '지점명',
-                dataIndex: 'SPOT_NAME'
+                dataIndex: 'SPOT_NM'
             },{
                 text: '학명',
                 dataIndex: 'SCNCENM'
@@ -1431,7 +1431,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'SPOT_CODE'
             },{
                 text: '지점명',
-                dataIndex: 'SPOT_NAME'
+                dataIndex: 'SPOT_NM'
             },{
                 text: '학명',
                 dataIndex: 'SCNCENM'
@@ -1454,7 +1454,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'SPOT_CODE'
             },{
                 text: '지점명',
-                dataIndex: 'SPOT_NAME'
+                dataIndex: 'SPOT_NM'
             },{
                 text: '학명',
                 dataIndex: 'SCNCENM'
@@ -1477,7 +1477,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                 dataIndex: 'SPOT_CODE'
             },{
                 text: '지점명',
-                dataIndex: 'SPOT_NAME'
+                dataIndex: 'SPOT_NM'
             },{
                 text: '조사정보',
                 columns:[{
