@@ -253,5 +253,10 @@
      * Uniquely generated id for this application, used as prefix for localStorage keys.
      * Normally you should never change this value.
      */
-    "id": "b5be7f79-ed8c-4fa8-a73d-0bad96c4c7a2"
+    "id": "b5be7f79-ed8c-4fa8-a73d-0bad96c4c7a2",
+
+    "loader": {
+        "cache": true,
+        "cacheParam": "_dc"
+     }
 }
