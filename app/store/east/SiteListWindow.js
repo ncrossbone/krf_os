@@ -1014,13 +1014,13 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 	getPollutionString: function () {
 
-		var year = "2013";
+		var year = "2015";
 		if (this.catDid.length == 0) {
 			return "";
 		}
 
 		/* 외부망 오염원 검색 막기 */
-		//return "";
+		return "";
 
 		//생활계
 		var store1 = Ext.create('krf_new.store.east.PollutionResult_01_Catdid', {

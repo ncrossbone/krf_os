@@ -147,8 +147,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'BOD'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'BOD'));
+												return yVal + " ㎎/L";
+											}
 										}
 
 									}
@@ -200,8 +204,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DOC'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DOC'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -250,8 +258,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'COD'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'COD'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -300,8 +312,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TN'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TN'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -350,8 +366,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TP'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TP'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -400,8 +420,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TEMP'));
-											return yVal + " ℃";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TEMP'));
+												return yVal + " ℃";
+											}
 										}
 									}
 								}
@@ -450,8 +474,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PH'));
-											return yVal;
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PH'));
+												return yVal;
+											}
 										}
 									}
 								}
@@ -495,20 +523,26 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 								'<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 								'</tpl>',
 								{
-									formatX: $KRF_APP.global.CommFn.dateFormatter,
+									formatX: $KRF_APP.global.CommFn.dateFormatter, 
 									formatY: function (yVal) {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'SS'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'SS'));
+												return yVal + " ㎎/L";
+											}
 										}
+									},
+									renderer: function(value){
+										console.info(value)
 									}
 								}
 							),
 							//tipTpl: 'Value: {y:number("0.00")}',
 							renderer: function (value) {
-								//console.info(value);
 							},
 							chartRangeMax: 27.7,
 							chartRangeMin: 0,
@@ -553,8 +587,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CLOA'));
-											return yVal + " ㎎/㎥";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CLOA'));
+												return yVal + " ㎎/㎥";
+											}
 										}
 									}
 								}
@@ -603,8 +641,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TOC'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TOC'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -654,8 +696,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'AMNT'));
-											return yVal + " ㎥/s";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'AMNT'));
+												return yVal + " ㎥/s";
+											}
 										}
 									}
 								}
@@ -705,8 +751,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DNT'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DNT'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -756,8 +806,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'NO3N'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'NO3N'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -807,8 +861,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'NH3N'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'NH3N'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -858,8 +916,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DTP'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DTP'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -909,8 +971,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'POP'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'POP'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -960,8 +1026,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TRANS'));
-											return yVal + " m";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TRANS'));
+												return yVal + " m";
+											}
 										}
 									}
 								}
@@ -1011,8 +1081,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ALGOL'));
-											return yVal + " 개체수/㎖";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ALGOL'));
+												return yVal + " 개체수/㎖";
+											}
 										}
 									}
 								}
@@ -1062,8 +1136,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TCOLI'));
-											return yVal + " 총대장균군수/100㎖";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TCOLI'));
+												return yVal + " 총대장균군수/100㎖";
+											}
 										}
 									}
 								}
@@ -1113,8 +1191,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ECOLI'));
-											return yVal + " 분원성대장균군수/100㎖";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ECOLI'));
+												return yVal + " 분원성대장균군수/100㎖";
+											}
 										}
 									}
 								}
@@ -1164,8 +1246,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ANTIMON'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ANTIMON'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1215,8 +1301,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PHENOL'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PHENOL'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1266,8 +1356,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'COL'));
-											return yVal + " 도";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'COL'));
+												return yVal + " 도";
+											}
 										}
 									}
 								}
@@ -1317,8 +1411,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'NHEX'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'NHEX'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1368,8 +1466,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'FE'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'FE'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1419,8 +1521,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'MN'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'MN'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1470,8 +1576,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CD'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CD'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1521,8 +1631,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CN'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CN'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1572,8 +1686,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PB'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PB'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1623,8 +1741,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CR6'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CR6'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1674,8 +1796,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CR'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CR'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1725,8 +1851,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'AS'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'AS'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1776,8 +1906,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'HG'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'HG'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1827,8 +1961,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CU'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CU'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1878,8 +2016,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ZN'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ZN'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1929,8 +2071,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'FL'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'FL'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -1980,8 +2126,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ABS'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ABS'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2031,8 +2181,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CL'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CL'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2082,8 +2236,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TCE'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TCE'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2133,8 +2291,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PCE'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PCE'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2184,8 +2346,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CCL4'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CCL4'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2235,8 +2401,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DCETH'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DCETH'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2286,8 +2456,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DCM'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DCM'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2337,8 +2511,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'BENZENE'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'BENZENE'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2388,8 +2566,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CHCL3'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'CHCL3'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2439,8 +2621,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'OP'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'OP'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2490,8 +2676,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PCB'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PCB'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2541,8 +2731,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DEHP'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DEHP'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2592,8 +2786,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DIOX'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'DIOX'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2643,8 +2841,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'HCHO'));
-											return yVal + " ㎎/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(yVal, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'HCHO'));
+												return yVal + " ㎎/L";
+											}
 										}
 									}
 								}
@@ -2694,8 +2896,12 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 										if (yVal == null) {
 											return yVal = "";
 										} else {
-											yVal = Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'HCHO'));
-											return yVal + " ㎍/L";
+											if(yVal == 0.000000001){//정량한계미만
+												return "정량한계미만";
+											}else{
+												yVal = Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'HCHO'));
+												return yVal + " ㎍/L";
+											}
 										}
 									}
 								}
