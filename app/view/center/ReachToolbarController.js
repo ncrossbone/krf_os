@@ -195,7 +195,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 
 		var me = this;
 
-		$KRF_APP.coreMap._krad.onMapClickEvt("reachLineRemove", el.id);
+		$KRF_APP.coreMap._krad.onMapClickEvt("reachLineRemove", el.id); 
 
 		//마우스 이벤트
 		me.mouseCursor(el);

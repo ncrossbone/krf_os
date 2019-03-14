@@ -98,14 +98,15 @@
 		"layerCode": "A007",
 		"isMetaData": true
 	}]
-}, /*{
+}, {
 	"id": "8",
 	"text": "수질자동측정지점",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
-	"children": [{
+	"children": [
+	/*{
 		"id": "9",
 		"text": "수질TMS",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -115,7 +116,8 @@
 		"siteIdCol": "ST_ID",
 		"siteNmCol": "ST_NM",
 		"siteAddrCol": ""
-	}, {
+	}, */
+	{
 		"id": "11",
 		"text": "사업장TMS",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -138,7 +140,7 @@
 		"siteAddrCol": "ADDR",
 		"layerCode": "B001"
 	}]
-},*/ {
+}, {
 	"id": "12",
 	"text": "퇴적물조사지점",
 	"cls": "khLee-x-tree-node-text-bold",
