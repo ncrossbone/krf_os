@@ -2280,19 +2280,19 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	var firstGeo = "";
     	var firstAttributes = "";
     	var firstBon = true;
-    	me.removeFirstLine = tmpArr[0].attributes.CAT_DID;
+    	me.removeFirstLine = tmpArr[0].attributes.RCH_DID;
     	
     	//클릭된 하천에서 선택된 리치중에 가장 처음 유입되는 하류를 찾는 로직
     	for(var i = 0 ; i < tmpArr.length; i++){
     		var tmpValue = reachAdmin.arrLineGrp.map(function(e) {
-	    		return e.attributes.CAT_DID; 
-	    	}).indexOf(tmpArr[i].attributes.CAT_DID);
+	    		return e.attributes.RCH_DID; 
+	    	}).indexOf(tmpArr[i].attributes.RCH_DID);
     		
     		
     		if(tmpValue == -1){
     			firstAttributes = tmpArr[i].attributes;
-    			firstLine = tmpArr[i].attributes.CAT_DID;
-    			me.firstLine = tmpArr[i].attributes.CAT_DID;
+    			firstLine = tmpArr[i].attributes.RCH_DID;
+    			me.firstLine = tmpArr[i].attributes.RCH_DID;
     			firstGeo = tmpArr[i].attributes.GEO_TRIB;
     		}
     		if(firstLine != ""){
@@ -2310,9 +2310,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				
     			if(k != 0){
     				//본류를 만났을때 본류에서 우측상류인지 죄측상류인지 확인하기위해 본류 전단계와 본류 좌우측 상류 비교
-    				if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.LU_RCH_DID){//좌측일까??
+    				if(tmpArr[k-1].attributes.RCH_DID == tmpArr[k].attributes.LU_RCH_DID){//좌측일까??
     					me.firstBonBreak = tmpArr[k].attributes.RU_RCH_DID;
-    				}else if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.RU_RCH_DID){
+    				}else if(tmpArr[k-1].attributes.RCH_DID == tmpArr[k].attributes.RU_RCH_DID){
     					me.firstBonBreak = tmpArr[k].attributes.LU_RCH_DID;
     				}else{
     					console.info("없음");
@@ -2329,7 +2329,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     },
     
     //임시 하류삭제를 위한 조회
-    setReachUpLineTmp: function(catDid){
+    setReachUpLineTmp: function(rchDid){
     	var me = this;
     	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
     	var breakFor = false;
@@ -2344,10 +2344,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				query.returnGeometry = true;
 				query.outFields = [ "CAT_DID",
 									"RD_RCH_DID",
+									"RCH_DID",
 									"LD_RCH_DID",
 									"LU_RCH_DID",
 									"RU_RCH_DID"];
-				query.where = "RCH_DID = '" + catDid + "'";
+				query.where = "RCH_DID = '" + rchDid + "'";
 				
 				// 리치라인 조회
 				queryTask.execute(query, function(featureSet){
@@ -2356,12 +2357,12 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 						
 						//그려진 집수구역에서 지금 찾은 상류중라인이 있는지 없는지 확인 
 						var tmpValue = reachAdmin.arrLineGrp.map(function(e) {
-				    		return e.attributes.CAT_DID; 
-				    	}).indexOf(featureSet.features[0].attributes.CAT_DID);
+				    		return e.attributes.RCH_DID; 
+				    	}).indexOf(featureSet.features[0].attributes.RCH_DID);
 						
 						//가장 처음 하류 라인에서 띄어 넘고 그다음 집수구역중에 끊어지는 라인에서 return;						
 						if(tmpValue == -1){
-							if(me.firstLine != featureSet.features[0].attributes.CAT_DID){
+							if(me.firstLine != featureSet.features[0].attributes.RCH_DID){
 								me.firstLine = null; //초기화
 								return;
 							}
@@ -2369,9 +2370,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 						
 						
 						for(var i = 0 ; i < reachAdmin.arrLineGrp.length ; i ++){
-							if(reachAdmin.arrLineGrp[i].attributes.CAT_DID == featureSet.features[0].attributes.CAT_DID){
+							if(reachAdmin.arrLineGrp[i].attributes.RCH_DID == featureSet.features[0].attributes.RCH_DID){
 								//선택된 리치에서 본류를 찾아서 반대편 상류에서 break후 return;
-								if(me.firstBonBreak == featureSet.features[0].attributes.CAT_DID){
+								if(me.firstBonBreak == featureSet.features[0].attributes.RCH_DID){
 									me.firstBonBreak = null;
 									return;
 								}
