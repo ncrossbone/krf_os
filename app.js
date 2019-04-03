@@ -135,7 +135,8 @@ Ext.create('Ext.data.Store', {
 				'krf_new.global.TabFn',
 				'krf_new.global.AttrFn',
 				'krf_new.global.SstgGridFn',
-				'Ext.util.LocalStorage'
+				'Ext.util.LocalStorage',
+				'krf_new.global.SedimentFn'
 			],
 
 			desktopApp: null,

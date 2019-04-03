@@ -188,6 +188,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");
 			Ext.getCmp("siteListTree").mask("loading", "loading...");
 			this.query = query;
+
+
+			krf_new.global.SedimentFn.initArr();
+
 			queryTask.execute(query, function (result) {
 
 				this.result = result;
@@ -246,7 +250,15 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
 					jsonStr += "{\n";
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
-					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
+
+					if(groupFeature[0].attributes.GROUP_CODE =='C'){
+						jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")";
+						jsonStr += "<img onClick='$KRF_APP.global.SedimentFn.init(this);' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' style='cursor: pointer; vertical-align:sub; margin-left: 5px;'/>";
+						jsonStr += "\",\n";
+					}else{
+						jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
+					}
+					
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 					if (groupFeature[0].attributes.GROUP_CODE == "E") { //  수생태계는
 
@@ -326,8 +338,12 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									jsonStr += "			}, ";
 								} else {
 
+									if(layerFeature.attributes.GROUP_CODE == 'C'){
+										krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
+									}
+
 									jsonStr += "{\n";
-									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";	
 									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
 									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
 									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
