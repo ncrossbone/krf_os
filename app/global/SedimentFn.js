@@ -15,11 +15,19 @@ Ext.define('krf_new.global.SedimentFn', {
 
 			var sedimentSeachWindow = Ext.getCmp("sedimentSeachWindow");
 			if (!sedimentSeachWindow) {
-				sedimentSeachWindow = Ext.create('krf_new.view.east.SedimentSeachWindow', { x: Ext.getCmp('center_container').getWidth() - 300, y: $KRF_DEFINE.mapToolbarHeight + Ext.getCmp('siteListWindow').getHeight()});
+				sedimentSeachWindow = Ext.create('krf_new.view.east.SedimentSeachWindow', { x: Ext.getCmp('center_container').getWidth() - 300, y: $KRF_DEFINE.mapToolbarHeight + Ext.getCmp('siteListWindow').getHeight() });
 				Ext.getCmp('center_container').add(sedimentSeachWindow);
 			}
 
 			sedimentSeachWindow.show();
+
+			var sedimentLegendWindow = Ext.getCmp("sedimentLegendWindow");
+			if (!sedimentLegendWindow) {
+				sedimentLegendWindow = Ext.create('krf_new.view.map.SedimentLegendWindow');
+				Ext.getCmp('center_container').add(sedimentLegendWindow);
+			}
+
+			sedimentLegendWindow.show();
 
 		} else {
 			me.removeFeature();
