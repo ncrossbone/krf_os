@@ -13,7 +13,7 @@ Ext.define('krf_new.global.SedimentFn', {
 		if (dom.src.indexOf('_off') > -1) {
 			me.setData();
 
-			var sedimentSeachWindow = Ext.getCmp("sedimentSeachWindow");
+			var sedimentSeachWindow = Ext.getCmp('sedimentSeachWindow');
 			if (!sedimentSeachWindow) {
 				sedimentSeachWindow = Ext.create('krf_new.view.east.SedimentSeachWindow', { x: Ext.getCmp('center_container').getWidth() - 300, y: $KRF_DEFINE.mapToolbarHeight + Ext.getCmp('siteListWindow').getHeight() });
 				Ext.getCmp('center_container').add(sedimentSeachWindow);
@@ -21,7 +21,7 @@ Ext.define('krf_new.global.SedimentFn', {
 
 			sedimentSeachWindow.show();
 
-			var sedimentLegendWindow = Ext.getCmp("sedimentLegendWindow");
+			var sedimentLegendWindow = Ext.getCmp('sedimentLegendWindow');
 			if (!sedimentLegendWindow) {
 				sedimentLegendWindow = Ext.create('krf_new.view.map.SedimentLegendWindow');
 				Ext.getCmp('center_container').add(sedimentLegendWindow);

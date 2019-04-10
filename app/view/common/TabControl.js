@@ -269,6 +269,17 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}, {
+				xtype: 'button',
+				text: '이력보기',
+				id: 'sstgDetailViewBtn',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.SstgGridFn.sstgDetailInit();
+						}
+					}
+				}
+			}, {
 				xtype: 'image',
 				src: './resources/images/button/icon_seah.gif', //검색
 				width: 34,
@@ -475,7 +486,7 @@ Ext.define('krf_new.view.common.TabControl', {
 			items: [{
 				xtype: 'combo',
 				id: 'pollutionYear',
-				store: ['2015','2014','2013', '2012', '2011'],
+				store: ['2015', '2014', '2013', '2012', '2011'],
 				value: '2015',
 				width: 80,
 				height: 25
@@ -601,7 +612,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					startDayTime.setHidden(true);
 					endDayTime.setHidden(true);
 				}
-				
+
 				if (tab.parentId != "F") {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					var store = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
@@ -730,46 +741,30 @@ Ext.define('krf_new.view.common.TabControl', {
 						Ext.getCmp("tabCondition").show();
 					}
 
-					var startLabel = Ext.getCmp("startLabel");
-					var endLabel = Ext.getCmp("endLabel");
 					var sstgCombo = Ext.getCmp("sstgCombo");
-					//sstgCombo
-					if (tab.parentId == "C") {
-						startLabel.setText("반기");
-						endLabel.setText("반기");
-						cmbStartMonth.setHidden(true);
-						cmbEndMonth.setHidden(true);
-						cmbStartBan.setHidden(false);
-						cmbEndBan.setHidden(false);
-						sstgCombo.setHidden(true);
-					} else if (tab.parentId == "E") {
 
-						startLabel.setText("반기");
-						endLabel.setText("반기");
-						cmbStartMonth.setHidden(true);
-						cmbEndMonth.setHidden(true);
-						cmbStartBan.setHidden(false);
-						cmbEndBan.setHidden(false);
-						sstgCombo.setHidden(false);
+					var comboConfig = {
+						'E': { 'startLabel': { text: '반기', isView: true }, 'endLabel': { text: '반기', isView: true }, 'cmbStartMonth': { isView: false }, 'cmbEndMonth': { isView: false }, 'cmbStartBan': { isView: true }, 'cmbEndBan': { isView: true }, 'sstgCombo': { isView: true }, 'sstgDetailViewBtn': { isView: true } },
+						'C': { 'startLabel': { text: '반기', isView: true }, 'endLabel': { text: '반기', isView: true }, 'cmbStartMonth': { isView: false }, 'cmbEndMonth': { isView: false }, 'cmbStartBan': { isView: true }, 'cmbEndBan': { isView: true }, 'sstgCombo': { isView: false }, 'sstgDetailViewBtn': { isView: false } },
+						'ELSE': { 'startLabel': { text: '월', isView: true }, 'endLabel': { text: '월', isView: true }, 'cmbStartMonth': { isView: true }, 'cmbEndMonth': { isView: true }, 'cmbStartBan': { isView: false }, 'cmbEndBan': { isView: false }, 'sstgCombo': { isView: false }, 'sstgDetailViewBtn': { isView: false } }
+					};
 
-						//tab.items.items[0].items.items[0].items.items[0].hide(true);
+					var config = comboConfig[tab.parentId] ? comboConfig[tab.parentId] : comboConfig['ELSE'];
+
+					for (key in config) {
+						if (config[key].text) {
+							Ext.getCmp(key).setText(config[key].text);
+						}
+
+						Ext.getCmp(key).setHidden(!config[key].isView);
+					}
+
+					if (tab.parentId == "E") {
 						if (tab.realParentId[0].parentId != undefined) {
 							var store = $KRF_APP.global.CommFn.getSstgComboInfo(tab.realParentId[0].parentId);
 							sstgCombo.setStore(store);
-						} else {
-
 						}
 
-					} else if(tab.parentId == "J"){
-
-					}else {
-						startLabel.setText("월");
-						endLabel.setText("월");
-						cmbStartMonth.setHidden(false);
-						cmbEndMonth.setHidden(false);
-						cmbStartBan.setHidden(true);
-						cmbEndBan.setHidden(true);
-						sstgCombo.setHidden(true);
 					}
 
 					//resultTab.setHidden(false);		//일반 검색pollResultTab
@@ -895,15 +890,15 @@ Ext.define('krf_new.view.common.TabControl', {
 						//console.info(Object.values(dataArr[i].data));
 						//고려 해봐야함    " : " 포함
 						//if (strData == "888888888" || strData == "999999999") {
-							if(strData.indexOf("\:888888888")){
-								strData = strData.replace(/888888888/gi, "\"\"");
-							}
-							
-							if(strData.indexOf(':999999999')){
-								strData = strData.replace(/:999999999/gi, "\:\"정량한계미만\"");
-							}
-							
-							
+						if (strData.indexOf("\:888888888")) {
+							strData = strData.replace(/888888888/gi, "\"\"");
+						}
+
+						if (strData.indexOf(':999999999')) {
+							strData = strData.replace(/:999999999/gi, "\:\"정량한계미만\"");
+						}
+
+
 						//}
 						var convertData = JSON.parse(strData);
 						//datas.push(dataArr[i].data);

@@ -27,7 +27,7 @@ Ext.define('krf_new.view.map.SedimentLegendWindow', {
 
     items: [],
     listeners: {
-        "minimize": function (window, opts) {
+        'minimize': function (window, opts) {
             if (!window.collapsed) {
                 window.collapse();
             } else {
