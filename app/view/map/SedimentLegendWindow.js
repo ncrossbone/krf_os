@@ -10,11 +10,11 @@ Ext.define('krf_new.view.map.SedimentLegendWindow', {
     header: { cls: 'subWindow-x-form-item-label-default' },
     cls: 'subWindow-x-form-item-label-default',
 
-    width: 300,
-    height: 150,
+    width: 285,
+    height: 105,
 
     x: 0,
-    y: 770,
+    y: 819,
 
     closable: true,
     constrain: true,
@@ -25,7 +25,10 @@ Ext.define('krf_new.view.map.SedimentLegendWindow', {
         type: 'absolute'
     },
 
-    items: [],
+    items: [{
+        xtype: 'image',
+        src: './resources/images/sediment/legend.jpg'
+    }],
     listeners: {
         'minimize': function (window, opts) {
             if (!window.collapsed) {

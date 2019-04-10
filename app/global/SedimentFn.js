@@ -74,10 +74,10 @@ Ext.define('krf_new.global.SedimentFn', {
 						'angle': 0,
 						'yoffset': 0,
 						'type': 'esriPMS',
-						'url': './resources/images/symbol/btn_e' + (data[i].flag + 1) + '.png',
+						'url': './resources/images/sediment/' + (data[i].flag + 1) + '.png',
 						'contentType': 'image/png',
-						'width': 48,
-						'height': 30
+						'width': 39,
+						'height': 39
 					});
 
 					var point = new Point([data[i].TM_X, data[i].TM_Y], new SpatialReference({ wkid: 4326 }));

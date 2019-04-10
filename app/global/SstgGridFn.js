@@ -25,6 +25,8 @@ Ext.define("krf_new.global.SstgGridFn", {
     sstgDetailExtendWindow: null,
     sstgDetailExtendCombo: null,
 
+    activeGrid: null,
+
     comboConfig: {
         '1': { combo: { 'sstgDetailArea2': { isView: false }, 'sstgDetailArea3': { isView: false } } },
         '2': { combo: { 'sstgDetailArea2': { isView: true }, 'sstgDetailArea3': { isView: false } } },
@@ -2513,11 +2515,14 @@ Ext.define("krf_new.global.SstgGridFn", {
     sstgDetailInit: function () {
         me = this;
 
+        me.activeGrid = Ext.getCmp('tabpanels').getActiveTab().query('grid')[0];
+
         if (me.sstgDetailExtendWindow) {
             me.sstgDetailExtendWindow.hide();
         }
 
         me.sstgDetailWindow = Ext.getCmp('sstgDetailWindow');
+
         if (!me.sstgDetailWindow) {
             me.sstgDetailWindow = Ext.create('krf_new.view.center.SstgDetailWindow');
             Ext.getCmp('center_container').add(me.sstgDetailWindow);
@@ -2573,9 +2578,33 @@ Ext.define("krf_new.global.SstgGridFn", {
             Ext.getCmp(key).setHidden(!config[key].isView);
         }
     },
+    
+    excelDown: function () {
+        var originGrid = Ext.getCmp('sstgDetailExtendGrid');
+        var config = originGrid.getColumns();
+        var engArr = [];
+        var korArr = [];
+
+        var datas = [];
+
+        for (var i = 0; i < originGrid.getStore().getData().items.length; i++) {
+            datas.push(originGrid.getStore().getData().items[i].data);
+        }
+
+        for (var i = 0; i < config.length; i++) {
+            for (key in config[i].initialConfig) {
+                if (key == 'text') {
+                    engArr.push(config[i].initialConfig[key]);
+                } else if (key == 'dataIndex') {
+                    korArr.push(config[i].initialConfig[key]);
+                }
+            }
+        }
+
+        $KRF_APP.global.CommFn.excelDown('이력정보', engArr, korArr, datas);
+    },
 
     getSstgDetailExtendColumn: function () {
-
         return grid = [{
             text: '순번',
             dataIndex: 'YEAR',
@@ -2584,83 +2613,84 @@ Ext.define("krf_new.global.SstgGridFn", {
             text: '구분',
             dataIndex: 'TME',
             width: 80
-        }, {
-            text: '지점코드',
-            dataIndex: 'WRSSM_NM',
-            width: 80
-        }, {
-            text: '지점명',
-            dataIndex: 'MDT_NM',
-            width: 80
-        }, {
-            text: '기관명',
-            dataIndex: 'SPOT_CODE',
-            width: 80
-        }, {
-            text: '수계명',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '상세수계명',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '중권역명',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '주소',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '위도',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '경도',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '소권역명',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '하천명',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '지류구분',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '종류구분',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '주요지점 여부',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '중권역 대표 여부',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '보 대표 여부',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '참조 여부',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '관리 여부',
-            dataIndex: 'SPOT_NM',
-            width: 80
-        }, {
-            text: '설치 연도',
-            dataIndex: 'SPOT_NM',
-            width: 80
         }]
+        // }, {
+        //     text: '지점코드',
+        //     dataIndex: 'WRSSM_NM',
+        //     width: 80
+        // }, {
+        //     text: '지점명',
+        //     dataIndex: 'MDT_NM',
+        //     width: 80
+        // }, {
+        //     text: '기관명',
+        //     dataIndex: 'SPOT_CODE',
+        //     width: 80
+        // }, {
+        //     text: '수계명',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '상세수계명',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '중권역명',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '주소',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '위도',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '경도',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '소권역명',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '하천명',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '지류구분',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '종류구분',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '주요지점 여부',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '중권역 대표 여부',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '보 대표 여부',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '참조 여부',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '관리 여부',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }, {
+        //     text: '설치 연도',
+        //     dataIndex: 'SPOT_NM',
+        //     width: 80
+        // }]
     }
 
 });

@@ -205,7 +205,56 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
         listeners: {
             el: {
                 click: function () {
-                    alert();
+
+                }
+            }
+        }
+    }, {
+        xtype: 'button',
+        text: '컬럼 더하기 테스트',
+        listeners: {
+            el: {
+                click: function () {
+                    var originGrid = Ext.getCmp('sstgDetailExtendGrid');
+                    var config = originGrid.getColumns();
+                    var originData = originGrid.getStore().getData().items;
+
+                    var addedColumnArr = [];
+                    var addedDataArr = [];
+
+                    for (var i = 0; i < originData.length; i++) {
+                        originData[i].data.FLAG = parseInt(Math.random() * 10);
+                        addedDataArr.push(originData[i].data);
+                    }
+
+                    for (var i = 0; i < config.length; i++) {
+                        addedColumnArr.push(config[i].initialConfig);
+                    }
+
+                    var addedColumn = {};
+                    addedColumn.text = '건강성등급';
+                    addedColumn.width = 100;
+                    addedColumn.dataIndex = 'FLAG';
+
+                    addedColumnArr.push(addedColumn);
+
+                    originGrid.setColumns(addedColumnArr);
+
+                    var store = Ext.create('Ext.data.Store');
+                    store.setData(addedDataArr);
+
+                    originGrid.setStore(store);
+
+                }
+            }
+        }
+    }, {
+        xtype: 'button',
+        text: '엑셀다운',
+        listeners: {
+            el: {
+                click: function () {
+                    $KRF_APP.global.SstgGridFn.excelDown();
                 }
             }
         }
@@ -222,7 +271,15 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
             cls: 'khLee-x-column-header-text',
             height: 370,
             header: false,
+            id: 'sstgDetailExtendGrid',
             columns: $KRF_APP.global.SstgGridFn.getSstgDetailExtendColumn(),
+            store: Ext.create('Ext.data.Store', {
+                data: [{
+                    'YEAR': '2019', 'TME': '구분'
+                }, {
+                    'YEAR': '2018', 'TME': '구분1'
+                }]
+            })
         }]
     }],
     listeners: {
