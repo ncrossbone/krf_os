@@ -275,9 +275,9 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
             columns: $KRF_APP.global.SstgGridFn.getSstgDetailExtendColumn(),
             store: Ext.create('Ext.data.Store', {
                 data: [{
-                    'YEAR': '2019', 'TME': '구분'
+                    'YEAR': '2019', 'TME': '<div style="background: gray; padding: 0px 10px; width: 45px; font-size: 11px; color: white; cursor: pointer; margin-left: 8px;">적용</div>'
                 }, {
-                    'YEAR': '2018', 'TME': '구분1'
+                    'YEAR': '2018', 'TME': '<div style="background: gray; padding: 0px 10px; width: 45px; font-size: 11px; color: white; cursor: pointer; margin-left: 8px;">적용</div>'
                 }]
             })
         }]
