@@ -12,7 +12,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	style: 'border: 5px solid #043264; border-radius: 5px;',
 
 	width: 185,
-	height: 120,
+	height: 155,
 
 	header: false,
 
@@ -30,7 +30,42 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	},
 	items: [{
 		xtype: 'container',
-		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
+		style: "font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; padding-left: 10px; padding-top: 6px;",
+		layout: {
+			type: 'hbox'
+		},
+		width: "100%",
+		height: 35,
+		items: [{
+			xtype: 'checkbox',
+			boxLabel: '최단거리',
+			id: 'chkShortReach',
+			checked: true,
+			width: 80,
+			handler: function (obj, checked) {
+				// 상류, 본류, 지류, 소하천
+				var chkList = ['chkUpDraw','chkBonDraw','chkJiDraw','chkSRiver'];
+
+				for(var i = 0 ; i < chkList.length ; i++){
+					// 체크박스 disable 시키기
+					// 최단거리가 체크되면 본류,지류 체크
+					// 체크 해제되면 enable 되면서 기본검색로직으로 변경 ( 본류,지류 검색 )
+					if(checked){
+						Ext.getCmp(chkList[i]).disable();
+						Ext.getCmp('chkJiDraw').setValue(true);
+					}else{
+						Ext.getCmp(chkList[i]).enable();
+						Ext.getCmp('chkUpDraw').setValue(false);
+					}
+				}
+				
+				this.up("win-searchConfig").setLocalStorage();
+			},
+			inputValue: 'isShortReach'
+		}]
+	},{
+		xtype: 'container',
+		style: "padding-left: 10px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; ; border-top: 1px dotted #595959;",
 		layout: {
 			type: 'vbox'
 		},
@@ -40,6 +75,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 			xtype: 'checkbox',
 			boxLabel: '상류',
 			checked: false,
+			id: 'chkUpDraw',
 			width: 50,
 			handler: function (obj, checked) {
 				if (checked == true) {
@@ -114,6 +150,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		items: [{
 			xtype: 'checkbox',
 			boxLabel: '본류',
+			id: 'chkBonDraw',
 			checked: true,
 			width: 50,
 			handler: function (obj, checked) {
@@ -125,6 +162,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 		}, {
 			xtype: 'checkbox',
 			boxLabel: '지류',
+			id: 'chkJiDraw',
 			checked: true,
 			width: 50,
 			handler: function (obj, checked) {
@@ -136,6 +174,7 @@ Ext.define('krf_new.view.center.SearchConfig', {
 			, {
 			xtype: 'checkbox',
 			boxLabel: '소하천',
+			id: 'chkSRiver',
 			checked: false,
 			width: 70,
 			handler: function (obj, checked) {
@@ -161,6 +200,10 @@ Ext.define('krf_new.view.center.SearchConfig', {
 	},
 	// 체크박스 셋팅
 	setCheckBox: function () {
+
+		// 초기값 최단거리를 위한 세팅 2019-04-05
+		Ext.getCmp('chkShortReach').handler(undefined,true);
+
 		// 로컬 스토리지
 		var searchConfigInfo = localStorage['_searchConfigInfo_'];
 		// 체크박스 컨트롤 배열
@@ -184,6 +227,8 @@ Ext.define('krf_new.view.center.SearchConfig', {
 						}
 					}
 				}
+
+				
 			}
 		}
 

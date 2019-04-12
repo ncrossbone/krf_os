@@ -6,6 +6,10 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 
 	endBtnOnOff: 'off',
 
+	init: function(){
+		$KRF_APP.addListener($KRF_EVENT.REACH_MODE_ON, this.onClickButton, this);
+	},
+
 	// 조류항공사진버튼
 	onClickDrone: function (obj, el, evt) {
 		var currCtl = SetBtnOnOff(el.id);
@@ -168,7 +172,8 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 			if (btnName.btnOnOff == "off") {
 				btnName = SetBtnOnOff("btnNameSearch");
 			}
-			westContents.setActiveItem(3); // 명칭찾기 리치모드 인덱스
+			//westContents.setActiveItem(3); // 명칭찾기 리치모드 인덱스
+			westContents.setActiveItem(2); // 명칭찾기 리치모드 인덱스 (2019-04-04 통합검색으로 변경)
 
 			var aEl = Ext.get('reachTable');
 			if (aEl != null) {
@@ -226,7 +231,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 		}
 
 		// 일반모드 버튼
-		if (el.id == "btnModeNomal" || el.id == "btnModeNomal_center") {
+		if (el.id == "btnModeNomal" || el.id == "btnModeNomal_center") {  
 			this.btnHidden('normal');
 			// 리치 선택 종료
 			$KRF_APP.coreMap.reachLayerAdmin_v3_New.drawEnd();

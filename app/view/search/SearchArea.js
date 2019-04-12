@@ -34,7 +34,17 @@ Ext.define('krf_new.view.search.SearchArea', {
 		}, {
 			xtype: 'west-searchArea_ADM'
 		}, {
-			xtype: 'west-searchArea_Name'
+			//xtype: 'west-searchArea_Name'
+			xtype: 'panel',
+			height: 320,
+			autoScroll: true,
+			items: [{
+				xtype: 'west-searchArea_Name'
+			}, {
+				xtype: 'west-searchArea-integrated-list_Total' //통합검색
+			}, {
+				xtype: 'west-searchArea-integrated-list' //통합검색
+			}]
 		}, {
 			xtype: 'panel',
 			height: 320,

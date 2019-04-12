@@ -327,7 +327,8 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"    <ul>                                                                                                                                                                           " +
 						"    	<li style=\"float: left;\">                                                                                                                                                   " +
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" /></a>                                                                                                                    " +
-						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowToolTipSearchResult('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" /></a>                                                                                                                  " +
+						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowToolTipSearchResult('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" /></a>        " +
+						"            <a href=\"#\"><button onClick=\"ShowDetailSearch('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" >상세검색</button></a>        " +
 						"        </li>                                                                                                                                                                   " +
 						"        <li id =\"reachTable\"  style=\"float: right; padding-right: 25px;\">                                                                                                                          " +
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('" + parentCheck + "','" + jijum_Cd + "' , 'start' );\"  /></a>                                                                                                                " +
@@ -348,8 +349,11 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				var btnNomal = Ext.getCmp("btnModeNomal");
 				if (btnNomal.btnOnOff == "on") {
 					document.getElementById('reachTable').style.display = "none";
+					//상세검색 (반경검색)
+					//$KRF_APP.coreMap._krad.radiusDrawEvent(point);
 				} else {
 					document.getElementById('reachTable').style.display = "blank";
+					//$KRF_APP.coreMap._krad.radiusDrawEvent(point);
 				}
 
 				if (clickValue == "start" || clickValue == "end") {

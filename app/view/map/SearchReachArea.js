@@ -43,8 +43,30 @@ Ext.define("krf_new.view.map.SearchReachArea", {
 				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachAreaLayerId); // 집수구역 URL
 				var query = new Query();
 				query.returnGeometry = true;
-				query.outFields = ["CAT_DID", "MB_ID"];
+				//query.outFields = ["CAT_DID", "MB_ID"];
+				query.outFields = ["*"];
 				query.where = where;
+
+				// 리치라인 조회
+				queryTask.execute(query, function (featureSet) {
+
+					if (featureSet.features.length == 0) {
+					}
+
+					callbackMethod(featureSet.features);
+				});
+			});
+	},
+	getFeaturesWithGeo: function (where, callbackMethod) {
+
+		require(["esri/tasks/query",
+			"esri/tasks/QueryTask"], function (Query, QueryTask) {
+
+				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachAreaLayerId); // 집수구역 URL
+				var query = new Query();
+				query.returnGeometry = true;
+				query.outFields = ["*"];
+				query.geometry = where;
 
 				// 리치라인 조회
 				queryTask.execute(query, function (featureSet) {

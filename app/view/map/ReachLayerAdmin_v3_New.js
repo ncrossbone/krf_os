@@ -538,7 +538,7 @@ Ext.define('krf_new.view.map.ReachLayerAdmin_v3_New', {
 								me.selectDownLine(rdRchDid, drawOption, cnt);
 							} else {
 
-								var dnGeoTrib = feature.attributes.GEO_TRIB;
+								var dnGeoTrib = feature.attributes.GEO_TRIB; 
 								var rchDid = feature.attributes.RCH_DID;
 
 								/** 검색설정(본류, 지류) 체크 **/

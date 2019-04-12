@@ -143,6 +143,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	geometry : null,
 	
 	firstLine : null,
+
+	detailSelectFeature: null,
 	
 	constructor: function(map, geometryService) {
 		
@@ -1231,7 +1233,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * 조회 완료 후 컨텍스트 메뉴 팝업 오픈 */
-    setRchIdsWithEvent: function(featureSet){
+    setRchIdsWithEvent: function(featureSet, selectFeature){
     	var me = this;
     	
     	require(["esri/tasks/query",
@@ -1380,7 +1382,167 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		
     		me.setDownAndComm([lineFeature.attributes.RCH_DID], [], 0, "RCH_DID");
     		
-    	}else{
+    	}else if(me.drawOption == "detailRadius"){//상세검색 반경 2019-04-10
+					
+			var feature = me.detailSelectFeature;
+			var featureCat = "";
+			$KRF_APP.coreMap._rchArea.getFeaturesWithWhere("CAT_DID = '"+me.detailSelectFeature.attributes.CAT_DID+"'", function (featuresArea) {
+				if(featuresArea.length > 0){
+					featuresCat = featuresArea[0];
+				}
+			});
+
+
+			var rage = null; // 범위설정
+			var upDown = null; // 상하류설정
+
+			//상하류 먼저 검색
+			var udRiverSetting = Ext.getCmp('udRiverSetting').items.items;
+			udRiverSetting.map(function(obj){
+				if(obj.value){
+					upDown = obj.inputValue;
+				}
+			});
+
+			//범위
+			var rangeSetting = Ext.getCmp('rangeSetting').items.items;
+			rangeSetting.map(function(obj){
+				if(obj.value){
+					if(obj.inputValue){
+						rage = obj.inputValue;	
+					}
+				}
+			});
+
+			var detailFeatures = [];
+			detailFeatures.push(feature);
+
+			var where = "";
+
+			// 상하류설정 ( [전체 / 상류 / 하류 ] 구분 function)
+			var config = {'all':function(){
+
+				return 'all';
+			},'up':function(lineFeature){ // 상류
+
+				var rch_did = "";
+				where = [] //조건절 초기화
+				if(lineFeature.attributes.LU_RCH_DID != ' '){
+					rch_did = lineFeature.attributes.LU_RCH_DID;
+					var radiusInFeature = featureSet.features.map(function(obj){
+						return obj.attributes.RCH_DID;
+					}).indexOf(rch_did);
+
+					if(radiusInFeature != -1){
+
+						where.push("RCH_DID = '" +rch_did+ "'");
+						
+					}
+					
+				}
+
+				if(lineFeature.attributes.RU_RCH_DID != ' '){
+					rch_did = lineFeature.attributes.RU_RCH_DID;
+					var radiusInFeature = featureSet.features.map(function(obj){
+						return obj.attributes.RCH_DID;
+						//console.info(obj.attributes.RCH_DID)
+					}).indexOf(rch_did);
+
+					if(radiusInFeature != -1){
+						where.push("RCH_DID = '" +rch_did+ "'");
+					}
+				}
+
+				return where;
+
+			},'down':function(lineFeature){ // 하류
+
+				var rch_did = "";
+				where = []; //조건절 초기화
+				var rch_did = lineFeature.attributes.LD_RCH_DID != "" ? lineFeature.attributes.LD_RCH_DID : rch_did = lineFeature.attributes.RD_RCH_DID;
+				if(rch_did){
+
+					var radiusInFeature = featureSet.features.map(function(obj){
+						return obj.attributes.RCH_DID;
+						//console.info(obj.attributes.RCH_DID)
+					}).indexOf(rch_did);
+
+					if(radiusInFeature != -1){
+						where.push("RCH_DID = '" +rch_did+ "'");
+					}
+
+				}
+				return where;
+			}};
+
+			var serachFeature = function(where){
+				$KRF_APP.coreMap._rchLine.getFeaturesWithWhere(where, function (features) { //좌우측 상하류 리치아이디로 리치라인을 다시 조회
+					if(features.length > 0){// 좌우측 상하류가 있으면 다음 진행 없으면 끝
+						
+						if(rage != 'all'){ // 범위설정을 체크 했을시 전체이 아닐때
+							
+							//리치라인에는 범위에 해당하는 중권역,표준유역,집수구역이 없어서 리치라인에 집수구역을 조회한다.
+							var areaWhere = "CAT_DID = '"+features[0].attributes.CAT_DID+"'"; 
+							$KRF_APP.coreMap._rchArea.getFeaturesWithWhere(areaWhere, function (featuresArea) {
+								if(featuresArea.length > 0){ // 조회후 해당하는 값이 있으면
+									
+									// 기준지점에 범위체크와 검색된 feature 비교하여 같은범위만 feature에 넣는다.
+									if(featuresArea[0].attributes[rage] ==  featuresCat.attributes[rage]){
+										detailFeatures.push(features[0]);
+									}
+								}
+							});
+
+						}else{ // 범위 설정을 전체로 했을시 확인할 필요가 없어서 전부 배열에 넣는다.
+							detailFeatures.push(features[0]);
+						}
+						
+						// 검색결과 값이 있을시 다시 whwere 조건절을 검색한다 (다음 상/하류)
+						where = config[upDown](features[0]);
+						if(where.length > 0){
+							where.map(function(obj){
+								serachFeature(obj)
+							});
+						}else{
+							// 검색이 끝났을시 (더이상 값이 없을때) 상세검색 feature를 그린다
+							detailFeatures.map(function(obj){
+								// 그래픽 그리기
+								me.drawGraphic(obj, "reachLine");
+								// 집수구역 그리기
+								me.setReachArea(obj.attributes.CAT_DID);
+							})
+							
+						}
+						
+					}
+				});
+			}
+
+			// 상하류 설정을 확인한다
+			if(upDown != 'all'){ // 전체검색이 아닐시				
+				// 기준 feature 정보를 통하여 조건을 만든다
+				var where = config[upDown](feature); // 상류(좌우측상류) , 하류(좌우측하류) 가 있는지 확인 한다
+				if(where.length > 0){ // 좌우측 상하류 데이터가 있으면 좌우측 상하류에 리치를 다시 검색한다
+					where.map(function(obj){
+						serachFeature(obj) // 검색
+					});
+				}
+
+			}else{
+				// 전체 검색일 경우는 전체를 그린다 (전체 = radius에 있는 리치라인 모두를 그린다)
+				featureSet.features.map(function(obj){
+					// 그래픽 그리기
+					me.drawGraphic(obj, "reachLine");
+					// 집수구역 그리기
+					me.setReachArea(obj.attributes.CAT_DID);
+
+					//me.isStopCheck();
+				})
+
+
+			}
+
+		}else{
 			
 			for(var i = 0; i < featureSet.features.length; i++){
         		
@@ -1396,7 +1558,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
         			// 집수구역 그리기
         			me.setReachArea(catDid);
         			// 버튼 끄기
-        			SetBtnOnOff(me.btnObj.id, "off");
+        			if(me.btnObj){
+						SetBtnOnOff(me.btnObj.id, "off");	
+					}
         			// 이벤트 초기화
     				initKradEvt();
         		}
@@ -1440,7 +1604,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				me.drawGraphic(feature, "addReachLine");
     				me.setReachAreaTmp(catDid);
     				
-    			}
+				}
     		}
 		
     	}
@@ -1466,7 +1630,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			}, 2000, this);
 			
 			
-    	}else if(me.drawOption == "radius"){
+    	}else if(me.drawOption == "radius" || me.drawOption == "detailRadius"){
 
 			Ext.defer(clear = function(){
 					
@@ -2170,9 +2334,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 													
 													//#####
 													
-													
-													
-													
 													if(me.stCnt == 5 && me.edCnt == 5){
 														me.maxSelect = true;
 													}else{
@@ -2192,8 +2353,18 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 													//공통 하류 지점에 좌측상류
 													me.cmLeRchDid.push(tmpArr[tmpCnt].attributes.RU_RCH_DID);
 													
-													// 상류 검색
-													me.setReachUpLine(commRchDid, 0, false);
+													// 로컬스토리지
+													var searchConfigInfo = localStorage['_searchConfigInfo_'];
+													var jsonConf = JSON.parse(searchConfigInfo);
+
+													// 로컬스토리지에서 최단거리 검색 로직 일때 (default 2019-04-04)
+													if(jsonConf.isShortReach){
+														me.setReachUpLineSimple(commRchDid, 0, false);
+													}else{ 
+														// 최단거리가 아닌 일반검색일때 (상류 검색)
+														me.setReachUpLine(commRchDid, 0, false);
+													}
+													
 													
 													// 종료 검색 체크
 													me.isStopCheck();
@@ -2468,6 +2639,155 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	// },
 	
 
+	/* 최단검색 로직 */
+	setReachUpLineSimple: function(rchDid,cnt){
+
+		
+    	
+    	var me = this;    	
+    	
+    	/* 초기화 시 검색 종료 */
+    	//if(me.searchStopCheck(cnt) == false){ return false };
+    	me.searchCnt++; // 검색 카운트 증가
+
+    	rchDid = rchDid.replace(/ /gi, "");
+    	
+    	if(rchDid == ""){
+    		
+    		return;
+    	}
+    	
+    	require(["esri/tasks/query",
+    	         "esri/tasks/QueryTask"],
+    	         function(Query,
+    	        		 QueryTask){
+    		
+			var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
+			var query = new Query();
+			query.returnGeometry = true;
+			//query.outFields = ["*"];
+			query.outFields = [ "CAT_DID",
+								"RCH_ID",
+								"RCH_DID",
+								"RD_RCH_DID",
+								"LD_RCH_DID",
+								"GEO_TRIB",
+								"LU_RCH_DID",
+								"RU_RCH_DID",
+								"RIV_NM"];
+			query.where = "RCH_DID = '" + rchDid + "'";
+			
+			// 리치라인 조회
+			queryTask.execute(query, function(featureSet){
+				
+				if(featureSet.features.length > 0){
+					
+					var feature = featureSet.features[0];
+					var rchId = feature.attributes.RCH_ID; //KRF 리치 아이디
+					var rchDid = feature.attributes.RCH_DID; // 분활코드 아이디
+					var catDid = feature.attributes.CAT_DID; //집수구역 분활코드
+					var geoTrib = feature.attributes.GEO_TRIB; //하천차수
+					
+					var stIdx = me.stRchIds.indexOf(rchId); //시작위치 리치아이디	 
+					var edIdx = me.edRchIds.indexOf(rchId);	//끝위치 리치아이디
+					var stDidx = me.stRchDids.indexOf(rchDid);
+					var edDidx = me.edRchDids.indexOf(rchDid);
+					
+					var fal1Did = me.falseDid1.indexOf(rchDid);
+					var fal2Did = me.falseDid2.indexOf(rchDid);
+					
+					//var falseDid = 
+					
+					var kradUpDown = "";
+					var evtType = "";
+					var isSearch = false;
+					
+					/* 검색, 그리기 조건 설정 */
+					var evtType = "";
+					var arrIdx = -1; // 배열 인덱스
+					var eLineIdx = -1; // 라인 이벤트 인덱스
+					var dnIdx = -1;
+					for(var i = 0; i < me.arrDownGrp.length; i++){
+						
+						// 하류 배열 인덱스
+						dnIdx = me.arrDownGrp[i].map(function(obj){
+							return obj.attributes.RCH_DID;
+						}).indexOf(rchDid);
+						if(dnIdx > -1){
+							
+							break;
+						}
+					}
+					
+					
+					
+					if(cnt == 0){
+						
+					    	
+						if(me.clickFS[0] == "startPoint"){
+							me.arrDownGrpStart = 0;
+							me.arrDownGrpEnd = 1;
+						}else if(me.clickFS[1] == "startPoint"){
+							me.arrDownGrpStart = 1;
+							me.arrDownGrpEnd = 0;
+						}
+						
+						//,시작지점 끝지점 판별후 다음 사용을 위해 리셋
+						me.clickFS = []; 
+						me.arrCnt++;
+		    			
+		    			
+		    			if(me.isNotBon1 == true && me.isNotBon2 == true){
+		    				me.isNotBon = true;
+		    			}else{
+		    				me.isNotBon = false;
+		    			}
+		    			
+		    			
+
+							var startArrayCut = [];
+							var endArrayCut = [];
+
+							// 시작지점에서 공통하류까지 배열
+			    			for(var a = 0;a < me.arrDownGrp[me.arrDownGrpStart].length;a++){
+
+								startArrayCut.push(me.arrDownGrp[me.arrDownGrpStart][a]);
+								if(me.arrDownGrp[me.arrDownGrpStart][a].attributes.RCH_DID == rchDid){	
+									break;						
+								}
+							}
+
+							
+							// 끝지점에서 공통하류까지 배열
+			    			for(var b = 0;b < me.arrDownGrp[me.arrDownGrpEnd].length;b++){
+								endArrayCut.push(me.arrDownGrp[me.arrDownGrpEnd][b])
+								if(me.arrDownGrp[me.arrDownGrpEnd][b].attributes.RCH_DID == rchDid){
+									break;
+								}
+							}
+
+							// 시작지점 배열 그리기
+							for(var start = 0 ; start < startArrayCut.length ; start++){
+								me.drawGraphic(startArrayCut[start], "reachLine");	
+								me.setReachArea(startArrayCut[start].attributes.CAT_DID);
+								cnt++
+							}
+
+							// 끝지점 배열 그리기
+							for(var end = 0 ; end < endArrayCut.length ; end++){
+								me.drawGraphic(endArrayCut[end], "reachLine");	
+								me.setReachArea(endArrayCut[end].attributes.CAT_DID);
+								cnt++
+							}
+			    	
+					}
+					
+				}
+			});
+    	});
+
+	},
+
 
     /* 상류 리치라인 조회 및 그리기
      * rchDid: 검색될 리치 아이디(DID)
@@ -2629,11 +2949,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 							var startArrayCut = [];
 							var endArrayCut = [];
-							
+							var aa = "";
+							var bb = "";
 			    			for(var a = 0;a < me.arrDownGrp[me.arrDownGrpStart].length;a++){
 								if(me.arrDownGrp[me.arrDownGrpStart][a].attributes.GEO_TRIB == me.bonStLine.GEO_TRIB){
 									
 									startArrayCut.push(a);
+									
 								}
 							}
 			    			
@@ -2644,8 +2966,20 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 								}
 							}
 			    			
-			    			
-			    			
+							
+							
+							
+
+							for(var ii = 0 ; ii < startArrayCut[startArrayCut.length-1]; ii++){
+								aa += me.arrDownGrp[me.arrDownGrpStart][ii].attributes.RCH_DID+"','";
+							}
+
+							for(var cc = 0 ; cc < endArrayCut[endArrayCut.length-1]; cc++){
+								bb += me.arrDownGrp[me.arrDownGrpEnd][cc].attributes.RCH_DID +"','";
+							}
+							
+							
+
 			    			var linefalse1 = false;
 							var linefalse2 = false;
 			    			
@@ -3387,7 +3721,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			var query = new Query();
 			query.returnGeometry = true;
 			//query.outFields = ["*"];
-			query.outFields = ["CAT_DID","CAT_ID"];
+			query.outFields = ["CAT_DID","CAT_ID","SB_ID","MB_ID"];
 
 			query.where = "CAT_DID = '" + catDid + "'";
 			
@@ -3810,5 +4144,116 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		}
     	this.searchConfigInfoJson = searchConfig.getLocalStorage();
     	
-    }
+	},
+	
+	//상세검색 반경검색
+	radiusDrawEvent: function(point){
+
+		var me = this;
+
+		point.type = "singlePoint";
+
+		$KRF_APP.coreMap._rchLine.getFeaturesWithEvent(point, function (features) { 
+
+
+			console.info(features);
+
+			if(features.length > 0) {
+				point.type = "point";
+
+				// 선택된 리치 또는 집수구역 전역변수로 넣기
+				me.detailSelectFeature = features[0];
+					/*
+					상세검색 기능 구현된후 반경 입력가능하게된후 열기
+					var radiusText = parseFloat(Ext.getCmp("radiusText").getValue());
+					
+					if(isNaN(radiusText)){
+						alert("숫자만 입력 가능합니다.");
+						return;
+					}
+					*/
+					require(["esri/toolbars/draw",
+					"dojo/on",
+					"esri/geometry/geometryEngine",
+					"esri/symbols/TextSymbol",
+					"esri/graphic",
+					"esri/symbols/Font",   
+					"esri/Color",
+					"esri/tasks/BufferParameters"], function(Draw, on, geometryEngine, TextSymbol, Graphic,Font,   
+							Color , BufferParameters){
+
+					var params = new esri.tasks.BufferParameters();
+					//params.distances = [ radiusText ];
+					params.distances = [ 15 ];
+					
+					params.outSpatialReference = me.map.spatialReference;
+					params.unit = esri.tasks.GeometryService.UNIT_KILOMETER;
+					
+					require(["esri/geometry/normalizeUtils"], function(normalizeUtils) { 
+						
+						normalizeUtils.normalizeCentralMeridian([point]).then(function(normalizedGeometries){
+							var normalizedGeometry = normalizedGeometries[0];
+								
+							me.geometryService.simplify([normalizedGeometry], function(geometries) {
+								params.geometries = geometries;
+								
+								me.geometryService.buffer(params, function(result){
+									
+									if(result.length>0){
+										evt = result[0];
+										var symbol = new esri.symbol.SimpleFillSymbol(
+												esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+												new esri.symbol.SimpleLineSymbol(
+														esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+												new dojo.Color([255,0,0,0.65]), 2
+												),
+												new dojo.Color([255,0,0,0.35])
+											);
+										
+										var graphic = new esri.Graphic(evt, symbol);
+										me.map.graphics.clear();
+										me.map.graphics.add(graphic);
+										
+										
+										if(me.map.getLevel() < 11){
+											alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+										}else{
+											me.mapClickEvt = evt;
+											me.drawOption = "detailRadius";
+											me.setRchIdsWithEvent();
+
+										}
+										//selectionToolbar.deactivate();
+										
+										//SetBtnOnOff(btnId, "off");
+										//SetBtnOnOff("btnMenu07", "off");
+										
+										krf_new.global.Obj.hideSimpleTooltip();
+										
+										//var radiusToolbar = Ext.getCmp("radiusToolbar");
+										//radiusToolbar.hide();
+										
+									}
+									
+								})
+								
+							});
+						});
+						
+					});
+				});
+
+			}
+			/*for (var i = 0; i < features.length; i++) {
+				
+				//me.searchUpWithFeature(features[i], 0);
+				// 종료 검색 체크
+				//_krad.isStopCheck();
+			}*/
+		});
+
+		
+	}
+	
+	
 });

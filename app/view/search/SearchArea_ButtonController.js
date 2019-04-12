@@ -24,6 +24,10 @@ Ext.define('krf_new.view.search.SearchArea_ButtonController', {
 
 		// 명칭으로 찾기
 		if (el.id == "btnNameSearch") {
+			
+			westContents.setActiveItem(2);
+
+			/* 2019-04-04 통합검색으로 변경
 			var btnNomal = Ext.getCmp("btnModeNomal");
 			if (btnNomal.btnOnOff == "on")
 				westContents.setActiveItem(2);
@@ -31,6 +35,7 @@ Ext.define('krf_new.view.search.SearchArea_ButtonController', {
 			var btnReach = Ext.getCmp("btnModeReach");
 			if (btnReach.btnOnOff == "on")
 				westContents.setActiveItem(3);
+			*/
 		}
 	}
 });

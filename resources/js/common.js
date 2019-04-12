@@ -693,6 +693,56 @@ ChangeTabIndex = function (tabIdx) {
 	}
 }
 
+// 상세검색
+ShowDetailSearch = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
+	var detailSearchWindow = Ext.getCmp('detailSearchWindow');
+	if(!detailSearchWindow){
+		
+		//센터 컨테이너
+		var centerContainer = Ext.getCmp('center_container');
+		//상세검색 윈도우
+		var detailSearchWindow = Ext.create('krf_new.view.east.DetailSearchWindow');
+		//추가
+		centerContainer.add(detailSearchWindow);
+		//열기
+		detailSearchWindow.show();
+
+		//지점목록 treeList
+		var treeNameList = [];
+		var siteListTreeStore = Ext.getCmp('siteListTree').getStore();
+		
+		if(siteListTreeStore.root){
+			for(var i = 0 ; i < siteListTreeStore.root.childNodes.length; i++){
+				if(siteListTreeStore.root.childNodes[i].childNodes.length > 0){
+					for(var j = 0 ; j < siteListTreeStore.root.childNodes[i].childNodes.length; j++){
+						//일단 오염원 부하량 빼기
+						if(siteListTreeStore.root.childNodes[i].data.text.indexOf('오염원') == -1 &&
+						siteListTreeStore.root.childNodes[i].data.text.indexOf('부하량') == -1){
+							treeNameList.push([siteListTreeStore.root.childNodes[i].childNodes[j].data.id,
+								siteListTreeStore.root.childNodes[i].data.text+'-'+siteListTreeStore.root.childNodes[i].childNodes[j].data.text]
+							)
+						}
+						
+					}
+				}
+			}
+		}
+
+		console.info(treeNameList);
+		
+		var store = Ext.create('Ext.data.Store', {
+			fields: ['value', 'text'],
+			data: treeNameList,
+			stype: 'json'
+		});
+
+		var itemselector = Ext.getCmp('itemselector');
+		itemselector.setStore(store);
+
+
+	}
+}
+
 ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 	//처음검색
 	$KRF_APP.btnFlag = "noDate";

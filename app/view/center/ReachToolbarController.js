@@ -528,6 +528,7 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 			radiusToolbar.hide();
 		}
 		$KRF_APP.coreMap._krad.onMapDragEvt("radius", el.id);    // 반경 클릭
+
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");

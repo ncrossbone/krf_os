@@ -65,7 +65,8 @@ var $KRF_EVENT = {
 	RELOAD_USER_LIST: 'relaodUserList',
 	LAYER_SET_COMBO_SET_VALUE: 'layerSetComboSetValue',
 	PULL_WATER_DYNAMIC_LAYER_ON_OFF: 'pullWaterdynamicLayerOnOff',
-	DROUGHT_DYNAMIC_LAYER_ON_OFF: 'droughtDynamicLayerOnOff'
+	DROUGHT_DYNAMIC_LAYER_ON_OFF: 'droughtDynamicLayerOnOff',
+	REACH_MODE_ON: 'reachModeOn'
 }
 
 var $KRF_WINS = {
@@ -197,6 +198,7 @@ Ext.create('Ext.data.Store', {
 					// $('#Admin-shortcut').show();
 
 					// this.showWindowByMode();
+					
 				}
 
 				this.checkBrowser();

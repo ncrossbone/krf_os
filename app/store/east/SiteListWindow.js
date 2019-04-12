@@ -55,7 +55,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			//var catDid = [];
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
-			query.returnGeometry = false;
+			query.returnGeometry = false; 
 			//if (buttonInfo1.lastValue != null) {
 			if (bookParamObj.searchText == "waterSearch") {
 				bookParamObj.value1 = buttonInfo1.lastValue;

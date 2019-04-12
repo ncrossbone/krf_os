@@ -52,7 +52,8 @@ Ext.define('krf_new.view.search.SearchArea_NameController_Rich', {
 		query.where = where;
 
 		query.outFields = ["*"];
-		query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
+		//외부망 where 조건
+		//query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 		queryTask.execute(query, function (result) {
 			Ext.each(result, function (objLayer, idx, objLayers) {
 

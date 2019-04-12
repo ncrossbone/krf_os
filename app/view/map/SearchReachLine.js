@@ -25,14 +25,15 @@ Ext.define("krf_new.view.map.SearchReachLine", {
 				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
 				var query = new Query();
 				query.returnGeometry = true;
-				query.outFields = ["CAT_DID", "RCH_DID", "LU_RCH_DID", "RU_RCH_DID", "GEO_TRIB"];
+				//query.outFields = ["CAT_DID", "RCH_DID", "LU_RCH_DID", "RU_RCH_DID", "GEO_TRIB"];
+				//query.outFields = ["*"];
 				query.geometry = evt;
 
 				// 리치라인 조회
 				queryTask.execute(query, function (lineFeatureSet) {
 
 					// 집수구역 조회
-					$KRF_APP.coreMap._rchArea.getFeaturesWithEvent(evt, function (areaFeatures) {
+					$KRF_APP.coreMap._rchArea.getFeaturesWithEvent(evt, function (areaFeatures) { 
 
 						// 이벤트 위치에 리치라인이 없을 때
 						if (lineFeatureSet.features.length == 0) {
@@ -73,8 +74,33 @@ Ext.define("krf_new.view.map.SearchReachLine", {
 				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
 				var query = new Query();
 				query.returnGeometry = true;
-				query.outFields = ["CAT_DID", "RCH_DID", "LU_RCH_DID", "RU_RCH_DID", "GEO_TRIB"];
+				//query.outFields = ["CAT_DID", "RCH_DID", "LU_RCH_DID", "RU_RCH_DID", "GEO_TRIB"];
+				query.outFields = ["*"];
 				query.where = where;
+
+				// 리치라인 조회
+				queryTask.execute(query, function (featureSet) {
+					if (featureSet.features.length == 0) {
+					}
+					callbackMethod(featureSet.features);
+				});
+			});
+	},
+
+
+	// geometry 값으로 검색
+	getFeaturesWithGeo: function (where, callbackMethod) {
+
+		require(["esri/tasks/query",
+			"esri/tasks/QueryTask"],
+			function (Query,
+				QueryTask) {
+
+				var queryTask = new QueryTask($KRF_DEFINE.reachServiceUrl_v3 + "/" + $KRF_DEFINE.reachLineLayerId); // 리치라인 URL
+				var query = new Query();
+				query.returnGeometry = true;
+				query.outFields = ["CAT_DID", "RCH_DID", "LU_RCH_DID", "RU_RCH_DID", "GEO_TRIB"];
+				query.geometry = where;
 
 				// 리치라인 조회
 				queryTask.execute(query, function (featureSet) {
