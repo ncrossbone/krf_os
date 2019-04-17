@@ -17,7 +17,7 @@
 		"siteIdCol": "측정소코드",
 		"siteAddrCol": "채수지점",
 		"siteNmCol": "측정소명",
-		"layerCode": "A001",
+		"layerCode": "A001",		
 		"isMetaData": true
 	}, {
 		"id": "2",
@@ -588,6 +588,7 @@
 		"iconCls": "layerIconSize layer42",
 		"leaf": true,
 		"checked": false,
+		"layerCode": "",
 		"siteIdCol": "지점코드"
 	}]
 },{
@@ -606,6 +607,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "",
+		"layerCode": "H001",
 		"metaDataId":"H001"
 	}]
 },{
@@ -624,6 +626,7 @@
 		"iconCls": "layerIconSize layer49",
 		"leaf": true,
 		"checked": true,
+		"layerCode": "W001",
 		"siteIdCol": "RCH_FLW",
 		"metaDataId":"W001"
 	},{
@@ -636,6 +639,7 @@
 		"leaf": true,
 		"checked": true,
 		"siteIdCol": "NODE_DID",
+		"layerCode": "W002",
 		"metaDataId":"W002"
 	}, {
 		"id": "58",
@@ -647,6 +651,7 @@
 		"leaf": true,
 		"checked": true,
 		"siteIdCol": "RCH_DID",
+		"layerCode": "W003",
 		"metaDataId":"W003"
 	}, {
 		"id": "59",
@@ -658,6 +663,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "CAT_DID",
+		"layerCode": "W004",
 		"metaDataId":"W004"
 	}]
 },{
@@ -676,6 +682,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "SRIVER",
+		"layerCode": "S001",
 		"metaDataId":"S001"
 	},{
 		"id": "S1",
@@ -686,6 +693,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "SRIVER",
+		"layerCode": "S002",
 		"metaDataId":"S002"
 	}, {
 		"id": "S2",
@@ -696,6 +704,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "SRIVER",
+		"layerCode": "S003",
 		"metaDataId":"S003"
 	}]
 }, {
@@ -714,6 +723,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "STRCODE",
+		"layerCode": "U001",
 		"metaDataId":"U001"
 	}, {
 		"id": "62",
@@ -724,6 +734,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "STRCODE",
+		"layerCode": "U002",
 		"metaDataId":"U002"
 	}]
 }, {
@@ -742,6 +753,7 @@
 		"leaf": true,
 		"checked": true,
 		"siteIdCol": "WS_CD",
+		"layerCode": "T001",
 		"metaDataId":"T001"
 	}, {
 		"id": "66",
@@ -752,6 +764,7 @@
 		"leaf": true,
 		"checked": true,
 		"siteIdCol": "MW_CODE",
+		"layerCode": "T002",
 		"metaDataId":"T002"
 	}, {
 		"id": "67",
@@ -762,6 +775,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "SW_CODE",
+		"layerCode": "T003",
 		"metaDataId":"T003"
 	}]
 }, {
@@ -780,6 +794,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "ADM_CD",
+		"layerCode": "V001",
 		"metaDataId":"V001"
 	}, {
 		"id": "70",
@@ -790,6 +805,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "ADM_CD",
+		"layerCode": "V002",
 		"metaDataId":"V002"
 	}, {
 		"id": "71",
@@ -800,6 +816,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "ADM_CD",
+		"layerCode": "V003",
 		"metaDataId":"V003"
 	}, {
 		"id": "72",
@@ -810,6 +827,7 @@
 		"leaf": true,
 		"checked": false,
 		"siteIdCol": "ADM_CD",
+		"layerCode": "V004",
 		"metaDataId":"V004"
 	}]
 },  {
@@ -825,6 +843,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer63",
 		"leaf": true,
+		"layerCode": "",
 		"checked": false
 	}]
 }, {
@@ -840,6 +859,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer65",
 		"leaf": true,
+		"layerCode": "",
 		"checked": false
 	}]
 },{
@@ -855,6 +875,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer71",
 		"leaf": true,
+		"layerCode": "",
 		"checked": false
 	}, {
 		"id": "83",
@@ -869,6 +890,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer73",
 		"leaf": true,
+		"layerCode": "",
 		"checked": false
 	}, {
 		"id": "85",
@@ -883,6 +905,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer75",
 		"leaf": true,
+		"layerCode": "",
 		"checked": false
 	}, {
 		"id": "87",
@@ -890,6 +913,7 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer76",
 		"leaf": true,
+		"layerCode": "",
 		"checked": false
 	}]
 },  {
@@ -907,6 +931,7 @@
 		"iconCls": "layerIconSize layer80",
 		"leaf": true,
 		"checked": false,
+		"layerCode": "",
 		"metaDataId":"R001"
 	}]
 },{

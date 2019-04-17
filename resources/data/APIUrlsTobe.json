@@ -121,6 +121,7 @@
     "deleteDroneLayer":"#host#/krf/config/deleteDroneLayer",
     "insertDroneLayer":"#host#/krf/config/insertDroneLayer",
     "testDroneLayer":"#host#/krf/config/testDroneLayer",
+    "getUserLayerInfo":"#host#/krf/config/getUserLayerInfo",
     init: function(host){
               if(host != null){
                   this.domain = host;
