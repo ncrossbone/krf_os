@@ -88,7 +88,7 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 				};
 				query.where = "CAT_DID IN (" + inStrCatDids + ")";
 
-				queryTask.execute(query, function (tmCatFeatureSet) {
+				queryTask.execute(query, function (tmCatFeatureSet) { 
 					if (me.tmGraphicLayerCat == undefined || me.tmGraphicLayerCat == null) {
 						// 폴리곤 레이어 생성
 						me.tmGraphicLayerCat = new GraphicsLayer();
@@ -135,6 +135,33 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 					var tmCatFeatures = tmCatFeatureSet.features;
 
 					var range = 15;
+
+
+					var tmpCatDids = inStrCatDids.replace(/'/g, "").split(", ");
+					//각 계에 해당하는 store 생성
+					//var store = Ext.create('krf_new.store.east.PollutionResult_' + kind + '_Catdid', {
+					var store = Ext.create('krf_new.store.east.PollLoadResult_Catdid', {
+						async: false,
+						catDid: tmpCatDids,
+						year: year
+					});
+
+					if (store == undefined) {
+						return;
+					}
+					store.load();
+					for (var i = 0; i < tmCatFeatureSet.features.length; i++) {
+						for (var j = 0; j < store.data.items.length; j++) {
+							if (tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID) {
+								tmCatFeatureSet.features[i].attributes[colName] = Number(store.data.items[j].data[colName]);
+							}
+						}
+					}
+
+
+
+
+
 
 					/* 범위, 값 매핑 오브젝트 생성 */
 					var quantizeObj = "";

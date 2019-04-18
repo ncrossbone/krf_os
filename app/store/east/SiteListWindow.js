@@ -150,7 +150,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			//권한별 레이어 세팅
 			if($KRF_APP.LAYER_SETTING.length > 0){
 				$KRF_APP.LAYER_SETTING.map(function(obj){
-					if(obj.LYR.USE_AT != "Y"){
+					if(obj.LYR_USE_AT != "Y"){
 						query.where += "AND LAYER_CODE <> '"+obj.LYR.CODE+'"';
 					}		
 				})
@@ -482,7 +482,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			pollLoadString += "	\"checked\": null,\n";
 			pollLoadString += "	\"infoBtnDisabled\": true,\n";
 			pollLoadString += "	\"chartBtnDisabled\": true,\n";
-			pollLoadString += "	\"srchBtnDisabled\": true,\n";
+			pollLoadString += "	\"srchBtnDisabled\": false,\n";
 			pollLoadString += "	\"children\": [{\n";
 
 			pollLoadString += "		\"id\": \"pollLoadCat\",\n";

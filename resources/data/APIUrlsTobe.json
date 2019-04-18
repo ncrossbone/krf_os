@@ -2,6 +2,7 @@
     "drone_GetRWMDT_MeasureDate":"./resources/jsp/drone/GetRWMDT_MeasureDate.jsp",
     "drone_GetRWMDT":"#host#/krf/drone/getRWMDT",
     "drone_main":"./resources/jsp/drone/main.jsp",
+    "PollLoadSelect":"#host#/krf/pollLoad/pollLoadSelect",
     "PollutionSelect_01_01":"#host#/krf/pollution/pollutionSelect_01_01",
     "PollutionSelect_01_02":"#host#/krf/pollution/pollutionSelect_01_02",
     "PollutionSelect_01_03":"#host#/krf/pollution/pollutionSelect_01_03",
