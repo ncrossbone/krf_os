@@ -4,7 +4,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 	remoteSort: true,
 	catDid: [],
 	result: null,
-	query : null,
+	query: null,
 	listeners: {
 
 		load: function (store) {
@@ -28,7 +28,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			var endPoint = Ext.getCmp("textSearchText_End");
 
 			var bookParamObj = "";
-			
+
 			if (store.param.isBookmark) {
 				var bookmarkData = store.param.bookmarkData;
 				if (bookmarkData.searchText == 'waterSearch') {
@@ -42,20 +42,20 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				} else if (bookmarkData.searchText == 'nameSearch') {
 					nameInfo.rawValue = bookmarkData.value1;
 				}
-				
+
 				bookParamObj = { searchText: store.param.bookmarkData.searchText };
-				
-			}else{
-				
-				bookParamObj ={ searchText: store.param.searchText };
+
+			} else {
+
+				bookParamObj = { searchText: store.param.searchText };
 			}
 
 			//console.info(bookParamObj.searchText);
-			
+
 			//var catDid = [];
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
-			query.returnGeometry = false; 
+			query.returnGeometry = false;
 			//if (buttonInfo1.lastValue != null) {
 			if (bookParamObj.searchText == "waterSearch") {
 				bookParamObj.value1 = buttonInfo1.lastValue;
@@ -161,33 +161,26 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}*/
 			//query.where += "AND GROUP_CODE <> 'E'";
+			var paramConfig = {
+				'MA': '\'A001\'',
+				'MB': '\'A002\'',
+				'MD': '\'A003\'',
+				'ME': '\'A004\'',
+				'MF': '\'A002\'',
+				'MT': '\'A001\',\'A002\'',
+				'SD': '\'C001\',\'C002\'',
+				'OW': '\'D001\'',
+				'OR': '\'D006\'',
+				'OD': '\'D004\'',
+				'OF': '\'D003\'',
+				'TC': '\'E001\'',
+				'AG': '\'I001\',\'I002\',\'I003\''
+			};
 
-			if (store.paramType == "MA") {
-				query.where += " AND LAYER_CODE = 'A001' ";
-			} else if (store.paramType == "MB") {
-				query.where += " AND LAYER_CODE = 'A002' ";
-			} else if (store.paramType == "MD") {
-				query.where += " AND LAYER_CODE = 'A003' ";
-			} else if (store.paramType == "ME") {
-				query.where += " AND LAYER_CODE = 'A004' ";
-			} else if (store.paramType == "MF") {
-				query.where += " AND LAYER_CODE = 'A005' ";
-			} else if (store.paramType == "MT") {
-				query.where += " AND LAYER_CODE IN ('A001','A002') ";
-			} else if (store.paramType == "SD") {
-				query.where += " AND LAYER_CODE IN ('C001','C002') ";
-			} else if (store.paramType == "OW") {
-				query.where += " AND LAYER_CODE = 'D001' ";
-			} else if (store.paramType == "OR") {
-				query.where += " AND LAYER_CODE = 'D006' ";
-			} else if (store.paramType == "OD") {
-				query.where += " AND LAYER_CODE = 'D004' ";
-			} else if (store.paramType == "OF") {
-				query.where += " AND LAYER_CODE = 'D003' ";
-			} else if (store.paramType == "TC") {
-				query.where += " AND LAYER_CODE = 'E001' ";
-			} else if (store.paramType == "AG") {
-				query.where += " AND LAYER_CODE IN ('I001','I002','I003') ";
+			if (paramConfig[store.paramType]) {
+				query.where += ' AND LAYER_CODE IN (' + paramConfig[store.paramType] + ')';
+			} else {
+				query.where += ' AND GROUP_CODE =\'' + store.paramType + '\'';
 			}
 
 			query.orderByFields = ["LAYER_CODE ASC"];
@@ -260,14 +253,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonStr += "{\n";
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
 
-					if(groupFeature[0].attributes.GROUP_CODE =='C'){
+					if (groupFeature[0].attributes.GROUP_CODE == 'C') {
 						jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")";
 						jsonStr += "<img onClick='$KRF_APP.global.SedimentFn.init(this);' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' style='cursor: pointer; vertical-align:sub; margin-left: 5px;'/>";
 						jsonStr += "\",\n";
-					}else{
+					} else {
 						jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
 					}
-					
+
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 					if (groupFeature[0].attributes.GROUP_CODE == "E") { //  수생태계는
 
@@ -347,12 +340,12 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									jsonStr += "			}, ";
 								} else {
 
-									if(layerFeature.attributes.GROUP_CODE == 'C'){
+									if (layerFeature.attributes.GROUP_CODE == 'C') {
 										krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
 									}
 
 									jsonStr += "{\n";
-									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";	
+									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
 									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
 									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
 									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
@@ -440,7 +433,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonStr += "]\n";
 
 					jsonStr += "}";
-					
+
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);
 
@@ -543,10 +536,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		var queryWhere = "";
 
 		var sstgSearchType = this.searchType;
-		
+
 		if (this.searchType == "paramSearch") {
 			var params = Ext.urlDecode(location.search.substring(1));
-			
+
 			var siteIds = params.station.split("|");
 			var inTxt = "";
 			for (var i = 0; i < siteIds.length; i++) {
@@ -566,7 +559,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			// }
 
 			// 리치검색시
-			if(this.searchType == "selectReach"){
+			if (this.searchType == "selectReach") {
 				queryWhere += "CAT_DID IN (";
 				for (var i = 0; i < this.catDid.length; i++) {
 					if (i == this.catDid.length - 1) {
@@ -577,12 +570,12 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 				}
 				queryWhere += ") AND GROUP_CODE = 'E' ";
-			}else{ // 일반검색시
+			} else { // 일반검색시
 
 				queryWhere = this.query.where + "AND GROUP_CODE = 'E' ";
-				
+
 			}
-			
+
 		}
 
 
@@ -594,14 +587,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		query.where = queryWhere;
 		query.returnGeometry = false;
 		query.outFields = ['*'];
-		 
+
 		queryTask.execute(query, function (result) {
-			if(result.features.length == 0){
+			if (result.features.length == 0) {
 				if (typeof (callback) == 'function') {
 					callback.call(this, sstgString);
 					return;
 				}
-			}else{
+			} else {
 				for (var j = 0; j < result.features.length; j++) {
 					siteIds.push(result.features[j].attributes.JIJUM_CODE);
 				}
@@ -611,111 +604,116 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					async: false, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
 						var jsonData = Ext.util.JSON.decode(response.responseText);
-						
-						var ssgtObj = {"hc":{"ATAL_SE":[]
-											,"BEMA_SE":[]
-											,"FISH_SE":[]
-											,"INHA_SE":[]
-											,"QLTWTR_SE":[]
-											,"VTN_SE":[]}
-										
-									  ,"hg":{"ATAL_SE":[]
-											 ,"BEMA_SE":[]
-											 ,"FISH_SE":[]
-											 ,"VTN_SE":[]}
-											};
-	
-						
-							for(var k = 0 ; k < jsonData.data.length; k++){
-								
-								
-								if (sstgSearchType == "paramSearch") {
-									if(params.stationType == "BT1"){
-										if(params.flag == "HcAtalSe"){
-											ssgtObj.hc.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HcBemaSe"){
-											ssgtObj.hc.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HcFishSe"){
-											ssgtObj.hc.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HcInhaSe"){
-											ssgtObj.hc.INHA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HcQltwtrSe"){
-											ssgtObj.hc.QLTWTR_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HcVtnSe"){
-											ssgtObj.hc.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-									}else if(params.stationType == "BT2"){
-										if(params.flag == "HgAtalSe"){
-											ssgtObj.hg.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HgBemaSe"){
-											ssgtObj.hg.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HgFishSe"){
-											ssgtObj.hg.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}else if(params.flag == "HgVtnSe"){
-											ssgtObj.hg.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
+
+						var ssgtObj = {
+							"hc": {
+								"ATAL_SE": []
+								, "BEMA_SE": []
+								, "FISH_SE": []
+								, "INHA_SE": []
+								, "QLTWTR_SE": []
+								, "VTN_SE": []
+							}
+
+							, "hg": {
+								"ATAL_SE": []
+								, "BEMA_SE": []
+								, "FISH_SE": []
+								, "VTN_SE": []
+							}
+						};
+
+
+						for (var k = 0; k < jsonData.data.length; k++) {
+
+
+							if (sstgSearchType == "paramSearch") {
+								if (params.stationType == "BT1") {
+									if (params.flag == "HcAtalSe") {
+										ssgtObj.hc.ATAL_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HcBemaSe") {
+										ssgtObj.hc.BEMA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HcFishSe") {
+										ssgtObj.hc.FISH_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HcInhaSe") {
+										ssgtObj.hc.INHA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HcQltwtrSe") {
+										ssgtObj.hc.QLTWTR_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HcVtnSe") {
+										ssgtObj.hc.VTN_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
 									}
-								}else{
-									if(jsonData.data[k].SE == "하구"){
-										if(jsonData.data[k].ATAL_SE == "1"){
-											ssgtObj.hg.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].BEMA_SE == "1"){
-											ssgtObj.hg.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].FISH_SE == "1"){
-											ssgtObj.hg.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].VTN_SE == "1"){
-											ssgtObj.hg.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-									}else if(jsonData.data[k].SE == "하천"){
-										if(jsonData.data[k].ATAL_SE == "1"){
-											ssgtObj.hc.ATAL_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].BEMA_SE == "1"){
-											ssgtObj.hc.BEMA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].FISH_SE == "1"){
-											ssgtObj.hc.FISH_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].VTN_SE == "1"){
-											ssgtObj.hc.VTN_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].QLTWTR_SE == "1"){
-											ssgtObj.hc.QLTWTR_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
-			
-										if(jsonData.data[k].INHA_SE == "1"){
-											ssgtObj.hc.INHA_SE.push({"id":jsonData.data[k].SPOT_CODE, "name":jsonData.data[k].SPOT_NM});
-										}
+								} else if (params.stationType == "BT2") {
+									if (params.flag == "HgAtalSe") {
+										ssgtObj.hg.ATAL_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HgBemaSe") {
+										ssgtObj.hg.BEMA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HgFishSe") {
+										ssgtObj.hg.FISH_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									} else if (params.flag == "HgVtnSe") {
+										ssgtObj.hg.VTN_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+								}
+							} else {
+								if (jsonData.data[k].SE == "하구") {
+									if (jsonData.data[k].ATAL_SE == "1") {
+										ssgtObj.hg.ATAL_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].BEMA_SE == "1") {
+										ssgtObj.hg.BEMA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].FISH_SE == "1") {
+										ssgtObj.hg.FISH_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].VTN_SE == "1") {
+										ssgtObj.hg.VTN_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+								} else if (jsonData.data[k].SE == "하천") {
+									if (jsonData.data[k].ATAL_SE == "1") {
+										ssgtObj.hc.ATAL_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].BEMA_SE == "1") {
+										ssgtObj.hc.BEMA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].FISH_SE == "1") {
+										ssgtObj.hc.FISH_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].VTN_SE == "1") {
+										ssgtObj.hc.VTN_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].QLTWTR_SE == "1") {
+										ssgtObj.hc.QLTWTR_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+									}
+
+									if (jsonData.data[k].INHA_SE == "1") {
+										ssgtObj.hc.INHA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
 									}
 								}
 							}
-	
-						
-						
-						
+						}
+
+
+
+
 						var hcLengChk = ssgtObj.hc.ATAL_SE.length +
 							ssgtObj.hc.BEMA_SE.length +
 							ssgtObj.hc.FISH_SE.length +
 							ssgtObj.hc.INHA_SE.length +
 							ssgtObj.hc.QLTWTR_SE.length +
 							ssgtObj.hc.VTN_SE.length;
-	
+
 						var hgLengChk = ssgtObj.hg.ATAL_SE.length +
 							ssgtObj.hg.BEMA_SE.length +
 							ssgtObj.hg.FISH_SE.length +
 							ssgtObj.hg.VTN_SE.length;
-	
+
 						if (hgLengChk + hcLengChk > 0) {
 							if (jsonData.data.length > 0) {
 								sstgString = "{\n";
@@ -728,14 +726,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								sstgString += "	\"chartBtnDisabled\": true,\n";
 								sstgString += "	\"srchBtnDisabled\": true,\n";
 								sstgString += "	\"children\": [\n";
-	
-	
+
+
 								if (hcLengChk > 0) {
 									sstgString += "	  { \n";
 									sstgString += "	\"id\": \"EsstgHc\",\n";
 									sstgString += "	\"title\": \"하천\",\n";
 									sstgString += "	\"visible\": \"true\",\n";
-									sstgString += "	\"text\": \"하천\",\n"; 
+									sstgString += "	\"text\": \"하천\",\n";
 									sstgString += "	\"expanded\": true,\n";
 									sstgString += "	\"infoBtnDisabled\": true,\n";
 									sstgString += "	\"chartBtnDisabled\": true,\n";
@@ -766,10 +764,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
-	
+
 										sstgString += "	]},";
 									}
-	
+
 									if (ssgtObj.hc.BEMA_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHcBemaSe\",\n";
@@ -797,7 +795,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-	
+
 									if (ssgtObj.hc.FISH_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHcFishSe\",\n";
@@ -825,7 +823,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-	
+
 									if (ssgtObj.hc.INHA_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHcInhaSe\",\n";
@@ -853,7 +851,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-	
+
 									if (ssgtObj.hc.QLTWTR_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHcQltwtrSe\",\n";
@@ -912,8 +910,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 									sstgString += "	]},";
 								}
-								if(hgLengChk > 0){
-	
+								if (hgLengChk > 0) {
+
 									sstgString += "	  { \n";
 									sstgString += "	\"id\": \"EsstgHg\",\n";
 									sstgString += "	\"title\": \"하구\",\n";
@@ -951,7 +949,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-		
+
 									if (ssgtObj.hg.BEMA_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHgBemaSe\",\n";
@@ -979,7 +977,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-		
+
 									if (ssgtObj.hg.FISH_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHgFishSe\",\n";
@@ -1007,7 +1005,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-		
+
 									if (ssgtObj.hg.VTN_SE.length > 0) {
 										sstgString += "	  { \n";
 										sstgString += "	\"id\": \"EsstgHgVtnSe\",\n";
@@ -1035,22 +1033,22 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										sstgString += "	]},";
 									}
-							
+
 									sstgString += "	 ]}, \n";
 								}
-								
-								
+
+
 							}
-							 
+
 							sstgString += "	  ]} \n";
-	
+
 						} else {
-	
+
 							sstgString = "";
 						}
-	
+
 						if (typeof (callback) == 'function') {
-	
+
 							callback.call(this, sstgString);
 						}
 					},
@@ -1059,7 +1057,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					}
 				});
 			}
-			
+
 		});
 
 	},
@@ -1067,7 +1065,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 	getPollutionString: function () {
 
 		var year = "2015";
-		
+
 		if (this.catDid.length == 0) {
 			return "";
 		}
