@@ -152,28 +152,30 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}*/
 			//query.where += "AND GROUP_CODE <> 'E'";
-			var paramConfig = {
-				'MA': '\'A001\'',
-				'MB': '\'A002\'',
-				'MD': '\'A003\'',
-				'ME': '\'A004\'',
-				'MF': '\'A002\'',
-				'MT': '\'A001\',\'A002\'',
-				'SD': '\'C001\',\'C002\'',
-				'OW': '\'D001\'',
-				'OR': '\'D006\'',
-				'OD': '\'D004\'',
-				'OF': '\'D003\'',
-				'TC': '\'E001\'',
-				'AG': '\'I001\',\'I002\',\'I003\''
-			};
-
-			if (paramConfig[store.paramType]) {
-				query.where += ' AND LAYER_CODE IN (' + paramConfig[store.paramType] + ')';
-			} else {
-				query.where += ' AND GROUP_CODE =\'' + store.paramType + '\'';
+			if(store.searchType == 'paramSearch'){
+				var paramConfig = {
+					'MA': '\'A001\'',
+					'MB': '\'A002\'',
+					'MD': '\'A003\'',
+					'ME': '\'A004\'',
+					'MF': '\'A002\'',
+					'MT': '\'A001\',\'A002\'',
+					'SD': '\'C001\',\'C002\'',
+					'OW': '\'D001\'',
+					'OR': '\'D006\'',
+					'OD': '\'D004\'',
+					'OF': '\'D003\'',
+					'TC': '\'E001\'',
+					'AG': '\'I001\',\'I002\',\'I003\''
+				};
+	
+				if (paramConfig[store.paramType]) {
+					query.where += ' AND LAYER_CODE IN (' + paramConfig[store.paramType] + ')';
+				} else {
+					query.where += ' AND GROUP_CODE =\'' + store.paramType + '\'';
+				}
 			}
-
+			
 			query.orderByFields = ["LAYER_CODE ASC"];
 			query.outFields = ["*"];
 			// 로딩바 표시
