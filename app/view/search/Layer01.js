@@ -75,10 +75,25 @@ Ext.define('krf_new.view.search.Layer01', {
 										for (var i = 0; i < $KRF_APP.USER_LAYERS.layerSetIds.length; i++) {
 											if (childArr.id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
 												//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
-												chuldrenLayer.push(userLayerSet[j].children.splice(z, 1)[0]);
-												z--;
-												//i--;
-												break;
+												
+												// 권한별 레이어에서 쓰는지 안쓰는지 확인 2019-04-16
+												var yn = false;
+												for(var a = 0 ; a < $KRF_APP.LAYER_SETTING.length; a++){
+													if($KRF_APP.LAYER_SETTING[a].LYR_CODE == childArr.layerCode){
+														if($KRF_APP.LAYER_SETTING[a].LYR_USE_AT == "Y"){
+															yn = true;
+															break;
+														}
+													}
+												}
+												
+												if(yn){
+													chuldrenLayer.push(userLayerSet[j].children.splice(z, 1)[0]);
+													z--;
+													//i--;
+													break;
+												}
+												
 											}
 										}
 									}

@@ -64,6 +64,15 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		query.returnGeometry = false;
 
 		var where = "JIJUM_NM like '" + searchText.getValue() + "%' ";
+
+		if($KRF_APP.LAYER_SETTING.length > 0){
+			$KRF_APP.LAYER_SETTING.map(function(obj){
+				if(obj.LYR.USE_AT != "Y"){
+					where += "AND LAYER_CODE <> '"+obj.LYR.CODE+'"';
+				}		
+			})
+		}
+
 		query.where = where;
 		query.orderByFields = ["GROUP_CODE ASC"];
 		query.outFields = ["*"];

@@ -147,6 +147,15 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 			}
 
+			//권한별 레이어 세팅
+			if($KRF_APP.LAYER_SETTING.length > 0){
+				$KRF_APP.LAYER_SETTING.map(function(obj){
+					if(obj.LYR_USE_AT != "Y"){
+						query.where += "AND LAYER_CODE <> '"+obj.LYR.CODE+'"';
+					}		
+				})
+			}
+
 			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
 			/*if(store.searchType != "paramSearch"){
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
@@ -468,7 +477,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			pollLoadString += "	\"checked\": null,\n";
 			pollLoadString += "	\"infoBtnDisabled\": true,\n";
 			pollLoadString += "	\"chartBtnDisabled\": true,\n";
-			pollLoadString += "	\"srchBtnDisabled\": true,\n";
+			pollLoadString += "	\"srchBtnDisabled\": false,\n";
 			pollLoadString += "	\"children\": [{\n";
 
 			pollLoadString += "		\"id\": \"pollLoadCat\",\n";

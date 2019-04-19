@@ -123,9 +123,9 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		a[0].data.init('http://112.217.167.123:40003');
+		//a[0].data.init('http://112.217.167.123:40003');
 		//a[0].data.init('http://localhost:8080');
-		//a[0].data.init('http://localhost:80');
+		a[0].data.init('http://localhost:80');
 
 		Ext.application({ 
 			name: 'krf_new',
@@ -254,6 +254,23 @@ Ext.create('Ext.data.Store', {
 					}
 				});
 				this.showWindowByMode();
+
+
+				// 계정 권한별 레이어 표출 목록 2019-04-16
+				Ext.Ajax.request({
+					url: _API.getUserLayerInfo,
+					dataType: "text/plain",
+					method: 'POST',
+					async: true,
+					//params: { userId: loginInfo.userId },
+					success: function (response, opts) {
+						var decodeData = Ext.util.JSON.decode(response.responseText);
+						console.info(decodeData)
+						if (decodeData.result.length > 0) {
+							$KRF_APP.LAYER_SETTING = decodeData.result;
+						}
+					}
+				});
 			},
 			showWindowByMode: function () {
 				var krfMode = this.localStorate.getItem('krfMode');
