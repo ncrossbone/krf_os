@@ -133,7 +133,7 @@
 					BufferedImage le_svgImg = ImageIO.read(new File(imgSavePath + "\\" + legendPngFileName));
 					graphic.drawImage(le_svgImg, null, 10, (height-leHeight-10));
 				}
-		    }catch(Exception e){
+		    }catch(Exception e){ 
 				System.out.println("error");
 				e.printStackTrace();
 			}

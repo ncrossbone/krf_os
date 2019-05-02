@@ -9,7 +9,8 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
 		'Ext.ux.ajax.JsonSimlet',
         'Ext.ux.ajax.SimManager',
         'Ext.field.DatePicker',
-        'Ext.ux.MonthPickerPlugin'
+        'Ext.ux.MonthPickerPlugin',
+        'Ext.picker.Month'
 	]),
 
 	xtype: 'east-detailSearchWindow',
@@ -38,7 +39,9 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
 			type: "hbox"
 		},
 		items:[{
-			xtype: 'textfield',
+            xtype: 'textfield',
+            id:'detailRadiusValue',
+            maskRe: /[0-9.]/,
 			fieldLabel: '<b>반경 설정</b> ',
 		},{
 			xtype:'label',
@@ -209,19 +212,38 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
 			xtype:'label',
 			text:'기간'
 		},{
-            xtype: 'monthpicker',
-            label: 'Birthday',
-            id: 'startDatepicker'
+            xtype:'textfield',
+            id: 'detailSearchDate',
+            readOnly: true,
+            handleMouseEvents: true,
+            listeners:{
+                click:function(){
+                    
+                },
+                'render': function(cmp) { 
+                    this.getEl().on('click', function(){
+                        Ext.getCmp("monthpickerId").setHidden(false);                
+                    }); 
+                }
+            }
         },{
-			xtype:'label',
-			text:'~'
-		}]
+            xtype:'monthpicker',
+            id:'monthpickerId',
+            hidden: true,
+            listeners:{
+                okclick: function(event){
+                    if(event.value[0] == null || event.value[1] == null){
+                        return;
+                    }else{
+                        Ext.getCmp("detailSearchDate").setValue(event.value[1] +' - '+event.value[0]);
+                        this.setHidden(true);
+                    }
+                }
+            }
+        }]
 	},{
 		xtype:'button',
 		text:'상세 설정'
-	},{
-		xtype:'label',
-		text:'참조정보 선택'
 	},{
 		xtype:'container',
 		layout:{
@@ -253,11 +275,22 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         listeners:{
             click:function(){
                 var popSiteInfo = Ext.getCmp('popSiteInfo');
-                console.info(popSiteInfo)
-                if(popSiteInfo.point){
-                    $KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point);
+                var meter = Number(Ext.getCmp('detailRadiusValue').value);
+                var detailDate = Ext.getCmp('monthpickerId').value;
+
+                if(popSiteInfo.point){ // 선택된 지점이 있는지 
+                    if(meter > 0){ // 반경이 있는지
+                        if(detailDate[0] != null ||detailDate[1] == null){ // 기간이 있는지
+                            $KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);   
+                        }else{
+                            alert("기간을 선택해 주세요");
+                        }
+                    }else{
+                        alert("반경값을 설정하세요.")
+                    }
+                }else{
+                    alert("지점상세 창이 없습니다.")
                 }
-                
             }
         }
 	}]

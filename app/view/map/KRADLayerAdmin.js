@@ -1172,12 +1172,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	        	query.geometry = queryExtent.centerAt(centerPoint);
 				
 			}else{
-				if(feature.attributes.D_SRCH_ID == undefined){
-					query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
-				}else{
-					query.where = "SRCH_ID = '" + feature.attributes.D_SRCH_ID + "'" ;
-				}
+				// if(feature.attributes.D_SRCH_ID == undefined){
+				// 	query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
+				// }else{
+				// 	query.where = "SRCH_ID = '" + feature.attributes.D_SRCH_ID + "'" ;
+				// }
 				
+				query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
+
 			}
 			
 			queryTask.execute(query, function(featureSet){
@@ -1219,9 +1221,19 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	me.getSRiverCatId(feature);
 		//me.drawGraphic(feature, "reachLine_s");
 		
-    	if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null && feature.attributes.D_RCH_ID != null){
-    		me.setRchIdsWithEvent(featureSet);
-    		//기존 검색으로 넘어간다
+			if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
+    	//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null && feature.attributes.D_RCH_ID != null){
+
+				var rchDiD = feature.attributes.LD_RCH_ID != null ? feature : feature.attributes.RD_RCH_ID != null ? feature : false;
+
+				if(rchDiD){// 좌우 소하천이 존재하지 않고 좌우리치중 하나가 존재하면
+					//기존 검색으로 넘어간다
+					me.setRchIdsWithEvent(featureSet);
+				}else{
+					alert("데이터 오류 (좌우소하천,좌우리치 데이터 존재 X)");
+				}
+    		
+    		
     	}else{
     		//소하천이 존재하므로 소하천 검색을한다.
     		me.setSRchIdsWithEvent(feature);	
@@ -4147,7 +4159,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	},
 	
 	//상세검색 반경검색
-	radiusDrawEvent: function(point){
+	radiusDrawEvent: function(point, meter){
 
 		var me = this;
 
@@ -4184,7 +4196,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 					var params = new esri.tasks.BufferParameters();
 					//params.distances = [ radiusText ];
-					params.distances = [ 15 ];
+					params.distances = [ meter ];
 					
 					params.outSpatialReference = me.map.spatialReference;
 					params.unit = esri.tasks.GeometryService.UNIT_KILOMETER;

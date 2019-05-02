@@ -448,18 +448,29 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 
 	moveCommon: function (record) {
 		var me = this;
-		// 집수구역 이동
-		var nodeId = record.data.catDId;
+		var nodeId = "";
+		if(record.data.catDId != undefined){
+			nodeId = record.data.catDId;
+		}else{
+			nodeId = record.data.eSiteId;
+		}
+
 		siteMovePoint("Cat", nodeId);
 
+
+		var parentNodeId = "";
 		// 지점이동
-		if(record.data.parentId.substring(0,1) == "J"){
-			nodeId = record.data.id.split("_")[1];	
+		if(record.data.id.substring(0,7) == "EsstgHc"){
+			nodeId = record.data.eSiteId;
+			parentNodeId = "E001";
+		}else if(record.data.id.substring(0,7) == "EsstgHg"){
+			nodeId = record.data.eSiteId;
+			parentNodeId = "E002";
 		}else{
-			nodeId = record.data.id;	
+			nodeId = record.data.id;
+			parentNodeId = record.data.parentId;
 		}
-		 
-		var parentNodeId = record.data.parentId;
+		
 		siteMovePoint(parentNodeId, nodeId);
 
 		// 리치정보 띄우기

@@ -67,8 +67,8 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 
 		if($KRF_APP.LAYER_SETTING.length > 0){
 			$KRF_APP.LAYER_SETTING.map(function(obj){
-				if(obj.LYR.USE_AT != "Y"){
-					where += "AND LAYER_CODE <> '"+obj.LYR.CODE+'"';
+				if(obj.LYR_USE_AT != "Y"){
+					where += "AND LAYER_CODE <> '"+obj.LYR_CODE+"'";
 				}		
 			})
 		}

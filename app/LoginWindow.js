@@ -60,9 +60,9 @@ Ext.define('Desktop.LoginWindow', {
                 maximizable: false,
                 minimizable: false,
                 closable: false,
-                layout: 'fit',
-                //draggable: false,
-                items: [{
+                layout: 'vbox',
+                 //draggable: false,
+                /*items: [{
                     xtype: 'component',
                     itemId: 'login-iframe',
                     autoEl: {
@@ -70,6 +70,57 @@ Ext.define('Desktop.LoginWindow', {
                         style: 'height: 100%; width: 100%;',
                         //내부망 url 변경
                         src: $KRF_DEFINE.waterLoginUrl + 'callType=gis&url=' + window.location.origin 
+                    }
+                }]*/
+                items:[{
+                    xtype: 'textfield',
+                    id:'userId'
+                },{
+                    xtype: 'textfield',
+                    inputType:'password',
+                    id:'userPass'
+                },{
+                    xtype: 'button',
+                    text: '로그인',
+                    listeners:{
+                        click: function(evt){
+                            var id = null;
+                            var pass = null;
+                            id = Ext.getCmp('userId').getValue();
+                            pass = Ext.getCmp('userPass').getValue();
+
+                            if(id){
+                                if(pass){
+                                    Ext.Ajax.request({
+                                        //url: _API.getUserLayerInfo,
+                                        url: "http://localhost/krf/config/login",
+                                        dataType: "text/plain",
+                                        method: 'POST',
+                                        async: true,
+                                        params: {
+                                            userId: id,
+                                            userPass: pass
+                                        },
+                                        //params: { userId: loginInfo.userId },
+                                        success: function (response, opts) {
+                                            var decodeData = Ext.util.JSON.decode(response.responseText);
+                                            if(decodeData.data.length >= 1){
+                                                $KRF_APP.loginInfo = decodeData.data[0];
+                                                $KRF_APP.completedLogin($KRF_APP.loginInfo);
+                                                Ext.getCmp('login-win').close();
+                                            }
+                                        }
+                                    });
+                                }else{
+                                    alert("패스워드를 입력하세요")
+                                }
+                            }else{
+                                alert("아이디를 입력하세요")
+                            }
+                            
+
+
+                        }
                     }
                 }]
             });
