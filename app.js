@@ -123,8 +123,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		//a[0].data.init('http://112.217.167.123:40003');
-		a[0].data.init('http://localhost:8080');
+		a[0].data.init('http://112.217.167.123:40003');
+		//a[0].data.init('http://localhost:8080');
 		//a[0].data.init('http://localhost:80');
 
 		Ext.application({ 
@@ -184,28 +184,45 @@ Ext.create('Ext.data.Store', {
 				$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
 			},
 			desktopLoaded: function () {
-
+				
 				$('#pageloaddingDiv').remove();
+				var me = this;
 
+				var paramUrl = Ext.urlDecode(window.location.search.substring(1));
+				var paramCheck = Object.keys(paramUrl).length;
+				var loginCheck = false;
 
-				// 내부망 로그인정보 조회
-				$KRF_APP.loginInfo = $KRF_APP.global.CommFn.getLoginUserInfo();
 				$KRF_APP.loginInfo = {};
+				
+				// 내부망 로그인 session 정보 조회 2019-04-22
+				$.when($KRF_APP.global.CommFn.getLoginUserInfo(paramUrl['p1'])).then(function(response){ //세션아이디가 있으면 db조회
 
-				if ($KRF_APP.loginInfo == null || $KRF_APP.loginInfo == undefined) {
-					this.showLoginWindow();
-				} else {
+					if(response){
+						var decodeData = Ext.util.JSON.decode(response.responseText);
+						
+						if(decodeData.data.length > 0){ // session이 있을 경우
+							
+							// 있을경우 loginInfo에 값 넣기
+							$KRF_APP.loginInfo = decodeData.data[0];
+							loginCheck = true;
+							me.completedLogin($KRF_APP.loginInfo);
+							
+						}
+					}
 
-					this.completedLogin({ userId: 'weis_admin' });
-					// $('#Admin-shortcut').show();
+					//loginCheck가 false 일때 ( 로그인 session이 있을경우 true )
+					if(!loginCheck){
+						me.showLoginWindow();
+					}
 
-					// this.showWindowByMode();
+					// 브라우져 체크
+					me.checkBrowser();
 					
-				}
-
-				this.checkBrowser();
-
+				});
+			
 			},
+
+
 			showLoginWindow: function () {
 				var dp = $KRF_APP.getDesktop();
 				var dpWidth = dp.getWidth();
@@ -258,11 +275,12 @@ Ext.create('Ext.data.Store', {
 
 				// 계정 권한별 레이어 표출 목록 2019-04-16
 				Ext.Ajax.request({
-					url: _API.getUserLayerInfo,
+//					url: _API.getUserLayerInfo,
+					url: "http://localhost/krf/config/getUserLayerInfo",
 					dataType: "text/plain",
 					method: 'POST',
 					async: true,
-					//params: { userId: loginInfo.userId },
+					params: { userId: loginInfo.GIS_AUTHOR_CODE },
 					success: function (response, opts) {
 						var decodeData = Ext.util.JSON.decode(response.responseText);
 						console.info(decodeData)

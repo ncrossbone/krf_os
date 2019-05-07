@@ -428,7 +428,7 @@ Ext.define('krf_new.view.map.CoreMap', {
 		}, function (error) {
 		});
 	},
-	print: function () {
+	print: function () { 
 		var me = this;
 		me.printTask.print();
 	},

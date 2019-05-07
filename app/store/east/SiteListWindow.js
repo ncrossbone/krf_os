@@ -151,7 +151,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			if($KRF_APP.LAYER_SETTING.length > 0){
 				$KRF_APP.LAYER_SETTING.map(function(obj){
 					if(obj.LYR_USE_AT != "Y"){
-						query.where += "AND LAYER_CODE <> '"+obj.LYR.CODE+'"';
+						query.where += "AND LAYER_CODE <> '"+obj.LYR_CODE+"'";
 					}		
 				})
 			}

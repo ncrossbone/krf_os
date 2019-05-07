@@ -113,7 +113,7 @@ dojo.declare("krf_new.view.map.task.CustomPrintTask", null, {
 			height: $('#' + me.mapDivId).height(),
 			arcServiceUrl: me.arcServiceUrl,
 			imgSaveUrl: me.imgSaveUrl,
-			mode: "print"
+			mode: mode
 		};
 
 		$.ajax({

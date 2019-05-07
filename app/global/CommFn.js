@@ -314,8 +314,25 @@ Ext.define("krf_new.global.CommFn", {
 
 		return;
 	},
-	getLoginUserInfo: function () {
-		var loginUserInfo = window.sessionStorage.getItem('krfLoginUser');
+	getLoginUserInfo: function (sessionId) {
+		if(!sessionId){ // sessionId가 없을때 그냥 return 시킨다
+			return null;
+		}
+		return Ext.Ajax.request({
+			//url: _API.getUserLayerInfo,
+			url: "http://localhost/krf/config/loginSession",
+			dataType: "text/plain",
+			method: 'POST',
+			async: true,
+			params: { userId: sessionId },
+			success: function (response, opts) {
+				var decodeData = Ext.util.JSON.decode(response.responseText);
+				console.info(decodeData)
+			}
+		});
+
+
+		/*var loginUserInfo = window.sessionStorage.getItem('krfLoginUser');
 
 		if (loginUserInfo != null) {
 			try {
@@ -324,7 +341,7 @@ Ext.define("krf_new.global.CommFn", {
 				console.log(e);
 			}
 		}
-		return this.getParamLoginInfo();
+		return this.getParamLoginInfo();*/
 	},
 	getLoginUserId: function () {
 		var loginUserInfo = this.getLoginUserInfo();
