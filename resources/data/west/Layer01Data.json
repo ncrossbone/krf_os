@@ -7,7 +7,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "1",
-		"text": "하천수",
+		"text": "하천",
 		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
@@ -22,7 +22,7 @@
 	}, {
 		"id": "2",
 		"wmsId":"poi_a002",
-		"text": "호소수",
+		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer2",
 		"leaf": true,

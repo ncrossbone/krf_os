@@ -124,8 +124,8 @@ Ext.create('Ext.data.Store', {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 		//a[0].data.init('http://112.217.167.123:40003');
-		//a[0].data.init('http://localhost:8080');
-		a[0].data.init('http://localhost:80');
+		a[0].data.init('http://localhost:8080');
+		//a[0].data.init('http://localhost:80');
 
 		Ext.application({ 
 			name: 'krf_new',

@@ -1,9 +1,3 @@
-/*!
- * Copyright(c) 2006-2014 Sencha Inc.
- * licensing@sencha.com
- * http://www.sencha.com/license
- */
-
 Ext.define('Desktop.MapWindow', {
 	extend: 'Ext.ux.desktop.Module',
 	requires: [

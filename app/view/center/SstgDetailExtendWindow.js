@@ -32,6 +32,8 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
         },
         height: 130,
         items: [{
+            xtype:'calendar'
+        },{
             xtype: 'container',
             height: 25
         }, {

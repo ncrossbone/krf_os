@@ -1,9 +1,3 @@
-/*!
- * Ext JS Library
- * Copyright(c) 2006-2014 Sencha Inc.
- * licensing@sencha.com
- * http://www.sencha.com/license
- */
 
 Ext.define('krf_new.Desktop.App', {
     extend: 'Ext.ux.desktop.App',
@@ -28,11 +22,9 @@ Ext.define('krf_new.Desktop.App', {
     ],
 
     init: function () {
-        // custom logic before getXYZ methods get called...
 
         this.callParent();
 
-        // now ready...
         $KRF_APP.fireEvent($KRF_EVENT.DESK_TOP_LOADED, this);
     },
 
@@ -76,7 +68,6 @@ Ext.define('krf_new.Desktop.App', {
         });
     },
 
-    // config for the start menu
     getStartConfig: function () {
         var me = this, ret = me.callParent();
 

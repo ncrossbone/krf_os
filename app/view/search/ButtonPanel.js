@@ -1,6 +1,3 @@
-/**
- * This example shows navigation tabs docked to the side.
- */
 Ext.define('krf_new.view.search.ButtonPanel', {
 	extend: 'Ext.toolbar.Toolbar',
 	// requires: [

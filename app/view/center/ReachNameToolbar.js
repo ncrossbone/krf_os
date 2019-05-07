@@ -1,6 +1,3 @@
-/**
- * This example shows navigation tabs docked to the side.
- */
 Ext.define('krf_new.view.center.ReachNameToolbar', {
 	/*리치 이름 제어용 툴바*/
 

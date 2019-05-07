@@ -78,28 +78,22 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 		render: function (v) {
 			v.dropZone = Ext.create('Ext.dd.DropZone', v.el, {
 
-				//      If the mouse is over a target node, return that node. This is
-				//      provided as the "target" parameter in all "onNodeXXXX" node event handling functions
 				getTargetFromEvent: function (e) {
 					//console.log('getTargetFromEvent', arguments);
 					return e.getTarget('.x-grid-item');
 				},
 
-				//      On entry into a target node, highlight that node.
 				onNodeEnter: function (target, dd, e, data) {
 					// console.log('onNodeEnter', arguments);
 					// Ext.fly(target).addCls('hospital-target-hover');
 				},
 
-				//      On exit from a target node, unhighlight that node.
 				onNodeOut: function (target, dd, e, data) {
 					//console.log('onNodeOut', arguments);
 					//$(dd.proxy.el.dom).html('<div>실패</div>');
 					// Ext.fly(target).removeCls('hospital-target-hover');
 				},
 
-				//      While over a target node, return the default drop allowed class which
-				//      places a "tick" icon into the drag proxy.
 				onNodeOver: function (target, dd, e, data) {
 					// 여기서 조건을 넣을수 있는지 체크해서 가능하면 proto.dropAllowed, 불가능은 proto.dropNotAllowed 리턴
 
@@ -123,11 +117,6 @@ Ext.define('krf_new.view.admin.LayerChoosePanel', {
 					// return allowPatientallowPatient(hospital, name) ? proto.dropAllowed : proto.dropNotAllowed;
 				},
 
-				//      On node drop, we can interrogate the target node to find the underlying
-				//      application object that is the real target of the dragged data.
-				//      In this case, it is a Record in the GridPanel's Store.
-				//      We can use the data set up by the DragZone's getDragData method to read
-				//      any data we decided to attach.
 				onNodeDrop: function (target, dd, e, data) {
 
 					if (e.record.data.layerSetId == data.srcData.layerSetId) {
