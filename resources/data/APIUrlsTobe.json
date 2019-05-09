@@ -123,6 +123,10 @@
     "insertDroneLayer":"#host#/krf/config/insertDroneLayer",
     "testDroneLayer":"#host#/krf/config/testDroneLayer",
     "getUserLayerInfo":"#host#/krf/config/getUserLayerInfo",
+
+    "login":"#host#/krf/config/login",
+    "loginSession":"#host#/krf/config/loginSession",
+
     init: function(host){
               if(host != null){
                   this.domain = host;

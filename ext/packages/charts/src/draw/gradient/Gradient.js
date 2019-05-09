@@ -1,8 +1,4 @@
-/**
- * @class Ext.draw.gradient.Gradient
- *
- * Creates a gradient.
- */
+
 Ext.define('Ext.draw.gradient.Gradient', {
 
     requires: ['Ext.draw.Color'],
@@ -10,9 +6,6 @@ Ext.define('Ext.draw.gradient.Gradient', {
     isGradient: true,
 
     config: {
-        /**
-         * Defines the stops of the gradient.
-         */
         stops: []
     },
 
@@ -48,14 +41,6 @@ Ext.define('Ext.draw.gradient.Gradient', {
         this.initConfig(config);
     },
 
-    /**
-     * @method
-     * @protected
-     * Generates the gradient for the given context.
-     * @param {Ext.draw.engine.SvgContext} ctx The context.
-     * @param {Object} bbox
-     * @return {CanvasGradient/Ext.draw.engine.SvgContext.Gradient/Ext.util.Color.NONE}
-     */
     generateGradient: Ext.emptyFn
 
 });

@@ -1,45 +1,4 @@
-/**
- * The Animation modifier.
- *
- * Sencha Charts allow users to use transitional animation on sprites. Simply set the duration
- * and easing in the animation modifier, then all the changes to the sprites will be animated.
- * 
- *     @example
- *     var drawCt = Ext.create({
- *         xtype: 'draw',
- *         renderTo: document.body,
- *         width: 400,
- *         height: 400,
- *         sprites: [{
- *             type: 'rect',
- *             x: 50,
- *             y: 50,
- *             width: 100,
- *             height: 100,
- *             fillStyle: '#1F6D91'
- *         }]
- *     });
- *     
- *     var rect = drawCt.getSurface().getItems()[0];
- *     
- *     rect.setAnimation({
- *         duration: 1000,
- *         easing: 'elasticOut'
- *     });
- *     
- *     Ext.defer(function () {
- *         rect.setAttributes({
- *             width: 250
- *         });
- *     }, 500);
- *
- * Also, you can use different durations and easing functions on different attributes by using
- * {@link #customDurations} and {@link #customEasings}.
- *
- * By default, an animation modifier will be created during the initialization of a sprite.
- * You can get the animation modifier of a sprite via its 
- * {@link Ext.draw.sprite.Sprite#method-getAnimation getAnimation} method.
- */
+
 Ext.define('Ext.draw.modifier.Animation', {
     requires: [
         'Ext.draw.TimingFunctions',
@@ -49,44 +8,13 @@ Ext.define('Ext.draw.modifier.Animation', {
     alias: 'modifier.animation',
 
     config: {
-        /**
-         * @cfg {Function} easing
-         * Default easing function.
-         */
+        
         easing: Ext.identityFn,
 
-        /**
-         * @cfg {Number} duration
-         * Default duration time (ms).
-         */
         duration: 0,
 
-        /**
-         * @cfg {Object} customEasings Overrides the default easing function for defined attributes. E.g.:
-         *
-         *     // Assuming the sprite the modifier is applied to is a 'circle'.
-         *     customEasings: {
-         *         r: 'easeOut',
-         *         'fillStyle,strokeStyle': 'linear',
-         *         'cx,cy': function (p, n) {
-         *             p = 1 - p;
-         *             n = n || 1.616;
-         *             return 1 - p * p * ((n + 1) * p - n);
-         *         }
-         *     }
-         */
         customEasings: {},
 
-        /**
-         * @cfg {Object} customDurations Overrides the default duration for defined attributes. E.g.:
-         *
-         *     // Assuming the sprite the modifier is applied to is a 'circle'.
-         *     customDurations: {
-         *         r: 1000,
-         *         'fillStyle,strokeStyle': 2000,
-         *         'cx,cy': 1000
-         *     }
-         */
         customDurations: {}
     },
 
@@ -103,11 +31,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         if (!attr.hasOwnProperty('timers')) {
             attr.animating = false;
             attr.timers = {};
-            // The animationOriginal object is used to hold the target values for the
-            // attributes while they are being animated from source to target values.
-            // The animationOriginal is pushed down to the lower level modifiers,
-            // instead of the actual attr object, to hide the fact that the
-            // attributes are being animated.
             attr.animationOriginal = Ext.Object.chain(attr);
             attr.animationOriginal.prototype = attr;
         }
@@ -152,14 +75,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         return oldEasings;
     },
 
-    /**
-     * Set special easings on the given attributes. E.g.:
-     *
-     *     circleSprite.fx.setEasingOn('r', 'elasticIn');
-     *
-     * @param {String/Array} attrs The source attribute(s).
-     * @param {String} easing The special easings.
-     */
     setEasingOn: function (attrs, easing) {
         attrs = Ext.Array.from(attrs).slice();
         var customEasings = {},
@@ -172,10 +87,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         this.setCustomEasings(customEasings);
     },
 
-    /**
-     * Remove special easings on the given attributes.
-     * @param {String/Array} attrs The source attribute(s).
-     */
     clearEasingOn: function (attrs) {
         attrs = Ext.Array.from(attrs, true);
         var i = 0, ln = attrs.length;
@@ -202,14 +113,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         return oldDurations;
     },
 
-    /**
-     * Set special duration on the given attributes. E.g.:
-     *
-     *     rectSprite.fx.setDurationOn('height', 2000);
-     *
-     * @param {String/Array} attrs The source attributes.
-     * @param {Number} duration The special duration.
-     */
     setDurationOn: function (attrs, duration) {
         attrs = Ext.Array.from(attrs).slice();
         var customDurations = {},
@@ -222,10 +125,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         this.setCustomDurations(customDurations);
     },
 
-    /**
-     * Remove special easings on the given attributes.
-     * @param {Object} attrs The source attributes.
-     */
     clearDurationOn: function (attrs) {
         attrs = Ext.Array.from(attrs, true);
         var i = 0, ln = attrs.length;
@@ -235,12 +134,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         }
     },
 
-    /**
-     * @private
-     * Initializes Animator for the animation.
-     * @param {Object} attr The source attributes.
-     * @param {Boolean} animating The animating flag.
-     */
     setAnimating: function (attr, animating) {
         var me = this,
             pool = me.animatingPool;
@@ -264,13 +157,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         }
     },
 
-    /**
-     * @private
-     * Set the attr with given easing and duration.
-     * @param {Object} attr The attributes collection.
-     * @param {Object} changes The changes that popped up from lower modifier.
-     * @return {Object} The changes to pop up.
-     */
     setAttrs: function (attr, changes) {
         var me = this,
             timers = attr.timers,
@@ -285,9 +171,7 @@ Ext.define('Ext.draw.modifier.Animation', {
             ignite = false,
             timer, name, newValue, startValue, parser, easing, duration;
 
-        if (!any) { // If there is no animation enabled.
-            // When applying changes to attributes, simply stop current animation
-            // and set the value.
+        if (!any) { 
             for (name in changes) {
                 if (attr[name] === changes[name]) {
                     delete changes[name];
@@ -298,18 +182,15 @@ Ext.define('Ext.draw.modifier.Animation', {
                 delete timers[name];
             }
             return changes;
-        } else { // If any animation.
+        } else { 
             for (name in changes) {
                 newValue = changes[name];
                 startValue = attr[name];
                 if (newValue !== startValue && startValue !== undefined && startValue !== null && (parser = parsers[name])) {
-                    // If this property is animating.
-
-                    // Figure out the desired duration and easing.
+                    
                     easing = defaultEasing;
                     duration = defaultDuration;
                     if (anySpecial) {
-                        // Deducing the easing function and duration
                         if (name in customEasings) {
                             easing = customEasings[name];
                         }
@@ -318,12 +199,10 @@ Ext.define('Ext.draw.modifier.Animation', {
                         }
                     }
 
-                    // Transitions betweens color and gradient or between gradients are not supported.
                     if (startValue && startValue.isGradient || newValue && newValue.isGradient) {
                         duration = 0;
                     }
 
-                    // If the property is animating
                     if (duration) {
                         if (!timers[name]) {
                             timers[name] = {};
@@ -348,7 +227,6 @@ Ext.define('Ext.draw.modifier.Animation', {
                             timer.source = startValue;
                             timer.target = newValue;
                         }
-                        // The animation started. Change to originalVal.
                         animationOriginal[name] = newValue;
                         delete changes[name];
                         ignite = true;
@@ -360,7 +238,6 @@ Ext.define('Ext.draw.modifier.Animation', {
                     delete animationOriginal[name];
                 }
 
-                // If the property is not animating.
                 delete timers[name];
             }
         }
@@ -372,15 +249,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         return changes;
     },
 
-    /**
-     * @private
-     *
-     * Update attributes to current value according to current animation time.
-     * This method will not affect the values of lower layers, but may delete a
-     * value from it.
-     * @param {Object} attr The source attributes.
-     * @return {Object} The changes to pop up or null.
-     */
     updateAttributes: function (attr) {
         if (!attr.animating) {
             return {};
@@ -392,7 +260,6 @@ Ext.define('Ext.draw.modifier.Animation', {
             now = Ext.draw.Animator.animationTime(),
             name, timer, delta;
 
-        // If updated in the same frame, return.
         if (attr.lastUpdate === now) {
             return null;
         }
@@ -438,10 +305,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         }
     },
 
-    /**
-     * @private
-     * This is called as an animated object in `Ext.draw.Animator`.
-     */
     step: function (frameTime) {
         var me = this,
             pool = me.animatingPool.slice(),
@@ -459,9 +322,6 @@ Ext.define('Ext.draw.modifier.Animation', {
         }
     },
 
-    /**
-     * Stop all animations affected by this modifier.
-     */
     stop: function () {
         this.step();
 

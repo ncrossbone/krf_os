@@ -1,17 +1,9 @@
-/**
- * Ext JS Library
- * Copyright(c) 2006-2014 Sencha Inc.
- * licensing@sencha.com
- * http://www.sencha.com/license
- * @class Ext.ux.desktop.StartMenu
- */
+
 Ext.define('Ext.ux.desktop.StartMenu', {
     extend: 'Ext.menu.Menu',
 
-    // We want header styling like a Panel
     baseCls: Ext.baseCSSPrefix + 'panel',
 
-    // Special styling within
     cls: 'x-menu ux-start-menu',
     bodyCls: 'ux-start-menu-body',
 
@@ -59,4 +51,4 @@ Ext.define('Ext.ux.desktop.StartMenu', {
         var cmp = this.toolbar;
         cmp.add.apply(cmp, arguments);
     }
-}); // StartMenu
+}); 

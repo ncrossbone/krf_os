@@ -1,9 +1,3 @@
-/**
- * @class Ext.draw.TimingFunctions
- * @singleton
- * 
- * Singleton that provides easing functions for use in sprite animations.
- */
 Ext.define('Ext.draw.TimingFunctions', function () {
 
     var pow = Math.pow,
@@ -49,7 +43,6 @@ Ext.define('Ext.draw.TimingFunctions', function () {
         easingsMap = {},
         name, len, i;
 
-    // Create polynomial easing equations.
     function createPoly(times) {
         return function (p) {
             return pow(p, times);
@@ -79,10 +72,8 @@ Ext.define('Ext.draw.TimingFunctions', function () {
         addEasing(name, easings[name]);
     }
 
-    // Add linear interpolator.
     easingsMap.linear = Ext.identityFn;
 
-    // Add aliases for quad easings.
     easingsMap.easeIn = easingsMap.quadIn;
     easingsMap.easeOut = easingsMap.quadOut;
     easingsMap.easeInOut = easingsMap.quadInOut;

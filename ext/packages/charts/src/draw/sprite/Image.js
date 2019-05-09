@@ -1,9 +1,3 @@
-/**
- * @class Ext.draw.sprite.Image
- * @extends Ext.draw.sprite.Rect
- *
- * A sprite that represents an image.
- */
 Ext.define('Ext.draw.sprite.Image', {
     extend: 'Ext.draw.sprite.Rect',
     alias: 'sprite.image',
@@ -15,14 +9,7 @@ Ext.define('Ext.draw.sprite.Image', {
     inheritableStatics: {
         def: {
             processors: {
-                /**
-                 * @cfg {String} [src=''] The image source of the sprite.
-                 */
                 src: 'string'
-                /**
-                 * @private
-                 * @cfg {Number} radius
-                 */
             },
             triggers: {
                 src: 'src'
@@ -32,19 +19,9 @@ Ext.define('Ext.draw.sprite.Image', {
             },
             defaults: {
                 src: '',
-                /**
-                 * @cfg {Number} [width=null] The width of the image.
-                 * For consistent image size on all devices the width must be explicitly set.
-                 * Otherwise the natural image width devided by the device pixel ratio
-                 * (for a crisp looking image) will be used as the width of the sprite.
-                 */
+                
                 width: null,
-                /**
-                 * @cfg {Number} [height=null] The height of the image.
-                 * For consistent image size on all devices the height must be explicitly set.
-                 * Otherwise the natural image height devided by the device pixel ratio
-                 * (for a crisp looking image) will be used as the height of the sprite.
-                 */
+                
                 height: null
             }
         }
@@ -67,7 +44,6 @@ Ext.define('Ext.draw.sprite.Image', {
             i;
 
         if (!surface) {
-            // First time this is called the sprite won't have a surface yet.
             return;
         }
 
@@ -131,17 +107,12 @@ Ext.define('Ext.draw.sprite.Image', {
                 height || (image.naturalHeight || image.height) / surface.devicePixelRatio);
         }
 
-        //<debug>
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
         if (debug) {
             debug.bbox && this.renderBBox(surface, ctx);
         }
-        //</debug>
     },
 
-    /**
-     * @private
-     */
     isVisible: function () {
         var attr = this.attr,
             parent = this.getParent(),

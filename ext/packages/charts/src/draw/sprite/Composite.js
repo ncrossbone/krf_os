@@ -1,9 +1,3 @@
-/**
- * @class Ext.draw.sprite.Composite
- * @extends Ext.draw.sprite.Sprite
- * 
- * Represents a group of sprites.
- */
 Ext.define('Ext.draw.sprite.Composite', {
     extend: 'Ext.draw.sprite.Sprite',
     alias: 'sprite.composite',
@@ -20,10 +14,6 @@ Ext.define('Ext.draw.sprite.Composite', {
         this.callParent([config]);
     },
 
-    /**
-     * Adds a sprite to the composite.
-     * @param {Ext.draw.sprite.Sprite|Object} sprite
-     */
     add: function (sprite) {
         if (!sprite) {
             return null;
@@ -60,7 +50,7 @@ Ext.define('Ext.draw.sprite.Composite', {
             id, isOwnSprite;
 
         if (sprite) {
-            if (sprite.charAt) { // is String
+            if (sprite.charAt) { 
                 sprite = me.map[sprite];
             }
             if (!sprite || !sprite.isSprite) {
@@ -96,10 +86,6 @@ Ext.define('Ext.draw.sprite.Composite', {
         }
     },
 
-    /**
-     * Adds a list of sprites to the composite.
-     * @param {Ext.draw.sprite.Sprite[]|Object[]|Ext.draw.sprite.Sprite|Object} sprites
-     */
     addAll: function (sprites) {
         if (sprites.isSprite || sprites.type) {
             this.add(sprites);
@@ -111,9 +97,6 @@ Ext.define('Ext.draw.sprite.Composite', {
         }
     },
 
-    /**
-     * Updates the bounding box of the composite, which contains the bounding box of all sprites in the composite.
-     */
     updatePlainBBox: function (plain) {
         var me = this,
             left = Infinity,
@@ -146,9 +129,6 @@ Ext.define('Ext.draw.sprite.Composite', {
     },
 
     isVisible: function () {
-        // Override the abstract Sprite's method.
-        // Composite uses a simpler check, because it has no fill or stroke
-        // style of its own, it just houses other sprites.
         var attr = this.attr,
             parent = this.getParent(),
             hasParent = parent && (parent.isSurface || parent.isVisible()),
@@ -157,9 +137,6 @@ Ext.define('Ext.draw.sprite.Composite', {
         return !!isSeen;
     },
 
-    /**
-     * Renders all sprites contained in the composite to the surface.
-     */
     render: function (surface, ctx, rect) {
         var me = this,
             attr = me.attr,
@@ -172,13 +149,11 @@ Ext.define('Ext.draw.sprite.Composite', {
         for (; i < ln; i++) {
             surface.renderSprite(sprites[i], rect);
         }
-        //<debug>
         var debug = attr.debug || me.statics().debug || Ext.draw.sprite.Sprite.debug;
         if (debug) {
             attr.inverseMatrix.toContext(ctx);
             debug.bbox && me.renderBBox(surface, ctx);
         }
-        //</debug>
     },
 
     destroy: function () {

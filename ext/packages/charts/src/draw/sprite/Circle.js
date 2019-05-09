@@ -1,24 +1,3 @@
-/**
- * @class Ext.draw.sprite.Circle
- * @extends Ext.draw.sprite.Path
- *
- * A sprite that represents a circle.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'circle',
- *            cx: 100,
- *            cy: 100,
- *            r: 50,
- *            fillStyle: '#1F6D91'
- *        }]
- *     });
- */
 Ext.define('Ext.draw.sprite.Circle', {
     extend: 'Ext.draw.sprite.Path',
     alias: 'sprite.circle',
@@ -26,19 +5,11 @@ Ext.define('Ext.draw.sprite.Circle', {
     inheritableStatics: {
         def: {
             processors: {
-                /**
-                 * @cfg {Number} [cx=0] The center coordinate of the sprite on the x-axis.
-                 */
+                
                 cx: 'number',
 
-                /**
-                 * @cfg {Number} [cy=0] The center coordinate of the sprite on the y-axis.
-                 */
                 cy: 'number',
 
-                /**
-                 * @cfg {Number} [r=0] The radius of the sprite.
-                 */
                 r: 'number'
             },
             aliases: {

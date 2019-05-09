@@ -1,22 +1,3 @@
-/**
- * A sprite that represents a triangle.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'triangle',
- *            size: 50,
- *            translationX: 100,
- *            translationY: 100,
- *            fillStyle: '#1F6D91'
- *        }]
- *     });
- * 
- */
 Ext.define('Ext.draw.sprite.Triangle', {
     extend: 'Ext.draw.sprite.Path',
     alias: 'sprite.triangle',
@@ -26,10 +7,6 @@ Ext.define('Ext.draw.sprite.Triangle', {
             processors: {
                 x: 'number',
                 y: 'number',
-                /**
-                 * @cfg {Number} [size=4] The size of the sprite.
-                 * Meant to be comparable to the size of a circle sprite with the same radius.
-                 */
                 size: 'number'
             },
             defaults: {

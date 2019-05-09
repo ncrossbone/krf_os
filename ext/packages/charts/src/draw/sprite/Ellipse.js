@@ -1,25 +1,3 @@
-/**
- * @class Ext.draw.sprite.Ellipse
- * @extends Ext.draw.sprite.Path
- * 
- * A sprite that represents an ellipse.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'ellipse',
- *            cx: 100,
- *            cy: 100,
- *            rx: 80,
- *            ry: 50,
- *            fillStyle: '#1F6D91'
- *        }]
- *     });
- */
 Ext.define("Ext.draw.sprite.Ellipse", {
     extend: "Ext.draw.sprite.Path",
     alias: 'sprite.ellipse',
@@ -27,29 +5,11 @@ Ext.define("Ext.draw.sprite.Ellipse", {
     inheritableStatics: {
         def: {
             processors: {
-                /**
-                 * @cfg {Number} [cx=0] The center coordinate of the sprite on the x-axis.
-                 */
                 cx: "number",
-                
-                /**
-                 * @cfg {Number} [cy=0] The center coordinate of the sprite on the y-axis.
-                 */
                 cy: "number",
-                
-                /**
-                 * @cfg {Number} [rx=1] The radius of the sprite on the x-axis.
-                 */
                 rx: "number",
-
-                /**
-                 * @cfg {Number} [ry=1] The radius of the sprite on the y-axis.
-                 */
                 ry: "number",
 
-                /**
-                 * @cfg {Number} [axisRotation=0] The rotation of the sprite about its axis.
-                 */
                 axisRotation: "number"
             },
             aliases: {

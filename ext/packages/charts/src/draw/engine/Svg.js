@@ -1,18 +1,9 @@
-/**
- * @class Ext.draw.engine.Svg
- * @extends Ext.draw.Surface
- *
- * SVG engine.
- */
 Ext.define('Ext.draw.engine.Svg', {
     extend: 'Ext.draw.Surface',
     requires: ['Ext.draw.engine.SvgContext'],
     isSVG: true,
 
     config: {
-        /**
-         * Nothing needs to be done in high precision mode.
-         */
         highPrecision: false
     },
 
@@ -50,32 +41,15 @@ Ext.define('Ext.draw.engine.Svg', {
         me.callParent([config]);
         me.mainGroup = me.createSvgNode("g");
         me.defsElement = me.createSvgNode("defs");
-        // me.svgElement is assigned in element creation of Ext.Component.
         me.svgElement.appendChild(me.mainGroup);
         me.svgElement.appendChild(me.defsElement);
         me.ctx = new Ext.draw.engine.SvgContext(me);
     },
-
-    /**
-     * Creates a DOM element under the SVG namespace of the given type.
-     * @param {String} type The type of the SVG DOM element.
-     * @return {*} The created element.
-     */
     createSvgNode: function (type) {
         var node = document.createElementNS("http://www.w3.org/2000/svg", type);
         return Ext.get(node);
     },
 
-    /**
-     * @private
-     * Returns the SVG DOM element at the given position.
-     * If it does not already exist or is a different element tag,
-     * it will be created and inserted into the DOM.
-     * @param {Ext.dom.Element} group The parent DOM element.
-     * @param {String} tag The SVG element tag.
-     * @param {Number} position The position of the element in the DOM.
-     * @return {Ext.dom.Element} The SVG element.
-     */
     getSvgElement: function (group, tag, position) {
         var childNodes = group.dom.childNodes,
             length = childNodes.length,
@@ -103,12 +77,6 @@ Ext.define('Ext.draw.engine.Svg', {
         return element;
     },
 
-    /**
-     * @private
-     * Applies attributes to the given element.
-     * @param {Ext.dom.Element} element The DOM element to be applied.
-     * @param {Object} attributes The attributes to apply to the element.
-     */
     setElementAttributes: function (element, attributes) {
         var dom = element.dom,
             cache = element.cache,
@@ -122,27 +90,15 @@ Ext.define('Ext.draw.engine.Svg', {
         }
     },
 
-    /**
-     * @private
-     * Gets the next reference element under the SVG 'defs' tag.
-     * @param {String} tagName The type of reference element.
-     * @return {Ext.dom.Element} The reference element.
-     */
     getNextDef: function (tagName) {
         return this.getSvgElement(this.defsElement, tagName, this.defsPosition++);
     },
 
-    /**
-     * @inheritdoc
-     */
     clearTransform: function () {
         var me = this;
         me.mainGroup.set({transform: me.matrix.toSvg()});
     },
 
-    /**
-     * @inheritdoc
-     */
     clear: function () {
         this.ctx.clear();
         this.removeSurplusDefs();
@@ -160,32 +116,17 @@ Ext.define('Ext.draw.engine.Svg', {
         }
     },
 
-    /**
-     * @inheritdoc
-     */
     renderSprite: function (sprite) {
         var me = this,
             rect = me.getRect(),
             ctx = me.ctx;
 
-        // This check is simplistic, but should result in a better performance
-        // compared to !sprite.isVisible() when most surface sprites are visible.
         if (sprite.attr.hidden || sprite.attr.globalAlpha === 0) {
-            // Create an empty group for each hidden sprite,
-            // so that when these sprites do become visible,
-            // they don't need groups to be created and don't
-            // mess up the previous order of elements in the
-            // document, i.e. sprites rendered in the next
-            // frame reuse the same elements they used in the
-            // previous frame.
             ctx.save();
             ctx.restore();
             return;
         }
 
-        // Each sprite is rendered in its own group ('g' element),
-        // returned by the `ctx.save` method.
-        // Essentially, the group _is_ the sprite.
         sprite.element = ctx.save();
         sprite.preRender(this);
         sprite.useAttributes(ctx, rect);
@@ -196,9 +137,6 @@ Ext.define('Ext.draw.engine.Svg', {
         ctx.restore();
     },
 
-    /**
-     * @private
-     */
     toSVG: function (size, surfaces) {
         var className = Ext.getClassName(this),
             svg, surface, rect, i;
@@ -233,12 +171,6 @@ Ext.define('Ext.draw.engine.Svg', {
         };
     },
 
-    /**
-     * @private
-     * Serializes an SVG DOM element and its children recursively into a string.
-     * @param {Object} node DOM element to serialize.
-     * @return {String}
-     */
     serializeNode: function (node) {
         var result = '',
             i, n, attr, child;
@@ -263,9 +195,6 @@ Ext.define('Ext.draw.engine.Svg', {
         return result;
     },
 
-    /**
-     * Destroys the Canvas element and prepares it for Garbage Collection.
-     */
     destroy: function () {
         var me = this;
 
@@ -282,7 +211,7 @@ Ext.define('Ext.draw.engine.Svg', {
 
     remove: function (sprite, destroySprite) {
         if (sprite && sprite.element) {
-            // If sprite has an associated SVG element, remove it from the surface.
+           
             sprite.element.destroy();
             sprite.element = null;
         }

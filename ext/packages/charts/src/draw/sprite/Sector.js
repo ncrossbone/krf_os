@@ -1,26 +1,3 @@
-/**
- * @class Ext.draw.sprite.Sector
- * @extends Ext.draw.sprite.Path
- * 
- * A sprite representing a pie slice.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'sector',
- *            centerX: 100,
- *            centerY: 100,
- *            startAngle: -2.355,
- *            endAngle: -.785,
- *            endRho: 50,
- *            fillStyle: '#1F6D91'
- *        }]
- *     });
- */
 Ext.define('Ext.draw.sprite.Sector', {
     extend: 'Ext.draw.sprite.Path',
     alias: 'sprite.sector',
@@ -28,39 +5,12 @@ Ext.define('Ext.draw.sprite.Sector', {
     inheritableStatics: {
         def: {
             processors: {
-                /**
-                 * @cfg {Number} [centerX=0] The center coordinate of the sprite on the x-axis.
-                 */
                 centerX: 'number',
-
-                /**
-                 * @cfg {Number} [centerY=0] The center coordinate of the sprite on the y-axis.
-                 */
                 centerY: 'number',
-
-                /**
-                 * @cfg {Number} [startAngle=0] The starting angle of the sprite.
-                 */
                 startAngle: 'number',
-
-                /**
-                 * @cfg {Number} [endAngle=0] The ending angle of the sprite.
-                 */
                 endAngle: 'number',
-
-                /**
-                 * @cfg {Number} [startRho=0] The starting point of the radius of the sprite.
-                 */
                 startRho: 'number',
-
-                /**
-                 * @cfg {Number} [endRho=150] The ending point of the radius of the sprite.
-                 */
                 endRho: 'number',
-
-                /**
-                 * @cfg {Number} [margin=0] The margin of the sprite from the center of pie.
-                 */
                 margin: 'number'
             },
             aliases: {

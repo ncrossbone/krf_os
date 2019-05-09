@@ -48,7 +48,8 @@ Ext.define('krf_new.view.east.SedimentSeachWindow', {
                 width: 225,
                 editable: false,
                 displayField: 'name',
-                valueField: 'id'
+                valueField: 'id',
+                id: 'sedimentYear'
             }]
         }, {
             xtype: 'container',
@@ -68,7 +69,8 @@ Ext.define('krf_new.view.east.SedimentSeachWindow', {
                 width: 225,
                 editable: false,
                 displayField: 'name',
-                valueField: 'id'
+                valueField: 'id',
+                id: 'sedimentHalf'
             }, {
                 xtype: 'container',
                 width: 10
@@ -91,7 +93,8 @@ Ext.define('krf_new.view.east.SedimentSeachWindow', {
                 width: 225,
                 editable: false,
                 displayField: 'name',
-                valueField: 'id'
+                valueField: 'id',
+                id: 'sedimentItem'
             }, {
                 xtype: 'container',
                 width: 10
@@ -109,7 +112,10 @@ Ext.define('krf_new.view.east.SedimentSeachWindow', {
             items: [{
                 xtype: 'button',
                 id: 'sedimentSearch',
-                cls: 'khLee-x-button-select'
+                cls: 'khLee-x-button-select',
+                handler: function () {
+                    krf_new.global.SedimentFn.getData();
+                }
             }]
         }, {
             xtype: 'container',

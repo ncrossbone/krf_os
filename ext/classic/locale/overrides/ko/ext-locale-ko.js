@@ -1,8 +1,4 @@
-/**
- * Korean Translations By nicetip
- * 05 September 2007
- * Modify by techbug / 25 February 2008
- */
+
 Ext.onReady(function() {
 
     if (Ext.Date) {
@@ -16,7 +12,6 @@ Ext.onReady(function() {
             thousandSeparator: ',',
             decimalSeparator: '.',
             currencySign: '\u20a9',
-            // Korean Won
             dateFormat: 'm/d/Y'
         });
     }
@@ -42,7 +37,6 @@ Ext.define("Ext.locale.ko.form.field.Base", {
     invalidText: "올바른 값이 아닙니다."
 });
 
-// changing the msg text below will affect the LoadMask
 Ext.define("Ext.locale.ko.view.AbstractView", {
     override: "Ext.view.AbstractView",
     loadingText: "로딩중..."
@@ -239,7 +233,6 @@ Ext.define("Ext.locale.ko.window.MessageBox", {
     }    
 });
 
-// This is needed until we can refactor all of the locales into individual files
 Ext.define("Ext.locale.ko.Component", {	
     override: "Ext.Component"
 });

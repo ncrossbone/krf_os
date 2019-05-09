@@ -1,40 +1,26 @@
 Ext.define('Ext.theme.neptune.layout.component.Dock', {
     override: 'Ext.layout.component.Dock',
 
-    /**
-     * This table contains the border removal classes indexed by the sum of the edges to
-     * remove. Each edge is assigned a value:
-     * 
-     *  * `left` = 1
-     *  * `bottom` = 2
-     *  * `right` = 4
-     *  * `top` = 8
-     * 
-     * @private
-     */
     noBorderClassTable: [
-        0,                                      // TRBL
-        Ext.baseCSSPrefix + 'noborder-l',       // 0001 = 1
-        Ext.baseCSSPrefix + 'noborder-b',       // 0010 = 2
-        Ext.baseCSSPrefix + 'noborder-bl',      // 0011 = 3
-        Ext.baseCSSPrefix + 'noborder-r',       // 0100 = 4
-        Ext.baseCSSPrefix + 'noborder-rl',      // 0101 = 5
-        Ext.baseCSSPrefix + 'noborder-rb',      // 0110 = 6
-        Ext.baseCSSPrefix + 'noborder-rbl',     // 0111 = 7
-        Ext.baseCSSPrefix + 'noborder-t',       // 1000 = 8
-        Ext.baseCSSPrefix + 'noborder-tl',      // 1001 = 9
-        Ext.baseCSSPrefix + 'noborder-tb',      // 1010 = 10
-        Ext.baseCSSPrefix + 'noborder-tbl',     // 1011 = 11
-        Ext.baseCSSPrefix + 'noborder-tr',      // 1100 = 12
-        Ext.baseCSSPrefix + 'noborder-trl',     // 1101 = 13
-        Ext.baseCSSPrefix + 'noborder-trb',     // 1110 = 14
-        Ext.baseCSSPrefix + 'noborder-trbl'     // 1111 = 15
+        0,                                      
+        Ext.baseCSSPrefix + 'noborder-l',       
+        Ext.baseCSSPrefix + 'noborder-b',       
+        Ext.baseCSSPrefix + 'noborder-bl',      
+        Ext.baseCSSPrefix + 'noborder-r',       
+        Ext.baseCSSPrefix + 'noborder-rl',      
+        Ext.baseCSSPrefix + 'noborder-rb',      
+        Ext.baseCSSPrefix + 'noborder-rbl',     
+        Ext.baseCSSPrefix + 'noborder-t',       
+        Ext.baseCSSPrefix + 'noborder-tl',      
+        Ext.baseCSSPrefix + 'noborder-tb',      
+        Ext.baseCSSPrefix + 'noborder-tbl',     
+        Ext.baseCSSPrefix + 'noborder-tr',      
+        Ext.baseCSSPrefix + 'noborder-trl',     
+        Ext.baseCSSPrefix + 'noborder-trb',     
+        Ext.baseCSSPrefix + 'noborder-trbl'     
     ],
 
-    /**
-     * The numeric values assigned to each edge indexed by the `dock` config value.
-     * @private
-     */
+    
     edgeMasks: {
         top: 8,
         right: 4,
@@ -71,7 +57,6 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
 
         me.initializedBorders = dockedItemsGen;
 
-        // Borders have to be calculated using expanded docked item collection.
         me.collapsed = false;
         docked = me.getDockedItems('visual');
         me.collapsed = collapsed;
@@ -79,8 +64,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
         for (i = 0, ln = docked.length; i < ln; i++) {
             item = docked[i];
             if (item.ignoreBorderManagement) {
-                // headers in framed panels ignore border management, so we do not want
-                // to set "satisfied" on the edge in question
+               
                 continue;
             }
 
@@ -90,7 +74,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
             removeCls.length = 0;
 
             if (dock !== 'bottom') {
-                if (edges & maskT) { // if (not touching the top edge)
+                if (edges & maskT) { 
                     b = item.border;
                 } else {
                     b = ownerBorder;
@@ -103,7 +87,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
                 }
             }
             if (dock !== 'left') {
-                if (edges & maskR) { // if (not touching the right edge)
+                if (edges & maskR) { 
                     b = item.border;
                 } else {
                     b = ownerBorder;
@@ -116,7 +100,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
                 }
             }
             if (dock !== 'top') {
-                if (edges & maskB) { // if (not touching the bottom edge)
+                if (edges & maskB) { 
                     b = item.border;
                 } else {
                     b = ownerBorder;
@@ -129,7 +113,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
                 }
             }
             if (dock !== 'right') {
-                if (edges & maskL) { // if (not touching the left edge)
+                if (edges & maskL) { 
                     b = item.border;
                 } else {
                     b = ownerBorder;
@@ -169,17 +153,15 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
                 item.addCls(addCls);
             }
 
-            // mask can use += but edges must use |= because there can be multiple items
-            // on an edge but the mask is reset per item
 
-            edges |= edgeMasks[dock]; // = T, R, B or L (8, 4, 2 or 1)
+            edges |= edgeMasks[dock]; 
         }
 
         mask = edgesTouched = 0;
         addCls.length = 0;
         removeCls.length = 0;
 
-        if (edges & maskT) { // if (not touching the top edge)
+        if (edges & maskT) { 
             b = bodyBorder;
         } else {
             b = ownerBorder;
@@ -191,7 +173,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
             mask += maskT;
         }
 
-        if (edges & maskR) { // if (not touching the right edge)
+        if (edges & maskR) { 
             b = bodyBorder;
         } else {
             b = ownerBorder;
@@ -203,7 +185,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
             mask += maskR;
         }
 
-        if (edges & maskB) { // if (not touching the bottom edge)
+        if (edges & maskB) { 
             b = bodyBorder;
         } else {
             b = ownerBorder;
@@ -215,7 +197,7 @@ Ext.define('Ext.theme.neptune.layout.component.Dock', {
             mask += maskB;
         }
 
-        if (edges & maskL) { // if (not touching the left edge)
+        if (edges & maskL) { 
             b = bodyBorder;
         } else {
             b = ownerBorder;

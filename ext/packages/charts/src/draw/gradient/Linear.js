@@ -1,45 +1,9 @@
-/**
- * Linear gradient.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'circle',
- *            cx: 100,
- *            cy: 100,
- *            r: 100,
- *            fillStyle: {
- *                type: 'linear',
- *                degrees: 180,
- *                stops: [{
- *                    offset: 0,
- *                    color: '#1F6D91'
- *                }, {
- *                    offset: 1,
- *                    color: '#90BCC9'
- *                }]
- *            }
- *        }]
- *     });
- */
 Ext.define('Ext.draw.gradient.Linear', {
     extend: 'Ext.draw.gradient.Gradient',
     requires: ['Ext.draw.Color'],
     type: 'linear',
     config: {
-        /**
-         * @cfg {Number} degrees
-         * The angle of rotation of the gradient in degrees.
-         */
         degrees: 0,
-        /**
-         * @cfg {Number} radians
-         * The angle of rotation of the gradient in radians.
-         */
         radians: 0
     },
 
@@ -65,9 +29,6 @@ Ext.define('Ext.draw.gradient.Linear', {
         this.setRadians(Ext.draw.Draw.rad(degrees));
     },
 
-    /**
-     * @inheritdoc
-     */
     generateGradient: function (ctx, bbox) {
         var angle = this.getRadians(),
             cos = Math.cos(angle),

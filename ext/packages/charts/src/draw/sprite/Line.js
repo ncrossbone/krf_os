@@ -1,23 +1,3 @@
-/**
- * A sprite that represents a line.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'line',
- *            fromX: 20,
- *            fromY: 20,
- *            toX: 120,
- *            toY: 120,
- *            strokeStyle: '#1F6D91',
- *            lineWidth: 3
- *        }]
- *     });
- */
 Ext.define('Ext.draw.sprite.Line', {
     extend: 'Ext.draw.sprite.Sprite',
     alias: 'sprite.line',
@@ -79,8 +59,6 @@ Ext.define('Ext.draw.sprite.Line', {
             dx = halfLineWidth * cos,
             dy = halfLineWidth * sin;
 
-        // Offset start and end points of the line by half its thickness,
-        // while accounting for line's angle.
         fromX -= dx;
         fromY -= dy;
         toX += dx;
@@ -115,15 +93,10 @@ Ext.define('Ext.draw.sprite.Line', {
         ctx.lineTo(attr.toX, attr.toY);
         ctx.stroke();
 
-        //<debug>
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
         if (debug) {
-            // This assumes no part of the sprite is rendered after this call.
-            // If it is, we need to re-apply transformations.
-            // But the bounding box should always be rendered as is, untransformed.
             this.attr.inverseMatrix.toContext(ctx);
             debug.bbox && this.renderBBox(surface, ctx);
         }
-        //</debug>
     }
 });

@@ -1,8 +1,4 @@
-/**
- * Class representing a path.
- * Designed to be compatible with [CanvasPathMethods](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#canvaspathmethods)
- * and will hopefully be replaced by the browsers' implementation of the Path object.
- */
+
 Ext.define('Ext.draw.Path', {
     requires: ['Ext.draw.Draw'],
     statics: {
@@ -12,19 +8,11 @@ Ext.define('Ext.draw.Path', {
     },
     svgString: '',
 
-    /**
-     * Create a path from pathString.
-     * @constructor
-     * @param {String} pathString
-     */
     constructor: function (pathString) {
         var me = this;
-        me.commands = []; // Stores command letters from the SVG path data ('d' attribute).
-        me.params = [];   // Stores command parameters from the SVG path data.
-        // All command parameters are actually point coordinates as the only commands used
-        // are the M, L, C, Z. This makes path transformations and hit testing easier.
-        // Arcs are approximated using cubic Bezier curves, H and S commands are translated
-        // to L commands and relative commands are translated to their absolute versions.
+        me.commands = []; 
+        me.params = [];   
+        
         me.cursor = null;
         me.startX = 0;
         me.startY = 0;
@@ -33,9 +21,6 @@ Ext.define('Ext.draw.Path', {
         }
     },
 
-    /**
-     * Clear the path.
-     */
     clear: function () {
         var me = this;
         me.params.length = 0;
@@ -46,18 +31,10 @@ Ext.define('Ext.draw.Path', {
         me.dirt();
     },
 
-    /**
-     * @private
-     */
     dirt: function () {
         this.svgString = '';
     },
 
-    /**
-     * Move to a position.
-     * @param {Number} x
-     * @param {Number} y
-     */
     moveTo: function (x, y) {
         var me = this;
         if (!me.cursor) {
@@ -72,11 +49,6 @@ Ext.define('Ext.draw.Path', {
         me.dirt();
     },
 
-    /**
-     * A straight line to a position.
-     * @param {Number} x
-     * @param {Number} y
-     */
     lineTo: function (x, y) {
         var me = this;
         if (!me.cursor) {
@@ -92,15 +64,6 @@ Ext.define('Ext.draw.Path', {
         me.dirt();
     },
 
-    /**
-     * A cubic bezier curve to a position.
-     * @param {Number} cx1
-     * @param {Number} cy1
-     * @param {Number} cx2
-     * @param {Number} cy2
-     * @param {Number} x
-     * @param {Number} y
-     */
     bezierCurveTo: function (cx1, cy1, cx2, cy2, x, y) {
         var me = this;
         if (!me.cursor) {
@@ -113,13 +76,6 @@ Ext.define('Ext.draw.Path', {
         me.dirt();
     },
 
-    /**
-     * A quadratic bezier curve to a position.
-     * @param {Number} cx
-     * @param {Number} cy
-     * @param {Number} x
-     * @param {Number} y
-     */
     quadraticCurveTo: function (cx, cy, x, y) {
         var me = this;
         if (!me.cursor) {
@@ -132,9 +88,6 @@ Ext.define('Ext.draw.Path', {
         );
     },
 
-    /**
-     * Close this path with a straight line.
-     */
     closePath: function () {
         var me = this;
         if (me.cursor) {
@@ -144,19 +97,6 @@ Ext.define('Ext.draw.Path', {
         }
     },
 
-    /**
-     * Create a elliptic arc curve compatible with SVG's arc to instruction.
-     *
-     * The curve start from (`x1`, `y1`) and ends at (`x2`, `y2`). The ellipse
-     * has radius `rx` and `ry` and a rotation of `rotation`.
-     * @param {Number} x1
-     * @param {Number} y1
-     * @param {Number} x2
-     * @param {Number} y2
-     * @param {Number} [rx]
-     * @param {Number} [ry]
-     * @param {Number} [rotation]
-     */
     arcTo: function (x1, y1, x2, y2, rx, ry, rotation) {
         var me = this;
         if (ry === undefined) {
@@ -187,8 +127,6 @@ Ext.define('Ext.draw.Path', {
             l0 = Math.sqrt(x0 * x0 + y0 * y0),
             l2 = Math.sqrt(x2 * x2 + y2 * y2),
             dist, cx, cy;
-        // cos rx, -sin ry , x1 - cos rx x1 + ry sin y1
-        // sin rx, cos ry, -rx sin x1 + y1 - cos ry y1
         if (area === 0) {
             me.lineTo(x1, y1);
             return;
@@ -251,20 +189,6 @@ Ext.define('Ext.draw.Path', {
         }
     },
 
-    /**
-     * Create an elliptic arc.
-     *
-     * See [the whatwg reference of ellipse](http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-ellipse).
-     *
-     * @param {Number} cx
-     * @param {Number} cy
-     * @param {Number} radiusX
-     * @param {Number} radiusY
-     * @param {Number} rotation
-     * @param {Number} startAngle
-     * @param {Number} endAngle
-     * @param {Number} anticlockwise
-     */
     ellipse: function (cx, cy, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise) {
         var me = this,
             params = me.params,
@@ -310,28 +234,10 @@ Ext.define('Ext.draw.Path', {
         me.dirt();
     },
 
-    /**
-     * Create an circular arc.
-     *
-     * @param {Number} x
-     * @param {Number} y
-     * @param {Number} radius
-     * @param {Number} startAngle
-     * @param {Number} endAngle
-     * @param {Number} anticlockwise
-     */
     arc: function (x, y, radius, startAngle, endAngle, anticlockwise) {
         this.ellipse(x, y, radius, radius, 0, startAngle, endAngle, anticlockwise);
     },
 
-    /**
-     * Draw a rectangle and close it.
-     *
-     * @param {Number} x
-     * @param {Number} y
-     * @param {Number} width
-     * @param {Number} height
-     */
     rect: function (x, y, width, height) {
         if (width == 0 || height == 0) {
             return;
@@ -344,18 +250,6 @@ Ext.define('Ext.draw.Path', {
         me.closePath();
     },
 
-    /**
-     * @private
-     * @param {Array} result
-     * @param {Number} cx
-     * @param {Number} cy
-     * @param {Number} rx
-     * @param {Number} ry
-     * @param {Number} phi
-     * @param {Number} theta1
-     * @param {Number} theta2
-     * @return {Number}
-     */
     approximateArc: function (result, cx, cy, rx, ry, phi, theta1, theta2) {
         var cosPhi = Math.cos(phi),
             sinPhi = Math.sin(phi),
@@ -410,16 +304,6 @@ Ext.define('Ext.draw.Path', {
         return count;
     },
 
-    /**
-     * [http://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes](http://www.w3.org/TR/SVG/implnote.html#ArcImplementationNotes)
-     * @param {Number} rx
-     * @param {Number} ry
-     * @param {Number} rotation Differ from svg spec, this is radian.
-     * @param {Number} fA
-     * @param {Number} fS
-     * @param {Number} x2
-     * @param {Number} y2
-     */
     arcSvg: function (rx, ry, rotation, fA, fS, x2, y2) {
         if (rx < 0) {
             rx = -rx;
@@ -445,7 +329,6 @@ Ext.define('Ext.draw.Path', {
             lambda = Math.sqrt(lambda);
             rx *= lambda;
             ry *= lambda;
-            // me gives lambda == cpx == cpy == 0;
         } else {
             lambda = Math.sqrt(1 / lambda - 1);
             if (fA === fS) {
@@ -472,10 +355,6 @@ Ext.define('Ext.draw.Path', {
         me.ellipse(cx, cy, rx, ry, rotation, theta1, theta1 + deltaTheta, 1 - fS);
     },
 
-    /**
-     * Feed the path from svg path string.
-     * @param {String} pathString
-     */
     fromSvgString: function (pathString) {
         if (!pathString) {
             return;
@@ -491,14 +370,12 @@ Ext.define('Ext.draw.Path', {
             lastX = 0, lastY = 0,
             part = false, i, partLength, relative;
 
-        // Split the string to items.
         if (Ext.isString(pathString)) {
             parts = pathString.replace(Ext.draw.Path.pathRe, " $1 ").replace(Ext.draw.Path.pathRe2, " -").split(Ext.draw.Path.pathSplitRe);
         } else if (Ext.isArray(pathString)) {
             parts = pathString.join(',').split(Ext.draw.Path.pathSplitRe);
         }
 
-        // Remove empty entries
         for (i = 0, partLength = 0; i < parts.length; i++) {
             if (parts[i] !== '') {
                 parts[partLength++] = parts[i];
@@ -683,10 +560,6 @@ Ext.define('Ext.draw.Path', {
         }
     },
 
-    /**
-     * Clone this path.
-     * @return {Ext.draw.Path}
-     */
     clone: function () {
         var me = this,
             path = new Ext.draw.Path();
@@ -699,10 +572,6 @@ Ext.define('Ext.draw.Path', {
         return path;
     },
 
-    /**
-     * Transform the current path by a matrix.
-     * @param {Ext.draw.Matrix} matrix
-     */
     transform: function (matrix) {
         if (matrix.isIdentity()) {
             return;
@@ -722,12 +591,6 @@ Ext.define('Ext.draw.Path', {
         this.dirt();
     },
 
-    /**
-     * Get the bounding box of this matrix.
-     * @param {Object} [target] Optional object to receive the result.
-     *
-     * @return {Object} Object with x, y, width and height
-     */
     getDimension: function (target) {
         if (!target) {
             target = {};
@@ -778,14 +641,6 @@ Ext.define('Ext.draw.Path', {
         return target;
     },
 
-    /**
-     * Get the bounding box as if the path is transformed by a matrix.
-     *
-     * @param {Ext.draw.Matrix} matrix
-     * @param {Object} [target] Optional object to receive the result.
-     *
-     * @return {Object} An object with x, y, width and height.
-     */
     getDimensionWithTransform: function (matrix, target) {
         if (!this.commands || !this.commands.length) {
             if (!target) {
@@ -844,20 +699,6 @@ Ext.define('Ext.draw.Path', {
         return target;
     },
 
-    /**
-     * @private
-     * Expand the rect by the bbox of a bezier curve.
-     *
-     * @param {Object} target
-     * @param {Number} x1
-     * @param {Number} y1
-     * @param {Number} cx1
-     * @param {Number} cy1
-     * @param {Number} cx2
-     * @param {Number} cy2
-     * @param {Number} x2
-     * @param {Number} y2
-     */
     expandDimension: function (target, x1, y1, cx1, cy1, cx2, cy2, x2, y2) {
         var me = this,
             l = target.left, r = target.right, t = target.top, b = target.bottom,
@@ -877,15 +718,6 @@ Ext.define('Ext.draw.Path', {
         target.bottom = b;
     },
 
-    /**
-     * @private
-     * Determine the curve
-     * @param {Number} a
-     * @param {Number} b
-     * @param {Number} c
-     * @param {Number} d
-     * @param {Number} dim
-     */
     curveDimension: function (a, b, c, d, dim) {
         var qa = 3 * (-a + 3 * (b - c) + d),
             qb = 6 * (a - 2 * b + c),
@@ -930,18 +762,6 @@ Ext.define('Ext.draw.Path', {
         dim[1] = max;
     },
 
-    /**
-     * @private
-     *
-     * Returns `a * (1 - t) ^ 3 + 3 * b (1 - t) ^ 2 * t + 3 * c (1 - t) * t ^ 3 + d * t ^ 3`.
-     *
-     * @param {Number} a
-     * @param {Number} b
-     * @param {Number} c
-     * @param {Number} d
-     * @param {Number} t
-     * @return {Number}
-     */
     interpolate: function (a, b, c, d, t) {
         if (t === 0) {
             return a;
@@ -953,10 +773,6 @@ Ext.define('Ext.draw.Path', {
         return t * t * t * (d + rate * (3 * c + rate * (3 * b + rate * a)));
     },
 
-    /**
-     * Reconstruct path from cubic bezier curve stripes.
-     * @param {Array} stripes
-     */
     fromStripes: function (stripes) {
         var me = this,
             i = 0, ln = stripes.length,
@@ -978,11 +794,6 @@ Ext.define('Ext.draw.Path', {
         me.dirt();
     },
 
-    /**
-     * Convert path to bezier curve stripes.
-     * @param {Array} [target] The optional array to receive the result.
-     * @return {Array}
-     */
     toStripes: function (target) {
         var stripes = target || [], curr,
             x, y, lastX, lastY, startX, startY,
@@ -1014,10 +825,6 @@ Ext.define('Ext.draw.Path', {
         return stripes;
     },
 
-    /**
-     * @private
-     * Update cache for svg string of this path.
-     */
     updateSvgString: function () {
         var result = [],
             commands = this.commands,
@@ -1048,10 +855,6 @@ Ext.define('Ext.draw.Path', {
         this.svgString = result.join('');
     },
 
-    /**
-     * Return an svg path string for this path.
-     * @return {String}
-     */
     toString: function () {
         if (!this.svgString) {
             this.updateSvgString();

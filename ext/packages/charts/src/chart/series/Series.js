@@ -1,52 +1,3 @@
-/**
- * Series is the abstract class containing the common logic to all chart series. Series includes
- * methods from Labels, Highlights, and Callouts mixins. This class implements the logic of
- * animating, hiding, showing all elements and returning the color of the series to be used as a legend item.
- *
- * ## Listeners
- *
- * The series class supports listeners via the Observable syntax.
- *
- * For example:
- *
- *     Ext.create('Ext.chart.CartesianChart', {
- *         plugins: {
- *             ptype: 'chartitemevents',
- *             moveEvents: true
- *         },
- *         store: {
- *             fields: ['pet', 'households', 'total'],
- *             data: [
- *                 {pet: 'Cats', households: 38, total: 93},
- *                 {pet: 'Dogs', households: 45, total: 79},
- *                 {pet: 'Fish', households: 13, total: 171}
- *             ]
- *         },
- *         axes: [{
- *             type: 'numeric',
- *             position: 'left'
- *         }, {
- *             type: 'category',
- *             position: 'bottom'
- *         }],
- *         series: [{
- *             type: 'bar',
- *             xField: 'pet',
- *             yField: 'households',
- *             listeners: {
- *                 itemmousemove: function (series, item, event) {
- *                     console.log('itemmousemove', item.category, item.field);
- *                 }
- *             }
- *         }, {
- *             type: 'line',
- *             xField: 'pet',
- *             yField: 'total',
- *             marker: true
- *         }]
- *     });
- *
- */
 Ext.define('Ext.chart.series.Series', {
 
     requires: [
@@ -64,17 +15,8 @@ Ext.define('Ext.chart.series.Series', {
 
     defaultBindProperty: 'store',
 
-    /**
-     * @property {String} type
-     * The type of series. Set in subclasses.
-     * @protected
-     */
     type: null,
 
-    /**
-     * @property {String} seriesType
-     * Default series sprite type.
-     */
     seriesType: 'sprite',
 
     identifiablePrefix: 'ext-line-',
@@ -83,391 +25,56 @@ Ext.define('Ext.chart.series.Series', {
 
     darkerStrokeRatio: 0.15,
 
-    /**
-     * @event itemmousemove
-     * Fires when the mouse is moved on a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemmouseup
-     * Fires when a mouseup event occurs on a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemmousedown
-     * Fires when a mousedown event occurs on a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemmouseover
-     * Fires when the mouse enters a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemmouseout
-     * Fires when the mouse exits a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemclick
-     * Fires when a click event occurs on a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemdblclick
-     * Fires when a double click event occurs on a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event itemtap
-     * Fires when a tap event occurs on a series item.
-     * *Note*: This event requires the {@link Ext.chart.plugin.ItemEvents chartitemevents}
-     * plugin be added to the chart.
-     * @param {Ext.chart.series.Series} series
-     * @param {Object} item
-     * @param {Event} event
-     */
-
-    /**
-     * @event chartattached
-     * Fires when the {@link Ext.chart.AbstractChart} has been attached to this series.
-     * @param {Ext.chart.AbstractChart} chart
-     * @param {Ext.chart.series.Series} series
-     */
-    /**
-     * @event chartdetached
-     * Fires when the {@link Ext.chart.AbstractChart} has been detached from this series.
-     * @param {Ext.chart.AbstractChart} chart
-     * @param {Ext.chart.series.Series} series
-     */
-
-    /**
-     * @event storechange
-     * Fires when the store of the series changes.
-     * @param {Ext.chart.series.Series} series
-     * @param {Ext.data.Store} newStore
-     * @param {Ext.data.Store} oldStore
-     */
 
     config: {
-        /**
-         * @private
-         * @cfg {Object} chart The chart that the series is bound.
-         */
+     
         chart: null,
 
-        /**
-         * @cfg {String|String[]} title
-         * The human-readable name of the series (displayed in the legend).
-         * If the series is stacked (has multiple components in it) this
-         * should be an array, where each string corresponds to a stacked component.
-         */
         title: null,
 
-        /**
-         * @cfg {Function} renderer
-         * A function that can be provided to set custom styling properties to each rendered element.
-         * It receives `(sprite, config, rendererData, index)` as parameters.
-         *
-         * @param {Object} sprite The sprite affected by the renderer. The visual attributes are in `sprite.attr`.
-         * The data field is available in `sprite.getField()`.
-         * @param {Object} config The sprite configuration. It varies with the series and the type of sprite:
-         * for instance, a Line chart sprite might have just the `x` and `y` properties while a Bar
-         * chart sprite also has `width` and `height`. A `type` might be present too. For instance to
-         * draw each marker and each segment of a Line chart, the renderer is called with the
-         * `config.type` set to either `marker` or `line`.
-         * @param {Object} rendererData A record with different properties depending on the type of chart.
-         * The only guaranteed property is `rendererData.store`, the store used by the series.
-         * In some cases, a store may not exist: for instance a Gauge chart may read its value directly
-         * from its configuration; in this case rendererData.store is null and the value is
-         * available in rendererData.value.
-         * @param {Number} index The index of the sprite. It is usually the index of the store record associated
-         * with the sprite, in which case the record can be obtained with `store.getData().items[index]`.
-         * If the chart is not associated with a store, the index represents the index of the sprite within
-         * the series. For instance a Gauge chart may have as many sprites as there are sectors in the
-         * background of the gauge, plus one for the needle.
-         *
-         * @return {Object} The attributes that have been changed or added. Note: it is usually possible to
-         * add or modify the attributes directly into the `config` parameter and not return anything,
-         * but returning an object with only those attributes that have been changed may allow for
-         * optimizations in the rendering of some series. Example to draw every other marker in red:
-         *
-         *      renderer: function (sprite, config, rendererData, index) {
-         *          if (config.type === 'marker') {
-         *              return { strokeStyle: (index % 2 === 0 ? 'red' : 'black') };
-         *          }
-         *      }
-         */
         renderer: null,
 
-        /**
-         * @cfg {Boolean} showInLegend
-         * Whether to show this series in the legend.
-         */
         showInLegend: true,
 
-        /**
-         * @private
-         * Trigger drawlistener flag
-         */
         triggerAfterDraw: false,
 
-        /**
-         * @cfg {Object} style Custom style configuration for the sprite used in the series.
-         * It overrides the style that is provided by the current theme.
-         */
         style: {},
 
-        /**
-         * @cfg {Object} subStyle This is the cyclic used if the series has multiple sprites.
-         */
         subStyle: {},
 
-        /**
-         * @private
-         * @cfg {Object} themeStyle Style configuration that is provided by the current theme.
-         * It is composed of five objects:
-         * @cfg {Object} themeStyle.style Properties common to all the series, for instance the 'lineWidth'.
-         * @cfg {Object} themeStyle.subStyle Cyclic used if the series has multiple sprites.
-         * @cfg {Object} themeStyle.label Sprite config for the labels, for instance the font and color.
-         * @cfg {Object} themeStyle.marker Sprite config for the markers, for instance the size and stroke color.
-         * @cfg {Object} themeStyle.markerSubStyle Cyclic used if series have multiple marker sprites.
-         */
         themeStyle: {},
 
-        /**
-         * @cfg {Array} colors
-         * An array of color values which is used, in order of appearance, by the series. Each series
-         * can request one or more colors from the array. Radar, Scatter or Line charts require just
-         * one color each. Candlestick and OHLC require two (1 for drops + 1 for rises). Pie charts
-         * and Stacked charts (like Bar or Pie charts) require one color for each data category
-         * they represent, so one color for each slice of a Pie chart or each segment (not bar) of
-         * a Bar chart.
-         * It overrides the colors that are provided by the current theme.
-         */
         colors: null,
 
-        /**
-         * @cfg {Boolean|Number} useDarkerStrokeColor
-         * Colors for the series can be set directly through the 'colors' config, or indirectly
-         * with the current theme or the 'colors' config that is set onto the chart. These colors
-         * are used as "fill color". Set this config to true, if you want a darker color for the
-         * strokes. Set it to false if you want to use the same color as the fill color.
-         * Alternatively, you can set it to a number between 0 and 1 to control how much darker
-         * the strokes should be.
-         * Note: this should be initial config and cannot be changed later on.
-         */
         useDarkerStrokeColor: true,
 
-        /**
-         * @cfg {Object} store The store to use for this series. If not specified,
-         * the series will use the chart's {@link Ext.chart.AbstractChart#store store}.
-         */
         store: null,
 
-        /**
-         * @cfg {Object} label
-         * Object with the following properties:
-         *
-         * @cfg {String} label.display
-         *
-         * Specifies the presence and position of the labels. The possible values depend on the series type.
-         * For Line and Scatter series: 'under' | 'over' | 'rotate'.
-         * For Bar and 3D Bar series: 'insideStart' | 'insideEnd' | 'outside'.
-         * For Pie series: 'outside' | 'rotate' | 'horizontal' | 'vertical'.
-         * Area, Radar and Candlestick series don't support labels.
-         * For Area and Radar series please consider using {@link #tooltip tooltips} instead.
-         * 3D Pie series currently always display labels 'outside'.
-         * For all series: 'none' hides the labels.
-         *
-         * Default value: 'none'.
-         *
-         * @cfg {String} label.color
-         *
-         * The color of the label text.
-         *
-         * Default value: '#000' (black).
-         *
-         * @cfg {String|String[]} label.field
-         *
-         * The name(s) of the field(s) to be displayed in the labels. If your chart has 3 series
-         * that correspond to the fields 'a', 'b', and 'c' of your model, and you only want to
-         * display labels for the series 'c', you must still provide an array `[null, null, 'c']`.
-         *
-         * Default value: null.
-         *
-         * @cfg {String} label.font
-         *
-         * The font used for the labels.
-         *
-         * Default value: '14px Helvetica'.
-         *
-         * @cfg {String} label.orientation
-         *
-         * Either 'horizontal' or 'vertical'. If not set (default), the orientation is inferred
-         * from the value of the flipXY property of the series.
-         *
-         * Default value: ''.
-         *
-         * @cfg {Function} label.renderer
-         *
-         * Optional function for formatting the label into a displayable value.
-         *
-         * The arguments to the method are:
-         *
-         *   - *`text`*, *`sprite`*, *`config`*, *`rendererData`*, *`index`*
-         *
-         *     Label's renderer is passed the same arguments as {@link #renderer}
-         *     plus one extra 'text' argument which comes first.
-         *
-         * @return {Object|String} The attributes that have been changed or added, or the text for the label.
-         * Example to enclose every other label in parentheses:
-         *
-         *      renderer: function (text) {
-         *          if (index % 2 == 0) {
-         *              return '(' + text + ')'
-         *          }
-         *      }
-         *
-         * Default value: null.
-         */
         label: {},
 
-        /**
-         * @cfg {Number} labelOverflowPadding
-         * Extra distance value for which the labelOverflow listener is triggered.
-         */
         labelOverflowPadding: null,
 
-        /**
-         * @cfg {Boolean} showMarkers
-         * Whether markers should be displayed at the data points along the line. If true,
-         * then the {@link #marker} config item will determine the markers' styling.
-         */
         showMarkers: true,
 
-        /**
-         * @cfg {Object|Boolean} marker
-         * The sprite template used by marker instances on the series.
-         * If the value of the marker config is set to `true` or the type
-         * of the sprite instance is not specified, the {@link Ext.draw.sprite.Circle}
-         * sprite will be used.
-         *
-         * Examples:
-         *
-         *     marker: true
-         *
-         *     marker: {
-         *         radius: 8
-         *     }
-         *
-         *     marker: {
-         *         type: 'arrow',
-         *         fx: {
-         *             duration: 200,
-         *             easing: 'backOut'
-         *         }
-         *     }
-         */
         marker: null,
 
-        /**
-         * @cfg {Object} markerSubStyle
-         * This is cyclic used if series have multiple marker sprites.
-         */
         markerSubStyle: null,
 
-        /**
-         * @protected
-         * @cfg {Object} itemInstancing
-         * The sprite template used to create sprite instances in the series.
-         */
         itemInstancing: null,
 
-        /**
-         * @cfg {Object} background
-         * Sets the background of the surface the series is attached.
-         */
         background: null,
 
-        /**
-         * @cfg {Object} highlightItem
-         * The item currently highlighted in the series.
-         */
         highlightItem: null,
 
-        /**
-         * @protected
-         * @cfg {Ext.draw.Surface} surface
-         * The chart surface used to render series sprites.
-         */
         surface: null,
 
-        /**
-         * @protected
-         * @cfg {Object} overlaySurface
-         * The surface used to render series labels.
-         */
         overlaySurface: null,
 
-        /**
-         * @cfg {Boolean|Array} hidden
-         */
         hidden: false,
 
-        /**
-         * @cfg {Boolean/Object} highlight
-         * The sprite attributes that will be applied to the highlighted items in the series.
-         * If set to 'true', the default highlight style from {@link #highlightCfg} will be used.
-         * If the value of this config is an object, it will be merged with the {@link #highlightCfg}.
-         * In case merging of 'highlight' and 'highlightCfg' configs in not the desired behavior,
-         * provide the 'highlightCfg' instead.
-         */
         highlight: false,
 
-        /**
-         * @protected
-         * @cfg {Object} highlightCfg
-         * The default style for the highlighted item.
-         * Used when {@link #highlight} config was simply set to 'true' instead of specifying a style.
-         */
         highlightCfg: {
-            // Make custom highlightCfg's in subclasses replace this one.
             merge: function (value) {
                 return value;
             },
@@ -477,51 +84,8 @@ Ext.define('Ext.chart.series.Series', {
             }
         },
 
-        /**
-         * @cfg {Object} animation The series animation configuration.
-         */
         animation: null,
 
-        /**
-         * @cfg {Object} tooltip
-         * Add tooltips to the visualization's markers. The config options for the 
-         * tooltip are the same configuration used with {@link Ext.tip.ToolTip} plus a 
-         * `renderer` config option and a `scope` for the renderer. For example:
-         *
-         *     tooltip: {
-         *       trackMouse: true,
-         *       width: 140,
-         *       height: 28,
-         *       renderer: function (toolTip, record, ctx) {
-         *           toolTip.setHtml(record.get('name') + ': ' + record.get('data1') + ' views');
-         *       }
-         *     }
-         *
-         * Note that tooltips are shown for series markers and won't work
-         * if the {@link #marker} is not configured.
-         * @cfg {Object} tooltip.scope The scope to use when the renderer function is 
-         * called.  Defaults to the Series instance.
-         * @cfg {Function} tooltip.renderer An 'interceptor' method which can be used to 
-         * modify the tooltip attributes before it is shown.  The renderer function is 
-         * passed the following params:
-         * @cfg {Ext.tip.ToolTip} tooltip.renderer.toolTip The tooltip instance
-         * @cfg {Ext.data.Model} tooltip.renderer.record The record instance for the 
-         * chart item (sprite) currently targeted by the tooltip.
-         * @cfg {Object} tooltip.renderer.ctx A data object with values relating to the 
-         * currently targeted chart sprite
-         * @cfg {String} tooltip.renderer.ctx.category The type of sprite passed to the 
-         * renderer function (will be "items", "markers", or "labels" depending on the 
-         * target sprite of the tooltip)
-         * @cfg {String} tooltip.renderer.ctx.field The {@link #yField} for the series
-         * @cfg {Number} tooltip.renderer.ctx.index The target sprite's index within the 
-         * series' items
-         * @cfg {Ext.data.Model} tooltip.renderer.ctx.record The record instance for the 
-         * chart item (sprite) currently targeted by the tooltip.
-         * @cfg {Ext.chart.series.Series} tooltip.renderer.ctx.series The series instance 
-         * containing the tooltip's target sprite
-         * @cfg {Ext.draw.sprite.Sprite} tooltip.renderer.ctx.sprite The sprite (item) 
-         * target of the tooltip
-         */
         tooltip: null
     },
 
@@ -529,29 +93,12 @@ Ext.define('Ext.chart.series.Series', {
 
     sprites: null,
 
-    /**
-     * @private
-     * Returns the number of colors this series needs.
-     * A Pie chart needs one color per slice while a Stacked Bar chart needs one per segment.
-     * An OHLC chart needs 2 colors (one for drops, one for rises), and most other charts need just 1 color.
-     */
     themeColorCount: function() {
         return 1;
     },
 
-    /**
-     * @private
-     * @property
-     * Series, where the number of sprites (an so unique colors they require)
-     * depends on the number of records in the store should set this to 'true'.
-     */
     isStoreDependantColorCount: false,
 
-    /**
-     * @private
-     * Returns the number of markers this series needs.
-     * Currently, only the Line, Scatter and Radar series use markers - and they need just one each.
-     */
     themeMarkerCount: function() {
         return 0;
     },
@@ -645,9 +192,6 @@ Ext.define('Ext.chart.series.Series', {
                 sprite.setAttributesFor(item.index, change);
             } else {
                 if (Ext.isArray(sprite)) {
-                    // In some instances, like with the 3D pie series,
-                    // an item can be composed of multiple sprites
-                    // (e.g. 8 for 3D pie slice).
                     for (i = 0; i < sprite.length; i++) {
                         sprite[i].setAttributes(change);
                     }
@@ -697,13 +241,11 @@ Ext.define('Ext.chart.series.Series', {
 
         config = config || {};
 
-        // Backward compatibility with Ext.
         if (config.tips) {
             config = Ext.apply({
                 tooltip: config.tips
             }, config);
         }
-        // Backward compatibility with Touch.
         if (config.highlightCfg) {
             config = Ext.apply({
                 highlight: config.highlightCfg
@@ -727,8 +269,6 @@ Ext.define('Ext.chart.series.Series', {
     },
 
     lookupViewModel: function (skipThis) {
-        // Override the Bindable's method to redirect view model
-        // lookup to the chart.
         var chart = this.getChart();
         return chart ? chart.lookupViewModel(skipThis) : null;
     },
@@ -747,11 +287,9 @@ Ext.define('Ext.chart.series.Series', {
     },
 
     updateTooltip: function () {
-        // Tooltips can't work without the 'itemhighlight' or the 'itemedit' interaction.
         this.addItemHighlight();
     },
 
-    // Adds the 'itemhighlight' interaction to the chart that owns the series.
     addItemHighlight: function () {
         var chart = this.getChart();
 
@@ -784,10 +322,6 @@ Ext.define('Ext.chart.series.Series', {
         }
         clearTimeout(me.tooltipTimeout);
 
-        // If trackMouse is set, a ToolTip shows by its pointerEvent.
-        // A Tooltip aligning to an element uses a currentTarget flyweight
-        // which may be pointed at any element.
-        // It aligns using the component level defaultAlign config.
         tooltip.pointerEvent = event;
         tooltip.currentTarget.attach((item.sprite.length ? item.sprite[0] : item.sprite).getSurface().el.dom);
 
@@ -795,10 +329,6 @@ Ext.define('Ext.chart.series.Series', {
             [tooltip, item.record, item], 0, me);
 
         if (tooltip.isVisible()) {
-            // After show handling repositions according
-            // to configuration. trackMouse uses the pointerEvent
-            // If aligning to an element, it uses a currentTarget
-            // flyweight which may be attached to any DOM element.
             tooltip.handleAfterShow();
         } else {
             tooltip.show();
@@ -901,14 +431,6 @@ Ext.define('Ext.chart.series.Series', {
         }
     },
 
-    /**
-     * @private
-     * This method will return an array containing data coordinated by a specific axis.
-     * @param {Array} items Store records.
-     * @param {String} field The field to fetch from each record.
-     * @param {Ext.chart.axis.Axis} axis The axis used to lay out the data.
-     * @return {Array}
-     */
     coordinateData: function (items, field, axis) {
         var data = [],
             length = items.length,
@@ -917,9 +439,6 @@ Ext.define('Ext.chart.series.Series', {
 
         for (i = 0; i < length; i++) {
             x = items[i].data[field];
-            // An empty string (a valid discrete axis value) will be coordinated
-            // by the axis layout (if axis is given), otherwise it will be converted
-            // to zero (via +'').
             if (!Ext.isEmpty(x, true)) {
                 if (layout) {
                     data[i] = layout.getCoordFor(x, field, i, items);
@@ -1038,11 +557,6 @@ Ext.define('Ext.chart.series.Series', {
             me.setOverlaySurface(newChart.getSurface('overlay'));
 
             newChart.on('axeschange', 'onAxesChange', me);
-            // TODO: Gauge series should render correctly when chart's store is missing.
-            // TODO: When store is initially missing the getAxes will return null here,
-            // TODO: since applyAxes has actually triggered this series.updateChart call
-            // TODO: indirectly.
-            // TODO: Figure out why it doesn't go this route when a store is present.
             if (newChart.getAxes()) {
                 me.onAxesChange(newChart);
             }
@@ -1095,12 +609,6 @@ Ext.define('Ext.chart.series.Series', {
         this.getSurface().setHighPrecision(needHighPrecision);
     },
 
-    /**
-     * @private
-     * Given the list of axes in a certain direction and a list of series fields in that direction
-     * returns the first matching axis for the series in that direction,
-     * or undefined if a match wasn't found.
-     */
     findMatchingAxis: function (directionAxes, directionFields) {
         var axis, axisFields,
             i, j;
@@ -1165,8 +673,8 @@ Ext.define('Ext.chart.series.Series', {
                     });
                 }
             }
-            oldLabel.setDirty(true); // inform the label about the template change
-            this.updateLabel(); // won't be called automatically in this case
+            oldLabel.setDirty(true); 
+            this.updateLabel(); 
         }
         return oldLabel;
     },
@@ -1217,8 +725,6 @@ Ext.define('Ext.chart.series.Series', {
             return;
         }
         sprites = me.getSprites();
-        // TODO: Removing the renderer won't revert series markers to its original
-        // TODO: style, if the renderer modified their attributes.
         if (sprites.length) {
             sprites[0].setAttributes({renderer: renderer || null});
             if (chart && !chart.isInitializing) {
@@ -1288,10 +794,6 @@ Ext.define('Ext.chart.series.Series', {
         return sprite;
     },
 
-    /**
-     * @method
-     * Returns sprites the are used to draw this series.
-     */
     getSprites: Ext.emptyFn,
 
     onDataChanged: function () {
@@ -1332,7 +834,6 @@ Ext.define('Ext.chart.series.Series', {
     },
 
     applyStyle: function (style, oldStyle) {
-        // TODO: Incremental setter
         var cls = Ext.ClassManager.get(Ext.ClassManager.getNameByAlias('sprite.' + this.seriesType));
         if (cls && cls.def) {
             style = cls.def.normalize(style);
@@ -1381,14 +882,6 @@ Ext.define('Ext.chart.series.Series', {
         }
     },
 
-    /**
-     * @private
-     * Updates chart's legend store when the value of the series' {@link #hidden} config
-     * changes or when the {@link #setHiddenByIndex} method is called.
-     * @param hidden Whether series (or its component) should be hidden or not.
-     * @param index Used for stacked series.
-     *              If present, only the component with the specified index will change visibility.
-     */
     updateLegendStore: function (hidden, index) {
         var me = this,
             chart = me.getChart(),
@@ -1414,16 +907,10 @@ Ext.define('Ext.chart.series.Series', {
         }
     },
 
-    /**
-     *
-     * @param {Number} index
-     * @param {Boolean} value
-     */
     setHiddenByIndex: function (index, value) {
         var me = this;
 
         if (Ext.isArray(me.getHidden())) {
-            // Multi-sprite series like Pie and StackedCartesian.
             me.getHidden()[index] = value;
             me.updateHidden(me.getHidden());
             me.updateLegendStore(value, index);
@@ -1498,13 +985,6 @@ Ext.define('Ext.chart.series.Series', {
         }
     },
 
-    /**
-     * @private
-     * When the chart's "colors" config changes, these colors are passed onto the series
-     * where they are used with the same priority as theme colors, i.e. they do not override
-     * the series' "colors" config, nor the series' "style" config, but they do override
-     * the colors from the theme's "seriesThemes" config.
-     */
     updateChartColors: function (colors) {
         var me = this;
 
@@ -1534,14 +1014,10 @@ Ext.define('Ext.chart.series.Series', {
             sprites = me.sprites,
             itemInstancing = me.getItemInstancing(),
             i = 0, ln = sprites && sprites.length,
-            // 'showMarkers' updater calls 'series.getSprites()',
-            // which we don't want to call here.
             showMarkers = me.getConfig('showMarkers', true),
             markerCfg = me.getMarker(),
             style;
 
-        // TODO: make sure all series work nicely with the below change
-//        me.setAnimation(me.getChart().getAnimation());
         for (; i < ln; i++) {
             style = me.getStyleByIndex(i);
             if (itemInstancing) {
@@ -1569,22 +1045,6 @@ Ext.define('Ext.chart.series.Series', {
             subStyle = Ext.applyIf(Ext.apply({}, me.getSubStyle()), seriesThemeSubStyle);
         return subStyle;
     },
-
-    // getMarkerStyleWithTheme: function() {
-    //     var me = this,
-    //         theme = me.getThemeStyle(),
-    //         seriesThemeStyle = (theme && theme.style) || {},
-    //         style = Ext.applyIf(Ext.apply({}, me.getMarker()), seriesThemeStyle);
-    //     return style;
-    // },
-
-    // getMarkerSubStyleWithTheme: function() {
-    //     var me = this,
-    //         theme = me.getThemeStyle(),
-    //         seriesThemeStyle = (theme && theme.style) || {},
-    //         style = Ext.applyIf(Ext.apply({}, me.getMarkerSubStyle()), seriesThemeStyle);
-    //     return style;
-    // },
 
     getStyleByIndex: function (i) {
         var me = this,
@@ -1617,10 +1077,6 @@ Ext.define('Ext.chart.series.Series', {
         style = me.getStyle();
         themeStyle = (theme && theme.style) || {};
 
-        // 'series.updateHidden()' will update 'series.subStyle.hidden' config
-        // with the value of the 'series.hidden' config.
-        // But we also need to account for 'series.showMarkers' config
-        // to determine whether the markers should be hidden or not.
         subStyle = me.styleDataForIndex(me.getSubStyle(), i);
         if (subStyle.hasOwnProperty('hidden')) {
             subStyle.hidden = subStyle.hidden || !this.getConfig('showMarkers', true);
@@ -1662,30 +1118,8 @@ Ext.define('Ext.chart.series.Series', {
         return result;
     },
 
-    /**
-     * @method
-     * For a given x/y point relative to the main rect, find a corresponding item from this
-     * series, if any.
-     * @param {Number} x
-     * @param {Number} y
-     * @param {Object} [target] optional target to receive the result
-     * @return {Object} An object describing the item, or null if there is no matching item. The exact contents of
-     * this object will vary by series type, but should always contain at least the following:
-     *
-     * @return {Ext.data.Model} return.record the record of the item.
-     * @return {Array} return.point the x/y coordinates relative to the chart box of a single point
-     * for this data item, which can be used as e.g. a tooltip anchor point.
-     * @return {Ext.draw.sprite.Sprite} return.sprite the item's rendering Sprite.
-     * @return {Number} return.subSprite the index if sprite is an instancing sprite.
-     */
     getItemForPoint: Ext.emptyFn,
 
-    /**
-     * Returns a series item by index and (optional) category.
-     * @param {Number} index The index of the item (matches store record index).
-     * @param {String} [category] The category of item, e.g.: 'items', 'markers', 'sprites'.
-     * @return {Object} item
-     */
     getItemByIndex: function (index, category) {
         var me = this,
             sprites = me.getSprites(),
@@ -1696,7 +1130,6 @@ Ext.define('Ext.chart.series.Series', {
             return;
         }
 
-        // 'category' is not defined, making our best guess here.
         if (category === undefined && sprite.isMarkerHolder) {
             category = me.getItemInstancing() ? 'items' : 'markers';
         } else if (!category || category === '' || category === 'sprites') {
@@ -1725,8 +1158,6 @@ Ext.define('Ext.chart.series.Series', {
     },
 
     resolveListenerScope: function (defaultScope) {
-        // Override the Observable's method to redirect listener scope
-        // resolution to the chart.
         var me = this,
             namedScope = Ext._namedScopes[defaultScope],
             chart = me.getChart(),
@@ -1740,7 +1171,6 @@ Ext.define('Ext.chart.series.Series', {
             scope = chart ? chart.resolveListenerScope(defaultScope, false) : me;
         } else if (namedScope.isSelf) {
             scope = chart ? chart.resolveListenerScope(defaultScope, false) : me;
-            // Class body listener. No chart controller, nor chart container controller.
             if (scope === chart && !chart.getInheritedConfig('defaultListenerScope')) {
                 scope = me;
             }
@@ -1749,18 +1179,6 @@ Ext.define('Ext.chart.series.Series', {
         return scope;
     },
 
-    /**
-     * Provide legend information to target array.
-     *
-     * @param {Array} target
-     *
-     * The information consists:
-     * @param {String} target.name
-     * @param {String} target.mark
-     * @param {Boolean} target.disabled
-     * @param {String} target.series
-     * @param {Number} target.index
-     */
     provideLegendInfo: function (target) {
         target.push({
             name: this.getTitle() || this.getId(),
@@ -1787,7 +1205,6 @@ Ext.define('Ext.chart.series.Series', {
     destroy: function () {
         var me = this,
             store = me._store,
-            // Peek at the config so we don't create one just to destroy it
             tooltip = me.getConfig('tooltip', true);
 
         if (store && store.getAutoDestroy()) {

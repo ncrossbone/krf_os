@@ -84,7 +84,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_C', {
 						}
 					}
 				}, {
-					text: '체취년도',
+					text: '채취년도',
 					dataIndex: 'WMYR',
 					width: 110,
 					filter: { type: 'numeric'/*, fields: {}*/ }
@@ -104,7 +104,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_C', {
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
-					text: '재취시간',
+					text: '채취시간',
 					dataIndex: 'WMCTM',
 					hidden: true,
 					width: 110,
