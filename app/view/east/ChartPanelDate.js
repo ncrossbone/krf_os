@@ -81,6 +81,21 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			cEndChartDate.hidden = true;
 
 			hChartDate.hidden = false;
+		} else if (parentChk == 'M') {
+			f_Chart.hidden = true;
+			f_ChartText.hidden = true;
+			startChartDate.hidden = true;
+			endChartDate.hidden = true;
+
+			cStartChartDate.hidden = true;
+			cEndChartDate.hidden = true;
+
+			hChartDate.hidden = true;
+			if ($KRF_APP.layerCode == 'M001') {
+
+			}else{
+
+			}
 		} else {
 			//console.info(parentChk);
 			f_Chart.hidden = true;
@@ -243,6 +258,16 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					, { id: 'OP4', name: 'OP4' }]
 			})
 			itemCtl.setValue("BOD");
+		} else if (parentChk == 'M') {
+			var store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: 'WTRTP_VALUE', name: '수온' }
+					, { id: 'PH_VALUE', name: '수소이온농도' }
+					, { id: 'EC_VALUE', name: '전기전도도' }
+					, { id: 'DOC_VALUE', name: '용존산소' }
+					, { id: 'TUR_VALUE', name: '탁도' }]
+			})
+			itemCtl.setValue('WTRTP_VALUE');
 		}
 
 		itemCtl.bindStore(store);
@@ -442,7 +467,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					text: '월 까지'
 				}]
 			}]
-		},{
+		}, {
 			items: [{
 				xtype: 'container',
 				layout: {
@@ -564,7 +589,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			items: [{
 				xtype: 'container',
 				layout: 'hbox',
-				style:'margin-bottom:5px;',
+				style: 'margin-bottom:5px;',
 				items: [{
 					xtype: "combo",
 					width: 80,
@@ -580,7 +605,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			}, {
 				xtype: 'container',
 				layout: 'hbox',
-				style:'margin-bottom:5px;',
+				style: 'margin-bottom:5px;',
 				items: [{
 					xtype: 'combo',
 					id: 'hSelectMonth',
@@ -610,7 +635,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		}, {
 			items: [{
 				xtype: 'container',
-				style:'margin-bottom:5px;',
+				style: 'margin-bottom:5px;',
 				layout: {
 					type: 'hbox',
 					align: 'middle',

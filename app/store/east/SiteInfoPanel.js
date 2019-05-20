@@ -20,7 +20,11 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 			}
 			// 로딩바 표시
 			Ext.getCmp("siteinfotest").mask("loading", "loading...");
-
+			
+			if(parentId=='M'){
+				recordId = recordId.split('_')[1];
+			}
+			
 			Ext.Ajax.request({
 				url: _API.GetRWMDT, //'./resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
 				params: { recordId: recordId, parentId: parentId },

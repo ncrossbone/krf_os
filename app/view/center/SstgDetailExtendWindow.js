@@ -10,7 +10,9 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
     header: { cls: 'subWindow-x-form-item-label-default' },
     cls: 'subWindow-x-form-item-label-default',
 
-    width: 800,
+    //width: 800,
+    //height: 600,
+    width: 1500,
     height: 600,
 
     x: 0,
@@ -32,8 +34,6 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
         },
         height: 130,
         items: [{
-            xtype:'calendar'
-        },{
             xtype: 'container',
             height: 25
         }, {
@@ -274,13 +274,193 @@ Ext.define('krf_new.view.center.SstgDetailExtendWindow', {
             height: 370,
             header: false,
             id: 'sstgDetailExtendGrid',
-            columns: $KRF_APP.global.SstgGridFn.getSstgDetailExtendColumn(),
+            // columns: $KRF_APP.global.SstgGridFn.getSstgDetailExtendColumn(),
+            columns: [{
+                text: '자료구분',
+                dataIndex: 'flag',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '지점',
+                dataIndex: 'spot',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '일자',
+                dataIndex: 'date',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '회차',
+                dataIndex: 'cnt',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '주소',
+                dataIndex: 'addr',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '수심(m)',
+                dataIndex: 'wl',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '수온(C)',
+                dataIndex: 'wc',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'DO',
+                dataIndex: 'do',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'BOD',
+                dataIndex: 'bod',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'COD',
+                dataIndex: 'cod',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'SS',
+                dataIndex: 'ss',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'TN',
+                dataIndex: 'tn',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'TP',
+                dataIndex: 'tp',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: 'TOC',
+                dataIndex: 'toc',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '지수',
+                dataIndex: 'ji',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '건강성등급',
+                dataIndex: 'gg',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '오염단계',
+                dataIndex: 'pl',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '총방류량',
+                dataIndex: 'cntb',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '수위',
+                dataIndex: 'wlu',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '강수량',
+                dataIndex: 'rain',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }, {
+                text: '유량',
+                dataIndex: 'flow',
+                width: 80,
+                renderer: function (val, dom, data) {
+                    $KRF_APP.global.SstgGridFn.setColor(dom, data.data);
+                    return val;
+                }
+            }],
             store: Ext.create('Ext.data.Store', {
-                data: [{
-                    'YEAR': '2019', 'TME': '<div style="background: gray; padding: 0px 10px; width: 45px; font-size: 11px; color: white; cursor: pointer; margin-left: 8px;">적용</div>'
-                }, {
-                    'YEAR': '2018', 'TME': '<div style="background: gray; padding: 0px 10px; width: 45px; font-size: 11px; color: white; cursor: pointer; margin-left: 8px;">적용</div>'
-                }]
+                data: [{ 'code': 'A', 'flag': '수질', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'A', 'flag': '수질', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'A', 'flag': '수질', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'A', 'flag': '수질', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'A', 'flag': '수질', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'B', 'flag': '생물', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'B', 'flag': '생물', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'B', 'flag': '생물', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'C', 'flag': '퇴적물', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'C', 'flag': '퇴적물', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' },
+                { 'code': 'C', 'flag': '퇴적물', 'spot': '경안천1', 'date': '20190514', 'cnt': '1회차', 'addr': '경기도', 'wl': '1', 'wc': '1', 'do': '1', 'bod': '1', 'cod': '1', 'ss': '1', 'tn': '1', 'tp': '1', 'toc': '1', 'ji': '1', 'gg': '1', 'pl': '1', 'cntb': '1', 'wlu': '1', 'rain': '1', 'flow': '1' }]
+                // data: [{
+                //     'YEAR': '2019', 'TME': '<div style="background: gray; padding: 0px 10px; width: 45px; font-size: 11px; color: white; cursor: pointer; margin-left: 8px;">적용</div>'
+                // }, {
+                //     'YEAR': '2018', 'TME': '<div style="background: gray; padding: 0px 10px; width: 45px; font-size: 11px; color: white; cursor: pointer; margin-left: 8px;">적용</div>'
+                // }]
             })
         }]
     }],

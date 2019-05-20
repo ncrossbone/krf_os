@@ -275,7 +275,7 @@ Ext.define("krf_new.global.CommFn", {
 		src = src + '';
 		return src.length >= width ? src : src + new Array(width - src.length + 1).join(fix);
 	},
-	dateFormatter: function (src, chartFlag) { 
+	dateFormatter: function (src, chartFlag) {
 		if (src == null) {
 			return '';
 		}
@@ -315,19 +315,19 @@ Ext.define("krf_new.global.CommFn", {
 		return;
 	},
 	getLoginUserInfo: function (sessionId) {
-		if(!sessionId){ // sessionId가 없을때 그냥 return 시킨다
+		if (!sessionId) { // sessionId가 없을때 그냥 return 시킨다
 			return null;
 		}
 		return Ext.Ajax.request({
 			//url: _API.getUserLayerInfo,
-			url: "http://localhost/krf/config/loginSession",
+			//url: _API.loginSession,
+			url: 'http://localhost:8080/krf/config/loginSession',
 			dataType: "text/plain",
 			method: 'POST',
 			async: true,
 			params: { userId: sessionId },
 			success: function (response, opts) {
 				var decodeData = Ext.util.JSON.decode(response.responseText);
-				console.info(decodeData)
 			}
 		});
 
@@ -392,7 +392,7 @@ Ext.define("krf_new.global.CommFn", {
 		return this.bookmarkInfo;
 	},
 
-	getSstgComboInfo: function(storeName){
+	getSstgComboInfo: function (storeName) {
 		// 하천 
 		// -하천
 		// EsstgHcAtalSe : 부착돌말류-
@@ -409,33 +409,48 @@ Ext.define("krf_new.global.CommFn", {
 		// EsstgHgVtnSe : 식생
 
 		var store = null;
-		if(storeName == 'EsstgHcAtalSe' || storeName == 'EsstgHcBemaSe' || storeName == 'EsstgHcFishSe' // 하천 부착돌말류,저서성대형무척추,어류
-		|| storeName == 'EsstgHgAtalSe'|| storeName == 'EsstgHgBemaSe'|| storeName == 'EsstgHgFishSe'){	// 하구 부착돌말류,저서성대형무척추,어류
+		if (storeName == 'EsstgHcAtalSe' || storeName == 'EsstgHcBemaSe' || storeName == 'EsstgHcFishSe' // 하천 부착돌말류,저서성대형무척추,어류
+			|| storeName == 'EsstgHgAtalSe' || storeName == 'EsstgHgBemaSe' || storeName == 'EsstgHgFishSe') {	// 하구 부착돌말류,저서성대형무척추,어류
 			store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
 				data: [{ id: '1', name: '조사자료' }
-					,{ id: '2', name: '출현생물종' }]
+					, { id: '2', name: '출현생물종' }]
 			});
-		}else if(storeName == 'EsstgHcVtnSe'){
+		} else if (storeName == 'EsstgHcVtnSe') {
 			store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
-				data: [{ id: '1', name: '조사자료'}
-					,{ id: '2', name: '출현식생'}
-					,{ id: '3', name: '식생 면적'}
-					,{ id: '4', name: '구간'}
+				data: [{ id: '1', name: '조사자료' }
+					, { id: '2', name: '출현식생' }
+					, { id: '3', name: '식생 면적' }
+					, { id: '4', name: '구간' }
 					// ,{ id: '5', name: '구간별 정보'}
 					// ,{ id: '6', name: '우점도'}
 				]
 			});
-		}else{
+		} else {
 			store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
 				data: [{ id: '1', name: '조사자료' }]
 			});
 		}
-		 
+
 
 
 		return store;
+	},
+
+	cloneObj: function (obj) {
+		if (obj === null || typeof (obj) !== 'object')
+			return obj;
+
+		var copy = obj.constructor();
+
+		for (var attr in obj) {
+			if (obj.hasOwnProperty(attr)) {
+				copy[attr] = obj[attr];
+			}
+		}
+
+		return copy;
 	}
 });

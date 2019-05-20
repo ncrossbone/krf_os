@@ -120,8 +120,6 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			var recordId = "";
 			if (store.siteCD != undefined && store.siteCD != ""){
 				recordId = store.siteCD;
-				
-				
 			}
 				
 			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I") {
@@ -132,6 +130,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if(store.parentId == "H"){
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+			} else if(store.parentId == 'M'){
+				//requestUrl = _API['GetRWMDT_' + store.parentId];
+				requestUrl = 'http://localhost:8080/krf/chart/getRWMDT_M';
 			}
 			
 			if(store.parentId == "H" && defaultChart == "1"){
@@ -180,9 +181,6 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						alert("오류가 발생하였습니다.");
 					}
 				});
-
-
-
 
 			}
 			if(store.parentId == "H"){
@@ -249,12 +247,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							SetChartMaxData(maxData);
 
 						}
-						
-						
 
 						cfgBtn.show();
 						saveBtn.show();
-
 					},
 					failure: function (form, action) {
 						// 로딩바 숨김

@@ -199,7 +199,12 @@ Ext.create('Ext.data.Store', {
 
 					if(response){
 						var decodeData = Ext.util.JSON.decode(response.responseText);
-						
+							
+							// 있을경우 loginInfo에 값 넣기
+							$KRF_APP.loginInfo = {};
+							loginCheck = true;
+							me.completedLogin($KRF_APP.loginInfo);
+
 						if(decodeData.data.length > 0){ // session이 있을 경우
 							
 							// 있을경우 loginInfo에 값 넣기
@@ -276,7 +281,7 @@ Ext.create('Ext.data.Store', {
 				// 계정 권한별 레이어 표출 목록 2019-04-16
 				Ext.Ajax.request({
 //					url: _API.getUserLayerInfo,
-					url: "http://localhost/krf/config/getUserLayerInfo",
+					url: _API.getUserLayerInfo,
 					dataType: "text/plain",
 					method: 'POST',
 					async: true,

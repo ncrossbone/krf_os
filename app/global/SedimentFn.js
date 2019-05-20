@@ -62,7 +62,22 @@ Ext.define('krf_new.global.SedimentFn', {
 
 				me.bindStore('sedimentYear', dataArr, data[0].WMYR.split('.')[0]);
 				me.bindStore('sedimentHalf', [{ id: '1', name: '상반기' }, { id: '2', name: '하반기' }], data[0].WMYR.split('.')[1]);
-				me.bindStore('sedimentItem', [{ id: 'ITEM_TOC', name: 'TOC' }, { id: 'ITEM_TN', name: 'T-N' }], 'ITEM_TOC');
+
+				var itemArr = [
+					{ id: 'ITEM_PCA_CLASS', name: '완전연소가능량' },
+					{ id: 'ITEM_TN_CLASS', name: '총질소' },
+					{ id: 'ITEM_TP_CLASS', name: '총인' },
+					{ id: 'ITEM_CU_CLASS', name: '구리' },
+					{ id: 'ITEM_PB_CLASS', name: '납' },
+					{ id: 'ITEM_NI_CLASS', name: '니켈' },
+					{ id: 'ITEM_AS_CLASS', name: '비소' },
+					{ id: 'ITEM_HG_CLASS', name: '수은' },
+					{ id: 'ITEM_ZN_CLASS', name: '아연' },
+					{ id: 'ITEM_CD_CLASS', name: '카드뮴' },
+					{ id: 'ITEM_CR_CLASS', name: '크롬' }
+				];
+
+				me.bindStore('sedimentItem', itemArr, 'ITEM_PCA_CLASS');
 
 				me.getData();
 			}
@@ -86,7 +101,7 @@ Ext.define('krf_new.global.SedimentFn', {
 		for (key in feature) {
 			for (var i = 0; i < data.length; i++) {
 				if (key == data[i].PT_NO) {
-					feature[key].flag = parseInt(data[i].ITEM) + 1;
+					feature[key].flag = parseInt(data[i].ITEM);
 					resultArr.push(feature[key]);
 				}
 			}

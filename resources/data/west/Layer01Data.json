@@ -996,4 +996,25 @@
 		"layerCode": "",
 		"isMetaData": false
 	}]
+},{
+	"id": "M",
+	"text": "비점오염원",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "M1",
+		"wmsId":"",
+		"text": "비점오염원",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": false
+	}]
 }]
