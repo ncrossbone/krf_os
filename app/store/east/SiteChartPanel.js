@@ -30,7 +30,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			}
 
 			var defaultChart = $KRF_APP.chartFlag;
-			
+
 			var f_Chart = Ext.getCmp("f_Chart");
 			var d_Chart = $KRF_APP.chartFlag_D;
 			if (d_Chart != undefined) {
@@ -63,7 +63,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			var search_F = Ext.getCmp("");
 
 			var selectItem = Ext.getCmp("selectItem");
-			
+
 			var maxDate = "";
 			if (defaultChart == "1") {
 				selectItem = store.yFieldName;
@@ -86,17 +86,30 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 
 					selectMonth = cStartChartYearDetail;
 					selectMonth2 = cEndChartYearDetail;
-				} else if(store.parentId == "H" && defaultChart == "0"){
-					maxDate = Ext.getCmp("hSelectYear").lastValue+Ext.getCmp("hSelectMonth").lastValue+Ext.getCmp("hSelectDay").lastValue;
+				} else if (store.parentId == "H" && defaultChart == "0") {
+					maxDate = Ext.getCmp("hSelectYear").lastValue + Ext.getCmp("hSelectMonth").lastValue + Ext.getCmp("hSelectDay").lastValue;
 
 					//selectItem.lastValue
 					var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
-					siteChartCtl.series[1]._yField = selectItem.lastValue+"_1";
-					siteChartCtl.series[2]._yField = selectItem.lastValue+"_2";
-					siteChartCtl.series[3]._yField = selectItem.lastValue+"_3";
-					siteChartCtl.series[4]._yField = selectItem.lastValue+"_4";
-					
-				}else {
+					siteChartCtl.series[1]._yField = selectItem.lastValue + "_1";
+					siteChartCtl.series[2]._yField = selectItem.lastValue + "_2";
+					siteChartCtl.series[3]._yField = selectItem.lastValue + "_3";
+					siteChartCtl.series[4]._yField = selectItem.lastValue + "_4";
+
+				} else if (store.parentId == 'M') {
+					var m_SelectYear = Ext.getCmp('m_SelectYear');
+					var m_SelectMonth = Ext.getCmp('m_SelectMonth');
+					var m_SelectDay = Ext.getCmp('m_SelectDay');
+
+					var m_EndYear = Ext.getCmp("m_EndYear");
+					var m_EndMonth = Ext.getCmp("m_EndMonth");
+					var m_EndDay = Ext.getCmp("m_EndDay");
+
+					selectYear = m_SelectYear.lastValue;
+					selectYear2 = m_EndYear.lastValue;
+					selectMonth = m_SelectMonth.lastValue + m_SelectDay.value;
+					selectMonth2 = m_EndMonth.lastValue + m_EndDay.lastValue;
+				} else {
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
 					selectMonth = selectMonth.value;
@@ -118,24 +131,24 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			}
 
 			var recordId = "";
-			if (store.siteCD != undefined && store.siteCD != ""){
+			if (store.siteCD != undefined && store.siteCD != "") {
 				recordId = store.siteCD;
 			}
-				
+
 			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I") {
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if (store.parentId == "F") {
 				requestUrl = _API['GetRWMDT_' + f_parentId]; //"./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
 			} else if (org_D_firstID == "D") {
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
-			} else if(store.parentId == "H"){
+			} else if (store.parentId == "H") {
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
-			} else if(store.parentId == 'M'){
+			} else if (store.parentId == 'M') {
 				//requestUrl = _API['GetRWMDT_' + store.parentId];
 				requestUrl = 'http://localhost:8080/krf/chart/getRWMDT_M';
 			}
-			
-			if(store.parentId == "H" && defaultChart == "1"){
+
+			if (store.parentId == "H" && defaultChart == "1") {
 
 				Ext.Ajax.request({
 					url: _API.GetRWMDT_HDate,    // To Which url you wanna POST.
@@ -152,12 +165,12 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						}
 						// JSON Object로 변경
 						var jsonData = Ext.util.JSON.decode(response.responseText);
-						
-						
+
+
 						//var afterVal = dateSplit.split(".");
 						var Hdate = jsonData.maxdata[0].DE.split("-");
-						maxDate = Hdate[0]+ Hdate[1]+ Hdate[2];
-						
+						maxDate = Hdate[0] + Hdate[1] + Hdate[2];
+
 						_chartDateInfo = [];
 						_chartDateInfo.push(Hdate);
 						if (jsonData.data.length > 0) {
@@ -165,15 +178,15 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							//SetChartMaxData(store);
 							// 로딩바 숨김
 							Ext.getCmp("siteCharttest").unmask();
-	
+
 						} else {
 							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						}
-	
+
 						cfgBtn.show();
 						saveBtn.show();
-	
+
 					},
 					failure: function (form, action) {
 						// 로딩바 숨김
@@ -183,10 +196,10 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				});
 
 			}
-			if(store.parentId == "H"){
-				recordId = recordId.replace("Reach","RCH");
-					// 로딩바 표시
-				
+			if (store.parentId == "H") {
+				recordId = recordId.replace("Reach", "RCH");
+				// 로딩바 표시
+
 				Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
 				Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
 				Ext.getCmp("siteCharttest").mask("loading", "loading...");
@@ -208,8 +221,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						}
 						// JSON Object로 변경
 						var jsonData = Ext.util.JSON.decode(response.responseText);
-						
-						
+
+
 						if (jsonData == -1) {
 							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
@@ -218,31 +231,31 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 							store.loadData(jsonData.data);
 
 							//수질측정 2번째
-							var VAL_2= [];
-							for(max = 0 ; max  < jsonData.data.length; max ++){
-									VAL_2.push(jsonData.data[max][selectItem+"_2"]);
+							var VAL_2 = [];
+							for (max = 0; max < jsonData.data.length; max++) {
+								VAL_2.push(jsonData.data[max][selectItem + "_2"]);
 							}
 							//수질측정 3번째
-							var VAL_3= [];
-							for(max = 0 ; max  < jsonData.data.length; max ++){
-									VAL_3.push(jsonData.data[max][selectItem+"_3"]);
+							var VAL_3 = [];
+							for (max = 0; max < jsonData.data.length; max++) {
+								VAL_3.push(jsonData.data[max][selectItem + "_3"]);
 							}
 							//수질측정 4번째
-							var VAL_4= [];
-							for(max = 0 ; max  < jsonData.data.length; max ++){
-									VAL_4.push(jsonData.data[max][selectItem+"_4"]);
+							var VAL_4 = [];
+							for (max = 0; max < jsonData.data.length; max++) {
+								VAL_4.push(jsonData.data[max][selectItem + "_4"]);
 							}
-							
-							var maxValue2 = VAL_2.slice(0).sort(function(a,b){a<b})[0];
-							var maxValue3 = VAL_3.slice(0).sort(function(a,b){a<b})[0];
-							var maxValue4 = VAL_4.slice(0).sort(function(a,b){a<b})[0];
+
+							var maxValue2 = VAL_2.slice(0).sort(function (a, b) { a < b })[0];
+							var maxValue3 = VAL_3.slice(0).sort(function (a, b) { a < b })[0];
+							var maxValue4 = VAL_4.slice(0).sort(function (a, b) { a < b })[0];
 							//세 측정값을 비교하여 가장 큰값의 /2 를 더한 값이 max 값
-							var maxData = [maxValue2,maxValue3,maxValue4].slice(0).sort(function(a,b){a<b})[0] 
-										+ [maxValue2,maxValue3,maxValue4].slice(0).sort(function(a,b){a<b})[0];
-							
+							var maxData = [maxValue2, maxValue3, maxValue4].slice(0).sort(function (a, b) { a < b })[0]
+								+ [maxValue2, maxValue3, maxValue4].slice(0).sort(function (a, b) { a < b })[0];
+
 							// 차트 컨트롤에 max 데이터 셋팅
-							console.info(VAL_2.slice(0).sort(function(a,b){a<b})[0]);
-							
+							console.info(VAL_2.slice(0).sort(function (a, b) { a < b })[0]);
+
 							// 차트 컨트롤에 max 데이터 셋팅
 							SetChartMaxData(maxData);
 
@@ -257,9 +270,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						alert("오류가 발생하였습니다.");
 					}
 				});
-			}else{
-					// 로딩바 표시
-				
+			} else {
+				// 로딩바 표시
+
 				Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
 				Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
 				Ext.getCmp("siteCharttest").mask("loading", "loading...");
@@ -332,9 +345,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				});
 			}
 
-			
 
-			
+
+
 		}
 	}
 });

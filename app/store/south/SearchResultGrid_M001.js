@@ -1,4 +1,4 @@
-Ext.define('krf_new.store.south.SearchResultGrid_M', {
+Ext.define('krf_new.store.south.SearchResultGrid_M001', {
     extend: 'Ext.data.Store',
 
     siteId: '',
@@ -15,20 +15,33 @@ Ext.define('krf_new.store.south.SearchResultGrid_M', {
 
             var firstSearch = $KRF_APP.btnFlag;
 
-            var startYear = startMonth = endYear = endMonth = "";
+            var startYear, startMonth, startDay = '';
 
-            var sYearCtl = Ext.getCmp("cmbStartYear");
-            if (sYearCtl != undefined)
-                startYear = Ext.getCmp("cmbStartYear").value;
-            var sMonthCtl = Ext.getCmp("cmbStartMonth");
-            if (sMonthCtl != undefined)
-                startMonth = Ext.getCmp("cmbStartMonth").value;
-            var eYearCtl = Ext.getCmp("cmbEndYear");
-            if (eYearCtl != undefined)
-                endYear = Ext.getCmp("cmbEndYear").value;
-            var eMonthCtl = Ext.getCmp("cmbEndMonth");
-            if (eMonthCtl != undefined)
-                endMonth = Ext.getCmp("cmbEndMonth").value;
+            var sYearCtl = Ext.getCmp('m_StartYear');
+            if (sYearCtl != undefined) {
+                startYear = Ext.getCmp('m_StartYear').value;
+            }
+
+            var sMonthCtl = Ext.getCmp('m_StartMonth');
+            if (sMonthCtl != undefined) {
+                startMonth = Ext.getCmp('m_StartMonth').value + Ext.getCmp('m_StartDay').value;
+            }
+
+            var sDayCtl = Ext.getCmp('m_StartDay');
+
+            var endYear, endMonth, endDay = '';
+
+            var eYearCtl = Ext.getCmp('m_EndYear');
+            if (sYearCtl != undefined) {
+                endYear = Ext.getCmp('m_EndYear').value;
+            }
+
+            var eMonthCtl = Ext.getCmp('m_EndMonth');
+            if (sMonthCtl != undefined) {
+                endMonth = Ext.getCmp('m_EndMonth').value + Ext.getCmp('m_EndDay').value;
+            }
+
+            var eDayCtl = Ext.getCmp('m_EndDay');
 
             // 로딩바 표시
             var winCtl = Ext.getCmp("searchResultWindow");
@@ -72,31 +85,26 @@ Ext.define('krf_new.store.south.SearchResultGrid_M', {
                                 var afterVal = dateSplit.split(".");
 
                                 startYear = afterVal[0];
-                                if (afterVal[1] == "1" || afterVal[1] == "01") {
-                                    startMonth = "12";
-                                    startYear = startYear - 1;
-                                } else {
-                                    startMonth = afterVal[1] - 1;
-                                }
+                                startMonth = afterVal[1];
+                                startDay = afterVal[2];
 
-                                if (startMonth < 10) {
-                                    startMonth = "0" + startMonth;
-                                }
                                 endYear = afterVal[0];
                                 endMonth = afterVal[1];
-
+                                endDay = afterVal[2];
                             }
                         }
                     },
-                    failure: function (form, action) {
-
-                    }
+                    failure: function (form, action) { }
                 });
-                firstSearch = "date";
-                Ext.getCmp("cmbStartYear").setValue(startYear);
-                Ext.getCmp("cmbStartMonth").setValue(startMonth);
-                Ext.getCmp("cmbEndYear").setValue(endYear);
-                Ext.getCmp("cmbEndMonth").setValue(endMonth);
+
+                firstSearch = 'date';
+                sYearCtl.setValue(startYear);
+                sMonthCtl.setValue(startMonth);
+                sDayCtl.setValue(startDay);
+
+                eYearCtl.setValue(endYear);
+                eMonthCtl.setValue(endMonth);
+                eDayCtl.setValue(endDay);
             }
 
             Ext.Ajax.request({
@@ -106,10 +114,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_M', {
                     WS_CD: WS_CD,
                     AM_CD: AM_CD,
                     AS_CD: AS_CD,
-                    startYear: startYear,
-                    startMonth: startMonth,
-                    endYear: endYear,
-                    endMonth: endMonth,
+                    startYear: sYearCtl.value,
+                    startMonth: sMonthCtl.value + sDayCtl.value,
+                    endYear: eYearCtl.value,
+                    endMonth: eMonthCtl.value + eDayCtl.value,
                     ADM_CD: ADM_CD,
                     siteIds: store.siteIds,
                     firstSearch: firstSearch

@@ -402,8 +402,12 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			siteChartCtl.series[4]._yField = "BOD_4";
 
 			yFieldName = "BOD";
-		} else if (parentId == "M") {
-			yFieldName = 'WTRTP_VALUE';
+		} else if (parentId == 'M') {
+			if ($KRF_APP.layerCode == 'M001') {
+				yFieldName = 'WTRTP_VALUE';
+			} else if ($KRF_APP.layerCode == 'M002') {
+				yFieldName = 'BOD_VALUE';
+			}
 		}
 
 
@@ -455,7 +459,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 	}
 
 	SetItemLabelText(yFieldName, chartId, test);
-	siteChartCtl.preText = test;
+
+	if (test != '') {
+		siteChartCtl.preText = test;
+	}
 }
 
 // 지점/차트 정보 창 닫기
@@ -605,6 +612,16 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemNm = "용존산소";
 	} else if (itemNm == 'TUR_VALUE') {
 		itemNm = "탁도";
+	} else if (itemNm == 'BOD_VALUE') {
+		itemNm = "생물학적산소요구량";
+	} else if (itemNm == 'TOC_VALUE') {
+		itemNm = "총유기탄소";
+	} else if (itemNm == 'SS_VALUE') {
+		itemNm = "부유물질";
+	} else if (itemNm == 'TP_VALUE') {
+		itemNm = "총인";
+	} else if (itemNm == 'TN_VALUE') {
+		itemNm = "총질소";
 	}
 
 	var chartCtl = Ext.getCmp("siteCharttest");
@@ -922,7 +939,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	} else if (parentCheck == 'M') {
 
 		if (grdContainer == null || grdContainer == undefined) {
-			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_M', options);
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + pId, options);
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(gridId + '_container');
@@ -936,7 +953,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			grdCtl.parentIds = parentIds;
 		}
 
-		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_M', {
+		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + pId, {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
 			gridCtl: grdCtl

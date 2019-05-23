@@ -19,9 +19,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		id: "tabCondition",
 		//title: 'test',
 		layout: {
-			type: 'hbox',
-			align: 'middle',
-			pack: 'end'
+			type: 'hbox'
 		},
 		height: 30,
 		items: [{
@@ -365,6 +363,93 @@ Ext.define('krf_new.view.common.TabControl', {
 			}]
 		}, {
 			xtype: 'container',
+			id: 'm_resultTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'm_StartYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'm_StartMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: 'combo',
+				id: "m_StartDay",
+				store: $KRF_APP.global.CommFn.bindComboDay("Asc", ""),
+				editable: false,
+				width: 50
+			}, {
+				xtype: "label",
+				text: "일 부터"
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'm_EndYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'm_EndMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: 'combo',
+				id: "m_EndDay",
+				store: $KRF_APP.global.CommFn.bindComboDay("Asc", ""),
+				editable: false,
+				width: 50
+			}, {
+				xtype: "label",
+				text: "일 까지"
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'image',
+				src: './resources/images/button/icon_seah.gif', //검색
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.TabFn.goSearch();
+						}
+					}
+				}
+			}]
+		}, {
+			xtype: 'container',
 			width: 10
 		}, { //방유량 검색 조건 / 집수구역
 			xtype: 'container',
@@ -567,6 +652,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
 				// 그리드별 조회조건 컨트롤 셋팅
+				Ext.getCmp('m_resultTab').setHidden(true);
 				$KRF_APP.global.TabFn.searchConditionCtl(tab.down("grid"));
 
 				//미확정자료 콤보박스 분기 - ph
@@ -796,6 +882,11 @@ Ext.define('krf_new.view.common.TabControl', {
 					} else {
 						pollutionYear.setValue(pollutiongrdCtl.store.year);
 					}
+				}
+
+				if (tab.parentId == 'M') {
+					Ext.getCmp('resultTab').setHidden(true);
+					Ext.getCmp('m_resultTab').setHidden(false);
 				}
 			}
 		}
