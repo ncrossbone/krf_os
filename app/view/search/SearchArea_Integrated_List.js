@@ -7,9 +7,9 @@ Ext.define('krf_new.view.search.SearchArea_Integrated_List', {
 
 	xtype: 'west-searchArea-integrated-list',
 	id: 'searchAreaList_Integrated',
-	layout: {
-		type: 'accordion'
-	},
+	// layout: {
+	// 	type: 'accordion'
+	// },
 
 	listeners: {
 

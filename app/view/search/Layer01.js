@@ -54,70 +54,122 @@ Ext.define('krf_new.view.search.Layer01', {
 						url: 'resources/data/west/Layer01Data.json',
 						success: function (response, opts) {
 							var layers = Ext.util.JSON.decode(response.responseText);
-							var userLayerSet = [];
-	
-							if ($KRF_APP.USER_LAYERS) {
-								for (var j = 0; j < layers.length; j++) {
-									for (var i = 0; i < $KRF_APP.USER_LAYERS.layerSetIds.length; i++) {
-										if (layers[j].id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
-											//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
-											userLayerSet.push(layers.splice(j, 1)[0]);
-											j--;
-											//i--;
-											break;
-										}
-									}
-								}
-								for (var j = 0; j < userLayerSet.length; j++) {
-									if (userLayerSet[j].children) {
-										var chuldrenLayer = [];
-										for (var z = 0; z < userLayerSet[j].children.length; z++) {
-											var childArr = userLayerSet[j].children[z];
-											if (childArr.isMetaData) {
-												childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.layerCode + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
-											} else {
-												if (childArr.metaDataId) {
-													childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.metaDataId + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
-												}
+							//var userLayerSet = [];
+							var userLayerSet = layers;
+
+							
+							for (var j = 0; j < userLayerSet.length; j++) {
+								if (userLayerSet[j].children) {
+									var chuldrenLayer = [];
+									for (var z = 0; z < userLayerSet[j].children.length; z++) {
+										var childArr = userLayerSet[j].children[z];
+										if (childArr.isMetaData) {
+											childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.layerCode + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
+										} else {
+											if (childArr.metaDataId) {
+												childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.metaDataId + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
 											}
-											for (var i = 0; i < $KRF_APP.USER_LAYERS.layerSetIds.length; i++) {
-												if (childArr.id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
-													//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
-													// 권한별 레이어에서 쓰는지 안쓰는지 확인 2019-04-16
-													var yn = false;
-													
-													for(var a = 0 ; a < $KRF_APP.LAYER_SETTING.length; a++){
-														if($KRF_APP.LAYER_SETTING[a].LYR_CODE == childArr.layerCode){
-															
-															if($KRF_APP.LAYER_SETTING[a].LYR_USE_AT == "Y"){
-																yn = true;
-																break;
-															}
-														}
-													}
-													
-													//임시 레이어 코드가 없는것들은 일단 보여주기 2019-04-25
-													if(childArr.layerCode == ""){
-														yn = true;
-													}
-	
-													if(yn){
-														chuldrenLayer.push(userLayerSet[j].children.splice(z, 1)[0]);
-														z--;
-														//i--;
-														break;
-													}
-													
+										}
+										
+										//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
+										// 권한별 레이어에서 쓰는지 안쓰는지 확인 2019-04-16
+										var yn = false;
+										
+										for(var a = 0 ; a < $KRF_APP.LAYER_SETTING.length; a++){
+											if($KRF_APP.LAYER_SETTING[a].LYR_CODE == childArr.layerCode){
+												
+												if($KRF_APP.LAYER_SETTING[a].LYR_USE_AT == "Y"){
+													yn = true;
+													break;
 												}
 											}
 										}
-	
-										userLayerSet[j].children = chuldrenLayer;
+										
+										//임시 레이어 코드가 없는것들은 일단 보여주기 2019-04-25
+										if(childArr.layerCode == ""){
+											yn = true;
+										}
+
+										if(yn){
+											chuldrenLayer.push(childArr);
+											// chuldrenLayer.push(userLayerSet[j].children.splice(z, 1)[0]);
+											// z--;
+											// //i--;
+											// break;
+										}
+
 									}
+
+									userLayerSet[j].children = chuldrenLayer;
 								}
-							} else {
-								userLayerSet = layers;
 							}
+
+
+
+
+							// if ($KRF_APP.USER_LAYERS) {
+							// 	for (var j = 0; j < layers.length; j++) {
+							// 		for (var i = 0; i < $KRF_APP.USER_LAYERS.layerSetIds.length; i++) {
+										
+							// 			if (layers[j].id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
+							// 				//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
+							// 				userLayerSet.push(layers.splice(j, 1)[0]);
+							// 				j--;
+							// 				//i--;
+							// 				break;
+							// 			}
+							// 		}
+							// 	}
+							// 	for (var j = 0; j < userLayerSet.length; j++) {
+							// 		if (userLayerSet[j].children) {
+							// 			var chuldrenLayer = [];
+							// 			for (var z = 0; z < userLayerSet[j].children.length; z++) {
+							// 				var childArr = userLayerSet[j].children[z];
+							// 				if (childArr.isMetaData) {
+							// 					childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.layerCode + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
+							// 				} else {
+							// 					if (childArr.metaDataId) {
+							// 						childArr.text = childArr.text + '<a onclick="metaDataView(\'' + childArr.metaDataId + '\')" class="metaDataBtn"> <img src="./resources/images/button/meta.png" /> </a>';
+							// 					}
+							// 				}
+							// 				for (var i = 0; i < $KRF_APP.USER_LAYERS.layerSetIds.length; i++) {
+							// 					if (childArr.id == $KRF_APP.USER_LAYERS.layerSetIds[i]) {
+							// 						//$KRF_APP.USER_LAYERS.layerSetIds.splice(i,1);
+							// 						// 권한별 레이어에서 쓰는지 안쓰는지 확인 2019-04-16
+							// 						var yn = false;
+													
+							// 						for(var a = 0 ; a < $KRF_APP.LAYER_SETTING.length; a++){
+							// 							if($KRF_APP.LAYER_SETTING[a].LYR_CODE == childArr.layerCode){
+															
+							// 								if($KRF_APP.LAYER_SETTING[a].LYR_USE_AT == "Y"){
+							// 									yn = true;
+							// 									break;
+							// 								}
+							// 							}
+							// 						}
+													
+							// 						//임시 레이어 코드가 없는것들은 일단 보여주기 2019-04-25
+							// 						if(childArr.layerCode == ""){
+							// 							yn = true;
+							// 						}
+	
+							// 						if(yn){
+							// 							chuldrenLayer.push(userLayerSet[j].children.splice(z, 1)[0]);
+							// 							z--;
+							// 							//i--;
+							// 							break;
+							// 						}
+													
+							// 					}
+							// 				}
+							// 			}
+	
+							// 			userLayerSet[j].children = chuldrenLayer;
+							// 		}
+							// 	}
+							// } else {
+							// 	userLayerSet = layers;
+							// }
 	
 							var layerTreePanel = Ext.getCmp('layer01');
 							layerTreePanel.setRootNode({ text: 'root', expanded: true, leaf: false, children: userLayerSet });

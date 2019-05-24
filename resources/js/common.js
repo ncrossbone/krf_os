@@ -448,7 +448,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		}
 
 		//클릭 session
-		setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
+		//setActionInfo(siteChartCtl.store.parentId, siteChartCtl.store.orgParentId, "", siteChartCtl.store.siteCD, "차트검색");
+		var logLayerCode = siteChartCtl.store.orgParentId != '' ? siteChartCtl.store.orgParentId : siteChartCtl.store.parentId;
+		//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+		setActionInfo('W', 'C', logLayerCode, siteChartCtl.store.siteCD, $KRF_APP.loginInfo.userId);
 	}
 	console.info(chartStore);
 	SetItemLabelText(yFieldName, chartId, test);
@@ -715,14 +718,9 @@ ShowDetailSearch = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			for(var i = 0 ; i < siteListTreeStore.root.childNodes.length; i++){
 				if(siteListTreeStore.root.childNodes[i].childNodes.length > 0){
 					for(var j = 0 ; j < siteListTreeStore.root.childNodes[i].childNodes.length; j++){
-						//일단 오염원 부하량 빼기
-						if(siteListTreeStore.root.childNodes[i].data.text.indexOf('오염원') == -1 &&
-						siteListTreeStore.root.childNodes[i].data.text.indexOf('부하량') == -1){
-							treeNameList.push([siteListTreeStore.root.childNodes[i].childNodes[j].data.id,
-								siteListTreeStore.root.childNodes[i].data.text+'-'+siteListTreeStore.root.childNodes[i].childNodes[j].data.text]
-							)
-						}
-						
+						treeNameList.push([siteListTreeStore.root.childNodes[i].childNodes[j].data.id,
+							siteListTreeStore.root.childNodes[i].data.text.split('(')[0]+'-'+siteListTreeStore.root.childNodes[i].childNodes[j].data.text.split('(')[0]]
+						)
 					}
 				}
 			}
@@ -736,18 +734,162 @@ ShowDetailSearch = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			stype: 'json'
 		});
 
+		
+
 		var itemselector = Ext.getCmp('itemselector');
 		itemselector.setStore(store);
+		if(treeNameList.length > 0){
+			itemselector.setValue(treeNameList[0][0]);
+		}
+		
 
 
 	}
 }
 
+//
 ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 	//처음검색
 	$KRF_APP.btnFlag = "noDate";
 	ShowSearchResult(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst);
 }
+
+//툴팁 지도 확대
+detailSearchClickZoom = function(pointX, pointY){
+
+	var point = new esri.geometry.Point(Number(pointX), Number(pointY), $KRF_APP.coreMap.map.extent.getCenter().spatialReference);
+
+	$KRF_APP.coreMap.map.centerAndZoom(point, 12);
+
+}
+
+
+detailSearchClick = function(meter, startValue, endValue){// 반경, 시작일, 종료일
+
+	//상세검색 창 ( point 정보 )
+	var popSiteInfo = Ext.getCmp('popSiteInfo');
+
+	if(meter){//반경존재 유무
+		if(meter > 10){//반경 10Km 제한
+			if(startValue || endValue){//날짜존재 유무
+				var dateCmpare = detailDateCompare(startValue, endValue);
+				if(dateCmpare[0]){//종료일자와 시작일자 차이
+					if(dateCmpare[1]){//시작일자와 종료일자 기간
+						$KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);
+					}else{
+						alert('시작일자와 종료일자의 기간은 1년입니다.');
+					}
+				}else{
+					alert('종료일자가 시작일자보다 커야 합니다.');
+				}
+			}else{
+				alert('날짜를 선택해 주세요');
+			}	
+		}else{
+			alert('반경은 10Km가 최대 입니다.');
+		}
+	}else{
+		alert('반경을 입력하세요.');
+	}
+
+}
+
+//툴팁 검색 기능
+detailSearchClickDefault = function(){	
+	
+	var popSiteInfo = Ext.getCmp('popSiteInfo');
+	var meter = Number(document.getElementById('detailMeter').value);  //detailMeter
+	//var detailDate = Ext.getCmp('monthpickerId').value;
+	//detailStartDate
+	//
+
+	detailSearchClick(meter, document.getElementById('detailStartDate').value, document.getElementById('detailEndDate').value);
+
+	/*
+	if(meter){		
+		if(document.getElementById('detailStartDate').value || document.getElementById('detailEndDate').value){
+			var dateCmpare = detailDateCompare(document.getElementById('detailStartDate').value, document.getElementById('detailEndDate').value);
+			if(dateCmpare[0]){
+				if(dateCmpare[0]){
+					$KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);
+				}else{
+					alert('시작일자와 종료일자의 기간은 1년입니다.');
+				}
+			}else{
+				alert('종료일자가 시작일자보다 커야 합니다.');
+			}
+		}else{
+			alert('날짜를 선택해 주세요');
+		}		
+
+	}else{
+		alert('반경을 입력하세요.');
+	}
+	*/
+
+}
+
+//날짜 계산
+detailDateCompare = function(_date1, _date2){
+
+	var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
+    var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+ 
+    diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1.getMonth()+1, diffDate_1.getDate());
+    diffDate_2 = new Date(diffDate_2.getFullYear(), diffDate_2.getMonth()+1, diffDate_2.getDate());
+ 
+	
+	
+	var result = [false,false]; // [0] = 종료기간이 시작기간보다 작은지 / [1] = 최근1년만 조회가능
+	if(diffDate_2.getTime() > diffDate_1.getTime() || diffDate_2.getTime() == diffDate_1.getTime()){
+		result[0] = true;
+	}
+
+	var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+	diff = Math.ceil(diff / (1000 * 3600 * 24));
+	if(diff <= 376){
+		result[1] = false;
+	}
+
+	return result;
+    //diff = Math.ceil(diff / (1000 * 3600 * 24));
+
+}
+
+//년월 선택 
+detailDateSearchWindow = function(id){
+
+	Ext.create('Ext.window.Window',{
+		width: 300,
+		height: 300,
+		id: 'monthPickerWindow',
+		items:[{
+			xtype:'monthpicker',
+            listeners:{
+                okclick: function(event){
+                    if(event.value[0] == null || event.value[1] == null){
+                        return;
+                    }else{
+						// 상세검색
+						event.value[0] = event.value[0]+1;
+						//ext로 되어있는 상세검색 textArea
+						if(Ext.getCmp(id)){
+							Ext.getCmp(id).setValue(event.value[1] +'-'+event.value[0]);
+						}else{ //html로 되어있는 날짜 textArea
+							//var dateId = {'detailStartDate':'detailStartDate','detailEndDate': 'detailStartDate'};
+							document.getElementById(id).value = event.value[1] +'-'+event.value[0];
+						}
+						
+						Ext.getCmp('monthPickerWindow').close();
+						
+                    }
+                }
+            }
+		}]
+	}).show();
+
+}
+
 showResultWindow = function () {
 	var desktop = $KRF_APP.getDesktop();
 	var resultModule = $KRF_APP.getDesktopModule($KRF_WINS.KRF.RESULT.id);
@@ -2569,9 +2711,13 @@ setTooltipXY = function () {
 //지점정보 툴팁 닫기
 closePopSiteInfo = function () {
 	var popCtl = Ext.getCmp("popSiteInfo");
+	var detailSearchWindow = Ext.getCmp("detailSearchWindow");
 
 	if (popCtl != undefined) {
 		popCtl.close();
+		if(detailSearchWindow != undefined){// 지점상제 창 닫기
+			detailSearchWindow.close();
+		}
 	}
 }
 
@@ -2855,17 +3001,19 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
 
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
-
-setActionInfo = function (node, parentId, data, id, type) {
-
+//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'DLSE
+setActionInfo = function (system, type, node, id, userId ) {
+	return;
 	//1DEP 일시
 	if (node == 0) {
 		node = id;
 	}
 
 	Ext.Ajax.request({
-		url: _API.ClickSession,
-		params: { node: node, parentId: parentId, data: data, id: id, type: type },
+		//url: _API.ClickSession,
+		url: 'http://localhost/krf/common/clickSession',
+		//params: { node: node, parentId: parentId, data: data, id: id, type: type },
+		params: { system: system, type: type, node: node, id: id, userId: userId },
 		async: true, // 비동기 = async: true, 동기 = async: false
 		failure: function (form, action) {
 		}

@@ -158,7 +158,8 @@ Ext.define('krf_new.store.south.SearchResultGrid', {
 
 			if (firstSearch == "noDate") {
 				Ext.Ajax.request({
-					url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
+					//url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
+					url: 'http://localhost/krf/searchResult/searchResult_A2018',
 					params: {
 						WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 						, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
@@ -206,7 +207,8 @@ Ext.define('krf_new.store.south.SearchResultGrid', {
 			}
 
 			Ext.Ajax.request({
-				url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
+				//url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
+				url: 'http://localhost/krf/searchResult/searchResult_A2018',
 				params: {
 					WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 					, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
@@ -221,7 +223,7 @@ Ext.define('krf_new.store.south.SearchResultGrid', {
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 					if (jsonData.data.length > 0) {
 						if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
-							for (var cnt = 0; cnt < jsonData.data.length; cnt++) {
+							/*for (var cnt = 0; cnt < jsonData.data.length; cnt++) {
 								jsonData.data[cnt].CHART_ABS.splice(0, jsonData.data[cnt].CHART_ABS.length - 5);
 								jsonData.data[cnt].CHART_ALGOL.splice(0, jsonData.data[cnt].CHART_ALGOL.length - 5);
 								jsonData.data[cnt].CHART_AMNT.splice(0, jsonData.data[cnt].CHART_AMNT.length - 5);
@@ -273,7 +275,16 @@ Ext.define('krf_new.store.south.SearchResultGrid', {
 								jsonData.data[cnt].CHART_TP.splice(0, jsonData.data[cnt].CHART_TP.length - 5);
 								jsonData.data[cnt].CHART_TRANS.splice(0, jsonData.data[cnt].CHART_TRANS.length - 5);
 								jsonData.data[cnt].CHART_ZN.splice(0, jsonData.data[cnt].CHART_ZN.length - 5);
+							}*/
+
+							for(var a = 0 ; a < jsonData.data.length ; a++){
+								Object.keys(jsonData.data[a]).map(function(key){
+									if(key.substring(0,4) == "CHAR"){
+										jsonData.data[a][key] = Ext.util.JSON.decode(jsonData.data[a][key]);
+									}
+								});
 							}
+
 							store.setData(jsonData.data);
 							// 로딩바 숨김
 							if (me.gridCtl != null) {

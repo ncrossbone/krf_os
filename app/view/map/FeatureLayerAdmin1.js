@@ -265,8 +265,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				// 센터 이동
 				centerAtWithOffset(obj.geometry.x, obj.geometry.y, obj.geometry.spatialReference);
 
-				var popWidth = 370;
-				var popHeight = 230;
+				
 
 				/* 사이트 정보 팝업 띄우기 */
 				var popCtl = Ext.getCmp("popSiteInfo");
@@ -275,22 +274,126 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				if (popCtl != undefined) {
 					popCtl.close();
 				}
-				var mapToolTip = Ext.create("Ext.window.Window", {
-					header: false,
-					id: 'popSiteInfo',
-					shadow: false,
-					plain: true, // 요게 있어야 background: transparent 먹음..
-					point: point, // 지점 포인트 정보
-					width: 380,
-					height: 215,
-					isMove: false,
-					constrain: true,
-					style: 'border-style: none !important; background: transparent none !important; height: 700px;',
-					layout: {
-						type: 'absolute'
-					},
-					html:
-						"<!doctype html>																																									" +
+
+
+
+				//
+				var html = ""; //툴팁 html
+				var popWidth = 0; //툴팁 width
+				var popHeight = 0; //툴팁 height
+
+				// 통합검색 그룹 리스트
+				var detailLayerList = {'A001':'Y','A002':'Y'
+					,'B001':'Y','B002':'Y'
+					,'C001':'Y','C002':'Y'
+					,'D001':'Y','D003':'Y','D004':'Y','D005':'Y','D006':'Y'
+					,'E001':'Y','E002':'Y'
+					,'F001':'Y','F002':'Y','F003':'Y','F004':'Y','F006':'Y','F007':'Y','F008':'Y'};
+
+				// 레이어별 툴팁 설정
+				if(detailLayerList[parentCheck]){
+					popWidth = 415;
+					popHeight = 300;
+					html =	" <!doctype html>																																											"+			
+					" <html lang=\"ko\">                                                                                                                                                                        "+
+					" <head>                                                                                                                                                                                    "+
+					" <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />                                                                                                                 "+
+					" <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge, chrome=1\" />                                                                                                                     "+
+					" <title>KRF-TOOLTIP</title>                                                                                                                                                                "+
+					" <style>                                                                                                                                                                                   "+
+					" /*basicset*/                                                                                                                                                                              "+
+					" html, body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, hr, pre, code, form, fieldset, legetns, input, textarea, buttonm p, blockquote, th, td, label, select, p, i {                 "+
+					" 	margin: 0px;                                                                                                                                                                            "+
+					" 	padding: 0px;                                                                                                                                                                           "+
+					" 	font-family: \"돋움\";                                                                                                                                                                   "+
+					" }                                                                                                                                                                                         "+
+					" dl, dt, dd, ul, ol, li { list-style: none; }                                                                                                                                              "+
+					" a { text-decoration: none; color: inherit; }                                                                                                                                              "+
+					" img { border: 0px; }                                                                                                                                                                      "+
+					"                                                                                                                                                                                           "+
+					" /*tooltip*/                                                                                                                                                                               "+
+					" #toolTip { border-radius:7px; display:inline-block; padding:10px 6px 6px 6px; position:relative;                                                                                          "+
+					" 	background: -webkit-gradient(linear, left top, right top, color-stop(0, #0063cc), color-stop(1, #324ca3));                                                                              "+
+					" 	background: -moz-linear-gradient(left, #0063cc 0%, #324ca3 100%);                                                                                                                       "+
+					" 	background: -webkit-linear-gradient(left,  #0063cc 0%, #324ca3 100%);                                                                                                                   "+
+					" 	background: -o-linear-gradient(left,  #0063cc 0%, #324ca3 100%);                                                                                                                        "+
+					" 	background: -ms-linear-gradient(left,  #0063cc 0%, #324ca3 100%);                                                                                                                       "+
+					" 	background: linear-gradient(left,  #0063cc 0%, #324ca3 100%);                                                                                                                           "+
+					" 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=\"#0063cc\", endColorstr=\"#324ca3\", gradientType=1);                                                                 "+
+					" 	}                                                                                                                                                                                       "+
+					" .close { position:absolute; right:15px; top:10px; }                                                                                                                                       "+
+					" h1 { color:#fff; font-size:18px; letter-spacing:-1px; font-family:\"dotum\"; margin-left:10px; }                                                                                 "+
+					" .tt_cont { background:#fff; border-radius:7px; padding:15px; margin-top:10px; width:400px; box-sizing:border-box; }                                                                       "+
+					" .tt_cont p { font-family:\"dotum\"; letter-spacing:-1px; font-size:12px; margin-bottom:10px; }                                                                                            "+
+					" .tt_cont p span { margin-left:5px; }                                                                                                                                                      "+
+					" .btn:after, .searchbox dd:after, .btn2:after, .sinput:after { display:block; content:\"\"; clear:both; }                                                                                  "+
+					" .btn a {  background:#f5f5f5; border:1px solid #c1c7ca; padding:5px 10px; display:inline-block;  font-family:\"dotum\"; letter-spacing:-1px; font-size:12px; }                            "+
+					" .d_btn { background:url(\"./resources/images/tooltip/img/btn_bg.png\") no-repeat right 10px center #f5f5f5 !important; padding:5px 20px 5px 10px !important; }                                                           "+
+					" .epbtn { float:right !important; margin-right:0 !important; padding:0 !important; border:none !important; background:none !important; }                                                   "+
+					" .searchbox { margin-top:10px; }                                                                                                                                                           "+
+					" .searchbox dt { background:#405166; color:#fff; padding:8px 15px; font-family:\"dotum\"; letter-spacing:-1px; font-size:14px; font-weight:bold; }                                         "+
+					" .searchbox dd { background:#ebebeb; padding:10px 15px; font-family:\"dotum\"; letter-spacing:-1px; font-size:12px;}                                                                       "+
+					" .tit { background:url(\"./resources/images/tooltip/img/tit.png\") no-repeat left center; padding-left:7px; font-weight:bold; margin-right:5px; }                                                                         "+
+					" .sinput li { float:left; }                                                                                                                                                                "+
+					" .sinput input { background:#fff; border:1px solid #c1c7ca; padding:3px; text-align:center; }                                                                                              "+
+					" .btn9 { margin-top:10px; text-align:right; }                                                                                                                                              "+
+					" .btn9 a { display:inline-block;  font-family:\"dotum\"; letter-spacing:-1px; font-size:12px; color:#fff; padding:5px 0; border-radius:3px; margin-left:2px; font-weight:bold; width:60px; text-align:center; }	"+
+					" .sbtn1 { background:#003873; }																																							"+
+					" .sbtn2 { background:#ff7200; }                                                                                                                                                            "+
+					" #toolTip:after { content:url(\"./resources/images/tooltip/img/pin.png\"); width:19px; height:20px; position:absolute; left:50%; bottom:-20px; transform:translateX(-50%); }                                              "+
+					" </style>                                                                                                                                                                                  "+
+					" </head>                                                                                                                                                                                   "+
+					"                                                                                                                                                                                           "+
+					" <body>                                                                                                                                                                                    "+
+					" 	<div id=\"toolTip\">                                                                                                                                                                    "+
+					" 		<h1>" + jijum_Name + "</h1>                                                                                                                                                                       "+
+					"         <a href=\"#none\" class=\"close\" onclick=\"closePopSiteInfo();\" ><img src=\"./resources/images/tooltip/img/close.png\" alt=\"닫기\"/></a>                                                                                                    "+
+					"         <div class=\"tt_cont\">                                                                                                                                                           "+
+					" 			<p>                                                                                                                                                                             "+
+					"             	<b>[분류]</b>                                                                                                                                                                "+
+					"                 <span>" + jijum_Gubun + "</span>                                                                                                                                                         "+
+					"         	</p>                                                                                                                                                                            "+
+					" 			<p>                                                                                                                                                                             "+
+					"             	<b>[주소]</b>                                                                                                                                                                "+
+					"                 <span>" + jijum_Addr + "</span>                                                                                                                                   "+
+					"         	</p>                                                                                                                                                                            "+
+					"             <div class=\"btn\">                                                                                                                                                           "+
+					"             	<a href=\"#\" class=\"d_btn\"  onClick=\"ShowWindowSiteNChart(1,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" >상세보기</a>                                                                                                                                    "+
+					"             	<a href=\"#\" onClick=\"ShowWindowSiteNChart(0,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" >차트정보</a>                                                                                                                                                    "+
+					"             	<a href=\"#\" onClick=\"ShowToolTipSearchResult('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" >자료조회</a>                                                                                                                                                    "+
+					"             	<a href=\"#\" onClick=\"detailSearchClickZoom('" + point.x + "','"+ point.y +"');\" class=\"epbtn\"><img src=\"./resources/images/tooltip/img/btn_icon.png\" alt=\"확대\"/></a>                                                                                               "+
+					"             </div>                                                                                                                                                                        "+
+					"             <dl class=\"searchbox\">                                                                                                                                                      "+
+					" 				<dt>[통합검색]</dt>                                                                                                                                                           "+
+					"                 <dd>                                                                                                                                                                      "+
+					"                 	<ul class=\"sinput\">                                                                                                                                                   "+
+					"                     	<li style=\"width:40%\">                                                                                                                                            "+
+					"                         	<span class=\"tit\">반경</span>                                                                                                                                  "+
+					"                             <input id=\"detailMeter\" type=\"text\" style=\"width:50px; text-align:right;\"/>                                                                                                "+
+					"                             <span>Km</span>                                                                                                                                                "+
+					"                 		</li>                                                                                                                                                               "+
+					"                     	<li style=\"width:60%; text-align:right;\">                                                                                                                         "+
+					"                         	<span class=\"tit\">기간</span>                                                                                                                                  "+
+					"                             <input type=\"text\" id=\"detailStartDate\" onClick=\"detailDateSearchWindow('detailStartDate')\" style=\"width:65px;\"/>                                                                                                                  "+
+					"                             <span>~</span>                                                                                                                                                "+
+					"                             <input type=\"text\" id=\"detailEndDate\" onClick=\"detailDateSearchWindow('detailEndDate')\" style=\"width:65px;\"/>                                                                                                                  "+
+					"                         </li>                                                                                                                                                             "+
+					"                 	</ul>                                                                                                                                                                   "+
+					"                     <div class=\"btn9\">                                                                                                                                                  "+
+					"                     	<a href=\"#\" class=\"sbtn1\" onClick=\"detailSearchClickDefault()\" >검색</a>                                                                                                                               "+
+					"                     	<a href=\"#\" class=\"sbtn2\" onClick=\"ShowDetailSearch('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" >상세검색</a>                                                                                                                            "+
+					"                     </div>                                                                                                                                                                "+
+					"                 </dd>                                                                                                                                                                     "+
+					"             </dl>                                                                                                                                                                         "+
+					"         </div>                                                                                                                                                                            "+
+					"     </div>                                                                                                                                                                                "+
+					" </body>                                                                                                                                                                                   "+
+					" </html>                                                                                                                                                                                   "
+					}else{
+
+						popWidth = 370;
+						popHeight = 230;
+						html = "<!doctype html>																																									" +
 						"<html lang=\"ko\">                                                                                                                                                                 " +
 						"<head>                                                                                                                                                                             " +
 						"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />                                                                                                          " +
@@ -338,6 +441,31 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"</div>                                                                                                                                                                             " +
 						"</body>                                                                                                                                                                            " +
 						"</html>                                                                                                                                                                            "
+					}
+
+
+
+
+
+				var mapToolTip = Ext.create("Ext.window.Window", {
+					header: false,
+					id: 'popSiteInfo',
+					shadow: false,
+					plain: true, // 요게 있어야 background: transparent 먹음..
+					point: point, // 지점 포인트 정보
+					//width: 380,
+					//height: 215,
+					//width: 415,
+					//height: 300,
+					width: popWidth,
+					height: popHeight,
+					isMove: false,
+					constrain: true,
+					style: 'border-style: none !important; background: transparent none !important; height: 700px;',
+					layout: {
+						type: 'absolute'
+					},
+					html: html
 				});
 
 				Ext.getCmp('center_container').add(mapToolTip);
@@ -349,11 +477,8 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				var btnNomal = Ext.getCmp("btnModeNomal");
 				if (btnNomal.btnOnOff == "on") {
 					document.getElementById('reachTable').style.display = "none";
-					//상세검색 (반경검색)
-					//$KRF_APP.coreMap._krad.radiusDrawEvent(point);
 				} else {
 					document.getElementById('reachTable').style.display = "blank";
-					//$KRF_APP.coreMap._krad.radiusDrawEvent(point);
 				}
 
 				if (clickValue == "start" || clickValue == "end") {

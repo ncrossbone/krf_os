@@ -51,8 +51,8 @@ Ext.define('Desktop.LoginWindow', {
                 id: 'login-win',
                 header: { style: 'krf-os-parentwin-header' },
                 title: '로그인',
-                width: 800,
-                height: 600,
+                
+                style: 'height: 100%; width: 100%; border: 1px solid #dadada; padding: 40px',
                 iconCls: 'login',
                 animCollapse: false,
                 border: false,
@@ -60,7 +60,7 @@ Ext.define('Desktop.LoginWindow', {
                 maximizable: false,
                 minimizable: false,
                 closable: false,
-                layout: 'vbox',
+                layout: 'hbox',
                  //draggable: false,
                 /*items: [{
                     xtype: 'component',
@@ -73,56 +73,78 @@ Ext.define('Desktop.LoginWindow', {
                     }
                 }]*/
                 items:[{
-                    xtype: 'textfield',
-                    id:'userId'
+                    xtype:'container',
+                    items:[{
+                        xtype:'image',
+                        height: 169,
+                        width: 166,
+                        src: './resources/images/login/login_bg.png'
+                    }]
                 },{
-                    xtype: 'textfield',
-                    inputType:'password',
-                    id:'userPass'
-                },{
-                    xtype: 'button',
-                    text: '로그인',
-                    listeners:{
-                        click: function(evt){
-                            var id = null;
-                            var pass = null;
-                            id = Ext.getCmp('userId').getValue();
-                            pass = Ext.getCmp('userPass').getValue();
+                    xtype:'container',
+                    layout: 'vbox',
+                    //style:'padding-left: 10px',
+                    width: 370,
+                    items:[{
+                        xtype:'image',
+                        height: 62,
+                        width: 205,
+                        style: 'padding-bottom: 20px;',
+                        src: './resources/images/login/logo.png'
+                    },{
+                        xtype: 'textfield',
+                        style:'width: 370px; box-sizing: border-box; padding: 10px 15px; border-radius: 2px; border: 1px solid #dadada; color: #a3a3a3; padding-bottom: 20px;',
+                        id:'userId'
+                    },{
+                        xtype: 'textfield',
+                        inputType:'password',
+                        style:'width: 370px; box-sizing: border-box; padding: 10px 15px; border-radius: 2px; border: 1px solid #dadada; color: #a3a3a3; padding-bottom: 20px;',
+                        id:'userPass'
+                    },{
+                        xtype: 'button',
+                        id: 'loginButton',
+                        style:'width: 370px; padding: 18px; background: #263352; color: #ffffff; font-size: 13px; text-align: center;',
+                        text: '로그인',
+                        listeners:{
+                            click: function(evt){
+                                var id = null;
+                                var pass = null;
+                                id = Ext.getCmp('userId').getValue();
+                                pass = Ext.getCmp('userPass').getValue();
 
-                            if(id){
-                                if(pass){
-                                    Ext.Ajax.request({
-                                        //url: _API.getUserLayerInfo,
-                                        url: "http://localhost/krf/config/login",
-                                        dataType: "text/plain",
-                                        method: 'POST',
-                                        async: true,
-                                        params: {
-                                            userId: id,
-                                            userPass: pass
-                                        },
-                                        //params: { userId: loginInfo.userId },
-                                        success: function (response, opts) {
-                                            var decodeData = Ext.util.JSON.decode(response.responseText);
-                                            if(decodeData.data.length >= 1){
-                                                $KRF_APP.loginInfo = decodeData.data[0];
-                                                $KRF_APP.completedLogin($KRF_APP.loginInfo);
-                                                Ext.getCmp('login-win').close();
+                                if(id){
+                                    if(pass){
+                                        Ext.Ajax.request({
+                                            //url: _API.getUserLayerInfo,
+                                            url: "http://localhost/krf/config/login",
+                                            dataType: "text/plain",
+                                            method: 'POST',
+                                            async: true,
+                                            params: {
+                                                userId: id,
+                                                userPass: pass
+                                            },
+                                            //params: { userId: loginInfo.userId },
+                                            success: function (response, opts) {
+                                                var decodeData = Ext.util.JSON.decode(response.responseText);
+                                                if(decodeData.data.length >= 1){
+                                                    $KRF_APP.loginInfo = decodeData.data[0];
+                                                    $KRF_APP.completedLogin($KRF_APP.loginInfo);
+                                                    Ext.getCmp('login-win').close();
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    }else{
+                                        alert("패스워드를 입력하세요")
+                                    }
                                 }else{
-                                    alert("패스워드를 입력하세요")
+                                    alert("아이디를 입력하세요")
                                 }
-                            }else{
-                                alert("아이디를 입력하세요")
                             }
-                            
-
-
                         }
-                    }
-                }]
+                    }]
+                }],
+
             });
         }
         return win;

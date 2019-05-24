@@ -53,13 +53,13 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 				},
 				columns: [{
 					text: '사업장코드',
-					dataIndex: 'PT_NO',
+					dataIndex: 'BPLC_CODE',
 					//hidden: true,
 					//hideable: false, // filter Columns영역에 보이지 않기
 					width: 0
 				}, {
 					text: '사업장명',
-					dataIndex: 'PT_NM',
+					dataIndex: 'BPLC_NM',
 					width: 100,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					listeners: {
@@ -67,7 +67,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 							////console.info(this.findParentByType("grid").parentIds);
 							var gridCtl = this.findParentByType("grid");
 							var parentIds = gridCtl.parentIds;
-							var siteId = row.record.data.PT_NO;
+							var siteId = row.record.data.BPLC_CODE;
 							var parentId = "";
 
 							for (var i = 0; i < parentIds.length; i++) {
@@ -85,41 +85,41 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}
 				}, {
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					dataIndex: 'LDT_CODE_NM',
 					hidden: true,
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					dataIndex: 'MDT_CODE_NM',
 					hidden: true,
 					width: 70,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
-					text: '소권역',
+					text: 'SDT_CODE_NM',
 					dataIndex: 'AS_NM',
 					hidden: true,
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '방류구분번호',
-					dataIndex: 'WAST_NO',
+					dataIndex: 'DCWTRH_NO',
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '조사일',
-					dataIndex: 'WMCYMD',
+					dataIndex: 'STDR_DE',
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '시설구분',
-					dataIndex: 'FACT_KIND_NAME',
+					dataIndex: 'BPLC_KND_NM',
 					hidden: true,
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '처리용량',
-					dataIndex: 'FACT_CAPACITY',
+					dataIndex: 'PROCESS_CPCTY',
 					hidden: true,
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
@@ -127,7 +127,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: 'BOD (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_BOD',
+						//dataIndex: 'CURR_BOD',
+						dataIndex: 'CURR_1052',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'BOD'));
@@ -136,7 +137,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_BOD',
+						//dataIndex: 'CHART_BOD',
+						dataIndex: 'CHART_1052',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -164,7 +166,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: 'COD (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_COD',
+						//dataIndex: 'CURR_COD',
+						dataIndex: 'CURR_1049',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'COD'));
@@ -173,7 +176,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_COD',
+						//dataIndex: 'CHART_COD',
+						dataIndex: 'CHART_1049',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -201,7 +205,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: 'SS (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_SS',
+						//dataIndex: 'CURR_SS',
+						dataIndex: 'CURR_1053',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'SS'));
@@ -210,7 +215,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_SS',
+						//dataIndex: 'CHART_SS',
+						dataIndex: 'CHART_1053',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -238,7 +244,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: 'T-N (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TN',
+						//dataIndex: 'CURR_TN',
+						dataIndex: 'CURR_1055',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TN'));
@@ -247,7 +254,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TN',
+						//dataIndex: 'CHART_TN',
+						dataIndex: 'CHART_1055',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -275,7 +283,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: 'T-P (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TP',
+						//dataIndex: 'CURR_TP',
+						dataIndex: 'CURR_1056',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TP'));
@@ -284,7 +293,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TP',
+						//dataIndex: 'CHART_TP',
+						dataIndex: 'CHART_1056',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -313,7 +323,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: 'pH',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_PH',
+						//dataIndex: 'CURR_PH',
+						dataIndex: 'CURR_1039',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'PH'));
@@ -322,7 +333,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_PH',
+						//dataIndex: 'CHART_PH',
+						dataIndex: 'CHART_1039',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -352,7 +364,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: '적산유량(평균) (㎥/Hour)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_FLW',
+						//dataIndex: 'CURR_FLW',
+						dataIndex: 'CURR_1098',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'FLW'));
@@ -361,7 +374,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_FLW',
+						//dataIndex: 'CHART_FLW',
+						dataIndex: 'CHART_1098',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -391,7 +405,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					text: '총유기탄소 (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TOC',
+						//dataIndex: 'CURR_TOC',
+						dataIndex: 'CURR_1073',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TOC'));
@@ -400,7 +415,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_B', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TOC',
+						//dataIndex: 'CHART_TOC',
+						dataIndex: 'CHART_1073',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',

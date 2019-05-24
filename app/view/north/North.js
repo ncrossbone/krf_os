@@ -246,7 +246,8 @@ Ext.define('krf_new.view.north.North', {
     	listeners: {
     		el: {
     			click: function(){
-    				setActionInfo("" , "" , "" , "" , "화면저장");
+					//setActionInfo("" , "" , "" , "" , "화면저장");
+					setActionInfo('W', 'D', '', '', $KRF_APP.loginInfo.userId);
     				GetCoreMap().capture();
     			}
     		}

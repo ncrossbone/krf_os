@@ -264,7 +264,12 @@ Ext.define('krf_new.view.common.TabControl', {
 						var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 						var title = activeTab.title.split('(');
 
-						setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+						//setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+						var logLayerCode = parentId[0] != '' ? parentId[0] : parentId;
+						//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+						setActionInfo('W', 'R', logLayerCode, title[0], $KRF_APP.loginInfo.userId);
+						
+						
 						ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, "", undefined, false);
 					}
 				}
@@ -312,7 +317,11 @@ Ext.define('krf_new.view.common.TabControl', {
 
 							var title = activeTab.title.split('(');
 
-							setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+							//setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+
+							var logLayerCode = parentId[0] != '' ? parentId[0] : parentId;
+							//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+							setActionInfo('W', 'R', logLayerCode, title[0], $KRF_APP.loginInfo.userId);
 							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
 					}
@@ -431,7 +440,10 @@ Ext.define('krf_new.view.common.TabControl', {
 							var pollLoadSelect = Ext.getCmp("pollLoadSelect");
 							PollLoadSearchResult(pollLoadSelect.lastValue);
 
-							setActionInfo("pollLoad", "pollLoad", "부하량", "", "검색결과");
+							//setActionInfo("pollLoad", "pollLoad", "부하량", "", "검색결과");
+							
+							//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+							setActionInfo('W', 'R', 'pollLoad', 'pollLoad', $KRF_APP.loginInfo.userId);
 
 							//PollLoadSearchResult();
 						}
@@ -514,7 +526,9 @@ Ext.define('krf_new.view.common.TabControl', {
 							//pdj
 							var pollutionSelect = Ext.getCmp("pollutionSelect");
 
-							setActionInfo("pollution", "pollution", "오염원", "", "검색결과");
+							//setActionInfo("pollution", "pollution", "오염원", "", "검색결과");
+
+							setActionInfo('W', 'R', 'pollution', 'pollution', $KRF_APP.loginInfo.userId);
 
 							PollutionSearchResult(pollutionSelect.lastValue, activeTab.recordId, activeTab.title, activeTab.storeNm, pollutionYear);
 						}
@@ -861,7 +875,12 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 
 					//엑셀다운 클릭 session
-					setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
+					//setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
+					
+					//엑셀다운 클릭 session
+					//var logLayerCode = parentId[0] != '' ? parentId[0] : parentId;
+					//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+					setActionInfo('W', 'E', ClNode, ClNodeName, $KRF_APP.loginInfo.userId);
 
 					var hItem = grid.getHeaderContainer().config.items;
 					var gItem = [];

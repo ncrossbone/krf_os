@@ -17,6 +17,10 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		}
 	},
 	onTextSearch: function (button, eOpts, bookmark) {
+
+		//통합검색시 reset 20190523
+		//ResetButtonClick();
+
 		var btnCtl = null;
 		var btn = Ext.getCmp("btnSearchText");
 
@@ -121,7 +125,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 							console.info(layerCode + "에 해당하는 iconCls가 없습니다. Layer01Data.json 확인 요함.")
 						}
 
-						listCtl.addCls('dj_accordion');
+						//listCtl.addCls('dj_accordion');
 						listCtl.add({
 							xtype: 'panel',
 							//autoScroll: true,
@@ -152,17 +156,35 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 								xtype: 'label',
 								cls: 'dj_result_info',
 								style: 'left: 13px !important;',
-								html: 		/*"<input type=\"hidden\" value=\"\">&nbsp;&nbsp; <a href=\"#\" onClick=\"alert('dd')\">지점명 :"+result.features[i].attributes.JIJUM_NM+"</a> " +*/
-									"<table class=\"dj_result\" border=\"0\" >										" +
-									"<tr>                                 " +
-									" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot01.png\" alt=\"시작위치\" height =\"41\" width = \"21\"  onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'start' );\"/></th> " +
-									" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot03.png\" alt=\"끝위치\" height =\"41\" width = \"21\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'end');\" /></th> " +
-									" <td><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.JIJUM_NM + "</span></a></td>                     " +
-									"</tr>                                " +
-									"<tr>                                 " +
-									" <td> <a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "', 'addrLink');\" >" + result.features[i].attributes.ADDR + "</a></td> " +
-									"</tr>                                " +
-									"</table>                             "
+								html: 
+								"	<table>	"+											
+								//"        <caption>통합검색</caption> "+
+								"        <tbody> "+
+								"            <tr> "+
+								//"                <td><img src=\"img/table/A.png\" alt=\"a\"/></td> "+
+								"                <td class=\"mgl10\"> "+
+								"                	<span class=\"n1\"><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.JIJUM_NM + "</span></a></span> "+
+								"                    <span class=\"n2\">["+result.features[i].attributes.GROUP_NM+"]</span> "+
+								"                    <p><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.ADDR + "</span></a></p> "+
+								"                </td> "+
+								"                <td><a href=\"#none\"><img src=\"./resources/images/symbol/spot01.png\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'start' );\" alt=\"시작점\"/></a></td> "+
+								"                <td><a href=\"#none\"><img src=\"./resources/images/symbol/spot03.png\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'end' );\" alt=\"끝점\"/></a></td> "+
+								"                <td><a href=\"#none\"><img src=\"img/table/Btn_Search.png\" alt=\"자세히\"/></a></td> "+
+								"            </tr> "+
+								"        </tbody> "+
+								"    </table> "
+
+								// html: 		/*"<input type=\"hidden\" value=\"\">&nbsp;&nbsp; <a href=\"#\" onClick=\"alert('dd')\">지점명 :"+result.features[i].attributes.JIJUM_NM+"</a> " +*/
+								// 	"<table class=\"dj_result\" border=\"0\" >										" +
+								// 	"<tr>                                 " +
+								// 	" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot01.png\" alt=\"시작위치\" height =\"41\" width = \"21\"  onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'start' );\"/></th> " +
+								// 	" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot03.png\" alt=\"끝위치\" height =\"41\" width = \"21\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'end');\" /></th> " +
+								// 	" <td><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.JIJUM_NM + "</span></a></td>                     " +
+								// 	"</tr>                                " +
+								// 	"<tr>                                 " +
+								// 	" <td> <a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "', 'addrLink');\" >" + result.features[i].attributes.ADDR + "</a></td> " +
+								// 	"</tr>                                " +
+								// 	"</table>                             "
 
 							});
 

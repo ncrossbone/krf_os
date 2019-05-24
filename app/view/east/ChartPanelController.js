@@ -8,7 +8,12 @@ Ext.define('krf_new.view.east.ChartPanelController', {
 	id: 'chartController',
 	imageDown: function () {
 		var siteCharttest = Ext.getCmp('siteCharttest');
-		setActionInfo(siteCharttest.store.parentId, siteCharttest.store.orgParentId, "", siteCharttest.store.siteCD, "차트저장");
+		//setActionInfo(siteCharttest.store.parentId, siteCharttest.store.orgParentId, "", siteCharttest.store.siteCD, "차트저장");
+
+		var logLayerCode = siteCharttest.store.orgParentId != '' ? siteCharttest.store.orgParentId : siteCharttest.store.parentId;
+		//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+		setActionInfo('W', 'S', logLayerCode, siteCharttest.store.siteCD, $KRF_APP.loginInfo.userId);
+
 		siteCharttest.download({
 			type: 'image/svg+xml',
 			filename: 'image'

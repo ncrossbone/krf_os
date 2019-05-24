@@ -595,24 +595,24 @@ Ext.define('krf_new.view.center.ReachToolbarController', {
 	},
 	onClick3D: function () {
 
-		var testPopup = Ext.getCmp("testPopup");
-		if (testPopup == undefined) {
-			testPopup = Ext.create("Ext.window.Window", {
-				id: "testPopup",
-				title: "알림 팝업",
-				width: 480,
-				height: 300,
-				onEsc: false,
-				html: '<div  style="text-align: center; font-size: 20px; padding-top: 100px;">현재 3D 서비스는 수정 중 입니다.</>',
-				cls: 'subWindow-x-form-item-label-default',
-				header: { cls: 'subWindow-x-form-item-label-default' },
-				constrain: true
-			});
-		}
-		Ext.getCmp('center_container').add(testPopup);
-		testPopup.show();
+		// var testPopup = Ext.getCmp("testPopup");
+		// if (testPopup == undefined) {
+		// 	testPopup = Ext.create("Ext.window.Window", {
+		// 		id: "testPopup",
+		// 		title: "알림 팝업",
+		// 		width: 480,
+		// 		height: 300,
+		// 		onEsc: false,
+		// 		html: '<div  style="text-align: center; font-size: 20px; padding-top: 100px;">현재 3D 서비스는 수정 중 입니다.</>',
+		// 		cls: 'subWindow-x-form-item-label-default',
+		// 		header: { cls: 'subWindow-x-form-item-label-default' },
+		// 		constrain: true
+		// 	});
+		// }
+		// Ext.getCmp('center_container').add(testPopup);
+		// testPopup.show();
 		
-		return;
+		// return;
 		var centerCoord = $KRF_APP.coreMap.map.extent.getCenter();
 
 		$KRF_APP.coreMap.transCoord(centerCoord, function (transCoord) {

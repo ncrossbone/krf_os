@@ -219,6 +219,10 @@ Ext.create('Ext.data.Store', {
 					me.checkBrowser();
 					
 				});
+
+				/*$KRF_APP.loginInfo.userId = 'weis_admin';
+				me.completedLogin($KRF_APP.loginInfo);
+				me.checkBrowser();*/
 			
 			},
 

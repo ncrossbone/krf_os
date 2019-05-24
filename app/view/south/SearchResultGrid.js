@@ -45,13 +45,15 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 				},
 				columns: [{
 					text: '측정소코드',
-					dataIndex: 'PT_NO',
+					//dataIndex: 'PT_NO',
+					dataIndex: 'WQMN_CODE',
 					hidden: true,
 					hideable: false, // filter Columns영역에 보이지 않기
 					width: 0
 				}, {
 					text: '측정소명',
-					dataIndex: 'PT_NM',
+					//dataIndex: 'PT_NM',
+					dataIndex: 'WQMN_NM',
 					width: 100,
 					//filterable: true,
 					//filter: {type: 'string'},
@@ -61,7 +63,7 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 							////console.info(this.findParentByType("grid").parentIds);
 							var gridCtl = this.findParentByType("grid")
 							var parentIds = gridCtl.parentIds;
-							var siteId = row.record.data.PT_NO;
+							var siteId = row.record.data.WQMN_CODE;
 							var parentId = "";
 
 							for (var i = 0; i < parentIds.length; i++) {
@@ -79,34 +81,39 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}
 				}, {
 					text: '년도',
-					dataIndex: 'WMYR',
+					//dataIndex: 'WMYR',
+					dataIndex: 'YEAR',
 					width: 50,
 					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '월',
-					dataIndex: 'WMOD',
+					//dataIndex: 'WMOD',
+					dataIndex: 'MT',
 					width: 50,
 					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '측정일자',
-					dataIndex: 'WMCYMD',
+					//dataIndex: 'WMCYMD',
+					dataIndex: 'CHECK_DE', // 수정필요
 					width: 90,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '회차',
-					dataIndex: 'WMWK',
+					//dataIndex: 'WMWK',
+					dataIndex: 'TME',
 					width: 90,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '수심',
-					dataIndex: 'WMDEP',
+					//dataIndex: 'WMDEP',
+					dataIndex: 'WTRSMPLE_DE',
 					//hidden: true,
 					//hideable: false, // filter Columns영역에 보이지 않기
 					width: 90,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '레이어코드',
-					dataIndex: 'parentId',
+					dataIndex: 'parentId',// 수정필요
 					hidden: true,
 					hideable: true, // filter Columns영역에 보이지 않기
 					width: 0
@@ -114,7 +121,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'BOD (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_BOD',
+						//dataIndex: 'CURR_BOD',
+						dataIndex: 'CURR_1052',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -131,7 +139,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_BOD',
+						//dataIndex: 'CHART_BOD',
+						dataIndex: 'CHART_1052',
 						//data: [4, 3, 4, 6, 2],
 						xtype: 'widgetcolumn',
 						widget: {
@@ -172,7 +181,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'DO (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DO',
+						//dataIndex: 'CURR_DO',
+						dataIndex: 'CURR_1054',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -189,7 +199,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DO',
+						//dataIndex: 'CHART_DO',
+						dataIndex: 'CHART_1054',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -226,7 +237,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'COD (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_COD',
+						//dataIndex: 'CURR_COD',
+						dataIndex: 'CURR_1049', // 확인필요
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -243,7 +255,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_COD',
+						//dataIndex: 'CHART_COD',
+						dataIndex: 'CHART_1049',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -280,7 +293,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'T-N (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TN',
+						//dataIndex: 'CURR_TN',
+						dataIndex: 'CURR_1055',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -296,7 +310,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 						filter: 'number'
 					}, {
 						text: '추이변화',
-						dataIndex: 'CHART_TN',
+						//dataIndex: 'CHART_TN',
+						dataIndex: 'CHART_1055',
 						width: 80,
 						xtype: 'widgetcolumn',
 						widget: {
@@ -334,7 +349,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'T-P (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TP',
+						//dataIndex: 'CURR_TP',
+						dataIndex: 'CURR_1056',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -351,7 +367,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TP',
+						//dataIndex: 'CHART_TP',
+						dataIndex: 'CHART_1056',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -388,7 +405,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: '수온 (℃)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TEMP',
+						//dataIndex: 'CURR_TEMP',
+						dataIndex: 'CURR_1060',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -405,7 +423,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TEMP',
+						//dataIndex: 'CHART_TEMP',
+						dataIndex: 'CHART_1060',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -442,7 +461,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'pH',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_PH',
+						//dataIndex: 'CURR_PH',
+						dataIndex: 'CURR_1039',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -459,7 +479,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_PH',
+						//dataIndex: 'CHART_PH',
+						dataIndex: 'CHART_1039',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -496,7 +517,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'SS (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_SS',
+						//dataIndex: 'CURR_SS',
+						dataIndex: 'CURR_1053',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -513,7 +535,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_SS',
+						//dataIndex: 'CHART_SS',
+						dataIndex: 'CHART_1053',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -555,7 +578,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: '클로로필a (㎎/㎥)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CLOA',
+						//dataIndex: 'CURR_CLOA',
+						dataIndex: 'CURR_1063',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -572,7 +596,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CLOA',
+						//dataIndex: 'CHART_CLOA',
+						dataIndex: 'CHART_1063',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -609,7 +634,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					text: 'TOC (㎎/L)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TOC',
+						//dataIndex: 'CURR_TOC',
+						dataIndex: 'CURR_1073',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -626,7 +652,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TOC',
+						//dataIndex: 'CHART_TOC',
+						dataIndex: 'CHART_1073',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -664,7 +691,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_AMNT',
+						//dataIndex: 'CURR_AMNT',
+						dataIndex: 'CURR_1059',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -681,7 +709,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_AMNT',
+						//dataIndex: 'CHART_AMNT',
+						dataIndex: 'CHART_1059',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -719,7 +748,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DTN',
+						//dataIndex: 'CURR_DTN',
+						dataIndex: 'CURR_1066',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -736,7 +766,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DTN',
+						//dataIndex: 'CHART_DTN',
+						dataIndex: 'CHART_1066',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -774,7 +805,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_NO3N',
+						//dataIndex: 'CURR_NO3N',
+						dataIndex: 'CURR_1013',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -791,7 +823,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_NO3N',
+						//dataIndex: 'CHART_NO3N',
+						dataIndex: 'CHART_1013',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -829,7 +862,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_NH3N',
+						//dataIndex: 'CURR_NH3N',
+						dataIndex: 'CURR_1012',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -846,7 +880,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_NH3N',
+						//dataIndex: 'CHART_NH3N',
+						dataIndex: 'CHART_1012',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -884,7 +919,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DTP',
+						//dataIndex: 'CURR_DTP',
+						dataIndex: 'CURR_1067',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -901,7 +937,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DTP',
+						dataIndex: 'CHART_1067',
+						//dataIndex: 'CHART_DTP',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -939,7 +976,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_POP',
+						//dataIndex: 'CURR_POP',
+						dataIndex: 'CURR_1065',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -956,7 +994,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_POP',
+						//dataIndex: 'CHART_POP',
+						dataIndex: 'CHART_1065',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -994,7 +1033,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TRANS',
+						//dataIndex: 'CURR_TRANS',
+						dataIndex: 'CURR_1062',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1011,7 +1051,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TRANS',
+						//dataIndex: 'CHART_TRANS',
+						dataIndex: 'CHART_1062',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1049,7 +1090,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_ALGOL',
+						//dataIndex: 'CURR_ALGOL',
+						dataIndex: 'CURR_1070',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1066,7 +1108,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_ALGOL',
+						//dataIndex: 'CHART_ALGOL',
+						dataIndex: 'CHART_1070',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1104,7 +1147,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TCOLI',
+						//dataIndex: 'CURR_TCOLI',
+						dataIndex: 'CURR_1002',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1121,7 +1165,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TCOLI',
+						//dataIndex: 'CHART_TCOLI',
+						dataIndex: 'CHART_1022',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1159,7 +1204,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_ECOLI',
+						//dataIndex: 'CURR_ECOLI',
+						dataIndex: 'CURR_1004',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1176,7 +1222,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_ECOLI',
+						//dataIndex: 'CHART_ECOLI',
+						dataIndex: 'CHART_1004',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1214,7 +1261,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_ANTIMON',
+						//dataIndex: 'CURR_ANTIMON',
+						dataIndex: 'CURR_1083',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1231,7 +1279,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_ANTIMON',
+						//dataIndex: 'CHART_ANTIMON',
+						dataIndex: 'CHART_1083',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1269,7 +1318,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_PHENOL',
+						//dataIndex: 'CURR_PHENOL',
+						dataIndex: 'CURR_1016',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1286,7 +1336,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_PHENOL',
+						//dataIndex: 'CHART_PHENOL',
+						dataIndex: 'CHART_1016',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1324,7 +1375,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_COL',
+						//dataIndex: 'CURR_COL',
+						dataIndex: 'CURR_1037',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1341,7 +1393,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_COL',
+						//dataIndex: 'CHART_COL',
+						dataIndex: 'CHART_1037',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1379,7 +1432,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_NHEX',
+						//dataIndex: 'CURR_NHEX',
+						dataIndex: 'CURR_1064',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1396,7 +1450,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_NHEX',
+						//dataIndex: 'CHART_NHEX',
+						dataIndex: 'CHART_1064',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1434,7 +1489,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_FE',
+						//dataIndex: 'CURR_FE',
+						dataIndex: 'CURR_1043',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1451,7 +1507,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_FE',
+						//dataIndex: 'CHART_FE',
+						dataIndex: 'CHART_1043',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1489,7 +1546,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_MN',
+						//dataIndex: 'CURR_MN',
+						dataIndex: 'CURR_1064',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1506,7 +1564,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_MN',
+						//dataIndex: 'CHART_MN',
+						dataIndex: 'CHART_1064',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1544,7 +1603,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CD',
+						//dataIndex: 'CURR_CD',
+						dataIndex: 'CURR_1014',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1561,7 +1621,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CD',
+						//dataIndex: 'CHART_CD',
+						dataIndex: 'CHART_1014',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1599,7 +1660,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CN',
+						//dataIndex: 'CURR_CN',
+						dataIndex: 'CURR_1010',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1616,7 +1678,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CN',
+						//dataIndex: 'CHART_CN',
+						dataIndex: 'CHART_1010',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1654,7 +1717,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_PB',
+						//dataIndex: 'CURR_PB',
+						dataIndex: 'CURR_1005',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1671,7 +1735,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_PB',
+						//dataIndex: 'CHART_PB',
+						dataIndex: 'CHART_1005',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1709,7 +1774,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CR6',
+						//dataIndex: 'CURR_CR6',
+						dataIndex: 'CURR_1011',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1726,7 +1792,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CR6',
+						//dataIndex: 'CHART_CR6',
+						dataIndex: 'CHART_1011',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1764,7 +1831,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CR',
+						//dataIndex: 'CURR_CR',
+						dataIndex: 'CURR_1057',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1781,7 +1849,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CR',
+						//dataIndex: 'CHART_CR',
+						dataIndex: 'CHART_1057',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1819,7 +1888,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_AS',
+						//dataIndex: 'CURR_AS',
+						dataIndex: 'CURR_1007',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1836,7 +1906,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_AS',
+						//dataIndex: 'CHART_AS',
+						dataIndex: 'CHART_1007',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1874,7 +1945,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_HG',
+						//dataIndex: 'CURR_HG',
+						dataIndex: 'CURR_1009',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1891,7 +1963,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_HG',
+						//dataIndex: 'CHART_HG',
+						dataIndex: 'CHART_1009',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1929,7 +2002,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CU',
+						// /dataIndex: 'CURR_CU',
+						dataIndex: 'CURR_1061',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -1946,7 +2020,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CU',
+						//dataIndex: 'CHART_CU',
+						dataIndex: 'CHART_1061',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -1984,7 +2059,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_ZN',
+						//dataIndex: 'CURR_ZN',
+						dataIndex: 'CURR_1040',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2001,7 +2077,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_ZN',
+						//dataIndex: 'CHART_ZN',
+						dataIndex: 'CHART_1040',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2039,7 +2116,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_FL',
+						//dataIndex: 'CURR_FL',
+						dataIndex: 'CURR_1006',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2056,7 +2134,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_FL',
+						//dataIndex: 'CHART_FL',
+						dataIndex: 'CHART_1006',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2094,7 +2173,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_ABS',
+						//dataIndex: 'CURR_ABS',
+						dataIndex: 'CURR_1038',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2111,7 +2191,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_ABS',
+						//dataIndex: 'CHART_ABS',
+						dataIndex: 'CHART_1038',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2149,7 +2230,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CL',
+						//dataIndex: 'CURR_CL',
+						dataIndex: 'CURR_1041',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2166,7 +2248,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CL',
+						//dataIndex: 'CHART_CL',
+						dataIndex: 'CHART_1041',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2204,7 +2287,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TCE',
+						//dataIndex: 'CURR_TCE',
+						dataIndex: 'CURR_1023',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2221,7 +2305,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TCE',
+						//dataIndex: 'CHART_TCE',
+						dataIndex: 'CHART_1023',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2259,7 +2344,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_PCE',
+						//dataIndex: 'CURR_PCE',
+						dataIndex: 'CURR_1022',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2276,7 +2362,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_PCE',
+						//dataIndex: 'CHART_PCE',
+						dataIndex: 'CHART_1022',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2314,7 +2401,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CCL4',
+						//dataIndex: 'CURR_CCL4',
+						dataIndex: 'CURR_1030',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2331,7 +2419,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CCL4',
+						//dataIndex: 'CHART_CCL4',
+						dataIndex: 'CHART_1030',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2369,7 +2458,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DCETH',
+						//dataIndex: 'CURR_DCETH',
+						dataIndex: 'CURR_1071',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2386,7 +2476,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DCETH',
+						//dataIndex: 'CHART_DCETH',
+						dataIndex: 'CHART_1071',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2424,7 +2515,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DCM',
+						//dataIndex: 'CURR_DCM',
+						dataIndex: 'CURR_1024',						
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2441,7 +2533,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DCM',
+						//dataIndex: 'CHART_DCM',
+						dataIndex: 'CHART_1024',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2479,7 +2572,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_BENZENE',
+						//dataIndex: 'CURR_BENZENE',
+						dataIndex: 'CURR_1025',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2496,7 +2590,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_BENZENE',
+						//dataIndex: 'CHART_BENZENE',
+						dataIndex: 'CHART_1025',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2534,7 +2629,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_CHCL3',
+						//dataIndex: 'CURR_CHCL3',
+						dataIndex: 'CURR_1072',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2551,7 +2647,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_CHCL3',
+						//dataIndex: 'CHART_CHCL3',
+						dataIndex: 'CHART_1072',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2589,7 +2686,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_OP',
+						//dataIndex: 'CURR_OP',
+						dataIndex: 'CURR_1048',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2606,7 +2704,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_OP',
+						//dataIndex: 'CHART_OP',
+						dataIndex: 'CHART_1048',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2644,7 +2743,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_PCB',
+						//dataIndex: 'CURR_PCB',
+						dataIndex: 'CURR_1094',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2661,7 +2761,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_PCB',
+						//dataIndex: 'CHART_PCB',
+						dataIndex: 'CHART_1094',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2699,7 +2800,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DEHP',
+						//dataIndex: 'CURR_DEHP',
+						dataIndex: 'CURR_1082',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2716,7 +2818,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DEHP',
+						//dataIndex: 'CHART_DEHP',
+						dataIndex: 'CHART_1082',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2754,7 +2857,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_DIOX',
+						//dataIndex: 'CURR_DIOX',
+						dataIndex: 'CURR_1086',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2771,7 +2875,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_DIOX',
+						//dataIndex: 'CHART_DIOX',
+						dataIndex: 'CHART_1086',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2809,7 +2914,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_HCHO',
+						//dataIndex: 'CURR_HCHO',
+						dataIndex: 'CURR_1093',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2826,7 +2932,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_HCHO',
+						//dataIndex: 'CHART_HCHO',
+						dataIndex: 'CHART_1093',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -2864,7 +2971,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					hidden: true,
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_HCB',
+						//dataIndex: 'CURR_HCB',
+						dataIndex: 'CURR_1094',
 						width: 105,
 						renderer: function (value) {
 							if (value == 999999999) {
@@ -2881,7 +2989,8 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_HCB',
+						//dataIndex: 'CHART_HCB',
+						dataIndex: 'CHART_1094',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',

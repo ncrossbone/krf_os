@@ -81,7 +81,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 			if(firstSearch == "noDate"){
 				
 				Ext.Ajax.request({
-	        		url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
+					//url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
+					url: 'http://localhost/krf/searchResult/searchResult_B2018', //'./resources/jsp/GetSearchResultData_B.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -107,7 +108,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 	        					afterVal.push(dateSplit.substring(0,4));
 	        					afterVal.push(dateSplit.substring(4,6));
 		        				
-                                var dtS = new Date(dateSplit1.substring(0, 4), dateSplit1.substring(4, 6));
+                                var dtS = new Date(dateSplit.substring(0, 4), dateSplit.substring(4, 6));
                                     dtS.setMonth(dtS.getMonth() - 1);
 
 								startYear = dtS.toISOString().substring(0, 4);
@@ -134,7 +135,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 		
 			
 			Ext.Ajax.request({
-        		url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
+				//url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
+				url: 'http://localhost/krf/searchResult/searchResult_B2018', //'./resources/jsp/GetSearchResultData_B.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},

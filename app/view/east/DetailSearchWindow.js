@@ -45,7 +45,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
 			fieldLabel: '<b>반경 설정</b> ',
 		},{
 			xtype:'label',
-			text:'m'
+			text:'Km'
 		}]
 	},{
 		xtype:'label',
@@ -213,7 +213,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
 			text:'기간'
 		},{
             xtype:'textfield',
-            id: 'detailSearchDate',
+            id: 'detailSearchStartDate',
             readOnly: true,
             handleMouseEvents: true,
             listeners:{
@@ -222,66 +222,95 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
                 },
                 'render': function(cmp) { 
                     this.getEl().on('click', function(){
-                        Ext.getCmp("monthpickerId").setHidden(false);                
+                        detailDateSearchWindow('detailSearchStartDate');
+                        //Ext.getCmp("monthpickerId").setHidden(false);                
                     }); 
                 }
             }
         },{
-            xtype:'monthpicker',
-            id:'monthpickerId',
-            hidden: true,
+            xtype:'label',
+		    text:'~'
+        },{
+            xtype:'textfield',
+            id: 'detailSearchEndDate',
+            readOnly: true,
+            handleMouseEvents: true,
             listeners:{
-                okclick: function(event){
-                    if(event.value[0] == null || event.value[1] == null){
-                        return;
-                    }else{
-                        Ext.getCmp("detailSearchDate").setValue(event.value[1] +' - '+event.value[0]);
-                        this.setHidden(true);
-                    }
+                click:function(){
+                    
+                },
+                'render': function(cmp) { 
+                    this.getEl().on('click', function(){
+                        detailDateSearchWindow('detailSearchEndDate');
+                        //Ext.getCmp("monthpickerId").setHidden(false);                
+                    }); 
                 }
             }
         }]
 	},{
 		xtype:'button',
-		text:'상세 설정'
+        text:'참조정보 선택',
+        listeners:{
+            click: function(){
+                //referenceList
+                var referenceList = Ext.getCmp('referenceList');
+                // 참조정보 선택창이 true이면 false / false 이면 true
+                referenceList.hidden == true ? referenceList.setHidden(false) : referenceList.setHidden(true);
+
+            }
+        }
 	},{
-		xtype:'container',
+        xtype:'container',
+        id:'referenceList',
 		layout:{
-			xtype:'hbox'
+			xtype:'vbox'
 		},
 		items:[{
-            xtype: 'itemselector',
-            name: 'itemselector',
-            id: 'itemselector',
-            anchor: '100%',
-            fieldLabel: '참조정보 선택',
-            imagePath: '../ux/images/',
-            store: Ext.create('Ext.data.Store', {
-				fields: ['value', 'text'],
-				data: [],
-				stype: 'json'
-			}),
-            displayField: 'text',
-            valueField: 'value',
-            value: ['3', '4', '6'],
-            allowBlank: false,
-            msgTarget: 'side',
-            fromTitle: '목록',
-            toTitle: '선택'
+            xtype:'container',
+            layout:'fit',
+            items:[{
+                xtype: 'itemselector',
+                name: 'itemselector',
+                id: 'itemselector',
+                width: 450,
+                anchor: '100%',
+                //fieldLabel: '참조정보 선택',
+                store: Ext.create('Ext.data.Store', {
+                    fields: ['value', 'text'],
+                    data: [],
+                    stype: 'json'
+                }),
+                displayField: 'text',
+                valueField: 'value',
+                //value: ['3', '4', '6'],
+                allowBlank: false,
+                msgTarget: 'side',
+                fromTitle: '목록',
+                toTitle: '선택'
+            }]
         }]
 	},{
 		xtype:'button',
         text:'적용',
         listeners:{
             click:function(){
-                var popSiteInfo = Ext.getCmp('popSiteInfo');
+                
                 var meter = Number(Ext.getCmp('detailRadiusValue').value);
-                var detailDate = Ext.getCmp('monthpickerId').value;
+                var detailSearchStartDate = Ext.getCmp('detailSearchStartDate').value;
+                var detailSearchEndDate = Ext.getCmp('detailSearchEndDate').value;
 
-                if(popSiteInfo.point){ // 선택된 지점이 있는지 
+                detailSearchClick(meter, detailSearchStartDate, detailSearchEndDate);
+
+                /*if(popSiteInfo.point){ // 선택된 지점이 있는지 
                     if(meter > 0){ // 반경이 있는지
-                        if(detailDate[0] != null ||detailDate[1] == null){ // 기간이 있는지
-                            $KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);   
+                        if(detailSearchStartDate && detailSearchEndDate){ // 기간이 있는지
+
+                            var dateCompare = detailDateCompare(detailSearchStartDate, detailSearchEndDate);
+                            if(dateCompare){
+                                $KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);   
+                            }else{
+                                alert('종료일자가 시작일자보다 커야 합니다.')
+                            }
                         }else{
                             alert("기간을 선택해 주세요");
                         }
@@ -290,7 +319,8 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
                     }
                 }else{
                     alert("지점상세 창이 없습니다.")
-                }
+                }*/
+
             }
         }
 	}]

@@ -5,6 +5,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "A",
 	"children": [{
 		"id": "1",
 		"text": "하천수",
@@ -105,6 +106,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "B",
 	"children": [
 	/*{
 		"id": "9",
@@ -147,6 +149,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "C",
 	"children": [{
 		"id": "13",
 		"wmsId":"84",
@@ -181,6 +184,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "I",
 	"children": [{
 		"id": "36",
 		"wmsId":"61",
@@ -228,6 +232,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "G",
 	"children": [{
 		"id": "40",
 		"wmsId":"57",
@@ -262,6 +267,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "J",
 	"children": [{
 		"id": "48",
 		"wmsId":"",
@@ -296,6 +302,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "D",
 	"children": [{
 		"id": "16",
 		"wmsId":"81",
@@ -395,6 +402,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "E",
 	"children": [{
 		"id": "24",
 		"wmsId":"73",
@@ -431,6 +439,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "P",
 	"children": [{
 		"id": "P1",
 		"wmsId":"",
@@ -452,6 +461,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "F",
 	"children": [{
 		"id": "27",
 		"wmsId":"70",
@@ -581,6 +591,7 @@
 	"visible": false,
 	"checked": false,
 	"expanded": true,
+	"layerCode": "",
 	"children": [{
 		"id": "80",
 		"wmsId":"17",
@@ -619,6 +630,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "W",
 	"children": [{
 		"id": "56",
 		"text": "리치흐름",
@@ -675,6 +687,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "S",
 	"children": [{
 		"id": "S0",
 		"text": "소하천 노드",
@@ -716,6 +729,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "U",
 	"children": [{
 		"id": "61",
 		"wmsId":"36",
@@ -746,6 +760,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "T",
 	"children": [{
 		"id": "65",
 		"wmsId":"32",
@@ -787,6 +802,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "V",
 	"children": [{
 		"id": "69",
 		"wmsId":"28",
@@ -839,6 +855,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "",
 	"children": [{
 		"id": "74",
 		"text": "식생도",
@@ -855,6 +872,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "",
 	"children": [{
 		"id": "76",
 		"text": "토지피복도",
@@ -871,6 +889,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "",
 	"children": [{
 		"id": "82",
 		"text": "특별대책지역",
@@ -925,6 +944,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "R",
 	"children": [{
 		"id": "91",
 		"wmsId":"6",
@@ -943,6 +963,7 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "D",
 	"children": [{
 		"id": "D1",
 		"wmsId":"",

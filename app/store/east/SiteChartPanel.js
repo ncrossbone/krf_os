@@ -125,7 +125,15 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			}
 				
 			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I") {
-				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+				if(store.parentId == "A"){
+					//requestUrl = _API['GetRWMDT_2018_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";	
+					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_A'
+				}else if(store.parentId == "B"){
+					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_B'
+				}else{
+					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+				}
+				//requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if (store.parentId == "F") {
 				requestUrl = _API['GetRWMDT_' + f_parentId]; //"./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
 			} else if (org_D_firstID == "D") {

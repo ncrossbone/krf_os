@@ -120,7 +120,11 @@ Ext.define('Desktop.SiteListWindow', {
 						var clickData = clickText.split('(');
 						var clickParentId = record.raw.parentId;
 
-						setActionInfo(clickParentId[0], clickParentId, clickData[0], clickId, "차트검색");
+						//setActionInfo(clickParentId[0], clickParentId, clickData[0], clickId, "차트검색");
+
+						var logLayerCode = clickData[0] != '' ? clickData[0] : clickParentId;
+						//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+						setActionInfo('W', 'C', logLayerCode, clickId, $KRF_APP.loginInfo.userId);
 
 						// 집수구역, 지점 이동, 리치정보 하이라이트
 						$KRF_APP.fireEvent($KRF_EVENT.MOVE_COMMON, record);
@@ -235,14 +239,22 @@ Ext.define('Desktop.SiteListWindow', {
 							var clickId = record.raw.id;
 							var clickParentId = record.raw.parentId;
 
-							setActionInfo(clickParentId, "오염원", clickId, "", "검색결과");
+							//setActionInfo(clickParentId, "오염원", clickId, "", "검색결과");
+
+							var logLayerCode = clickData[0] != '' ? clickData[0] : clickParentId;
+							//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+							setActionInfo('W', 'R', clickParentId, clickId, $KRF_APP.loginInfo.userId);
+
 						} else {
 							var clickText = record.raw.text;
 							var clickId = record.raw.id;
 							var clickData = clickText.split('(');
 							var clickParentId = record.raw.parentId;
 
-							setActionInfo(clickParentId[0], clickParentId, clickData[0], clickId, "검색결과");
+							//setActionInfo(clickParentId[0], clickParentId, clickData[0], clickId, "검색결과");
+							var logLayerCode = clickData[0] != '' ? clickData[0] : clickParentId;
+							//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+							setActionInfo('W', 'R', logLayerCode, clickId, $KRF_APP.loginInfo.userId);
 						}
 					},
 					isDisabled: function (view, rowIdx, colIdx, item, record) {

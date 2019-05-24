@@ -1093,7 +1093,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			            	    	          );
 			            	    		
 			            	    		var graphic = new esri.Graphic(evt, symbol);
-										me.map.graphics.clear();
+														me.map.graphics.clear();
 			            	    		me.map.graphics.add(graphic);
 			            	    		
 			                			
@@ -1172,13 +1172,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	        	query.geometry = queryExtent.centerAt(centerPoint);
 				
 			}else{
-				// if(feature.attributes.D_SRCH_ID == undefined){
-				// 	query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
-				// }else{
-				// 	query.where = "SRCH_ID = '" + feature.attributes.D_SRCH_ID + "'" ;
-				// }
+				if(feature.attributes.D_SRCH_ID == undefined){
+				 	query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
+				}else{
+				 	query.where = "SRCH_ID = '" + feature.attributes.D_SRCH_ID + "'" ;
+				}
 				
-				query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
+				//query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
 
 			}
 			
@@ -1221,6 +1221,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	me.getSRiverCatId(feature);
 		//me.drawGraphic(feature, "reachLine_s");
 		
+			//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
 			if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
     	//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null && feature.attributes.D_RCH_ID != null){
 
@@ -1228,6 +1229,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 				if(rchDiD){// 좌우 소하천이 존재하지 않고 좌우리치중 하나가 존재하면
 					//기존 검색으로 넘어간다
+					var downRchId = feature.attributes.RD_RCH_ID != null ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
+				  feature.attributes.D_RCH_ID = downRchId;
 					me.setRchIdsWithEvent(featureSet);
 				}else{
 					alert("데이터 오류 (좌우소하천,좌우리치 데이터 존재 X)");
@@ -1235,7 +1238,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		
     		
     	}else{
-    		//소하천이 존재하므로 소하천 검색을한다.
+				//소하천이 존재하므로 소하천 검색을한다.
+				var downSrchId = feature.attributes.RD_SRCH_ID != null ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
+				feature.attributes.D_SRCH_ID = downSrchId;
     		me.setSRchIdsWithEvent(feature);	
     	}
     	
@@ -1397,7 +1402,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	}else if(me.drawOption == "detailRadius"){//상세검색 반경 2019-04-10
 					
 			var feature = me.detailSelectFeature;
-			var featureCat = "";
+
+			//기준점이 되는 지역의 집수구역 검색
+			var featureCat = ""; // 기준점 집수구역
 			$KRF_APP.coreMap._rchArea.getFeaturesWithWhere("CAT_DID = '"+me.detailSelectFeature.attributes.CAT_DID+"'", function (featuresArea) {
 				if(featuresArea.length > 0){
 					featuresCat = featuresArea[0];
@@ -1408,23 +1415,37 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			var rage = null; // 범위설정
 			var upDown = null; // 상하류설정
 
+			var lastSearchReach = null; //반경안에 하류를 따라가다가 검색이 마지막으로 이루어진 마지막 지점 (전역변수)
+
 			//상하류 먼저 검색
-			var udRiverSetting = Ext.getCmp('udRiverSetting').items.items;
-			udRiverSetting.map(function(obj){
-				if(obj.value){
-					upDown = obj.inputValue;
-				}
-			});
+			var udRiverSetting = null;
+			if(Ext.getCmp('udRiverSetting')){
+				udRiverSetting = Ext.getCmp('udRiverSetting').items.items;
+				udRiverSetting.map(function(obj){
+					if(obj.value){
+						upDown = obj.inputValue;
+					}
+				});
+			}else{
+				upDown = 'all'; //상세검색이 아닐시 (툴팁에서 검색할때)
+			}
+			
 
 			//범위
-			var rangeSetting = Ext.getCmp('rangeSetting').items.items;
-			rangeSetting.map(function(obj){
-				if(obj.value){
-					if(obj.inputValue){
-						rage = obj.inputValue;	
+			var rangeSetting = null;
+			if(Ext.getCmp('rangeSetting')){
+				rangeSetting = Ext.getCmp('rangeSetting').items.items;
+				rangeSetting.map(function(obj){
+					if(obj.value){
+						if(obj.inputValue){
+							rage = obj.inputValue;	
+						}
 					}
-				}
-			});
+				});
+			}else{
+				rage = 'all'; //상세검색이 아닐시 (툴팁에서 검색할때)
+			}
+			
 
 			var detailFeatures = [];
 			detailFeatures.push(feature);
@@ -1467,6 +1488,41 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 				return where;
 
+			},'downUp':function(lineFeature){ // 하류 (하류검색의 라인 끝에서 부터 현제지점가지 상류검색)
+
+				var rch_did = "";
+				where = [] //조건절 초기화
+				if(lineFeature.attributes.LU_RCH_DID != ' '){
+					rch_did = lineFeature.attributes.LU_RCH_DID;
+					var radiusInFeature = featureSet.features.map(function(obj){
+						return obj.attributes.RCH_DID;
+					}).indexOf(rch_did);
+					
+					if(radiusInFeature != -1){
+						if(feature.attributes.RCH_DID != rch_did){
+							where.push("RCH_DID = '" +rch_did+ "'");
+						}
+					}
+					
+				}
+
+				if(lineFeature.attributes.RU_RCH_DID != ' '){
+					rch_did = lineFeature.attributes.RU_RCH_DID;
+					var radiusInFeature = featureSet.features.map(function(obj){
+						return obj.attributes.RCH_DID;
+						//console.info(obj.attributes.RCH_DID)
+					}).indexOf(rch_did);
+
+					if(radiusInFeature != -1){
+						if(feature.attributes.RCH_DID != rch_did){
+							where.push("RCH_DID = '" +rch_did+ "'");
+						}
+						
+					}
+				}
+
+				return where;
+
 			},'down':function(lineFeature){ // 하류
 
 				var rch_did = "";
@@ -1480,7 +1536,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					}).indexOf(rch_did);
 
 					if(radiusInFeature != -1){
+						lastSearchReach = rch_did;
 						where.push("RCH_DID = '" +rch_did+ "'");
+					}else{
+
+						upDown = 'downUp'; // 하류 끝지점에서 다시 상류검색으로 변경 ( 요청사항 / 하류 끝지점에서 다시 현제지점까지 검색)
+						where.push("RCH_DID = '" +lastSearchReach+ "'"); // lastSearchReach : 반경안에 하류를 따라가다가 검색이 마지막으로 이루어진 마지막 지점 (전역변수)
+
 					}
 
 				}
@@ -4039,15 +4101,15 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			}
 			
 			if(me.areaGrpLayer_sub != undefined && me.areaGrpLayer_sub != null){
-				me.areaGrpLayer.clear();
+				me.areaGrpLayer_sub.clear();
 			}
 			
 			if (me.lineGrpLayer_s_sub != undefined && me.lineGrpLayer_s_sub != null) {
-				me.lineGrpLayer_s.clear();
+				me.lineGrpLayer_s_sub.clear();
 			}
 	
 			if (me.areaGrpLayer_s_sub != undefined && me.areaGrpLayer_s_sub != null) {
-				me.areaGrpLayer_s.clear();
+				me.areaGrpLayer_s_sub.clear();
 			}
 		}
     },
@@ -4229,22 +4291,16 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 										
 										if(me.map.getLevel() < 11){
 											alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+											me.map.graphics.clear();
 										}else{
 											me.mapClickEvt = evt;
 											me.drawOption = "detailRadius";
 											me.setRchIdsWithEvent();
 
 										}
-										//selectionToolbar.deactivate();
-										
-										//SetBtnOnOff(btnId, "off");
-										//SetBtnOnOff("btnMenu07", "off");
-										
-										krf_new.global.Obj.hideSimpleTooltip();
-										
-										//var radiusToolbar = Ext.getCmp("radiusToolbar");
-										//radiusToolbar.hide();
-										
+
+										krf_new.global.Obj.hideSimpleTooltip();										
+
 									}
 									
 								})

@@ -327,7 +327,10 @@ Ext.define('krf_new.view.center.ReachToolbar', {
 			listeners: {
 				el: {
 					click: function () {
-						setActionInfo("", "", "", "", "화면저장");
+						//setActionInfo("", "", "", "", "화면저장");
+
+						//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
+						setActionInfo('W', 'D', '', '', $KRF_APP.loginInfo.userId);
 						$KRF_APP.coreMap.capture();
 					}
 				}
