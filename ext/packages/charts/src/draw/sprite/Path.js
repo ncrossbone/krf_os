@@ -1,39 +1,3 @@
-/**
- * @class Ext.draw.sprite.Path
- * @extends Ext.draw.sprite.Sprite
- *
- * A sprite that represents a path.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'path',
- *            path: 'M20,30 c0,-50 75,50 75,0 c0,-50 -75,50 -75,0',
- *            fillStyle: '#1F6D91'
- *        }]
- *     });
- * 
- * ### Drawing with SVG Paths
- * You may use special SVG Path syntax to "describe" the drawing path.  Here are the SVG path commands:
- * 
- * + M = moveto
- * + L = lineto
- * + H = horizontal lineto
- * + V = vertical lineto
- * + C = curveto
- * + S = smooth curveto
- * + Q = quadratic Bézier curve
- * + T = smooth quadratic Bézier curveto
- * + A = elliptical Arc
- * + Z = closepath
- * 
- * **Note:** Capital letters indicate that the item should be absolutely positioned. 
- * Use lower case letters for relative positioning.
- */
 Ext.define('Ext.draw.sprite.Path', {
     extend: 'Ext.draw.sprite.Sprite',
     requires: [
@@ -50,9 +14,6 @@ Ext.define('Ext.draw.sprite.Path', {
     inheritableStatics: {
         def: {
             processors: {
-                /**
-                 * @cfg {String} path The SVG based path string used by the sprite.
-                 */
                 path: function (n, o) {
                     if (!(n instanceof Ext.draw.Path)) {
                         n = new Ext.draw.Path(n);
@@ -105,16 +66,13 @@ Ext.define('Ext.draw.sprite.Path', {
         ctx.appendPath(attr.path);
         ctx.fillStroke(attr);
 
-        //<debug>
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
         if (debug) {
             debug.bbox && this.renderBBox(surface, ctx);
             debug.xray && this.renderXRay(surface, ctx);
         }
-        //</debug>
     },
 
-    //<debug>
     renderXRay: function (surface, ctx) {
         var attr = this.attr,
             mat = attr.matrix,
@@ -188,13 +146,6 @@ Ext.define('Ext.draw.sprite.Path', {
         ctx.lineWidth = 0.5;
         ctx.stroke();
     },
-    //</debug>
 
-    /**
-     * Update the path.
-     * @param {Ext.draw.Path} path An empty path to draw on using path API.
-     * @param {Object} attr The attribute object. Note: DO NOT use the `sprite.attr` instead of this
-     * if you want to work with instancing.
-     */
     updatePath: function (path, attr) {}
 });

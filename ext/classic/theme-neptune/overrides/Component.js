@@ -16,8 +16,6 @@ Ext.define('Ext.theme.neptune.Component', {
                 border = me.border;
 
             if (me.dock) {
-                // prevent the superclass method from setting the border style.  We want to
-                // allow dock layout to decide which borders to suppress.
                 me.border = null;
             }
             me.callParent(arguments);

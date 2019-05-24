@@ -11,7 +11,6 @@ Ext.define('krf_new.global.SedimentFn', {
 		dom = d;
 
 		if (dom.src.indexOf('_off') > -1) {
-			me.setData();
 
 			var sedimentSeachWindow = Ext.getCmp('sedimentSeachWindow');
 			if (!sedimentSeachWindow) {
@@ -29,35 +28,94 @@ Ext.define('krf_new.global.SedimentFn', {
 
 			sedimentLegendWindow.show();
 
+			me.setCombo();
+			me.setbuttonOnOff('on');
 		} else {
 			me.removeFeature();
 			me.setbuttonOnOff('off');
 		}
 	},
 
-	setData: function () {
-		me.setbuttonOnOff('on');
-		var data = me.getData();
+	setCombo: function () {
+		var p = '';
+		for (key in me.dataObj) {
+			p += '\'' + key + '\',';
+		}
+
+		p = p.substring(0, p.length - 1);
+
+		Ext.Ajax.request({
+			url: _API.GetSearchResultData_C,
+			dataType: 'text/plain',
+			method: 'POST',
+			async: true,
+			params: { firstSearch: 'noDate', siteIds: p },
+			success: function (response) {
+				var data = JSON.parse(response.responseText).data;
+				var wmyr = parseInt(data[0].WMYR.split('.')[0]);
+				var date = new Date();
+				var dataArr = [];
+
+				for (var i = (wmyr - 5); i <= date.getFullYear(); i++) {
+					dataArr.push({ id: i, name: i + '년' });
+				}
+
+				me.bindStore('sedimentYear', dataArr, data[0].WMYR.split('.')[0]);
+				me.bindStore('sedimentHalf', [{ id: '1', name: '상반기' }, { id: '2', name: '하반기' }], data[0].WMYR.split('.')[1]);
+
+				var itemArr = [
+					{ id: 'ITEM_PCA_CLASS', name: '완전연소가능량' },
+					{ id: 'ITEM_TN_CLASS', name: '총질소' },
+					{ id: 'ITEM_TP_CLASS', name: '총인' },
+					{ id: 'ITEM_CU_CLASS', name: '구리' },
+					{ id: 'ITEM_PB_CLASS', name: '납' },
+					{ id: 'ITEM_NI_CLASS', name: '니켈' },
+					{ id: 'ITEM_AS_CLASS', name: '비소' },
+					{ id: 'ITEM_HG_CLASS', name: '수은' },
+					{ id: 'ITEM_ZN_CLASS', name: '아연' },
+					{ id: 'ITEM_CD_CLASS', name: '카드뮴' },
+					{ id: 'ITEM_CR_CLASS', name: '크롬' }
+				];
+
+				me.bindStore('sedimentItem', itemArr, 'ITEM_PCA_CLASS');
+
+				me.getData();
+			}
+		});
+	},
+
+	bindStore: function (cmpId, dataArr, defaultValue) {
+		var getCmp = Ext.getCmp(cmpId);
+		var store = Ext.create('Ext.data.Store', {
+			data: dataArr
+		});
+
+		getCmp.bindStore(store);
+		getCmp.setValue(defaultValue);
+	},
+
+	writeFeature: function (data) {
 		var feature = me.dataObj;
 		var resultArr = [];
 
 		for (key in feature) {
-
-			feature[key].flag = parseInt(Math.random() * 10 / 3);
-			resultArr.push(feature[key]);
-			// for (var j = 0; j < data.length; j++) {
-			// 	if (data[j].code == feature[i].JIJUM_CODE) {
-			// 		feature[i].flag = data[j].flag;
-
-			// 	}
-			// }
+			for (var i = 0; i < data.length; i++) {
+				if (key == data[i].PT_NO) {
+					feature[key].flag = parseInt(data[i].ITEM);
+					resultArr.push(feature[key]);
+				}
+			}
 		}
-
 		me.writeLayer(resultArr);
 	},
+
 	writeLayer: function (data) {
 		if (me.graphicsLayer) {
 			me.graphicsLayer.clear();
+		}
+
+		if (data.length == 0) {
+			return;
 		}
 
 		require(['esri/graphic',
@@ -74,7 +132,7 @@ Ext.define('krf_new.global.SedimentFn', {
 						'angle': 0,
 						'yoffset': 0,
 						'type': 'esriPMS',
-						'url': './resources/images/sediment/' + (data[i].flag + 1) + '.png',
+						'url': './resources/images/sediment/' + data[i].flag + '.png',
 						'contentType': 'image/png',
 						'width': 39,
 						'height': 39
@@ -86,16 +144,45 @@ Ext.define('krf_new.global.SedimentFn', {
 					me.graphicsLayer.add(graphic);
 				}
 
-				GetCoreMap().map.addLayer(me.graphicsLayer);
+				var map = GetCoreMap().map;
+				map.addLayer(me.graphicsLayer);
 
 				var extent = graphicsUtils.graphicsExtent(me.graphicsLayer.graphics);
 
-				GetCoreMap().map.setExtent(extent);
+				map.setExtent(extent).then(function () {
+					var limitLvl = map.getLevel();
+					if (me.graphicsLayer.graphics.length > 1) {
+						map.setLevel(limitLvl - 1);
+					}
+				});
 			});
 	},
-
 	getData: function () {
-		return [{ code: '2010R30', flag: '1' }];
+		var str = '';
+		for (key in me.dataObj) {
+			str += '\'' + key + '\',';
+		}
+
+		var paramObj = {
+			siteIds: str.substring(0, (str.length - 1)),
+			year: Ext.getCmp('sedimentYear').getValue() + Ext.getCmp('sedimentHalf').getValue(),
+			item: Ext.getCmp('sedimentItem').getValue()
+		};
+
+		Ext.Ajax.request({
+			url: 'http://localhost:8080/krf/searchResult/getSedimentItemValue',
+			dataType: 'text/plain',
+			method: 'POST',
+			params: paramObj,
+			async: true,
+			success: function (response) {
+				var data = JSON.parse(response.responseText).data;
+				me.writeFeature(data);
+			},
+			failure: function () {
+				alert('하드코딩 RestAPI입니다. URL 수정후 작업하세요. sedimentFn.js');
+			}
+		});
 	},
 
 	removeFeature: function () {

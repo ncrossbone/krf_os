@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE HTML>
 <html manifest="">
 
@@ -8,7 +10,7 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<title>물환경 지리정보</title>
+	<title>jsp물환경 지리정보</title>
 
 	<!-- The line below must be kept intact for Sencha Cmd to build your application -->
 	<link rel="shortcut icon" href="./resources/images/mainico.ico" />
@@ -868,44 +870,21 @@
 		.dijitPopup {
 			z-index: 99999 !important;
 		}
-
-		.x-form-itemselector-top {
-			background-image: url(./resources/images/button/top.gif) !important;
-		}
-
-		.x-form-itemselector-down {
-			background-image: url(./resources/images/button/down.gif) !important;
-		}
-
-		.x-form-itemselector-add {
-			background-image: url(./resources/images/button/right.gif) !important;
-		}
-
-		.x-form-itemselector-up {
-			background-image: url(./resources/images/button/up.gif) !important;
-		}
-
-		.x-form-itemselector-remove {
-			background-image: url(./resources/images/button/left.gif) !important;
-		}
-
-		.x-form-itemselector-bottom {
-			background-image: url(./resources/images/button/bottom.gif) !important;
-		}
-
-		.x-monthpicker-yearnav-prev {
-			content: \f100;
-		}
-
-		.x-monthpicker-yearnav-next{
-			content: \f101;
-		}
-
-		#detailSearchWindow-body {
-			padding: 10px
-		}
-
 	</style>
+	
+	<%
+		String stationType = request.getParameter("stationType");
+		String station = request.getParameter("station");
+		String p1 = request.getParameter("p1");
+	%>
+
+	<script>
+		var _ParamObj = {
+			stationType : '<%=stationType%>',
+			station : '<%=station%>',
+			p1 : '<%=p1%>'
+		};
+	</script>
 </head>
 
 <body class="drone-toolbar drone-combolist">
@@ -918,20 +897,20 @@
 </body>
 
 <!-- <script type="text/javascript" src="http://js.arcgis.com/3.23/"></script> -->
-<script type="text/javascript" src="http://js.arcgis.com/3.15/"></script>
+<script defer type="text/javascript" src="http://js.arcgis.com/3.15/"></script>
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script defer type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
-<script id="microloader" type="text/javascript" src="bootstrap.js"></script>
+<script defer id="microloader" type="text/javascript" src="bootstrap.js"></script>
 
 <!-- 	<script type="text/javascript" src="./resources/include-ext.js"></script> -->
 
 <!-- 공통 스크립트 -->
-<script type="text/javascript" src="./resources/js/common.js"></script>
+<script defer type="text/javascript" src="./resources/js/common.js"></script>
 <!-- 주제도 관련 공통 스크립트 -->
-<script type="text/javascript" src="./resources/js/commonTM.js"></script>
+<script defer type="text/javascript" src="./resources/js/commonTM.js"></script>
 
 <!-- KRAD 관련 공통 스크립트 -->
-<script type="text/javascript" src="./resources/js/commonKRAD.js"></script>
+<script defer type="text/javascript" src="./resources/js/commonKRAD.js"></script>
 
 </html>

@@ -1,17 +1,6 @@
-/*!
- * Ext JS Library
- * Copyright(c) 2006-2014 Sencha Inc.
- * licensing@sencha.com
- * http://www.sencha.com/license
- */
 
-/**
- * @class Ext.ux.desktop.TaskBar
- * @extends Ext.toolbar.Toolbar
- */
 Ext.define('Ext.ux.desktop.TaskBar', {
-    // This must be a toolbar. we rely on acquired toolbar classes and inherited toolbar methods for our
-    // child items to instantiate and render correctly.
+    
     extend: 'Ext.toolbar.Toolbar',
 
     requires: [
@@ -26,10 +15,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
 
     cls: 'krf_taskbar-ux-taskbar',
     height: 40,
-    /**
-     * @cfg {String} startBtnText
-     * The text for the Start Button.
-     */
+   
     // startBtnText: '시작',
 
     initComponent: function () {
@@ -56,11 +42,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         me.windowBar.el.on('contextmenu', me.onButtonContextMenu, me);
     },
 
-    /**
-     * This method returns the configuration object for the Quick Start toolbar. A derived
-     * class can override this method, call the base version to build the config and
-     * then modify the returned object before returning it.
-     */
+   
     getQuickStart: function () {
         var me = this, ret = {
             minWidth: 00,
@@ -84,11 +66,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         return ret;
     },
 
-    /**
-     * This method returns the configuration object for the Tray toolbar. A derived
-     * class can override this method, call the base version to build the config and
-     * then modify the returned object before returning it.
-     */
+    
     getTrayConfig: function () {
         var ret = {
             cls: 'krf_taskbar-ux-taskbar',
@@ -211,11 +189,6 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     }
 });
 
-/**
- * @class Ext.ux.desktop.TrayClock
- * @extends Ext.toolbar.TextItem
- * This class displays a clock on the toolbar.
- */
 Ext.define('Ext.ux.desktop.TrayClock', {
     extend: 'Ext.toolbar.TextItem',
 

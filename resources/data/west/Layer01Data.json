@@ -8,7 +8,7 @@
 	"layerCode": "A",
 	"children": [{
 		"id": "1",
-		"text": "하천수",
+		"text": "하천",
 		"wmsId":"poi_a001",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer1",
@@ -23,7 +23,7 @@
 	}, {
 		"id": "2",
 		"wmsId":"poi_a002",
-		"text": "호소수",
+		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer2",
 		"leaf": true,
@@ -1007,6 +1007,27 @@
 		"id": "D4",
 		"wmsId":"",
 		"text": "3개월",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"siteNmCol": "",
+		"siteAddrCol": "",
+		"layerCode": "",
+		"isMetaData": false
+	}]
+},{
+	"id": "M",
+	"text": "비점오염원",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "M1",
+		"wmsId":"",
+		"text": "비점오염원",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layerP1",
 		"leaf": true,

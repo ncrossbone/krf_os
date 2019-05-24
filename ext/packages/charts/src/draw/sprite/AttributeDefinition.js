@@ -1,10 +1,4 @@
-/**
- * @private
- * Flyweight object to process the attributes of a sprite.
- * A single instance of the AttributeDefinition is created per sprite class.
- * See `onClassCreated` and `onClassExtended` callbacks
- * of the {@link Ext.draw.sprite.Sprite} for more info.
- */
+
 Ext.define('Ext.draw.sprite.AttributeDefinition', {
     requires: [
         'Ext.draw.sprite.AttributeParser',
@@ -12,107 +6,33 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
     ],
 
     config: {
-        /**
-         * @cfg {Object} defaults Defines the default values of attributes.
-         */
+        
         defaults: {
             $value: {},
             lazy: true
         },
 
-        /**
-         * @cfg {Object} aliases Defines the alternative names for attributes.
-         */
         aliases: {},
 
-        /**
-         * @cfg {Object} animationProcessors Defines the process used to animate between attributes.
-         * One doesn't have to define animation processors for sprite attributes that use
-         * predefined {@link #processors} from the {@link Ext.draw.sprite.AttributeParser} singleton.
-         * For such attributes matching animation processors from the {@link Ext.draw.sprite.AnimationParser}
-         * singleton will be used automatically.
-         * However, if you have a custom processor for an attribute that should support
-         * animation, you must provide a corresponding animation processor for it here.
-         * For more information on animation processors please see {@link Ext.draw.sprite.AnimationParser}
-         * documentation.
-         */
         animationProcessors: {},
 
-        /**
-         * @cfg {Object} processors Defines the preprocessing used on the attributes.
-         * One can define a custom processor function here or use the name of a predefined
-         * processor from the {@link Ext.draw.sprite.AttributeParser} singleton.
-         */
         processors: {
-            // A plus side of lazy initialization is that the 'processors' and 'defaults' will
-            // only be applied for those sprite classes that are actually instantiated.
             $value: {},
             lazy: true
         },
 
-        /**
-         * @cfg {Object} dirtyTriggers
-         * @deprecated Use the {@link #triggers} config instead.
-         */
         dirtyTriggers: {},
 
-        /**
-         * @cfg {Object} triggers Defines which updaters have to be called when an attribute is changed.
-         * For example, the config below indicates that the 'size' updater
-         * of a {@link Ext.draw.sprite.Square square} sprite has to be called
-         * when the 'size' attribute changes.
-         *
-         *     triggers: {
-         *         size: 'size'   // Use comma-separated values here if multiple updaters have to be called.
-         *     }                  // Note that the order is _not_ guaranteed.
-         *
-         * If any of the updaters to be called (triggered by the {@link Ext.draw.sprite.Sprite#setAttributes call)
-         * set attributes themselves and those attributes have triggers defined for them,
-         * then their updaters will be called after all current updaters finish execution.
-         *
-         * The updater functions themselves are defined in the {@link #updaters} config,
-         * aside from the 'canvas' updater, which doesn't have to be defined and acts as a flag,
-         * indicating that this attribute should be applied to a Canvas context (or whatever emulates it).
-         * @since 5.1.0
-         */
         triggers: {},
 
-        /**
-         * @cfg {Object} updaters Defines the postprocessing used by the attribute.
-         * Inside the updater function 'this' refers to the sprite that the attributes belong to.
-         * In case of an instancing sprite 'this' will refer to the instancing template.
-         * The two parameters passed to the updater function are the attributes object
-         * of the sprite or instance, and the names of attributes that triggered this updater call.
-         *
-         * The example below shows how the 'size' updater changes other attributes
-         * of a {@link Ext.draw.sprite.Square square} sprite sprite when its 'size' attribute changes.
-         *
-         *     updaters: {
-         *         size: function (attr) {
-         *             var size = attr.size;
-         *             this.setAttributes({   // Changes to these attributes will trigger the 'path' updater.
-         *                 x: attr.x - size,
-         *                 y: attr.y - size,
-         *                 height: 2 * size,
-         *                 width: 2 * size
-         *             });
-         *         }
-         *     }
-         */
         updaters: {}
     },
 
     inheritableStatics: {
-        /**
-         * @private
-         * Processor declaration in the form of 'processorFactory(argument1,argument2,...)'.
-         * E.g.: {@link Ext.draw.sprite.AttributeParser#enums enums},
-         * {@link Ext.draw.sprite.AttributeParser#limited limited}.
-         */
+        
         processorFactoryRe: /^(\w+)\(([\w\-,]*)\)$/
     },
 
-    // The sprite class for which AttributeDefinition instance is created.
     spriteClass: null,
 
     constructor: function (config) {
@@ -130,7 +50,7 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
     },
 
     applyProcessors: function (processors, oldProcessors) {
-        this.getAnimationProcessors(); // Apply custom animation processors first.
+        this.getAnimationProcessors(); 
         var result = oldProcessors || {},
             defaultProcessor = Ext.draw.sprite.AttributeParser,
             processorFactoryRe = this.self.processorFactoryRe,
@@ -142,20 +62,17 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
             fn = processors[name];
             if (typeof fn === 'string') {
                 match = fn.match(processorFactoryRe);
-                if (match) { // enums(... , limited(... or something of that nature.
+                if (match) { 
                     fn = defaultProcessor[match[1]].apply(defaultProcessor, match[2].split(','));
                 } else if (defaultProcessor[fn]) {
-                    // Names of animation parsers match the names of attribute parsers.
                     animationProcessors[name] = fn;
                     anyAnimationProcessors = true;
                     fn = defaultProcessor[fn];
                 }
             }
-            //<debug>
             if (!Ext.isFunction(fn)) {
                 Ext.raise(this.spriteClass.$className + ": processor '" + name + "' has not been found.");
             }
-            //</debug>
             result[name] = fn;
         }
 
@@ -180,8 +97,6 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
                 oldAnimationProcessors[name] = null;
             } else if (Ext.isString(item) && !(name in oldAnimationProcessors)) {
                 if (item in parser) {
-                    // The while loop is used to resolve aliases, e.g. `num: 'number'`,
-                    // where `number` maps to a parser object or is an alias too.
                     while (Ext.isString(parser[item])) {
                         item = parser[item];
                     }
@@ -341,13 +256,6 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
         return normalized;
     },
 
-    /**
-     * Normalizes the changes given via their processors before they are applied as attributes.
-     *
-     * @param {Object} changes The changes given.
-     * @param {Boolean} keepUnrecognized If 'true', unknown attributes will be passed through as normalized values.
-     * @return {Object} The normalized values.
-     */
     normalize: function (changes, keepUnrecognized) {
         if (!changes) {
             return {};
@@ -421,21 +329,6 @@ Ext.define('Ext.draw.sprite.AttributeDefinition', {
         if ('matrix' in changes) {
             matrix = Ext.draw.Matrix.create(changes.matrix);
             split = matrix.split();
-
-            // This will NOT update the transformation matrix of a sprite
-            // with the given elements. It will attempt to extract the
-            // individual transformation attributes from the transformation matrix
-            // elements provided. Then the extracted attributes will be used by
-            // the sprite's 'applyTransformations' method to calculate
-            // the transformation matrix of the sprite.
-            // It's not possible to recover all the information from the given
-            // transformation matrix elements. Shearing and centers of rotation
-            // and scaling are not recovered.
-            // Ideally, this should work like sprite.transform([elements], true),
-            // i.e. update the transformation matrix of a sprite directly,
-            // without attempting to update sprite's transformation attributes.
-            // But we are not changing the behavior (just yet) for compatibility
-            // reasons.
 
             normalized.matrix = matrix;
             normalized.rotationRads = split.rotation;

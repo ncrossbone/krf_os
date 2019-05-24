@@ -1,55 +1,12 @@
-/**
- * Radial gradient.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw', 
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'circle',
- *            cx: 100,
- *            cy: 100,
- *            r: 100,
- *            fillStyle: {
- *                type: 'radial',
- *                start: {
- *                    x: 0,
- *                    y: 0,
- *                    r: 0
- *                },
- *                end: {
- *                    x: 0,
- *                    y: 0,
- *                    r: 1
- *                },
- *                stops: [{
- *                    offset: 0,
- *                    color: '#90BCC9'
- *                }, {
- *                    offset: 1,
- *                    color: '#1F6D91'
- *                }]
- *            }
- *        }]
- *     });
- */
 Ext.define('Ext.draw.gradient.Radial', {
     extend: 'Ext.draw.gradient.Gradient',
     type: 'radial',
     config: {
-        /**
-         * @cfg {Object} start The starting circle of the gradient.
-         */
         start: {
             x: 0,
             y: 0,
             r: 0
         },
-        /**
-         * @cfg {Object} end The ending circle of the gradient.
-         */
         end: {
             x: 0,
             y: 0,
@@ -117,9 +74,6 @@ Ext.define('Ext.draw.gradient.Radial', {
         return circle;
     },
 
-    /**
-     * @inheritdoc
-     */
     generateGradient: function (ctx, bbox) {
         var start = this.getStart(),
             end = this.getEnd(),

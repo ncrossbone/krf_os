@@ -1,15 +1,3 @@
-/*!
- * Ext JS Library
- * Copyright(c) 2006-2014 Sencha Inc.
- * licensing@sencha.com
- * http://www.sencha.com/license
- */
-
-/**
- * @class Ext.ux.desktop.Desktop
- * @extends Ext.panel.Panel
- * <p>This class manages the wallpaper, shortcuts and taskbar.</p>
- */
 Ext.define('Ext.ux.desktop.Desktop', {
     extend: 'Ext.panel.Panel',
 
@@ -38,27 +26,11 @@ Ext.define('Ext.ux.desktop.Desktop', {
 
     app: null,
 
-    /**
-     * @cfg {Array/Ext.data.Store} shortcuts
-     * The items to add to the DataView. This can be a {@link Ext.data.Store Store} or a
-     * simple array. Items should minimally provide the fields in the
-     * {@link Ext.ux.desktop.ShortcutModel Shortcut}.
-     */
+    
     shortcuts: null,
 
-    /**
-     * @cfg {String} shortcutItemSelector
-     * This property is passed to the DataView for the desktop to select shortcut items.
-     * If the {@link #shortcutTpl} is modified, this will probably need to be modified as
-     * well.
-     */
     shortcutItemSelector: 'div.ux-desktop-shortcut',
 
-    /**
-     * @cfg {String} shortcutTpl
-     * This XTemplate is used to render items in the DataView. If this is changed, the
-     * {@link #shortcutItemSelector} will probably also need to changed.
-     */
     shortcutTpl: [
         '<tpl for=".">',
             '<div class="ux-desktop-shortcut" id="{name}-shortcut" style="{style}">',
@@ -71,10 +43,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
         '<div class="x-clear"></div>'
     ],
 
-    /**
-     * @cfg {Object} taskbarConfig
-     * The config object for the TaskBar.
-     */
     taskbarConfig: null,
 
     windowMenu: null,
@@ -117,8 +85,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
         me.el.on('contextmenu', me.onDesktopMenu, me);
     },
 
-    //------------------------------------------------------
-    // Overrideable configuration creation methods
 
     createDataView: function () {
         var me = this;
@@ -173,8 +139,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
         };
     },
 
-    //------------------------------------------------------
-    // Event handler methods
 
     onDesktopMenu: function (e) {
         var me = this, menu = me.contextMenu;
@@ -214,8 +178,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
         me.updateActiveWindow();
     },
 
-    //------------------------------------------------------
-    // Window context menu handlers
 
     onWindowMenuBeforeShow: function (menu) {
         var items = menu.items.items, win = menu.theWin;
@@ -255,8 +217,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
         me.restoreWindow(win);
     },
 
-    //------------------------------------------------------
-    // Dynamic (re)configuration methods
 
     getWallpaper: function () {
         return this.wallpaper.wallpaper;
@@ -281,8 +241,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
         return this;
     },
 
-    //------------------------------------------------------
-    // Window management methods
 
     cascadeWindows: function() {
         var x = 0, y = 0,
@@ -336,9 +294,8 @@ Ext.define('Ext.ux.desktop.Desktop', {
             single: true
         });
         
-        // replace normal window close w/fadeOut animation:
         win.doClose = function ()  {
-            win.doClose = Ext.emptyFn; // dblclick can call again...
+            win.doClose = Ext.emptyFn; 
             win.el.disableShadow();
             win.el.fadeOut({
                 listeners: {
@@ -357,8 +314,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
             zmgr = this.getDesktopZIndexManager();
 
         if (zmgr) {
-            // We cannot rely on activate/deactive because that fires against non-Window
-            // components in the stack.
 
             zmgr.eachTopDown(function (comp) {
                 if (comp.isWindow && !comp.hidden) {
@@ -374,7 +329,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
 
     getDesktopZIndexManager: function () {
         var windows = this.windows;
-        // TODO - there has to be a better way to get this...
         return (windows.getCount() && windows.getAt(0).zIndexManager) || null;
     },
 
@@ -405,8 +359,6 @@ Ext.define('Ext.ux.desktop.Desktop', {
             if (win.isVisible() && !win.maximized) {
                 var w = win.el.getWidth();
 
-                // Wrap to next row if we are not at the line start and this Window will
-                // go off the end
                 if (x > me.xTickSize && x + w > availWidth) {
                     x = me.xTickSize;
                     y = nextY;

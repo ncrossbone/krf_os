@@ -1,28 +1,5 @@
-/**
- * @class Ext.draw.sprite.Text
- * @extends Ext.draw.sprite.Sprite
- *
- * A sprite that represents text.
- *
- *     @example
- *     Ext.create({
- *        xtype: 'draw',
- *        renderTo: document.body,
- *        width: 600,
- *        height: 400,
- *        sprites: [{
- *            type: 'text',
- *            x: 50,
- *            y: 50,
- *            text: 'Sencha',
- *            fontSize: 30,
- *            fillStyle: '#1F6D91'
- *        }]
- *     });
- */
 Ext.define('Ext.draw.sprite.Text', function () {
 
-    // Absolute font sizes.
     var fontSizes = {
         'xx-small': true,
         'x-small': true,
@@ -74,16 +51,7 @@ return {
     alias: 'sprite.text',
     type: 'text',
     lineBreakRe: /\r?\n/g,
-    //<debug>
     statics: {
-        /**
-         * Debug rendering options:
-         *
-         * debug: {
-         *     bbox: true // renders the bounding box of the text sprite
-         * }
-         *
-         */
         debug: false,
 
         fontSizes: fontSizes,
@@ -91,7 +59,6 @@ return {
         textAlignments: textAlignments,
         textBaselines: textBaselines
     },
-    //</debug>
     inheritableStatics: {
 
         def: {
@@ -99,31 +66,14 @@ return {
                 text: 'text'
             },
             processors: {
-                /**
-                 * @cfg {Number} [x=0]
-                 * The position of the sprite on the x-axis.
-                 */
+                
                 x: 'number',
 
-                /**
-                 * @cfg {Number} [y=0]
-                 * The position of the sprite on the y-axis.
-                 */
                 y: 'number',
 
-                /**
-                 * @cfg {String} [text='']
-                 * The text represented in the sprite.
-                 */
                 text: 'string',
 
-                /**
-                 * @cfg {String/Number} [fontSize='10px']
-                 * The size of the font displayed.
-                 */
                 fontSize: function (n) {
-                    // Numbers as strings will be converted to numbers,
-                    // null will be converted to 0.
                     if (Ext.isNumber(+n)) {
                         return n + 'px';
                     } else if (n.match(Ext.dom.Element.unitRe)) {
@@ -133,22 +83,10 @@ return {
                     }
                 },
 
-                /**
-                 * @cfg {String} [fontStyle='']
-                 * The style of the font displayed. {normal, italic, oblique}
-                 */
                 fontStyle: 'enums(,italic,oblique)',
 
-                /**
-                 * @cfg {String} [fontVariant='']
-                 * The variant of the font displayed. {normal, small-caps}
-                 */
                 fontVariant: 'enums(,small-caps)',
 
-                /**
-                 * @cfg {String} [fontWeight='']
-                 * The weight of the font displayed. {normal, bold, bolder, lighter}
-                 */
                 fontWeight: function (n) {
                     if (n in fontWeights) {
                         return String(n);
@@ -157,38 +95,18 @@ return {
                     }
                 },
 
-                /**
-                 * @cfg {String} [fontFamily='sans-serif']
-                 * The family of the font displayed.
-                 */
                 fontFamily: 'string',
 
-                /**
-                 * @cfg {String} [textAlign='start']
-                 * The alignment of the text displayed.
-                 * {left, right, center, start, end}
-                 */
                 textAlign: function (n) {
                     return textAlignments[n] || 'center';
                 },
 
-                /**
-                 * @cfg {String} [textBaseline="alphabetic"]
-                 * The baseline of the text displayed.
-                 * {top, hanging, middle, alphabetic, ideographic, bottom}
-                 */
                 textBaseline: function (n) {
                     return textBaselines[n] || 'alphabetic';
                 },
 
-                /**
-                 * @cfg {String} [font='10px sans-serif']
-                 * The font displayed.
-                 */
                 font: 'string'
-                //<debug>
                 ,debug: 'default'
-                //</debug>
             },
             aliases: {
                 'font-size': 'fontSize',
@@ -233,11 +151,6 @@ return {
     },
 
     config: {
-        /**
-         * @private
-         * If the value is boolean, it overrides the TextMeasurer's 'precise' config
-         * (for the given sprite only).
-         */
         preciseMeasurement: undefined
     },
 
@@ -253,10 +166,7 @@ return {
         Ext.draw.sprite.Sprite.prototype.constructor.call(this, config);
     },
 
-    // Maps values to font properties they belong to.
     fontValuesMap: {
-        // Skip 'normal' and 'inherit' values, as the first one
-        // is the default and the second one has no meaning in Canvas.
         'italic': 'fontStyle',
         'oblique': 'fontStyle',
 
@@ -275,7 +185,6 @@ return {
         '800': 'fontWeight',
         '900': 'fontWeight',
 
-        // Absolute font sizes.
         'xx-small': 'fontSize',
         'x-small': 'fontSize',
         'small': 'fontSize',
@@ -283,8 +192,6 @@ return {
         'large': 'fontSize',
         'x-large': 'fontSize',
         'xx-large': 'fontSize'
-        // Relative font sizes like 'smaller' and 'larger'
-        // have no meaning, and are not included.
     },
 
     makeFontShorthand: function (attr) {
@@ -310,8 +217,6 @@ return {
         }, true);
     },
 
-    // For more info see:
-    // http://www.w3.org/TR/CSS21/fonts.html#font-shorthand
     parseFontShorthand: function (attr) {
         var value = attr.font,
             ln = value.length,
@@ -330,11 +235,6 @@ return {
                 continue;
             }
 
-            // Since Canvas fillText doesn't support multi-line text,
-            // it is assumed that line height is never specified, i.e.
-            // in entries like these the part after slash is omitted:
-            // 12px/14px sans-serif
-            // x-large/110% "New Century Schoolbook", serif
             slashIndex = part.indexOf('/');
             if (slashIndex > 0) {
                 part = part.substr(0, slashIndex);
@@ -342,17 +242,13 @@ return {
                 continue;
             }
 
-            // All optional font properties (fontStyle, fontVariant or fontWeight) can be 'normal'.
-            // They can go in any order. Which ones are 'normal' is determined by elimination.
-            // E.g. if only fontVariant is specified, then 'normal' applies to fontStyle and fontWeight.
-            // If none are explicitly mentioned, then all are 'normal'.
             if (part !== 'normal' && part !== 'inherit') {
                 fontProperty = dispatcher[part];
                 if (fontProperty) {
                     changes[fontProperty] = part;
                 } else if (part.match(Ext.dom.Element.unitRe)) {
                     changes.fontSize = part;
-                } else { // Assuming that font family always goes last in the font shorthand.
+                } else { 
                     changes.fontFamily = value.substr(start);
                     break;
                 }
@@ -362,13 +258,13 @@ return {
         }
 
         if (!changes.fontStyle) {
-            changes.fontStyle = '';   // same as 'normal'
+            changes.fontStyle = '';   
         }
         if (!changes.fontVariant) {
-            changes.fontVariant = ''; // same as 'normal'
+            changes.fontVariant = ''; 
         }
         if (!changes.fontWeight) {
-            changes.fontWeight = '';  // same as 'normal'
+            changes.fontWeight = '';  
         }
 
         this.setAttributes(changes, true);
@@ -385,25 +281,6 @@ return {
     setAttributes: function (changes, bypassNormalization, avoidCopy) {
         var key, obj;
 
-        // Discard individual font properties if 'font' shorthand was also provided.
-
-        // Example: a user provides a config for chart series labels, using the font
-        // shorthand, which is parsed into individual font properties and corresponding
-        // sprite attributes are set. Then a theme is applied to the chart, and
-        // individual font properties from the theme make up the new font shorthand
-        // that overrides the previous one. In other words, no matter what font
-        // the user has specified, theme font will be used.
-
-        // This workaround relies on the fact that the theme merges its own config with
-        // the user config (where user config values take over the same theme config
-        // values). So both user font shorthand and individual font properties from
-        // the theme are present in the resulting config (since there are no collisions),
-        // which ends up here as the 'changes' parameter.
-
-        // If the user wants their font config to merged with the the theme's font config,
-        // instead of taking over it, individual font properties should be used
-        // by the user as well.
-
         if (changes && changes.font) {
             obj = {};
             for (key in changes) {
@@ -416,31 +293,16 @@ return {
         this.callParent([changes, bypassNormalization, avoidCopy]);
     },
 
-    // Overriding the getBBox method of the abstract sprite here to always
-    // recalculate the bounding box of the text in flipped RTL mode
-    // because in that case the position of the sprite depends not just on
-    // the value of its 'x' attribute, but also on the width of the surface
-    // the sprite belongs to.
     getBBox: function (isWithoutTransform) {
         var me = this,
             plain = me.attr.bbox.plain,
             surface = me.getSurface();
-        //<debug>
-        // The sprite's bounding box won't account for RTL if it doesn't
-        // belong to a surface.
-        //if (!surface) {
-        //    Ext.raise("The sprite does not belong to a surface.");
-        //}
-        //</debug>
+     
         if (plain.dirty) {
             me.updatePlainBBox(plain);
             plain.dirty = false;
         } if (surface && surface.getInherited().rtl && surface.getFlipRtlText()) {
-            // Since sprite's attributes haven't actually changed at this point,
-            // and we just want to update the position of its bbox
-            // based on surface's width, there's no reason to perform
-            // expensive text measurement operation here,
-            // so we can use the result of the last measurement instead.
+           
             me.updatePlainBBox(plain, true);
         }
         return me.callParent([isWithoutTransform]);
@@ -485,17 +347,6 @@ return {
             ln = sizes ? sizes.length : 0,
             lineWidth, rect,
             i = 0;
-
-        // To get consistent results in all browsers we don't apply textAlign
-        // and textBaseline attributes of the sprite to context, so text is always
-        // left aligned and has an alphabetic baseline.
-        //
-        // Instead we have to calculate the horizontal offset of each line
-        // based on sprite's textAlign, and the vertical offset of the bounding box
-        // based on sprite's textBaseline.
-        //
-        // These offsets are then used by the sprite's 'render' method
-        // to position text properly.
 
         switch (baseline) {
             case 'hanging' :
@@ -573,16 +424,10 @@ return {
 
         lines = attr.text.split(me.lineBreakRe);
         lineHeight = bbox.height / lines.length;
-        // Simulate textBaseline and textAlign.
         x = attr.bbox.plain.x;
-        // lineHeight * 0.78 is the approximate distance between the top and the alphabetic baselines
         y = attr.bbox.plain.y + lineHeight * 0.78;
         mat.toContext(ctx);
         if (surface.getInherited().rtl) {
-            // Canvas element in RTL mode automatically flips text alignment.
-            // Here we compensate for that change.
-            // So text is still positioned and aligned as in the LTR mode,
-            // but the direction of the text is RTL.
             x += attr.bbox.plain.width;
         }
 
@@ -594,16 +439,11 @@ return {
                 ctx.strokeText(lines[i], x + (dx[i] || 0), y + lineHeight * i);
             }
         }
-        //<debug>
         var debug = attr.debug || this.statics().debug || Ext.draw.sprite.Sprite.debug;
         if (debug) {
-            // This assumes no part of the sprite is rendered after this call.
-            // If it is, we need to re-apply transformations.
-            // But the bounding box is already transformed, so we remove the transformation.
             this.attr.inverseMatrix.toContext(ctx);
             debug.bbox && me.renderBBox(surface, ctx);
         }
-        //</debug>
     }
 };
 

@@ -136,5 +136,32 @@ Ext.define("krf_new.global.TabFn", {
 				this.setConditionCtl(items);
 			}
 		}
+	},
+	goSearch: function () {
+		var fName = Ext.getCmp("F_CHANGE");
+		var tabCtl = Ext.getCmp("searchResultTab");
+		tabCtl = tabCtl.items.items[1];
+		var activeTab = tabCtl.getActiveTab();
+
+		// 검색조건 셋팅 (필수!!)
+		$KRF_APP.global.TabFn.searchConditionSet(activeTab.down("grid"));
+
+		var gridContainer = activeTab.items.items[0];
+		var gridCtl = gridContainer.items.items[0];
+
+		if (gridCtl.parentIds[0].parentId == undefined) {
+			var parentId = gridCtl.parentIds
+		} else {
+			var parentId = gridCtl.parentIds[0].parentId
+		}
+
+		var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
+
+		$KRF_APP.btnFlag = "date";
+
+		var title = activeTab.title.split('(');
+
+		setActionInfo(parentId[0], parentId, title[0], "", "검색결과");
+		ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 	}
 });

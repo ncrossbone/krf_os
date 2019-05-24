@@ -53,7 +53,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			//console.info(bookParamObj.searchText);
 
 			//var catDid = [];
-			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+			//var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+
+			var queryTask = new esri.tasks.QueryTask('http://112.217.167.123:40002/arcgis/rest/services/CatSearch_TEST/MapServer/3'); // 레이어 URL v3
+
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			//if (buttonInfo1.lastValue != null) {
@@ -148,11 +151,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			}
 
 			//권한별 레이어 세팅
-			if($KRF_APP.LAYER_SETTING.length > 0){
-				$KRF_APP.LAYER_SETTING.map(function(obj){
-					if(obj.LYR_USE_AT != "Y"){
-						query.where += "AND LAYER_CODE <> '"+obj.LYR_CODE+"'";
-					}		
+			if ($KRF_APP.LAYER_SETTING.length > 0) {
+				$KRF_APP.LAYER_SETTING.map(function (obj) {
+					if (obj.LYR_USE_AT != "Y") {
+						query.where += "AND LAYER_CODE <> '" + obj.LYR_CODE + "'";
+					}
 				})
 			}
 
@@ -161,7 +164,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}*/
 			//query.where += "AND GROUP_CODE <> 'E'";
-			if(store.searchType == 'paramSearch'){
+			if (store.searchType == 'paramSearch') {
 				var paramConfig = {
 					'MA': '\'A001\'',
 					'MB': '\'A002\'',
@@ -177,14 +180,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					'TC': '\'E001\'',
 					'AG': '\'I001\',\'I002\',\'I003\''
 				};
-	
+
 				if (paramConfig[store.paramType]) {
 					query.where += ' AND LAYER_CODE IN (' + paramConfig[store.paramType] + ')';
 				} else {
 					query.where += ' AND GROUP_CODE =\'' + store.paramType + '\'';
 				}
 			}
-			
+
 			query.orderByFields = ["LAYER_CODE ASC"];
 			query.outFields = ["*"];
 			// 로딩바 표시
@@ -197,8 +200,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			krf_new.global.SedimentFn.initArr();
 
 			queryTask.execute(query, function (result) {
-
 				this.result = result;
+
 				var fMap = result.features.map(function (obj) {
 					return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
 				});
@@ -209,9 +212,33 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				$.each(result.features, function (cnt, feature) {
 
 					if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID, filterArr) === -1) {
+						if (feature.attributes.GROUP_CODE == 'M') {
 
-						filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-						newFeatures.push(feature);
+							filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
+							filterArr.push('M002' + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
+
+							feature.attributes.LAYER_NM = '자동측정';
+							
+							var cloneAttr = $KRF_APP.global.CommFn.cloneObj(feature.attributes);
+							cloneAttr.LAYER_NM = '수동측정';
+							cloneAttr.LAYER_CODE = 'M002';
+							cloneAttr.JIJUM_CODE = 'M002_' + cloneAttr.JIJUM_CODE;
+
+							var resultFeature = {
+								geometry: null,
+								infoTemplate: undefined,
+								symbol: undefined,
+								attributes: cloneAttr
+							};
+
+							feature.attributes.JIJUM_CODE = 'M001_' + feature.attributes.JIJUM_CODE;
+
+							newFeatures.push(feature);
+							newFeatures.push(resultFeature);
+						} else {
+							filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
+							newFeatures.push(feature);
+						}
 					}
 				});
 
@@ -268,7 +295,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						jsonStr += "			\"visible\": \"false\",\n";
 					}
-					if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H") {
+					if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M") {
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if (cnt == 0) {
@@ -308,6 +335,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
+
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 
 
@@ -323,7 +351,6 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							jsonStr += "			\"expanded\": false,\n"; // 펼치기..
 						}
 						jsonStr += "			\"children\": [";
-
 
 						$.each(layerFeatures, function (cnt, layerFeature) {
 							if (layerFeature.attributes.EXT_DATA_ID == undefined || layerFeature.attributes.EXT_DATA_ID == null) {
@@ -439,7 +466,6 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);
 
-
 					store.setRootNode(jsonData);
 					store.setRootVisible(false);
 					// 로딩바 숨김
@@ -456,6 +482,12 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
 				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 			});
+		}
+	},
+
+	resetId: function (obj) {
+		for (var i = 0; i < obj.children.length; i++) {
+			obj.children[i].id = obj.id + obj.children[i].id;
 		}
 	},
 

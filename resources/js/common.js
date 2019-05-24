@@ -261,7 +261,7 @@ ReachInfoBinding = function (objs) {
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
-	
+
 	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
 		tabIdx: tabIdx,
 		title: title,
@@ -282,6 +282,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			$KRF_APP.chartFlag_D = orgParentId;
 		}
 
+		$KRF_APP.layerCode = orgParentId;
 		$KRF_APP.parentFlag = parentId;
 		$KRF_APP.chartFlag = "1";
 
@@ -299,10 +300,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		var winCtl = Ext.getCmp("windowSiteNChart");
 
 		if (winCtl == undefined) {
-			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { width: 520, height: 355, x: winX, y: winY , parentId: parentId });
+			winCtl = Ext.create('krf_new.view.east.WindowSiteNChart', { width: 520, height: 355, x: winX, y: winY, parentId: parentId });
 			centerContainer.add(winCtl);
 		}
-		
+
 		winCtl.parentId = parentId;
 
 		winCtl.show();
@@ -337,10 +338,10 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 
 		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
-		
+
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
-	
+
 		//$('#' + lenendInstance.id).hide();
 		//chartPanelLegend
 		//series.setStyle('dilplay','none');
@@ -393,16 +394,22 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		} else if (parentId == "I") {
 			series.setXField("WMCYMD");
 			yFieldName = "ITEM_TEMP";
-		} else if(parentId == "H"){
+		} else if (parentId == "H") {
 			//_hidden
 			siteChartCtl.series[1]._yField = "BOD_1";
 			siteChartCtl.series[2]._yField = "BOD_2";
 			siteChartCtl.series[3]._yField = "BOD_3";
 			siteChartCtl.series[4]._yField = "BOD_4";
-			
+
 			yFieldName = "BOD";
+		} else if (parentId == 'M') {
+			if ($KRF_APP.layerCode == 'M001') {
+				yFieldName = 'WTRTP_VALUE';
+			} else if ($KRF_APP.layerCode == 'M002') {
+				yFieldName = 'BOD_VALUE';
+			}
 		}
-		
+
 
 
 		// 정보창 탭 체인지
@@ -428,9 +435,9 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 				chartStore.parentId = parentId;
 				chartStore.orgParentId = orgParentId;
 				chartStore.load();
-				 
+
 				siteChartCtl.setStore(chartStore);
-				
+
 			}
 		} else {
 			Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
@@ -453,9 +460,12 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
 		setActionInfo('W', 'C', logLayerCode, siteChartCtl.store.siteCD, $KRF_APP.loginInfo.userId);
 	}
-	console.info(chartStore);
+
 	SetItemLabelText(yFieldName, chartId, test);
-	siteChartCtl.preText = test;
+
+	if (test != '') {
+		siteChartCtl.preText = test;
+	}
 }
 
 // 지점/차트 정보 창 닫기
@@ -595,8 +605,27 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemNm = "Al (%)";
 	} else if (itemNm == "ITEM_LI") {
 		itemNm = "Li (㎎/㎏)";
+	} else if (itemNm == 'WTRTP_VALUE') {
+		itemNm = "수온";
+	} else if (itemNm == 'PH_VALUE') {
+		itemNm = "수소이온농도";
+	} else if (itemNm == 'EC_VALUE') {
+		itemNm = "전기전도도";
+	} else if (itemNm == 'DOC_VALUE') {
+		itemNm = "용존산소";
+	} else if (itemNm == 'TUR_VALUE') {
+		itemNm = "탁도";
+	} else if (itemNm == 'BOD_VALUE') {
+		itemNm = "생물학적산소요구량";
+	} else if (itemNm == 'TOC_VALUE') {
+		itemNm = "총유기탄소";
+	} else if (itemNm == 'SS_VALUE') {
+		itemNm = "부유물질";
+	} else if (itemNm == 'TP_VALUE') {
+		itemNm = "총인";
+	} else if (itemNm == 'TN_VALUE') {
+		itemNm = "총질소";
 	}
-
 
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes = chartCtl.axes[0];
@@ -613,28 +642,28 @@ SetItemLabelText = function (itemNm, chartId, test) {
 	if (chartId == "F") {
 		if (f_Chart == undefined) {
 			itemTxt = "ㆍ방류유량 > " + itemNm;
-			
-		}else {
+
+		} else {
 			itemTxt = "ㆍ" + f_Chart.rawValue + " > " + itemNm;
 		}
-	} else if(chartId == "H"){
-		itemTxt = "ㆍ" + itemNm + "   ㆍ기준일 : " + _chartDateInfo[0][0]+"."+_chartDateInfo[0][1]+"."+_chartDateInfo[0][2];
-	}  else {
+	} else if (chartId == "H") {
+		itemTxt = "ㆍ" + itemNm + "   ㆍ기준일 : " + _chartDateInfo[0][0] + "." + _chartDateInfo[0][1] + "." + _chartDateInfo[0][2];
+	} else {
 		itemTxt = "ㆍ" + itemNm;
 	}
 
 
 	var preText = test;
-	if(preText == ''){
+	if (preText == '') {
 		preText = chartCtl.preText;
 	}
-	
+
 	var sprObj = "";
 
 	var sprObj = {
 		type: 'text',
 		text: "ㆍ" + preText + "   " + itemTxt,
-		id:'chartText',
+		id: 'chartText',
 		fontSize: 14,
 		width: 100,
 		height: 30,
@@ -650,9 +679,9 @@ SetItemLabelText = function (itemNm, chartId, test) {
 SetChartMaxData = function (store) {
 
 	var maxValue = "";
-	if(typeof(store) == 'number'){
+	if (typeof (store) == 'number') {
 		maxValue = store;
-	}else{
+	} else {
 		maxValue = store.arrMax[0].ITEM_VALUE;
 	}
 
@@ -679,17 +708,17 @@ ChangeTabIndex = function (tabIdx) {
 
 	if (chartCtl && siteCtl && contCtl) {
 		if (tabIdx == 0) {
-			chartCtl.setStyle('background','#003873');
-			chartCtl.setStyle('color','#fff');
+			chartCtl.setStyle('background', '#003873');
+			chartCtl.setStyle('color', '#fff');
 
-			siteCtl.setStyle('background','#fff');
-			siteCtl.setStyle('color','#808080');
+			siteCtl.setStyle('background', '#fff');
+			siteCtl.setStyle('color', '#808080');
 		} else {
-			chartCtl.setStyle('background','#fff');
-			chartCtl.setStyle('color','#808080');
+			chartCtl.setStyle('background', '#fff');
+			chartCtl.setStyle('color', '#808080');
 
-			siteCtl.setStyle('background','#003873');
-			siteCtl.setStyle('color','#fff');
+			siteCtl.setStyle('background', '#003873');
+			siteCtl.setStyle('color', '#fff');
 		}
 
 		contCtl.setActiveItem(tabIdx);
@@ -697,10 +726,10 @@ ChangeTabIndex = function (tabIdx) {
 }
 
 // 상세검색
-ShowDetailSearch = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
+ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 	var detailSearchWindow = Ext.getCmp('detailSearchWindow');
-	if(!detailSearchWindow){
-		
+	if (!detailSearchWindow) {
+
 		//센터 컨테이너
 		var centerContainer = Ext.getCmp('center_container');
 		//상세검색 윈도우
@@ -727,7 +756,7 @@ ShowDetailSearch = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		}
 
 		console.info(treeNameList);
-		
+
 		var store = Ext.create('Ext.data.Store', {
 			fields: ['value', 'text'],
 			data: treeNameList,
@@ -981,10 +1010,10 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		parentCheck = parentIds[0].parentId.substring(0, 1);
 		pId = parentIds[0].parentId;
 	}
-	
-	
+
+
 	// 지점코드가 중복되는거 있음, 그리드 아이디에 조건을 하나더 추가
-	if(parentCheck == "E"){
+	if (parentCheck == "E") {
 		options = {
 			id: pId + gridId + "_container",
 			title: titleText,
@@ -993,7 +1022,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			autoResize: true,
 			gridId: pId + gridId
 		};
-	}else{
+	} else {
 		options = {
 			id: gridId + "_container",
 			title: titleText, //_searchType,
@@ -1004,12 +1033,12 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			gridId: gridId
 		};
 	}
-	
+
 
 	var tab = searchResultTab.items.items[1];
 
 	var gridStore = null;
-	
+
 	var grdContainer = Ext.getCmp(gridId + "_container");
 
 	var hiddenGrid = Ext.getCmp("F_CHANGE");
@@ -1018,7 +1047,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 
-	
+
 	if (parentCheck == "A") {
 
 		//환경기초시설 검색값 히든처리
@@ -1047,6 +1076,31 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		});
 
 		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
+
+	} else if (parentCheck == 'M') {
+
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + pId, options);
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + '_container');
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+
+		if (siteIds != '') {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != '') {
+			grdCtl.parentIds = parentIds;
+		}
+
+		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + pId, {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
+		});
+
 		grdCtl.setStore(gridStore);
 
 	} else if (parentCheck == "F") {
@@ -1144,7 +1198,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			var arrayT = ['3', '4', '6', '7', '8', '9', '10', '11', '12', '27', '28', '29', '30', '31'];
 			var arrayF = ['5', '13', '14'];
 			var point = ['14', '16', '18', '20', '22', '24', '26'];
-			
+
 			for (hiddenF = 0; hiddenF < arrayF.length; hiddenF++) {
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
@@ -1465,7 +1519,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (typeof (parentIds) == 'string') {
 			orgParentId = parentIds;
 		}
-		
+
 		if (grdContainer == null || grdContainer == undefined) {
 
 			if (orgParentId == "I001") {
@@ -1505,35 +1559,35 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		grdCtl.getView().bindStore(gridStore);
 
-	}else if(parentCheck == "E"){
-		
-		
+	} else if (parentCheck == "E") {
+
+
 		var getGrid = "";
-		if(orgParentId == undefined){
+		if (orgParentId == undefined) {
 			getGrid = parentIds
-		}else{
+		} else {
 			getGrid = orgParentId
 		}
-		
+
 		var grdContainer = null;
 
 		// if : 검색결과에서 재검색시 else : 지점목록에서 처음 검색시
-		if(!isFirst){
+		if (!isFirst) {
 			grdContainer = Ext.getCmp(gridId + "_container");
-		}else{
+		} else {
 			grdContainer = Ext.getCmp(pId + gridId + "_container");
 		}
-		 
-		
+
+
 		if (grdContainer == null || grdContainer == undefined) {
-			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
-			
+			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);
+
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(pId + gridId + "_container");
-		
-		
-		
+
+
+
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 		if (siteIds != "") {
@@ -1542,9 +1596,9 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (parentIds != "") {
 			grdCtl.parentIds = parentIds;
 		}
-		
-		 var sstgCombo = Ext.getCmp("sstgCombo");
-		
+
+		var sstgCombo = Ext.getCmp("sstgCombo");
+
 		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_E", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
@@ -1556,16 +1610,16 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		grdCtl.setStore(gridStore);
 
 
-		 if(sstgCombo.getValue() != null){
-			 
-		 	grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get'+getGrid](sstgCombo.getValue()));
-		 }
-	}else if(parentCheck == 'H'){
+		if (sstgCombo.getValue() != null) {
+
+			grdCtl.reconfigure($KRF_APP.global.SstgGridFn['get' + getGrid](sstgCombo.getValue()));
+		}
+	} else if (parentCheck == 'H') {
 		var getGrid = "";
-		
-		if(orgParentId == undefined){
+
+		if (orgParentId == undefined) {
 			getGrid = parentIds
-		}else{
+		} else {
 			getGrid = orgParentId
 		}
 
@@ -1573,8 +1627,8 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		var grdContainer = Ext.getCmp(gridId + "_container");
 
 		if (grdContainer == null || grdContainer == undefined) {
-			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_H', options);			
-			
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_H', options);
+
 			tab.add(grdContainer);
 		}
 
@@ -1601,25 +1655,25 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	} else if (parentCheck == "J") {
 
 		var getGrid = "";
-		if(orgParentId == undefined){
+		if (orgParentId == undefined) {
 			getGrid = parentIds
-		}else{
+		} else {
 			getGrid = orgParentId
 		}
-		
-		
+
+
 		var grdContainer = Ext.getCmp(gridId + "_container");
-		 
-		
+
+
 		if (grdContainer == null || grdContainer == undefined) {
-			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);			
-			
+			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_" + orgParentId, options);
+
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(gridId + "_container");
-		
-		
-		
+
+
+
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 		if (siteIds != "") {
@@ -1628,8 +1682,8 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		if (parentIds != "") {
 			grdCtl.parentIds = parentIds;
 		}
-		
-		
+
+
 		gridStore = Ext.create("krf_new.store.south.SearchResultGrid_J", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
@@ -1754,7 +1808,7 @@ ShowSearchResultReach = function (catIds) {
 		tab.insert(0, grdContainer);
 	}
 	tab.setActiveTab("searchResultReach_container");
-	
+
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 
@@ -2093,7 +2147,7 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 	}
 
 	var layerId = "";
-	
+
 	if (parentNodeId == "Cat") { // 집수구역
 		layerId = $KRF_DEFINE.reachAreaLayerId;
 		$KRF_APP.fireEvent($KRF_EVENT.SET_SELECTED_CAT_AREA, layerId, nodeId);
@@ -2101,13 +2155,13 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 		$KRF_APP.fireEvent($KRF_EVENT.SET_SELECTED_RCHLINE, layerId, nodeId);
 		return;
 	} else {
-		if(parentNodeId.substring(0,1) == "E"){
-			parentNodeId = parentNodeId.substring(0,7);
+		if (parentNodeId.substring(0, 1) == "E") {
+			parentNodeId = parentNodeId.substring(0, 7);
 		}
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
-		
-		
+
+
 		if (layer01Info.length > 0) {
 			layerId = layer01Info[0].id;
 		}
@@ -2129,10 +2183,10 @@ OpenMenualPop = function () {
 	var menualWidth, menualHeight;
 	if (Ext.browser.is.IE == true) {
 		menualHeight = 100;
-	}else{
+	} else {
 		menualHeight = 600;
 	}
-	
+
 	Ext.create('Ext.window.Window', {
 		title: '메뉴얼_(내부망)물환경지리정보시스템',
 		height: menualHeight,
@@ -2141,7 +2195,7 @@ OpenMenualPop = function () {
 		cls: 'subWindow-x-form-item-label-default',
 		header: { cls: 'subWindow-x-form-item-label-default' },
 		layout: 'fit',
-		items:[{
+		items: [{
 			xtype: 'component',
 			height: '100%',
 			html: "<iframe src=\"./resources/menual/krf_menual.pdf\" width=\"100%\" height=\"100%\"></iframe>"
@@ -2153,9 +2207,9 @@ OpenMenualPop = function () {
 		Ext.defer(function () {
 			Ext.getCmp('menualWindow').close();
 		}, 3000);
-		
+
 	}
-	
+
 
 }
 
@@ -2164,10 +2218,10 @@ ResetButtonClick = function () {
 
 	// KRAD 레이어 그래픽 및 변수 초기화
 	$KRF_APP.coreMap._krad.clearKradAll();
-	if($KRF_APP.coreMap._krad.checkSubMap()){
+	if ($KRF_APP.coreMap._krad.checkSubMap()) {
 		$KRF_APP.subMap._krad.clearKradAll();
 	}
-	
+
 	SetBtnOnOff("btnMenu04", "off");
 	SetBtnOnOff("btnMenu05", "off");
 
@@ -2291,10 +2345,10 @@ ResetButtonClick = function () {
 	// 항공영상 On/Off
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
-	if(Ext.getCmp("cboDroneLayer") != undefined){
+	if (Ext.getCmp("cboDroneLayer") != undefined) {
 		Ext.getCmp("cboDroneLayer").down("combo").collapse();
 	}
-	
+
 
 	//리치 시작 끝 close 끄기
 	if (Ext.getCmp("reach_close") != undefined) {
@@ -2365,10 +2419,10 @@ Layer01OnOff = function (layerId, onoff) {
 	var node = treeCtl.getStore().getNodeById(layerId);
 
 	var isChecked = false;
-	if(!node){
+	if (!node) {
 		return;
 	}
-	
+
 	if (onoff == "on") {
 		node.set("checked", true);
 	} else if (onoff == "off") {
@@ -2460,7 +2514,7 @@ ResetStEdSiteName = function () {
 
 	textSearchText_Start.setValue("");
 	textSearchText_End.setValue("");
-	
+
 }
 
 var westPreWidth = 0;
@@ -3030,10 +3084,10 @@ metaDataView = function (layerId) {
 	var metaStore = Ext.create('krf_new.store.west.MetaDataStore');
 	metaStore.layerId = layerId;
 	metaStore.load();
-		
+
 }
- 
-miniMapHide = function(){
+
+miniMapHide = function () {
 	//미니맵 EDIT EVENT 끄기
 	$KRF_APP.fireEvent($KRF_EVENT.STOPEDITEVENT);
 	var subMapWindow = Ext.getCmp("subMapWindow");

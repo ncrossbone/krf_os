@@ -1,12 +1,3 @@
-/**
- * @private
- * @class Ext.draw.sprite.AnimationParser
- *
- * Computes an intermidiate value between two values of the same type for use in animations.
- * Can have pre- and post- processor functions if the values need to be processed
- * before an intermidiate value can be computed (parseInitial), or the computed value
- * needs to be processed before it can be used as a valid attribute value (serve).
- */
 Ext.define('Ext.draw.sprite.AnimationParser', function () {
 
     function compute(from, to, delta) {
@@ -168,12 +159,6 @@ Ext.define('Ext.draw.sprite.AnimationParser', function () {
                     t = to[Math.min(i, lt)];
                     if (Ext.isNumber(f)) {
                         if (!Ext.isNumber(t)) {
-                            // This may not give the desired visual result during
-                            // animation (after all, we don't know what the target
-                            // value should be, if it wasn't given to us), but it's
-                            // better than spitting out a bunch of NaNs in the target
-                            // array, when transitioning from a non-empty to an empty
-                            // array.
                             t = 0;
                         }
                         target[i] = (t - f) * delta + f;

@@ -1,6 +1,3 @@
-/**
- * This example shows navigation tabs docked to the side.
- */
 Ext.define('krf_new.view.report.ReportSelectPanel', {
 	extend: 'Ext.panel.Panel',
 	requires: [],

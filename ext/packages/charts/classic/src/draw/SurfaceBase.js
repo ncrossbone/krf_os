@@ -1,7 +1,3 @@
-/**
- * @private
- * @class Ext.draw.SurfaceBase (Classic)
- */
 Ext.define('Ext.draw.SurfaceBase', {
     extend: 'Ext.Widget',
 

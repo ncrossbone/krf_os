@@ -2578,7 +2578,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             Ext.getCmp(key).setHidden(!config[key].isView);
         }
     },
-    
+
     excelDown: function () {
         var originGrid = Ext.getCmp('sstgDetailExtendGrid');
         var config = originGrid.getColumns();
@@ -2602,6 +2602,31 @@ Ext.define("krf_new.global.SstgGridFn", {
         }
 
         $KRF_APP.global.CommFn.excelDown('이력정보', engArr, korArr, datas);
+    },
+
+    setColor: function (dom, data) {
+        //dom.column.dataIndex
+        //dom.style = 'background:#ddd9c3 !important;'
+        var config = {
+            'ji': 'B',
+            'gg': 'B',
+            'pl': 'C'
+        };
+
+        var colorConfig = {
+            'A': '#ddd9c3',
+            'B': '#daeef3',
+            'C': '#c6d9f0',
+            'D': '#eaf1dd'
+        }
+
+        if (config[dom.column.dataIndex]) {
+            var val = data.code > config[dom.column.dataIndex] ? data.code : config[dom.column.dataIndex];
+            dom.style = 'background:' + colorConfig[val] + ' !important;'
+        } else {
+            dom.style = 'background:' + colorConfig[data.code] + ' !important;'
+        }
+
     },
 
     getSstgDetailExtendColumn: function () {

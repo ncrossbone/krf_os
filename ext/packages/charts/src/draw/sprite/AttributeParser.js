@@ -1,12 +1,3 @@
-/**
- * @private
- * @class Ext.draw.sprite.AttributeParser
- *
- * Parsers used for sprite attributes if they are {@link Ext.draw.sprite.AttributeDefinition#normalize normalized}
- * (default) when being {@link Ext.draw.sprite.Sprite#setAttributes set}.
- *
- * Methods of the singleton correpond either to the processor functions themselves or processor factories.
- */
 Ext.define('Ext.draw.sprite.AttributeParser', {
     singleton: true,
     attributeRe: /^url\(#([a-zA-Z\-]+)\)$/,
@@ -22,18 +13,11 @@ Ext.define('Ext.draw.sprite.AttributeParser', {
     },
     
     number: function (n) {
-        // Numbers as strings will be converted to numbers,
-        // null will be converted to 0.
         if (Ext.isNumber(+n)) {
             return n;
         }
     },
 
-    /**
-     * Normalize angle to the [-180,180) interval.
-     * @param n Angle in radians.
-     * @return {Number/undefined} Normalized angle or undefined.
-     */
     angle: function (n) {
         if (Ext.isNumber(n)) {
             n %= Math.PI * 2;
@@ -98,11 +82,6 @@ Ext.define('Ext.draw.sprite.AttributeParser', {
         return Ext.isNumber(n) ? Math.min(Math.max(n, 0), 1) : undefined;
     },
 
-    /**
-     * Generates a function that checks if a value matches
-     * one of the given attributes.
-     * @return {Function}
-     */
     enums: function () {
         var enums = {},
             args = Array.prototype.slice.call(arguments, 0),
