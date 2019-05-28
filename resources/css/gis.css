@@ -1,0 +1,28 @@
+.totalSearchTable {
+	border-collapse: separate;
+	border-spacing:0;
+	border:0 none;
+	width:310px;
+	border-top:2px solid #000;
+	}
+caption, th, td {
+	text-align:left;
+	font-weight: normal;
+}
+
+.totalSearchTable> caption{ visibility:hidden; width: 0; height: 0; overflow: hidden; }
+.totalSearchTable> thead> tr> td { border-bottom:1px solid #2d2d2d; padding:10px 5px; font-family:'dotum'; font-size:12px; color:#2e2e2e; letter-spacing:-1px; font-weight:bold; }
+.totalSearchTable> tbody> tr> td { border-bottom: 1px solid #e5e5e5; padding:10px 3px 5px 3px; font-family:'dotum'; font-size:12px; color:#2e2e2e; letter-spacing:-1px; }
+.totalSearchTable> tbody> tr> td> p { margin-top:5px;}
+.totalSearchTable> tbody> tr> td> span,
+.totalSearchTable> tbody> tr> td> p { font-family:'dotum'; font-size:12px; color:#2e2e2e; letter-spacing:-1px;}
+.totalSearchTable> tbody> tr> td img { vertical-align:super; }
+.totalSearchTable> tbody> tr> td> a { display:block; }
+.totalSearchTable .n2 { color:#027cfb !important; }
+
+.x-boundlist-item{
+    letter-spacing: -1px;
+    font-size:12px !important; 
+    font-family:"dotum" !important;
+}
+

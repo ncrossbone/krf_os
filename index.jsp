@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="./resources/css/drone.css">
 	<link rel="stylesheet" href="./resources/Desktop-all.css">
 
+	<link rel="stylesheet" href="./resources/css/gis.css">
+
 	<!-- <link rel="stylesheet" href="http://js.arcgis.com/3.23/esri/css/esri.css">
 	<link rel="stylesheet" href="http://js.arcgis.com/3.23/dijit/themes/claro/claro.css"> -->
 

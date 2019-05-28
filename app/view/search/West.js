@@ -49,13 +49,15 @@ Ext.define('krf_new.view.search.West', {
 					labelPad: 10,
 					width: 225,
 					editable: false,
-					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }), 
+					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }),
 					displayField: 'layerSetName',
 					valueField: 'layerSetId',
 					listeners: {
 						afterrender: function () {
-							this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
-							$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+							if ($KRF_APP.USER_LAYERS) {
+								this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
+								$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+							}
 						},
 						change: function (combo, newValue, oldValue, eOpts) {
 							var selectedRecord = combo.getSelectedRecord();

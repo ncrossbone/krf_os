@@ -16,10 +16,66 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 			}
 		}
 	},
+
+	writeList: function (result) {
+		var layerCodeObj = {};
+		var feature = result.features;
+
+		for (var i = 0; i < feature.length; i++) {
+			if (!layerCodeObj[feature[i].attributes.GROUP_CODE]) {
+				layerCodeObj[feature[i].attributes.GROUP_CODE] = { title: feature[i].attributes.GROUP_NM, child: [] };
+			}
+
+			layerCodeObj[feature[i].attributes.GROUP_CODE].child.push(feature[i].attributes);
+		}
+
+		var html = '';
+		var resultHtml = '';
+
+		for (key in layerCodeObj) {
+			resultHtml = '';
+			resultHtml += '<table class="totalSearchTable">';
+			resultHtml += '<colgroup>';
+			resultHtml += '	<col style="width:5%"/>';
+			resultHtml += '	<col style=""/>';
+			resultHtml += '	<col style="width:5%"/>';
+			resultHtml += '	<col style="width:5%"/>';
+			resultHtml += '	<col style="width:5%"/>';
+			resultHtml += '</colgroup>';
+			resultHtml += '<thead>';
+			resultHtml += '		<tr>';
+			resultHtml += '			<td colspan="5">' + layerCodeObj[key].title + '(' + layerCodeObj[key].child.length + '건)</td>';
+			resultHtml += '		</tr>';
+			resultHtml += '</thead>';
+
+			resultHtml += '<tbody>';
+			for (var i = 0; i < layerCodeObj[key].child.length; i++) {
+				resultHtml += '<tr>';
+				resultHtml += '	<td><img src="./resources/images/totalSearch/A.png" alt="a"/></td>';
+				resultHtml += ' <td>';
+				resultHtml += ' 	<span>' + layerCodeObj[key].child[i].JIJUM_NM + '</span>';
+				resultHtml += ' 	<span class="n2">[' + layerCodeObj[key].child[i].LAYER_NM + ']</span>';
+				resultHtml += ' 	<p>' + layerCodeObj[key].child[i].ADDR + '</p>';
+				resultHtml += '	</td>';
+				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + result.features[i].attributes.LAYER_CODE + '\',\'' + result.features[i].attributes.JIJUM_CODE + '\',\'start\');" ><img src="./resources/images/totalSearch/Btn_S.png" alt="시작점"/></a></td>';
+				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + result.features[i].attributes.LAYER_CODE + '\',\'' + result.features[i].attributes.JIJUM_CODE + '\',\'end\');" ><img src="./resources/images/totalSearch/Btn_E.png" alt="끝점"/></a></td>';
+				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + result.features[i].attributes.LAYER_CODE + '\',\'' + result.features[i].attributes.JIJUM_CODE + '\',\'addrLink\');" > <img src="./resources/images/totalSearch/Btn_Search.png" alt="자세히" /></a ></td > ';
+				resultHtml += '</tr>';
+			}
+			resultHtml += '</tbody>';
+			resultHtml += '</table>';
+
+			html += resultHtml;
+		}
+
+		var listCtl = Ext.getCmp('searchAreaList_Integrated');
+		listCtl.setHtml(html);
+	},
 	onTextSearch: function (button, eOpts, bookmark) {
 
 		//통합검색시 reset 20190523
 		//ResetButtonClick();
+		var me = this;
 
 		var btnCtl = null;
 		var btn = Ext.getCmp("btnSearchText");
@@ -27,7 +83,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		var searchText = Ext.getCmp("textSearchText");
 
 		var treeResach = Ext.getCmp("siteListTree");
-		
+
 		if (treeResach != undefined) {
 			var store = treeResach.getStore();
 			store.nameInfo = btn.rawValue;
@@ -57,8 +113,8 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		// Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
 
 		// 리치모드 ON
-		$KRF_APP.fireEvent($KRF_EVENT.REACH_MODE_ON,undefined, {
-			id:'btnModeReach'
+		$KRF_APP.fireEvent($KRF_EVENT.REACH_MODE_ON, undefined, {
+			id: 'btnModeReach'
 		});
 
 
@@ -69,13 +125,15 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 
 		var where = "JIJUM_NM like '" + searchText.getValue() + "%' ";
 
-		if($KRF_APP.LAYER_SETTING.length > 0){
-			$KRF_APP.LAYER_SETTING.map(function(obj){
-				if(obj.LYR_USE_AT != "Y"){
-					where += "AND LAYER_CODE <> '"+obj.LYR_CODE+"'";
-				}		
+		if ($KRF_APP.LAYER_SETTING.length > 0) {
+			$KRF_APP.LAYER_SETTING.map(function (obj) {
+				if (obj.LYR_USE_AT != "Y") {
+					where += "AND LAYER_CODE <> '" + obj.LYR_CODE + "'";
+				}
 			})
 		}
+
+
 
 		query.where = where;
 		query.orderByFields = ["GROUP_CODE ASC"];
@@ -83,6 +141,8 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		//외부망 where 조건
 		//query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 		queryTask.execute(query, function (result) {
+			me.writeList(result);
+			return;
 			Ext.each(result, function (objLayer, idx, objLayers) {
 
 				var guBunNm = "";
@@ -156,23 +216,23 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 								xtype: 'label',
 								cls: 'dj_result_info',
 								style: 'left: 13px !important;',
-								html: 
-								"	<table>	"+											
-								//"        <caption>통합검색</caption> "+
-								"        <tbody> "+
-								"            <tr> "+
-								//"                <td><img src=\"img/table/A.png\" alt=\"a\"/></td> "+
-								"                <td class=\"mgl10\"> "+
-								"                	<span class=\"n1\"><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.JIJUM_NM + "</span></a></span> "+
-								"                    <span class=\"n2\">["+result.features[i].attributes.GROUP_NM+"]</span> "+
-								"                    <p><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.ADDR + "</span></a></p> "+
-								"                </td> "+
-								"                <td><a href=\"#none\"><img src=\"./resources/images/symbol/spot01.png\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'start' );\" alt=\"시작점\"/></a></td> "+
-								"                <td><a href=\"#none\"><img src=\"./resources/images/symbol/spot03.png\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'end' );\" alt=\"끝점\"/></a></td> "+
-								"                <td><a href=\"#none\"><img src=\"img/table/Btn_Search.png\" alt=\"자세히\"/></a></td> "+
-								"            </tr> "+
-								"        </tbody> "+
-								"    </table> "
+								html:
+									"	<table>	" +
+									//"        <caption>통합검색</caption> "+
+									"        <tbody> " +
+									"            <tr> " +
+									//"                <td><img src=\"img/table/A.png\" alt=\"a\"/></td> "+
+									"                <td class=\"mgl10\"> " +
+									"                	<span class=\"n1\"><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.JIJUM_NM + "</span></a></span> " +
+									"                    <span class=\"n2\">[" + result.features[i].attributes.GROUP_NM + "]</span> " +
+									"                    <p><a href=\"#\" onClick=\"siteMovePoint('" + result.features[i].attributes.LAYER_CODE + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'addrLink');\" ><span>" + result.features[i].attributes.ADDR + "</span></a></p> " +
+									"                </td> " +
+									"                <td><a href=\"#none\"><img src=\"./resources/images/symbol/spot01.png\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'start' );\" alt=\"시작점\"/></a></td> " +
+									"                <td><a href=\"#none\"><img src=\"./resources/images/symbol/spot03.png\" onClick=\"siteMovePoint('" + layerCode + "','" + result.features[i].attributes.JIJUM_CODE + "' , 'end' );\" alt=\"끝점\"/></a></td> " +
+									"                <td><a href=\"#none\"><img src=\"img/table/Btn_Search.png\" alt=\"자세히\"/></a></td> " +
+									"            </tr> " +
+									"        </tbody> " +
+									"    </table> "
 
 								// html: 		/*"<input type=\"hidden\" value=\"\">&nbsp;&nbsp; <a href=\"#\" onClick=\"alert('dd')\">지점명 :"+result.features[i].attributes.JIJUM_NM+"</a> " +*/
 								// 	"<table class=\"dj_result\" border=\"0\" >										" +

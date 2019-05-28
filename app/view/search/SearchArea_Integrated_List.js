@@ -10,7 +10,8 @@ Ext.define('krf_new.view.search.SearchArea_Integrated_List', {
 	// layout: {
 	// 	type: 'accordion'
 	// },
-
+	height:210,
+	autoScroll:true,
 	listeners: {
 
 		resize: function () {
