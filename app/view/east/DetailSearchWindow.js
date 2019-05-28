@@ -319,6 +319,25 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         width: 371,
         listeners: {
             render: function (c) {
+                var cssObj = {
+                    'background': 'url("./resources/images/totalSearch/#num#")', 'border': 'none', 'background-size': '100%'
+                };
+
+                var config = {
+                    'Move to Top': '2.gif',
+                    'Move Up': '1.gif',
+                    'Add to Selected': '5.gif',
+                    'Remove from Selected': '6.gif',
+                    'Move Down': '3.gif',
+                    'Move to Bottom': '4.gif'
+                };
+
+                for (key in config) {
+                    cssObj.background = cssObj.background.replace('#num#', config[key]);
+                    $('a[aria-label="' + key + '"]').css(cssObj);
+                    cssObj.background = cssObj.background.replace(config[key], '#num#');
+                }
+
                 c.getEl().on('click', function () {
                     var referenceList = Ext.getCmp('referenceList');
                     var referenceListTitle = Ext.getCmp('referenceListTitle');
@@ -380,6 +399,20 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
             render: function (c) {
                 c.getEl().on('click', function () {
 
+                    var totalSearchDetailWindow = Ext.getCmp('totalSearchDetailWindow');
+
+                    if (!totalSearchDetailWindow) {
+                        totalSearchDetailWindow = Ext.create('krf_new.view.center.TotalSearchDetailWindow');
+                        Ext.getCmp('center_container').add(totalSearchDetailWindow);
+                    }
+
+                    totalSearchDetailWindow.show();
+
+                    var store = Ext.create('krf_new.store.center.TotalSearchTree');
+                    store.load();
+
+                    Ext.getCmp('totalSearchTree').setStore(store);
+                    return;
                     var meter = Number(Ext.getCmp('detailRadiusValue').value);
                     var detailSearchStartDate = Ext.getCmp('detail_startYear').value + Ext.getCmp('detail_startMonth').value;
                     var detailSearchEndDate = Ext.getCmp('detail_endYear').value + Ext.getCmp('detail_endMonth').value;

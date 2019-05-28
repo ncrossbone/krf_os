@@ -51,7 +51,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 			resultHtml += '<tbody>';
 			for (var i = 0; i < layerCodeObj[key].child.length; i++) {
 				resultHtml += '<tr>';
-				resultHtml += '	<td><img src="./resources/images/totalSearch/A.png" alt="a"/></td>';
+				resultHtml += '	<td><img src="./resources/images/totalSearch/point.png" alt="a"/></td>';
 				resultHtml += ' <td>';
 				resultHtml += ' 	<span>' + layerCodeObj[key].child[i].JIJUM_NM + '</span>';
 				resultHtml += ' 	<span class="n2">[' + layerCodeObj[key].child[i].LAYER_NM + ']</span>';
