@@ -109,6 +109,17 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectYear2 = m_EndYear.lastValue;
 					selectMonth = m_SelectMonth.lastValue + m_SelectDay.value;
 					selectMonth2 = m_EndMonth.lastValue + m_EndDay.lastValue;
+				} else if (store.parentId == 'L') {
+					var l_SelectYear = Ext.getCmp('l_SelectYear');
+					var l_SelectMonth = Ext.getCmp('l_SelectMonth');
+
+					var l_EndYear = Ext.getCmp("l_EndYear");
+					var l_EndMonth = Ext.getCmp("l_EndMonth");
+
+					selectYear = l_SelectYear.lastValue;
+					selectYear2 = l_EndYear.lastValue;
+					selectMonth = l_SelectMonth.lastValue;
+					selectMonth2 = l_EndMonth.lastValue;
 				} else {
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
@@ -135,12 +146,14 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				recordId = store.siteCD;
 			}
 
-			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I") {
+			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L") {
 				if(store.parentId == "A"){
 					//requestUrl = _API['GetRWMDT_2018_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";	
 					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_A'
 				}else if(store.parentId == "B"){
 					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_B'
+				}else if(store.parentId == "L"){
+					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_L'
 				}else{
 					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 				}
