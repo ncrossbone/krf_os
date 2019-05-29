@@ -61,10 +61,10 @@ Ext.define('krf_new.global.SedimentFn', {
 				}
 
 				me.bindStore('sedimentYear', dataArr, data[0].WMYR.split('.')[0]);
-				me.bindStore('sedimentHalf', [{ id: '1', name: '상반기' }, { id: '2', name: '하반기' }], data[0].WMYR.split('.')[1]);
+				me.bindStore('sedimentHalf', [{ id: 'H01', name: '상반기' }, { id: 'H02', name: '하반기' }], data[0].WMYR.split('.')[1]);
 
 				var itemArr = [
-					{ id: 'ITEM_PCA_CLASS', name: '완전연소가능량' },
+					{ id: '1683', name: '완전연소가능량' },
 					{ id: 'ITEM_TN_CLASS', name: '총질소' },
 					{ id: 'ITEM_TP_CLASS', name: '총인' },
 					{ id: 'ITEM_CU_CLASS', name: '구리' },
