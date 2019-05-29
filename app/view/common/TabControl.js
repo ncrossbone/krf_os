@@ -23,7 +23,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		},
 		height: 30,
 		items: [{
-			xtype: 'container',
+			xtype: 'container', 
 			id: 'resultTab',
 			layout: {
 				type: 'hbox',
@@ -457,6 +457,83 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
+		},{
+			
+			xtype: 'container',
+			id: 'l_resultTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'l_StartYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'l_StartMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: "label",
+				text: " ~ "
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'l_EndYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'l_EndMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: "label",
+				text: "일"
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'image',
+				src: './resources/images/button/icon_seah.gif', //검색
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.TabFn.goSearch();
+						}
+					}
+				}
+			}]
+		
 		}, {
 			xtype: 'container',
 			width: 10
@@ -665,7 +742,9 @@ Ext.define('krf_new.view.common.TabControl', {
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
-				// 그리드별 조회조건 컨트롤 셋팅
+
+					
+					// 그리드별 조회조건 컨트롤 셋팅
 				Ext.getCmp('m_resultTab').setHidden(true);
 				$KRF_APP.global.TabFn.searchConditionCtl(tab.down("grid"));
 
@@ -683,20 +762,23 @@ Ext.define('krf_new.view.common.TabControl', {
 				var cmbStartBan = Ext.getCmp("cmbStartBan");
 				var cmbEndBan = Ext.getCmp("cmbEndBan");
 
+
+				var tabStore = tab.items.items[0].items.items[0].items.items[0].store;
+
 				if (tab.id == "grid_B001_container" || tab.idCheck == "B001") {
 					b001.setHidden(false);
 					startDayTime.setHidden(false);
 					endDayTime.setHidden(false);
 
-					cmbStartYear.setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
-					cmbStartMonth.setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
-					Ext.getCmp("startDay").setValue(tab.items.items[0].items.items[0].items.items[0].store.startDay);
-					Ext.getCmp("startTime").setValue(tab.items.items[0].items.items[0].items.items[0].store.startTime);
+					cmbStartYear.setValue(tabStore.startYear);
+					cmbStartMonth.setValue(tabStore.startMonth);
+					Ext.getCmp("startDay").setValue(tabStore.startDay);
+					Ext.getCmp("startTime").setValue(tabStore.startTime);
 
-					cmbEndYear.setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
-					cmbEndMonth.setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
-					Ext.getCmp("endDay").setValue(tab.items.items[0].items.items[0].items.items[0].store.endDay);
-					Ext.getCmp("endTime").setValue(tab.items.items[0].items.items[0].items.items[0].store.endTime);
+					cmbEndYear.setValue(tabStore.endYear);
+					cmbEndMonth.setValue(tabStore.endMonth);
+					Ext.getCmp("endDay").setValue(tabStore.endDay);
+					Ext.getCmp("endTime").setValue(tabStore.endTime);
 
 				} else {
 					var hstartDay = Ext.getCmp('hStartDayPanel');
@@ -713,58 +795,72 @@ Ext.define('krf_new.view.common.TabControl', {
 					endDayTime.setHidden(true);
 				}
 
+				
+				// 검색별 TAB 검색조건 변경 및 날짜 binding
 				if (tab.parentId != "F") {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					var store = ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
 					if (tab.parentId == "D" || tab.parentId == "B") {
-						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
+						if (tabStore.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartMonth").setValue("01");
 							Ext.getCmp("cmbEndYear").setValue("2017");
 							Ext.getCmp("cmbEndMonth").setValue("04");
 						} else {
-							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
-							Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
-							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
-							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+							Ext.getCmp("cmbStartYear").setValue(tabStore.startYear);
+							Ext.getCmp("cmbStartMonth").setValue(tabStore.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tabStore.endYear);
+							Ext.getCmp("cmbEndMonth").setValue(tabStore.endMonth);
 						}
 					} else if (tab.parentId == "C") {
-						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
+						if (tabStore.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartBan").setValue("상");
 							Ext.getCmp("cmbEndYear").setValue("2017");
 							Ext.getCmp("cmbEndBan").setValue("하");
 						} else {
-							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
-							Ext.getCmp("cmbStartBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
-							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
-							Ext.getCmp("cmbEndBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+							Ext.getCmp("cmbStartYear").setValue(tabStore.startYear);
+							Ext.getCmp("cmbStartBan").setValue(tabStore.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tabStore.endYear);
+							Ext.getCmp("cmbEndBan").setValue(tabStore.endMonth);
 						}
 					} else if (tab.parentId == "E") {
-						if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
+						if (tabStore.data.length == 0) {
 							Ext.getCmp("sstgCombo").setValue(1)
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartBan").setValue("상");
 							Ext.getCmp("cmbEndYear").setValue("2017");
 							Ext.getCmp("cmbEndBan").setValue("하");
 						} else {
-							Ext.getCmp("sstgCombo").setValue(tab.items.items[0].items.items[0].items.items[0].store.combo);
-							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
-							Ext.getCmp("cmbStartBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
-							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
-							Ext.getCmp("cmbEndBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+							Ext.getCmp("sstgCombo").setValue(tabStore.combo);
+							Ext.getCmp("cmbStartYear").setValue(tabStore.startYear);
+							Ext.getCmp("cmbStartBan").setValue(tabStore.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tabStore.endYear);
+							Ext.getCmp("cmbEndBan").setValue(tabStore.endMonth);
+						}
+					} else if (tab.parentId == "L") {
+						if (tabStore.data.length == 0) {
+							Ext.getCmp("l_StartYear").setValue("2017");
+							Ext.getCmp("l_StartMonth").setValue("10");
+							Ext.getCmp("l_EndYear").setValue("2017");
+							Ext.getCmp("l_EndMonth").setValue("12");
+						} else {
+							Ext.getCmp("l_StartYear").setValue(tabStore.startYear);
+							Ext.getCmp("l_StartMonth").setValue(tabStore.startMonth);
+							Ext.getCmp("l_EndYear").setValue(tabStore.endYear);
+							Ext.getCmp("l_EndMonth").setValue(tabStore.endMonth);
 						}
 					} else {
-						if (tab.items.items[0].items.items[0].store.data.length == 0) {
+						if (tabStore.data.length == 0) {
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartMonth").setValue("01");
 							Ext.getCmp("cmbEndYear").setValue("2017");
 							Ext.getCmp("cmbEndMonth").setValue("04");
 						} else {
-							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].store.startYear);
-							Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].store.startMonth);
-							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].store.endYear);
-							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].store.endMonth);
+							Ext.getCmp("cmbStartYear").setValue(tabStore.startYear);
+							Ext.getCmp("cmbStartMonth").setValue(tabStore.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tabStore.endYear);
+							Ext.getCmp("cmbEndMonth").setValue(tabStore.endMonth);
 						}
 					}
 
@@ -779,17 +875,17 @@ Ext.define('krf_new.view.common.TabControl', {
 
 					cmbStartYear.setStore(store);
 					cmbEndYear.setStore(store);
-					if (tab.items.items[0].items.items[0].items.items[0].store.data.length == 0) {
+					if (tabStore.data.length == 0) {
 						Ext.getCmp("cmbStartYear").setValue("2013");
 						Ext.getCmp("cmbStartMonth").setValue("01");
 						Ext.getCmp("cmbEndYear").setValue("2013");
 						Ext.getCmp("cmbEndMonth").setValue("12");
 					} else {
-						Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
-						Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
-						Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
-						Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
-						Ext.getCmp("F_CHANGE").setRawValue(tab.items.items[0].items.items[0].items.items[0].store.gubunNm);
+						Ext.getCmp("cmbStartYear").setValue(tabStore.startYear);
+						Ext.getCmp("cmbStartMonth").setValue(tabStore.startMonth);
+						Ext.getCmp("cmbEndYear").setValue(tabStore.endYear);
+						Ext.getCmp("cmbEndMonth").setValue(tabStore.endMonth);
+						Ext.getCmp("F_CHANGE").setRawValue(tabStore.gubunNm);
 					}
 
 					hiddenGrid.setHidden(false);
@@ -898,10 +994,26 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 
-				if (tab.parentId == 'M') {
+
+
+				if (tab.parentId == 'M' || tab.parentId == 'L') {
 					Ext.getCmp('resultTab').setHidden(true);
-					Ext.getCmp('m_resultTab').setHidden(false);
+					if(tab.parentId == 'M'){
+						Ext.getCmp('l_resultTab').setHidden(true);
+						Ext.getCmp('m_resultTab').setHidden(false);
+					}else if(tab.parentId == 'L'){
+						Ext.getCmp('l_resultTab').setHidden(false);
+						Ext.getCmp('m_resultTab').setHidden(true);
+					}
+					
+				}else{
+					Ext.getCmp('resultTab').setHidden(false);
+					Ext.getCmp('l_resultTab').setHidden(true);
+					Ext.getCmp('m_resultTab').setHidden(true);
 				}
+				
+
+				
 			}
 		}
 	}, {
@@ -1105,4 +1217,5 @@ Ext.define('krf_new.view.common.TabControl', {
 			}
 		}
 	}]
+
 });

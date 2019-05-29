@@ -408,6 +408,8 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			} else if ($KRF_APP.layerCode == 'M002') {
 				yFieldName = 'BOD_VALUE';
 			}
+		} else if (parentId == 'L') {
+			yFieldName = 'BOD';
 		}
 
 
@@ -1048,7 +1050,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 
 
-	if (parentCheck == "A") {
+	if (parentCheck == "A") { //수질측정지점
 
 		//환경기초시설 검색값 히든처리
 		if (grdContainer == null || grdContainer == undefined) {
@@ -1078,10 +1080,10 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		//grdCtl.getView().bindStore(gridStore);
 		grdCtl.setStore(gridStore);
 
-	} else if (parentCheck == 'M') {
+	} else if (parentCheck == 'M') { //비점오염원
 
 		if (grdContainer == null || grdContainer == undefined) {
-			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + pId, options);
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_L', options);
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(gridId + '_container');
@@ -1096,6 +1098,31 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		}
 
 		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + pId, {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
+		});
+
+		grdCtl.setStore(gridStore);
+
+	} else if (parentCheck == 'L') { //한기조
+
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_L', options);
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + '_container');
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+
+		if (siteIds != '') {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != '') {
+			grdCtl.parentIds = parentIds;
+		}
+
+		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_L', {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
 			gridCtl: grdCtl
