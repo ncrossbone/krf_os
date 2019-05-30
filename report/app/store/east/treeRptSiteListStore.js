@@ -21,7 +21,7 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 			require(["esri/tasks/QueryTask"],
 				function (QueryTask) {
 
-					var queryTask = new esri.tasks.QueryTask(parentObj.$KRF_DEFINE.reachServiceUrl_v3 + '/' + parentObj.$KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+					var queryTask = new esri.tasks.QueryTask(parentObj.$KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 					var query = new esri.tasks.Query();
 
 

@@ -119,7 +119,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 
 
 		// 통합검색 로직 2019-04-03 pdj 리치모드 명칭검색 참조
-		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
 

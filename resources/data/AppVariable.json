@@ -1,6 +1,9 @@
 [{
 	"reachServiceUrl" : "http://112.217.167.123:40002/arcgis/rest/services/reach/MapServer", // 리치 서비스 v2
-	"reachServiceUrl_v3" : "http://112.217.167.123:40002/arcgis/rest/services/reach_V3/MapServer", // 리치 서비스 v3
+	"reachServiceUrl_v3" : "http://112.217.167.123:40002/arcgis/rest/services/reach_V3_NEW/MapServer", // 리치 서비스 v3
+
+	"catSearchUrl" : "http://112.217.167.123:40002/arcgis/rest/services/Cat_Search/MapServer/0", // 캣서치 서비스
+
 	"reachServiceUrl_v3_TM" : "http://112.217.167.123:40002/arcgis/rest/services/reach_V3_TM/MapServer", // 
 	"reachServiceUrl_v3_2" : "http://112.217.167.123:40002/arcgis/rest/services/reach_V3_2/MapServer", // 리치 서비스 v3 (투명도적용)
 	"reachServiceUrl_bak" : "http://112.217.167.123:40002/arcgis/rest/services/reach/MapServer", // 리치 서비스
@@ -27,28 +30,36 @@
 	"sRiverCat" : "2",   //소하천 집수구역
 	"pullWater" : "http://112.217.167.123:40002/arcgis/rest/services/pullWater/MapServer",   //생활안전
 
-    "StreamSectionLayerId" : "54", // 하천단면 레이어 아이디
-    "StreamNetworkLayerId" : "55", // 하천망도 레이어 아이디
-    "reachFlowLayerId" : "56", // 리치흐름 레이어 아이디
-    "reachNodeLayerId" : "57", // 리치노드 레이어 아이디
-    "reachLineLayerId" : "58", // 리치라인 레이어 아이디
-    "reachAreaLayerId" : "59", // 집수구역 레이어 아이디
-	"areaWSLayerId" : "65", // 대권역 레이어 아이디
-    "areaAMLayerId" : "66", // 중권역 레이어 아이디
-    "areaASLayerId" : "67", // 소권역 레이어 아이디
-	"admSidoLayerId" : "69", // 시/도 레이어 아이디
-    "admSigunguLayerId" : "70", // 시/군/구 레이어 아이디
-    "admDongLayerId" : "71", // 읍/면/동 레이어 아이디
-    "admRiLayerId" : "72", // 리 레이어 아이디
-    "toLegend" : "73", // 식생도 레이어 아이디
-    "sicLegend" : "76", // 토지피복도 레이어 아이디
-	"LakeLayerId" : "76", // 토지피복도 레이어 아이디
-	"metaId": "97", // 메타데이터 레이어 아이디
+    "StreamSectionLayerId" : "77", // 하천단면 레이어 아이디
+	"StreamNetworkLayerId" : "78", // 하천망도 레이어 아이디
+	
+    "reachFlowLayerId" : "79", // 리치흐름 레이어 아이디
+    "reachNodeLayerId" : "80", // 리치노드 레이어 아이디
+    "reachLineLayerId" : "81", // 리치라인 레이어 아이디
+	"reachAreaLayerId" : "82", // 집수구역 레이어 아이디
+	
+	"areaWSLayerId" : "88", // 대권역 레이어 아이디
+    "areaAMLayerId" : "89", // 중권역 레이어 아이디
+	"areaASLayerId" : "90", // 소권역 레이어 아이디
+	
+	"admSidoLayerId" : "92", // 시/도 레이어 아이디
+    "admSigunguLayerId" : "93", // 시/군/구 레이어 아이디
+    "admDongLayerId" : "94", // 읍/면/동 레이어 아이디
+	"admRiLayerId" : "95", // 리 레이어 아이디
+	
+	"toLegend" : "96", // 식생도 레이어 아이디
+	
+    "sicLegend" : "99", // 토지피복도 레이어 아이디
+	"LakeLayerId" : "99", // 토지피복도 레이어 아이디
+
+	"metaId": "115", // 메타데이터 레이어 아이디
 
 	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
 	"kradCatExtMetaData" : "23", // KRAD METADATA
 	"kradCatExtDataInfo" : "27", // KRAD DATA_INFO
+
 	"siteInfoLayerId" : "96", // 레이어별 지점정보 레이어 아이디
+
 	"arcServiceUrl":"http://112.217.167.123:40002/arcgis",
 	"MapserviceUrl1" : "http://112.217.167.123:40002/arcgis/rest/services/drone_dev/MapServer",
 	"MapserviceUrlChlo" : "http://112.217.167.123:40002/arcgis/rest/services/Chlorophyll_a/MapServer",
