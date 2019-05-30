@@ -745,36 +745,36 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		var treeNameList = [];
 		var siteListTreeStore = Ext.getCmp('siteListTree').getStore();
 		
-		var layerList = [{'A001':"수질측정지점-하천"}
-						,{'A002':'수질측정지점-호소'}
-						,{'C001':'퇴적물-하천'}
-						,{'C002':'퇴적물-호소'}
-						,{'D001':'기타측정지점-수위'}
-						,{'D003':'기타측정지점-유량'}
-						,{'D005':'기타측정지점-기상(지상기상관측소)'}
-						,{'D006':'기타측정지점-기상(AWS기상관측소)'}
-						,{'F001':'환경기초시설-농공단지처리시설'}
-						,{'F002':'환경기초시설-기타공동처리시설'}
-						,{'F003':'환경기초시설-분뇨처리시설'}
-						,{'F004':'환경기초시설-산업폐수종말처리시설'}
-						,{'F006':'환경기초시설-축산폐수종말처리시설'}
-						,{'F007':'환경기초시설-마을하수도'}
-						,{'F007':'환경기초시설-하수종말처리시설'}
+		var layerList = [['A001',"수질측정지점-하천"]
+						,['A002','수질측정지점-호소']
+						,['C001','퇴적물-하천']
+						,['C002','퇴적물-호소']
+						,['D001','기타측정지점-수위']
+						,['D003','기타측정지점-유량']
+						,['D005','기타측정지점-기상(지상기상관측소)']
+						,['D006','기타측정지점-기상(AWS기상관측소)']
+						,['F001','환경기초시설-농공단지처리시설']
+						,['F002','환경기초시설-기타공동처리시설']
+						,['F003','환경기초시설-분뇨처리시설']
+						,['F004','환경기초시설-산업폐수종말처리시설']
+						,['F006','환경기초시설-축산폐수종말처리시설']
+						,['F007','환경기초시설-마을하수도']
+						,['F007','환경기초시설-하수종말처리시설']
 						];
 
-		if(siteListTreeStore.root){
-			for(var i = 0 ; i < siteListTreeStore.root.childNodes.length; i++){
-				if(siteListTreeStore.root.childNodes[i].childNodes.length > 0){
-					for(var j = 0 ; j < siteListTreeStore.root.childNodes[i].childNodes.length; j++){
-						treeNameList.push([siteListTreeStore.root.childNodes[i].childNodes[j].data.id,
-							siteListTreeStore.root.childNodes[i].data.text.split('(')[0]+'-'+siteListTreeStore.root.childNodes[i].childNodes[j].data.text.split('(')[0]]
-						)
-					}
-				}
-			}
-		}
+		// if(siteListTreeStore.root){
+		// 	for(var i = 0 ; i < siteListTreeStore.root.childNodes.length; i++){
+		// 		if(siteListTreeStore.root.childNodes[i].childNodes.length > 0){
+		// 			for(var j = 0 ; j < siteListTreeStore.root.childNodes[i].childNodes.length; j++){
+		// 				treeNameList.push([siteListTreeStore.root.childNodes[i].childNodes[j].data.id,
+		// 					siteListTreeStore.root.childNodes[i].data.text.split('(')[0]+'-'+siteListTreeStore.root.childNodes[i].childNodes[j].data.text.split('(')[0]]
+		// 				)
+		// 			}
+		// 		}
+		// 	}
+		// }
 		console.info(layerList)
-		console.info(treeNameList);
+		//console.info(treeNameList);
 
 		var store = Ext.create('Ext.data.Store', {
 			fields: ['value', 'text'],

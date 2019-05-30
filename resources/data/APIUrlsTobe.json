@@ -123,10 +123,11 @@
     "deleteDroneLayer":"#host_old#/config/deleteDroneLayer",
     "insertDroneLayer":"#host_old#/config/insertDroneLayer",
     "testDroneLayer":"#host_old#/config/testDroneLayer",
-    "getUserLayerInfo":"#host_old#/config/getUserLayerInfo",
+    
     
 
     /*신규DB*/
+    "getUserLayerInfo":"#host#/config/getUserLayerInfo",
     "loginSession":"#host#/config/loginSession",
     "getSedimentItemValue":"#host#/searchResult/getSedimentItemValue",
     "GetRWMDT_M":"#host#/chart/getRWMDT_M",

@@ -296,7 +296,7 @@
 		"isMetaData": true
 	}]
 },{
-	"id": "50",
+	"id": "56",
 	"text": "비점오염원",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -304,16 +304,16 @@
 	"expanded": true,
 	"layerCode": "M",
 	"children": [{
-		"id": "51",
+		"id": "57",
 		"wmsId":"",
 		"text": "비점오염원",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layerP1",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "측정소코드",
-		"siteAddrCol": "채수지점",
-		"siteNmCol": "측정소명",
+		"siteIdCol": "지점명",
+		"siteAddrCol": "주소",
+		"siteNmCol": "지점명",
 		"layerCode": "M001",
 		"isMetaData": false
 	}]
