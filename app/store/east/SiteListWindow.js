@@ -55,7 +55,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			//var catDid = [];
 			//var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
 
-			var queryTask = new esri.tasks.QueryTask('http://112.217.167.123:40002/arcgis/rest/services/CatSearch_TEST/MapServer/3'); // 레이어 URL v3
+			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
@@ -218,7 +218,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							filterArr.push('M002' + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
 
 							feature.attributes.LAYER_NM = '자동측정';
-							
+
 							var cloneAttr = $KRF_APP.global.CommFn.cloneObj(feature.attributes);
 							cloneAttr.LAYER_NM = '수동측정';
 							cloneAttr.LAYER_CODE = 'M002';
@@ -615,7 +615,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 		var siteIds = [];
 
-		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 		var query = new esri.tasks.Query();
 
 		query.where = queryWhere;
