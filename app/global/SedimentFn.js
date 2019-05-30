@@ -61,23 +61,23 @@ Ext.define('krf_new.global.SedimentFn', {
 				}
 
 				me.bindStore('sedimentYear', dataArr, data[0].WMYR.split('.')[0]);
-				me.bindStore('sedimentHalf', [{ id: 'H01', name: '상반기' }, { id: 'H02', name: '하반기' }], data[0].WMYR.split('.')[1]);
+				me.bindStore('sedimentHalf', [{ id: 'H01', name: '상반기' }, { id: 'H02', name: '하반기' }], 'H0' + data[0].WMYR.split('.')[1]);
 
 				var itemArr = [
 					{ id: '1683', name: '완전연소가능량' },
-					{ id: 'ITEM_TN_CLASS', name: '총질소' },
-					{ id: 'ITEM_TP_CLASS', name: '총인' },
-					{ id: 'ITEM_CU_CLASS', name: '구리' },
-					{ id: 'ITEM_PB_CLASS', name: '납' },
-					{ id: 'ITEM_NI_CLASS', name: '니켈' },
-					{ id: 'ITEM_AS_CLASS', name: '비소' },
-					{ id: 'ITEM_HG_CLASS', name: '수은' },
-					{ id: 'ITEM_ZN_CLASS', name: '아연' },
-					{ id: 'ITEM_CD_CLASS', name: '카드뮴' },
-					{ id: 'ITEM_CR_CLASS', name: '크롬' }
+					{ id: '1055', name: '총질소' },
+					{ id: '1056', name: '총인' },
+					{ id: '1061', name: '구리' },
+					{ id: '1005', name: '납' },
+					{ id: '1095', name: '니켈' },
+					{ id: '1007', name: '비소' },
+					{ id: '1009', name: '수은' },
+					{ id: '1040', name: '아연' },
+					{ id: '1014', name: '카드뮴' },
+					{ id: '1057', name: '크롬' }
 				];
 
-				me.bindStore('sedimentItem', itemArr, 'ITEM_PCA_CLASS');
+				me.bindStore('sedimentItem', itemArr, '1683');
 
 				me.getData();
 			}
@@ -127,12 +127,14 @@ Ext.define('krf_new.global.SedimentFn', {
 				me.graphicsLayer = new GraphicsLayer();
 
 				for (var i = 0; i < data.length; i++) {
+					var imgObj = { 'Ⅰ': '1', 'Ⅱ': '2', 'Ⅲ': '3', 'Ⅳ': '4', 'Ⅳ등급 이내': '4' };
 
+					var imgStr = imgObj[data[i].flag] ? imgObj[data[i].flag] : '1';
 					var symbol = new PictureMarkerSymbol({
 						'angle': 0,
 						'yoffset': 0,
 						'type': 'esriPMS',
-						'url': './resources/images/sediment/' + data[i].flag + '.png',
+						'url': './resources/images/sediment/' + imgStr + '.png',
 						'contentType': 'image/png',
 						'width': 39,
 						'height': 39
