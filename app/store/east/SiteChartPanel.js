@@ -149,11 +149,14 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L") {
 				if(store.parentId == "A"){
 					//requestUrl = _API['GetRWMDT_2018_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";	
-					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_A'
+					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_A'
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				}else if(store.parentId == "B"){
-					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_B'
+					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_B'
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				}else if(store.parentId == "L"){
-					requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_L'
+					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_L'
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				}else{
 					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 				}
@@ -166,7 +169,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if (store.parentId == 'M') {
 				//requestUrl = _API['GetRWMDT_' + store.parentId];
-				requestUrl = 'http://localhost:8080/krf/chart/getRWMDT_M';
+				//requestUrl = 'http://localhost:8080/krf/chart/getRWMDT_M';
+				requestUrl = _API['GetRWMDT_' + store.parentId];
 			}
 
 			if (store.parentId == "H" && defaultChart == "1") {

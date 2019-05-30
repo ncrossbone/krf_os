@@ -3092,7 +3092,8 @@ setActionInfo = function (system, type, node, id, userId ) {
 
 	Ext.Ajax.request({
 		//url: _API.ClickSession,
-		url: 'http://localhost/krf/common/clickSession',
+		//url: 'http://localhost/krf/common/clickSession',
+		url: _API.clickSession,
 		//params: { node: node, parentId: parentId, data: data, id: id, type: type },
 		params: { system: system, type: type, node: node, id: id, userId: userId },
 		async: true, // 비동기 = async: true, 동기 = async: false

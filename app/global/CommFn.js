@@ -320,8 +320,8 @@ Ext.define("krf_new.global.CommFn", {
 		}
 		return Ext.Ajax.request({
 			//url: _API.getUserLayerInfo,
-			//url: _API.loginSession,
-			url: 'http://localhost:8080/krf/config/loginSession',
+			url: _API.loginSession,
+			//url: 'http://localhost:8080/krf/config/loginSession',
 			dataType: "text/plain",
 			method: 'POST',
 			async: true,

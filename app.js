@@ -123,7 +123,17 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		a[0].data.init('http://112.217.167.123:40003');
+		// 표준화전DB(krf_old) , 표준화DB(krf)
+		/* 
+
+		**표준화전DB는 TEST서버로 사용
+		http://112.217.167.123:40003/krf_old
+
+		**신규DB는 테섭 or 로컬사용 
+		http://localhost:8080/krf or http://localhost:80/krf (각자 포트에 맞춰서 / 로컬에서는 context명 krf로 유지를 위해)
+
+		*/
+		a[0].data.init('http://112.217.167.123:40003/krf','http://localhost/krf'); 
 		//a[0].data.init('http://localhost:8080');
 		//a[0].data.init('http://localhost:80');
 

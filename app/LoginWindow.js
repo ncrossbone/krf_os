@@ -108,8 +108,8 @@ Ext.define('Desktop.LoginWindow', {
                                 if(id){
                                     if(pass){
                                         Ext.Ajax.request({
-                                            //url: _API.getUserLayerInfo,
-                                            url: "http://localhost/krf/config/login",
+                                            url: _API.login,
+                                            //url: "http://localhost/krf/config/login",
                                             dataType: "text/plain",
                                             method: 'POST',
                                             async: true,

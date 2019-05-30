@@ -170,7 +170,8 @@ Ext.define('krf_new.global.SedimentFn', {
 		};
 
 		Ext.Ajax.request({
-			url: 'http://localhost:8080/krf/searchResult/getSedimentItemValue',
+			//url: 'http://localhost:8080/krf/searchResult/getSedimentItemValue',
+			url: _API.getSedimentItemValue,
 			dataType: 'text/plain',
 			method: 'POST',
 			params: paramObj,

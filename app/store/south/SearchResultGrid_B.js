@@ -82,7 +82,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 				
 				Ext.Ajax.request({
 					//url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
-					url: 'http://localhost/krf/searchResult/searchResult_B2018', //'./resources/jsp/GetSearchResultData_B.jsp',
+					url: _API.searchResult_B2018,
+					//url: 'http://localhost/krf/searchResult/searchResult_B2018', //'./resources/jsp/GetSearchResultData_B.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -136,7 +137,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 			
 			Ext.Ajax.request({
 				//url: _API.GetSearchResultData_B, //'./resources/jsp/GetSearchResultData_B.jsp',
-				url: 'http://localhost/krf/searchResult/searchResult_B2018', //'./resources/jsp/GetSearchResultData_B.jsp',
+				//url: 'http://localhost/krf/searchResult/searchResult_B2018', //'./resources/jsp/GetSearchResultData_B.jsp',
+				url: _API.searchResult_B2018,
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
