@@ -26,19 +26,19 @@ Ext.define('Ext.ux.desktop.Desktop', {
 
     app: null,
 
-    
+
     shortcuts: null,
 
     shortcutItemSelector: 'div.ux-desktop-shortcut',
 
     shortcutTpl: [
         '<tpl for=".">',
-            '<div class="ux-desktop-shortcut" id="{name}-shortcut" style="{style}">',
-                '<div class="ux-desktop-shortcut-icon {iconCls}" style="margin-bottom: 5px;">',
-                    '<img src="',Ext.BLANK_IMAGE_URL,'" title="{text}">',
-                '</div>',
-                '<span class="ux-desktop-shortcut-text">{text}</span>',
-            '</div>',
+        '<div class="ux-desktop-shortcut" id="{name}-shortcut" style="{style}">',
+        '<div class="ux-desktop-shortcut-icon {iconCls}" style="margin-bottom: 5px;">',
+        '<img src="', Ext.BLANK_IMAGE_URL, '" title="{text}">',
+        '</div>',
+        '<span class="ux-desktop-shortcut-text">{text}</span>',
+        '</div>',
         '</tpl>',
         '<div class="x-clear"></div>'
     ],
@@ -49,7 +49,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
     plugins: [
         Ext.create('Ext.ux.DataView.DragSelector', {})
     ],
-    
+
     initComponent: function () {
         var me = this;
 
@@ -63,7 +63,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
         me.contextMenu = new Ext.menu.Menu(me.createDesktopMenu());
 
         me.items = [
-            { xtype: 'wallpaper', id: me.id+'_wallpaper' },
+            { xtype: 'wallpaper', id: me.id + '_wallpaper' },
             me.createDataView()
         ];
 
@@ -113,8 +113,8 @@ Ext.define('Ext.ux.desktop.Desktop', {
         }
 
         ret.items.push(
-//                { text: 'Tile', handler: me.tileWindows, scope: me, minWindows: 1 },
-//                { text: 'Cascade', handler: me.cascadeWindows, scope: me, minWindows: 1 }
+            //                { text: 'Tile', handler: me.tileWindows, scope: me, minWindows: 1 },
+            //                { text: 'Cascade', handler: me.cascadeWindows, scope: me, minWindows: 1 }
         );
 
         return ret;
@@ -161,17 +161,17 @@ Ext.define('Ext.ux.desktop.Desktop', {
 
     onShortcutItemClick: function (dataView, record) {
         var me = this, module = me.app.getModule(record.data.module);
-        if(module){
-        	var win = module.createWindow();
-        	if (win) {
+        if (module) {
+            var win = module.createWindow();
+            if (win) {
                 me.restoreWindow(win);
             }
-        } else{
-        	$KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, {'mode':record.data.module});
+        } else {
+            $KRF_APP.fireEvent($KRF_EVENT.MODE_CHANGED, { 'mode': record.data.module });
         }
     },
 
-    onWindowClose: function(win) {
+    onWindowClose: function (win) {
         var me = this;
         me.windows.remove(win);
         me.taskbar.removeTaskButton(win.taskButton);
@@ -193,7 +193,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
     },
 
     onWindowMenuHide: function (menu) {
-        Ext.defer(function() {
+        Ext.defer(function () {
             menu.theWin = null;
         }, 1);
     },
@@ -222,12 +222,12 @@ Ext.define('Ext.ux.desktop.Desktop', {
         return this.wallpaper.wallpaper;
     },
 
-    setTickSize: function(xTickSize, yTickSize) {
+    setTickSize: function (xTickSize, yTickSize) {
         var me = this,
             xt = me.xTickSize = xTickSize,
             yt = me.yTickSize = (arguments.length > 1) ? yTickSize : xt;
 
-        me.windows.each(function(win) {
+        me.windows.each(function (win) {
             var dd = win.dd, resizer = win.resizer;
             dd.xTickSize = xt;
             dd.yTickSize = yt;
@@ -242,11 +242,11 @@ Ext.define('Ext.ux.desktop.Desktop', {
     },
 
 
-    cascadeWindows: function() {
+    cascadeWindows: function () {
         var x = 0, y = 0,
             zmgr = this.getDesktopZIndexManager();
 
-        zmgr.eachBottomUp(function(win) {
+        zmgr.eachBottomUp(function (win) {
             if (win.isWindow && win.isVisible() && !win.maximized) {
                 win.setPosition(x, y);
                 x += 20;
@@ -255,14 +255,14 @@ Ext.define('Ext.ux.desktop.Desktop', {
         });
     },
 
-    createWindow: function(config, cls) {
+    createWindow: function (config, cls) {
         var me = this, win, cfg = Ext.applyIf(config || {}, {
-                stateful: false,
-                isWindow: true,
-                constrainHeader: true,
-                minimizable: true,
-                maximizable: true
-            });
+            stateful: false,
+            isWindow: true,
+            constrainHeader: true,
+            minimizable: true,
+            maximizable: true
+        });
 
         cls = cls || Ext.window.Window;
         win = me.add(new cls(cfg));
@@ -283,8 +283,11 @@ Ext.define('Ext.ux.desktop.Desktop', {
 
         win.on({
             boxready: function () {
-                win.dd.xTickSize = me.xTickSize;
-                win.dd.yTickSize = me.yTickSize;
+                if (win.dd) {
+                    win.dd.xTickSize = me.xTickSize;
+                    win.dd.yTickSize = me.yTickSize;
+                }
+
 
                 if (win.resizer) {
                     win.resizer.widthIncrement = me.xTickSize;
@@ -293,14 +296,14 @@ Ext.define('Ext.ux.desktop.Desktop', {
             },
             single: true
         });
-        
-        win.doClose = function ()  {
-            win.doClose = Ext.emptyFn; 
+
+        win.doClose = function () {
+            win.doClose = Ext.emptyFn;
             win.el.disableShadow();
             win.el.fadeOut({
                 listeners: {
                     afteranimate: function () {
-                    		win.destroy();
+                        win.destroy();
                     }
                 }
             });
@@ -332,11 +335,11 @@ Ext.define('Ext.ux.desktop.Desktop', {
         return (windows.getCount() && windows.getAt(0).zIndexManager) || null;
     },
 
-    getWindow: function(id) {
+    getWindow: function (id) {
         return this.windows.get(id);
     },
 
-    minimizeWindow: function(win) {
+    minimizeWindow: function (win) {
         win.minimized = true;
         win.hide();
     },
@@ -351,11 +354,11 @@ Ext.define('Ext.ux.desktop.Desktop', {
         return win;
     },
 
-    tileWindows: function() {
+    tileWindows: function () {
         var me = this, availWidth = me.body.getWidth(true);
         var x = me.xTickSize, y = me.yTickSize, nextY = y;
 
-        me.windows.each(function(win) {
+        me.windows.each(function (win) {
             if (win.isVisible() && !win.maximized) {
                 var w = win.el.getWidth();
 

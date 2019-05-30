@@ -64,20 +64,20 @@ Ext.define('krf_new.global.SedimentFn', {
 				me.bindStore('sedimentHalf', [{ id: 'H01', name: '상반기' }, { id: 'H02', name: '하반기' }], 'H0' + data[0].WMYR.split('.')[1]);
 
 				var itemArr = [
-					{ id: '1683', name: '완전연소가능량' },
-					{ id: '1055', name: '총질소' },
-					{ id: '1056', name: '총인' },
-					{ id: '1061', name: '구리' },
-					{ id: '1005', name: '납' },
-					{ id: '1095', name: '니켈' },
-					{ id: '1007', name: '비소' },
-					{ id: '1009', name: '수은' },
-					{ id: '1040', name: '아연' },
-					{ id: '1014', name: '카드뮴' },
-					{ id: '1057', name: '크롬' }
+					{ id: '1084', name: '완전연소가능량 등급' },
+					{ id: '1085', name: '총질소 등급' },
+					{ id: '1146', name: '총인 등급' },
+					{ id: '1149', name: '구리 등급' },
+					{ id: '1147', name: '납 등급' },
+					{ id: '1151', name: '니켈 등급' },
+					{ id: '1152', name: '비소 등급' },
+					{ id: '1154', name: '수은 등급' },
+					{ id: '1148', name: '아연 등급' },
+					{ id: '1153', name: '카드뮴 등급' },
+					{ id: '1150', name: '크로뮴 등급' }
 				];
 
-				me.bindStore('sedimentItem', itemArr, '1683');
+				me.bindStore('sedimentItem', itemArr, '1084');
 
 				me.getData();
 			}
@@ -97,11 +97,14 @@ Ext.define('krf_new.global.SedimentFn', {
 	writeFeature: function (data) {
 		var feature = me.dataObj;
 		var resultArr = [];
+		var config = { 'Ⅰ': '1', 'Ⅱ': '2', 'Ⅲ': '3', 'Ⅳ': '4', 'Ⅳ등급 이내': '1' };
 
 		for (key in feature) {
 			for (var i = 0; i < data.length; i++) {
 				if (key == data[i].PT_NO) {
-					feature[key].flag = parseInt(data[i].ITEM);
+
+					var str = config[data[i].ITEM] ? config[data[i].ITEM] : '1';
+					feature[key].flag = parseInt(str);
 					resultArr.push(feature[key]);
 				}
 			}
@@ -127,14 +130,12 @@ Ext.define('krf_new.global.SedimentFn', {
 				me.graphicsLayer = new GraphicsLayer();
 
 				for (var i = 0; i < data.length; i++) {
-					var imgObj = { 'Ⅰ': '1', 'Ⅱ': '2', 'Ⅲ': '3', 'Ⅳ': '4', 'Ⅳ등급 이내': '4' };
 
-					var imgStr = imgObj[data[i].flag] ? imgObj[data[i].flag] : '1';
 					var symbol = new PictureMarkerSymbol({
 						'angle': 0,
 						'yoffset': 0,
 						'type': 'esriPMS',
-						'url': './resources/images/sediment/' + imgStr + '.png',
+						'url': './resources/images/sediment/' + data[i].flag + '.png',
 						'contentType': 'image/png',
 						'width': 39,
 						'height': 39

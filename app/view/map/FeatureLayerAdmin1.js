@@ -347,7 +347,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 					" <body>                                                                                                                                                                                    "+
 					" 	<div id=\"toolTip\">                                                                                                                                                                    "+
 					" 		<h1>" + jijum_Name + "</h1>                                                                                                                                                                       "+
-					"         <a href=\"#none\" class=\"close\" onclick=\"closePopSiteInfo();\" ><img src=\"./resources/images/tooltip/img/close.png\" alt=\"닫기\"/></a>                                                                                                    "+
+					"         <a href=\"javascript:void(0);\" class=\"close\" onclick=\"closePopSiteInfo();\" ><img src=\"./resources/images/tooltip/img/close.png\" alt=\"닫기\"/></a>                                                                                                    "+
 					"         <div class=\"tt_cont\">                                                                                                                                                           "+
 					" 			<p>                                                                                                                                                                             "+
 					"             	<b>[분류]</b>                                                                                                                                                                "+

@@ -19,6 +19,7 @@
 	//"waterLoginUrl": "http://192.168.0.233:8081/jsp/login/login.jsp?", // 물환경정보시스템 로그인
 	"waterLoginUrl": "http://112.218.1.243:28100/jsp/login/login.jsp?", // 물환경정보시스템 로그인
 	
+	"intraNetUrl":"http://112.217.167.123:58880",
 
 	"sRiver" : "http://112.217.167.123:40002/arcgis/rest/services/SRiver/MapServer",   //소하천 서비스
 	"sRiverNode" : "0",   //소하천 노드
