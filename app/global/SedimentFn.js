@@ -173,7 +173,8 @@ Ext.define('krf_new.global.SedimentFn', {
 		};
 
 		Ext.Ajax.request({
-			url: 'http://localhost/krf/searchResult/getSedimentItemValue',
+			//url: 'http://localhost:8080/krf/searchResult/getSedimentItemValue',
+			url: _API.getSedimentItemValue,
 			dataType: 'text/plain',
 			method: 'POST',
 			params: paramObj,
@@ -183,7 +184,7 @@ Ext.define('krf_new.global.SedimentFn', {
 				me.writeFeature(data);
 			},
 			failure: function () {
-				alert('하드코딩 RestAPI입니다. URL 수정후 작업하세요. sedimentFn.js');
+				//alert('하드코딩 RestAPI입니다. URL 수정후 작업하세요. sedimentFn.js');
 			}
 		});
 	},
