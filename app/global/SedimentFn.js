@@ -127,12 +127,14 @@ Ext.define('krf_new.global.SedimentFn', {
 				me.graphicsLayer = new GraphicsLayer();
 
 				for (var i = 0; i < data.length; i++) {
+					var imgObj = { 'Ⅰ': '1', 'Ⅱ': '2', 'Ⅲ': '3', 'Ⅳ': '4', 'Ⅳ등급 이내': '4' };
 
+					var imgStr = imgObj[data[i].flag] ? imgObj[data[i].flag] : '1';
 					var symbol = new PictureMarkerSymbol({
 						'angle': 0,
 						'yoffset': 0,
 						'type': 'esriPMS',
-						'url': './resources/images/sediment/' + data[i].flag + '.png',
+						'url': './resources/images/sediment/' + imgStr + '.png',
 						'contentType': 'image/png',
 						'width': 39,
 						'height': 39
