@@ -183,7 +183,7 @@ Ext.define('krf_new.global.SedimentFn', {
 				me.writeFeature(data);
 			},
 			failure: function () {
-				alert('하드코딩 RestAPI입니다. URL 수정후 작업하세요. sedimentFn.js');
+				//alert('하드코딩 RestAPI입니다. URL 수정후 작업하세요. sedimentFn.js');
 			}
 		});
 	},
