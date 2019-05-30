@@ -1083,7 +1083,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	} else if (parentCheck == 'M') { //비점오염원
 
 		if (grdContainer == null || grdContainer == undefined) {
-			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_L', options);
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + pId, options);
 			tab.add(grdContainer);
 		}
 		tab.setActiveTab(gridId + '_container');
