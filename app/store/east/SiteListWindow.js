@@ -99,16 +99,31 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 			//물환경 연동
 			if (store.searchType == "paramSearch") {
-				var params = Ext.urlDecode(location.search.substring(1));
-				var siteIds = params.station.split("|");
-				var inTxt = "";
-				for (var i = 0; i < siteIds.length; i++) {
-					if (siteIds[i] != "") {
-						inTxt += "'" + siteIds[i] + "', ";
+				if (store.method == "post") {
+					var siteIds = _ParamObj.station.split("|");
+					var where = "JIJUM_CODE IN (";
+
+					for (var i = 0; i < siteIds.length; i++) {
+						if (siteIds[i] != "") {
+							where += "'" + siteIds[i] + "', ";
+						}
 					}
+					where = where.substring(0, where.length - 2) + ")";
+
+					query.where = where + " AND GROUP_CODE = '" + _ParamObj.stationType + "'";
+				} else {
+					var params = Ext.urlDecode(location.search.substring(1));
+					var siteIds = params.station.split("|");
+					var inTxt = "";
+					for (var i = 0; i < siteIds.length; i++) {
+						if (siteIds[i] != "") {
+							inTxt += "'" + siteIds[i] + "', ";
+						}
+					}
+					inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
+					query.where = "JIJUM_CODE in (" + inTxt;
 				}
-				inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
-				query.where = "JIJUM_CODE in (" + inTxt;
+
 			} else {
 				var paramMarker = $KRF_APP.coreMap.map.getLayer("siteSymbolGraphic");
 				if (paramMarker != undefined) {
@@ -571,18 +586,35 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 		var sstgSearchType = this.searchType;
 
-		if (this.searchType == "paramSearch") {
-			var params = Ext.urlDecode(location.search.substring(1));
+		var me = this;
 
-			var siteIds = params.station.split("|");
-			var inTxt = "";
-			for (var i = 0; i < siteIds.length; i++) {
-				if (siteIds[i] != "") {
-					inTxt += "'" + siteIds[i] + "', ";
+		if (me.searchType == "paramSearch") {
+			if (me.method == "post") {
+				var siteIds = _ParamObj.station.split("|");
+				var where = "JIJUM_CODE IN (";
+
+				for (var i = 0; i < siteIds.length; i++) {
+					if (siteIds[i] != "") {
+						where += "'" + siteIds[i] + "', ";
+					}
 				}
+				where = where.substring(0, where.length - 2) + ")";
+
+				queryWhere = where + " AND GROUP_CODE = '" + _ParamObj.stationType + "'";
+			} else {
+				var params = Ext.urlDecode(location.search.substring(1));
+
+				var siteIds = params.station.split("|");
+				var inTxt = "";
+				for (var i = 0; i < siteIds.length; i++) {
+					if (siteIds[i] != "") {
+						inTxt += "'" + siteIds[i] + "', ";
+					}
+				}
+				inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
+				queryWhere = "JIJUM_CODE in (" + inTxt;
 			}
-			inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
-			queryWhere = "JIJUM_CODE in (" + inTxt;
+
 		} else {
 
 			// if (this.catDid.length == 0) {

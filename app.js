@@ -52,7 +52,8 @@ var $KRF_EVENT = {
 	HIDEMETADATAWINDOW: 'hideMeatDataWindow',
 	THREEDIM_SEND_MESSAGE: 'threeDimSendMessage',
 	SHOW_MAP_TOOLBAR: 'showMapToolbar',
-	CHECK_MAP_PARAMETER: 'checkMapParameter',
+	CHECK_MAP_PARAMETER_GET: 'checkMapParameterGet',
+	CHECK_MAP_PARAMETER_POST: 'checkMapParameterPost',
 	ADD_AUTO_MOVE_COORDINATE: 'addAutoMoveCoordinate',
 	ADD_AUTO_MOVE_CLEAR: 'addAutoMoveClear',
 	STOPEDITEVENT: 'stopEditEvent',
@@ -133,7 +134,7 @@ Ext.create('Ext.data.Store', {
 		http://localhost:8080/krf or http://localhost:80/krf (각자 포트에 맞춰서 / 로컬에서는 context명 krf로 유지를 위해)
 
 		*/
-		a[0].data.init('http://112.217.167.123:40003/krf','http://localhost/krf'); 
+		a[0].data.init('http://112.217.167.123:40003/krf_old','http://localhost/krf'); 
 		//a[0].data.init('http://localhost:8080');
 		//a[0].data.init('http://localhost:80');
 
@@ -197,24 +198,18 @@ Ext.create('Ext.data.Store', {
 				
 				$('#pageloaddingDiv').remove();
 				var me = this;
-
-				var paramUrl = Ext.urlDecode(window.location.search.substring(1));
-				var paramCheck = Object.keys(paramUrl).length;
+				// var paramUrl = Ext.urlDecode(_ParamObj.station.substring(1));
+				// var paramCheck = Object.keys(paramUrl).length;
 				var loginCheck = false;
 
 				$KRF_APP.loginInfo = {};
 				
 				// 내부망 로그인 session 정보 조회 2019-04-22
-				$.when($KRF_APP.global.CommFn.getLoginUserInfo(paramUrl['p1'])).then(function(response){ //세션아이디가 있으면 db조회
+				$.when($KRF_APP.global.CommFn.getLoginUserInfo(_ParamObj.p1)).then(function(response){ //세션아이디가 있으면 db조회
 
 					if(response){
 						var decodeData = Ext.util.JSON.decode(response.responseText);
-							
-							// 있을경우 loginInfo에 값 넣기
-							$KRF_APP.loginInfo = {};
-							loginCheck = true;
-							me.completedLogin($KRF_APP.loginInfo);
-
+						
 						if(decodeData.data.length > 0){ // session이 있을 경우
 							
 							// 있을경우 loginInfo에 값 넣기
@@ -465,7 +460,9 @@ Ext.create('Ext.data.Store', {
 					centerContainer.add(searchWindow);
 					searchWindow.show();
 					$KRF_APP.fireEvent($KRF_EVENT.SHOW_MAP_TOOLBAR);
-					$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER);
+
+					$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER_GET);
+					$KRF_APP.fireEvent($KRF_EVENT.CHECK_MAP_PARAMETER_POST);
 
 					Ext.defer(function () {
 
