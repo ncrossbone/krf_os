@@ -37,7 +37,8 @@ Ext.define('Desktop.MapWindow', {
 
 		$KRF_APP.addListener($KRF_EVENT.WEST_TAB_CHANGE, this.westTabChange, this);
 
-		$KRF_APP.addListener($KRF_EVENT.CHECK_MAP_PARAMETER, this.checkMapParameter, this);
+		$KRF_APP.addListener($KRF_EVENT.CHECK_MAP_PARAMETER_GET, this.checkMapParameterGet, this);
+		$KRF_APP.addListener($KRF_EVENT.CHECK_MAP_PARAMETER_POST, this.checkMapParameterPost, this);
 
 		$KRF_APP.addListener($KRF_EVENT.SHOWMETADATAWINDOW, this.showMetaDataWindow, this);
 		$KRF_APP.addListener($KRF_EVENT.HIDEMETADATAWINDOW, this.hideMetaDataWindow, this);
@@ -461,6 +462,7 @@ Ext.define('Desktop.MapWindow', {
 
 		if (param.searchText == "paramSearch") {
 			store.paramType = param.searchType;
+			store.method = param.method;
 		}
 		store.searchType = param.searchText;
 		store.load();
@@ -509,8 +511,92 @@ Ext.define('Desktop.MapWindow', {
 		metaDataWindow.close();
 		//me
 	},
+	checkMapParameterPost: function () {
 
-	checkMapParameter: function () {
+		if (_ParamObj.stationType != undefined) {
+			var paramIdx = 0;
+			if (paramIdx > -1) {
+				var siteIds = _ParamObj.station.split("|");
+				var where = "JIJUM_CODE IN (";
+
+				for (var i = 0; i < siteIds.length; i++) {
+					if (siteIds[i] != "") {
+						where += "'" + siteIds[i] + "', ";
+					}
+				}
+				where = where.substring(0, where.length - 2) + ")";
+
+				where += " AND GROUP_CODE = '" + _ParamObj.stationType + "'";
+
+				require(["esri/tasks/query",
+					"esri/tasks/QueryTask",
+					"esri/graphic",
+					"esri/layers/GraphicsLayer",
+					"esri/symbols/PictureMarkerSymbol",
+					"esri/graphicsUtils"],
+					function (Query,
+						QueryTask,
+						Graphic,
+						GraphicsLayer,
+						PictureMarkerSymbol,
+						graphicsUtils) {
+
+						var queryTask = new QueryTask($KRF_DEFINE.catSearchUrl);
+						var query = new Query();
+						query.returnGeometry = true;
+						query.outFields = ["*"];
+						query.where = where;
+
+						// 리치라인 조회
+						queryTask.execute(query, function (featureSet) {
+
+							if (featureSet.features.length > 0) {
+
+								var coreMap = $KRF_APP.coreMap;
+
+								var symbol = new PictureMarkerSymbol({
+									"angle": 0,
+									"yoffset": 22,
+									"type": "esriPMS",
+									"url": "./resources/images/symbol/spot_99.gif",
+									"contentType": "image/png",
+									"width": 30,
+									"height": 44
+								});
+
+								var graphicLayer = new GraphicsLayer();
+								graphicLayer.id = "siteSymbolGraphic";
+
+								for (var i = 0; i < featureSet.features.length; i++) {
+									var graphic = new Graphic(featureSet.features[i].geometry, symbol);
+									graphicLayer.add(graphic);
+								}
+								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
+								coreMap.map.setExtent(extent);
+
+								Ext.defer(function () {
+
+									var level = coreMap.map.getLevel() - 1;
+
+									if (level > 12) {
+										coreMap.map.setLevel(12);
+									}
+									else {
+										coreMap.map.setLevel(level);
+									}
+								}, 500);
+								coreMap.map.addLayer(graphicLayer);
+
+								$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'paramSearch', searchType: _ParamObj.stationType, method: 'post' });
+
+								// Ext.ShowSiteListWindow("paramSearch", params.stationType);
+							}
+						});
+					});
+			}
+		}
+	},
+	checkMapParameterGet: function () {
 		var getParam = window.location.search.substring(1);
 		var params = Ext.urlDecode(getParam);
 		if (params.stationType != undefined) {

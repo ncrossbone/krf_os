@@ -744,23 +744,23 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		//지점목록 treeList
 		var treeNameList = [];
 		var siteListTreeStore = Ext.getCmp('siteListTree').getStore();
-		
-		var layerList = [['A001',"수질측정지점-하천"]
-						,['A002','수질측정지점-호소']
-						,['C001','퇴적물-하천']
-						,['C002','퇴적물-호소']
-						,['D001','기타측정지점-수위']
-						,['D003','기타측정지점-유량']
-						,['D005','기타측정지점-기상(지상기상관측소)']
-						,['D006','기타측정지점-기상(AWS기상관측소)']
-						,['F001','환경기초시설-농공단지처리시설']
-						,['F002','환경기초시설-기타공동처리시설']
-						,['F003','환경기초시설-분뇨처리시설']
-						,['F004','환경기초시설-산업폐수종말처리시설']
-						,['F006','환경기초시설-축산폐수종말처리시설']
-						,['F007','환경기초시설-마을하수도']
-						,['F007','환경기초시설-하수종말처리시설']
-						];
+
+		var layerList = [['A001', "수질측정지점-하천"]
+			, ['A002', '수질측정지점-호소']
+			, ['C001', '퇴적물-하천']
+			, ['C002', '퇴적물-호소']
+			, ['D001', '기타측정지점-수위']
+			, ['D003', '기타측정지점-유량']
+			, ['D005', '기타측정지점-기상(지상기상관측소)']
+			, ['D006', '기타측정지점-기상(AWS기상관측소)']
+			, ['F001', '환경기초시설-농공단지처리시설']
+			, ['F002', '환경기초시설-기타공동처리시설']
+			, ['F003', '환경기초시설-분뇨처리시설']
+			, ['F004', '환경기초시설-산업폐수종말처리시설']
+			, ['F006', '환경기초시설-축산폐수종말처리시설']
+			, ['F007', '환경기초시설-마을하수도']
+			, ['F007', '환경기초시설-하수종말처리시설']
+		];
 
 		// if(siteListTreeStore.root){
 		// 	for(var i = 0 ; i < siteListTreeStore.root.childNodes.length; i++){
@@ -782,14 +782,14 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 			stype: 'json'
 		});
 
-		
+
 
 		var itemselector = Ext.getCmp('itemselector');
 		itemselector.setStore(store);
 		if(layerList.length > 0){
 			itemselector.setValue(layerList[0][0]);
 		}
-		
+
 
 
 	}
@@ -803,7 +803,7 @@ ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test,
 }
 
 //툴팁 지도 확대
-detailSearchClickZoom = function(pointX, pointY){
+detailSearchClickZoom = function (pointX, pointY) {
 
 	var point = new esri.geometry.Point(Number(pointX), Number(pointY), $KRF_APP.coreMap.map.extent.getCenter().spatialReference);
 
@@ -812,39 +812,39 @@ detailSearchClickZoom = function(pointX, pointY){
 }
 
 
-detailSearchClick = function(meter, startValue, endValue){// 반경, 시작일, 종료일
+detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일, 종료일
 
 	//상세검색 창 ( point 정보 )
 	var popSiteInfo = Ext.getCmp('popSiteInfo');
 
-	if(meter){//반경존재 유무
-		if(meter > 10){//반경 10Km 제한
-			if(startValue || endValue){//날짜존재 유무
+	if (meter) {//반경존재 유무
+		if (meter > 10) {//반경 10Km 제한
+			if (startValue || endValue) {//날짜존재 유무
 				var dateCmpare = detailDateCompare(startValue, endValue);
-				if(dateCmpare[0]){//종료일자와 시작일자 차이
-					if(dateCmpare[1]){//시작일자와 종료일자 기간
-						$KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);
-					}else{
+				if (dateCmpare[0]) {//종료일자와 시작일자 차이
+					if (dateCmpare[1]) {//시작일자와 종료일자 기간
+						$KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point, meter);
+					} else {
 						alert('시작일자와 종료일자의 기간은 1년입니다.');
 					}
-				}else{
+				} else {
 					alert('종료일자가 시작일자보다 커야 합니다.');
 				}
-			}else{
+			} else {
 				alert('날짜를 선택해 주세요');
-			}	
-		}else{
+			}
+		} else {
 			alert('반경은 10Km가 최대 입니다.');
 		}
-	}else{
+	} else {
 		alert('반경을 입력하세요.');
 	}
 
 }
 
 //툴팁 검색 기능
-detailSearchClickDefault = function(){	
-	
+detailSearchClickDefault = function () {
+
 	var popSiteInfo = Ext.getCmp('popSiteInfo');
 	var meter = Number(document.getElementById('detailMeter').value);  //detailMeter
 	//var detailDate = Ext.getCmp('monthpickerId').value;
@@ -878,61 +878,61 @@ detailSearchClickDefault = function(){
 }
 
 //날짜 계산
-detailDateCompare = function(_date1, _date2){
+detailDateCompare = function (_date1, _date2) {
 
 	var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
-    var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
- 
-    diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1.getMonth()+1, diffDate_1.getDate());
-    diffDate_2 = new Date(diffDate_2.getFullYear(), diffDate_2.getMonth()+1, diffDate_2.getDate());
- 
-	
-	
-	var result = [false,false]; // [0] = 종료기간이 시작기간보다 작은지 / [1] = 최근1년만 조회가능
-	if(diffDate_2.getTime() > diffDate_1.getTime() || diffDate_2.getTime() == diffDate_1.getTime()){
+	var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
+
+	diffDate_1 = new Date(diffDate_1.getFullYear(), diffDate_1.getMonth() + 1, diffDate_1.getDate());
+	diffDate_2 = new Date(diffDate_2.getFullYear(), diffDate_2.getMonth() + 1, diffDate_2.getDate());
+
+
+
+	var result = [false, false]; // [0] = 종료기간이 시작기간보다 작은지 / [1] = 최근1년만 조회가능
+	if (diffDate_2.getTime() > diffDate_1.getTime() || diffDate_2.getTime() == diffDate_1.getTime()) {
 		result[0] = true;
 	}
 
 	var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
 	diff = Math.ceil(diff / (1000 * 3600 * 24));
-	if(diff <= 376){
+	if (diff <= 376) {
 		result[1] = false;
 	}
 
 	return result;
-    //diff = Math.ceil(diff / (1000 * 3600 * 24));
+	//diff = Math.ceil(diff / (1000 * 3600 * 24));
 
 }
 
 //년월 선택 
-detailDateSearchWindow = function(id){
+detailDateSearchWindow = function (id) {
 
-	Ext.create('Ext.window.Window',{
+	Ext.create('Ext.window.Window', {
 		width: 300,
 		height: 300,
 		id: 'monthPickerWindow',
-		items:[{
-			xtype:'monthpicker',
-            listeners:{
-                okclick: function(event){
-                    if(event.value[0] == null || event.value[1] == null){
-                        return;
-                    }else{
+		items: [{
+			xtype: 'monthpicker',
+			listeners: {
+				okclick: function (event) {
+					if (event.value[0] == null || event.value[1] == null) {
+						return;
+					} else {
 						// 상세검색
-						event.value[0] = event.value[0]+1;
+						event.value[0] = event.value[0] + 1;
 						//ext로 되어있는 상세검색 textArea
-						if(Ext.getCmp(id)){
-							Ext.getCmp(id).setValue(event.value[1] +'-'+event.value[0]);
-						}else{ //html로 되어있는 날짜 textArea
+						if (Ext.getCmp(id)) {
+							Ext.getCmp(id).setValue(event.value[1] + '-' + event.value[0]);
+						} else { //html로 되어있는 날짜 textArea
 							//var dateId = {'detailStartDate':'detailStartDate','detailEndDate': 'detailStartDate'};
-							document.getElementById(id).value = event.value[1] +'-'+event.value[0];
+							document.getElementById(id).value = event.value[1] + '-' + event.value[0];
 						}
-						
+
 						Ext.getCmp('monthPickerWindow').close();
-						
-                    }
-                }
-            }
+
+					}
+				}
+			}
 		}]
 	}).show();
 
@@ -2201,6 +2201,9 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 	} else {
 		if (parentNodeId.substring(0, 1) == "E") {
 			parentNodeId = parentNodeId.substring(0, 7);
+		} else if (parentNodeId.substring(0, 1) == "M") {
+			nodeId = nodeId.split(parentNodeId + '_')[1];
+			parentNodeId = 'M001';
 		}
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
@@ -2813,7 +2816,7 @@ closePopSiteInfo = function () {
 
 	if (popCtl != undefined) {
 		popCtl.close();
-		if(detailSearchWindow != undefined){// 지점상제 창 닫기
+		if (detailSearchWindow != undefined) {// 지점상제 창 닫기
 			detailSearchWindow.close();
 		}
 	}
@@ -3100,7 +3103,7 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
 //'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'DLSE
-setActionInfo = function (system, type, node, id, userId ) {
+setActionInfo = function (system, type, node, id, userId) {
 	return;
 	//1DEP 일시
 	if (node == 0) {
