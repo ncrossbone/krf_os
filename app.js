@@ -133,7 +133,7 @@ Ext.create('Ext.data.Store', {
 		http://localhost:8080/krf or http://localhost:80/krf (각자 포트에 맞춰서 / 로컬에서는 context명 krf로 유지를 위해)
 
 		*/
-		a[0].data.init('http://112.217.167.123:40003/krf','http://localhost/krf'); 
+		a[0].data.init('http://112.217.167.123:40003/krf_old','http://localhost/krf'); 
 		//a[0].data.init('http://localhost:8080');
 		//a[0].data.init('http://localhost:80');
 
@@ -302,7 +302,6 @@ Ext.create('Ext.data.Store', {
 					params: { userId: loginInfo.GIS_AUTHOR_CODE },
 					success: function (response, opts) {
 						var decodeData = Ext.util.JSON.decode(response.responseText);
-						console.info(decodeData)
 						if (decodeData.result.length > 0) {
 							$KRF_APP.LAYER_SETTING = decodeData.result;
 						}

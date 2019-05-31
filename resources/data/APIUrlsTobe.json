@@ -132,7 +132,7 @@
     "getSedimentItemValue":"#host#/searchResult/getSedimentItemValue",
     "GetRWMDT_M":"#host#/chart/getRWMDT_M",
     "login":"#host#/config/login",
-    "GetRWMDT_2018_A":"#getRWMDT_2018_Ahost2018#/chart/getRWMDT_2018_A",
+    "GetRWMDT_2018_A":"#host#/chart/getRWMDT_2018_A",
     "GetRWMDT_2018_B":"#host#/chart/getRWMDT_2018_B",
     "GetRWMDT_2018_L":"#host#/chart/getRWMDT_2018_L",
     "searchResult_A2018":"#host#/searchResult/searchResult_A2018",

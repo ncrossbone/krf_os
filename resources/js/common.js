@@ -773,7 +773,6 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		// 		}
 		// 	}
 		// }
-		console.info(layerList)
 		//console.info(treeNameList);
 
 		var store = Ext.create('Ext.data.Store', {
@@ -787,8 +786,8 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		var itemselector = Ext.getCmp('itemselector');
 		itemselector.setStore(store);
-		if(treeNameList.length > 0){
-			itemselector.setValue(treeNameList[0][0]);
+		if(layerList.length > 0){
+			itemselector.setValue(layerList[0][0]);
 		}
 		
 
