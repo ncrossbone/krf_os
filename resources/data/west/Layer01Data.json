@@ -311,7 +311,7 @@
 		"iconCls": "layerIconSize layerP1",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "지점명",
+		"siteIdCol": "분류번호",
 		"siteAddrCol": "주소",
 		"siteNmCol": "지점명",
 		"layerCode": "M001",
