@@ -30,29 +30,29 @@
 	"sRiverCat" : "2",   //소하천 집수구역
 	"pullWater" : "http://112.217.167.123:40002/arcgis/rest/services/pullWater/MapServer",   //생활안전
 
-    "StreamSectionLayerId" : "77", // 하천단면 레이어 아이디
-	"StreamNetworkLayerId" : "78", // 하천망도 레이어 아이디
+    "StreamSectionLayerId" : "82", // 하천단면 레이어 아이디
+	"StreamNetworkLayerId" : "83", // 하천망도 레이어 아이디
 	
-    "reachFlowLayerId" : "79", // 리치흐름 레이어 아이디
-    "reachNodeLayerId" : "80", // 리치노드 레이어 아이디
-    "reachLineLayerId" : "81", // 리치라인 레이어 아이디
-	"reachAreaLayerId" : "82", // 집수구역 레이어 아이디
+    "reachFlowLayerId" : "84", // 리치흐름 레이어 아이디
+    "reachNodeLayerId" : "85", // 리치노드 레이어 아이디
+    "reachLineLayerId" : "86", // 리치라인 레이어 아이디
+	"reachAreaLayerId" : "87", // 집수구역 레이어 아이디
 	
-	"areaWSLayerId" : "88", // 대권역 레이어 아이디
-    "areaAMLayerId" : "89", // 중권역 레이어 아이디
-	"areaASLayerId" : "90", // 소권역 레이어 아이디
+	"areaWSLayerId" : "93", // 대권역 레이어 아이디
+    "areaAMLayerId" : "94", // 중권역 레이어 아이디
+	"areaASLayerId" : "95", // 소권역 레이어 아이디
 	
-	"admSidoLayerId" : "92", // 시/도 레이어 아이디
-    "admSigunguLayerId" : "93", // 시/군/구 레이어 아이디
-    "admDongLayerId" : "94", // 읍/면/동 레이어 아이디
-	"admRiLayerId" : "95", // 리 레이어 아이디
+	"admSidoLayerId" : "97", // 시/도 레이어 아이디
+    "admSigunguLayerId" : "98", // 시/군/구 레이어 아이디
+    "admDongLayerId" : "99", // 읍/면/동 레이어 아이디
+	"admRiLayerId" : "100", // 리 레이어 아이디
 	
-	"toLegend" : "96", // 식생도 레이어 아이디
+	"toLegend" : "102", // 식생도 레이어 아이디
 	
-    "sicLegend" : "99", // 토지피복도 레이어 아이디
-	"LakeLayerId" : "99", // 토지피복도 레이어 아이디
+    "sicLegend" : "104", // 토지피복도 레이어 아이디
+	"LakeLayerId" : "104", // 토지피복도 레이어 아이디
 
-	"metaId": "115", // 메타데이터 레이어 아이디
+	"metaId": "120", // 메타데이터 레이어 아이디
 
 	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
 	"kradCatExtMetaData" : "23", // KRAD METADATA

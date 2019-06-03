@@ -1372,7 +1372,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	});
     },
     execLineFeature: function(featureSet){
-    	var me = this;
+    var me = this;
 		
 		var overlap = false;
 		
@@ -1384,15 +1384,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		me.rchIds.push(feature.attributes.RCH_ID);
 			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
 			
-			if($KRF_APP.coreMap._krad.kradInfo.length == 0){
-				me.setClickEvt($KRF_APP.coreMap._krad.mapClickEvt, "Reach");
-				// 이벤트 초기화
-				initKradEvt();
-			}
-			else{
-				
-				me.showPopup();
-			}
+				if($KRF_APP.coreMap._krad.kradInfo.length == 0){
+					me.setClickEvt($KRF_APP.coreMap._krad.mapClickEvt, "Reach");
+					// 이벤트 초기화
+					initKradEvt();
+				}else{
+					
+					me.showPopup();
+				}
     	}else if(me.drawOption == "reachLineRemove"){
     		
     		var lineFeature = featureSet.features[0];
@@ -1696,7 +1695,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 			Ext.defer(clear = function(){
 					
 				// 지점 목록 창 띄우기
-				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach'});
 				
 				// 검색결과 창 띄우기
 				ShowSearchResultReach("");
@@ -1711,7 +1710,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				me.map.graphics.clear();
 			
 				// 검색 종료 체크
-				me.isStopCheck();
+				me.isStopCheck(true);
 				
 			}, 2000, this);
 			
@@ -3294,7 +3293,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     tmpSearchCnt: 0, // 검색 카운트 체크용
     afterChkCnt: 0, // 목록창, 결과창 띄운 후 체크 카운트
     // 검색 종료 체크
-    isStopCheck: function(){
+    isStopCheck: function(detailSearch){
     	var me = this;
     	var originTimer = null;
     	var checkedTimer = null;
@@ -3314,7 +3313,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				
 				// 지점 목록 창 띄우기
 				//Ext.ShowSiteListWindow("selectReach");
-				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach' });
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_SITE_LIST_WINDOW, { searchText: 'selectReach', detailSearch: detailSearch});
         		
         		// 검색결과 창 띄우기
         		ShowSearchResultReach("");

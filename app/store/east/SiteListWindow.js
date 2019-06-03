@@ -483,6 +483,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 					store.setRootNode(jsonData);
 					store.setRootVisible(false);
+
+					if(store.param.detailSearch){
+						detailSeachResult(jsonData);
+					}
 					// 로딩바 숨김
 					Ext.getCmp("siteListTree").unmask();
 

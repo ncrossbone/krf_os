@@ -727,6 +727,28 @@ ChangeTabIndex = function (tabIdx) {
 	}
 }
 
+detailSeachResult = function(jsonData){
+
+	var totalSearchDetailWindow = Ext.getCmp('totalSearchDetailWindow');
+
+	if (!totalSearchDetailWindow) {
+		totalSearchDetailWindow = Ext.create('krf_new.view.center.TotalSearchDetailWindow');
+		Ext.getCmp('center_container').add(totalSearchDetailWindow);
+	}
+
+	totalSearchDetailWindow.show();
+
+	var store = Ext.create('krf_new.store.center.TotalSearchTree', {
+					async: true,
+					data: jsonData
+				});
+	store.load();
+
+	Ext.getCmp('totalSearchTree').setStore(store);
+					
+
+}
+
 // 상세검색
 ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst) {
 	var detailSearchWindow = Ext.getCmp('detailSearchWindow');
@@ -880,6 +902,9 @@ detailSearchClickDefault = function () {
 //날짜 계산
 detailDateCompare = function (_date1, _date2) {
 
+	_date1 = _date1.substring(0,4) + '-' +_date1.substring(4,6);
+	_date2 = _date2.substring(0,4) + '-' +_date2.substring(4,6);
+
 	var diffDate_1 = _date1 instanceof Date ? _date1 : new Date(_date1);
 	var diffDate_2 = _date2 instanceof Date ? _date2 : new Date(_date2);
 
@@ -896,7 +921,7 @@ detailDateCompare = function (_date1, _date2) {
 	var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
 	diff = Math.ceil(diff / (1000 * 3600 * 24));
 	if (diff <= 376) {
-		result[1] = false;
+		result[1] = true;
 	}
 
 	return result;

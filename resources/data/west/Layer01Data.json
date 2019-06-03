@@ -646,7 +646,7 @@
 		"metaDataId":"H001"
 	}]
 },{
-	"id": "78",
+	"id": "83",
 	"text": "하천망도",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -654,7 +654,7 @@
 	"expanded": true,
 	"layerCode": "W",
 	"children": [{
-		"id": "79",
+		"id": "84",
 		"text": "리치흐름",
 		"layerBtnId": ["btnFlowLayer"],
 		"wmsId":"41",
@@ -666,7 +666,7 @@
 		"siteIdCol": "RCH_FLW",
 		"metaDataId":"W001"
 	},{
-		"id": "80",
+		"id": "85",
 		"wmsId":"40",
 		"text": "리치노드",
 		"layerBtnId": ["btnReachNodeLayer"],
@@ -678,7 +678,7 @@
 		"layerCode": "W002",
 		"metaDataId":"W002"
 	}, {
-		"id": "81",
+		"id": "86",
 		"wmsId":"39",
 		"text": "리치라인",
 		"layerBtnId": ["btnReachLayer"],
@@ -690,7 +690,7 @@
 		"layerCode": "W003",
 		"metaDataId":"W003"
 	}, {
-		"id": "82",
+		"id": "87",
 		"wmsId":"38",
 		"text": "집수구역",
 		"layerBtnId": ["btnAreaLayer"],
@@ -745,7 +745,7 @@
 		"metaDataId":"S003"
 	}]
 }, {
-	"id": "83",
+	"id": "88",
 	"text": "하천",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -753,7 +753,7 @@
 	"expanded": true,
 	"layerCode": "U",
 	"children": [{
-		"id": "84",
+		"id": "89",
 		"wmsId":"36",
 		"text": "국가하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -764,7 +764,7 @@
 		"layerCode": "U001",
 		"metaDataId":"U001"
 	}, {
-		"id": "85",
+		"id": "90",
 		"wmsId":"35",
 		"text": "지방하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -776,7 +776,7 @@
 		"metaDataId":"U002"
 	}]
 }, {
-	"id": "87",
+	"id": "92",
 	"text": "수질영향권역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -784,7 +784,7 @@
 	"expanded": true,
 	"layerCode": "T",
 	"children": [{
-		"id": "88",
+		"id": "93",
 		"wmsId":"32",
 		"text": "대권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -795,7 +795,7 @@
 		"layerCode": "T001",
 		"metaDataId":"T001"
 	}, {
-		"id": "89",
+		"id": "94",
 		"wmsId":"31",
 		"text": "중권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -806,7 +806,7 @@
 		"layerCode": "T002",
 		"metaDataId":"T002"
 	}, {
-		"id": "90",
+		"id": "95",
 		"wmsId":"30",
 		"text": "소권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -818,7 +818,7 @@
 		"metaDataId":"T003"
 	}]
 }, {
-	"id": "91",
+	"id": "96",
 	"text": "행정구역(법정동)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -826,7 +826,7 @@
 	"expanded": true,
 	"layerCode": "V",
 	"children": [{
-		"id": "92",
+		"id": "97",
 		"wmsId":"28",
 		"text": "법정동_시도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -837,7 +837,7 @@
 		"layerCode": "V001",
 		"metaDataId":"V001"
 	}, {
-		"id": "93",
+		"id": "98",
 		"wmsId":"27",
 		"text": "법정동_시군구",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -848,7 +848,7 @@
 		"layerCode": "V002",
 		"metaDataId":"V002"
 	}, {
-		"id": "94",
+		"id": "99",
 		"wmsId":"26",
 		"text": "법정동_읍면동",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -859,7 +859,7 @@
 		"layerCode": "V003",
 		"metaDataId":"V003"
 	}, {
-		"id": "95",
+		"id": "100",
 		"wmsId":"25",
 		"text": "법정동_동리",
 		"cls": "khLee-x-tree-node-text-small-nounder",
@@ -871,7 +871,7 @@
 		"metaDataId":"V004"
 	}]
 },  {
-	"id": "96",
+	"id": "101",
 	"text": "식생도(전국)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -879,7 +879,7 @@
 	"expanded": true,
 	"layerCode": "",
 	"children": [{
-		"id": "97",
+		"id": "102",
 		"text": "식생도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer63",
@@ -888,7 +888,7 @@
 		"checked": false
 	}]
 }, {
-	"id": "98",
+	"id": "103",
 	"text": "토지피복도(전국)",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -896,7 +896,7 @@
 	"expanded": true,
 	"layerCode": "",
 	"children": [{
-		"id": "99",
+		"id": "104",
 		"text": "토지피복도",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer65",
@@ -905,7 +905,7 @@
 		"checked": false
 	}]
 },{
-	"id": "104",
+	"id": "109",
 	"text": "수질보호구역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -913,7 +913,7 @@
 	"expanded": true,
 	"layerCode": "",
 	"children": [{
-		"id": "105",
+		"id": "110",
 		"text": "특별대책지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer71",
@@ -921,14 +921,14 @@
 		"layerCode": "",
 		"checked": false
 	}, {
-		"id": "106",
+		"id": "111",
 		"text": "오수처리대책지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer72",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "107",
+		"id": "112",
 		"text": "상수원보호구역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer73",
@@ -936,14 +936,14 @@
 		"layerCode": "",
 		"checked": false
 	}, {
-		"id": "108",
+		"id": "113",
 		"text": "배출시설제한지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer74",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "109",
+		"id": "114",
 		"text": "수변구역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer75",
@@ -951,7 +951,7 @@
 		"layerCode": "",
 		"checked": false
 	}, {
-		"id": "110",
+		"id": "115",
 		"text": "그린벨트",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer76",
@@ -960,7 +960,7 @@
 		"checked": false
 	}]
 },  {
-	"id": "113",
+	"id": "118",
 	"text": "총량관리단위유역",
 	"cls": "khLee-x-tree-node-text-bold",
 	"iconCls": "layerNoneImg",
@@ -968,7 +968,7 @@
 	"expanded": true,
 	"layerCode": "R",
 	"children": [{
-		"id": "114",
+		"id": "119",
 		"wmsId":"6",
 		"text": "총량관리단위유역",
 		"cls": "khLee-x-tree-node-text-small-nounder",

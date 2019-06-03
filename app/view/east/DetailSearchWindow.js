@@ -399,7 +399,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
             render: function (c) {
                 c.getEl().on('click', function () {
 
-                    var totalSearchDetailWindow = Ext.getCmp('totalSearchDetailWindow');
+                    /*var totalSearchDetailWindow = Ext.getCmp('totalSearchDetailWindow');
 
                     if (!totalSearchDetailWindow) {
                         totalSearchDetailWindow = Ext.create('krf_new.view.center.TotalSearchDetailWindow');
@@ -412,7 +412,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
                     store.load();
 
                     Ext.getCmp('totalSearchTree').setStore(store);
-                    return;
+                    return;*/
                     var meter = Number(Ext.getCmp('detailRadiusValue').value);
                     var detailSearchStartDate = Ext.getCmp('detail_startYear').value + Ext.getCmp('detail_startMonth').value;
                     var detailSearchEndDate = Ext.getCmp('detail_endYear').value + Ext.getCmp('detail_endMonth').value;
