@@ -120,6 +120,17 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectYear2 = l_EndYear.lastValue;
 					selectMonth = l_SelectMonth.lastValue;
 					selectMonth2 = l_EndMonth.lastValue;
+				} else if (store.parentId == 'Q') {
+					var q_SelectYear = Ext.getCmp('q_SelectYear');
+					var q_SelectMonth = Ext.getCmp('q_SelectMonth');
+
+					var q_EndYear = Ext.getCmp("q_EndYear");
+					var q_EndMonth = Ext.getCmp("q_EndMonth");
+
+					selectYear = q_SelectYear.lastValue;
+					selectYear2 = q_EndYear.lastValue;
+					selectMonth = q_SelectMonth.lastValue;
+					selectMonth2 = q_EndMonth.lastValue;
 				} else {
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
@@ -147,17 +158,17 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			}
 
 			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L") {
-				if(store.parentId == "A"){
+				if (store.parentId == "A") {
 					//requestUrl = _API['GetRWMDT_2018_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";	
 					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_A'
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
-				}else if(store.parentId == "B"){
+				} else if (store.parentId == "B") {
 					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_B'
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
-				}else if(store.parentId == "L"){
+				} else if (store.parentId == "L") {
 					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_L'
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
-				}else{
+				} else {
 					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 				}
 				//requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
@@ -170,6 +181,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 			} else if (store.parentId == 'M') {
 				//requestUrl = _API['GetRWMDT_' + store.parentId];
 				//requestUrl = 'http://localhost:8080/krf/chart/getRWMDT_M';
+				requestUrl = _API['GetRWMDT_' + store.parentId];
+			} else if (store.parentId == 'Q') {
 				requestUrl = _API['GetRWMDT_' + store.parentId];
 			}
 

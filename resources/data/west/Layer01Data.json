@@ -317,6 +317,28 @@
 		"layerCode": "M001",
 		"isMetaData": false
 	}]
+},{
+	"id": "63",
+	"text": "하수도처리시설",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"layerCode": "Q",
+	"children": [{
+		"id": "64",
+		"wmsId":"",
+		"text": "하수도처리시설",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layerP1",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "사업장코드",
+		"siteAddrCol": "사업장주소",
+		"siteNmCol": "사업장명칭",
+		"layerCode": "Q001",
+		"isMetaData": false
+	}]
 }, {
 	"id": "15",
 	"text": "기타측정지점",

@@ -131,6 +131,7 @@
     "loginSession":"#host#/config/loginSession",
     "getSedimentItemValue":"#host#/searchResult/getSedimentItemValue",
     "GetRWMDT_M":"#host#/chart/getRWMDT_M",
+    "GetRWMDT_Q":"#host#/chart/getRWMDT_Q",
     "login":"#host#/config/login",
     "GetRWMDT_2018_A":"#host#/chart/getRWMDT_2018_A",
     "GetRWMDT_2018_B":"#host#/chart/getRWMDT_2018_B",
@@ -141,6 +142,8 @@
     "searchResult_L2018":"#host#/searchResult/searchResult_L2018",
     "clickSession":"#host#/common/clickSession",
     "GetSearchResultData_M":"#host#/searchResult/searchResult_M",
+    "GetSearchResultData_Q":"#host#/searchResult/searchResult_Q",
+    "GetInfo_Q":"#host#/chart/getInfo_Q",
 
     
 

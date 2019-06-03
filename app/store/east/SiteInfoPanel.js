@@ -10,6 +10,7 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 
 	listeners: {
 		load: function (store) {
+			var url = _API.GetRWMDT;
 
 			var recordId = "";
 			if (store.siteCD != undefined && store.siteCD != "")
@@ -20,13 +21,17 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 			}
 			// 로딩바 표시
 			Ext.getCmp("siteinfotest").mask("loading", "loading...");
-			
-			if(parentId=='M'){
+
+			if (parentId == 'M') {
 				recordId = recordId.split('_')[1];
 			}
-			
+
+			if (parentId == 'Q') {
+				url = _API.GetInfo_Q;
+			}
+
 			Ext.Ajax.request({
-				url: _API.GetRWMDT, //'./resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
+				url: url, //'./resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
 				params: { recordId: recordId, parentId: parentId },
 				async: true, // 비동기 = async: true, 동기 = async: false
 				success: function (response, opts) {

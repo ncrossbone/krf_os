@@ -23,7 +23,7 @@ Ext.define('krf_new.view.common.TabControl', {
 		},
 		height: 30,
 		items: [{
-			xtype: 'container', 
+			xtype: 'container',
 			id: 'resultTab',
 			layout: {
 				type: 'hbox',
@@ -266,8 +266,8 @@ Ext.define('krf_new.view.common.TabControl', {
 						var logLayerCode = parentId[0] != '' ? parentId[0] : parentId;
 						//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
 						setActionInfo('W', 'R', logLayerCode, title[0], $KRF_APP.loginInfo.userId);
-						
-						
+
+
 						ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, "", undefined, false);
 					}
 				}
@@ -457,8 +457,8 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
-		},{
-			
+		}, {
+
 			xtype: 'container',
 			id: 'l_resultTab',
 			layout: {
@@ -533,7 +533,81 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
-		
+
+		}, {
+
+			xtype: 'container',
+			id: 'q_resultTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'q_StartYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'q_StartMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: "label",
+				text: " ~ "
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'q_EndYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'q_EndMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'image',
+				src: './resources/images/button/icon_seah.gif', //검색
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.TabFn.goSearch();
+						}
+					}
+				}
+			}]
+
 		}, {
 			xtype: 'container',
 			width: 10
@@ -603,7 +677,7 @@ Ext.define('krf_new.view.common.TabControl', {
 							PollLoadSearchResult(pollLoadSelect.lastValue);
 
 							//setActionInfo("pollLoad", "pollLoad", "부하량", "", "검색결과");
-							
+
 							//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
 							setActionInfo('W', 'R', 'pollLoad', 'pollLoad', $KRF_APP.loginInfo.userId);
 
@@ -743,8 +817,8 @@ Ext.define('krf_new.view.common.TabControl', {
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
 
-					
-					// 그리드별 조회조건 컨트롤 셋팅
+
+				// 그리드별 조회조건 컨트롤 셋팅
 				Ext.getCmp('m_resultTab').setHidden(true);
 				$KRF_APP.global.TabFn.searchConditionCtl(tab.down("grid"));
 
@@ -795,7 +869,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					endDayTime.setHidden(true);
 				}
 
-				
+
 				// 검색별 TAB 검색조건 변경 및 날짜 binding
 				if (tab.parentId != "F") {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
@@ -994,26 +1068,27 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 
-
-
-				if (tab.parentId == 'M' || tab.parentId == 'L') {
+				if (tab.parentId == 'M' || tab.parentId == 'L' || tab.parentId == 'Q') {
 					Ext.getCmp('resultTab').setHidden(true);
-					if(tab.parentId == 'M'){
+					if (tab.parentId == 'M') {
 						Ext.getCmp('l_resultTab').setHidden(true);
 						Ext.getCmp('m_resultTab').setHidden(false);
-					}else if(tab.parentId == 'L'){
+						Ext.getCmp('q_resultTab').setHidden(true);
+					} else if (tab.parentId == 'L') {
 						Ext.getCmp('l_resultTab').setHidden(false);
 						Ext.getCmp('m_resultTab').setHidden(true);
+						Ext.getCmp('q_resultTab').setHidden(true);
+					} else if (tab.parentId == 'Q') {
+						Ext.getCmp('l_resultTab').setHidden(true);
+						Ext.getCmp('m_resultTab').setHidden(true);
+						Ext.getCmp('q_resultTab').setHidden(false);
 					}
-					
-				}else{
+				} else {
 					Ext.getCmp('resultTab').setHidden(false);
 					Ext.getCmp('l_resultTab').setHidden(true);
 					Ext.getCmp('m_resultTab').setHidden(true);
+					Ext.getCmp('q_resultTab').setHidden(true);
 				}
-				
-
-				
 			}
 		}
 	}, {
@@ -1079,7 +1154,7 @@ Ext.define('krf_new.view.common.TabControl', {
 
 					//엑셀다운 클릭 session
 					//setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
-					
+
 					//엑셀다운 클릭 session
 					//var logLayerCode = parentId[0] != '' ? parentId[0] : parentId;
 					//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'
