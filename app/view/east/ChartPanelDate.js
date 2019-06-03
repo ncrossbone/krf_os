@@ -36,6 +36,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		var m_ChartDate = Ext.getCmp("m_ChartDate");
 		var l_ChartDate = Ext.getCmp("l_ChartDate");
 
+		var q_ChartDate = Ext.getCmp("q_ChartDate");
+
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
 
@@ -48,6 +50,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 		m_ChartDate.hidden = true;
 		l_ChartDate.hidden = true;
+		q_ChartDate.hidden = true;
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -108,12 +111,6 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			m_ChartDate.hidden = false;
 
-			if ($KRF_APP.layerCode == 'M001') {
-
-			} else {
-
-			}
-
 			if (datePanel1) {
 				datePanel1.setHeight(250);
 			} else {
@@ -140,6 +137,17 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				me.height = 250;
 			}
 
+		} else if (parentChk == 'Q') {
+			f_Chart.hidden = true;
+			f_ChartText.hidden = true;
+			startChartDate.hidden = true;
+			endChartDate.hidden = true;
+
+			cStartChartDate.hidden = true;
+			cEndChartDate.hidden = true;
+
+			hChartDate.hidden = true;
+			q_ChartDate.hidden = false;
 		} else {
 			//console.info(parentChk);
 			f_Chart.hidden = true;
@@ -339,13 +347,25 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					, { id: 'FISHES', name: '어류' }]
 			})
 			itemCtl.setValue('BOD');
+		} else if (parentChk == 'Q') {
+			var store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: 'INFLT_QY', name: '유입수' }
+					, { id: 'BOD_VALUE', name: '생물학적산소요구량' }
+					, { id: 'COD_VALUE', name: '화학적산소요구량' }
+					, { id: 'SS_VALUE', name: '부유물질' }
+					, { id: 'TN_VALUE', name: '총질소' }
+					, { id: 'TP_VALUE', name: '총인' }
+					, { id: 'COC_VALUE', name: '총대장균군수' }]
+			})
+			itemCtl.setValue('INFLT_QY');
 		}
 
 		itemCtl.bindStore(store);
 
 		if (_chartDateInfo != null && _chartDateInfo.length != 0) {
 
-			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L') {
+			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q') {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
 
@@ -378,7 +398,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			} else if (parentChk == 'M') {
 
-				var m_SelectYear = Ext.getCmp("m_SelectYear"); 
+				var m_SelectYear = Ext.getCmp("m_SelectYear");
 				var m_SelectMonth = Ext.getCmp("m_SelectMonth");
 				var m_SelectDay = Ext.getCmp("m_SelectDay");
 
@@ -401,12 +421,12 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			} else if (parentChk == 'L') {
 
-				var l_SelectYear = Ext.getCmp("l_SelectYear"); 
+				var l_SelectYear = Ext.getCmp("l_SelectYear");
 				var l_SelectMonth = Ext.getCmp("l_SelectMonth");
 
 				var l_EndYear = Ext.getCmp("l_EndYear");
 				var l_EndMonth = Ext.getCmp("l_EndMonth");
-				
+
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
 
@@ -423,6 +443,18 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				l_EndMonth.setValue(endMonth);
 
 
+			} else if (parentChk == 'Q') {
+				var q_SelectYear = Ext.getCmp("q_SelectYear");
+				var q_SelectMonth = Ext.getCmp("q_SelectMonth");
+
+				var q_EndYear = Ext.getCmp("q_EndYear");
+				var q_EndMonth = Ext.getCmp("q_EndMonth");
+
+				q_SelectYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
+				q_SelectMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+
+				q_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
+				q_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
 			} else {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split(' ');
@@ -914,6 +946,64 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				}, {
 					xtype: 'label',
 					text: '월'
+				}]
+			}]
+		}, {
+			xtype: "container",
+			id: "q_ChartDate",
+			layout: {
+				type: "vbox"
+			},
+			items: [{
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "q_SelectYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'q_SelectMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 부터'
+				}]
+			}, {
+				xtype: 'container',
+				height: 5
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "q_EndYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'q_EndMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 까지'
 				}]
 			}]
 		}, {

@@ -410,6 +410,8 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			}
 		} else if (parentId == 'L') {
 			yFieldName = 'BOD';
+		} else if (parentId == 'Q') {
+			yFieldName = 'INFLT_QY';
 		}
 
 
@@ -627,6 +629,12 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemNm = "총인";
 	} else if (itemNm == 'TN_VALUE') {
 		itemNm = "총질소";
+	} else if (itemNm == 'INFLT_QY') {
+		itemNm = "유입수";
+	} else if (itemNm == 'COD_VALUE') {
+		itemNm = "화학적산소요구량";
+	} else if (itemNm == 'COC_VALUE') {
+		itemNm = "총대장균수";
 	}
 
 	var chartCtl = Ext.getCmp("siteCharttest");
@@ -1116,6 +1124,31 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		}
 
 		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + pId, {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
+		});
+
+		grdCtl.setStore(gridStore);
+
+	} else if (parentCheck == 'Q') {
+
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + parentCheck, options);
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + '_container');
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+
+		if (siteIds != '') {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != '') {
+			grdCtl.parentIds = parentIds;
+		}
+
+		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + parentCheck, {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
 			gridCtl: grdCtl
