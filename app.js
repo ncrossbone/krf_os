@@ -297,7 +297,6 @@ Ext.create('Ext.data.Store', {
 					params: { userId: loginInfo.GIS_AUTHOR_CODE },
 					success: function (response, opts) {
 						var decodeData = Ext.util.JSON.decode(response.responseText);
-						console.info(decodeData)
 						if (decodeData.result.length > 0) {
 							$KRF_APP.LAYER_SETTING = decodeData.result;
 						}

@@ -43,13 +43,13 @@ Ext.define('krf_new.view.search.Layer01', {
 		listeners: {
 			afterrender: function () {
 
-				console.info($KRF_APP.LAYER_SETTING);
+				
 				if($KRF_APP.LAYER_SETTING == undefined){
 
 				}
 
 				setTimeout(function() {
-					console.info($KRF_APP.LAYER_SETTING);
+					
 					Ext.Ajax.request({
 						url: 'resources/data/west/Layer01Data.json',
 						success: function (response, opts) {

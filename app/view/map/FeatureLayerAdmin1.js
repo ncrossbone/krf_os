@@ -481,11 +481,14 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);
 
 				var btnNomal = Ext.getCmp("btnModeNomal");
-				if (btnNomal.btnOnOff == "on") {
-					document.getElementById('reachTable').style.display = "none";
-				} else {
-					document.getElementById('reachTable').style.display = "blank";
+				if(document.getElementById('reachTable')){
+					if (btnNomal.btnOnOff == "on") {
+						document.getElementById('reachTable').style.display = "none";
+					} else {
+						document.getElementById('reachTable').style.display = "blank";
+					}
 				}
+				
 
 				if (clickValue == "start" || clickValue == "end") {
 
