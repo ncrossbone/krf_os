@@ -1402,6 +1402,11 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					
 			var feature = me.detailSelectFeature;
 
+			// 그래픽 그리기
+			me.drawGraphic(me.detailSelectFeature, "reachLine");
+			// 집수구역 그리기
+			me.setReachArea(me.detailSelectFeature.attributes.CAT_DID);
+
 			//기준점이 되는 지역의 집수구역 검색
 			var featureCat = ""; // 기준점 집수구역
 			$KRF_APP.coreMap._rchArea.getFeaturesWithWhere("CAT_DID = '"+me.detailSelectFeature.attributes.CAT_DID+"'", function (featuresArea) {

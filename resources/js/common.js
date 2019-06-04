@@ -836,6 +836,26 @@ ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test,
 	ShowSearchResult(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst);
 }
 
+
+detailSearchTreeColor = function(dom, d){
+	var colorConfig = {
+		'A': '#ddd9c3',
+		'A001': '#ddd9c3',
+		'A002': '#daeef3'
+	};
+
+	var color = '';
+
+	var id = colorConfig[d.data.parentId] ? d.data.parentId : d.data.id;
+	for (key in colorConfig) {
+		if (id.indexOf(key) > -1) {
+			color = colorConfig[key];
+		}
+	}
+
+	dom.style = 'background:' + color + ' !important;';
+}
+
 //툴팁 지도 확대
 detailSearchClickZoom = function (pointX, pointY) {
 
@@ -883,9 +903,11 @@ detailSearchClickDefault = function () {
 	var meter = Number(document.getElementById('detailMeter').value);  //detailMeter
 	//var detailDate = Ext.getCmp('monthpickerId').value;
 	//detailStartDate
-	//
+	var start = document.getElementById('detailStartDate').value.split('-');
+	var end = document.getElementById('detailEndDate').value.split('-');
+	
 
-	detailSearchClick(meter, document.getElementById('detailStartDate').value, document.getElementById('detailEndDate').value);
+	detailSearchClick(meter, start[0]+start[1], end[0]+end[1]);
 
 	/*
 	if(meter){		
@@ -1133,6 +1155,32 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		//grdCtl.getView().bindStore(gridStore);
 		grdCtl.setStore(gridStore);
+
+	} else if (parentCheck == 'K') { //통합환경허가
+
+		if (grdContainer == null || grdContainer == undefined) {
+			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + pId, options);
+			tab.add(grdContainer);
+		}
+		tab.setActiveTab(gridId + '_container');
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+
+		if (siteIds != '') {
+			grdCtl.siteIds = siteIds;
+		}
+		if (parentIds != '') {
+			grdCtl.parentIds = parentIds;
+		}
+
+		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + pId, {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
+		});
+
+		grdCtl.setStore(gridStore);
+		
 
 	} else if (parentCheck == 'M') { //비점오염원
 

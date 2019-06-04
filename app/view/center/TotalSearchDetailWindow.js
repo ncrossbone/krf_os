@@ -41,24 +41,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             locked: true,
             renderer: function (val, dom, d) {
 
-                var colorConfig = {
-                    'A': '#ddd9c3',
-                    'B': '#daeef3',
-                    'C': '#c6d9f0',
-                    'D': '#eaf1dd'
-                };
+                detailSearchTreeColor(dom, d);
 
-                var color = '';
-
-                var id = colorConfig[d.data.parentId] ? d.data.parentId : d.data.id;
-                for (key in colorConfig) {
-                    if (id.indexOf(key) > -1) {
-                        color = colorConfig[key];
-                    }
-                }
-
-                dom.style = 'background:' + color + ' !important;';
-                
                 return val;
             },
             listeners: {
@@ -85,6 +69,10 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                     retVal = val;
                 }    
 
+                
+                detailSearchTreeColor(dom, d);
+                
+
 				return retVal;
 			},
             handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
@@ -98,7 +86,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: '',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -115,7 +104,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'MESURE_DP',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined'){
                     retVal = val;
@@ -133,7 +123,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1060',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -150,7 +141,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1054',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -167,7 +159,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1039',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -184,7 +177,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1050',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -201,7 +195,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1052',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -218,7 +213,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1049',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -235,7 +231,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1053',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -252,7 +249,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1055',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -269,7 +267,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1056',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -286,7 +285,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1073',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -303,7 +303,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1013',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -320,7 +321,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1012',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -337,7 +339,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1066',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -354,7 +357,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1067',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -371,7 +375,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1065',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -388,7 +393,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IDEX',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -405,7 +411,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'GRAD',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -422,7 +429,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1160',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -439,7 +447,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'IEM_1155',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -456,7 +465,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'TOT_INFLOW_QY',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -473,7 +483,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'TOT_DWEQTY',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -490,7 +501,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'WLV',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -507,7 +519,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'RAINFL',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -524,7 +537,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'FLUX',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;
@@ -541,7 +555,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 95,
             align: 'center',
             dataIndex: 'AVRG_SPFLD',
-            renderer: function (val) {
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
 				var retVal = "";
 				if (val != undefined && val != 'undefined')
 					retVal = val;

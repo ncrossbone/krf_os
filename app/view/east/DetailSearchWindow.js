@@ -260,7 +260,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_startYear',
-            value: '2018',
+            //value: '2018',
             store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
             width: 65,
             height: 25
@@ -271,7 +271,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_startMonth',
-            value: '03',
+            //value: '03',
             store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
             width: 50,
             height: 25
@@ -292,7 +292,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_endYear',
-            value: '2019',
+            //value: '2019',
             store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
             width: 65,
             height: 25
@@ -303,7 +303,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_endMonth',
-            value: '01',
+            //value: '01',
             store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
             width: 50,
             height: 25

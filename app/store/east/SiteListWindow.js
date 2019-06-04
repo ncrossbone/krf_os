@@ -279,6 +279,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					if ($.inArray(feature.attributes.GROUP_CODE, arrGroupCodes) === -1) {
 
 						arrGroupCodes.push(feature.attributes.GROUP_CODE);
+						
 					}
 				});
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
@@ -492,6 +493,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					for (var i = 0; i < jsonData.children.length; i++) {
 						if (jsonData.children[i].id == 'Z') {
 							jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
+						}else if(jsonData.children[i].id == 'K'){
+							jsonData.children[i] = store.reDrawKTree(jsonData.children[i]);
 						}
 					}
 
@@ -516,6 +519,56 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 			});
 		}
+	},
+
+	reDrawKTree: function(data){
+
+		var reNewData = {checked:null, children:[], cls:"khLee-x-tree-node-text-bold", expanded:false, id:'K', text:'통합환경허가'};
+
+		
+		var stationList = [];
+		var pointList = [];
+
+		data.children.map(function(obj){
+			if(obj.id == 'K001'){ //K001 사업장
+				if(obj.children.length > 0){
+					for(var i = 0 ; i < obj.children.length ; i++){
+
+						var parentObj = { id: obj.children[i].gubunCode, text: obj.children[i].gubunName, srchBtnDisabled: true, expanded: false, children: [] };
+						stationList.push(parentObj);
+						
+					}
+				}
+			}else if(obj.id == 'K002'){ // K002 방류구
+				if(obj.children.length > 0){
+					for(var i = 0 ; i < obj.children.length ; i++){
+						obj.children[i].parentCode = obj.children[i].parentId;
+						obj.children[i].parentId = 'K001';						
+						pointList.push(obj.children[i]);
+					}
+				}
+			}
+		});
+
+
+		// 새로 정의된 데이터에 지점 넣기 (사업장)
+		reNewData.children = stationList;
+
+
+		// 방류구 GUBUNCODE와 사업장 ID를 매칭하여 매칭되는것은 사업장 children 으로 넣기
+		if(reNewData.children.length > 0){
+			for(var a = 0 ; a < reNewData.children.length; a++){
+				for(var c = 0 ; c < pointList.length ; c++){
+					if(pointList[c].gubunCode == reNewData.children[a].id){
+						reNewData.children[a].children.push(pointList[c]);
+					}
+				}
+			}
+		}
+		
+
+		
+		return reNewData;
 	},
 
 	reDrawTree: function (data) {

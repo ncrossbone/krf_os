@@ -367,17 +367,26 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				me.siteIds += ", ";
 			}
 
-			// E : 생물측정망의 경우 지점 id가 동일한것이 있기 때문에 어떤 검색인지 인자를 하나 더 붙임 ( 그리드아이디만들때 쓰임 , 아이디가 중복되면 그리드 오류발생)
-			if (record.parentNode.data.id.substring(0, 1) == "E") {
-				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.eSiteId });
-				me.siteIds += "'" + record.data.eSiteId + "'";
-			} else if (record.parentNode.data.id.substring(0, 1) == "Z") {
-				me.parentIds.push({ parentId: record.parentNode.data.id.substr(0, 4), siteId: record.data.id.split('_')[1] });
-				me.siteIds += "'" + record.data.id.split('_')[1] + "'";
-			} else {
-				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.id });
+
+			//통합환경허가는 따로 parentId를 지정해준다 2019-06-04
+			if(record.parentNode.data.parentId == 'K'){
+				me.parentIds.push({ parentId: record.parentNode.data.parentId, siteId: record.data.id });
 				me.siteIds += "'" + record.data.id + "'";
+			}else{
+				// E : 생물측정망의 경우 지점 id가 동일한것이 있기 때문에 어떤 검색인지 인자를 하나 더 붙임 ( 그리드아이디만들때 쓰임 , 아이디가 중복되면 그리드 오류발생)
+				if (record.parentNode.data.id.substring(0, 1) == "E") {
+					me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.eSiteId });
+					me.siteIds += "'" + record.data.eSiteId + "'";
+				} else if (record.parentNode.data.id.substring(0, 1) == "Z") {
+					me.parentIds.push({ parentId: record.parentNode.data.id.substr(0, 4), siteId: record.data.id.split('_')[1] });
+					me.siteIds += "'" + record.data.id.split('_')[1] + "'";
+				} else {
+					me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.id });
+					me.siteIds += "'" + record.data.id + "'";
+				}
 			}
+
+			
 
 		}
 	},

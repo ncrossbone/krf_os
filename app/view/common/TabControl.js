@@ -532,6 +532,81 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
+		},{
+			xtype: 'container',
+			id: 'k_resultTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'k_StartYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'k_StartMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: "label",
+				text: " ~ "
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'k_EndYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'k_EndMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: "label",
+				text: "일"
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'image',
+				src: './resources/images/button/icon_seah.gif', //검색
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.TabFn.goSearch();
+						}
+					}
+				}
+			}]
 		}, {
 			xtype: 'container',
 			id: 'q_resultTab',
