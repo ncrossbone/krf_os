@@ -679,17 +679,38 @@ Ext.define('krf_new.view.common.TabControl', {
 				id: 'bunInfoBtn',
 				xtype: 'button',
 				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
-				text: '분석정보'
+				text: '분석정보',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.CommFn.setDataForZ(this.id);
+						}
+					}
+				}
 			}, {
 				xtype: 'button',
 				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
 				id: 'danInfoBtn',
-				text: '단면정보'
+				text: '단면정보',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.CommFn.setDataForZ(this.id);
+						}
+					}
+				}
 			}, {
 				xtype: 'button',
 				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
 				id: 'joInfoBtn',
-				text: '조사정보'
+				text: '조사정보',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.CommFn.setDataForZ(this.id);
+						}
+					}
+				}
 			}]
 		}, {
 			xtype: 'container',

@@ -315,7 +315,7 @@ Ext.define("krf_new.global.CommFn", {
 		return;
 	},
 	getLoginUserInfo: function (sessionId) {
-		if (!sessionId) { // sessionId가 없을때 그냥 return 시킨다
+		if (!sessionId || sessionId == 'null') { // sessionId가 없을때 그냥 return 시킨다
 			return null;
 		}
 		return Ext.Ajax.request({
@@ -452,5 +452,32 @@ Ext.define("krf_new.global.CommFn", {
 		}
 
 		return copy;
+	},
+
+	setDataForZ: function (btnId) {
+		var tabCtl = Ext.getCmp("searchResultTab");
+		tabCtl = tabCtl.items.items[1];
+		var activeTab = tabCtl.getActiveTab();
+		var preGrid = activeTab.child().child();
+		var preStore = preGrid.getStore();
+
+
+		var srw = Ext.getCmp('searchResultWindow_Z');
+
+		if (!srw) {
+			srw = Ext.create('krf_new.view.center.SearchResultWindow_Z');
+			Ext.getCmp('center_container').add(srw);
+		}
+
+		srw.show();
+
+		gridStore = Ext.create('krf_new.store.center.SearchResultWindow_Z', {
+			parentIds: preStore.parentIds,
+			siteIds: preStore.siteIds,
+			start: preStore.startYear + startMonth,
+			end: preStore.endYear + endMonth,
+		});
+
+		grdCtl.setStore(gridStore);
 	}
 });
