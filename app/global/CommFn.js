@@ -315,7 +315,7 @@ Ext.define("krf_new.global.CommFn", {
 		return;
 	},
 	getLoginUserInfo: function (sessionId) {
-		if (!sessionId) { // sessionId가 없을때 그냥 return 시킨다
+		if (!sessionId || sessionId == 'null') { // sessionId가 없을때 그냥 return 시킨다
 			return null;
 		}
 		return Ext.Ajax.request({
@@ -452,5 +452,251 @@ Ext.define("krf_new.global.CommFn", {
 		}
 
 		return copy;
+	},
+
+	setDataForZ: function (btnId) {
+		var tabCtl = Ext.getCmp("searchResultTab");
+		tabCtl = tabCtl.items.items[1];
+		var activeTab = tabCtl.getActiveTab();
+		var preGrid = activeTab.child().child();
+		var preStore = preGrid.getStore();
+
+		var colConfigObj = {
+			'Z006_joInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 깊이', dataIndex: 'MESURE_DP', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 기간 시작 일', dataIndex: 'CHCK_PD_BEGIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 기간 종료 일', dataIndex: 'CHCK_PD_END_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 기관 명', dataIndex: 'EXAMIN_INSTT_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자 명', dataIndex: 'EXMNR_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z004_joInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '한강호소 코드', dataIndex: 'HRLK_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '년', dataIndex: 'YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '월', dataIndex: 'MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '반기', dataIndex: 'TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 일자', dataIndex: 'CHCK_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 시작 일자', dataIndex: 'CHCK_BEGIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 종료 일자', dataIndex: 'CHCK_END_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자 명', dataIndex: 'EXMNR_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사기관 명', dataIndex: 'EXINST_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z005_joInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 깊이', dataIndex: 'MESURE_DP', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 기간 시작 일', dataIndex: 'CHCK_PD_BEGIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '검사 기간 종료 일', dataIndex: 'CHCK_PD_END_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 기관 명', dataIndex: 'EXAMIN_INSTT_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자 명', dataIndex: 'EXMNR_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z002_joInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '구간_일련번호', dataIndex: 'SCTN_SN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '수심', dataIndex: 'DPWT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '식생_높이', dataIndex: 'VTN_HG', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '구간_시작_값', dataIndex: 'SCTN_BEGIN_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '구간_종료_값', dataIndex: 'SCTN_END_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자_명', dataIndex: 'EXMNR_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_기관_명', dataIndex: 'EXAMIN_INSTT_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z002_danInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '시점_경도_도', dataIndex: 'PNTTM_LO_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '시점_경도_분', dataIndex: 'PNTTM_LO_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '시점_경도_초', dataIndex: 'PNTTM_LO_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '시점_위도_도', dataIndex: 'PNTTM_LA_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '시점_위도_분', dataIndex: 'PNTTM_LA_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '시점_위도_초', dataIndex: 'PNTTM_LA_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종점_경도_도', dataIndex: 'TMNL_LO_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종점_경도_분', dataIndex: 'TMNL_LO_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종점_경도_초', dataIndex: 'TMNL_LO_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종점_위도_도', dataIndex: 'TMNL_LA_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종점_위도_분', dataIndex: 'TMNL_LA_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종점_위도_초', dataIndex: 'TMNL_LA_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '방향', dataIndex: 'DRC', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '호안_부터_거리', dataIndex: 'SCTN_SN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '구간_일련번호', dataIndex: 'SCTN_BEGIN_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '구간_시작_값', dataIndex: 'SCTN_END_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '구간_종료_값', dataIndex: 'DPWT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '수심', dataIndex: 'HD', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '토성', dataIndex: 'VTN_HG', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '토습', dataIndex: 'SPECIES_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '식생_높이', dataIndex: 'SPECIES_SCNCENM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종_코드', dataIndex: 'SPECIES_KORNM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종_학명', dataIndex: 'CV_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '종_국명', dataIndex: 'CV_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '피도_값', dataIndex: 'CV_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z001_joInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_시작_일', dataIndex: 'PNTTM_LO_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_종료_일', dataIndex: 'PNTTM_LO_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자_명', dataIndex: 'PNTTM_LO_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_기관_명', dataIndex: 'PNTTM_LA_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z003_joInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_시작_일', dataIndex: 'PNTTM_LO_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_종료_일', dataIndex: 'PNTTM_LO_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자_명', dataIndex: 'PNTTM_LO_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사_기관_명', dataIndex: 'PNTTM_LA_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}]
+		};
+
+		if (!colConfigObj[preStore.parentIds + '_' + btnId]) {
+			alert('데이터 정의 필요.');
+			return;
+		}
+
+		var srw = Ext.getCmp('searchResultWindow_Z');
+
+		if (!srw) {
+			srw = Ext.create('krf_new.view.center.SearchResultWindow_Z');
+			Ext.getCmp('center_container').add(srw);
+		}
+
+		srw.show();
+
+		srw.items.items[0].setColumns(colConfigObj[preStore.parentIds + '_' + btnId]);
+
+		var gridStore = Ext.create('krf_new.store.center.SearchResultWindow_Z', {
+			parentIds: preStore.parentIds,
+			siteIds: preStore.siteIds,
+			startYear: preStore.startYear,
+			startMonth: preStore.startMonth,
+			endYear: preStore.endYear,
+			endMonth: preStore.endMonth,
+			btnId: btnId
+		});
+
+		srw.items.items[0].setStore(gridStore);
 	}
 });
