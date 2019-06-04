@@ -155,6 +155,10 @@ Ext.define("krf_new.global.TabFn", {
 			var parentId = gridCtl.parentIds[0].parentId
 		}
 
+		if(parentId == 'k'){
+			parentId = gridCtl.parentIds[0].parentSiteIds;
+		}
+
 		var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 
 		$KRF_APP.btnFlag = "date";

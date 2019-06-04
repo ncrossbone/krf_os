@@ -260,7 +260,7 @@ ReachInfoBinding = function (objs) {
 
 
 //지점/차트 정보 창 띄우기
-ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
+ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteId) {
 
 	$KRF_APP.global.CommFn.setBookmarkInfo('siteNChart', {
 		tabIdx: tabIdx,
@@ -427,6 +427,8 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z006') {
 				yFieldName = 'CELL_CO';
 			}
+		} else if(parentId = 'K'){
+			yFieldName = 'FUEL_USGQTY';
 		}
 
 
@@ -449,6 +451,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 				//var chartStore = siteChartCtl.getStore();
 				var chartStore = Ext.create('krf_new.store.east.SiteChartPanel');
 				chartStore.siteCD = title;
+				chartStore.siteId = siteId; // 통합환경 parentId가 siteId로 대체 사용
 				chartStore.yFieldName = yFieldName;
 				chartStore.parentId = parentId;
 				chartStore.orgParentId = orgParentId;
@@ -655,6 +658,16 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemNm = "세포수";
 	} else if (itemNm == 'LVB_QY') {
 		itemNm = "생물량";
+	} else if (itemNm == 'FUEL_USGQTY') {
+		itemNm = "연료_사용량";
+	} else if (itemNm == 'MTRAL_USGQTY') {
+		itemNm = "원료_사용량";
+	} else if (itemNm == 'DNSTY') {
+		itemNm = "농도";
+	} else if (itemNm == 'DWEQTY') {
+		itemNm = "방류량";
+	} else if (itemNm == 'PRMISN_EXHST_STDR') {
+		itemNm = "허가_배출_기준";
 	}
 
 	var chartCtl = Ext.getCmp("siteCharttest");
@@ -1125,6 +1138,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			id: gridId + "_container",
 			title: titleText, //_searchType,
 			parentId: parentCheck,
+			parentSiteIds: parentIds[0].parentSiteIds,
 			realParentId: parentIds,
 			//closable : true,
 			autoResize: true,
@@ -1196,7 +1210,9 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		gridStore = Ext.create('krf_new.store.south.SearchResultGrid_' + pId, {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
+			parentSiteIds: parentIds[0].parentSiteIds,
 			gridCtl: grdCtl
+			
 		});
 
 		grdCtl.setStore(gridStore);

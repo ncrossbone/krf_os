@@ -136,6 +136,7 @@
     "GetRWMDT_2018_A":"#host#/chart/getRWMDT_2018_A",
     "GetRWMDT_2018_B":"#host#/chart/getRWMDT_2018_B",
     "GetRWMDT_2018_L":"#host#/chart/getRWMDT_2018_L",
+    "GetRWMDT_2018_K":"#host#/chart/getRWMDT_2018_K",
     "searchResult_A2018":"#host#/searchResult/searchResult_A2018",
     "searchResult_B2018":"#host#/searchResult/searchResult_B2018",
     "searchResult_M":"#host#/searchResult/searchResult_M",
@@ -151,6 +152,7 @@
     "detialSearchResult":"#host#/searchResult/detialSearchResult",
     "GetSearchResultData_Z001":"#host#/searchResult/searchResult_Z001_2018",
     "GetSearchResultData_Z003":"#host#/searchResult/searchResult_Z003_2018",
+    "GetSearchResultData_K":"#host#/searchResult/searchResult_K2018",
     "GetSearchResultDataWindow_Z":"#host#/searchResult/searchResultWindow_Z",
 
     "GetRWMDT_Z001":"#host#/chart/getRWMDT_2018_Z001",

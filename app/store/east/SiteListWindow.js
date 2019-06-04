@@ -523,7 +523,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 	reDrawKTree: function(data){
 
-		var reNewData = {checked:null, children:[], cls:"khLee-x-tree-node-text-bold", expanded:false, id:'K', text:'통합환경허가'};
+		var reNewData = {checked:null, children:[], cls:"khLee-x-tree-node-text-bold", expanded:false, srchBtnDisabled: true, id:'K', text:'통합환경허가'};
 
 		
 		var stationList = [];
@@ -534,7 +534,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				if(obj.children.length > 0){
 					for(var i = 0 ; i < obj.children.length ; i++){
 
-						var parentObj = { id: obj.children[i].gubunCode, text: obj.children[i].gubunName, srchBtnDisabled: true, expanded: false, children: [] };
+						var parentObj = { id: obj.children[i].gubunCode, text: obj.children[i].gubunName, srchBtnDisabled: false, expanded: false, children: [] };
 						stationList.push(parentObj);
 						
 					}
@@ -542,8 +542,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			}else if(obj.id == 'K002'){ // K002 방류구
 				if(obj.children.length > 0){
 					for(var i = 0 ; i < obj.children.length ; i++){
-						obj.children[i].parentCode = obj.children[i].parentId;
-						obj.children[i].parentId = 'K001';						
+						obj.children[i].parentCode = 'K';						
 						pointList.push(obj.children[i]);
 					}
 				}

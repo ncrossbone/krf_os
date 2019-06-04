@@ -53,9 +53,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_K', {
 
             if (firstSearch == "noDate") {
                 Ext.Ajax.request({
-                    //url: _API.GetSearchResultData_L,
-                    //url: 'http://localhost/krf/searchResult/searchResult_L2018',
-                    url: _API.searchResult_L2018,
+                    url: _API.GetSearchResultData_K,
                     params: {
                         WS_CD: WS_CD,
                         AM_CD: AM_CD,
@@ -65,7 +63,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_K', {
                         endYear: endYear,
                         endMonth: endMonth,
                         ADM_CD: ADM_CD,
-                        siteIds: store.siteIds,
+						siteIds: store.siteIds,
+						parentSiteIds: store.parentSiteIds,
                         firstSearch: firstSearch
                     },
                     async: false, // 비동기 = async: true, 동기 = async: false
@@ -109,7 +108,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_K', {
             Ext.Ajax.request({
                 //url: _API.GetSearchResultData_M,
                 //url: 'http://localhost/krf/searchResult/searchResult_L2018',
-                url: _API.searchResult_L2018,
+                url: _API.GetSearchResultData_K,
                 params: {
                     WS_CD: WS_CD,
                     AM_CD: AM_CD,
@@ -119,7 +118,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_K', {
                     endYear: eYearCtl.value,
                     endMonth: eMonthCtl.value,
                     ADM_CD: ADM_CD,
-                    siteIds: store.siteIds,
+					siteIds: store.siteIds,
+					parentSiteIds: store.parentSiteIds,
                     firstSearch: firstSearch
                 },
                 async: true, // 비동기 = async: true, 동기 = async: false

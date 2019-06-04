@@ -90,7 +90,14 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 				var chkText = record.id;
 				var parentId = record.data.parentId;
 
-				ShowWindowSiteNChart(0, chkText, test, parentId);
+				var siteId = "";
+				//통합환경허가 전용 (group_code = K)
+				if(record.data.parentCode){
+					parentId = record.data.parentCode;
+					siteId = record.data.parentId;
+				}
+
+				ShowWindowSiteNChart(0, chkText, test, parentId, undefined, siteId);
 
 				var clickText = record.raw.text;
 				var clickId = record.raw.id;
@@ -370,7 +377,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 
 			//통합환경허가는 따로 parentId를 지정해준다 2019-06-04
 			if(record.parentNode.data.parentId == 'K'){
-				me.parentIds.push({ parentId: record.parentNode.data.parentId, siteId: record.data.id });
+				me.parentIds.push({ parentId: record.parentNode.data.parentId, siteId: record.data.id , parentSiteIds: record.raw.gubunCode});
 				me.siteIds += "'" + record.data.id + "'";
 			}else{
 				// E : 생물측정망의 경우 지점 id가 동일한것이 있기 때문에 어떤 검색인지 인자를 하나 더 붙임 ( 그리드아이디만들때 쓰임 , 아이디가 중복되면 그리드 오류발생)
