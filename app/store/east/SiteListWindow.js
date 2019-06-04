@@ -310,7 +310,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						jsonStr += "			\"visible\": \"false\",\n";
 					}
-					if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M") {
+					if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if (cnt == 0) {
@@ -354,7 +354,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 
 
-						if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y") {
+						if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
 							jsonStr += "				\"srchBtnDisabled\": true,\n";
 						}
 						if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
@@ -395,7 +395,14 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
 									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 									jsonStr += "				\"leaf\": true,\n";
+
+									//4댑스 값 세팅
+									if (layerFeature.attributes.GUBUN_CODE) {
+										jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
+										jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
+									}
 									jsonStr += "				\"checked\": null\n";
+
 									if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
 										jsonStr += "			,   \"infoBtnDisabled\": true,\n";
 										jsonStr += "				\"chartBtnDisabled\": true,\n";
@@ -481,10 +488,17 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);
 
+					//한강호소 다시그리기
+					for (var i = 0; i < jsonData.children.length; i++) {
+						if (jsonData.children[i].id == 'Z') {
+							jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
+						}
+					}
+
 					store.setRootNode(jsonData);
 					store.setRootVisible(false);
 
-					if(store.param.detailSearch){
+					if (store.param.detailSearch) {
 						detailSeachResult(jsonData);
 					}
 					// 로딩바 숨김
@@ -502,6 +516,36 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 			});
 		}
+	},
+
+	reDrawTree: function (data) {
+		var obj = {};
+
+		for (var i = 0; i < data.children.length; i++) {
+			for (var j = 0; j < data.children[i].children.length; j++) {
+				obj[data.children[i].id + data.children[i].children[j].gubunCode] = data.children[i].children;
+				data.children[i].children = [];
+			}
+		}
+
+		for (var i = 0; i < data.children.length; i++) {
+			for (key in obj) {
+				if (key.indexOf(data.children[i].id) > -1) {
+					var parentObj = { id: '', text: '', srchBtnDisabled: true, expanded: false, children: [] };
+					parentObj.id = data.children[i].id + obj[key][0].gubunCode;
+					parentObj.text = obj[key][0].gubunName;
+
+					for (var j = 0; j < obj[key].length; j++) {
+						obj[key][j].id = data.children[i].id + '_' + obj[key][j].id;
+						parentObj.children.push(obj[key][j]);
+					}
+
+					data.children[i].children.push(parentObj);
+				}
+			}
+		}
+
+		return data;
 	},
 
 	resetId: function (obj) {

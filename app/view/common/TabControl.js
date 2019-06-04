@@ -458,7 +458,6 @@ Ext.define('krf_new.view.common.TabControl', {
 				}
 			}]
 		}, {
-
 			xtype: 'container',
 			id: 'l_resultTab',
 			layout: {
@@ -533,9 +532,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
-
 		}, {
-
 			xtype: 'container',
 			id: 'q_resultTab',
 			layout: {
@@ -607,7 +604,93 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
-
+		}, {
+			xtype: 'container',
+			id: 'z_resultTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'z_StartYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'z_StartMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: "label",
+				text: " ~ "
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'combo',
+				id: 'z_EndYear',
+				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
+				width: 80,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '년'
+			}, {
+				xtype: 'combo',
+				id: 'z_EndMonth',
+				store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'label',
+				text: '월'
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'image',
+				src: './resources/images/button/icon_seah.gif', //검색
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.TabFn.goSearch();
+						}
+					}
+				}
+			}, {
+				id: 'bunInfoBtn',
+				xtype: 'button',
+				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
+				text: '분석정보'
+			}, {
+				xtype: 'button',
+				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
+				id: 'danInfoBtn',
+				text: '단면정보'
+			}, {
+				xtype: 'button',
+				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
+				id: 'joInfoBtn',
+				text: '조사정보'
+			}]
 		}, {
 			xtype: 'container',
 			width: 10
@@ -1068,26 +1151,50 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 
-				if (tab.parentId == 'M' || tab.parentId == 'L' || tab.parentId == 'Q') {
+				if (tab.parentId == 'M' || tab.parentId == 'L' || tab.parentId == 'Q' || tab.parentId == 'Z') {
 					Ext.getCmp('resultTab').setHidden(true);
 					if (tab.parentId == 'M') {
 						Ext.getCmp('l_resultTab').setHidden(true);
 						Ext.getCmp('m_resultTab').setHidden(false);
 						Ext.getCmp('q_resultTab').setHidden(true);
+						Ext.getCmp('z_resultTab').setHidden(true);
 					} else if (tab.parentId == 'L') {
 						Ext.getCmp('l_resultTab').setHidden(false);
 						Ext.getCmp('m_resultTab').setHidden(true);
 						Ext.getCmp('q_resultTab').setHidden(true);
+						Ext.getCmp('z_resultTab').setHidden(true);
 					} else if (tab.parentId == 'Q') {
 						Ext.getCmp('l_resultTab').setHidden(true);
 						Ext.getCmp('m_resultTab').setHidden(true);
 						Ext.getCmp('q_resultTab').setHidden(false);
+						Ext.getCmp('z_resultTab').setHidden(true);
+					} else if (tab.parentId == 'Z') {
+						Ext.getCmp('l_resultTab').setHidden(true);
+						Ext.getCmp('m_resultTab').setHidden(true);
+						Ext.getCmp('q_resultTab').setHidden(true);
+						Ext.getCmp('z_resultTab').setHidden(false);
+
+						var showConfing = {
+							'Z001': ['bunInfoBtn', 'joInfoBtn'], //어류
+							'Z002': ['bunInfoBtn', 'danInfoBtn', 'joInfoBtn'], //수변식생
+							'Z003': ['bunInfoBtn', 'joInfoBtn'], //저서형
+							'Z004': ['joInfoBtn'], //수질
+							'Z005': ['bunInfoBtn', 'joInfoBtn'], //동물
+							'Z006': ['bunInfoBtn', 'joInfoBtn'] //식물
+						};
+
+						var btnArr = ['bunInfoBtn', 'danInfoBtn', 'joInfoBtn'];
+
+						for (var i = 0; i < btnArr.length; i++) {
+							showConfing[tab.realParentId].indexOf(btnArr[i]) > -1 ? Ext.getCmp(btnArr[i]).setHidden(false) : Ext.getCmp(btnArr[i]).setHidden(true);
+						}
 					}
 				} else {
 					Ext.getCmp('resultTab').setHidden(false);
 					Ext.getCmp('l_resultTab').setHidden(true);
 					Ext.getCmp('m_resultTab').setHidden(true);
 					Ext.getCmp('q_resultTab').setHidden(true);
+					Ext.getCmp('z_resultTab').setHidden(true);
 				}
 			}
 		}
