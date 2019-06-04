@@ -412,6 +412,20 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 			yFieldName = 'BOD';
 		} else if (parentId == 'Q') {
 			yFieldName = 'INFLT_QY';
+		} else if (parentId == 'Z') {
+			if ($KRF_APP.layerCode == 'Z001') {
+				yFieldName = 'WTRTP_VALUE';
+			} else if ($KRF_APP.layerCode == 'Z002') {
+				yFieldName = 'BOD_VALUE';
+			} else if ($KRF_APP.layerCode == 'Z003') {
+				yFieldName = 'BOD_VALUE';
+			} else if ($KRF_APP.layerCode == 'Z004') {
+				yFieldName = 'BOD_VALUE';
+			} else if ($KRF_APP.layerCode == 'Z005') {
+				yFieldName = 'BOD_VALUE';
+			} else if ($KRF_APP.layerCode == 'Z006') {
+				yFieldName = 'BOD_VALUE';
+			}
 		}
 
 
@@ -747,13 +761,13 @@ detailSeachResult = function (jsonData) {
 	totalSearchDetailWindow.show();
 
 	var grdCtl = totalSearchDetailWindow.items.items[0]; // 그리드 컨테이너
-		grdCtl = grdCtl.items.items[0];
+	grdCtl = grdCtl.items.items[0];
 
 	var store = Ext.create('krf_new.store.center.TotalSearchTree', {
-					async: true,
-					data: jsonData,
-					gridCtl: grdCtl
-				});
+		async: true,
+		data: jsonData,
+		gridCtl: grdCtl
+	});
 	store.load();
 
 	Ext.getCmp('totalSearchTree').setStore(store);
@@ -837,7 +851,7 @@ ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test,
 }
 
 
-detailSearchTreeColor = function(dom, d){
+detailSearchTreeColor = function (dom, d) {
 	var colorConfig = {
 		'A': '#ddd9c3',
 		'A001': '#ddd9c3',
@@ -905,9 +919,9 @@ detailSearchClickDefault = function () {
 	//detailStartDate
 	var start = document.getElementById('detailStartDate').value.split('-');
 	var end = document.getElementById('detailEndDate').value.split('-');
-	
 
-	detailSearchClick(meter, start[0]+start[1], end[0]+end[1]);
+
+	detailSearchClick(meter, start[0] + start[1], end[0] + end[1]);
 
 	/*
 	if(meter){		
@@ -1180,7 +1194,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		});
 
 		grdCtl.setStore(gridStore);
-		
+
 
 	} else if (parentCheck == 'M') { //비점오염원
 
@@ -1233,7 +1247,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 		grdCtl.setStore(gridStore);
 
 	} else if (parentCheck == 'Z') {
-		
+
 		if (grdContainer == null || grdContainer == undefined) {
 			grdContainer = Ext.create('krf_new.view.south.SearchResultGrid_' + pId, options);
 			tab.add(grdContainer);

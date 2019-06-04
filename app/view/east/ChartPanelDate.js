@@ -419,6 +419,20 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				m_EndMonth.setValue(_chartDateInfo[0][dateNameObj[$KRF_APP.layerCode]].substr(4, 2));
 				m_EndDay.setValue(_chartDateInfo[0][dateNameObj[$KRF_APP.layerCode]].substr(6, 2));
 
+			} else if (parentChk == 'Z') {
+
+				var z_SelectYear = Ext.getCmp("z_SelectYear");
+				var z_SelectMonth = Ext.getCmp("z_SelectMonth");
+
+				var z_EndYear = Ext.getCmp("z_EndYear");
+				var z_EndMonth = Ext.getCmp("z_EndMonth");
+
+				z_SelectYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
+				z_SelectMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+
+				z_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
+				z_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+
 			} else if (parentChk == 'L') {
 
 				var l_SelectYear = Ext.getCmp("l_SelectYear");
@@ -998,6 +1012,64 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				}, {
 					xtype: 'combo',
 					id: 'q_EndMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 까지'
+				}]
+			}]
+		}, , {
+			xtype: "container",
+			id: "z_ChartDate",
+			layout: {
+				type: "vbox"
+			},
+			items: [{
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "z_SelectYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'z_SelectMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 부터'
+				}]
+			}, {
+				xtype: 'container',
+				height: 5
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "z_EndYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'z_EndMonth',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 					width: 55,
 					height: 25
