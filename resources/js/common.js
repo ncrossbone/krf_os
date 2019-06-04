@@ -413,21 +413,21 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag) {
 		} else if (parentId == 'Q') {
 			yFieldName = 'INFLT_QY';
 		} else if (parentId == 'Z') {
-			if ($KRF_APP.layerCode == 'Z001') {
-				yFieldName = 'WTRTP_VALUE';
-			} else if ($KRF_APP.layerCode == 'Z002') {
-				yFieldName = 'BOD_VALUE';
-			} else if ($KRF_APP.layerCode == 'Z003') {
-				yFieldName = 'BOD_VALUE';
-			} else if ($KRF_APP.layerCode == 'Z004') {
-				yFieldName = 'BOD_VALUE';
-			} else if ($KRF_APP.layerCode == 'Z005') {
-				yFieldName = 'BOD_VALUE';
-			} else if ($KRF_APP.layerCode == 'Z006') {
-				yFieldName = 'BOD_VALUE';
+
+			if ($KRF_APP.layerCode.substr(0, 4) == 'Z001') {
+				yFieldName = 'INDVD_CO';
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z002') {
+				yFieldName = 'LVB_QY';
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z003') {
+				yFieldName = 'INDVD_CO';
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z004') {
+				yFieldName = 'WTRTP';
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z005') {
+				yFieldName = 'INDVD_CO';
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z006') {
+				yFieldName = 'CELL_CO';
 			}
 		}
-
 
 
 		// 정보창 탭 체인지
@@ -649,6 +649,12 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemNm = "화학적산소요구량";
 	} else if (itemNm == 'COC_VALUE') {
 		itemNm = "총대장균수";
+	} else if (itemNm == 'INDVD_CO') {
+		itemNm = "개체수";
+	} else if (itemNm == 'CELL_CO') {
+		itemNm = "세포수";
+	} else if (itemNm == 'LVB_QY') {
+		itemNm = "생물량";
 	}
 
 	var chartCtl = Ext.getCmp("siteCharttest");
