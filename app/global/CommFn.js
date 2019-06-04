@@ -661,13 +661,15 @@ Ext.define("krf_new.global.CommFn", {
 			}, {
 				text: '측정 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}, {
-				text: '조사_시작_일', dataIndex: 'PNTTM_LO_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}, {
-				text: '조사_종료_일', dataIndex: 'PNTTM_LO_MIN', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+				text: '조사_도구', dataIndex: 'EXAMIN_UNT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}, {
-				text: '조사자_명', dataIndex: 'PNTTM_LO_SECND', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+				text: '조사_깊이', dataIndex: 'EXAMIN_DP', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}, {
-				text: '조사_기관_명', dataIndex: 'PNTTM_LA_DEGR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+				text: '조사_기관_명', dataIndex: 'EXAMIN_INSTT_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사자_명', dataIndex: 'EXMNR_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}]
 		};
 
