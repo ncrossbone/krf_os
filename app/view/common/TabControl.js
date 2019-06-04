@@ -532,7 +532,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}]
-		},{
+		}, {
 			xtype: 'container',
 			id: 'k_resultTab',
 			layout: {
@@ -1247,28 +1247,32 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 
-				if (tab.parentId == 'M' || tab.parentId == 'L' || tab.parentId == 'Q' || tab.parentId == 'Z') {
+				if (tab.parentId == 'M' || tab.parentId == 'L' || tab.parentId == 'Q' || tab.parentId == 'Z' || tab.parentId == 'K') {
 					Ext.getCmp('resultTab').setHidden(true);
 					if (tab.parentId == 'M') {
 						Ext.getCmp('l_resultTab').setHidden(true);
 						Ext.getCmp('m_resultTab').setHidden(false);
 						Ext.getCmp('q_resultTab').setHidden(true);
 						Ext.getCmp('z_resultTab').setHidden(true);
+						Ext.getCmp('k_resultTab').setHidden(true);
 					} else if (tab.parentId == 'L') {
 						Ext.getCmp('l_resultTab').setHidden(false);
 						Ext.getCmp('m_resultTab').setHidden(true);
 						Ext.getCmp('q_resultTab').setHidden(true);
 						Ext.getCmp('z_resultTab').setHidden(true);
+						Ext.getCmp('k_resultTab').setHidden(true);
 					} else if (tab.parentId == 'Q') {
 						Ext.getCmp('l_resultTab').setHidden(true);
 						Ext.getCmp('m_resultTab').setHidden(true);
 						Ext.getCmp('q_resultTab').setHidden(false);
 						Ext.getCmp('z_resultTab').setHidden(true);
+						Ext.getCmp('k_resultTab').setHidden(true);
 					} else if (tab.parentId == 'Z') {
 						Ext.getCmp('l_resultTab').setHidden(true);
 						Ext.getCmp('m_resultTab').setHidden(true);
 						Ext.getCmp('q_resultTab').setHidden(true);
 						Ext.getCmp('z_resultTab').setHidden(false);
+						Ext.getCmp('k_resultTab').setHidden(true);
 
 						var showConfing = {
 							'Z001': ['bunInfoBtn', 'joInfoBtn'], //어류
@@ -1284,6 +1288,12 @@ Ext.define('krf_new.view.common.TabControl', {
 						for (var i = 0; i < btnArr.length; i++) {
 							showConfing[tab.realParentId].indexOf(btnArr[i]) > -1 ? Ext.getCmp(btnArr[i]).setHidden(false) : Ext.getCmp(btnArr[i]).setHidden(true);
 						}
+					} else if (tab.parentId == 'K') {
+						Ext.getCmp('l_resultTab').setHidden(true);
+						Ext.getCmp('m_resultTab').setHidden(true);
+						Ext.getCmp('q_resultTab').setHidden(true);
+						Ext.getCmp('z_resultTab').setHidden(true);
+						Ext.getCmp('k_resultTab').setHidden(false);
 					}
 				} else {
 					Ext.getCmp('resultTab').setHidden(false);
