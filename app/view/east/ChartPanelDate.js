@@ -504,10 +504,17 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				var z_EndMonth = Ext.getCmp("z_EndMonth_chart");
 
 				z_SelectYear.setValue(_chartDateInfo[0].WMCYMD.split('.')[0]);
-				z_SelectMonth.setValue(_chartDateInfo[0].WMCYMD.split('.')[1] < 10 ? '0' + _chartDateInfo[0].WMCYMD.split('.')[1] : _chartDateInfo[0].WMCYMD.split('.')[1]);
-
 				z_EndYear.setValue(_chartDateInfo[0].WMCYMD.split('.')[0]);
-				z_EndMonth.setValue(_chartDateInfo[0].WMCYMD.split('.')[1] < 10 ? '0' + _chartDateInfo[0].WMCYMD.split('.')[1] : _chartDateInfo[0].WMCYMD.split('.')[1]);
+
+				if (_chartDateInfo[0].WMCYMD.split('.')[1].split(' ')[1]) {
+					month = _chartDateInfo[0].WMCYMD.split('.')[1].split(' ')[0];
+				} else {
+					month = _chartDateInfo[0].WMCYMD.split('.')[1];
+				}
+
+				month = parseInt(month) < 10 ? '0' + parseInt(month) : month;
+				z_SelectMonth.setValue(month);
+				z_EndMonth.setValue(month);
 
 			} else if (parentChk == 'L') {
 
