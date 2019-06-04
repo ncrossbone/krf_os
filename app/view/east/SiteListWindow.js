@@ -4,7 +4,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 	xtype: 'east-sitelistindow',
 	id: 'siteListWindow',
 	title: '지점 목록',
- 
+
 	//	cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
 
 	layout: {
@@ -43,7 +43,7 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 						if (node.record.data.id != undefined) {
 							// 집수구역, 지점 이동, 리치정보 하이라이트
 							var me = this.up("window");
-							
+
 							me.moveCommon(record);
 						}
 					}
@@ -216,6 +216,9 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 						var pNm = me.parentIds[0].parentId;
 
 						pNm = pNm.substring(0, 1);
+						if (pNm == 'Z') {
+							me.parentIds = me.parentIds[0].parentId.substr(0, 4);
+						}
 
 						// 검색결과창 띄우기
 						ShowSearchResult(me.siteIds, me.parentIds, childRecord[i].data.text, gridId, "");
@@ -241,6 +244,9 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 					var pNm = me.parentIds[0].parentId;
 
 					pNm = pNm.substring(0, 1);
+					if (pNm == 'Z') {
+						me.parentIds = me.parentIds[0].parentId.substr(0, 4);
+					}
 					// 검색결과창 띄우기
 
 					ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId, "");
@@ -365,11 +371,13 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 			if (record.parentNode.data.id.substring(0, 1) == "E") {
 				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.eSiteId });
 				me.siteIds += "'" + record.data.eSiteId + "'";
+			} else if (record.parentNode.data.id.substring(0, 1) == "Z") {
+				me.parentIds.push({ parentId: record.parentNode.data.id.substr(0, 4), siteId: record.data.id.split('_')[1] });
+				me.siteIds += "'" + record.data.id.split('_')[1] + "'";
 			} else {
 				me.parentIds.push({ parentId: record.parentNode.data.id, siteId: record.data.id });
 				me.siteIds += "'" + record.data.id + "'";
 			}
-
 
 		}
 	},
@@ -460,9 +468,9 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 	moveCommon: function (record) {
 		var me = this;
 		var nodeId = "";
-		if(record.data.catDId != undefined){
+		if (record.data.catDId != undefined) {
 			nodeId = record.data.catDId;
-		}else{
+		} else {
 			nodeId = record.data.eSiteId;
 		}
 
@@ -471,17 +479,17 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 
 		var parentNodeId = "";
 		// 지점이동
-		if(record.data.id.substring(0,7) == "EsstgHc"){
+		if (record.data.id.substring(0, 7) == "EsstgHc") {
 			nodeId = record.data.eSiteId;
 			parentNodeId = "E001";
-		}else if(record.data.id.substring(0,7) == "EsstgHg"){
+		} else if (record.data.id.substring(0, 7) == "EsstgHg") {
 			nodeId = record.data.eSiteId;
 			parentNodeId = "E002";
-		}else{
+		} else {
 			nodeId = record.data.id;
 			parentNodeId = record.data.parentId;
 		}
-		
+
 		siteMovePoint(parentNodeId, nodeId);
 
 		// 리치정보 띄우기
