@@ -755,6 +755,36 @@
 		"metaDataId":"H001"
 	}]
 },{
+	"id": "65",
+	"text": "통합환경허가",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "66",
+		"wmsId":"",
+		"text": "사업장",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer86",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"layerCode": "H001",
+		"metaDataId":"H001"
+	},{
+		"id": "67",
+		"wmsId":"",
+		"text": "방류구",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer86",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "",
+		"layerCode": "H001",
+		"metaDataId":"H001"
+	}]
+},{
 	"id": "83",
 	"text": "하천망도",
 	"cls": "khLee-x-tree-node-text-bold",

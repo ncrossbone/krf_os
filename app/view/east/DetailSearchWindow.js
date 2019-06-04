@@ -53,8 +53,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
                 maskRe: /[0-9.]/,
                 fieldLabel: '<label style="background:url(\'./resources/images/totalSearch/tit_blit2.png\') no-repeat left center; padding-left:12px; font-weight:bold; font-size:12px; font-family:\'dotum\'">반경 설정</label>',
                 width: 150,
-                labelWidth: 80,
-                value: 15
+                labelWidth: 80
             }, {
                 xtype: 'label',
                 style: 'font-size:12px; font-family:"dotum"; margin-top: 5px; margin-left: 3px;',
@@ -261,6 +260,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_startYear',
+            value: '2018',
             store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
             width: 65,
             height: 25
@@ -271,6 +271,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_startMonth',
+            value: '03',
             store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
             width: 50,
             height: 25
@@ -291,6 +292,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_endYear',
+            value: '2019',
             store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
             width: 65,
             height: 25
@@ -301,6 +303,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }, {
             xtype: 'combo',
             id: 'detail_endMonth',
+            value: '01',
             store: $KRF_APP.global.CommFn.bindComboMonth("Asc", ""),
             width: 50,
             height: 25
