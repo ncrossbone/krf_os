@@ -53,9 +53,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_K', {
 
             if (firstSearch == "noDate") {
                 Ext.Ajax.request({
-                    //url: _API.GetSearchResultData_L,
-                    //url: 'http://localhost/krf/searchResult/searchResult_L2018',
-                    url: _API.searchResult_L2018,
+                    url: _API.searchResult_K2018,
                     params: {
                         WS_CD: WS_CD,
                         AM_CD: AM_CD,
@@ -109,7 +107,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_K', {
             Ext.Ajax.request({
                 //url: _API.GetSearchResultData_M,
                 //url: 'http://localhost/krf/searchResult/searchResult_L2018',
-                url: _API.searchResult_L2018,
+                url: _API.searchResult_K2018,
                 params: {
                     WS_CD: WS_CD,
                     AM_CD: AM_CD,
