@@ -658,6 +658,16 @@ SetItemLabelText = function (itemNm, chartId, test) {
 		itemNm = "세포수";
 	} else if (itemNm == 'LVB_QY') {
 		itemNm = "생물량";
+	} else if (itemNm == 'FUEL_USGQTY') {
+		itemNm = "연료_사용량";
+	} else if (itemNm == 'MTRAL_USGQTY') {
+		itemNm = "원료_사용량";
+	} else if (itemNm == 'DNSTY') {
+		itemNm = "농도";
+	} else if (itemNm == 'DWEQTY') {
+		itemNm = "방류량";
+	} else if (itemNm == 'PRMISN_EXHST_STDR') {
+		itemNm = "허가_배출_기준";
 	}
 
 	var chartCtl = Ext.getCmp("siteCharttest");

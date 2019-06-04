@@ -145,11 +145,11 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectMonth2 = z_EndMonth.lastValue;
 
 				} else if(store.parentId == 'K'){
-					var k_SelectYear = Ext.getCmp('k_SelectYear');
-					var k_SelectMonth = Ext.getCmp('k_SelectMonth');
+					var k_SelectYear = Ext.getCmp('k_SelectYear_chart');
+					var k_SelectMonth = Ext.getCmp('k_SelectMonth_chart');
 
-					var k_EndYear = Ext.getCmp("k_EndYear");
-					var k_EndMonth = Ext.getCmp("k_EndMonth");
+					var k_EndYear = Ext.getCmp("k_EndYear_chart");
+					var k_EndMonth = Ext.getCmp("k_EndMonth_chart");
 
 					selectYear = k_SelectYear.lastValue;
 					selectYear2 = k_EndYear.lastValue;

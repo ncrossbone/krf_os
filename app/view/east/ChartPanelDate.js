@@ -173,7 +173,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			k_ChartDate.hidden = true;
 
 			z_ChartDate.hidden = false;
-		} else if (parentChk == 'Z') {
+		} else if (parentChk == 'K') {
 			f_Chart.hidden = true;
 			f_ChartText.hidden = true;
 			startChartDate.hidden = true;
@@ -475,7 +475,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 		if (_chartDateInfo != null && _chartDateInfo.length != 0) {
 
-			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'Z'&& parentChk != 'K') {
+			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'Z' && parentChk != 'K') {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
 
@@ -580,17 +580,17 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				q_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
 				q_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
 			} else if (parentChk == 'K') {
-				var k_SelectYear = Ext.getCmp("k_SelectYear");
-				var k_SelectMonth = Ext.getCmp("k_SelectMonth");
+				var k_SelectYear = Ext.getCmp("k_SelectYear_chart");
+				var k_SelectMonth = Ext.getCmp("k_SelectMonth_chart");
 
-				var k_EndYear = Ext.getCmp("k_EndYear");
-				var k_EndMonth = Ext.getCmp("k_EndMonth");
+				var k_EndYear = Ext.getCmp("k_EndYear_chart");
+				var k_EndMonth = Ext.getCmp("k_EndMonth_chart");
 
-				k_SelectYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
-				k_SelectMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+				k_SelectYear.setValue(_chartDateInfo[0].WMCYMD.substr(0, 4));
+				k_SelectMonth.setValue(_chartDateInfo[0].WMCYMD.substr(5, 2));
 
-				k_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
-				k_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+				k_EndYear.setValue(_chartDateInfo[0].WMCYMD.substr(0, 4));
+				k_EndMonth.setValue(_chartDateInfo[0].WMCYMD.substr(5, 2));
 			} else {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split(' ');
@@ -1215,14 +1215,14 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					width: 80,
 					height: 25,
 					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-					id: "k_SelectYear",
+					id: "k_SelectYear_chart",
 					editable: false,
 				}, {
 					xtype: 'label',
 					text: '년'
 				}, {
 					xtype: 'combo',
-					id: 'k_SelectMonth',
+					id: 'k_SelectMonth_chart',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 					width: 55,
 					height: 25
@@ -1242,14 +1242,14 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					width: 80,
 					height: 25,
 					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-					id: "k_EndYear",
+					id: "k_EndYear_chart",
 					editable: false,
 				}, {
 					xtype: 'label',
 					text: '년'
 				}, {
 					xtype: 'combo',
-					id: 'k_EndMonth',
+					id: 'k_EndMonth_chart',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 					width: 55,
 					height: 25
