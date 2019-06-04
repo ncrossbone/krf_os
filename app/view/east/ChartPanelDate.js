@@ -38,6 +38,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 		var q_ChartDate = Ext.getCmp("q_ChartDate");
 		var k_ChartDate = Ext.getCmp("k_ChartDate");
+		var z_ChartDate = Ext.getCmp("z_ChartDate");
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -52,6 +53,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		m_ChartDate.hidden = true;
 		l_ChartDate.hidden = true;
 		q_ChartDate.hidden = true;
+		z_ChartDate.hidden = true;
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -129,7 +131,12 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			hChartDate.hidden = true;
 
 			m_ChartDate.hidden = true;
+			k_ChartDate.hidden = true;
+			z_ChartDate.hidden = true;
+			q_ChartDate.hidden = true;
+
 			l_ChartDate.hidden = false;
+			
 
 
 			if (datePanel1) {
@@ -146,10 +153,13 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			cStartChartDate.hidden = true;
 			cEndChartDate.hidden = true;
+			k_ChartDate.hidden = true;
+			z_ChartDate.hidden = true;
 
 			hChartDate.hidden = true;
 			q_ChartDate.hidden = false;
-		} else if (parentChk == 'K') {
+
+		} else if (parentChk == 'Z') {
 			f_Chart.hidden = true;
 			f_ChartText.hidden = true;
 			startChartDate.hidden = true;
@@ -160,6 +170,22 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			hChartDate.hidden = true;
 			q_ChartDate.hidden = true;
+			k_ChartDate.hidden = true;
+
+			z_ChartDate.hidden = false;
+		} else if (parentChk == 'Z') {
+			f_Chart.hidden = true;
+			f_ChartText.hidden = true;
+			startChartDate.hidden = true;
+			endChartDate.hidden = true;
+
+			cStartChartDate.hidden = true;
+			cEndChartDate.hidden = true;
+
+			hChartDate.hidden = true;
+			q_ChartDate.hidden = true;
+			z_ChartDate.hidden = true;
+
 			k_ChartDate.hidden = false;
 		} else {
 			//console.info(parentChk);
@@ -356,6 +382,67 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					, { id: 'PRMISN_EXHST_STDR', name: '허가_배출_기준' }]
 			})
 			itemCtl.setValue('BOD');
+		} else if (parentChk == 'Z') {
+			if ($KRF_APP.layerCode.substr(0, 4) == 'Z001') {
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: 'INDVD_CO', name: '개체 수' }]
+				})
+				itemCtl.setValue('INDVD_CO');
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z006') {
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: 'CELL_CO', name: '세포_수' }]
+				})
+				itemCtl.setValue('CELL_CO');
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z005') {
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: 'INDVD_CO', name: '개체 수' }]
+				})
+				itemCtl.setValue('INDVD_CO');
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z002') {
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: 'LVB_QY', name: '생물_량' }]
+				})
+				itemCtl.setValue('LVB_QY');
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z003') {
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: 'INDVD_CO', name: '개체 수' }]
+				})
+				itemCtl.setValue('INDVD_CO');
+			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z004') {
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [
+						{ id: 'WTRTP', name: '수온' },
+						{ id: 'PH', name: '수소이온농도' },
+						{ id: 'DOCB', name: '용존성유기탄소' },
+						{ id: 'EC', name: '전기전도도' },
+						{ id: 'TUR', name: '탁도' },
+						{ id: 'SD', name: '염도' },
+						{ id: 'CHLA', name: '클로로필A' },
+						{ id: 'SS', name: '부유물질' },
+						{ id: 'TP', name: '총인' },
+						{ id: 'DTP', name: '용존총인' },
+						{ id: 'PO4P', name: '인산염인' },
+						{ id: 'TN', name: '총질소' },
+						{ id: 'DTN', name: '용존총질소' },
+						{ id: 'NO3N', name: '질산성질소' },
+						{ id: 'BOD', name: '생물학적산소요구량' },
+						{ id: 'COD', name: '화학적산소요구량' },
+						{ id: 'POC', name: 'POC' },
+						{ id: 'DOC', name: '용존산소' },
+						{ id: 'TOC', name: '총유기탄소' },
+						{ id: 'TCOLI_CO', name: '총대장균군_수' },
+						{ id: 'FCOLI_CO', name: '분원선대장균군_수' },
+						{ id: 'UV254', name: '자외선흡광도' },
+						{ id: 'NH3N', name: 'NH3N' }]
+				})
+				itemCtl.setValue('WTRTP');
+			}
 		} else if (parentChk == 'L') {
 			var store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
@@ -388,7 +475,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 		if (_chartDateInfo != null && _chartDateInfo.length != 0) {
 
-			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'K') {
+			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'Z'&& parentChk != 'K') {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
 
@@ -444,17 +531,17 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			} else if (parentChk == 'Z') {
 
-				var z_SelectYear = Ext.getCmp("z_SelectYear");
-				var z_SelectMonth = Ext.getCmp("z_SelectMonth");
+				var z_SelectYear = Ext.getCmp("z_SelectYear_chart");
+				var z_SelectMonth = Ext.getCmp("z_SelectMonth_chart");
 
-				var z_EndYear = Ext.getCmp("z_EndYear");
-				var z_EndMonth = Ext.getCmp("z_EndMonth");
+				var z_EndYear = Ext.getCmp("z_EndYear_chart");
+				var z_EndMonth = Ext.getCmp("z_EndMonth_chart");
 
-				z_SelectYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
-				z_SelectMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+				z_SelectYear.setValue(_chartDateInfo[0].WMCYMD.split('.')[0]);
+				z_SelectMonth.setValue(_chartDateInfo[0].WMCYMD.split('.')[1] < 10 ? '0' + _chartDateInfo[0].WMCYMD.split('.')[1] : _chartDateInfo[0].WMCYMD.split('.')[1]);
 
-				z_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
-				z_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+				z_EndYear.setValue(_chartDateInfo[0].WMCYMD.split('.')[0]);
+				z_EndMonth.setValue(_chartDateInfo[0].WMCYMD.split('.')[1] < 10 ? '0' + _chartDateInfo[0].WMCYMD.split('.')[1] : _chartDateInfo[0].WMCYMD.split('.')[1]);
 
 			} else if (parentChk == 'L') {
 
@@ -999,6 +1086,64 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			}]
 		}, {
 			xtype: "container",
+			id: "z_ChartDate",
+			layout: {
+				type: "vbox"
+			},
+			items: [{
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "z_SelectYear_chart",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'z_SelectMonth_chart',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 부터'
+				}]
+			}, {
+				xtype: 'container',
+				height: 5
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "z_EndYear_chart",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'z_EndMonth_chart',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 부터'
+				}]
+			}]
+		}, {
+			xtype: "container",
 			id: "q_ChartDate",
 			layout: {
 				type: "vbox"
@@ -1047,64 +1192,6 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				}, {
 					xtype: 'combo',
 					id: 'q_EndMonth',
-					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-					width: 55,
-					height: 25
-				}, {
-					xtype: 'label',
-					text: '월 까지'
-				}]
-			}]
-		}, {
-			xtype: "container",
-			id: "z_ChartDate",
-			layout: {
-				type: "vbox"
-			},
-			items: [{
-				xtype: 'container',
-				layout: 'hbox',
-				style: 'margin-bottom:5px;',
-				items: [{
-					xtype: "combo",
-					width: 80,
-					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-					id: "z_SelectYear",
-					editable: false,
-				}, {
-					xtype: 'label',
-					text: '년'
-				}, {
-					xtype: 'combo',
-					id: 'z_SelectMonth',
-					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-					width: 55,
-					height: 25
-				}, {
-					xtype: 'label',
-					text: '월 부터'
-				}]
-			}, {
-				xtype: 'container',
-				height: 5
-			}, {
-				xtype: 'container',
-				layout: 'hbox',
-				style: 'margin-bottom:5px;',
-				items: [{
-					xtype: "combo",
-					width: 80,
-					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
-					id: "z_EndYear",
-					editable: false,
-				}, {
-					xtype: 'label',
-					text: '년'
-				}, {
-					xtype: 'combo',
-					id: 'z_EndMonth',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 					width: 55,
 					height: 25

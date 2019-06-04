@@ -133,11 +133,11 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectMonth2 = q_EndMonth.lastValue;
 				} else if (store.parentId == 'Z') {
 
-					var z_SelectYear = Ext.getCmp('z_SelectYear');
-					var z_SelectMonth = Ext.getCmp('z_SelectMonth');
+					var z_SelectYear = Ext.getCmp('z_SelectYear_chart');
+					var z_SelectMonth = Ext.getCmp('z_SelectMonth_chart');
 
-					var z_EndYear = Ext.getCmp("z_EndYear");
-					var z_EndMonth = Ext.getCmp("z_EndMonth");
+					var z_EndYear = Ext.getCmp("z_EndYear_chart");
+					var z_EndMonth = Ext.getCmp("z_EndMonth_chart");
 
 					selectYear = z_SelectYear.lastValue;
 					selectYear2 = z_EndYear.lastValue;
@@ -209,6 +209,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				requestUrl = _API['GetRWMDT_' + store.parentId];
 			} else if (store.parentId == 'Z') {
 				requestUrl = _API['GetRWMDT_' + store.orgParentId.substr(0, 4)];
+				recordId = recordId.split('_')[1];
 			} else if (store.parentId == 'Q') {
 				requestUrl = _API['GetRWMDT_' + store.parentId];
 			}
@@ -370,6 +371,13 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						* WMCYMD  = 날짜 ( ex) 2013.12.23 )
 						* F 환경기초시설 구분은 미확
 						*/
+
+						if (!jsonData.data) {
+							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
+							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+							return;
+						}
+
 						_chartDateInfo = [];
 						_chartDateInfo.push(jsonData.data[0]);
 						_chartDateInfo.push(jsonData.data[jsonData.data.length - 1]);

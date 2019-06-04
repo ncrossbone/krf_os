@@ -155,12 +155,12 @@
     "GetSearchResultData_K":"#host#/searchResult/searchResult_K2018",
     "GetSearchResultDataWindow_Z":"#host#/searchResult/searchResultWindow_Z",
 
-    "GetRWMDT_Z001":"#host#/chart/getRWMDT_Z001",
-    "GetRWMDT_Z002":"#host#/chart/getRWMDT_Z002",
-    "GetRWMDT_Z003":"#host#/chart/getRWMDT_Z003",
-    "GetRWMDT_Z004":"#host#/chart/getRWMDT_Z004",
-    "GetRWMDT_Z005":"#host#/chart/getRWMDT_Z005",
-    "GetRWMDT_Z006":"#host#/chart/getRWMDT_Z006",
+    "GetRWMDT_Z001":"#host#/chart/getRWMDT_2018_Z001",
+    "GetRWMDT_Z002":"#host#/chart/getRWMDT_2018_Z002",
+    "GetRWMDT_Z003":"#host#/chart/getRWMDT_2018_Z003",
+    "GetRWMDT_Z004":"#host#/chart/getRWMDT_2018_Z004",
+    "GetRWMDT_Z005":"#host#/chart/getRWMDT_2018_Z005",
+    "GetRWMDT_Z006":"#host#/chart/getRWMDT_2018_Z006",
 
     
 
