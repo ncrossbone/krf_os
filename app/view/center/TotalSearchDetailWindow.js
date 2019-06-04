@@ -31,7 +31,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
         xtype: 'treepanel',
         id: 'totalSearchTree',
         rootVisible: false,
-        columns: [{
+        columns: [
+            {
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',
             width: 220,
@@ -57,6 +58,7 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                 }
 
                 dom.style = 'background:' + color + ' !important;';
+                
                 return val;
             },
             listeners: {
@@ -71,86 +73,480 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                     }
                 }
             }
-        }, {
-            text: '년도',
-            width: 60,
-            dataIndex: 'catDId',
+        }
+        ,{
+            text: '일자',
+            width: 95,
             align: 'center',
+            dataIndex: 'DE',
             renderer: function (val, dom, d) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined'){
+                    retVal = val;
+                }    
 
-                var colorConfig = {
-                    'A': '#ddd9c3',
-                    'B': '#daeef3',
-                    'C': '#c6d9f0',
-                    'D': '#eaf1dd'
-                };
-
-                var color = '';
-
-                var id = colorConfig[d.data.parentId] ? d.data.parentId : d.data.id;
-                for (key in colorConfig) {
-                    if (id.indexOf(key) > -1) {
-                        color = colorConfig[key];
-                    }
-                }
-
-                dom.style = 'background:' + color + ' !important;';
-                return val;
-            },
-        }, {
-            text: '월',
-            width: 60,
-            menuDisabled: true,
-            xtype: 'actioncolumn',
-            align: 'center',
+				return retVal;
+			},
             handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
             },
             // Only leaf level tasks may be edited
             isDisabled: function (view, rowIdx, colIdx, item, record) {
 
             }
-        }, {
+        },{
             text: '회차',
-            width: 60,
-            menuDisabled: true,
-            xtype: 'actioncolumn',
+            width: 95,
             align: 'center',
+            dataIndex: '',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
             handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
             },
             // Only leaf level tasks may be edited
             isDisabled: function (view, rowIdx, colIdx, item, record) {
 
             }
-        }, {
-            text: '주소',
-            width: 60,
-            menuDisabled: true,
-            xtype: 'actioncolumn',
+        },{
+            text: '수심(m)',
+            width: 95,
             align: 'center',
+            dataIndex: 'MESURE_DP',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined'){
+                    retVal = val;
+                }
+				return retVal;
+			},
             handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
             },
             // Only leaf level tasks may be edited
             isDisabled: function (view, rowIdx, colIdx, item, record) {
 
             }
-        }, {
-            text: '수심',
-            width: 60,
-            menuDisabled: true,
-            xtype: 'actioncolumn',
+        },{
+            text: '수온(℃)',
+            width: 95,
             align: 'center',
+            dataIndex: 'IEM_1060',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
             handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
             },
             // Only leaf level tasks may be edited
             isDisabled: function (view, rowIdx, colIdx, item, record) {
 
             }
-        }, {
-            text: '',
-            width: 60,
-            menuDisabled: true,
-            xtype: 'actioncolumn',
+        },{
+            text: 'DO(㎎/L)',
+            width: 95,
             align: 'center',
+            dataIndex: 'IEM_1054',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'pH',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1039',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '전기전도도(µS/㎝)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1050',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'BOD(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1052',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'COD(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1049',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'ss(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1053',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'TN(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1055',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'TP(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1056',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: 'TOC(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1073',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '질산성질소(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1013',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '암모니아성 질소(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1012',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '용존총질소(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1066',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '용존총인(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1067',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '인산염인(㎎/L)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1065',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '지수',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IDEX',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '건강성등급',
+            width: 95,
+            align: 'center',
+            dataIndex: 'GRAD',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '완전연소가능량(%)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1160',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '오염단계',
+            width: 95,
+            align: 'center',
+            dataIndex: 'IEM_1155',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '총유입량(㎥/일)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'TOT_INFLOW_QY',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '총 방류량(㎥/일)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'TOT_DWEQTY',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '수위(cm)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'WLV',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '강수량(mm)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'RAINFL',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '유량(㎥/sec)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'FLUX',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+            }
+        },{
+            text: '평균유속(m/s)',
+            width: 95,
+            align: 'center',
+            dataIndex: 'AVRG_SPFLD',
+            renderer: function (val) {
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
             handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
             },
             // Only leaf level tasks may be edited

@@ -746,9 +746,13 @@ detailSeachResult = function(jsonData){
 
 	totalSearchDetailWindow.show();
 
+	var grdCtl = totalSearchDetailWindow.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0];
+
 	var store = Ext.create('krf_new.store.center.TotalSearchTree', {
 					async: true,
-					data: jsonData
+					data: jsonData,
+					gridCtl: grdCtl
 				});
 	store.load();
 
@@ -848,7 +852,7 @@ detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일
 	var popSiteInfo = Ext.getCmp('popSiteInfo');
 
 	if (meter) {//반경존재 유무
-		if (meter > 10) {//반경 10Km 제한
+		if (meter < 10) {//반경 10Km 제한
 			if (startValue || endValue) {//날짜존재 유무
 				var dateCmpare = detailDateCompare(startValue, endValue);
 				if (dateCmpare[0]) {//종료일자와 시작일자 차이
