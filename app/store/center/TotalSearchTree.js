@@ -8,27 +8,56 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			var me = this;
 
 			var jsonData = store.data;
-			console.info(store.data);
-			//itemselector
-			//detailSeachSetParam
-			//detailSeachSetParam
 
-			var containsObject = function(obj, list) {
-				var x;
-				for (x in list) {
-					if (list.hasOwnProperty(x) && list[x] === obj) {
-						return true;
-					}
-				}
-			
-				return false;
+			var layerList = [];
+			//상세검색일시
+			if(Ext.getCmp('itemselector')){
+				layerList = Ext.getCmp('itemselector').getValue();
+			}else{//아닐시
+				layerList = ['A001', 'A002', 'C001', 'C002', 'D001', 'D003', 'D005', 'D006', 'F001', 'F002', 'F003', 'F004', 'F006', 'F007', 'F007'];
 			}
-			
-
-			var layerList = Ext.getCmp('itemselector').getValue();
 
 			var paramList = {'A':[],'B':[],'C':[],'D':[],'E':[],'F':[],'G':[],'H':[]};
 			var siteIds = [];
+
+
+			//날짜 세팅
+			var detailSearchStartYear = "";
+			var detailSearchStartMonth = "";
+			var detailSearchEndYear = "";
+			var detailSearchEndMonth = "";
+			if(Ext.getCmp('detailSearchWindow')){//상세검색일시
+				detailSearchStartYear = Ext.getCmp('detail_startYear').value;
+				detailSearchStartMonth = Ext.getCmp('detail_startMonth').value;
+				detailSearchEndYear = Ext.getCmp('detail_endYear').value;
+				detailSearchEndMonth = Ext.getCmp('detail_endMonth').value;
+
+				
+
+			}else{//아닐시
+
+				var start = document.getElementById('detailStartDate').value.split('-');
+				var end = document.getElementById('detailEndDate').value.split('-');
+
+				detailSearchStartYear = start[0];
+				detailSearchStartMonth = start[1];
+				detailSearchEndYear = end[0];
+				detailSearchEndMonth = end[1];
+			}
+
+			detailSearchStartMonth = Number(detailSearchStartMonth).toString(); 
+			if(Number(detailSearchStartMonth) < 10 && detailSearchStartMonth.length == 1) 
+				detailSearchStartMonth = "0" + detailSearchStartMonth;
+
+			detailSearchEndMonth = Number(detailSearchEndMonth).toString(); 
+			if(Number(detailSearchEndMonth) < 10 && detailSearchEndMonth.length == 1) 
+				detailSearchEndMonth = "0" + detailSearchEndMonth;
+
+
+
+			
+
+
 
 			var object = jsonData.map;
 			//param siteId 만들기 = ex)A_10230  (GROUP_CODE + _ + JIJUM_CODE)
@@ -42,14 +71,6 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 					})
 				})
 			}
-
-			//중복제거
-			// for (var key in paramList) {
-			// 	paramList[key] = paramList[key].reduce(function(a,b){
-			// 		if (a.indexOf(b) < 0 ) a.push(b);
-			// 		return a;
-			// 	},[]);
-			// }
 
 			//중복제거
 			siteIds = siteIds.reduce(function(a,b){
@@ -66,14 +87,14 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 
 			Ext.Ajax.request({
-				url: 'http://localhost:80/krf/searchResult/detialSearchResult',
+				url: _API.detialSearchResult,
 				dataType: "text/plain",
 				method: 'POST',
 				params: {
-					startYear:'2017',
-					startMonth: '01',
-					endYear: '2018',
-					endMonth: '12',
+					startYear: detailSearchStartYear,
+					startMonth: detailSearchStartMonth,
+					endYear: detailSearchEndYear,
+					endMonth: detailSearchEndMonth,
 					detailSiteIds : siteIds
 				},
 				async: true,
@@ -82,97 +103,64 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 
 					if(jsonData.data.length > 0 ){
-						var confirmJsonData = [];
 
+						if(jsonData.data[0].msg){
+							me.gridCtl.addCls("dj-mask-noneimg");
+							me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+						}else{
+							var confirmJsonData = [];
 
-						if(layerList.length > 0 ){
-							for(var i = 0 ; i < layerList.length; i++){
+							if(layerList.length > 0 ){
+								for(var i = 0 ; i < layerList.length; i++){
 
-								jsonData.data.map(function(obj){
+									jsonData.data.map(function(obj){
 
-									if(layerList[i] == obj.LAEYR_CODE){
-										confirmJsonData.push(obj);
-									}
+										if(layerList[i] == obj.LAEYR_CODE){
+											confirmJsonData.push(obj);
+										}
 
-								})
-								
-								//if(layerList[i].LAEYR_CODE == )
-							}
-							
-						}
-
-
-
-
-						var jsonStr = "{\n";
-						jsonStr += "	\"id\": \"0\", \n";
-						jsonStr += "	\"text\":  \"root\", \n";
-						jsonStr += "	\"checked\": true, \n";
-						jsonStr += "	\"expanded\": true, \n";
-						jsonStr += "	\"children\": [";
-
-
-						var arrGroupCodes = [];
-
-						$.each(confirmJsonData, function (cnt, datas) {
-							// "==="연산자 값과 타입이 정확하게 일치하는지 판단
-							if ($.inArray(datas.GROUP_CODE, arrGroupCodes) === -1) {
-								arrGroupCodes.push(datas.GROUP_CODE);
-							}
-
-						});
-
-
-						// 그룹 코드 루프 시작
-						$.each(arrGroupCodes, function (cnt, groupCode) {
-
-							var groupFeature = confirmJsonData.filter(function (feature) {
-
-								if (feature.GROUP_CODE === groupCode)
-									return feature;
-							});
-
-							/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
-							jsonStr += "{\n";
-							jsonStr += "		\"id\": \"" + groupFeature[0].GROUP_CODE + "\",\n";
-							jsonStr += "		\"text\": \"" + groupFeature[0].DTA_SE + " \",\n";
-							jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-							if (cnt == 0) {
-								jsonStr += "		\"expanded\": true,\n";
-							} else {
-								jsonStr += "		\"expanded\": false,\n";
-							}
-							jsonStr += "		\"checked\": null,\n";
-							jsonStr += "		\"children\": [";
-
-							/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
-							var arrLayerCodes = [];
-
-							$.each(groupFeature, function (cnt, feature) {
-								//if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
-								if ($.inArray(feature.LAEYR_CODE, arrLayerCodes) === -1) {
-
-									arrLayerCodes.push(feature.LAEYR_CODE);
-
+									})
+									
+									//if(layerList[i].LAEYR_CODE == )
 								}
+								
+							}
+
+
+
+
+							var jsonStr = "{\n";
+							jsonStr += "	\"id\": \"0\", \n";
+							jsonStr += "	\"text\":  \"root\", \n";
+							jsonStr += "	\"checked\": true, \n";
+							jsonStr += "	\"expanded\": true, \n";
+							jsonStr += "	\"children\": [";
+
+
+							var arrGroupCodes = [];
+
+							$.each(confirmJsonData, function (cnt, datas) {
+								// "==="연산자 값과 타입이 정확하게 일치하는지 판단
+								if ($.inArray(datas.GROUP_CODE, arrGroupCodes) === -1) {
+									arrGroupCodes.push(datas.GROUP_CODE);
+								}
+
 							});
-							/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
+
 
 							// 그룹 코드 루프 시작
-							$.each(arrLayerCodes, function (cnt, layerCode) {
+							$.each(arrGroupCodes, function (cnt, groupCode) {
 
-								var layerFeatures = groupFeature.filter(function (feature) {
-									//if(feature.attributes.LAYER_CODE === layerCode){
-									if (feature.LAEYR_CODE === layerCode) {
-										
+								var groupFeature = confirmJsonData.filter(function (feature) {
+
+									if (feature.GROUP_CODE === groupCode)
 										return feature;
-									}
 								});
-				
+
 								/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
 								jsonStr += "{\n";
-								jsonStr += "		\"id\": \"" + layerFeatures[0].LAEYR_CODE + "\",\n";
-								jsonStr += "		\"text\": \"" + layerFeatures[0].DTA_DETAIL_SE + " \",\n";
+								jsonStr += "		\"id\": \"" + groupFeature[0].GROUP_CODE + "\",\n";
+								jsonStr += "		\"text\": \"" + groupFeature[0].DTA_SE + " \",\n";
 								jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 								if (cnt == 0) {
 									jsonStr += "		\"expanded\": true,\n";
@@ -181,93 +169,133 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 								}
 								jsonStr += "		\"checked\": null,\n";
 								jsonStr += "		\"children\": [";
-				
+
 								/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
-								
-								// 레이어 코드 루프 시작
-								$.each(layerFeatures, function (cnt, layerFeature) {
-									
+								var arrLayerCodes = [];
+
+								$.each(groupFeature, function (cnt, feature) {
+									//if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
+									if ($.inArray(feature.LAEYR_CODE, arrLayerCodes) === -1) {
+
+										arrLayerCodes.push(feature.LAEYR_CODE);
+
+									}
+								});
+								/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
+
+								// 그룹 코드 루프 시작
+								$.each(arrLayerCodes, function (cnt, layerCode) {
+
+									var layerFeatures = groupFeature.filter(function (feature) {
+										//if(feature.attributes.LAYER_CODE === layerCode){
+										if (feature.LAEYR_CODE === layerCode) {
+											
+											return feature;
+										}
+									});
+					
+									/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
 									jsonStr += "{\n";
-									jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
-									jsonStr += "				\"text\": \"" + layerFeature.SITE_NM + "\",\n";
-									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
-									jsonStr += "				\"DTA_SE\": \"" + layerFeature.DTA_SE + "\",\n";
-									jsonStr += "				\"GROUP_CODE\": \"" + layerFeature.GROUP_CODE + "\",\n";
-									jsonStr += "				\"DTA_DETAIL_SE\": \"" + layerFeature.DTA_DETAIL_SE + "\",\n";
-									jsonStr += "				\"LAEYR_CODE\": \"" + layerFeature.LAEYR_CODE + "\",\n";
-									jsonStr += "				\"SITE_CODE\": \"" + layerFeature.SITE_CODE + "\",\n";
-									jsonStr += "				\"SITE_NM\": \"" + layerFeature.SITE_NM + "\",\n";
-									jsonStr += "				\"DE\": \"" + layerFeature.DE + "\",\n";
-									jsonStr += "				\"TME\": \"" + layerFeature.TME + "\",\n";
-									jsonStr += "				\"ADRES\": \"" + layerFeature.ADRES + "\",\n";
-									jsonStr += "				\"MESURE_DP\": \"" + layerFeature.MESURE_DP + "\",\n";
-									jsonStr += "				\"IEM_1060\": \"" + layerFeature.IEM_1060 + "\",\n";
-									jsonStr += "				\"IEM_1054\": \"" + layerFeature.IEM_1054 + "\",\n";
-									jsonStr += "				\"IEM_1039\": \"" + layerFeature.IEM_1039 + "\",\n";
-									jsonStr += "				\"IEM_1050\": \"" + layerFeature.IEM_1050 + "\",\n";
-									jsonStr += "				\"IEM_1052\": \"" + layerFeature.IEM_1052 + "\",\n";
-									jsonStr += "				\"IEM_1049\": \"" + layerFeature.IEM_1049 + "\",\n";
-									jsonStr += "				\"IEM_1053\": \"" + layerFeature.IEM_1053 + "\",\n";
-									jsonStr += "				\"IEM_1055\": \"" + layerFeature.IEM_1055 + "\",\n";
-									jsonStr += "				\"IEM_1056\": \"" + layerFeature.IEM_1056 + "\",\n";
-									jsonStr += "				\"IEM_1073\": \"" + layerFeature.IEM_1073 + "\",\n";
-									jsonStr += "				\"IEM_1013\": \"" + layerFeature.IEM_1013 + "\",\n";
-									jsonStr += "				\"IEM_1012\": \"" + layerFeature.IEM_1012 + "\",\n";
-									jsonStr += "				\"IEM_1066\": \"" + layerFeature.IEM_1066 + "\",\n";
-									jsonStr += "				\"IEM_1067\": \"" + layerFeature.IEM_1067 + "\",\n";
-									jsonStr += "				\"IEM_1065\": \"" + layerFeature.IEM_1065 + "\",\n";
-									jsonStr += "				\"IDEX\": \"" + layerFeature.IDEX + "\",\n";
-									jsonStr += "				\"GRAD\": \"" + layerFeature.GRAD + "\",\n";
-									jsonStr += "				\"IEM_1160\": \"" + layerFeature.IEM_1160 + "\",\n";
-									jsonStr += "				\"IEM_1155\": \"" + layerFeature.IEM_1155 + "\",\n";
-									jsonStr += "				\"TOT_INFLOW_QY\": \"" + layerFeature.TOT_INFLOW_QY + "\",\n";
-									jsonStr += "				\"TOT_DWEQTY\": \"" + layerFeature.TOT_DWEQTY + "\",\n";
-									jsonStr += "				\"WLV\": \"" + layerFeature.WLV + "\",\n";
-									jsonStr += "				\"RAINFL\": \"" + layerFeature.RAINFL + "\",\n";
-									jsonStr += "				\"FLUX\": \"" + layerFeature.FLUX + "\",\n";
-									jsonStr += "				\"AVRG_SPFLD\": \"" + layerFeature.AVRG_SPFLD + "\",\n";
-									jsonStr += "				\"SORT\": \"" + layerFeature.SORT + "\",\n";
-									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-									jsonStr += "				\"leaf\": true,\n";
-									jsonStr += "				\"checked\": null\n";
-									jsonStr += "			}, ";
-				
+									jsonStr += "		\"id\": \"" + layerFeatures[0].LAEYR_CODE + "\",\n";
+									jsonStr += "		\"text\": \"" + layerFeatures[0].DTA_DETAIL_SE + " \",\n";
+									jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+									if (cnt == 0) {
+										jsonStr += "		\"expanded\": true,\n";
+									} else {
+										jsonStr += "		\"expanded\": false,\n";
+									}
+									jsonStr += "		\"checked\": null,\n";
+									jsonStr += "		\"children\": [";
+					
+									/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
 									
-								}); // 레이어 코드 루프 
-								
-								if (layerFeatures.length > 0) {
+									// 레이어 코드 루프 시작
+									$.each(layerFeatures, function (cnt, layerFeature) {
+										
+										jsonStr += "{\n";
+										jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
+										jsonStr += "				\"text\": \"" + layerFeature.SITE_NM + "\",\n";
+										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+										jsonStr += "				\"DTA_SE\": \"" + layerFeature.DTA_SE + "\",\n";
+										jsonStr += "				\"GROUP_CODE\": \"" + layerFeature.GROUP_CODE + "\",\n";
+										jsonStr += "				\"DTA_DETAIL_SE\": \"" + layerFeature.DTA_DETAIL_SE + "\",\n";
+										jsonStr += "				\"LAEYR_CODE\": \"" + layerFeature.LAEYR_CODE + "\",\n";
+										jsonStr += "				\"SITE_CODE\": \"" + layerFeature.SITE_CODE + "\",\n";
+										jsonStr += "				\"SITE_NM\": \"" + layerFeature.SITE_NM + "\",\n";
+										jsonStr += "				\"DE\": \"" + layerFeature.DE + "\",\n";
+										jsonStr += "				\"TME\": \"" + layerFeature.TME + "\",\n";
+										jsonStr += "				\"ADRES\": \"" + layerFeature.ADRES + "\",\n";
+										jsonStr += "				\"MESURE_DP\": \"" + layerFeature.MESURE_DP + "\",\n";
+										jsonStr += "				\"IEM_1060\": \"" + layerFeature.IEM_1060 + "\",\n";
+										jsonStr += "				\"IEM_1054\": \"" + layerFeature.IEM_1054 + "\",\n";
+										jsonStr += "				\"IEM_1039\": \"" + layerFeature.IEM_1039 + "\",\n";
+										jsonStr += "				\"IEM_1050\": \"" + layerFeature.IEM_1050 + "\",\n";
+										jsonStr += "				\"IEM_1052\": \"" + layerFeature.IEM_1052 + "\",\n";
+										jsonStr += "				\"IEM_1049\": \"" + layerFeature.IEM_1049 + "\",\n";
+										jsonStr += "				\"IEM_1053\": \"" + layerFeature.IEM_1053 + "\",\n";
+										jsonStr += "				\"IEM_1055\": \"" + layerFeature.IEM_1055 + "\",\n";
+										jsonStr += "				\"IEM_1056\": \"" + layerFeature.IEM_1056 + "\",\n";
+										jsonStr += "				\"IEM_1073\": \"" + layerFeature.IEM_1073 + "\",\n";
+										jsonStr += "				\"IEM_1013\": \"" + layerFeature.IEM_1013 + "\",\n";
+										jsonStr += "				\"IEM_1012\": \"" + layerFeature.IEM_1012 + "\",\n";
+										jsonStr += "				\"IEM_1066\": \"" + layerFeature.IEM_1066 + "\",\n";
+										jsonStr += "				\"IEM_1067\": \"" + layerFeature.IEM_1067 + "\",\n";
+										jsonStr += "				\"IEM_1065\": \"" + layerFeature.IEM_1065 + "\",\n";
+										jsonStr += "				\"IDEX\": \"" + layerFeature.IDEX + "\",\n";
+										jsonStr += "				\"GRAD\": \"" + layerFeature.GRAD + "\",\n";
+										jsonStr += "				\"IEM_1160\": \"" + layerFeature.IEM_1160 + "\",\n";
+										jsonStr += "				\"IEM_1155\": \"" + layerFeature.IEM_1155 + "\",\n";
+										jsonStr += "				\"TOT_INFLOW_QY\": \"" + layerFeature.TOT_INFLOW_QY + "\",\n";
+										jsonStr += "				\"TOT_DWEQTY\": \"" + layerFeature.TOT_DWEQTY + "\",\n";
+										jsonStr += "				\"WLV\": \"" + layerFeature.WLV + "\",\n";
+										jsonStr += "				\"RAINFL\": \"" + layerFeature.RAINFL + "\",\n";
+										jsonStr += "				\"FLUX\": \"" + layerFeature.FLUX + "\",\n";
+										jsonStr += "				\"AVRG_SPFLD\": \"" + layerFeature.AVRG_SPFLD + "\",\n";
+										jsonStr += "				\"SORT\": \"" + layerFeature.SORT + "\",\n";
+										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+										jsonStr += "				\"leaf\": true,\n";
+										jsonStr += "				\"checked\": null\n";
+										jsonStr += "			}, ";
+					
+										
+									}); // 레이어 코드 루프 
+									
+									if (layerFeatures.length > 0) {
+										jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+									}
+
+									jsonStr += "]\n";
+									jsonStr += "		}, ";
+								}); // 레이어 코드 루프 끝
+
+								if (arrLayerCodes.length > 0) {
 									jsonStr = jsonStr.substring(0, jsonStr.length - 2);
 								}
 
 								jsonStr += "]\n";
-								jsonStr += "		}, ";
-							}); // 레이어 코드 루프 끝
-
-							if (arrLayerCodes.length > 0) {
+								jsonStr += "	}, ";
+							}); // 그룹 코드 루프 끝
+							if (arrGroupCodes.length > 0) {
 								jsonStr = jsonStr.substring(0, jsonStr.length - 2);
 							}
 
-							jsonStr += "]\n";
-							jsonStr += "	}, ";
-						}); // 그룹 코드 루프 끝
-						if (arrGroupCodes.length > 0) {
-							jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+
+							jsonStr += " ]} ";
+
+
+							var jsonData = "";
+							jsonData = Ext.util.JSON.decode(jsonStr);
+							store.setRootNode(jsonData);
+							store.setRootVisible(false);
+
+
+							me.gridCtl.unmask();
 						}
 
-
-						jsonStr += " ]} ";
-
-
-						var jsonData = "";
-						jsonData = Ext.util.JSON.decode(jsonStr);
-						store.setRootNode(jsonData);
-						store.setRootVisible(false);
-
-
-						me.gridCtl.unmask();
+						
 					}else{
 						me.gridCtl.addCls("dj-mask-noneimg");
-						me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+						me.gridCtl.mask("검색도중 오류가 발생했습니다.", "error");
 					}
 
 				}

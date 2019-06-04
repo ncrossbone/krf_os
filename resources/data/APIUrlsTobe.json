@@ -148,6 +148,7 @@
     "GetSearchResultData_Z004":"#host#/searchResult/searchResult_Z004_2018",
     "GetSearchResultData_Z005":"#host#/searchResult/searchResult_Z005_2018",
     "GetSearchResultData_Z002":"#host#/searchResult/searchResult_Z002_2018",
+    "detialSearchResult":"#host#/searchResult/detialSearchResult",
     "GetSearchResultData_Z001":"#host#/searchResult/searchResult_Z001_2018",
     "GetSearchResultData_Z003":"#host#/searchResult/searchResult_Z003_2018",
     "GetSearchResultDataWindow_Z":"#host#/searchResult/searchResultWindow_Z",
