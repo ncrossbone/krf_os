@@ -1301,6 +1301,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					Ext.getCmp('m_resultTab').setHidden(true);
 					Ext.getCmp('q_resultTab').setHidden(true);
 					Ext.getCmp('z_resultTab').setHidden(true);
+					Ext.getCmp('k_resultTab').setHidden(true);
 				}
 			}
 		}

@@ -37,6 +37,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		var l_ChartDate = Ext.getCmp("l_ChartDate");
 
 		var q_ChartDate = Ext.getCmp("q_ChartDate");
+		var k_ChartDate = Ext.getCmp("k_ChartDate");
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -148,6 +149,18 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			hChartDate.hidden = true;
 			q_ChartDate.hidden = false;
+		} else if (parentChk == 'K') {
+			f_Chart.hidden = true;
+			f_ChartText.hidden = true;
+			startChartDate.hidden = true;
+			endChartDate.hidden = true;
+
+			cStartChartDate.hidden = true;
+			cEndChartDate.hidden = true;
+
+			hChartDate.hidden = true;
+			q_ChartDate.hidden = true;
+			k_ChartDate.hidden = false;
 		} else {
 			//console.info(parentChk);
 			f_Chart.hidden = true;
@@ -333,6 +346,16 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 				itemCtl.setValue('BOD_VALUE');
 			}
+		} else if (parentChk == 'K') {
+			var store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{ id: 'FUEL_USGQTY', name: '연료_사용량' }
+					, { id: 'MTRAL_USGQTY', name: '원료_사용량' }
+					, { id: 'DNSTY', name: '농도' }
+					, { id: 'DWEQTY', name: '방류량' }
+					, { id: 'PRMISN_EXHST_STDR', name: '허가_배출_기준' }]
+			})
+			itemCtl.setValue('BOD');
 		} else if (parentChk == 'L') {
 			var store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
@@ -365,7 +388,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 		if (_chartDateInfo != null && _chartDateInfo.length != 0) {
 
-			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q') {
+			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'K') {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
 
@@ -469,6 +492,18 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 				q_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
 				q_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+			} else if (parentChk == 'K') {
+				var k_SelectYear = Ext.getCmp("k_SelectYear");
+				var k_SelectMonth = Ext.getCmp("k_SelectMonth");
+
+				var k_EndYear = Ext.getCmp("k_EndYear");
+				var k_EndMonth = Ext.getCmp("k_EndMonth");
+
+				k_SelectYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
+				k_SelectMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
+
+				k_EndYear.setValue(_chartDateInfo[0].MESURE_DT.substr(0, 4));
+				k_EndMonth.setValue(_chartDateInfo[0].MESURE_DT.substr(4, 2));
 			} else {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
 				var endChartDate = _chartDateInfo[1].WMCYMD.split(' ');
@@ -1020,7 +1055,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					text: '월 까지'
 				}]
 			}]
-		}, , {
+		}, {
 			xtype: "container",
 			id: "z_ChartDate",
 			layout: {
@@ -1070,6 +1105,64 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				}, {
 					xtype: 'combo',
 					id: 'z_EndMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 까지'
+				}]
+			}]
+		}, {
+			xtype: "container",
+			id: "k_ChartDate",
+			layout: {
+				type: "vbox"
+			},
+			items: [{
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "k_SelectYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'k_SelectMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월 부터'
+				}]
+			}, {
+				xtype: 'container',
+				height: 5
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "k_EndYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}, {
+					xtype: 'combo',
+					id: 'k_EndMonth',
 					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 					width: 55,
 					height: 25

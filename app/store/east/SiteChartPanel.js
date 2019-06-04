@@ -144,6 +144,17 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectMonth = z_SelectMonth.lastValue;
 					selectMonth2 = z_EndMonth.lastValue;
 
+				} else if(store.parentId == 'K'){
+					var k_SelectYear = Ext.getCmp('k_SelectYear');
+					var k_SelectMonth = Ext.getCmp('k_SelectMonth');
+
+					var k_EndYear = Ext.getCmp("k_EndYear");
+					var k_EndMonth = Ext.getCmp("k_EndMonth");
+
+					selectYear = k_SelectYear.lastValue;
+					selectYear2 = k_EndYear.lastValue;
+					selectMonth = k_SelectMonth.lastValue;
+					selectMonth2 = k_EndMonth.lastValue;
 				} else {
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
@@ -170,16 +181,19 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				recordId = store.siteCD;
 			}
 
-			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L") {
+			var siteId = "";
+			if (store.siteId != undefined && store.siteId != "") {
+				siteId = store.siteId;
+			}
+
+			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L"|| store.parentId == "K") {
 				if (store.parentId == "A") {
-					//requestUrl = _API['GetRWMDT_2018_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";	
-					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_A'
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "B") {
-					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_B'
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "L") {
-					//requestUrl = 'http://localhost/krf/chart/getRWMDT_2018_L'
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
+				} else if (store.parentId == "K") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else {
 					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
@@ -331,6 +345,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					url: requestUrl,    // To Which url you wanna POST.
 					params: {
 						recordId: recordId
+						, siteId: siteId
 						, recordYear: selectYear
 						, recordYear2: selectYear2
 						, recordMonth: selectMonth
