@@ -26,3 +26,6 @@ caption, th, td {
     font-family:"dotum" !important;
 }
 
+.x-tab-default .x-tab-close-btn {
+    background-color: #000000 !important;
+}

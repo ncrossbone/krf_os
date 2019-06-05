@@ -83,6 +83,11 @@ Ext.define('krf_new.view.south.SearchResultGrid_Z001', {
                     dataIndex: 'SPECIES_KORNM',
                     width: 100,
                     filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+                }, {
+                    text: '개체 수',
+                    dataIndex: 'INDVD_CO',
+                    width: 100,
+                    filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
                 }]
             }]
         }];

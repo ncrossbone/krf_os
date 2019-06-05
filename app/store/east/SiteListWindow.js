@@ -585,7 +585,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		for (var i = 0; i < data.children.length; i++) {
 			for (key in obj) {
 				if (key.indexOf(data.children[i].id) > -1) {
-					var parentObj = { id: '', text: '', srchBtnDisabled: true, expanded: false, children: [] };
+					var parentObj = { id: '', text: '', srchBtnDisabled: false, expanded: false, children: [] };
 					parentObj.id = data.children[i].id + obj[key][0].gubunCode;
 					parentObj.text = obj[key][0].gubunName;
 
