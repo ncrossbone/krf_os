@@ -670,6 +670,101 @@ Ext.define("krf_new.global.CommFn", {
 				text: '조사_기관_명', dataIndex: 'EXAMIN_INSTT_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}, {
 				text: '조사자_명', dataIndex: 'EXMNR_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z006_bunInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 정보', dataIndex: 'ANALS_INFO_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 값', dataIndex: 'ANALS_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z005_bunInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 정보', dataIndex: 'ANALS_INFO_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 값', dataIndex: 'ANALS_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z002_bunInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 정보', dataIndex: 'ANALS_INFO_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 값', dataIndex: 'ANALS_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z003_bunInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 년도', dataIndex: 'EXAMIN_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 월', dataIndex: 'EXAMIN_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 회차', dataIndex: 'EXAMIN_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 정보', dataIndex: 'ANALS_INFO_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 값', dataIndex: 'ANALS_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}],
+			'Z001_bunInfoBtn': [{
+				text: '호소 명', dataIndex: 'HS_NAME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 코드', dataIndex: 'SITE_CODE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '지점 명', dataIndex: 'SITE_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 년도', dataIndex: 'MESURE_YEAR', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 월', dataIndex: 'MESURE_MT', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '측정 회차', dataIndex: 'MESURE_TME', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '조사 일자', dataIndex: 'EXAMIN_DE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 정보', dataIndex: 'ANALS_INFO_NM', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
+			}, {
+				text: '분석 값', dataIndex: 'ANALS_VALUE', width: 100, filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 			}]
 		};
 
