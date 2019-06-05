@@ -145,6 +145,7 @@
     "GetSearchResultData_M":"#host#/searchResult/searchResult_M",
     "GetSearchResultData_Q":"#host#/searchResult/searchResult_Q",
     "GetInfo_Q":"#host#/chart/getInfo_Q",
+    "GetInfo_Z":"#host#/chart/getInfo_Z",
     "GetSearchResultData_Z006":"#host#/searchResult/searchResult_Z006_2018",
     "GetSearchResultData_Z004":"#host#/searchResult/searchResult_Z004_2018",
     "GetSearchResultData_Z005":"#host#/searchResult/searchResult_Z005_2018",

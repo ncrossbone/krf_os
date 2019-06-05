@@ -28,6 +28,9 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 
 			if (parentId == 'Q') {
 				url = _API.GetInfo_Q;
+			} else if (parentId == 'Z') {
+				url = _API.GetInfo_Z;
+				recordId = recordId.split('_')[1];
 			}
 
 			Ext.Ajax.request({
