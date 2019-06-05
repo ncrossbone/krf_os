@@ -1131,6 +1131,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			parentId: parentCheck,
 			realParentId: parentIds,
 			autoResize: true,
+			closable : true,
 			gridId: pId + gridId
 		};
 	} else {
@@ -1140,7 +1141,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			parentId: parentCheck,
 			parentSiteIds: parentIds[0].parentSiteIds,
 			realParentId: parentIds,
-			//closable : true,
+			closable : true,
 			autoResize: true,
 			gridId: gridId
 		};

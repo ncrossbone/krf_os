@@ -272,17 +272,6 @@ Ext.define('krf_new.view.common.TabControl', {
 					}
 				}
 			}, {
-				xtype: 'button',
-				text: '이력보기',
-				id: 'sstgDetailViewBtn',
-				listeners: {
-					el: {
-						click: function () {
-							$KRF_APP.global.SstgGridFn.sstgDetailInit();
-						}
-					}
-				}
-			}, {
 				xtype: 'image',
 				src: './resources/images/button/icon_seah.gif', //검색
 				width: 34,
@@ -1193,9 +1182,9 @@ Ext.define('krf_new.view.common.TabControl', {
 					var sstgCombo = Ext.getCmp("sstgCombo");
 
 					var comboConfig = {
-						'E': { 'startLabel': { text: '반기', isView: true }, 'endLabel': { text: '반기', isView: true }, 'cmbStartMonth': { isView: false }, 'cmbEndMonth': { isView: false }, 'cmbStartBan': { isView: true }, 'cmbEndBan': { isView: true }, 'sstgCombo': { isView: true }, 'sstgDetailViewBtn': { isView: true } },
-						'C': { 'startLabel': { text: '반기', isView: true }, 'endLabel': { text: '반기', isView: true }, 'cmbStartMonth': { isView: false }, 'cmbEndMonth': { isView: false }, 'cmbStartBan': { isView: true }, 'cmbEndBan': { isView: true }, 'sstgCombo': { isView: false }, 'sstgDetailViewBtn': { isView: false } },
-						'ELSE': { 'startLabel': { text: '월', isView: true }, 'endLabel': { text: '월', isView: true }, 'cmbStartMonth': { isView: true }, 'cmbEndMonth': { isView: true }, 'cmbStartBan': { isView: false }, 'cmbEndBan': { isView: false }, 'sstgCombo': { isView: false }, 'sstgDetailViewBtn': { isView: false } }
+						'E': { 'startLabel': { text: '반기', isView: true }, 'endLabel': { text: '반기', isView: true }, 'cmbStartMonth': { isView: false }, 'cmbEndMonth': { isView: false }, 'cmbStartBan': { isView: true }, 'cmbEndBan': { isView: true }, 'sstgCombo': { isView: true } },
+						'C': { 'startLabel': { text: '반기', isView: true }, 'endLabel': { text: '반기', isView: true }, 'cmbStartMonth': { isView: false }, 'cmbEndMonth': { isView: false }, 'cmbStartBan': { isView: true }, 'cmbEndBan': { isView: true }, 'sstgCombo': { isView: false } },
+						'ELSE': { 'startLabel': { text: '월', isView: true }, 'endLabel': { text: '월', isView: true }, 'cmbStartMonth': { isView: true }, 'cmbEndMonth': { isView: true }, 'cmbStartBan': { isView: false }, 'cmbEndBan': { isView: false }, 'sstgCombo': { isView: false } }
 					};
 
 					var config = comboConfig[tab.parentId] ? comboConfig[tab.parentId] : comboConfig['ELSE'];
