@@ -802,11 +802,27 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		//센터 컨테이너
 		var centerContainer = Ext.getCmp('center_container');
 		//상세검색 윈도우
-		var detailSearchWindow = Ext.create('krf_new.view.east.DetailSearchWindow');
-		//추가
-		centerContainer.add(detailSearchWindow);
-		//열기
-		detailSearchWindow.show();
+		var detailSearchWindow = Ext.getCmp('detailSearchWindow')
+		if(!detailSearchWindow){
+			detailSearchWindow = Ext.create('krf_new.view.east.DetailSearchWindow');
+			//추가
+			centerContainer.add(detailSearchWindow);
+			//열기
+			detailSearchWindow.show();
+
+
+			var meter = Number(document.getElementById('detailMeter').value);
+			var start = document.getElementById('detailStartDate').value.split('-');
+			var end = document.getElementById('detailEndDate').value.split('-');
+
+
+			Ext.getCmp('detailRadiusValue').setValue(meter);
+			Ext.getCmp('detail_startYear').setValue(start[0]);
+			Ext.getCmp('detail_startMonth').setValue(start[1]);
+			Ext.getCmp('detail_endYear').setValue(end[0]);
+			Ext.getCmp('detail_endMonth').setValue(end[1]);
+
+		}
 
 		//지점목록 treeList
 		var treeNameList = [];
@@ -829,18 +845,6 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 			, ['F007', '환경기초시설-하수종말처리시설']
 		];
 
-		// if(siteListTreeStore.root){
-		// 	for(var i = 0 ; i < siteListTreeStore.root.childNodes.length; i++){
-		// 		if(siteListTreeStore.root.childNodes[i].childNodes.length > 0){
-		// 			for(var j = 0 ; j < siteListTreeStore.root.childNodes[i].childNodes.length; j++){
-		// 				treeNameList.push([siteListTreeStore.root.childNodes[i].childNodes[j].data.id,
-		// 					siteListTreeStore.root.childNodes[i].data.text.split('(')[0]+'-'+siteListTreeStore.root.childNodes[i].childNodes[j].data.text.split('(')[0]]
-		// 				)
-		// 			}
-		// 		}
-		// 	}
-		// }
-		//console.info(treeNameList);
 
 		var store = Ext.create('Ext.data.Store', {
 			fields: ['value', 'text'],
@@ -874,8 +878,11 @@ detailSearchTreeColor = function (dom, d) {
 	var colorConfig = {
 		'A': '#ddd9c3',
 		'A001': '#ddd9c3',
-		'A002': '#daeef3'
-	};
+		'A002': '#daeef3',
+		'C': '#c5d9f1',
+		'C001': '#c5d9f1',
+		'C002': '#fde9d9'
+	};//ebf1de
 
 	var color = '';
 
@@ -905,7 +912,7 @@ detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일
 	var popSiteInfo = Ext.getCmp('popSiteInfo');
 
 	if (meter) {//반경존재 유무
-		if (meter < 10) {//반경 10Km 제한
+		if (meter < 21) {//반경 10Km 제한
 			if (startValue || endValue) {//날짜존재 유무
 				var dateCmpare = detailDateCompare(startValue, endValue);
 				if (dateCmpare[0]) {//종료일자와 시작일자 차이
@@ -921,7 +928,7 @@ detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일
 				alert('날짜를 선택해 주세요');
 			}
 		} else {
-			alert('반경은 10Km가 최대 입니다.');
+			alert('반경은 20Km가 최대 입니다.');
 		}
 	} else {
 		alert('반경을 입력하세요.');
@@ -1017,6 +1024,12 @@ detailDateSearchWindow = function (id) {
 							Ext.getCmp(id).setValue(event.value[1] + '-' + event.value[0]);
 						} else { //html로 되어있는 날짜 textArea
 							//var dateId = {'detailStartDate':'detailStartDate','detailEndDate': 'detailStartDate'};
+
+							
+							event.value[0] = Number(event.value[0]).toString(); 
+							if(Number(event.value[0]) < 10 && event.value[0].length == 1) 
+							event.value[0] = "0" + event.value[0];
+
 							document.getElementById(id).value = event.value[1] + '-' + event.value[0];
 						}
 

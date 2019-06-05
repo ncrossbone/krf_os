@@ -534,7 +534,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				if(obj.children.length > 0){
 					for(var i = 0 ; i < obj.children.length ; i++){
 
-						var parentObj = { id: obj.children[i].gubunCode, text: obj.children[i].gubunName, srchBtnDisabled: false, expanded: false, children: [] };
+						var parentObj = { id: obj.children[i].gubunCode, text: obj.children[i].gubunName,  srchBtnDisabled: false, expanded: false, children: [] };
 						stationList.push(parentObj);
 						
 					}
@@ -543,6 +543,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				if(obj.children.length > 0){
 					for(var i = 0 ; i < obj.children.length ; i++){
 						obj.children[i].parentCode = 'K';						
+						obj.children[i].chartBtnDisabled = true;
+						obj.children[i].infoBtnDisabled = true;
 						pointList.push(obj.children[i]);
 					}
 				}
