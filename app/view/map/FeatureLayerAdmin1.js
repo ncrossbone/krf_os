@@ -227,6 +227,12 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 					if (layer01Info[0].siteIdCol != undefined && layer01Info[0].siteIdCol != "") {
 						jijum_Cd = jijum[layer01Info[0].siteIdCol];
 					}
+
+					if(parentCheck == 'L001'){
+						jijum_Addr = jijum.CODE_DO + ' '+ jijum.CODE_CTY + ' ' + jijum.CODE_DONG + ' ' + jijum.CODE_RI;
+					}
+
+
 					if (layer01Info[0].text != undefined && layer01Info[0].text != "") {
 						var splitStr = layer01Info[0].text.split('<a');
 						if (splitStr) {

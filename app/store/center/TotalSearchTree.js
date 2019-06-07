@@ -14,10 +14,11 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			if(Ext.getCmp('itemselector')){
 				layerList = Ext.getCmp('itemselector').getValue();
 			}else{//아닐시
-				layerList = ['A001', 'A002', 'C001', 'C002', 'D001', 'D003', 'D005', 'D006', 'F001', 'F002', 'F003', 'F004', 'F006', 'F007', 'F007'];
+				layerList = ['A001', 'A002', 'C001', 'C002', 'D001', 'D003', 'D005', 'D006', 'F001', 'F002', 'F003', 'F004', 'F006', 'F007', 'F007'
+				,'HcAtalSe', 'HcBemaSe','HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
 			}
 
-			var paramList = {'A':[],'B':[],'C':[],'D':[],'E':[],'F':[],'G':[],'H':[]};
+			var paramList = {'A':[],'B':[],'C':[],'D':[],'Esstg':[],'F':[],'G':[],'H':[]};
 			var siteIds = [];
 
 
@@ -66,7 +67,13 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 					childObj.children.map(function(obj){
 						if(paramList[childObj.parentId] != undefined){
 							//paramList[childObj.parentId].push(childObj.parentId+'_'+obj.id);
-							siteIds.push(childObj.parentId+'_'+obj.id);
+							if(childObj.parentId != 'Esstg'){
+								siteIds.push(childObj.parentId+'_'+obj.id);
+							}else{
+								obj.children.map(function(eObj){
+									siteIds.push('E_'+eObj.eSiteId);
+								})
+							}
 						}
 					})
 				})
@@ -213,7 +220,11 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 									$.each(layerFeatures, function (cnt, layerFeature) {
 										
 										jsonStr += "{\n";
-										jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
+										if(layerFeature.GROUP_CODE == 'E'){
+											jsonStr += "				\"id\": \"" + layerFeature.LAEYR_CODE + "_" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
+										}else{
+											jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
+										}
 										jsonStr += "				\"text\": \"" + layerFeature.SITE_NM + "\",\n";
 										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
 										jsonStr += "				\"DTA_SE\": \"" + layerFeature.DTA_SE + "\",\n";
