@@ -192,11 +192,11 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 
 
 		//통합환경허가
-		if(layerId == '67'){
+		if (layerId == '67') {
 
 			siteId = siteId.split('_');
 
-			query.where = layer01Info[0].siteIdCol + " = '" + siteId[0] + "' AND 방류구번호 = '"+ siteId[1] +"'";
+			query.where = layer01Info[0].siteIdCol + " = '" + siteId[0] + "' AND 방류구번호 = '" + siteId[1] + "'";
 		}
 
 
@@ -410,6 +410,8 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 
 					popWidth = 370;
 					popHeight = 230;
+
+					var jusoText = parentCheck.substr(0, 1) == 'Z' ? '위치' : '주소';
 					html = "<!doctype html>																																									" +
 						"<html lang=\"ko\">                                                                                                                                                                 " +
 						"<head>                                                                                                                                                                             " +
@@ -440,7 +442,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"<dl>                                                                                                                                                                              " +
 						"    	<dt>분류 :</dt>                                                                                                                                                               " +
 						"        <dd>" + jijum_Gubun + "</dd>                                                                                                                                             " +
-						"        <dt>주소 :</dt>                                                                                                                                                            " +
+						"        <dt>" + jusoText + " :</dt>                                                                                                                                                            " +
 						"        <dd>" + jijum_Addr + "</dd>                                                                                       " +
 						"    </dl>                                                                                                                                                                          " +
 						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'" + jijum_Cd + "','" + jijum_Name + "','" + parentCheck + "');\" /></a>" +
@@ -492,14 +494,14 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);
 
 				var btnNomal = Ext.getCmp("btnModeNomal");
-				if(document.getElementById('reachTable')){
+				if (document.getElementById('reachTable')) {
 					if (btnNomal.btnOnOff == "on") {
 						document.getElementById('reachTable').style.display = "none";
 					} else {
 						document.getElementById('reachTable').style.display = "blank";
 					}
 				}
-				
+
 
 				if (clickValue == "start" || clickValue == "end") {
 
