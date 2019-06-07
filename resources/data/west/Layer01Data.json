@@ -586,6 +586,28 @@
 		"isMetaData": false
 	}]
 }, {
+	"id": "54",
+	"text": "물환경연구보고서",
+	"cls": "khLee-x-tree-node-text-bold",
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"layerCode": "L",
+	"children": [{
+		"id": "55",
+		"wmsId":"",
+		"text": "환경기초시설조사사업",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer25",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "MANAGE_NO",
+		"siteNmCol": "RS_PT_ID",
+		"siteAddrCol": "",
+		"layerCode": "L001",
+		"isMetaData": true
+	}]
+}, {
 	"id": "26",
 	"text": "환경기초시설",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -761,28 +783,33 @@
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
+	"layerCode": "K",
 	"children": [{
 		"id": "66",
 		"wmsId":"",
 		"text": "사업장",
 		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize layer86",
+		"iconCls": "layerIconSize layer25",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "",
-		"layerCode": "H001",
-		"metaDataId":"H001"
+		"siteIdCol": "MANAGE_NO",
+		"siteNmCol": "RS_PT_ID",
+		"siteAddrCol": "",
+		"layerCode": "K001",
+		"isMetaData": true
 	},{
 		"id": "67",
 		"wmsId":"",
 		"text": "방류구",
 		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize layer86",
+		"iconCls": "layerIconSize layer25",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "",
-		"layerCode": "H001",
-		"metaDataId":"H001"
+		"siteIdCol": "사업장_코",
+		"siteNmCol": "사업장_명",
+		"siteAddrCol": "사업장_상",
+		"layerCode": "K002",
+		"isMetaData": true
 	}]
 },{
 	"id": "83",

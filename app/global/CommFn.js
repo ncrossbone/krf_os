@@ -248,11 +248,27 @@ Ext.define("krf_new.global.CommFn", {
 		xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 		xhr.onload = function (e) {
 			if (this.status == 200) {
+				
+				// var blob = new Blob([this.response], { type: 'application/vnd.ms-excel' });
+				// var downloadUrl = URL.createObjectURL(blob);
+				// var a = document.createElement("a");
+				// a.href = downloadUrl;
+				// a.download = fileNm + ".xls";
+				// document.body.appendChild(a);
+				// a.click();
+
+
 				var blob = new Blob([this.response], { type: 'application/vnd.ms-excel' });
+				var fNm = fileNm + '.csv';
+				
+				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+						window.navigator.msSaveOrOpenBlob(blob, fNm);
+				}
+				
 				var downloadUrl = URL.createObjectURL(blob);
 				var a = document.createElement("a");
 				a.href = downloadUrl;
-				a.download = fileNm + ".xls";
+				$(a).attr('download',fNm);
 				document.body.appendChild(a);
 				a.click();
 			} else {

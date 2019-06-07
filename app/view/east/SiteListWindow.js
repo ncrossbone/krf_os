@@ -506,6 +506,12 @@ Ext.define('krf_new.view.east.SiteListWindow', {
 			parentNodeId = record.data.parentId;
 		}
 
+		//통합환경허가 다름
+		if(record.data.parentCode == 'K'){
+			nodeId = record.data.gubunCode+'_'+record.data.id;
+			parentNodeId = 'K002';
+		}
+
 		siteMovePoint(parentNodeId, nodeId);
 
 		// 리치정보 띄우기

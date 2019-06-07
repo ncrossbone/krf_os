@@ -792,6 +792,13 @@ detailSeachResult = function (jsonData) {
 	Ext.getCmp('totalSearchTree').setStore(store);
 
 
+	var detailSearchWindow = Ext.getCmp('detailSearchWindow');
+	if(detailSearchWindow){
+		detailSearchWindow.close();
+	}
+
+
+
 }
 
 // 상세검색
@@ -879,9 +886,25 @@ detailSearchTreeColor = function (dom, d) {
 		'A': '#ddd9c3',
 		'A001': '#ddd9c3',
 		'A002': '#daeef3',
+		'B': '',
 		'C': '#c5d9f1',
 		'C001': '#c5d9f1',
-		'C002': '#fde9d9'
+		'C002': '#fde9d9',
+		'D': '#c5d9f1',
+		'D001': '#e4dfec',
+		'D003': '#cbaf8c',
+		'D005': '#d2aa89',
+		'D006': '#969696',
+		'F': '#ebefd9',
+		'F001': '#ebefd9',
+		'F002': '#ebefd9',
+		'F003': '#ebefd9',
+		'F004': '#ebefd9',
+		'F005': '#ebefd9',
+		'F006': '#ebefd9',
+		'F007': '#ebefd9',
+		'F008': '#ebefd9'
+		
 	};//ebf1de
 
 	var color = '';
@@ -906,7 +929,28 @@ detailSearchClickZoom = function (pointX, pointY) {
 }
 
 
+detailSearchLoadingController = function(value){
+
+	var TotalSearchDetailLoadingWindow = Ext.getCmp('totalSearchDetailLoadingWindow');
+	if(!TotalSearchDetailLoadingWindow){
+		TotalSearchDetailLoadingWindow = Ext.create('krf_new.view.center.TotalSearchDetailLoadingWindow');
+		Ext.getCmp('center_container').add(TotalSearchDetailLoadingWindow);
+		TotalSearchDetailLoadingWindow.show();
+	}
+
+	var totalSearchDetailLoading = Ext.getCmp('totalSearchDetailLoading');
+	totalSearchDetailLoading.setValue(value);
+}
+
+
+
 detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일, 종료일
+
+	//$KRF_APP.coreMap._krad.clearKradAll();
+	//$KRF_APP.coreMap._krad.clearVariable();
+	//$KRF_APP.coreMap._krad.clearGraphic();	
+	
+	
 
 	//상세검색 창 ( point 정보 )
 	var popSiteInfo = Ext.getCmp('popSiteInfo');
@@ -917,6 +961,9 @@ detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일
 				var dateCmpare = detailDateCompare(startValue, endValue);
 				if (dateCmpare[0]) {//종료일자와 시작일자 차이
 					if (dateCmpare[1]) {//시작일자와 종료일자 기간
+
+						//detailSearchLoadingController('반경 검색을 시작합니다..');
+
 						$KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point, meter);
 					} else {
 						alert('시작일자와 종료일자의 기간은 1년입니다.');
@@ -2393,6 +2440,7 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 			parentNodeId = nodeId.split('_')[0];
 			nodeId = nodeId.split('_')[1];
 		}
+		
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
 

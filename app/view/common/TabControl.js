@@ -502,9 +502,6 @@ Ext.define('krf_new.view.common.TabControl', {
 				xtype: 'label',
 				text: '월'
 			}, {
-				xtype: "label",
-				text: "일"
-			}, {
 				xtype: 'container',
 				width: 10
 			}, {

@@ -396,7 +396,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
         }]
     }, {
         xtype: 'label',
-        text: '적용',
+        text: '검색',
         style: 'padding:7px 17px; text-align:center; background:#003873; color:#fff; font-size:12px; font-family:"dotum"; font-weight:bold; cursor:pointer; margin-left: 155px;',
         listeners: {
             render: function (c) {
