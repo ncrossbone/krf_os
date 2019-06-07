@@ -190,6 +190,17 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 			console.info(layerId + "에 해당하는 siteIdCol(이)가 없습니다. Layer01Data.json 확인 요함.")
 		}
 
+
+		//통합환경허가
+		if(layerId == '67'){
+
+			siteId = siteId.split('_');
+
+			query.where = layer01Info[0].siteIdCol + " = '" + siteId[0] + "' AND 방류구번호 = '"+ siteId[1] +"'";
+		}
+
+
+
 		if (query.where == undefined) {
 			console.info("쿼리 조건이 설정되지 않았습니다.");
 			return;
@@ -386,7 +397,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"                         </li>                                                                                                                                                             " +
 						"                 	</ul>                                                                                                                                                                   " +
 						"                     <div class=\"btn9\">                                                                                                                                                  " +
-						"                     	<a href=\"#\" class=\"sbtn1\" onClick=\"detailSearchClickDefault()\" >검색</a>                                                                                                                               " +
+						"                     	<a href=\"#\" class=\"sbtn1\" onClick=\"detailSearchClickDefault()\" >간편검색</a>                                                                                                                               " +
 						"                     	<a href=\"#\" class=\"sbtn2\" onClick=\"ShowDetailSearch('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" >상세검색</a>                                                                                                                            " +
 						"                     </div>                                                                                                                                                                " +
 						"                 </dd>                                                                                                                                                                     " +

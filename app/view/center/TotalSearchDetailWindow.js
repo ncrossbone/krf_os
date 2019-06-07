@@ -12,8 +12,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
 
     //width: 800,
     //height: 600,
-    width: 1500,
-    height: 600,
+    width: 1700,
+    height: 700,
 
     x: 0,
     y: 770,
@@ -21,6 +21,7 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
     closable: true,
     constrain: true,
     minimizable: true,
+    maximizable: true,
     onEsc: false,
 
     layout: {

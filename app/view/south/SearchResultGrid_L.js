@@ -50,7 +50,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 					width: 120
 				},{
 					text: '지점명',
-					dataIndex: 'BSNS_NM',
+					dataIndex: 'ENVBSIS_SITE_MANAGE_NM',
 					width: 120
 				},{
 					text: '측정일자',
