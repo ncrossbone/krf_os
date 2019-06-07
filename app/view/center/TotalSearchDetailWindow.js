@@ -5,7 +5,7 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
 
     id: 'totalSearchDetailWindow',
 
-    title: '이력정보 검색',
+    title: '통합검색',
 
     header: { cls: 'subWindow-x-form-item-label-default' },
     cls: 'subWindow-x-form-item-label-default',

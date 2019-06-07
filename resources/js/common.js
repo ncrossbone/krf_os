@@ -427,7 +427,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z006') {
 				yFieldName = 'CELL_CO';
 			}
-		} else if(parentId = 'K'){
+		} else if (parentId = 'K') {
 			yFieldName = 'FUEL_USGQTY';
 		}
 
@@ -793,7 +793,7 @@ detailSeachResult = function (jsonData) {
 
 
 	var detailSearchWindow = Ext.getCmp('detailSearchWindow');
-	if(detailSearchWindow){
+	if (detailSearchWindow) {
 		detailSearchWindow.close();
 	}
 
@@ -810,7 +810,7 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		var centerContainer = Ext.getCmp('center_container');
 		//상세검색 윈도우
 		var detailSearchWindow = Ext.getCmp('detailSearchWindow')
-		if(!detailSearchWindow){
+		if (!detailSearchWindow) {
 			detailSearchWindow = Ext.create('krf_new.view.east.DetailSearchWindow');
 			//추가
 			centerContainer.add(detailSearchWindow);
@@ -903,20 +903,27 @@ detailSearchTreeColor = function (dom, d) {
 		'F005': '#ebefd9',
 		'F006': '#ebefd9',
 		'F007': '#ebefd9',
-		'F008': '#ebefd9'
-		
-	};//ebf1de
+		'F008': '#ebefd9',
 
-	var color = '';
+		'E': '#c6d9f0',
+		'E001': '#c6d9f0',
+		'E002': '#c6d9f0'
+	};
 
-	var id = colorConfig[d.data.parentId] ? d.data.parentId : d.data.id;
-	for (key in colorConfig) {
-		if (id.indexOf(key) > -1) {
-			color = colorConfig[key];
-		}
+	// 해당 컬럼에 맞는 ID 값만 추가 (세로 컬럼 색칠 정의)
+	var config = {
+		// 'IDEX': 'E',
+		// 'GRAD': 'E'
+	};
+
+	var id = colorConfig[d.data.parentId] ? d.data.parentId : colorConfig[d.data.id] ? d.data.id : d.data.GROUP_CODE;
+
+	if (config[dom.column.dataIndex]) {
+		var val = id > config[dom.column.dataIndex] ? id : config[dom.column.dataIndex];
+		dom.style = 'background:' + colorConfig[val] + ' !important;'
+	} else {
+		dom.style = 'background:' + colorConfig[id] + ' !important;'
 	}
-
-	dom.style = 'background:' + color + ' !important;';
 }
 
 //툴팁 지도 확대
@@ -929,10 +936,10 @@ detailSearchClickZoom = function (pointX, pointY) {
 }
 
 
-detailSearchLoadingController = function(value){
+detailSearchLoadingController = function (value) {
 
 	var TotalSearchDetailLoadingWindow = Ext.getCmp('totalSearchDetailLoadingWindow');
-	if(!TotalSearchDetailLoadingWindow){
+	if (!TotalSearchDetailLoadingWindow) {
 		TotalSearchDetailLoadingWindow = Ext.create('krf_new.view.center.TotalSearchDetailLoadingWindow');
 		Ext.getCmp('center_container').add(TotalSearchDetailLoadingWindow);
 		TotalSearchDetailLoadingWindow.show();
@@ -947,7 +954,7 @@ detailSearchLoadingController = function(value){
 detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일, 종료일
 
 	//리치검색 초기화 ( 상세검색시에는 지점목록과 맵에 그려져있는데 feature정보들이 초기화되어야 한다. )
-	$KRF_APP.coreMap._krad.clearGraphic();	
+	$KRF_APP.coreMap._krad.clearGraphic();
 	$KRF_APP.coreMap._krad.clearVariable();
 	$KRF_APP.coreMap._krad.arrAreaGrp = [];
 
@@ -1071,10 +1078,10 @@ detailDateSearchWindow = function (id) {
 						} else { //html로 되어있는 날짜 textArea
 							//var dateId = {'detailStartDate':'detailStartDate','detailEndDate': 'detailStartDate'};
 
-							
-							event.value[0] = Number(event.value[0]).toString(); 
-							if(Number(event.value[0]) < 10 && event.value[0].length == 1) 
-							event.value[0] = "0" + event.value[0];
+
+							event.value[0] = Number(event.value[0]).toString();
+							if (Number(event.value[0]) < 10 && event.value[0].length == 1)
+								event.value[0] = "0" + event.value[0];
 
 							document.getElementById(id).value = event.value[1] + '-' + event.value[0];
 						}
@@ -1190,7 +1197,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			parentId: parentCheck,
 			realParentId: parentIds,
 			autoResize: true,
-			closable : true,
+			closable: true,
 			gridId: pId + gridId
 		};
 	} else {
@@ -1200,7 +1207,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			parentId: parentCheck,
 			parentSiteIds: parentIds[0].parentSiteIds,
 			realParentId: parentIds,
-			closable : true,
+			closable: true,
 			autoResize: true,
 			gridId: gridId
 		};
@@ -1272,7 +1279,7 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 			parentIds: grdCtl.parentIds,
 			parentSiteIds: parentIds[0].parentSiteIds,
 			gridCtl: grdCtl
-			
+
 		});
 
 		grdCtl.setStore(gridStore);
@@ -2439,7 +2446,7 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 			parentNodeId = nodeId.split('_')[0];
 			nodeId = nodeId.split('_')[1];
 		}
-		
+
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
 
