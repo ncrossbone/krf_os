@@ -949,6 +949,8 @@ detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일
 	//$KRF_APP.coreMap._krad.clearKradAll();
 	//$KRF_APP.coreMap._krad.clearVariable();
 	//$KRF_APP.coreMap._krad.clearGraphic();	
+
+	//$KRF_APP.coreMap._krad.arrAreaGrp
 	
 	
 
