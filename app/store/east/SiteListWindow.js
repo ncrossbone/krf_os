@@ -503,6 +503,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 					if (store.param.detailSearch) {
 						detailSeachResult(jsonData);
+						store.param.detailSearch = false; // detailSearch param 초기화
 					}
 					// 로딩바 숨김
 					Ext.getCmp("siteListTree").unmask();

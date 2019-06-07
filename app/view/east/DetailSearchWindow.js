@@ -402,45 +402,12 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
             render: function (c) {
                 c.getEl().on('click', function () {
 
-                    /*var totalSearchDetailWindow = Ext.getCmp('totalSearchDetailWindow');
-
-                    if (!totalSearchDetailWindow) {
-                        totalSearchDetailWindow = Ext.create('krf_new.view.center.TotalSearchDetailWindow');
-                        Ext.getCmp('center_container').add(totalSearchDetailWindow);
-                    }
-
-                    totalSearchDetailWindow.show();
-
-                    var store = Ext.create('krf_new.store.center.TotalSearchTree');
-                    store.load();
-
-                    Ext.getCmp('totalSearchTree').setStore(store);
-                    return;*/
                     var meter = Number(Ext.getCmp('detailRadiusValue').value);
                     var detailSearchStartDate = Ext.getCmp('detail_startYear').value + Ext.getCmp('detail_startMonth').value;
                     var detailSearchEndDate = Ext.getCmp('detail_endYear').value + Ext.getCmp('detail_endMonth').value;
 
                     detailSearchClick(meter, detailSearchStartDate, detailSearchEndDate);
 
-                    /*if(popSiteInfo.point){ // 선택된 지점이 있는지 
-                        if(meter > 0){ // 반경이 있는지
-                            if(detailSearchStartDate && detailSearchEndDate){ // 기간이 있는지
-    
-                                var dateCompare = detailDateCompare(detailSearchStartDate, detailSearchEndDate);
-                                if(dateCompare){
-                                    $KRF_APP.coreMap._krad.radiusDrawEvent(popSiteInfo.point,meter);   
-                                }else{
-                                    alert('종료일자가 시작일자보다 커야 합니다.')
-                                }
-                            }else{
-                                alert("기간을 선택해 주세요");
-                            }
-                        }else{
-                            alert("반경값을 설정하세요.")
-                        }
-                    }else{
-                        alert("지점상세 창이 없습니다.")
-                    }*/
 
                 })
             }

@@ -45,10 +45,6 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 
 				},
 				columns: [{
-					text: '지점코드',
-					dataIndex: 'ENVBSIS_SITE_MANAGE_NO',
-					width: 120
-				},{
 					text: '지점명',
 					dataIndex: 'ENVBSIS_SITE_MANAGE_NM',
 					width: 120

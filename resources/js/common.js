@@ -946,13 +946,10 @@ detailSearchLoadingController = function(value){
 
 detailSearchClick = function (meter, startValue, endValue) {// 반경, 시작일, 종료일
 
-	//$KRF_APP.coreMap._krad.clearKradAll();
-	//$KRF_APP.coreMap._krad.clearVariable();
-	//$KRF_APP.coreMap._krad.clearGraphic();	
-
-	//$KRF_APP.coreMap._krad.arrAreaGrp
-	
-	
+	//리치검색 초기화 ( 상세검색시에는 지점목록과 맵에 그려져있는데 feature정보들이 초기화되어야 한다. )
+	$KRF_APP.coreMap._krad.clearGraphic();	
+	$KRF_APP.coreMap._krad.clearVariable();
+	$KRF_APP.coreMap._krad.arrAreaGrp = [];
 
 	//상세검색 창 ( point 정보 )
 	var popSiteInfo = Ext.getCmp('popSiteInfo');
