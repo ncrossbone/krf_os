@@ -56,26 +56,26 @@ Ext.define('krf_new.view.south.SearchResultGrid_L_Window', {
             "        <tbody> "+
             "            <tr> "+
             "                <th>대분류명</th> "+
-            "                <td>비점오염과가축분뇨정책비중확대</td> "+
+            "                <td id=\"result_l_LCLAS_NM\">비점오염과가축분뇨정책비중확대</td> "+
             "                <th>사업명</th> "+
-            "                <td>산림을통한산림지역비점오염관리방안연구</td> "+
+            "                <td id=\"result_l_BSNS_NM\"></td> "+
             "            </tr> "+
             "            <tr> "+
             "                <th>단계</th> "+
-            "                <td>3단계</td> "+
+            "                <td id=\"result_l_STEP_CODE \"></td> "+
             "                <th>사업년도</th> "+
-            "                <td>2015</td> "+
+            "                <td id=\"result_l_BSNS_NM \"></td> "+
             "            </tr> "+
             "            <tr> "+
             "                <th>연구기관</th> "+
-            "                <td>강원대학교</td> "+
+            "                <td id=\"result_l_RSRCH_INSTT_NM \"></td> "+
             "                <th>총연구비</th> "+
-            "                <td>145,500,000원</td> "+
+            "                <td id=\"result_l_TOT_RSRCH_CT \"></td> "+
             "            </tr> "+
             "            <tr> "+
             "                <th>연구목적</th> "+
-            "                <td colspan=\"3\"> "+
-            "                	산림1111111111111111111111 "+
+            "                <td id=\"result_l_RSRCH_PURPS_CN \" colspan=\"3\"> "+
+            "                	 "+
             "                </td> "+
             "            </tr> "+
             "        </tbody> "+
@@ -88,8 +88,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_L_Window', {
             "                <th>연구결과</th> "+
             "            </tr> "+
             "            <tr>     "+ 
-            "                <td> "+
-            "                	산림1111111111111111111111 "+
+            "                <td id=\"result_l_RSRCH_RESULT_CN \"> "+
+            "                	 "+
             "                </td> "+
             "            </tr> "+
             "        </tbody> "+

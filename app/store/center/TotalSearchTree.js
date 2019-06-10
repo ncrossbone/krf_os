@@ -14,7 +14,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			if (Ext.getCmp('itemselector')) {
 				layerList = Ext.getCmp('itemselector').getValue();
 			}else{//아닐시 (수질측정망(하천,호소), 생물측정망 (하천,호소), 퇴적물측정망(하천,호소), 수질자동측정망)
-				layerList = ['A001', 'A002', 'C001', 'C002', 'B001', 'B002'
+				layerList = ['A001', 'A002', 'C001', 'C002', 'B001'
 				,'HcAtalSe', 'HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
 			}
 
@@ -111,7 +111,6 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 
-					krf_new.global.CommFn.totalSearchExcelData = jsonData.data;
 
 					if (jsonData.data.length > 0) {
 
@@ -149,6 +148,8 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 
 							var arrGroupCodes = [];
+
+							krf_new.global.CommFn.totalSearchExcelData = confirmJsonData;
 
 							$.each(confirmJsonData, function (cnt, datas) {
 								// "==="연산자 값과 타입이 정확하게 일치하는지 판단

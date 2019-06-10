@@ -258,9 +258,25 @@ Ext.define("krf_new.global.CommFn", {
 				// document.body.appendChild(a);
 				// a.click();
 
+				var date = new Date();
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var sysdate = "";
+
+				if(month < 10){
+					month = "0" + month;
+				}
+					
+				if(day < 10){
+					day = "0" + day;
+				}
+				
+				sysdate = year + month + day;
+
 
 				var blob = new Blob([this.response], { type: 'application/vnd.ms-excel' });
-				var fNm = fileNm + '.xls';
+				var fNm = fileNm + '_' + sysdate + '.xls';
 
 				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
 					window.navigator.msSaveOrOpenBlob(blob, fNm);

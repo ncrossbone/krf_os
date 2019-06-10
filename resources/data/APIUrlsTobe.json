@@ -142,6 +142,7 @@
     "searchResult_B2018":"#host#/searchResult/searchResult_B2018",
     "searchResult_M":"#host#/searchResult/searchResult_M",
     "searchResult_L2018":"#host#/searchResult/searchResult_L2018",
+    "searchResult_L2018_Window":"#host#/searchResult/searchResult_L2018_Window",
     "clickSession":"#host#/common/clickSession",
     "GetSearchResultData_M":"#host#/searchResult/searchResult_M",
     "GetSearchResultData_Q":"#host#/searchResult/searchResult_Q",

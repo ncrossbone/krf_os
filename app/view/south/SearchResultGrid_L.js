@@ -49,7 +49,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 					dataIndex: 'ENVBSIS_SITE_MANAGE_NM',
 					width: 120,
 					listeners: {
-						click: function (tblView, el, rowCnt, colCnt, row) {
+						click: function (tblView, el, rowCnt, colCnt, row, a, b) {
 							var centerContainer = Ext.getCmp('center_container');
 							//보고서 정보
 							var searchResultGrid_L_Window = Ext.getCmp('searchResultGrid_L_Window')
@@ -57,8 +57,14 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 							searchResultGrid_L_Window = Ext.create('krf_new.view.south.SearchResultGrid_L_Window');
 							//추가
 							centerContainer.add(searchResultGrid_L_Window);
-							//열기
-							searchResultGrid_L_Window.show();
+							
+
+							var store = Ext.create('krf_new.store.south.SearchResultGrid_L_Window', {
+								async: true,
+								siteId: a.data.ENVBSIS_SITE_MANAGE_NO,
+							});
+							store.load();
+
 
 						}
 					}
