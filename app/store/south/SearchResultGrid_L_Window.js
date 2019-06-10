@@ -24,20 +24,17 @@ Ext.define('krf_new.store.south.SearchResultGrid_L_Window', {
                         if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
 
 
-                            var searchResultGrid_L_Window = Ext.getCmp('searchResultGrid_L_Window');
-
-                            var colMapping = ['LCLAS_NM','BSNS_NM','STEP_CODE','BSNS_NM','RSRCH_INSTT_NM','TOT_RSRCH_CT','RSRCH_PURPS_CN','RSRCH_RESULT_CN'];
+                            var colMapping = ['LCLAS_NM','BSNS_NM','STEP_CODE','BSNS_YEAR','RSRCH_INSTT_NM','TOT_RSRCH_CT','RSRCH_PURPS_CN','RSRCH_RESULT_CN','TOT_RSRCH_CT'];
 
 
                             colMapping.map(function(obj){
                                 if(jsonData.data[0][obj]){
-                                    console.info(document.getElementById[obj]);
+                                    console.info("#result_l_"+obj);
+                                    $("#result_l_"+obj).text(jsonData.data[0][obj]);
                                 }
                             });
 
 
-
-                            jsonData.data[0]
 
 
                             store.setData(jsonData.data);

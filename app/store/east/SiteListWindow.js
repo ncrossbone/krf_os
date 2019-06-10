@@ -351,7 +351,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
-
+						if(layerFeatures[0].attributes.LAYER_NM == '환경기초시설조사사업'){//20190610 임시
+							layerFeatures[0].attributes.LAYER_NM = '환경기초조사사업';
+						}
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 
 

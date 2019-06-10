@@ -596,7 +596,7 @@
 	"children": [{
 		"id": "55",
 		"wmsId":"",
-		"text": "환경기초시설조사사업",
+		"text": "환경기초조사사업",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer97",
 		"leaf": true,

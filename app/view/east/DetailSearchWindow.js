@@ -384,7 +384,7 @@ Ext.define('krf_new.view.east.DetailSearchWindow', {
                 }),
                 displayField: 'text',
                 valueField: 'value',
-                //value: ['3', '4', '6'],
+                value: ['A001','A002','C001','C002','HcAtalSe','HcBemaSe','HcFishSe','HcInhaSe','HcQltwtrSe','HcVtnSe','B001'],
                 allowBlank: false,
                 msgTarget: 'side',
                 fromTitle: false,

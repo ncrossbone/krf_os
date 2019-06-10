@@ -886,7 +886,8 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		var itemselector = Ext.getCmp('itemselector');
 		itemselector.setStore(store);
 		if (layerList.length > 0) {
-			itemselector.setValue(layerList[0][0]);
+			
+
 		}
 
 
