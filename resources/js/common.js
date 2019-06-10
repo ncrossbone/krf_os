@@ -771,13 +771,21 @@ ChangeTabIndex = function (tabIdx) {
 detailSeachResult = function (jsonData) {
 
 	var totalSearchDetailWindow = Ext.getCmp('totalSearchDetailWindow');
+	var centerContainer = Ext.getCmp('center_container');
 
 	if (!totalSearchDetailWindow) {
 		totalSearchDetailWindow = Ext.create('krf_new.view.center.TotalSearchDetailWindow');
-		Ext.getCmp('center_container').add(totalSearchDetailWindow);
+		centerContainer.add(totalSearchDetailWindow);
 	}
 
+	var windowWidth = centerContainer.getWidth();
+	var windowHeight = totalSearchDetailWindow.height;
+	var windowY = (centerContainer.getHeight() - windowHeight) + 25;
+
 	totalSearchDetailWindow.show();
+	totalSearchDetailWindow.setWidth(windowWidth);
+	totalSearchDetailWindow.setHeight(windowHeight);
+	totalSearchDetailWindow.setY(windowY);
 
 	var grdCtl = totalSearchDetailWindow.items.items[0]; // 그리드 컨테이너
 	var grd = grdCtl.items.items[0];
@@ -944,7 +952,7 @@ detailSearchTreeColor = function (dom, d) {
 		'AVRG_SPFLD': 'D',
 	};
 
-	var sortGrid = ['A', 'C', 'E', 'F', 'D001', 'D005', 'D003', 'D'];
+	var sortGrid = ['A', 'C', 'B', 'E', 'F', 'D001', 'D005', 'D003', 'D'];
 
 	var id = colorConfig[d.data.parentId] ? d.data.parentId : colorConfig[d.data.id] ? d.data.id : d.data.GROUP_CODE;
 

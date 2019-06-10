@@ -605,7 +605,7 @@
 		"siteNmCol": "RS_PT_ID",
 		"siteAddrCol": "",
 		"layerCode": "L001",
-		"isMetaData": true
+		"isMetaData": false
 	}]
 }, {
 	"id": "26",
@@ -796,7 +796,7 @@
 		"siteNmCol": "RS_PT_ID",
 		"siteAddrCol": "",
 		"layerCode": "K001",
-		"isMetaData": true
+		"isMetaData": false
 	},{
 		"id": "67",
 		"wmsId":"",
@@ -809,7 +809,7 @@
 		"siteNmCol": "사업장_명",
 		"siteAddrCol": "사업장_상",
 		"layerCode": "K002",
-		"isMetaData": true
+		"isMetaData": false
 	}]
 },{
 	"id": "83",

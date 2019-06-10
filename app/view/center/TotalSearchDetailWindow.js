@@ -14,6 +14,7 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             width: 59,
             height: 24,
             style: 'cursor:pointer; margin-left:-10px !important;',
+            id: 'totalExcelDownBtn',
             src: './resources/images/button/btn_exl.gif', // 
             listeners: {
                 el: {
@@ -42,12 +43,17 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
 
     //width: 800,
     //height: 600,
-    width: 1700,
-    height: 500,
+    width: 0,
+    height: 350,
+
+    preWidth: 0,
+    preHeight: 0,
+
+    preX: 0,
+    preY: 0,
 
     x: 0,
-    y: 770,
-
+    y: 0,
     closable: true,
     constrain: true,
     minimizable: true,
@@ -64,45 +70,45 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
         rootVisible: false,
         columns: [
             {
-            xtype: 'treecolumn', //this is so we know which column will show the tree
-            text: '지점',
-            width: 220,
-            sortable: true,
-            dataIndex: 'text',
-            locked: true,
-            renderer: function (val, dom, d) {
+                xtype: 'treecolumn', //this is so we know which column will show the tree
+                text: '지점',
+                width: 220,
+                sortable: true,
+                dataIndex: 'text',
+                locked: true,
+                renderer: function (val, dom, d) {
 
-                detailSearchTreeColor(dom, d);
+                    detailSearchTreeColor(dom, d);
 
-                return val;
-            },
-            listeners: {
-                click: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-                    if (node.record.data.leaf == true) {
-                        if (node.record.data.id != undefined) {
-                            // 집수구역, 지점 이동, 리치정보 하이라이트
-                            var me = this.up("window");
+                    return val;
+                },
+                listeners: {
+                    click: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+                        if (node.record.data.leaf == true) {
+                            if (node.record.data.id != undefined) {
+                                // 집수구역, 지점 이동, 리치정보 하이라이트
+                                var me = this.up("window");
 
-                            var nodeId = "";
-                            var parentNodeId = "";
-                            // 지점이동
-                            if (record.data.id.substring(0, 2) == "Hc") {
-                                nodeId = record.data.SITE_CODE;
-                                parentNodeId = "E001";
-                            } else if (record.data.id.substring(0, 2) == "Hg") {
-                                nodeId = record.data.SITE_CODE;
-                                parentNodeId = "E002";
-                            } else {
-                                nodeId = record.data.SITE_CODE;
-                                parentNodeId = record.data.parentId;
+                                var nodeId = "";
+                                var parentNodeId = "";
+                                // 지점이동
+                                if (record.data.id.substring(0, 2) == "Hc") {
+                                    nodeId = record.data.SITE_CODE;
+                                    parentNodeId = "E001";
+                                } else if (record.data.id.substring(0, 2) == "Hg") {
+                                    nodeId = record.data.SITE_CODE;
+                                    parentNodeId = "E002";
+                                } else {
+                                    nodeId = record.data.SITE_CODE;
+                                    parentNodeId = record.data.parentId;
+                                }
+
+                                siteMovePoint(parentNodeId, nodeId);
                             }
-
-                            siteMovePoint(parentNodeId, nodeId);
                         }
                     }
                 }
-            }
-        }, {
+            }, {
                 text: '일자',
                 width: 95,
                 align: 'center',
@@ -114,23 +120,23 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                         retVal = val;
                     return retVal;
 
-            }
-        },{
-            text: '회차',
-            width: 95,
-            align: 'center',
-            dataIndex: 'TME',
-            renderer: function (val, dom, d) {
-                detailSearchTreeColor(dom, d);
-				var retVal = "";
-				if (val != undefined && val != 'undefined')
-					retVal = val;
-				return retVal;
-			},
-            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-            },
-            // Only leaf level tasks may be edited
-            isDisabled: function (view, rowIdx, colIdx, item, record) {
+                }
+            }, {
+                text: '회차',
+                width: 95,
+                align: 'center',
+                dataIndex: 'TME',
+                renderer: function (val, dom, d) {
+                    detailSearchTreeColor(dom, d);
+                    var retVal = "";
+                    if (val != undefined && val != 'undefined')
+                        retVal = val;
+                    return retVal;
+                },
+                handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+                },
+                // Only leaf level tasks may be edited
+                isDisabled: function (view, rowIdx, colIdx, item, record) {
 
                     detailSearchTreeColor(dom, d);
 
@@ -615,14 +621,28 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             }]
     }],
     listeners: {
-        // 'minimize': function (window, opts) {
-        //     if (!window.collapsed) {
-        //         window.collapse();
-        //     } else {
-        //         window.expand();
-        //     }
+        'minimize': function (window) {
+            var me = this;
+            if (!window.collapsed) {
+                me.preWidth = window.getWidth();
+                me.preHeight = window.getHeight();
 
-        // }
+                me.preX = window.getX();
+                me.preY = window.getY();
+                Ext.getCmp('totalExcelDownBtn').hide();
+                window.setWidth(150);
+                var centerContainer = Ext.getCmp('center_container');
+                window.alignTo(centerContainer, 'bl-bl');
+                window.collapse();
+            } else {
+                window.setWidth(me.preWidth);
+                window.setHeight(me.preHeight);
+                window.setX(me.preX);
+                window.setY(me.preY);
+                Ext.getCmp('totalExcelDownBtn').show();
+                window.expand();
+            }
+        }
     },
     initComponent: function () {
         this.callParent();
