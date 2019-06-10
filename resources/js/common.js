@@ -780,12 +780,12 @@ detailSeachResult = function (jsonData) {
 	totalSearchDetailWindow.show();
 
 	var grdCtl = totalSearchDetailWindow.items.items[0]; // 그리드 컨테이너
-	grdCtl = grdCtl.items.items[0];
+	var grd = grdCtl.items.items[0];
 
 	var store = Ext.create('krf_new.store.center.TotalSearchTree', {
 		async: true,
 		data: jsonData,
-		gridCtl: grdCtl
+		gridCtl: grd
 	});
 	store.load();
 
