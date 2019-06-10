@@ -64,42 +64,73 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
         rootVisible: false,
         columns: [
             {
-                xtype: 'treecolumn', //this is so we know which column will show the tree
-                text: '지점',
-                width: 220,
-                sortable: true,
-                dataIndex: 'text',
-                locked: true,
-                renderer: function (val, dom, d) {
+            xtype: 'treecolumn', //this is so we know which column will show the tree
+            text: '지점',
+            width: 220,
+            sortable: true,
+            dataIndex: 'text',
+            locked: true,
+            renderer: function (val, dom, d) {
 
-                    detailSearchTreeColor(dom, d);
+                detailSearchTreeColor(dom, d);
 
-                    return val;
-                },
-                listeners: {
-                    click: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-                        if (node.record.data.leaf == true) {
-                            if (node.record.data.id != undefined) {
-                                // 집수구역, 지점 이동, 리치정보 하이라이트
-                                var me = this.up("window");
+                return val;
+            },
+            listeners: {
+                click: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+                    if (node.record.data.leaf == true) {
+                        if (node.record.data.id != undefined) {
+                            // 집수구역, 지점 이동, 리치정보 하이라이트
+                            var me = this.up("window");
 
-                                me.moveCommon(record);
+                            var nodeId = "";
+                            var parentNodeId = "";
+                            // 지점이동
+                            if (record.data.id.substring(0, 7) == "Hc") {
+                                nodeId = record.data.SITE_CODE;
+                                parentNodeId = "E001";
+                            } else if (record.data.id.substring(0, 7) == "Hg") {
+                                nodeId = record.data.SITE_CODE;
+                                parentNodeId = "E002";
+                            } else {
+                                nodeId = record.data.SITE_CODE;
+                                parentNodeId = record.data.parentId;
                             }
+
+                            siteMovePoint(parentNodeId, nodeId);
                         }
                     }
                 }
             }
-            , {
-                text: '일자',
-                width: 95,
-                align: 'center',
-                dataIndex: 'DE',
-                renderer: function (val, dom, d) {
-                    var retVal = "";
-                    if (val != undefined && val != 'undefined') {
-                        retVal = val;
-                    }
+            
+        }, {
+            text: '일자',
+            width: 95,
+            align: 'center',
+            dataIndex: 'DE',
+            renderer: function (val, dom, d) {
+                var retVal = "";
+                if (val != undefined && val != 'undefined') {
+                    retVal = val;
+                }
+            }
 
+        },{
+            text: '회차',
+            width: 95,
+            align: 'center',
+            dataIndex: 'TME',
+            renderer: function (val, dom, d) {
+                detailSearchTreeColor(dom, d);
+				var retVal = "";
+				if (val != undefined && val != 'undefined')
+					retVal = val;
+				return retVal;
+			},
+            handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+            },
+            // Only leaf level tasks may be edited
+            isDisabled: function (view, rowIdx, colIdx, item, record) {
 
                     detailSearchTreeColor(dom, d);
 

@@ -767,9 +767,20 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				for (var j = 0; j < result.features.length; j++) {
 					siteIds.push(result.features[j].attributes.JIJUM_CODE);
 				}
+
+				var url = '';
+				var param = {};
+				if(me.searchType == 'nameSearch'){
+					url = _API.sstgText;
+					param = { textField: '금어천' }
+				}else{
+					url = _API.sstg;
+					param = { siteIds: siteIds }
+				}
+
 				Ext.Ajax.request({
-					url: _API.sstg,
-					params: { siteIds: siteIds },
+					url: url,
+					params: param,
 					async: false, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
 						var jsonData = Ext.util.JSON.decode(response.responseText);

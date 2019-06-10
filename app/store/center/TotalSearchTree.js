@@ -13,9 +13,9 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			//상세검색일시
 			if (Ext.getCmp('itemselector')) {
 				layerList = Ext.getCmp('itemselector').getValue();
-			} else {//아닐시
-				layerList = ['A001', 'A002', 'C001', 'C002', 'D001', 'D003', 'D005', 'D006', 'F001', 'F002', 'F003', 'F004', 'F006', 'F007', 'F007'
-					, 'HcAtalSe', 'HcBemaSe', 'HcBemaSe', 'HcFishSe', 'HcInhaSe', 'HcQltwtrSe', 'HcVtnSe', 'HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
+			}else{//아닐시 (수질측정망(하천,호소), 생물측정망 (하천,호소), 퇴적물측정망(하천,호소), 수질자동측정망)
+				layerList = ['A001', 'A002', 'C001', 'C002', 'B001', 'B002'
+				,'HcAtalSe', 'HcBemaSe','HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
 			}
 
 			var paramList = { 'A': [], 'B': [], 'C': [], 'D': [], 'Esstg': [], 'F': [], 'G': [], 'H': [] };
