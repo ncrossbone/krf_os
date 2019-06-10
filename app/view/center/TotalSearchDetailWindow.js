@@ -420,42 +420,6 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
 
                 }
             }, {
-                text: '지수',
-                width: 95,
-                align: 'center',
-                dataIndex: 'IDEX',
-                renderer: function (val, dom, d) {
-                    detailSearchTreeColor(dom, d);
-                    var retVal = "";
-                    if (val != undefined && val != 'undefined')
-                        retVal = val;
-                    return retVal;
-                },
-                handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-                },
-                // Only leaf level tasks may be edited
-                isDisabled: function (view, rowIdx, colIdx, item, record) {
-
-                }
-            }, {
-                text: '건강성등급',
-                width: 95,
-                align: 'center',
-                dataIndex: 'GRAD',
-                renderer: function (val, dom, d) {
-                    detailSearchTreeColor(dom, d);
-                    var retVal = "";
-                    if (val != undefined && val != 'undefined')
-                        retVal = val;
-                    return retVal;
-                },
-                handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-                },
-                // Only leaf level tasks may be edited
-                isDisabled: function (view, rowIdx, colIdx, item, record) {
-
-                }
-            }, {
                 text: '완전연소가능량(%)',
                 width: 95,
                 align: 'center',
@@ -478,6 +442,42 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                 width: 95,
                 align: 'center',
                 dataIndex: 'IEM_1155',
+                renderer: function (val, dom, d) {
+                    detailSearchTreeColor(dom, d);
+                    var retVal = "";
+                    if (val != undefined && val != 'undefined')
+                        retVal = val;
+                    return retVal;
+                },
+                handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+                },
+                // Only leaf level tasks may be edited
+                isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+                }
+            }, {
+                text: '지수',
+                width: 95,
+                align: 'center',
+                dataIndex: 'IDEX',
+                renderer: function (val, dom, d) {
+                    detailSearchTreeColor(dom, d);
+                    var retVal = "";
+                    if (val != undefined && val != 'undefined')
+                        retVal = val;
+                    return retVal;
+                },
+                handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
+                },
+                // Only leaf level tasks may be edited
+                isDisabled: function (view, rowIdx, colIdx, item, record) {
+
+                }
+            }, {
+                text: '건강성등급',
+                width: 95,
+                align: 'center',
+                dataIndex: 'GRAD',
                 renderer: function (val, dom, d) {
                     detailSearchTreeColor(dom, d);
                     var retVal = "";

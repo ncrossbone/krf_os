@@ -931,12 +931,14 @@ detailSearchTreeColor = function (dom, d) {
 		'AVRG_SPFLD': 'D',
 	};
 
+	var sortGrid = ['A', 'C', 'E', 'F', 'D001', 'D005', 'D003', 'D'];
+
 	var id = colorConfig[d.data.parentId] ? d.data.parentId : colorConfig[d.data.id] ? d.data.id : d.data.GROUP_CODE;
 
 
 	if (config[dom.column.dataIndex]) {
 		//var val = id > config[dom.column.dataIndex] ? id : config[dom.column.dataIndex];
-		var val = config[dom.column.dataIndex];
+		var val = sortGrid.indexOf(id) > sortGrid.indexOf(config[dom.column.dataIndex]) ? id : config[dom.column.dataIndex];
 		var borderText = dom.column.dataIndex == 'text' ? ' border-right:1px solid ' + colorConfig[val] + ' !important; border-bottom:1px solid ' + colorConfig[val] + ' !important;' : ' border-right:1px solid #000 !important; border-bottom:1px solid #000 !important;';
 		dom.style = 'background:' + colorConfig[val] + ' !important;' + borderText;
 	} else {
