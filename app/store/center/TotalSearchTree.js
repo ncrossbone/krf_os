@@ -37,13 +37,15 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 			} else {//아닐시
 
-				var start = document.getElementById('detailStartDate').value.split('-');
-				var end = document.getElementById('detailEndDate').value.split('-');
+				var startYear = document.getElementById('detailStartDate').value;
+				var endYear = document.getElementById('detailEndDate').value;
+				var startMonth = document.getElementById('detailStartMonth').value;
+				var endMonth = document.getElementById('detailEndMonth').value;
 
-				detailSearchStartYear = start[0];
-				detailSearchStartMonth = start[1];
-				detailSearchEndYear = end[0];
-				detailSearchEndMonth = end[1];
+				detailSearchStartYear = startYear;
+				detailSearchStartMonth = startMonth;
+				detailSearchEndYear = endYear;
+				detailSearchEndMonth = endMonth;
 			}
 
 			detailSearchStartMonth = Number(detailSearchStartMonth).toString();
@@ -109,7 +111,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 
-					krf_new.global.CommFn.nowDate.totalSearchExcelData = jsonData;
+					krf_new.global.CommFn.totalSearchExcelData = jsonData.data;
 
 					if (jsonData.data.length > 0) {
 

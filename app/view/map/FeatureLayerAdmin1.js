@@ -228,8 +228,8 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						jijum_Cd = jijum[layer01Info[0].siteIdCol];
 					}
 
-					if(parentCheck == 'L001'){
-						jijum_Addr = jijum.CODE_DO + ' '+ jijum.CODE_CTY + ' ' + jijum.CODE_DONG + ' ' + jijum.CODE_RI;
+					if (parentCheck == 'L001') {
+						jijum_Addr = jijum.CODE_DO + ' ' + jijum.CODE_CTY + ' ' + jijum.CODE_DONG + ' ' + jijum.CODE_RI;
 					}
 
 
@@ -396,9 +396,19 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"                 		</li>                                                                                                                                                               " +
 						"                     	<li style=\"margin-top:5px;\">                                                                                                                         " +
 						"                         	<span class=\"tit\">기간</span>                                                                                                                                  " +
-						"                             <input type=\"text\" id=\"detailStartDate\" onClick=\"detailDateSearchWindow('detailStartDate')\" style=\"width:65px;\"/>                                                                                                                  " +
+						"                             <select type=\"text\" id=\"detailStartDate\" style=\"width:65px; height:23px; \">                                                                                                                  " +
+						"                             </select>                                                                                                                  " +
+						"                             <span>년</span>                                                                                                                 " +
+						"                             <select type=\"text\" id=\"detailStartMonth\" style=\"width:40px; height:23px; \">                                                                                                                  " +
+						"                             </select>                                                                                                                  " +
+						"                             <span>월</span>                                                                                                                 " +
 						"                             <span>~</span>                                                                                                                                                " +
-						"                             <input type=\"text\" id=\"detailEndDate\" onClick=\"detailDateSearchWindow('detailEndDate')\" style=\"width:65px;\"/>                                                                                                                  " +
+						"                             <select type=\"text\" id=\"detailEndDate\" style=\"width:65px; height:23px; \">                                                                                                                  " +
+						"                             </select>                                                                                                                  " +
+						"                             <span>년</span>                                                                                                                 " +
+						"                             <select type=\"text\" id=\"detailEndMonth\" style=\"width:40px; height:23px; \">                                                                                                                  " +
+						"                             </select>                                                                                                                  " +
+						"                             <span>월</span>                                                                                                                 " +
 						"                         </li>                                                                                                                                                             " +
 						"                 	</ul>                                                                                                                                                                   " +
 						"                     <div class=\"btn9\">                                                                                                                                                  " +
@@ -494,6 +504,28 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 
 				Ext.getCmp('center_container').add(mapToolTip);
 				mapToolTip.show();
+
+				var yearArr = $KRF_APP.global.CommFn.bindComboYear(2010, 'Desc', '');
+				var monthArr = $KRF_APP.global.CommFn.bindComboMonth('Asc', '');
+
+				var yearHtml = '';
+				var monthHtml = '';
+				for (var i = 0; i < yearArr.length; i++) {
+					if (yearArr[i]) {
+						yearHtml += '<option>' + (yearArr[i] + '') + '</option>';
+					}
+				}
+
+				for (var i = 0; i < monthArr.length; i++) {
+					if (monthArr[i]) {
+						monthHtml += '<option>' + (monthArr[i] + '') + '</option>';
+					}
+				}
+
+				$('#detailStartDate').html(yearHtml);
+				$('#detailStartMonth').html(monthHtml);
+				$('#detailEndDate').html(yearHtml);
+				$('#detailEndMonth').html(monthHtml);
 
 				// 툴팁 XY 셋팅
 				$KRF_APP.fireEvent($KRF_EVENT.SET_MAP_TOOLTIP_LOCATION);

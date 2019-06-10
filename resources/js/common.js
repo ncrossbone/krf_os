@@ -819,16 +819,18 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 
 			var meter = Number(document.getElementById('detailMeter').value);
-			var start = document.getElementById('detailStartDate').value.split('-');
-			var end = document.getElementById('detailEndDate').value.split('-');
 
+			var startYear = document.getElementById('detailStartDate').value;
+			var endYear = document.getElementById('detailEndDate').value;
+			var startMonth = document.getElementById('detailStartMonth').value;
+			var endMonth = document.getElementById('detailEndMonth').value;
 
 			Ext.getCmp('detailRadiusValue').setValue(meter);
-			Ext.getCmp('detail_startYear').setValue(start[0]);
-			Ext.getCmp('detail_startMonth').setValue(start[1]);
-			Ext.getCmp('detail_endYear').setValue(end[0]);
-			Ext.getCmp('detail_endMonth').setValue(end[1]);
 
+			Ext.getCmp('detail_startYear').setValue(startYear);
+			Ext.getCmp('detail_startMonth').setValue(startMonth);
+			Ext.getCmp('detail_endYear').setValue(endYear);
+			Ext.getCmp('detail_endMonth').setValue(endMonth);
 		}
 
 		//지점목록 treeList
@@ -1017,11 +1019,13 @@ detailSearchClickDefault = function () {
 	var meter = Number(document.getElementById('detailMeter').value);  //detailMeter
 	//var detailDate = Ext.getCmp('monthpickerId').value;
 	//detailStartDate
-	var start = document.getElementById('detailStartDate').value.split('-');
-	var end = document.getElementById('detailEndDate').value.split('-');
 
+	var startYear = document.getElementById('detailStartDate').value;
+	var endYear = document.getElementById('detailEndDate').value;
+	var startMonth = document.getElementById('detailStartMonth').value;
+	var endMonth = document.getElementById('detailEndMonth').value;
 
-	detailSearchClick(meter, start[0] + start[1], end[0] + end[1]);
+	detailSearchClick(meter, startYear + startMonth, endYear + endMonth);
 
 	/*
 	if(meter){		

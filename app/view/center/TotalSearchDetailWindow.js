@@ -31,7 +31,7 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
 
                         }
 
-                        $KRF_APP.global.CommFn.excelDown('통합검색', headName, header, krf_new.global.CommFn.nowDate.totalSearchExcelData.data);
+                        $KRF_APP.global.CommFn.excelDown('통합검색', headName, header, krf_new.global.CommFn.totalSearchExcelData);
                     }
                 }
             }
