@@ -15,7 +15,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 				layerList = Ext.getCmp('itemselector').getValue();
 			}else{//아닐시 (수질측정망(하천,호소), 생물측정망 (하천,호소), 퇴적물측정망(하천,호소), 수질자동측정망)
 				layerList = ['A001', 'A002', 'C001', 'C002', 'B001', 'B002'
-				,'HcAtalSe', 'HcBemaSe','HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
+				,'HcAtalSe', 'HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
 			}
 
 			var paramList = { 'A': [], 'B': [], 'C': [], 'D': [], 'Esstg': [], 'F': [], 'G': [], 'H': [] };

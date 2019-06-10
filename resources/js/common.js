@@ -843,8 +843,6 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 			, ['D003', '기타측정지점-유량']
 			, ['D005', '기타측정지점-기상(지상기상관측소)']
 			, ['D006', '기타측정지점-기상(AWS기상관측소)']
-			// , ['E001', '생물측정망-하천']
-			// , ['E002', '생물측점망-하구']
 			, ['HcAtalSe' , '하천-부착돌말류']
 			, ['HcBemaSe' , '하천-저서성대형무척추']
 			, ['HcFishSe' , '하천-어류']

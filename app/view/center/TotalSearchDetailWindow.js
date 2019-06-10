@@ -86,10 +86,10 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                             var nodeId = "";
                             var parentNodeId = "";
                             // 지점이동
-                            if (record.data.id.substring(0, 7) == "Hc") {
+                            if (record.data.id.substring(0, 2) == "Hc") {
                                 nodeId = record.data.SITE_CODE;
                                 parentNodeId = "E001";
-                            } else if (record.data.id.substring(0, 7) == "Hg") {
+                            } else if (record.data.id.substring(0, 2) == "Hg") {
                                 nodeId = record.data.SITE_CODE;
                                 parentNodeId = "E002";
                             } else {
@@ -102,19 +102,19 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                     }
                 }
             }
-            
         }, {
-            text: '일자',
-            width: 95,
-            align: 'center',
-            dataIndex: 'DE',
-            renderer: function (val, dom, d) {
-                var retVal = "";
-                if (val != undefined && val != 'undefined') {
-                    retVal = val;
-                }
-            }
+                text: '일자',
+                width: 95,
+                align: 'center',
+                dataIndex: 'DE',
+                renderer: function (val, dom, d) {
+                    detailSearchTreeColor(dom, d);
+                    var retVal = "";
+                    if (val != undefined && val != 'undefined')
+                        retVal = val;
+                    return retVal;
 
+            }
         },{
             text: '회차',
             width: 95,
@@ -135,24 +135,6 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                     detailSearchTreeColor(dom, d);
 
 
-                    return retVal;
-                },
-                handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
-                },
-                // Only leaf level tasks may be edited
-                isDisabled: function (view, rowIdx, colIdx, item, record) {
-
-                }
-            }, {
-                text: '회차',
-                width: 95,
-                align: 'center',
-                dataIndex: '',
-                renderer: function (val, dom, d) {
-                    detailSearchTreeColor(dom, d);
-                    var retVal = "";
-                    if (val != undefined && val != 'undefined')
-                        retVal = val;
                     return retVal;
                 },
                 handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) {
