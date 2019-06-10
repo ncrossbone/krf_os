@@ -22,6 +22,7 @@ Ext.define("krf_new.global.CommFn", {
 		"G": "방사선측정지점",
 		"I": "조류모니터링"
 	},
+	totalSearchExcelData: null,
 	/* 연도 콤보 바인딩 현재 날짜 기준
 	 * preYear : 시작년도
 	 * sort : 정렬방법("Asc", "Desc")
@@ -248,7 +249,7 @@ Ext.define("krf_new.global.CommFn", {
 		xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 		xhr.onload = function (e) {
 			if (this.status == 200) {
-				
+
 				// var blob = new Blob([this.response], { type: 'application/vnd.ms-excel' });
 				// var downloadUrl = URL.createObjectURL(blob);
 				// var a = document.createElement("a");
@@ -259,16 +260,16 @@ Ext.define("krf_new.global.CommFn", {
 
 
 				var blob = new Blob([this.response], { type: 'application/vnd.ms-excel' });
-				var fNm = fileNm + '.csv';
-				
+				var fNm = fileNm + '.xls';
+
 				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-						window.navigator.msSaveOrOpenBlob(blob, fNm);
+					window.navigator.msSaveOrOpenBlob(blob, fNm);
 				}
-				
+
 				var downloadUrl = URL.createObjectURL(blob);
 				var a = document.createElement("a");
 				a.href = downloadUrl;
-				$(a).attr('download',fNm);
+				$(a).attr('download', fNm);
 				document.body.appendChild(a);
 				a.click();
 			} else {

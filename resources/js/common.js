@@ -780,12 +780,12 @@ detailSeachResult = function (jsonData) {
 	totalSearchDetailWindow.show();
 
 	var grdCtl = totalSearchDetailWindow.items.items[0]; // 그리드 컨테이너
-	grdCtl = grdCtl.items.items[0];
+	var grd = grdCtl.items.items[0];
 
 	var store = Ext.create('krf_new.store.center.TotalSearchTree', {
 		async: true,
 		data: jsonData,
-		gridCtl: grdCtl
+		gridCtl: grd
 	});
 	store.load();
 
@@ -895,46 +895,67 @@ ShowToolTipSearchResult = function (siteIds, parentIds, titleText, gridId, test,
 
 detailSearchTreeColor = function (dom, d) {
 	var colorConfig = {
-		'A': '#ddd9c3',
-		'A001': '#ddd9c3',
-		'A002': '#daeef3',
-		'B': '',
-		'C': '#c5d9f1',
-		'C001': '#c5d9f1',
-		'C002': '#fde9d9',
-		'D': '#c5d9f1',
-		'D001': '#e4dfec',
-		'D003': '#cbaf8c',
-		'D005': '#d2aa89',
-		'D006': '#969696',
-		'F': '#ebefd9',
-		'F001': '#ebefd9',
-		'F002': '#ebefd9',
-		'F003': '#ebefd9',
-		'F004': '#ebefd9',
-		'F005': '#ebefd9',
-		'F006': '#ebefd9',
-		'F007': '#ebefd9',
-		'F008': '#ebefd9',
+		'A': '#DDD9C4',
+		'A001': '#DDD9C4',
+		'A002': '#DDD9C4',
 
-		'E': '#c6d9f0',
-		'E001': '#c6d9f0',
-		'E002': '#c6d9f0'
+		'B': '#FDE9D9',
+
+		'C': '#C5D9F1',
+		'C001': '#C5D9F1',
+		'C002': '#C5D9F1',
+
+		'D': '#FDE9D9',
+		'D001': '#E4DFEC',
+		'D003': '#DCE6F1',
+		'D005': '#F2DCDB',
+		'D006': '#F2DCDB',
+
+		'F': '#EBF1DE',
+		'F001': '#EBF1DE',
+		'F002': '#EBF1DE',
+		'F003': '#EBF1DE',
+		'F004': '#EBF1DE',
+		'F005': '#EBF1DE',
+		'F006': '#EBF1DE',
+		'F007': '#EBF1DE',
+		'F008': '#EBF1DE',
+
+		'E': '#DAEEF3',
+		'E001': '#DAEEF3',
+		'E002': '#DAEEF3'
 	};
 
 	// 해당 컬럼에 맞는 ID 값만 추가 (세로 컬럼 색칠 정의)
 	var config = {
 		'IDEX': 'E',
-		'GRAD': 'E'
+		'GRAD': 'E',
+
+		'IEM_1160': 'C',
+		'IEM_1155': 'C',
+
+		'TOT_INFLOW_QY': 'F',
+		'TOT_DWEQTY': 'F',
+
+		'WLV': 'D001',
+		'RAINFL': 'D005',
+		'FLUX': 'D003',
+		'AVRG_SPFLD': 'D',
 	};
+
+	var sortGrid = ['A', 'C', 'E', 'F', 'D001', 'D005', 'D003', 'D'];
 
 	var id = colorConfig[d.data.parentId] ? d.data.parentId : colorConfig[d.data.id] ? d.data.id : d.data.GROUP_CODE;
 
+
 	if (config[dom.column.dataIndex]) {
-		var val = id > config[dom.column.dataIndex] ? id : config[dom.column.dataIndex];
-		dom.style = 'background:' + colorConfig[val] + ' !important;'
+		//var val = id > config[dom.column.dataIndex] ? id : config[dom.column.dataIndex];
+		var val = sortGrid.indexOf(id) > sortGrid.indexOf(config[dom.column.dataIndex]) ? id : config[dom.column.dataIndex];
+		var borderText = dom.column.dataIndex == 'text' ? ' border-right:1px solid ' + colorConfig[val] + ' !important; border-bottom:1px solid ' + colorConfig[val] + ' !important;' : ' border-right:1px solid #000 !important; border-bottom:1px solid #000 !important;';
+		dom.style = 'background:' + colorConfig[val] + ' !important;' + borderText;
 	} else {
-		dom.style = 'background:' + colorConfig[id] + ' !important;'
+		var borderText = dom.column.dataIndex == 'text' ? ' border-right:1px solid ' + colorConfig[id] + ' !important; border-bottom:1px solid ' + colorConfig[id] + ' !important;' : ' border-right:1px solid #000 !important; border-bottom:1px solid #000 !important;';
+		dom.style = 'background:' + colorConfig[id] + ' !important;' + borderText;
 	}
 }
 

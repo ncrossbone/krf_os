@@ -1,9 +1,9 @@
 Ext.define('krf_new.store.center.TotalSearchTree', {
-    extend: 'Ext.data.TreeStore',
+	extend: 'Ext.data.TreeStore',
 	remoteSort: true,
-    listeners: {
+	listeners: {
 
-        load: function (store) {
+		load: function (store) {
 
 			var me = this;
 
@@ -11,14 +11,14 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 			var layerList = [];
 			//상세검색일시
-			if(Ext.getCmp('itemselector')){
+			if (Ext.getCmp('itemselector')) {
 				layerList = Ext.getCmp('itemselector').getValue();
 			}else{//아닐시 (수질측정망(하천,호소), 생물측정망 (하천,호소), 퇴적물측정망(하천,호소), 수질자동측정망)
 				layerList = ['A001', 'A002', 'C001', 'C002', 'B001', 'B002'
 				,'HcAtalSe', 'HcBemaSe','HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
 			}
 
-			var paramList = {'A':[],'B':[],'C':[],'D':[],'Esstg':[],'F':[],'G':[],'H':[]};
+			var paramList = { 'A': [], 'B': [], 'C': [], 'D': [], 'Esstg': [], 'F': [], 'G': [], 'H': [] };
 			var siteIds = [];
 
 
@@ -27,15 +27,15 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			var detailSearchStartMonth = "";
 			var detailSearchEndYear = "";
 			var detailSearchEndMonth = "";
-			if(Ext.getCmp('detailSearchWindow')){//상세검색일시
+			if (Ext.getCmp('detailSearchWindow')) {//상세검색일시
 				detailSearchStartYear = Ext.getCmp('detail_startYear').value;
 				detailSearchStartMonth = Ext.getCmp('detail_startMonth').value;
 				detailSearchEndYear = Ext.getCmp('detail_endYear').value;
 				detailSearchEndMonth = Ext.getCmp('detail_endMonth').value;
 
-				
 
-			}else{//아닐시
+
+			} else {//아닐시
 
 				var start = document.getElementById('detailStartDate').value.split('-');
 				var end = document.getElementById('detailEndDate').value.split('-');
@@ -46,32 +46,32 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 				detailSearchEndMonth = end[1];
 			}
 
-			detailSearchStartMonth = Number(detailSearchStartMonth).toString(); 
-			if(Number(detailSearchStartMonth) < 10 && detailSearchStartMonth.length == 1) 
+			detailSearchStartMonth = Number(detailSearchStartMonth).toString();
+			if (Number(detailSearchStartMonth) < 10 && detailSearchStartMonth.length == 1)
 				detailSearchStartMonth = "0" + detailSearchStartMonth;
 
-			detailSearchEndMonth = Number(detailSearchEndMonth).toString(); 
-			if(Number(detailSearchEndMonth) < 10 && detailSearchEndMonth.length == 1) 
+			detailSearchEndMonth = Number(detailSearchEndMonth).toString();
+			if (Number(detailSearchEndMonth) < 10 && detailSearchEndMonth.length == 1)
 				detailSearchEndMonth = "0" + detailSearchEndMonth;
 
 
 
-			
+
 
 
 
 			var object = jsonData.map;
 			//param siteId 만들기 = ex)A_10230  (GROUP_CODE + _ + JIJUM_CODE)
 			for (var key in object) {
-				object[key].data.children.map(function(childObj){
-					childObj.children.map(function(obj){
-						if(paramList[childObj.parentId] != undefined){
+				object[key].data.children.map(function (childObj) {
+					childObj.children.map(function (obj) {
+						if (paramList[childObj.parentId] != undefined) {
 							//paramList[childObj.parentId].push(childObj.parentId+'_'+obj.id);
-							if(childObj.parentId != 'Esstg'){
-								siteIds.push(childObj.parentId+'_'+obj.id);
-							}else{
-								obj.children.map(function(eObj){
-									siteIds.push('E_'+eObj.eSiteId);
+							if (childObj.parentId != 'Esstg') {
+								siteIds.push(childObj.parentId + '_' + obj.id);
+							} else {
+								obj.children.map(function (eObj) {
+									siteIds.push('E_' + eObj.eSiteId);
 								})
 							}
 						}
@@ -80,10 +80,10 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			}
 
 			//중복제거
-			siteIds = siteIds.reduce(function(a,b){
-				if (a.indexOf(b) < 0 ) a.push(b);
+			siteIds = siteIds.reduce(function (a, b) {
+				if (a.indexOf(b) < 0) a.push(b);
 				return a;
-			},[]);
+			}, []);
 
 			// 로딩중 메세지
 			if (me.gridCtl != null) {
@@ -102,35 +102,37 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 					startMonth: detailSearchStartMonth,
 					endYear: detailSearchEndYear,
 					endMonth: detailSearchEndMonth,
-					detailSiteIds : siteIds
+					detailSiteIds: siteIds
 				},
 				async: true,
 				success: function (response, opts) {
 
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 
-					if(jsonData.data.length > 0 ){
+					krf_new.global.CommFn.nowDate.totalSearchExcelData = jsonData;
 
-						if(jsonData.data[0].msg){
+					if (jsonData.data.length > 0) {
+
+						if (jsonData.data[0].msg) {
 							me.gridCtl.addCls("dj-mask-noneimg");
 							me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-						}else{
+						} else {
 							var confirmJsonData = [];
 
-							if(layerList.length > 0 ){
-								for(var i = 0 ; i < layerList.length; i++){
+							if (layerList.length > 0) {
+								for (var i = 0; i < layerList.length; i++) {
 
-									jsonData.data.map(function(obj){
+									jsonData.data.map(function (obj) {
 
-										if(layerList[i] == obj.LAEYR_CODE){
+										if (layerList[i] == obj.LAEYR_CODE) {
 											confirmJsonData.push(obj);
 										}
 
 									})
-									
+
 									//if(layerList[i].LAEYR_CODE == )
 								}
-								
+
 							}
 
 
@@ -196,11 +198,11 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 									var layerFeatures = groupFeature.filter(function (feature) {
 										//if(feature.attributes.LAYER_CODE === layerCode){
 										if (feature.LAEYR_CODE === layerCode) {
-											
+
 											return feature;
 										}
 									});
-					
+
 									/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
 									jsonStr += "{\n";
 									jsonStr += "		\"id\": \"" + layerFeatures[0].LAEYR_CODE + "\",\n";
@@ -213,16 +215,16 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 									}
 									jsonStr += "		\"checked\": null,\n";
 									jsonStr += "		\"children\": [";
-					
+
 									/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
-									
+
 									// 레이어 코드 루프 시작
 									$.each(layerFeatures, function (cnt, layerFeature) {
-										
+
 										jsonStr += "{\n";
-										if(layerFeature.GROUP_CODE == 'E'){
+										if (layerFeature.GROUP_CODE == 'E') {
 											jsonStr += "				\"id\": \"" + layerFeature.LAEYR_CODE + "_" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
-										}else{
+										} else {
 											jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
 										}
 										jsonStr += "				\"text\": \"" + layerFeature.SITE_NM + "\",\n";
@@ -267,10 +269,10 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 										jsonStr += "				\"leaf\": true,\n";
 										jsonStr += "				\"checked\": null\n";
 										jsonStr += "			}, ";
-					
-										
+
+
 									}); // 레이어 코드 루프 
-									
+
 									if (layerFeatures.length > 0) {
 										jsonStr = jsonStr.substring(0, jsonStr.length - 2);
 									}
@@ -303,8 +305,8 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 							me.gridCtl.unmask();
 						}
 
-						
-					}else{
+
+					} else {
 						me.gridCtl.addCls("dj-mask-noneimg");
 						me.gridCtl.mask("검색도중 오류가 발생했습니다.", "error");
 					}
@@ -313,18 +315,18 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			})
 
 
-			
-					
 
-			
-			
-			
+
+
+
+
+
 
 
 			//"'1007A45', '1016A10', '1016A30', '1016A32', '1016A35', '1016A37', '1016A40', '1016A45', '1101A35', '1101A37', '1101A40'"
 
 
-			
+
 			// Ext.Ajax.request({
 			// 	url: 'http://localhost:80/krf/searchResult/detialSearchResult',
 			// 	dataType: "text/plain",
@@ -341,7 +343,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 			// 		var jsonData = Ext.util.JSON.decode(response.responseText);
 
-					
+
 
 			// 		var jsonStr = "{\n";
 			// 		jsonStr += "	\"id\": \"0\", \n";
@@ -405,10 +407,10 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			// 					jsonStr += "			\"expanded\": false,\n"; // 펼치기..
 			// 				}
 			// 				jsonStr += "			\"children\": [";
-							
+
 
 			// 				$.each(layerCode, function (cnt, layerFeature) {
-								
+
 			// 					jsonStr += "{\n";
 			// 					jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "\",\n";
 			// 					jsonStr += "				\"text\": \"" + layerFeature.SITE_NM + "\",\n";
@@ -435,7 +437,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			// 			jsonStr += "	} ";
 			// 		}); // 그룹 코드 루프 끝
 
-					
+
 
 
 
@@ -450,8 +452,8 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			// 		var jsonData = "";
 			// 		jsonData = Ext.util.JSON.decode(jsonStr);
 			// 		console.info(jsonData);
-					
-					
+
+
 
 			// 	}
 			// });
@@ -461,12 +463,12 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			// 	if (a.indexOf(b) < 0 ) a.push(b);
 			// 	return a;
 			// },[]);
-			
-			//console.log(uniq, paramList) // [ 'Mike', 'Matt', 'Nancy', 'Adam', 'Jenny', 'Carl' ]
-			
-			
 
-            
+			//console.log(uniq, paramList) // [ 'Mike', 'Matt', 'Nancy', 'Adam', 'Jenny', 'Carl' ]
+
+
+
+
             /*Ext.Ajax.request({
 				url: './resources/data/treeTest.json',
 				dataType: "text/plain",
@@ -480,6 +482,6 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 				}
 			});*/
-        }
-    }
+		}
+	}
 });

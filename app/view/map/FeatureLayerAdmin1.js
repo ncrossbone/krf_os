@@ -316,7 +316,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				// 레이어별 툴팁 설정
 				if (detailLayerList[parentCheck]) {
 					popWidth = 415;
-					popHeight = 300;
+					popHeight = 325;
 					html = " <!doctype html>																																											" +
 						" <html lang=\"ko\">                                                                                                                                                                        " +
 						" <head>                                                                                                                                                                                    " +
@@ -357,7 +357,6 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						" .searchbox dt { background:#405166; color:#fff; padding:8px 15px; font-family:\"dotum\"; letter-spacing:-1px; font-size:14px; font-weight:bold; }                                         " +
 						" .searchbox dd { background:#ebebeb; padding:10px 15px; font-family:\"dotum\"; letter-spacing:-1px; font-size:12px;}                                                                       " +
 						" .tit { background:url(\"./resources/images/tooltip/img/tit.png\") no-repeat left center; padding-left:7px; font-weight:bold; margin-right:5px; }                                                                         " +
-						" .sinput li { float:left; }                                                                                                                                                                " +
 						" .sinput input { background:#fff; border:1px solid #c1c7ca; padding:3px; text-align:center; }                                                                                              " +
 						" .btn9 { margin-top:10px; text-align:right; }                                                                                                                                              " +
 						" .btn9 a { display:inline-block;  font-family:\"dotum\"; letter-spacing:-1px; font-size:12px; color:#fff; padding:5px 0; border-radius:3px; margin-left:2px; font-weight:bold; width:60px; text-align:center; }	" +
@@ -390,12 +389,12 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						" 				<dt>[통합검색]</dt>                                                                                                                                                           " +
 						"                 <dd>                                                                                                                                                                      " +
 						"                 	<ul class=\"sinput\">                                                                                                                                                   " +
-						"                     	<li style=\"width:40%\">                                                                                                                                            " +
+						"                     	<li>                                                                                                                                            " +
 						"                         	<span class=\"tit\">반경</span>                                                                                                                                  " +
 						"                             <input id=\"detailMeter\" type=\"text\" style=\"width:50px; text-align:right;\"/>                                                                                                " +
 						"                             <span>Km</span>                                                                                                                                                " +
 						"                 		</li>                                                                                                                                                               " +
-						"                     	<li style=\"width:60%; text-align:right;\">                                                                                                                         " +
+						"                     	<li style=\"margin-top:5px;\">                                                                                                                         " +
 						"                         	<span class=\"tit\">기간</span>                                                                                                                                  " +
 						"                             <input type=\"text\" id=\"detailStartDate\" onClick=\"detailDateSearchWindow('detailStartDate')\" style=\"width:65px;\"/>                                                                                                                  " +
 						"                             <span>~</span>                                                                                                                                                " +
