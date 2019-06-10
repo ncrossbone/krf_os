@@ -70,13 +70,13 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 								siteId: a.data.ENVBSIS_SITE_MANAGE_NO,
 							});
 							store.load();
-							
-							
-							
-
-							
-
-
+						
+						},
+						renderer: function (val, a, b, rowIdx, colIdx) {
+							if (rowIdx == 0)
+								return "<b>" + val + "</b>";
+							else
+								return "<a href='#'>" + val + "</a>";
 						}
 					}
 				},{
