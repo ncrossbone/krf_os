@@ -71,12 +71,13 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 							});
 							store.load();
 						
-						},
-						renderer: function (val, a, b, rowIdx, colIdx) {
-							if (rowIdx == 0)
-								return "<b>" + val + "</b>";
-							else
-								return "<a href='#'>" + val + "</a>";
+						}
+					},
+					renderer: function (val, a, b, rowIdx, colIdx) {
+						if (rowIdx == 0){
+							return "<b>" + val + "</b>";
+						}else{
+							return "<a href='#'>" + val + "</a>";
 						}
 					}
 				},{
