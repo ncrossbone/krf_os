@@ -53,7 +53,21 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                             // 집수구역, 지점 이동, 리치정보 하이라이트
                             var me = this.up("window");
 
-                            me.moveCommon(record);
+                            var nodeId = "";
+                            var parentNodeId = "";
+                            // 지점이동
+                            if (record.data.id.substring(0, 7) == "Hc") {
+                                nodeId = record.data.SITE_CODE;
+                                parentNodeId = "E001";
+                            } else if (record.data.id.substring(0, 7) == "Hg") {
+                                nodeId = record.data.SITE_CODE;
+                                parentNodeId = "E002";
+                            } else {
+                                nodeId = record.data.SITE_CODE;
+                                parentNodeId = record.data.parentId;
+                            }
+
+                            siteMovePoint(parentNodeId, nodeId);
                         }
                     }
                 }
@@ -86,7 +100,7 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             text: '회차',
             width: 95,
             align: 'center',
-            dataIndex: '',
+            dataIndex: 'TME',
             renderer: function (val, dom, d) {
                 detailSearchTreeColor(dom, d);
 				var retVal = "";

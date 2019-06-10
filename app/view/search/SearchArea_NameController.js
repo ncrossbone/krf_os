@@ -123,7 +123,7 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
 
-		var where = "JIJUM_NM like '" + searchText.getValue() + "%' ";
+		var where = "JIJUM_NM like '%" + searchText.getValue() + "%' ";
 
 		if ($KRF_APP.LAYER_SETTING.length > 0) {
 			$KRF_APP.LAYER_SETTING.map(function (obj) {
@@ -142,6 +142,100 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 		//query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 		queryTask.execute(query, function (result) {
 			me.writeList(result);
+
+			return;
+			Ext.Ajax.request({
+				url: _API.sstgText,
+				params: { textField: searchText.getValue() },
+				async: false, // 비동기 = async: true, 동기 = async: false
+				success: function (response, opts) {
+					var jsonData = Ext.util.JSON.decode(response.responseText);
+
+					console.info(jsonData);
+
+					var ssgtObj = {
+						"hc": {
+							"ATAL_SE": []
+							, "BEMA_SE": []
+							, "FISH_SE": []
+							, "INHA_SE": []
+							, "QLTWTR_SE": []
+							, "VTN_SE": []
+						}
+
+						, "hg": {
+							"ATAL_SE": []
+							, "BEMA_SE": []
+							, "FISH_SE": []
+							, "VTN_SE": []
+						}
+					};
+
+
+					for (var k = 0; k < jsonData.data.length; k++) {
+
+						if (jsonData.data[k].SE == "하구") {
+							if (jsonData.data[k].ATAL_SE == "1") {
+								ssgtObj.hg.ATAL_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].BEMA_SE == "1") {
+								ssgtObj.hg.BEMA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].FISH_SE == "1") {
+								ssgtObj.hg.FISH_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].VTN_SE == "1") {
+								ssgtObj.hg.VTN_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+						} else if (jsonData.data[k].SE == "하천") {
+							if (jsonData.data[k].ATAL_SE == "1") {
+								ssgtObj.hc.ATAL_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].BEMA_SE == "1") {
+								ssgtObj.hc.BEMA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].FISH_SE == "1") {
+								ssgtObj.hc.FISH_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].VTN_SE == "1") {
+								ssgtObj.hc.VTN_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].QLTWTR_SE == "1") {
+								ssgtObj.hc.QLTWTR_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+
+							if (jsonData.data[k].INHA_SE == "1") {
+								ssgtObj.hc.INHA_SE.push({ "id": jsonData.data[k].SPOT_CODE, "name": jsonData.data[k].SPOT_NM });
+							}
+						}
+					}
+
+					console.info(ssgtObj);
+
+
+
+
+
+				},
+				failure: function (form, action) {
+					alert("오류가 발생하였습니다.");
+				}
+			})
+
+
+
+
+
+
+
 			return;
 			Ext.each(result, function (objLayer, idx, objLayers) {
 

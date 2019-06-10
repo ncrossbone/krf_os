@@ -843,6 +843,18 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 			, ['D003', '기타측정지점-유량']
 			, ['D005', '기타측정지점-기상(지상기상관측소)']
 			, ['D006', '기타측정지점-기상(AWS기상관측소)']
+			// , ['E001', '생물측정망-하천']
+			// , ['E002', '생물측점망-하구']
+			, ['HcAtalSe' , '하천-부착돌말류']
+			, ['HcBemaSe' , '하천-저서성대형무척추']
+			, ['HcFishSe' , '하천-어류']
+			, ['HcInhaSe' , '하천-서식 및 수변환경']
+			, ['HcQltwtrSe' , '하천-수질']
+			, ['HcVtnSe' , '하천-수변식생']
+			, ['HgAtalSe' , '하구-부착돌말류']
+			, ['HgBemaSe' , '하구-저서성대형무척추']
+			, ['HgFishSe' , '하구-어류']
+			, ['HgVtnSe' , '하구-식생']
 			, ['F001', '환경기초시설-농공단지처리시설']
 			, ['F002', '환경기초시설-기타공동처리시설']
 			, ['F003', '환경기초시설-분뇨처리시설']
@@ -912,8 +924,8 @@ detailSearchTreeColor = function (dom, d) {
 
 	// 해당 컬럼에 맞는 ID 값만 추가 (세로 컬럼 색칠 정의)
 	var config = {
-		// 'IDEX': 'E',
-		// 'GRAD': 'E'
+		'IDEX': 'E',
+		'GRAD': 'E'
 	};
 
 	var id = colorConfig[d.data.parentId] ? d.data.parentId : colorConfig[d.data.id] ? d.data.id : d.data.GROUP_CODE;

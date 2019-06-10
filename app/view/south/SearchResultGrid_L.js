@@ -47,7 +47,21 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 				columns: [{
 					text: '지점명',
 					dataIndex: 'ENVBSIS_SITE_MANAGE_NM',
-					width: 120
+					width: 120,
+					listeners: {
+						click: function (tblView, el, rowCnt, colCnt, row) {
+							var centerContainer = Ext.getCmp('center_container');
+							//보고서 정보
+							var searchResultGrid_L_Window = Ext.getCmp('searchResultGrid_L_Window')
+							
+							searchResultGrid_L_Window = Ext.create('krf_new.view.south.SearchResultGrid_L_Window');
+							//추가
+							centerContainer.add(searchResultGrid_L_Window);
+							//열기
+							searchResultGrid_L_Window.show();
+
+						}
+					}
 				},{
 					text: '측정일자',
 					dataIndex: 'MESURE_DE',
