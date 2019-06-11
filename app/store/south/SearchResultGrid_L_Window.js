@@ -29,7 +29,9 @@ Ext.define('krf_new.store.south.SearchResultGrid_L_Window', {
 
                             colMapping.map(function(obj){
                                 if(jsonData.data[0][obj]){
-                                    //console.info("#result_l_"+obj);
+                                    if(obj == 'TOT_RSRCH_CT'){
+                                        jsonData.data[0][obj] = jsonData.data[0][obj].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                    }
                                     $("#result_l_"+obj).text(jsonData.data[0][obj]);
                                 }
                             });
