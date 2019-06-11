@@ -295,7 +295,7 @@
 		"layerCode": "J002",
 		"isMetaData": true
 	}]
-},{
+},/*{
 	"id": "56",
 	"text": "비점오염원",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -526,7 +526,7 @@
 		"layerCode": "D007",
 		"isMetaData": true
 	}]
-}, {
+},*/ {
 	"id": "23",
 	"text": "생물측정망",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -563,7 +563,7 @@
 		"layerCode": "E002",
 		"isMetaData": true
 	}]
-},{
+},/*{
 	"id": "P0",
 	"text": "생활안전",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -585,7 +585,7 @@
 		"layerCode": "",
 		"isMetaData": false
 	}]
-}, {
+}, */{
 	"id": "54",
 	"text": "물환경연구보고서",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -776,7 +776,7 @@
 		"layerCode": "H001",
 		"metaDataId":"H001"
 	}]
-},{
+},/*{
 	"id": "65",
 	"text": "통합환경허가",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -811,7 +811,7 @@
 		"layerCode": "K002",
 		"isMetaData": false
 	}]
-},{
+},*/{
 	"id": "83",
 	"text": "하천망도",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -1144,7 +1144,7 @@
 		"layerCode": "R001",
 		"metaDataId":"R001"
 	}]
-},{
+}/*,{
 	"id": "D0",
 	"text": "가뭄정보",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -1205,4 +1205,4 @@
 		"layerCode": "",
 		"isMetaData": false
 	}]
-}]
+}*/]

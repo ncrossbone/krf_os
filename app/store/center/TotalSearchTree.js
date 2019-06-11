@@ -114,6 +114,32 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 					if (jsonData.data.length > 0) {
 
+
+
+
+						for(var a = 0 ; a < jsonData.data.length ; a++ ){
+							if(jsonData.data[a].GROUP_CODE == 'A'){
+								jsonData.data[a].sortVal = 1;
+							}else if(jsonData.data[a].GROUP_CODE == 'E'){
+								jsonData.data[a].sortVal = 2;
+							}else if(jsonData.data[a].GROUP_CODE == 'C'){
+								jsonData.data[a].sortVal = 3;
+							}else if(jsonData.data[a].GROUP_CODE == 'B'){
+								jsonData.data[a].sortVal = 4;
+							}else if(jsonData.data[a].GROUP_CODE == 'F'){
+								jsonData.data[a].sortVal = 5;
+							}else if(jsonData.data[a].GROUP_CODE == 'D'){
+								jsonData.data[a].sortVal = 6;
+							}
+						}
+
+
+						jsonData.data.sort(function (a, b) { 
+							return a.sortVal < b.sortVal ? -1 : a.sortVal > b.sortVal ? 1 : 0;  
+						});
+						
+
+
 						if (jsonData.data[0].msg) {
 							me.gridCtl.addCls("dj-mask-noneimg");
 							me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
