@@ -11,7 +11,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_EsstgHcBemaSe', {
 	gridId: null,
 
 	initComponent: function () {
-		console.info(this);
+		//console.info(this);
 		this.items = [{
 			xtype: 'container',
 			id: 'grid-container_' + this.gridId,

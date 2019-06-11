@@ -29,7 +29,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_L_Window', {
 
                             colMapping.map(function(obj){
                                 if(jsonData.data[0][obj]){
-                                    console.info("#result_l_"+obj);
+                                    //console.info("#result_l_"+obj);
                                     $("#result_l_"+obj).text(jsonData.data[0][obj]);
                                 }
                             });

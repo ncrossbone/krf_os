@@ -4234,8 +4234,6 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 		$KRF_APP.coreMap._rchLine.getFeaturesWithEvent(point, function (features) { 
 
 
-			console.info(features);
-
 			if(features.length > 0) {
 				point.type = "point";
 

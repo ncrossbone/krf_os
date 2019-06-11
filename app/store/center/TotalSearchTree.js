@@ -120,9 +120,9 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 						for(var a = 0 ; a < jsonData.data.length ; a++ ){
 							if(jsonData.data[a].GROUP_CODE == 'A'){
 								jsonData.data[a].sortVal = 1;
-							}else if(jsonData.data[a].GROUP_CODE == 'E'){
-								jsonData.data[a].sortVal = 2;
 							}else if(jsonData.data[a].GROUP_CODE == 'C'){
+								jsonData.data[a].sortVal = 2;
+							}else if(jsonData.data[a].GROUP_CODE == 'E'){
 								jsonData.data[a].sortVal = 3;
 							}else if(jsonData.data[a].GROUP_CODE == 'B'){
 								jsonData.data[a].sortVal = 4;
