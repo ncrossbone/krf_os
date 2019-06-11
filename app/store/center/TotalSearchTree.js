@@ -134,9 +134,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 						}
 
 
-						jsonData.data.sort(function (a, b) { 
-							return a.sortVal < b.sortVal ? -1 : a.sortVal > b.sortVal ? 1 : 0;  
-						});
+						
 						
 
 
@@ -175,7 +173,13 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 							var arrGroupCodes = [];
 
+							confirmJsonData.sort(function (a, b) { 
+								return a.sortVal < b.sortVal ? -1 : a.sortVal > b.sortVal ? 1 : 0;  
+							});
+
 							krf_new.global.CommFn.totalSearchExcelData = confirmJsonData;
+
+							
 
 							$.each(confirmJsonData, function (cnt, datas) {
 								// "==="연산자 값과 타입이 정확하게 일치하는지 판단
