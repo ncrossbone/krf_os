@@ -849,17 +849,17 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 			, ['A002', '수질측정지점-호소']
 			, ['C001', '퇴적물-하천']
 			, ['C002', '퇴적물-호소']
-			, ['HcAtalSe' , '생물측정망-하천(부착돌말류)']
-			, ['HcBemaSe' , '생물측정망-하천(저서성대형무척추)']
-			, ['HcFishSe' , '생물측정망-하천(어류)']
-			, ['HcInhaSe' , '생물측정망-하천(서식 및 수변환경)']
-			, ['HcQltwtrSe' , '생물측정망-하천(수질)']
-			, ['HcVtnSe' , '생물측정망-하천(수변식생)']
-			, ['HgAtalSe' , '생물측정망-하구(부착돌말류)']
-			, ['HgBemaSe' , '생물측정망-하구(저서성대형무척추)']
-			, ['HgFishSe' , '생물측정망-하구(어류)']
-			, ['HgVtnSe' , '생물측정망-하구(식생)']
-			, ['B001' , '자동측정망-확정']
+			, ['HcAtalSe', '생물측정망-하천(부착돌말류)']
+			, ['HcBemaSe', '생물측정망-하천(저서성대형무척추)']
+			, ['HcFishSe', '생물측정망-하천(어류)']
+			, ['HcInhaSe', '생물측정망-하천(서식 및 수변환경)']
+			, ['HcQltwtrSe', '생물측정망-하천(수질)']
+			, ['HcVtnSe', '생물측정망-하천(수변식생)']
+			, ['HgAtalSe', '생물측정망-하구(부착돌말류)']
+			, ['HgBemaSe', '생물측정망-하구(저서성대형무척추)']
+			, ['HgFishSe', '생물측정망-하구(어류)']
+			, ['HgVtnSe', '생물측정망-하구(식생)']
+			, ['B001', '자동측정망-확정']
 			, ['D001', '기타측정지점-수위']
 			, ['D003', '기타측정지점-유량']
 			, ['D005', '기타측정지점-기상(지상기상관측소)']
@@ -886,7 +886,7 @@ ShowDetailSearch = function (siteIds, parentIds, titleText, gridId, test, toolti
 		var itemselector = Ext.getCmp('itemselector');
 		itemselector.setStore(store);
 		if (layerList.length > 0) {
-			
+
 
 		}
 
@@ -915,11 +915,11 @@ detailSearchTreeColor = function (dom, d) {
 		'C001': '#C5D9F1',
 		'C002': '#C5D9F1',
 
-		'D': '#FDE9D9',
+		'D': '#E4DFEC',
 		'D001': '#E4DFEC',
-		'D003': '#DCE6F1',
-		'D005': '#F2DCDB',
-		'D006': '#F2DCDB',
+		'D003': '#E4DFEC',
+		'D005': '#E4DFEC',
+		'D006': '#E4DFEC',
 
 		'F': '#EBF1DE',
 		'F001': '#EBF1DE',
@@ -953,7 +953,7 @@ detailSearchTreeColor = function (dom, d) {
 		'AVRG_SPFLD': 'D',
 	};
 
-	var sortGrid = ['A', 'C', 'B', 'E', 'F', 'D001', 'D005', 'D003', 'D'];
+	var sortGrid = ['A', 'C', 'E', 'E001', 'E002', 'B', 'F', 'D001', 'D005', 'D003', 'D'];
 
 	var id = colorConfig[d.data.parentId] ? d.data.parentId : colorConfig[d.data.id] ? d.data.id : d.data.GROUP_CODE;
 
