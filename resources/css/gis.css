@@ -29,3 +29,7 @@ caption, th, td {
 .x-tab-default .x-tab-close-btn {
     background-color: #000000 !important;
 }
+
+.x-tab-bar-strip-default{
+	background-color: transparent !important;
+}
