@@ -2392,7 +2392,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 									
 					    			if(me.stRchIds.length > 0 && me.edRchIds.length > 0){
 										
-										if(me.stRchIds == me.edRchIds){
+										//if(me.stRchIds == me.edRchIds){
+										if(me.stRchIds[0] == me.edRchIds[0]){
 											me.sRiverDraw(tmpArr[0]);
 										}else{
 											
