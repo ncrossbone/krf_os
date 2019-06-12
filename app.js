@@ -335,6 +335,18 @@ Ext.create('Ext.data.Store', {
 						}
 					}
 				});
+
+				setTimeout(function() {
+
+					alert("세션 시간 초과. 다시로그인 해주시기 바랍니다.");
+					sessionStorage.clear();
+					location.href = location.href;
+				
+				}, 9000000); // 50분이 지나면 refresh
+					
+					
+
+
 			},
 			showWindowByMode: function () {
 				var krfMode = this.localStorate.getItem('krfMode');
