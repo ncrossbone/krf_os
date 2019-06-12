@@ -204,20 +204,52 @@ Ext.create('Ext.data.Store', {
 
 				$KRF_APP.loginInfo = {};
 				
+				// 첫번째 sessionStorage 확인 
+				// if(sessionStorage.length > 0){
+
+				// 	$KRF_APP.loginInfo = sessionStorage;
+				// 	me.completedLogin($KRF_APP.loginInfo);
+				// 	me.checkBrowser();
+
+				// }else{
+
+					
+
+
+				// }
+
+
 				// 내부망 로그인 session 정보 조회 2019-04-22
 				$.when($KRF_APP.global.CommFn.getLoginUserInfo(_ParamObj.p1)).then(function(response){ //세션아이디가 있으면 db조회
 
 					if(response){
 						var decodeData = Ext.util.JSON.decode(response.responseText);
 						
-						if(decodeData.data.length > 0){ // session이 있을 경우
-							
-							// 있을경우 loginInfo에 값 넣기
+						if(decodeData.data.length > 0){ // db session이 있을 경우
+
 							$KRF_APP.loginInfo = decodeData.data[0];
+
+							//인트라넷에서 로그인을 했을경우 sessionStorage를 새로 갱신해준다
+							var value = decodeData.data[0];
+							for(key in value ){
+								if (value.hasOwnProperty(key)) {
+									sessionStorage[key] = value[key];
+								}
+							}
+
 							loginCheck = true;
 							me.completedLogin($KRF_APP.loginInfo);
 							
 						}
+
+					}else{
+
+						if(sessionStorage.length >= 1){ //인트라넷값(o1)이 없지만 sessionStorage값이 있으면 로그인 가능
+							$KRF_APP.loginInfo = sessionStorage;
+							loginCheck = true;
+							me.completedLogin($KRF_APP.loginInfo);
+						}
+
 					}
 
 					//loginCheck가 false 일때 ( 로그인 session이 있을경우 true )
@@ -229,6 +261,7 @@ Ext.create('Ext.data.Store', {
 					me.checkBrowser();
 					
 				});
+				
 
 				/*$KRF_APP.loginInfo.userId = 'weis_admin';
 				me.completedLogin($KRF_APP.loginInfo);

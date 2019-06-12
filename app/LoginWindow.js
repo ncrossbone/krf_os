@@ -122,6 +122,15 @@ Ext.define('Desktop.LoginWindow', {
                                                 var decodeData = Ext.util.JSON.decode(response.responseText);
                                                 if (decodeData.data.length >= 1) {
                                                     $KRF_APP.loginInfo = decodeData.data[0];
+                                                    
+
+                                                    var value = decodeData.data[0];
+                                                    for(key in value ){
+                                                        if (value .hasOwnProperty(key)) {
+                                                            sessionStorage[key] = value[key];
+                                                        }
+                                                    }
+
                                                     $KRF_APP.completedLogin($KRF_APP.loginInfo);
                                                     Ext.getCmp('login-win').close();
                                                 }
