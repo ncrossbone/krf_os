@@ -146,6 +146,7 @@
     "clickSession":"#host#/common/clickSession",
     "GetSearchResultData_M":"#host#/searchResult/searchResult_M",
     "GetSearchResultData_Q":"#host#/searchResult/searchResult_Q",
+    "GetInfo_L":"#host#/chart/getInfo_L",
     "GetInfo_Q":"#host#/chart/getInfo_Q",
     "GetInfo_Z":"#host#/chart/getInfo_Z",
     "GetSearchResultData_Z006":"#host#/searchResult/searchResult_Z006_2018",

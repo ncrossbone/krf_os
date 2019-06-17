@@ -1282,12 +1282,15 @@ Ext.define('krf_new.view.common.TabControl', {
 						Ext.getCmp('k_resultTab').setHidden(false);
 					}
 				} else {
-					Ext.getCmp('resultTab').setHidden(false);
-					Ext.getCmp('l_resultTab').setHidden(true);
-					Ext.getCmp('m_resultTab').setHidden(true);
-					Ext.getCmp('q_resultTab').setHidden(true);
-					Ext.getCmp('z_resultTab').setHidden(true);
-					Ext.getCmp('k_resultTab').setHidden(true);
+					if(tab.id != 'searchResultPollLoad_container'){
+						Ext.getCmp('resultTab').setHidden(false);
+						Ext.getCmp('l_resultTab').setHidden(true);
+						Ext.getCmp('m_resultTab').setHidden(true);
+						Ext.getCmp('q_resultTab').setHidden(true);
+						Ext.getCmp('z_resultTab').setHidden(true);
+						Ext.getCmp('k_resultTab').setHidden(true);
+					}
+					
 				}
 			}
 		}
@@ -1324,6 +1327,7 @@ Ext.define('krf_new.view.common.TabControl', {
 					var ClNodeName = tabpanels.activeTab.id;
 					var ClNode = tabpanels.activeTab.parentId;
 					var ClTitle = tabpanels.activeTab.title;
+					var parentName = "";
 					ClTitle = ClTitle.split('(');
 
 					if (tabpanels.activeTab.id == "searchResultPollLoad_container") {
@@ -1351,6 +1355,8 @@ Ext.define('krf_new.view.common.TabControl', {
 							ClNodeName = ClNodeName[1];
 						}
 					}
+
+					
 
 					//엑셀다운 클릭 session
 					//setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
@@ -1480,7 +1486,14 @@ Ext.define('krf_new.view.common.TabControl', {
 							},"json").error(function(){
 								//grid.download = 'download';
 							});*/
-					var catLayerNm = $KRF_APP.global.CommFn.catLayerNmMap[ClNode];
+
+					var catLayerNm = "";
+					$KRF_APP.LAYER_SETTING.map(function(obj){
+						if(obj.LYR_CODE == tabpanels.activeTab.parentId){
+							catLayerNm = obj.LYR_NM;
+						}
+					});
+					//var catLayerNm = $KRF_APP.global.CommFn.catLayerNmMap[ClNode];
 					catLayerNm = catLayerNm == null ? "" : catLayerNm + "_";
 					$KRF_APP.global.CommFn.excelDown(catLayerNm + ClTitle[0], headName, header, datas);
 					winCtl.unmask();

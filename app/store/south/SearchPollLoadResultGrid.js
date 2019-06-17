@@ -250,16 +250,16 @@ Ext.define('krf_new.store.south.SearchPollLoadResultGrid', {
 
 			if (store.selectValue == 11) {
 				url = _API.GetSearchPollLoadResultData_Total; //'./resources/jsp/GetSearchPollLoadResultData_Total.jsp';
-				params = { pollYear: pollYear, catDid: store.catDid }
+				params = { year: pollYear, catDid: store.catDid }
 			} else if (store.selectValue == 22) {
 				url = _API.GetSearchPollLoadResultData_Standard_Basin; //'./resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp';
-				params = { pollYear: pollYear, catDid: store.catDid }
+				params = { year: pollYear, catDid: store.catDid }
 			} else if (store.selectValue == 33 || store.selectValue == "") {
 				url = _API.GetSearchPollLoadResultData_CAT; //'./resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
-				params = { pollYear: pollYear, catDid: store.catDid }
+				params = { year: pollYear, catDid: store.catDid }
 			} else {
 				url = _API.GetSearchPollLoadResultData_CAT_Detail; //'./resources/jsp/GetSearchPollLoadResultData_CAT_Detail.jsp';
-				params = { pollYear: pollYear, catDid: store.catDid }
+				params = { year: pollYear, catDid: store.catDid }
 			}
 			Ext.Ajax.request({
 				url: url,
