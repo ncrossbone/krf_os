@@ -54,6 +54,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		l_ChartDate.hidden = true;
 		q_ChartDate.hidden = true;
 		z_ChartDate.hidden = true;
+		k_ChartDate.hidden = true;
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -136,7 +137,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			q_ChartDate.hidden = true;
 
 			l_ChartDate.hidden = false;
-			
+
 
 
 			if (datePanel1) {
