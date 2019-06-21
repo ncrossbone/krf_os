@@ -17,31 +17,31 @@ Ext.define('krf_new.store.south.SearchResultGrid_M002', {
 
             var startYear, startMonth, startDay = '';
 
-            var sYearCtl = Ext.getCmp('m_StartYear');
+            var sYearCtl = Ext.getCmp('startYear_M');
             if (sYearCtl != undefined) {
-                startYear = Ext.getCmp('m_StartYear').value;
+                startYear = Ext.getCmp('startYear_M').value;
             }
 
-            var sMonthCtl = Ext.getCmp('m_StartMonth');
+            var sMonthCtl = Ext.getCmp('startMonth_M');
             if (sMonthCtl != undefined) {
-                startMonth = Ext.getCmp('m_StartMonth').value + Ext.getCmp('m_StartDay').value;
+                startMonth = Ext.getCmp('startMonth_M').value + Ext.getCmp('startDay_M').value;
             }
 
-            var sDayCtl = Ext.getCmp('m_StartDay');
+            var sDayCtl = Ext.getCmp('startDay_M');
 
             var endYear, endMonth, endDay = '';
 
-            var eYearCtl = Ext.getCmp('m_EndYear');
+            var eYearCtl = Ext.getCmp('endYear_M');
             if (sYearCtl != undefined) {
-                endYear = Ext.getCmp('m_EndYear').value;
+                endYear = Ext.getCmp('endYear_M').value;
             }
 
-            var eMonthCtl = Ext.getCmp('m_EndMonth');
+            var eMonthCtl = Ext.getCmp('wndMonth_M');
             if (sMonthCtl != undefined) {
-                endMonth = Ext.getCmp('m_EndMonth').value + Ext.getCmp('m_EndDay').value;
+                endMonth = Ext.getCmp('endMonth_M').value + Ext.getCmp('endDay_M').value;
             }
 
-            var eDayCtl = Ext.getCmp('m_EndDay');
+            var eDayCtl = Ext.getCmp('endDay_M');
 
             // 로딩바 표시
             var winCtl = Ext.getCmp("searchResultWindow");

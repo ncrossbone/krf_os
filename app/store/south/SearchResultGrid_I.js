@@ -62,18 +62,18 @@ Ext.define('krf_new.store.south.SearchResultGrid_I', {
 
 			var startYear = startMonth = endYear = endMonth = "";
 
-			var sYearCtl = Ext.getCmp("cmbStartYear");
+			var sYearCtl = Ext.getCmp("startYear_I");
 			if (sYearCtl != undefined)
-				startYear = Ext.getCmp("cmbStartYear").value;
-			var sMonthCtl = Ext.getCmp("cmbStartMonth");
+				startYear = Ext.getCmp("startYear_I").value;
+			var sMonthCtl = Ext.getCmp("startMonth_I");
 			if (sMonthCtl != undefined)
-				startMonth = Ext.getCmp("cmbStartMonth").value;
-			var eYearCtl = Ext.getCmp("cmbEndYear");
+				startMonth = Ext.getCmp("startMonth_I").value;
+			var eYearCtl = Ext.getCmp("endYear_I");
 			if (eYearCtl != undefined)
-				endYear = Ext.getCmp("cmbEndYear").value;
-			var eMonthCtl = Ext.getCmp("cmbEndMonth");
+				endYear = Ext.getCmp("endYear_I").value;
+			var eMonthCtl = Ext.getCmp("endMonth_I");
 			if (eMonthCtl != undefined)
-				endMonth = Ext.getCmp("cmbEndMonth").value;
+				endMonth = Ext.getCmp("endMonth_I").value;
 
 			// 로딩바 표시
 			var winCtl = Ext.getCmp("searchResultWindow");
@@ -132,10 +132,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_I', {
 				});
 
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("startYear_I").setValue(startYear);
+				Ext.getCmp("startMonth_I").setValue(startMonth);
+				Ext.getCmp("endYear_I").setValue(endYear);
+				Ext.getCmp("endMonth_I").setValue(endMonth);
 			}
 
 			Ext.Ajax.request({

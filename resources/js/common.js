@@ -1266,10 +1266,10 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 	var grdContainer = Ext.getCmp(gridId + "_container");
 
 	var hiddenGrid = Ext.getCmp("F_CHANGE");
-	var cmbStartYear = Ext.getCmp("cmbStartYear");
-	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
-	var cmbEndYear = Ext.getCmp("cmbEndYear");
-	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+	// var cmbStartYear = Ext.getCmp("cmbStartYear");
+	// var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+	// var cmbEndYear = Ext.getCmp("cmbEndYear");
+	// var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 
 
 	if (parentCheck == "A") { //수질측정지점
@@ -1434,10 +1434,10 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		var firstSearch = $KRF_APP.btnFlag;
 		if (firstSearch == "noDate") {
-			cmbStartYear.setValue("2012");
-			cmbStartMonth.setValue("09");
-			cmbEndYear.setValue("2012");
-			cmbEndMonth.setValue("12");
+			// cmbStartYear.setValue("2012");
+			// cmbStartMonth.setValue("09");
+			// cmbEndYear.setValue("2012");
+			// cmbEndMonth.setValue("12");
 		}
 
 		//환경기초시설 검색값 히든처리
@@ -1735,10 +1735,10 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		var firstSearch = $KRF_APP.btnFlag;
 		if (firstSearch == "noDate") {
-			cmbStartYear.setValue("2013");
-			cmbStartMonth.setValue("10");
-			cmbEndYear.setValue("2013");
-			cmbEndMonth.setValue("12");
+			// cmbStartYear.setValue("2013");
+			// cmbStartMonth.setValue("10");
+			// cmbEndYear.setValue("2013");
+			// cmbEndMonth.setValue("12");
 		}
 
 		//hiddenGrid.setHidden(true);
@@ -2061,7 +2061,7 @@ GetWindowControl = function (options) {
 GetTabControl = function (options) {
 	var tabCtl = Ext.getCmp(options.id);
 	if (tabCtl == undefined) {
-		tabCtl = Ext.create('krf_new.view.common.TabControl', options);
+		tabCtl = Ext.create('krf_new.view.common.TabControl_New', options);
 	}
 	return tabCtl;
 }

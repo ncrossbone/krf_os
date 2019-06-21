@@ -137,12 +137,12 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 			}
 
 			var startYear = startMonth = startDay = endYear = endMonth = endDay = "";
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
-			startDay = Ext.getCmp("startDay").value;
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
-			endDay = Ext.getCmp("endDay").value;
+			startYear = Ext.getCmp("startYear_D").value;
+			startMonth = Ext.getCmp("startMonth_D").value;
+			//startDay = Ext.getCmp("startDay_D").value;
+			endYear = Ext.getCmp("endYear_D").value;
+			endMonth = Ext.getCmp("endMonth_D").value;
+			//endDay = Ext.getCmp("endDay_D").value;
 			var winCtl = Ext.getCmp("searchResultWindow");
 			//			var winCtl = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.RESULT.id);
 			var tabContainer = winCtl.items.items[0];
@@ -192,7 +192,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 									sDate.setDate(sDate.getDate() - 1);
 									startYear = sDate.getFullYear();
 									startMonth = $KRF_APP.global.CommFn.lpad(sDate.getMonth() + 1, '0', 2);
-									startDay = $KRF_APP.global.CommFn.lpad(sDate.getDate(), '0', 2);
+									//startDay = $KRF_APP.global.CommFn.lpad(sDate.getDate(), '0', 2);
 								} else {
 									if (afterVal[1] == "1" || afterVal[1] == "01") {
 										startMonth = "12";
@@ -204,24 +204,24 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 								}
 								endYear = afterVal[0];
 								endMonth = afterVal[1];
-								endDay = afterVal[2];
+								//endDay = afterVal[2];
 							}
 						}
 					}
 				});
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("startYear_D").setValue(startYear);
+				Ext.getCmp("startMonth_D").setValue(startMonth);
 
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("endYear_D").setValue(endYear);
+				Ext.getCmp("endMonth_D").setValue(endMonth);
 
-				if (startDay != null && startDay != "") {
-					Ext.getCmp("startDay").setValue(startDay);
-				}
-				if (endDay != null && endDay != "") {
-					Ext.getCmp("endDay").setValue(endDay);
-				}
+				// if (startDay != null && startDay != "") {
+				// 	Ext.getCmp("startDay").setValue(startDay);
+				// }
+				// if (endDay != null && endDay != "") {
+				// 	Ext.getCmp("endDay").setValue(endDay);
+				// }
 			}
 			Ext.Ajax.request({
 				url: requestUrl,

@@ -201,10 +201,10 @@ Ext.define('krf_new.store.south.SearchResultGrid', {
 					}
 				});
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("startYear_A").setValue(startYear);
+				Ext.getCmp("startMonth_A").setValue(startMonth);
+				Ext.getCmp("endYear_A").setValue(endYear);
+				Ext.getCmp("endMonth_A").setValue(endMonth);
 			}
 
 			Ext.Ajax.request({

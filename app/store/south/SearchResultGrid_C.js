@@ -193,15 +193,15 @@ Ext.define('krf_new.store.south.SearchResultGrid_C', {
 			var me = this;
 			var firstSearch = $KRF_APP.btnFlag;
 			var startYear = startMonth = endYear = endMonth = "";
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartBan").value;
+			startYear = Ext.getCmp("startYear_C").value;
+			startMonth = Ext.getCmp("startBan_C").value;
 			if (startMonth == "상") {
 				startMonth = 1;
 			} else {
 				startMonth = 2;
 			}
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndBan").value;
+			endYear = Ext.getCmp("endYear_C").value;
+			endMonth = Ext.getCmp("endBan_C").value;
 			if (endMonth == "상") {
 				endMonth = 1;
 			} else {
@@ -255,11 +255,11 @@ Ext.define('krf_new.store.south.SearchResultGrid_C', {
 					}
 				});
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartBan").setValue(startMonth);
+				Ext.getCmp("startYear_C").setValue(startYear);
+				Ext.getCmp("startBan_C").setValue(startMonth);
 
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndBan").setValue(endMonth);
+				Ext.getCmp("endYear_C").setValue(endYear);
+				Ext.getCmp("endBan_C").setValue(endMonth);
 			}
 
 			Ext.Ajax.request({

@@ -35,16 +35,16 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 			
 			
 			var startYear = startMonth = endYear = endMonth = "";
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartBan").value;
+			startYear = Ext.getCmp("startYear_E").value;
+			startMonth = Ext.getCmp("startBan_E").value;
 			
 			if (startMonth == "상" || startMonth == "1") {
 				startMonth = 1;
 			} else {
 				startMonth = 2;
 			}
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndBan").value;
+			endYear = Ext.getCmp("endYear_E").value;
+			endMonth = Ext.getCmp("endBan_E").value;
 
 			if (endMonth == "상" || endMonth == "1") {
 				endMonth = 1;
@@ -112,10 +112,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 
 				//Tab Combo value 설정
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartBan").setValue(startMonth);
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndBan").setValue(endMonth);
+				Ext.getCmp("startYear_E").setValue(startYear);
+				Ext.getCmp("startBan_E").setValue(startMonth);
+				Ext.getCmp("endYear_E").setValue(endYear);
+				Ext.getCmp("endBan_E").setValue(endMonth);
 				Ext.getCmp("sstgCombo").setValue(store.combo);
 			}
 

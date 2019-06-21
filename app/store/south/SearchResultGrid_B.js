@@ -57,10 +57,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
+			startYear = Ext.getCmp("startYear_B").value;
+			startMonth = Ext.getCmp("startMonth_B").value;
+			endYear = Ext.getCmp("endYear_B").value;
+			endMonth = Ext.getCmp("endMonth_B").value;
 			
 			var jsonData = "";
 			var arrData = [];
@@ -126,10 +126,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_B', {
 			
 				
 			firstSearch = "date";
-			Ext.getCmp("cmbStartYear").setValue(startYear); 
-			Ext.getCmp("cmbStartMonth").setValue(startMonth);
-			Ext.getCmp("cmbEndYear").setValue(endYear);
-			Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			Ext.getCmp("startYear_B").setValue(startYear); 
+			Ext.getCmp("startMonth_B").setValue(startMonth);
+			Ext.getCmp("endYear_B").setValue(endYear);
+			Ext.getCmp("endMonth_B").setValue(endMonth);
 			
 			
 			}

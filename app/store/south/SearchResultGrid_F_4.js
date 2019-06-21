@@ -28,10 +28,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_F_4', {
 			var me = this;
 			var startYear = startMonth = endYear = endMonth = "";
 
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
+			startYear = Ext.getCmp("startYear_F").value;
+			startMonth = Ext.getCmp("startMonth_F").value;
+			endYear = Ext.getCmp("endYear_F").value;
+			endMonth = Ext.getCmp("endMonth_F").value;
 			var firstSearch = $KRF_APP.btnFlag;
 
 			var winCtl = Ext.getCmp("searchResultWindow");
@@ -86,10 +86,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_F_4', {
 					}
 				});
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("startYear_F").setValue(startYear);
+				Ext.getCmp("startMonth_F").setValue(startMonth);
+				Ext.getCmp("endYear_F").setValue(endYear);
+				Ext.getCmp("endMonth_F").setValue(endMonth);
 			}
 			Ext.Ajax.request({
 				url: _API.GetSearchResultData_F_4, //'./resources/jsp/GetSearchResultData_F_4.jsp',
@@ -126,10 +126,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_F_4', {
 								store.startMonth = startMonth;
 								store.endYear = endYear;
 								store.endMonth = endMonth;
-								Ext.getCmp("cmbStartYear").setValue(startYear);
-								Ext.getCmp("cmbStartMonth").setValue(startMonth);
-								Ext.getCmp("cmbEndYear").setValue(endYear);
-								Ext.getCmp("cmbEndMonth").setValue(endMonth);
+								Ext.getCmp("startYear_F").setValue(startYear);
+								Ext.getCmp("startMonth_F").setValue(startMonth);
+								Ext.getCmp("endYear_F").setValue(endYear);
+								Ext.getCmp("endMonth_F").setValue(endMonth);
 							}
 						}
 					} else {

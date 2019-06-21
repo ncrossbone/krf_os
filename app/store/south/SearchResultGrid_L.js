@@ -17,26 +17,26 @@ Ext.define('krf_new.store.south.SearchResultGrid_L', {
 
             var startYear, startMonth = '';
 
-            var sYearCtl = Ext.getCmp('l_StartYear');
+            var sYearCtl = Ext.getCmp('startYear_L');
             if (sYearCtl != undefined) {
-                startYear = Ext.getCmp('l_StartYear').value;
+                startYear = Ext.getCmp('startYear_L').value;
             }
 
-            var sMonthCtl = Ext.getCmp('l_StartMonth');
+            var sMonthCtl = Ext.getCmp('startMonth_L');
             if (sMonthCtl != undefined) {
-                startMonth = Ext.getCmp('l_StartMonth').value;
+                startMonth = Ext.getCmp('startMonth_L').value;
             }
 
             var endYear, endMonth = '';
 
-            var eYearCtl = Ext.getCmp('l_EndYear');
+            var eYearCtl = Ext.getCmp('endYear_L');
             if (sYearCtl != undefined) {
-                endYear = Ext.getCmp('l_EndYear').value;
+                endYear = Ext.getCmp('endYear_L').value;
             }
 
-            var eMonthCtl = Ext.getCmp('l_EndMonth');
+            var eMonthCtl = Ext.getCmp('endMonth_L');
             if (sMonthCtl != undefined) {
-                endMonth = Ext.getCmp('l_EndMonth').value;
+                endMonth = Ext.getCmp('endMonth_L').value;
             }
 
             // 로딩바 표시

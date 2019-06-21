@@ -72,9 +72,9 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin1', {
 			if (itemValue == null) {
 				return;
 			} else {
-				if (itemValue.DroneDate != "" || itemValue.MeasureDate != "") {
-					layerDate = itemValue.DroneDate;
-					measureDate = itemValue.MeasureDate;
+				if (itemValue.DRONEDATE != "" || itemValue.MEASUREDATE != "") {
+					layerDate = itemValue.DRONEDATE;
+					measureDate = itemValue.MEASUREDATE;
 
 				} else {
 					return;

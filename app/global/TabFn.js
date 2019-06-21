@@ -14,6 +14,8 @@ Ext.define("krf_new.global.TabFn", {
 	conditionCtl: [],
 	searchConditionInit: function (gridType, grid) {
 
+		return;
+
 		var conditionCont = Ext.getCmp("tabCondition");
 
 		var cmbStartYear = conditionCont.down("#cmbStartYear");
@@ -60,6 +62,8 @@ Ext.define("krf_new.global.TabFn", {
 	/* 검색결과 탭별 조회조건 셋팅 */
 	searchConditionCtl: function (grid) {
 
+		return;
+
 		var conditionCont = Ext.getCmp("tabCondition");
 
 		var cmbStartYear = conditionCont.down("#cmbStartYear");
@@ -82,6 +86,8 @@ Ext.define("krf_new.global.TabFn", {
 		}
 	},
 	searchConditionSet: function (grid) {
+
+		return;
 
 		var conditionCont = Ext.getCmp("tabCondition");
 

@@ -31,10 +31,10 @@ Ext.define('krf_new.store.south.SearchResultGrid_F', {
 			var me = this;
 			var startYear = startMonth = endYear = endMonth = "";
 
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
+			startYear = Ext.getCmp("startYear").value;
+			startMonth = Ext.getCmp("startMonth").value;
+			endYear = Ext.getCmp("endYear").value;
+			endMonth = Ext.getCmp("endMonth").value;
 
 			var firstSearch = $KRF_APP.btnFlag;
 
