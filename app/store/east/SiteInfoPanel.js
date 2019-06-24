@@ -31,7 +31,7 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 			} else if (parentId == 'Z') {
 				url = _API.GetInfo_Z;
 				recordId = recordId.split('_')[1];
-			} else if(parentId = 'L'){
+			} else if(parentId == 'L'){
 				url = _API.GetInfo_L;
 			}
 
