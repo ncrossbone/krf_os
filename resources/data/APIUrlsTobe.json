@@ -166,7 +166,13 @@
     "GetRWMDT_Z005":"#host#/chart/getRWMDT_2018_Z005",
     "GetRWMDT_Z006":"#host#/chart/getRWMDT_2018_Z006",
 
-    
+    "GetRWMDT_2018_D001":"#host#/chart/getRWMDT_2018_D001",
+    "GetRWMDT_2018_D002":"#host#/chart/getRWMDT_2018_D002",
+    "GetRWMDT_2018_D003":"#host#/chart/getRWMDT_2018_D003",
+    "GetRWMDT_2018_D004":"#host#/chart/getRWMDT_2018_D004",
+    "GetRWMDT_2018_D005":"#host#/chart/getRWMDT_2018_D005",
+    "GetRWMDT_2018_D006":"#host#/chart/getRWMDT_2018_D006",
+    "GetRWMDT_2018_D007":"#host#/chart/getRWMDT_2018_D007",
 
     init: function(host_old,host){
               if(host != null){
