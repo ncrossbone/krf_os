@@ -502,7 +502,13 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'Z' && parentChk != 'K') {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
-				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
+				var endChartDate = '';
+
+				if (_chartDateInfo[1].WMCYMD) {
+					endChartDate = _chartDateInfo[1].WMCYMD.split('.');
+				} else {
+					endChartDate = startChartDate;
+				}
 
 				var startYear, startMonth, endYear, endMonth;
 

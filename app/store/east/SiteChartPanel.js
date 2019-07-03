@@ -202,12 +202,20 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "K") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
+				} else if (store.parentId == 'I') {
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else {
 					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 				}
 				//requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if (store.parentId == "F") {
-				requestUrl = _API['GetRWMDT_' + f_parentId]; //"./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
+
+				if (f_parentId == 'F_1' || f_parentId == 'F_3') {
+					requestUrl = _API['GetRWMDT_2018_' + f_parentId];
+				} else {
+					requestUrl = _API['GetRWMDT_' + f_parentId];
+				}
+
 			} else if (org_D_firstID == "D") {
 				requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 			} else if (store.parentId == "H") {
@@ -389,7 +397,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						_chartDateInfo.push(jsonData.data[0]);
 						_chartDateInfo.push(jsonData.data[jsonData.data.length - 1]);
 						if (store.parentId == "F") {
-							_chartDateInfo[0].f_gubun = f_parentId;
+							if (_chartDateInfo[0].f_gubun) {
+								_chartDateInfo[0].f_gubun = f_parentId;
+							}
 						}
 						if (store.parentId == "A") {
 							for (var ndReplace = 0; ndReplace < jsonData.data.length; ndReplace++) {
