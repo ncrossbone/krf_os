@@ -265,48 +265,48 @@ Ext.create('Ext.data.Store', {
 				$KRF_APP.checkBrowser();
 			},
 			checkBrowser: function () {
-				//if (Ext.browser.is.IE) {
-				var centerContainer = Ext.getCmp('center_container');
-				var smallBrowserWin = Ext.create('Ext.window.Window', {
-					id: 'smallBrowserWin',
-					constrain: true,
-					x: window.innerWidth - 100,
-					y: window.innerHeight - 100,
-					width: 300,
-					resizable: false,
-					cls: 'subWindow-x-form-item-label-default',
-					bodyStyle: 'background: #405166 !important; color:#fff;',
-					header: false,
-					items: [{
-						xtype: 'label',
-						text: '시스템 최적화 방법 (크롬 설치 안내)',
-						style: 'cursor: pointer; font-weight: bold; top: 10px; left: 5px; padding: 0px 20px; background: url(./resources/images/button/meta.png) no-repeat;',
-						listeners: {
-							el: {
-								click: function () {
-									Ext.getCmp('smallBrowserWin').hide();
-									var centerContainer = Ext.getCmp('center_container');
-									var noticeWin = Ext.getCmp('browserNoticeWindow');
-									if (!noticeWin) {
-										Ext.create('krf_new.view.common.BrowserNotice');
-										noticeWin = Ext.getCmp('browserNoticeWindow');
+				if (Ext.browser.is.IE) {
+					var centerContainer = Ext.getCmp('center_container');
+					var smallBrowserWin = Ext.create('Ext.window.Window', {
+						id: 'smallBrowserWin',
+						constrain: true,
+						x: window.innerWidth - 100,
+						y: window.innerHeight - 100,
+						width: 300,
+						resizable: false,
+						cls: 'subWindow-x-form-item-label-default',
+						bodyStyle: 'background: #405166 !important; color:#fff;',
+						header: false,
+						items: [{
+							xtype: 'label',
+							text: '시스템 최적화 방법 (크롬 설치 안내)',
+							style: 'cursor: pointer; font-weight: bold; top: 10px; left: 5px; padding: 0px 20px; background: url(./resources/images/button/meta.png) no-repeat;',
+							listeners: {
+								el: {
+									click: function () {
+										Ext.getCmp('smallBrowserWin').hide();
+										var centerContainer = Ext.getCmp('center_container');
+										var noticeWin = Ext.getCmp('browserNoticeWindow');
+										if (!noticeWin) {
+											Ext.create('krf_new.view.common.BrowserNotice');
+											noticeWin = Ext.getCmp('browserNoticeWindow');
+										}
+										centerContainer.add(noticeWin);
+										noticeWin.show();
 									}
-									centerContainer.add(noticeWin);
-									noticeWin.show();
 								}
-							}
-						},
-					}, {
-						xtype: 'image',
-						style: 'position: absolute; top: 11px; right: 5px;',
-						src: './resources/images/button/header-close.png'
-					}]
-				});
-				centerContainer.add(smallBrowserWin);
+							},
+						}, {
+							xtype: 'image',
+							style: 'position: absolute; top: 11px; right: 5px;',
+							src: './resources/images/button/header-close.png'
+						}]
+					});
+					centerContainer.add(smallBrowserWin);
 
-				smallBrowserWin.show();
-				smallBrowserWin.setHeight(40);
-				//}
+					smallBrowserWin.show();
+					smallBrowserWin.setHeight(40);
+				}
 			},
 
 			showDroneEdit: function () {
