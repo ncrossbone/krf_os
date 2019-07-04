@@ -198,6 +198,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "B") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
+				} else if (store.parentId == 'C') {
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "L") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "K") {

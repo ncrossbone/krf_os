@@ -179,6 +179,8 @@
     "GetRWMDT_2018_F_1":"#host#/chart/getRWMDT_2018_F_1",
     "GetRWMDT_2018_F_3":"#host#/chart/getRWMDT_2018_F_3",
 
+    "GetRWMDT_2018_C":"#host#/chart/getRWMDT_2018_C",
+
     init: function(host_old,host){
               if(host != null){
                   this.domain = host;

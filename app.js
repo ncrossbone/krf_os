@@ -135,11 +135,11 @@ Ext.create('Ext.data.Store', {
 
 		*/
 		//a[0].data.init('http://112.217.167.123:40003/krf_old','http://localhost/krf'); 
-		a[0].data.init('http://112.217.167.123:40003/krf_old','http://localhost/krf'); 
+		a[0].data.init('http://112.217.167.123:40003/krf_old', 'http://localhost/krf');
 		//a[0].data.init('http://localhost:8080');
 		//a[0].data.init('http://localhost:80');
 
-		Ext.application({ 
+		Ext.application({
 			name: 'krf_new',
 			requires: ['krf_new.Desktop.App',
 				'krf_new.global.Obj',
@@ -196,7 +196,7 @@ Ext.create('Ext.data.Store', {
 				$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
 			},
 			desktopLoaded: function () {
-				
+
 				$('#pageloaddingDiv').remove();
 				var me = this;
 				// var paramUrl = Ext.urlDecode(_ParamObj.station.substring(1));
@@ -204,7 +204,7 @@ Ext.create('Ext.data.Store', {
 				var loginCheck = false;
 
 				$KRF_APP.loginInfo = {};
-				
+
 				// 첫번째 sessionStorage 확인 
 				// if(sessionStorage.length > 0){
 
@@ -214,25 +214,25 @@ Ext.create('Ext.data.Store', {
 
 				// }else{
 
-					
+
 
 
 				// }
 
 
 				// 내부망 로그인 session 정보 조회 2019-04-22
-				$.when($KRF_APP.global.CommFn.getLoginUserInfo(_ParamObj.p1)).then(function(response){ //세션아이디가 있으면 db조회
+				$.when($KRF_APP.global.CommFn.getLoginUserInfo(_ParamObj.p1)).then(function (response) { //세션아이디가 있으면 db조회
 
-					if(response){
+					if (response) {
 						var decodeData = Ext.util.JSON.decode(response.responseText);
-						
-						if(decodeData.data.length > 0){ // db session이 있을 경우
+
+						if (decodeData.data.length > 0) { // db session이 있을 경우
 
 							$KRF_APP.loginInfo = decodeData.data[0];
 
 							//인트라넷에서 로그인을 했을경우 sessionStorage를 새로 갱신해준다
 							var value = decodeData.data[0];
-							for(key in value ){
+							for (key in value) {
 								if (value.hasOwnProperty(key)) {
 									sessionStorage[key] = value[key];
 								}
@@ -240,12 +240,12 @@ Ext.create('Ext.data.Store', {
 
 							loginCheck = true;
 							me.completedLogin($KRF_APP.loginInfo);
-							
+
 						}
 
-					}else{
+					} else {
 
-						if(sessionStorage.length >= 1){ //인트라넷값(o1)이 없지만 sessionStorage값이 있으면 로그인 가능
+						if (sessionStorage.length >= 1) { //인트라넷값(o1)이 없지만 sessionStorage값이 있으면 로그인 가능
 							$KRF_APP.loginInfo = sessionStorage;
 							loginCheck = true;
 							me.completedLogin($KRF_APP.loginInfo);
@@ -254,20 +254,20 @@ Ext.create('Ext.data.Store', {
 					}
 
 					//loginCheck가 false 일때 ( 로그인 session이 있을경우 true )
-					if(!loginCheck){
+					if (!loginCheck) {
 						me.showLoginWindow();
 					}
 
 					// 브라우져 체크
-					me.checkBrowser();
-					
+					//me.checkBrowser();
+
 				});
-				
+
 
 				/*$KRF_APP.loginInfo.userId = 'weis_admin';
 				me.completedLogin($KRF_APP.loginInfo);
 				me.checkBrowser();*/
-			
+
 			},
 
 
@@ -323,7 +323,7 @@ Ext.create('Ext.data.Store', {
 
 				// 계정 권한별 레이어 표출 목록 2019-04-16
 				Ext.Ajax.request({
-//					url: _API.getUserLayerInfo,
+					//					url: _API.getUserLayerInfo,
 					url: _API.getUserLayerInfo,
 					dataType: "text/plain",
 					method: 'POST',
@@ -337,16 +337,17 @@ Ext.create('Ext.data.Store', {
 					}
 				});
 
-				setTimeout(function() {
+				setTimeout(function () {
 
 					alert("세션 시간 초과. 다시로그인 해주시기 바랍니다.");
 					sessionStorage.clear();
 					location.href = location.href;
-				
-				}, 9000000); // 50분이 지나면 refresh
-					
-					
 
+				}, 9000000); // 50분이 지나면 refresh
+
+
+				// 브라우져 체크
+				this.checkBrowser();
 
 			},
 			showWindowByMode: function () {
@@ -520,47 +521,66 @@ Ext.create('Ext.data.Store', {
 			},
 			checkBrowser: function () {
 				if (Ext.browser.is.IE) {
-					var dp = $KRF_APP.getDesktop();
-					var dpWidth = dp.getWidth();
-					var dpHeight = dp.getHeight();
-
-					var noticeWin = Ext.getCmp('browserNoticeWindow');
 					var centerContainer = Ext.getCmp('center_container');
-					
-					//ie chech cookie 7일동안 열지 않기
-					var blnCookie = this.getCookie( 'browserNoticeWindow' ); 
-					if (!noticeWin) {
-						
-						Ext.create('krf_new.view.common.BrowserNotice');
-						noticeWin = Ext.getCmp('browserNoticeWindow');
-					}
-					centerContainer.add(noticeWin);
-					noticeWin.show();
+					var smallBrowserWin = Ext.create('Ext.window.Window', {
+						id: 'smallBrowserWin',
+						constrain: true,
+						x: window.innerWidth - 100,
+						y: window.innerHeight - 100,
+						width: 300,
+						resizable: false,
+						cls: 'subWindow-x-form-item-label-default',
+						bodyStyle: 'background: #405166 !important; color:#fff;',
+						header: false,
+						items: [{
+							xtype: 'label',
+							text: '시스템 최적화 방법 (크롬 설치 안내)',
+							style: 'cursor: pointer; font-weight: bold; top: 10px; left: 5px; padding: 0px 20px; background: url(./resources/images/button/meta.png) no-repeat;',
+							listeners: {
+								el: {
+									click: function () {
+										Ext.getCmp('smallBrowserWin').hide();
+										var centerContainer = Ext.getCmp('center_container');
+										var noticeWin = Ext.getCmp('browserNoticeWindow');
+										if (!noticeWin) {
+											Ext.create('krf_new.view.common.BrowserNotice');
+											noticeWin = Ext.getCmp('browserNoticeWindow');
+										}
+										centerContainer.add(noticeWin);
+										noticeWin.show();
+									}
+								}
+							},
+						}, {
+							xtype: 'image',
+							style: 'position: absolute; top: 11px; right: 5px;',
+							src: './resources/images/button/header-close.png'
+						}]
+					});
+					centerContainer.add(smallBrowserWin);
 
-					// session 확인
-					if( blnCookie ) { 
-						noticeWin.hide();
-					}
+					smallBrowserWin.show();
+					smallBrowserWin.setHeight(40);
 				}
 			},
 
-			getCookie: function(Name){
-				var nameOfCookie = Name + "="; 
-				var x = 0; 
-				while ( x <= document.cookie.length ) { 
-					var y = (x+nameOfCookie.length); 
-					if ( document.cookie.substring( x, y ) == nameOfCookie ) { 
-						if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 ) { 
-							endOfCookie = document.cookie.length; 
-						} 
-						return unescape( document.cookie.substring( y, endOfCookie ) ); 
-					} 
+			getCookie: function (Name) {
+				var nameOfCookie = Name + "=";
+				var x = 0;
+				while (x <= document.cookie.length) {
+					var y = (x + nameOfCookie.length);
+					if (document.cookie.substring(x, y) == nameOfCookie) {
+						if ((endOfCookie = document.cookie.indexOf(";", y)) == -1) {
+							endOfCookie = document.cookie.length;
+						}
+						return unescape(document.cookie.substring(y, endOfCookie));
+					}
 
-					x = document.cookie.indexOf( " ", x ) + 1; 
-					if ( x == 0 ) break; 
-				} 
+					x = document.cookie.indexOf(" ", x) + 1;
+					if (x == 0) break;
+				}
 
-				return ""; 
+				return "";
 			},
 
 			centerAt: function (coord) {
