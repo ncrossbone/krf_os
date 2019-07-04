@@ -553,14 +553,20 @@ Ext.create('Ext.data.Store', {
 							},
 						}, {
 							xtype: 'image',
-							style: 'position: absolute; top: 11px; right: 5px;',
-							src: './resources/images/button/header-close.png'
+							style: 'position: absolute; top: 11px; right: 5px; cursor:pointer;',
+							src: './resources/images/button/header-close.png',
+							listeners: {
+								el: {
+									click: function () {
+										Ext.getCmp('smallBrowserWin').hide();
+									}
+								}
+							},
 						}]
 					});
 					centerContainer.add(smallBrowserWin);
 
 					smallBrowserWin.show();
-					smallBrowserWin.setHeight(40);
 				}
 			},
 
