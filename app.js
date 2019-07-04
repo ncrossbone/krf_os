@@ -261,34 +261,67 @@ Ext.create('Ext.data.Store', {
 
 					}, 500);
 				}
+
+				$KRF_APP.checkBrowser();
 			},
 			checkBrowser: function () {
-				if (Ext.browser.is.IE == true && Ext.browser.version.major < 10) { // IE11 아래 버전 막기
-					var dp = $KRF_APP.getDesktop();
-					var dpWidth = dp.getWidth();
-					var dpHeight = dp.getHeight();
+				if (Ext.browser.is.IE) {
+					var centerContainer = Ext.getCmp('center_container');
+					var smallBrowserWin = Ext.create('Ext.window.Window', {
+						id: 'smallBrowserWin',
+						constrain: true,
+						x: window.innerWidth - 100,
+						y: window.innerHeight - 100,
+						width: 300,
+						resizable: false,
+						cls: 'subWindow-x-form-item-label-default',
+						bodyStyle: 'background: #405166 !important; color:#fff;',
+						header: false,
+						items: [{
+							xtype: 'label',
+							text: '시스템 최적화 방법 (크롬 설치 안내)',
+							style: 'cursor: pointer; font-weight: bold; top: 10px; left: 5px; padding: 0px 20px; background: url(./resources/images/button/meta.png) no-repeat;',
+							listeners: {
+								el: {
+									click: function () {
+										Ext.getCmp('smallBrowserWin').hide();
+										var centerContainer = Ext.getCmp('center_container');
+										var noticeWin = Ext.getCmp('browserNoticeWindow');
+										if (!noticeWin) {
+											Ext.create('krf_new.view.common.BrowserNotice');
+											noticeWin = Ext.getCmp('browserNoticeWindow');
+										}
+										centerContainer.add(noticeWin);
+										noticeWin.show();
+									}
+								}
+							},
+						}, {
+							xtype: 'image',
+							style: 'position: absolute; top: 11px; right: 5px;',
+							src: './resources/images/button/header-close.png'
+						}]
+					});
+					centerContainer.add(smallBrowserWin);
 
-					var noticeModule = $KRF_APP.getDesktopModule($KRF_WINS.NOTICE.id);
-					var noticeWindow = noticeModule.createWindow();
-					noticeWindow.show();
-					return false;
+					smallBrowserWin.show();
+					smallBrowserWin.setHeight(40);
 				}
-				return true;
 			},
 
-			showDroneEdit: function(){
+			showDroneEdit: function () {
 				//console.info($KRF_APP.getDroneLayer);
-				if($KRF_APP.DRONELAYERS != undefined){
+				if ($KRF_APP.DRONELAYERS != undefined) {
 					var dronePanel = Ext.getCmp('adminConfigDRONEPanel');
-					if(dronePanel != undefined){
-						if(dronePanel == undefined){
+					if (dronePanel != undefined) {
+						if (dronePanel == undefined) {
 							dronePanel = Ext.create('krf_new.view.center.AdminConfigDRONEPanel', { x: Ext.getCmp('cont_container').getWidth() - 1220, y: $KRF_DEFINE.mapToolbarHeight });
 							Ext.getCmp('cont_container').add(dronePanel);
 							dronePanel.hide();
 						}
 					}
 					dronePanel.show();
-				}else{
+				} else {
 					Ext.Ajax.request({
 						url: _API.getDroneLayer,
 						dataType: "text/plain",
@@ -299,7 +332,7 @@ Ext.create('Ext.data.Store', {
 							if (droneLyaer.data.length > 0) {
 								$KRF_APP.DRONELAYERS = droneLyaer;
 								var dronePanel = Ext.getCmp('adminConfigDRONEPanel');
-								if(dronePanel == undefined){
+								if (dronePanel == undefined) {
 									dronePanel = Ext.create('krf_new.view.center.AdminConfigDRONEPanel', { x: Ext.getCmp('cont_container').getWidth() - 1220, y: $KRF_DEFINE.mapToolbarHeight });
 									Ext.getCmp('cont_container').add(dronePanel);
 									dronePanel.hide();
@@ -308,13 +341,13 @@ Ext.create('Ext.data.Store', {
 						}
 					});
 				}
-				
-				
+
+
 			},
 
-			hideDroneEdit: function(){
+			hideDroneEdit: function () {
 				var dronePanel = Ext.getCmp('adminConfigDRONEPanel');
-				if(dronePanel != undefined){
+				if (dronePanel != undefined) {
 					dronePanel.hide();
 				}
 			},
@@ -363,12 +396,12 @@ Ext.create('Ext.data.Store', {
 				gabCon.setWidth(gabWidth + 40);
 
 				var reachNameToolbar = Ext.getCmp('reachNameToolbar');
-				if(reachNameToolbar){
-					if(!reachNameToolbar.hidden){
-						setTimeout(function(){
+				if (reachNameToolbar) {
+					if (!reachNameToolbar.hidden) {
+						setTimeout(function () {
 							reachNameToolbar.setX(368);
 							reachNameToolbar.setY(96)
-						},100);
+						}, 100);
 					}
 				}
 			},
