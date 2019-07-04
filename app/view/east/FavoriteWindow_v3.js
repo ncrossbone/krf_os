@@ -28,7 +28,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	x: 390,
 	y: Ext.getBody().getViewSize().height - 305,
 	onEsc: false,
-	
+
 	listeners: {
 		close: function () {
 			var currCtl = Ext.getCmp("btnFavorites");
@@ -82,7 +82,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 	},
 
 	callAjax: function (url, param) {
-		param.userId = 'testid';
+		param.userId = $KRF_APP.loginInfo.userId;
 		return $.ajax({
 			url: _API.Bookmark + url,
 			data: param,
@@ -410,7 +410,7 @@ Ext.define('krf_new.view.east.FavoriteWindow_v3', {
 												if (comboDatas && comboDatas.length > 0) {
 													comInstance.setValue(selectData.cmb[i].value);
 												}
-												
+
 												comInstance.fireEvent('select', comInstance, selectData.cmb[i].value);
 											}
 										}
