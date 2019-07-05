@@ -290,20 +290,20 @@ Ext.create('Ext.data.Store', {
 					$('#Admin-shortcut').remove();
 				}
 
-				Ext.Ajax.request({
-					url: _API.getLayerSetForUser,
-					dataType: "text/plain",
-					method: 'POST',
-					params: { userId: loginInfo.userId },
-					async: true,
-					success: function (response, opts) {
-						var result = Ext.util.JSON.decode(response.responseText);
-						if (result.data.length > 0) {
-							$KRF_APP.USER_LAYERS = result.data[0];
-							$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
-						}
-					}
-				});
+				// Ext.Ajax.request({
+				// 	url: _API.getLayerSetForUser,
+				// 	dataType: "text/plain",
+				// 	method: 'POST',
+				// 	params: { userId: loginInfo.userId },
+				// 	async: true,
+				// 	success: function (response, opts) {
+				// 		var result = Ext.util.JSON.decode(response.responseText);
+				// 		if (result.data.length > 0) {
+				// 			$KRF_APP.USER_LAYERS = result.data[0];
+				// 			$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(result.data[0].layerSetIds);
+				// 		}
+				// 	}
+				// });
 
 
 				Ext.Ajax.request({

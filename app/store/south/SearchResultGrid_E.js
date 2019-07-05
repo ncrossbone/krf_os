@@ -27,11 +27,14 @@ Ext.define('krf_new.store.south.SearchResultGrid_E', {
 			}
 
 			if(store.parentIds[0].parentId == undefined){
-				requestUrl = _API.GetSearchResultData_E + store.parentIds;
+				requestUrl = _API.GetSearchResultData_2018_E + store.parentIds;
+				//requestUrl = _API.GetSearchResultData_E + store.parentIds;
 			}else{
-				requestUrl = _API.GetSearchResultData_E + store.parentIds[0].parentId;
+				requestUrl = _API.GetSearchResultData_2018_E + store.parentIds[0].parentId;
+				//requestUrl = _API.GetSearchResultData_E + store.parentIds[0].parentId;
 			}
 
+			requestUrl = requestUrl+"_2018";
 			
 			
 			var startYear = startMonth = endYear = endMonth = "";

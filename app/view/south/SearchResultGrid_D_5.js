@@ -55,27 +55,27 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_5', {
 				},
 				columns: [{
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '소권역',
-					dataIndex: 'AS_NM',
+					dataIndex: 'SDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '관측소코드',
-					dataIndex: 'PT_NO',
+					dataIndex: 'AWSOBS_CODE',
 					filter: { type: 'numeric'/*, fields: {}*/ },
 					width: 110
 				}, {
 					text: '측정소명',
-					dataIndex: 'PT_NM',
+					dataIndex: 'OBSRVT_NM',
 					width: 100,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					listeners: {
@@ -101,7 +101,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_5', {
 					}
 				}, {
 					text: '관측일자',
-					dataIndex: 'WMCYMD',
+					dataIndex: 'OBSR_DT',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {

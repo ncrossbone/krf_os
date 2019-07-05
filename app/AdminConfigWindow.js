@@ -42,7 +42,7 @@ Ext.define('Desktop.AdminConfigWindow', {
 				layout:'absolute',
 				style: 'background-color: #157fcb;',
 				cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
-				items: [{ xtype: 'adminConfig-Center', title:'주제도'},
+				items: [/*{ xtype: 'adminConfig-Center', title:'주제도'},*/
 						{ xtype: 'adminCongig-GIS', title:'GIS 서버'},
 						{ xtype: 'adminConfig-DRONE', title:'항공영상'}
 				/*{

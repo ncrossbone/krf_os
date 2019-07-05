@@ -55,12 +55,14 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 				},
 				columns: [{
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					//dataIndex: 'WS_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					//dataIndex: 'AM_NM',
+					dataIndex: 'SDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
@@ -101,14 +103,16 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					}
 				}, {
 					text: '관측일자',
-					dataIndex: 'WMCYMD',
+					//dataIndex: 'WMCYMD',
+					dataIndex: 'OBSR_DE',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '저수위(cm)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_SWL',
+						//dataIndex: 'CURR_SWL',
+						dataIndex: 'CURR_LOW_WLV',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'SWL'));
@@ -117,7 +121,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_SWL',
+						//dataIndex: 'CHART_SWL',
+						dataIndex: 'CHART_LOW_WLV',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -143,7 +148,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					text: '유입량(cms)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_INF',
+						//dataIndex: 'CURR_INF',
+						dataIndex: 'CURR_INFLOW_QY',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'INF'));
@@ -152,7 +158,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_INF',
+						//dataIndex: 'CHART_INF',
+						dataIndex: 'CHART_INFLOW_QY',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -178,7 +185,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					text: '방류량(cms)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_OTF',
+						//dataIndex: 'CURR_OTF',
+						dataIndex: 'CURR_DCWTR_QY',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'OTF'));
@@ -187,7 +195,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_OTF',
+						//dataIndex: 'CHART_OTF',
+						dataIndex: 'CHART_DCWTR_QY',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -213,7 +222,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					text: '저수량(만㎥)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_SFW',
+						//dataIndex: 'CURR_SFW',
+						dataIndex: 'CURR_RSVWT_QY',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'SFW'));
@@ -222,7 +232,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_SFW',
+						//dataIndex: 'CHART_SFW',
+						dataIndex: 'CHART_RSVWT_QY',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -248,7 +259,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					text: '공용량(백만㎥)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_ECPC',
+						//dataIndex: 'CURR_ECPC',
+						dataIndex: 'CURR_CMNUSE_QY',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'ECPC'));
@@ -257,7 +269,8 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_4', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_ECPC',
+						//dataIndex: 'CHART_ECPC',
+						dataIndex: 'CHART_CMNUSE_QY',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',

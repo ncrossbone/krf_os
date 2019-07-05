@@ -55,17 +55,17 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_3', {
 				},
 				columns: [{
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					dataIndex: 'WRSSM_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '소권역',
-					dataIndex: 'AS_NM',
+					dataIndex: 'SDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
@@ -101,14 +101,14 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_3', {
 					}
 				}, {
 					text: '관측일자',
-					dataIndex: 'WMCYMD',
+					dataIndex: 'OBSR_DE',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '유량(CMS)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_FW',
+						dataIndex: 'CURR_FLUX',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'FW'));
@@ -117,7 +117,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_3', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_FW',
+						dataIndex: 'CHART_FLUX',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',

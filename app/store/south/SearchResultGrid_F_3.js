@@ -45,7 +45,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_F_3', {
 			}
 			if (firstSearch == "noDate") {
 				Ext.Ajax.request({
-					url: _API.GetSearchResultData_F_3, //'./resources/jsp/GetSearchResultData_F_3.jsp',
+					//url: _API.GetSearchResultData_F_3, //'./resources/jsp/GetSearchResultData_F_3.jsp',
+					url: _API.GetSearchResultData_F_2018_3, //'./resources/jsp/GetSearchResultData_F_1.jsp',
 					params: {
 						WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 						, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
@@ -62,7 +63,11 @@ Ext.define('krf_new.store.south.SearchResultGrid_F_3', {
 									me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 									return;
 								}
-								var afterVal = dateSplit.split("-");
+								
+								dateSplit = dateSplit.toString();
+								var afterVal = [];
+								afterVal.push(dateSplit.substring(0, 4));
+								afterVal.push(dateSplit.substring(4, 6));
 
 								startYear = afterVal[0];
 								if (afterVal[1] == "1" || afterVal[1] == "01") {
@@ -88,7 +93,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_F_3', {
 				Ext.getCmp("endMonth_F").setValue(endMonth);
 			}
 			Ext.Ajax.request({
-				url: _API.GetSearchResultData_F_3, //'./resources/jsp/GetSearchResultData_F_3.jsp',
+				//url: _API.GetSearchResultData_F_3, //'./resources/jsp/GetSearchResultData_F_3.jsp',
+				url: _API.GetSearchResultData_F_2018_3, //'./resources/jsp/GetSearchResultData_F_1.jsp',
 				params: {
 					WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 					, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth

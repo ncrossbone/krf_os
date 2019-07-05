@@ -111,6 +111,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	removeReachLineSym: null, // 리치 라인 심볼
 	removeReachAreaSym: null, // 리치 집수구역 심볼
 	
+	sriverTemp: [], //소하천 시작 끝 배열
 	reachLineSym_s: null, // 소하천 리치 라인 심볼
 	reachAreaSym_s: null, // 소하천 리치 집수구역 심볼
 	
@@ -1221,17 +1222,21 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	me.getSRiverCatId(feature);
 		//me.drawGraphic(feature, "reachLine_s");
 		
-			//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
-			if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
+		//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
+		if(feature.attributes.RD_SRCH_ID == "" && feature.attributes.LD_SRCH_ID == ""){
     	//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null && feature.attributes.D_RCH_ID != null){
 
-				var rchDiD = feature.attributes.LD_RCH_ID != null ? feature : feature.attributes.RD_RCH_ID != null ? feature : false;
+				var rchDiD = feature.attributes.LD_RCH_ID != "" ? feature : feature.attributes.RD_RCH_ID != "" ? feature : "";
 
 				if(rchDiD){// 좌우 소하천이 존재하지 않고 좌우리치중 하나가 존재하면
 					//기존 검색으로 넘어간다
-					var downRchId = feature.attributes.RD_RCH_ID != null ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
+					var downRchId = feature.attributes.RD_RCH_ID != "" ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
 				  feature.attributes.D_RCH_ID = downRchId;
-					me.setRchIdsWithEvent(featureSet);
+				  //me.getDownSRich(featureSet);
+
+				  me.sriverTemp.push(featureSet);
+				  me.setRchIdsWithEvent(featureSet);
+				  
 				}else{
 					alert("데이터 오류 (좌우소하천,좌우리치 데이터 존재 X)");
 				}
@@ -1239,11 +1244,54 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		
     	}else{
 				//소하천이 존재하므로 소하천 검색을한다.
-				var downSrchId = feature.attributes.RD_SRCH_ID != null ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
+				var downSrchId = feature.attributes.RD_SRCH_ID != "" ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
 				feature.attributes.D_SRCH_ID = downSrchId;
     		me.setSRchIdsWithEvent(feature);	
     	}
     	
+	},
+
+	/**
+	 * 마지막 소하천에 하위 소하천 검색 로직
+	 */
+	getDownSRich: function(featureSet){
+
+		var me = this;		
+
+		require(["esri/tasks/query",
+	         "esri/tasks/QueryTask",
+	         "esri/geometry/Point",
+	         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
+		
+			var queryTask = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverReach); // 소하천 라인구역
+			var query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			query.where = "CAT_ID = '"+featureSet.features[0].attributes.CAT_ID+"'";
+			
+			queryTask.execute(query, function(sriverFeatures){
+
+				if(sriverFeatures.features.length > 0){
+					sriverFeatures.features.map(function(sriverObj){
+						if(Number(featureSet.features[0].attributes.SRCH_ID) < Number(sriverObj.attributes.SRCH_ID)){
+							//console.info(sriverObj.attributes.SRCH_ID);
+							me.sRiverLineArray.push(sriverObj);
+						}
+					});
+
+				}else{
+
+				}
+
+			});
+			
+			
+    	});
+
+
+
+		
+
 	},
 	
     
@@ -2867,6 +2915,30 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 	},
 
+	// 소하천 상하류 체크하여 그리기
+	setSReachDraw: function(drawFeatures, tmpRchId, updownFunction){//집수구역내 소하천 / 기준 소하천 / 상하류 구분
+
+		var me = this;
+
+
+		drawFeatures.map(function(sRiverObj){
+			if(updownFunction == "up"){
+				if(Number(tmpRchId.features[0].attributes.SRCH_ID) > Number(sRiverObj.attributes.SRCH_ID)){
+
+					me.drawGraphic(sRiverObj, "reachLine_s");	
+					console.info(sRiverObj.attributes.SRCH_ID);
+				}
+			}else if(updownFunction == "down"){
+				if(Number(tmpRchId.features[0].attributes.SRCH_ID) < Number(sRiverObj.attributes.SRCH_ID)){
+					me.drawGraphic(sRiverObj, "reachLine_s");	
+					console.info(sRiverObj.attributes.SRCH_ID);
+				}
+			}
+			
+		});
+
+	},
+
 
     /* 상류 리치라인 조회 및 그리기
      * rchDid: 검색될 리치 아이디(DID)
@@ -2951,7 +3023,60 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					
 					
 					if(cnt == 0){
+
+						
+
 						//me.sRiverLineArray //소하천 배열
+						// me.arrCommGrp[0].attributes.RCH_DID 공통하류
+						// 선택된 리치중 하나가 공통하류와 만나는 지점을 찾기 / 공통하류와 만나는 지점은 상류 소하천을 검색, 그 반대는 하류검색 (로직상 이해도 필요)
+
+						// 상하류 구분
+						var startFunction = "";
+						var ednFunction = "";
+
+						//시작지점과 끝지점 리치 나누기
+						var tmpSRchId = "";
+						var tmpERchId = "";
+						me.sriverTemp.map(function(sriverInfo){
+							if(sriverInfo.features[0].attributes.D_RCH_ID == me.stRchDids[0].substring(0,8)){
+								tmpSRchId = sriverInfo;
+							}else if(sriverInfo.features[0].attributes.D_RCH_ID == me.edRchDids[0].substring(0,8)){
+								tmpERchId = sriverInfo;
+							}
+						});
+						
+
+						// 시작지점/끝지점 일경우
+						if(tmpSRchId){
+							me.arrCommGrp[0].attributes.RCH_DID.substring(0,8) == tmpSRchId.features[0].attributes.D_RCH_ID ? startFunction = "up": startFunction = "down";
+							
+							var startWhere = "CAT_ID = '"+ tmpSRchId.features[0].attributes.D_RCH_ID +"'"; 
+							$KRF_APP.coreMap._rchLine.getSreachFeaturesWithWhere(startWhere, function (startFeature) {
+
+								me.setSReachDraw(startFeature, tmpSRchId, startFunction);//집수구역에 소하천 / 기준 소하천 / 상하류 구분
+
+							});
+						}
+						
+						// 시작지점/끝지점 일경우
+						if(tmpERchId){
+							me.arrCommGrp[0].attributes.RCH_DID.substring(0,8) == tmpERchId.features[0].attributes.D_RCH_ID ? endFunction = "up" : endFunction = "down";
+
+							var endWhere = "CAT_ID = '"+ tmpERchId.features[0].attributes.D_RCH_ID +"'";
+							$KRF_APP.coreMap._rchLine.getSreachFeaturesWithWhere(endWhere, function (endFeatures) {
+
+								me.setSReachDraw(endFeatures, tmpERchId, endFunction);//집수구역에 소하천 / 기준 소하천 / 상하류 구분
+								
+							});
+						}
+						
+						
+						
+						
+
+						// 배열 두개가 끝난후 소하천 리치 그리기
+
+
 						if(me.sRiverLineArray.length > 0){
 							for(var sRiver = 0 ; sRiver < me.sRiverLineArray.length; sRiver++){
 								

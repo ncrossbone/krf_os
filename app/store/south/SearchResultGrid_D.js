@@ -27,7 +27,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 			var me = this;
 			var requestUrl = "";
 			if (store.orgParentIds == "D001") {
-				requestUrl = _API.GetSearchResultData_D_1; //"./resources/jsp/GetSearchResultData_D_1.jsp";
+				//requestUrl = _API.GetSearchResultData_D_1; //"./resources/jsp/GetSearchResultData_D_1.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_1; //"./resources/jsp/GetSearchResultData_D_1.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -44,7 +45,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 					{ name: 'CURR_MNWL', type: 'number' }
 				]
 			} else if (store.orgParentIds == "D002") {
-				requestUrl = _API.GetSearchResultData_D_2; //"./resources/jsp/GetSearchResultData_D_2.jsp";
+				//requestUrl = _API.GetSearchResultData_D_2; //"./resources/jsp/GetSearchResultData_D_2.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_2; //"./resources/jsp/GetSearchResultData_D_2.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -55,7 +57,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 					'CURR_RF'
 				]
 			} else if (store.orgParentIds == "D003") {
-				requestUrl = _API.GetSearchResultData_D_3; //"./resources/jsp/GetSearchResultData_D_3.jsp";
+				//requestUrl = _API.GetSearchResultData_D_3; //"./resources/jsp/GetSearchResultData_D_3.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_3; //"./resources/jsp/GetSearchResultData_D_3.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -67,7 +70,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 					{ name: 'CHART_FW', type: 'number' }
 				]
 			} else if (store.orgParentIds == "D004") {
-				requestUrl = _API.GetSearchResultData_D_4; //"./resources/jsp/GetSearchResultData_D_4.jsp";
+				//requestUrl = _API.GetSearchResultData_D_4; //"./resources/jsp/GetSearchResultData_D_4.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_4; //"./resources/jsp/GetSearchResultData_D_4.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -82,7 +86,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 					'CURR_ECPC'
 				]
 			} else if (store.orgParentIds == "D005") {
-				requestUrl = _API.GetSearchResultData_D_5; //"./resources/jsp/GetSearchResultData_D_5.jsp";
+				//requestUrl = _API.GetSearchResultData_D_5; //"./resources/jsp/GetSearchResultData_D_5.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_5; //"./resources/jsp/GetSearchResultData_D_5.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -101,7 +106,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 					'CURR_RNDAY'
 				]
 			} else if (store.orgParentIds == "D006") {
-				requestUrl = _API.GetSearchResultData_D_6; //"./resources/jsp/GetSearchResultData_D_6.jsp";
+				//requestUrl = _API.GetSearchResultData_D_6; //"./resources/jsp/GetSearchResultData_D_6.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_6; //"./resources/jsp/GetSearchResultData_D_6.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -176,16 +182,15 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 									me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 									return;
 								}
-								if (store.orgParentIds == "D001" || store.orgParentIds == "D004" || store.orgParentIds == "D005" || store.orgParentIds == "D006" || store.orgParentIds == "D007") {
-									var afterVal = [];
-									afterVal.push(dateSplit.substring(0, 4));
-									afterVal.push(dateSplit.substring(4, 6));
-									afterVal.push(dateSplit.substring(6, 8));
-									afterVal.push(dateSplit.substring(8, 10));
-								} else {
-									var afterVal = dateSplit.split(".");
-								}
+								
+
+								var afterVal = [];
+								afterVal.push(dateSplit.substring(0, 4));
+								afterVal.push(dateSplit.substring(4, 6));
+
 								startYear = afterVal[0];
+
+								
 								if (store.orgParentIds == "D007") {
 									var sDate = new Date(afterVal[0], parseInt(afterVal[1]) - 1, afterVal[2]);
 									// 보관측소는 하루전 기본 하루전 데이터 조회
