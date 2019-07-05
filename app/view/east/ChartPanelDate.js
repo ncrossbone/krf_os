@@ -40,6 +40,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		var k_ChartDate = Ext.getCmp("k_ChartDate");
 		var z_ChartDate = Ext.getCmp("z_ChartDate");
 
+		var d007_ChartDate = Ext.getCmp("d007_ChartDate");
+
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
 
@@ -55,6 +57,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 		q_ChartDate.hidden = true;
 		z_ChartDate.hidden = true;
 		k_ChartDate.hidden = true;
+
+		d007_ChartDate.hidden = true;
 
 		var parentChk = $KRF_APP.parentFlag;
 		var chartFlag_D = $KRF_APP.chartFlag_D;
@@ -188,6 +192,26 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			z_ChartDate.hidden = true;
 
 			k_ChartDate.hidden = false;
+		} else if (parentChk == 'D') {
+			f_Chart.hidden = true;
+			f_ChartText.hidden = true;
+			hChartDate.hidden = true;
+
+			if (chartFlag_D == 'D007') {
+				d007_ChartDate.hidden = false;
+				startChartDate.hidden = true;
+				endChartDate.hidden = true;
+
+				if (datePanel1) {
+					datePanel1.setHeight(250);
+				} else {
+					me.height = 250;
+				}
+			} else {
+				var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
+				selectYear.setStore(year);
+				selectYear2.setStore(year);
+			}
 		} else {
 			//console.info(parentChk);
 			f_Chart.hidden = true;
@@ -478,7 +502,13 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 
 			if (parentChk != "C" && parentChk != "H" && parentChk != 'M' && parentChk != 'L' && parentChk != 'Q' && parentChk != 'Z' && parentChk != 'K') {
 				var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
-				var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
+				var endChartDate = '';
+
+				if (_chartDateInfo[1].WMCYMD) {
+					endChartDate = _chartDateInfo[1].WMCYMD.split('.');
+				} else {
+					endChartDate = startChartDate;
+				}
 
 				var startYear, startMonth, endYear, endMonth;
 
@@ -497,7 +527,15 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				selectYear2.setValue(endYear);
 				selectMonth2.setValue(endMonth);
 
+				if (chartFlag_D == 'D007') {
+					Ext.getCmp("d007_SelectYear").setValue(startChartDate[0]);
+					Ext.getCmp("d007_SelectMonth").setValue(startChartDate[1]);
+					Ext.getCmp("d007_SelectDay").setValue(startChartDate[2].split(' ')[0]);
 
+					Ext.getCmp("d007_EndYear").setValue(endChartDate[0]);
+					Ext.getCmp("d007_EndMonth").setValue(endChartDate[1]);
+					Ext.getCmp("d007_EndDay").setValue(endChartDate[2].split(' ')[0]);
+				}
 			} else if (parentChk == "H") {
 
 				var hSelectYear = Ext.getCmp("hSelectYear");
@@ -1264,6 +1302,100 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				}, {
 					xtype: 'label',
 					text: '월 까지'
+				}]
+			}]
+		}, {
+			xtype: "container",
+			id: "d007_ChartDate",
+			layout: {
+				type: "vbox"
+			},
+			items: [{
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "d007_SelectYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}]
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: 'combo',
+					id: 'd007_SelectMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월'
+				}, {
+					xtype: 'container',
+					width: 5
+				}, {
+					xtype: 'combo',
+					id: 'd007_SelectDay',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14',
+						'15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '일 부터'
+				}]
+			}, {
+				xtype: 'container',
+				height: 5
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: "combo",
+					width: 80,
+					height: 25,
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					id: "d007_EndYear",
+					editable: false,
+				}, {
+					xtype: 'label',
+					text: '년'
+				}]
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				style: 'margin-bottom:5px;',
+				items: [{
+					xtype: 'combo',
+					id: 'd007_EndMonth',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '월'
+				}, {
+					xtype: 'container',
+					width: 5
+				}, {
+					xtype: 'combo',
+					id: 'd007_EndDay',
+					store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14',
+						'15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+					width: 55,
+					height: 25
+				}, {
+					xtype: 'label',
+					text: '일 까지'
 				}]
 			}]
 		}, {

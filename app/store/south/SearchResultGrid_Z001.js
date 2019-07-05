@@ -29,14 +29,14 @@ Ext.define('krf_new.store.south.SearchResultGrid_Z001', {
 
             var endYear, endMonth = '';
 
-            var eYearCtl = Ext.getCmp('endYear__Z');
+            var eYearCtl = Ext.getCmp('endYear_Z');
             if (sYearCtl != undefined) {
-                endYear = Ext.getCmp('endYear__Z').value;
+                endYear = Ext.getCmp('endYear_Z').value;
             }
 
-            var eMonthCtl = Ext.getCmp('endMonth__Z');
+            var eMonthCtl = Ext.getCmp('endMonth_Z');
             if (sMonthCtl != undefined) {
-                endMonth = Ext.getCmp('endMonth__Z').value;
+                endMonth = Ext.getCmp('endMonth_Z').value;
             }
 
             // 로딩바 표시

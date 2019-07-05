@@ -30,9 +30,16 @@ Ext.define('krf_new.global.SedimentFn', {
 
 			me.setCombo();
 			me.setbuttonOnOff('on');
+
+			me.sedimentSeachWindow = sedimentSeachWindow;
+			me.sedimentLegendWindow = sedimentLegendWindow;
+
 		} else {
 			me.removeFeature();
 			me.setbuttonOnOff('off');
+
+			me.sedimentSeachWindow.hide();
+			me.sedimentLegendWindow.hide();
 		}
 	},
 
@@ -173,7 +180,6 @@ Ext.define('krf_new.global.SedimentFn', {
 		};
 
 		Ext.Ajax.request({
-			//url: 'http://localhost:8080/krf/searchResult/getSedimentItemValue',
 			url: _API.getSedimentItemValue,
 			dataType: 'text/plain',
 			method: 'POST',
@@ -183,9 +189,7 @@ Ext.define('krf_new.global.SedimentFn', {
 				var data = JSON.parse(response.responseText).data;
 				me.writeFeature(data);
 			},
-			failure: function () {
-				//alert('하드코딩 RestAPI입니다. URL 수정후 작업하세요. sedimentFn.js');
-			}
+			failure: function () { }
 		});
 	},
 

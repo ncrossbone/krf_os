@@ -179,6 +179,20 @@
     "GetSearchResultData_F_2018_3":"#host#/searchResult/searchResult_F_2018_3",
 
     
+    "GetRWMDT_2018_D001":"#host#/chart/getRWMDT_2018_D001",
+    "GetRWMDT_2018_D002":"#host#/chart/getRWMDT_2018_D002",
+    "GetRWMDT_2018_D003":"#host#/chart/getRWMDT_2018_D003",
+    "GetRWMDT_2018_D004":"#host#/chart/getRWMDT_2018_D004",
+    "GetRWMDT_2018_D005":"#host#/chart/getRWMDT_2018_D005",
+    "GetRWMDT_2018_D006":"#host#/chart/getRWMDT_2018_D006",
+    "GetRWMDT_2018_D007":"#host#/chart/getRWMDT_2018_D007",
+
+    "GetRWMDT_2018_I":"#host#/chart/getRWMDT_2018_I",
+
+    "GetRWMDT_2018_F_1":"#host#/chart/getRWMDT_2018_F_1",
+    "GetRWMDT_2018_F_3":"#host#/chart/getRWMDT_2018_F_3",
+
+    "GetRWMDT_2018_C":"#host#/chart/getRWMDT_2018_C",
 
     init: function(host_old,host){
               if(host != null){

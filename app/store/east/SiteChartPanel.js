@@ -144,7 +144,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectMonth = z_SelectMonth.lastValue;
 					selectMonth2 = z_EndMonth.lastValue;
 
-				} else if(store.parentId == 'K'){
+				} else if (store.parentId == 'K') {
 					var k_SelectYear = Ext.getCmp('k_SelectYear_chart');
 					var k_SelectMonth = Ext.getCmp('k_SelectMonth_chart');
 
@@ -155,6 +155,13 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					selectYear2 = k_EndYear.lastValue;
 					selectMonth = k_SelectMonth.lastValue;
 					selectMonth2 = k_EndMonth.lastValue;
+				} else if (store.parentId == 'D007') {
+
+					selectYear = Ext.getCmp("d007_SelectYear").lastValue;
+					selectMonth = Ext.getCmp('d007_SelectMonth').lastValue + Ext.getCmp('d007_SelectDay').lastValue;
+
+					selectYear2 = Ext.getCmp('d007_EndYear').lastValue;
+					selectMonth2 = Ext.getCmp('d007_EndMonth').lastValue + Ext.getCmp('d007_EndDay').lastValue;
 				} else {
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
@@ -186,23 +193,33 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				siteId = store.siteId;
 			}
 
-			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L"|| store.parentId == "K") {
+			if (store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I" || store.parentId == "L" || store.parentId == "K") {
 				if (store.parentId == "A") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "B") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
+				} else if (store.parentId == 'C') {
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "L") {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else if (store.parentId == "K") {
+					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
+				} else if (store.parentId == 'I') {
 					requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 				} else {
 					requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 				}
 				//requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if (store.parentId == "F") {
-				requestUrl = _API['GetRWMDT_' + f_parentId]; //"./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
+
+				if (f_parentId == 'F_1' || f_parentId == 'F_3') {
+					requestUrl = _API['GetRWMDT_2018_' + f_parentId];
+				} else {
+					requestUrl = _API['GetRWMDT_' + f_parentId];
+				}
+
 			} else if (org_D_firstID == "D") {
-				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+				requestUrl = _API['GetRWMDT_2018_' + store.parentId];
 			} else if (store.parentId == "H") {
 				requestUrl = _API['GetRWMDT_' + store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			} else if (store.parentId == 'M') {
@@ -382,7 +399,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						_chartDateInfo.push(jsonData.data[0]);
 						_chartDateInfo.push(jsonData.data[jsonData.data.length - 1]);
 						if (store.parentId == "F") {
-							_chartDateInfo[0].f_gubun = f_parentId;
+							if (_chartDateInfo[0].f_gubun) {
+								_chartDateInfo[0].f_gubun = f_parentId;
+							}
 						}
 						if (store.parentId == "A") {
 							for (var ndReplace = 0; ndReplace < jsonData.data.length; ndReplace++) {
