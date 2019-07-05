@@ -39,7 +39,7 @@ Ext.define('krf_new.view.search.West', {
 				region: 'north',
 				style: 'background: #f8f8f8; padding: 5px; border-bottom: 1px solid #d8d8d8;',
 				height: 35,
-				items: [{
+				/*items: [{
 					id: 'cmbLayerList',
 					xtype: 'combo',
 					cls: 'khLee-x-form-item-label-default',
@@ -49,7 +49,7 @@ Ext.define('krf_new.view.search.West', {
 					labelPad: 10,
 					width: 225,
 					editable: false,
-					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }),
+					//store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }),
 					displayField: 'layerSetName',
 					valueField: 'layerSetId',
 					listeners: {
@@ -82,7 +82,7 @@ Ext.define('krf_new.view.search.West', {
 							}
 						}
 					}
-				}]
+				}]*/
 			}, {
 				xtype: 'west-Layer01',
 				region: 'center'

@@ -305,7 +305,7 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin1', {
 					"           <td>${ITEM_BLUE_GREEN_ALGAE}</td>                                                                           " +
 					"       </tbody>                                                                                " +
 					"   </table>                                                                                    ";
-				if (evt.graphic.attributes.측정소명 == "칠곡보") {
+				if (evt.graphic.attributes.측정소명 == "낙동강(칠곡)") {
 					var t2 =
 						"   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
 						"   <table class=\"tst04\">                                                                     " +
@@ -339,7 +339,7 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin1', {
 						"           </tr>                                                                               " +
 						"       </tbody>                                                                                " +
 						"   </table>                                                                                    ";
-				} else if (evt.graphic.attributes.측정소명 == "강정고령보") {
+				} else if (evt.graphic.attributes.측정소명 == "낙동강(강정고령)") {
 					var t2 =
 						"   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
 						"   <table class=\"tst04\">                                                                     " +
@@ -373,7 +373,7 @@ Ext.define('krf_new.view.drone.map.DroneFeatureLayerAdmin1', {
 						"           </tr>                                                                               " +
 						"       </tbody>                                                                                " +
 						"   </table>                                                                                    ";
-				} else if (evt.graphic.attributes.측정소명 == "창녕함안보") {
+				} else if (evt.graphic.attributes.측정소명 == "낙동강(창녕함안)") {
 					var t2 =
 						"   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
 						"   <table class=\"tst04\">                                                                     " +

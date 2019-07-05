@@ -55,17 +55,17 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 				},
 				columns: [{
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					dataIndex: 'WRSSM_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '소권역',
-					dataIndex: 'AS_NM',
+					dataIndex: 'SDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
@@ -101,14 +101,14 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 					}
 				}, {
 					text: '관측일자',
-					dataIndex: 'WMCYMD',
+					dataIndex: 'OBSR_DE',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '강수량자료(mm)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_RND',
+						dataIndex: 'CURR_RAINFL',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'RND'));
@@ -117,7 +117,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_RND',
+						dataIndex: 'CHART_RAINFL',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -143,7 +143,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 					text: '기온(℃)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_TA',
+						dataIndex: 'CURR_TMPRT',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'TA'));
@@ -152,7 +152,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_TA',
+						dataIndex: 'CHART_TMPRT',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -178,7 +178,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 					text: '일사(MJ/m2)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_SIDAY',
+						dataIndex: 'CURR_SOLRAD_QY',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'SIDAY'));
@@ -187,7 +187,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_6', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_SIDAY',
+						dataIndex: 'CHART_SOLRAD_QY',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',

@@ -166,6 +166,19 @@
     "GetRWMDT_Z005":"#host#/chart/getRWMDT_2018_Z005",
     "GetRWMDT_Z006":"#host#/chart/getRWMDT_2018_Z006",
 
+    "GetSearchResultData_2018_E":"#host#/searchResult/", // 수생태계
+    "GetSearchResultData_D_2018_1":"#host#/searchResult/searchResult_D_2018_1",
+    "GetSearchResultData_D_2018_2":"#host#/searchResult/searchResult_D_2018_2",
+    "GetSearchResultData_D_2018_3":"#host#/searchResult/searchResult_D_2018_3",
+    "GetSearchResultData_D_2018_4":"#host#/searchResult/searchResult_D_2018_4",
+    "GetSearchResultData_D_2018_5":"#host#/searchResult/searchResult_D_2018_5",
+    "GetSearchResultData_D_2018_6":"#host#/searchResult/searchResult_D_2018_6",
+    "GetSearchResultData_D_2018_7":"#host#/searchResult/searchResult_D_2018_7",
+
+    "GetSearchResultData_F_2018_1":"#host#/searchResult/searchResult_F_2018_1",
+    "GetSearchResultData_F_2018_3":"#host#/searchResult/searchResult_F_2018_3",
+
+    
     "GetRWMDT_2018_D001":"#host#/chart/getRWMDT_2018_D001",
     "GetRWMDT_2018_D002":"#host#/chart/getRWMDT_2018_D002",
     "GetRWMDT_2018_D003":"#host#/chart/getRWMDT_2018_D003",

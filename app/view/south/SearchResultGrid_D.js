@@ -54,12 +54,13 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 				},
 				columns: [{
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					//dataIndex: 'WS_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					dataIndex: 'SDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
@@ -100,14 +101,14 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 					}
 				}, {
 					text: '관측일자',
-					dataIndex: 'WMCYMD',
+					dataIndex: 'OBSR_DE',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '수위(cm)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_WL',
+						dataIndex: 'CURR_WLV',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'WL'));
@@ -116,7 +117,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_WL',
+						dataIndex: 'CHART_WLV',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -142,7 +143,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 					text: '최고수위',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_MXWL',
+						dataIndex: 'CURR_TOP_WLV',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'MXWL'));
@@ -151,7 +152,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_MXWL',
+						dataIndex: 'CHART_TOP_WLV',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
@@ -177,7 +178,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 					text: '최저수위(cm)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_MNXL',
+						dataIndex: 'CURR_LWET_WLV',
 						width: 100,
 						renderer: function (value) {
 							return Ext.util.Format.number(value, $KRF_APP.global.AttrFn.getAttrFormat(this.config.layerId, 'MNXL'));
@@ -186,7 +187,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_D', {
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_MNXL',
+						dataIndex: 'CHART_LWET_WLV',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',

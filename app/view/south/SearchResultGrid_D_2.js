@@ -54,17 +54,17 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_2', {
 				},
 				columns: [{
 					text: '대권역',
-					dataIndex: 'WS_NM',
+					dataIndex: 'WRSSM_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '중권역',
-					dataIndex: 'AM_NM',
+					dataIndex: 'MDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '소권역',
-					dataIndex: 'AS_NM',
+					dataIndex: 'SDT_NM',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
@@ -100,20 +100,20 @@ Ext.define('krf_new.view.south.SearchResultGrid_D_2', {
 					}
 				}, {
 					text: '관측일자',
-					dataIndex: 'WMCYMD',
+					dataIndex: 'OBSR_DE',
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					width: 110
 				}, {
 					text: '우량자료(mm)',
 					columns: [{
 						text: '측정값',
-						dataIndex: 'CURR_RF',
+						dataIndex: 'CURR_RAINFALL',
 						width: 100,
 						filter: { type: 'numeric'/*, fields: {}*/ }
 					}, {
 						text: '추이변화',
 						width: 80,
-						dataIndex: 'CHART_RF',
+						dataIndex: 'CHART_RAINFALL',
 						xtype: 'widgetcolumn',
 						widget: {
 							xtype: 'sparklineline',
