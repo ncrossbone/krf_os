@@ -33,7 +33,7 @@ Ext.define('krf_new.store.east.BoListWindow', {
 			
 
 
-			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 

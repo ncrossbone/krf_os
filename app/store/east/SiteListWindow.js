@@ -53,7 +53,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			//console.info(bookParamObj.searchText);
 			
 			//var catDid = [];
-			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			//if (buttonInfo1.lastValue != null) {
@@ -563,7 +563,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 		var siteIds = [];
 
-		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 		var query = new esri.tasks.Query();
 
 		query.where = queryWhere;
