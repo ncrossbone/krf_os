@@ -19,7 +19,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_I', {
 			var requestUrl = "";
 
 			if (store.orgParentIds == "I001") {
-				requestUrl = _API.GetSearchResultData_I_1;
+				//requestUrl = _API.GetSearchResultData_I_1;
+				requestUrl = _API.GetSearchResultData_I_2018_1;
 				store.config.fields = [
 					'PT_NO',
 					'PT_NM',

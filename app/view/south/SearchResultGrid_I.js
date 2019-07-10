@@ -53,13 +53,13 @@ Ext.define('krf_new.view.south.SearchResultGrid_I', {
 				},
 				columns: [{
 					text: '측정소코드',
-					dataIndex: 'PT_NO',
+					dataIndex: 'SWMN_CODE',
 					hidden: true,
 					hideable: false, // filter Columns영역에 보이지 않기
 					width: 0
 				}, {
 					text: '측정소명',
-					dataIndex: 'PT_NM',
+					dataIndex: 'SWMN_NM',
 					width: 100,
 					//filterable: true,
 					//filter: {type: 'string'},

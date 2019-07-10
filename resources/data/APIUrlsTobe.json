@@ -193,6 +193,10 @@
     "GetRWMDT_2018_F_3":"#host#/chart/getRWMDT_2018_F_3",
 
     "GetRWMDT_2018_C":"#host#/chart/getRWMDT_2018_C",
+    "searchResult_C2018":"#host#/searchResult/searchResult_C2018",
+
+    "GetSearchResultData_I_2018_1":"#host#/searchResult/searchResult_I_2018_1",
+    "GetSearchResultData_I_2018_2":"#host#/searchResult/searchResult_I_2018_2",
 
     init: function(host_old,host){
               if(host != null){

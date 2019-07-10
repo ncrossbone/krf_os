@@ -53,13 +53,13 @@ Ext.define('krf_new.view.south.SearchResultGrid_C', {
 				},
 				columns: [{
 					text: '측정소코드',
-					dataIndex: 'PT_NO',
+					dataIndex: 'DPMN_CODE',
 					hidden: true,
 					hideable: false, // filter Columns영역에 보이지 않기
 					width: 0
 				}, {
 					text: '지점명',
-					dataIndex: 'PT_NM',
+					dataIndex: 'DPMN_NM',
 					width: 100,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
 					listeners: {
@@ -85,27 +85,27 @@ Ext.define('krf_new.view.south.SearchResultGrid_C', {
 					}
 				}, {
 					text: '채취년도',
-					dataIndex: 'WMYR',
+					dataIndex: 'YEAR',
 					width: 110,
 					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '반기',
-					dataIndex: 'WMWK',
+					dataIndex: 'TME',
 					width: 70,
 					filter: { type: 'numeric'/*, fields: {}*/ }
 				}, {
 					text: '채취월',
-					dataIndex: 'WMOM',
+					dataIndex: 'MT',
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '채취일',
-					dataIndex: 'WMOD',
+					dataIndex: 'DE',
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
 					text: '채취시간',
-					dataIndex: 'WMCTM',
+					dataIndex: 'WTRSMPLE_TM',
 					hidden: true,
 					width: 110,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }

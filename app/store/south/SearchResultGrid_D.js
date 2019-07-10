@@ -187,6 +187,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 								var afterVal = [];
 								afterVal.push(dateSplit.substring(0, 4));
 								afterVal.push(dateSplit.substring(4, 6));
+								afterVal.push(dateSplit.substring(6, 8));
+								afterVal.push(dateSplit.substring(8, 10));
 
 								startYear = afterVal[0];
 
