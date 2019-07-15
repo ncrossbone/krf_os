@@ -3391,7 +3391,7 @@ getLayer01Info = function (attrName, attrValue, childNodes, layer01Infos) {
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
 //'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'DLSE
 setActionInfo = function (system, type, node, id, userId) {
-	return;
+	//return;
 	//1DEP 일시
 	if (node == 0) {
 		node = id;

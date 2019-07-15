@@ -2915,7 +2915,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 
 	},
 
-	// 소하천 상하류 체크하여 그리기
+	// 소하천 상하류 소하천라인 체크하여 그리기
 	setSReachDraw: function(drawFeatures, tmpRchId, updownFunction){//집수구역내 소하천 / 기준 소하천 / 상하류 구분
 
 		var me = this;
@@ -2926,17 +2926,83 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				if(Number(tmpRchId.features[0].attributes.SRCH_ID) > Number(sRiverObj.attributes.SRCH_ID)){
 
 					me.drawGraphic(sRiverObj, "reachLine_s");	
-					console.info(sRiverObj.attributes.SRCH_ID);
+					//me.getSRiverArea(sRiverObj);
+
 				}
 			}else if(updownFunction == "down"){
 				if(Number(tmpRchId.features[0].attributes.SRCH_ID) < Number(sRiverObj.attributes.SRCH_ID)){
 					me.drawGraphic(sRiverObj, "reachLine_s");	
-					console.info(sRiverObj.attributes.SRCH_ID);
+					//me.getSRiverArea(sRiverObj);
 				}
 			}
 			
 		});
 
+	},
+
+
+	// 소하천 상하류 소하천집수구역 체크하여 그리기
+	setSAreaDraw: function(drawFeatures, tmpRchId, updownFunction){//집수구역내 소하천 / 기준 소하천 / 상하류 구분
+
+		var me = this;
+
+
+		drawFeatures.map(function(sRiverObj){
+			if(updownFunction == "up"){
+				if(Number(tmpRchId.features[0].attributes.SCAT_ID) > Number(sRiverObj.attributes.SCAT_ID)){
+
+					me.drawGraphic(sRiverObj, "reachArea_s");	
+					me.sRiverAreaArray.push(sRiverObj);
+
+				}
+			}else if(updownFunction == "down"){
+				if(Number(tmpRchId.features[0].attributes.SCAT_ID) < Number(sRiverObj.attributes.SCAT_ID)){
+					me.drawGraphic(sRiverObj, "reachArea_s");	
+					me.sRiverAreaArray.push(sRiverObj);
+				}
+			}
+			
+		});
+
+	},
+
+	getSRiverArea: function(feature){
+    	
+    	var me = this;
+    	
+		var sCatId = feature.attributes.SCAT_ID;
+		
+		if(sCatId){
+			require(["esri/tasks/query",
+	         "esri/tasks/QueryTask"], function(Query, QueryTask){
+		
+			var queryTask = new QueryTask($KRF_DEFINE.sRiver + "/" + $KRF_DEFINE.sRiverCat); // 소하천집수구역 URL
+			var query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			
+			query.where = "SCAT_ID = '" + sCatId + "'";
+			
+			// 집수구역 조회
+			queryTask.execute(query, function(featureSet){
+				
+				if(featureSet.features.length > 0){
+					
+					me.sRiverAreaArray.push(featureSet.features[0]);
+					me.drawGraphic(featureSet.features[0], "reachArea_s");
+					
+					
+				}
+				
+				
+				
+				});
+			});
+		}
+    	
+    	
+    	
+    	
 	},
 
 
@@ -3056,6 +3122,14 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 								me.setSReachDraw(startFeature, tmpSRchId, startFunction);//집수구역에 소하천 / 기준 소하천 / 상하류 구분
 
 							});
+
+
+							//var startAreaWhere = "CAT_ID = '"+ tmpSRchId.features[0].attributes.D_RCH_ID +"'"; 
+							$KRF_APP.coreMap._rchArea.getSreachFeaturesWithWhere(startWhere, function (startAreaFeature) {
+
+								me.setSAreaDraw(startAreaFeature, tmpSRchId, startFunction);//집수구역에 소하천 / 기준 소하천 / 상하류 구분
+
+							});
 						}
 						
 						// 시작지점/끝지점 일경우
@@ -3066,6 +3140,13 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 							$KRF_APP.coreMap._rchLine.getSreachFeaturesWithWhere(endWhere, function (endFeatures) {
 
 								me.setSReachDraw(endFeatures, tmpERchId, endFunction);//집수구역에 소하천 / 기준 소하천 / 상하류 구분
+								
+							});
+
+
+							$KRF_APP.coreMap._rchArea.getSreachFeaturesWithWhere(endWhere, function (endAreaFeatures) {
+
+								me.setSAreaDraw(endAreaFeatures, tmpERchId, endFunction);//집수구역에 소하천 / 기준 소하천 / 상하류 구분
 								
 							});
 						}

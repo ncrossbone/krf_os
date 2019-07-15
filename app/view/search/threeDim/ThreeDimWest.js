@@ -50,32 +50,32 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimWest', {
 					displayField: 'layerSetName',
 					valueField: 'layerSetId',
 					listeners: {
-						afterrender: function () {
-							this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
-							$('#cmbThreeDimLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
-						},
-						change: function (combo, newValue, oldValue, eOpts) {
-							var selectedRecord = combo.getSelectedRecord();
-							if (selectedRecord) {
+						// afterrender: function () {
+						// 	this.setSelection(parseInt($KRF_APP.USER_LAYERS.layerSetId));
+						// 	$('#cmbThreeDimLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+						// },
+						// change: function (combo, newValue, oldValue, eOpts) {
+						// 	var selectedRecord = combo.getSelectedRecord();
+						// 	if (selectedRecord) {
 
-								layerSetInfo = selectedRecord.data;
+						// 		layerSetInfo = selectedRecord.data;
 
-								if ($KRF_APP.USER_LAYERS.layerSetId != layerSetInfo.layerSetId) {
-									$KRF_APP.USER_LAYERS = layerSetInfo;
-									if (typeof (layerSetInfo.layerSetIds) == 'string') {
-										$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(layerSetInfo.layerSetIds);
-									}
+						// 		if ($KRF_APP.USER_LAYERS.layerSetId != layerSetInfo.layerSetId) {
+						// 			$KRF_APP.USER_LAYERS = layerSetInfo;
+						// 			if (typeof (layerSetInfo.layerSetIds) == 'string') {
+						// 				$KRF_APP.USER_LAYERS.layerSetIds = JSON.parse(layerSetInfo.layerSetIds);
+						// 			}
 
-									Ext.getCmp('threeDimLayer01').fireEvent('afterrender');
+						// 			Ext.getCmp('threeDimLayer01').fireEvent('afterrender');
 
-									var threeDimLayer = Ext.getCmp('layer01');
-									if (threeDimLayer) {
-										threeDimLayer.fireEvent('afterrender');
-										$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
-									}
-								}
-							}
-						}
+						// 			var threeDimLayer = Ext.getCmp('layer01');
+						// 			if (threeDimLayer) {
+						// 				threeDimLayer.fireEvent('afterrender');
+						// 				$('#cmbLayerList-inputEl').val($KRF_APP.USER_LAYERS.layerSetName);
+						// 			}
+						// 		}
+						// 	}
+						// }
 					}
 				}]
 			}
