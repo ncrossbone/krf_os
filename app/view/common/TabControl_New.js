@@ -601,7 +601,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				listeners: {
 					change: function () {
 
-						console.info('change');
+						
 
 						$KRF_APP.btnFlag = "noDate";
 
@@ -1411,9 +1411,6 @@ Ext.define('krf_new.view.common.TabControl_New', {
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
 				
-				console.info(tabPanel);
-				console.info(tab);
-				console.info(tab.initialConfig.parentId);
 
 				var nodeId = "";
 

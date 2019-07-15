@@ -1384,7 +1384,7 @@ Ext.define('krf_new.view.common.TabControl', {
 						dataArr = store.data.map[1].value;
 
 					}
-					console.info(dataArr);
+					//console.info(dataArr);
 					for (var i = 0; i < dataArr.length; i++) {
 
 
