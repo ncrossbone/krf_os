@@ -2739,6 +2739,15 @@ ResetButtonClick = function () {
 	Layer01OnOff("4", "on");
 	Layer01OnOff("5", "on");
 
+	/*퇴적물 관련 */
+	krf_new.global.SedimentFn.initArr();
+
+	var sedimentSeachWindow = Ext.getCmp('sedimentSeachWindow');
+	var sedimentLegendWindow = Ext.getCmp('sedimentLegendWindow');
+	if (sedimentSeachWindow && sedimentLegendWindow) {
+		sedimentSeachWindow.hide();
+		sedimentLegendWindow.hide();
+	}
 }
 
 
