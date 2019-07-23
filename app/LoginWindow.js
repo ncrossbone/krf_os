@@ -87,12 +87,28 @@ Ext.define('Desktop.LoginWindow', {
                     }, {
                         xtype: 'textfield',
                         style: 'padding:10px 15px; border:1px solid #dadada; border-radius:3px; color:#232323; width:370px; box-sizing:border-box; font-family:\'notokr-regular\'; font-size:14px;',
-                        id: 'userId'
+                        id: 'userId',
+                        enableKeyEvents: true,
+                        listeners: {
+                            keyup: function (form, e) {
+                                if (e.getKey() == 13) {
+                                    Ext.getCmp('loginButton').fireEvent('click');
+                                }
+                            }
+                        }
                     }, {
                         xtype: 'textfield',
                         inputType: 'password',
                         style: 'padding:10px 15px; border:1px solid #dadada; border-radius:3px; color:#232323; width:370px; box-sizing:border-box; font-family:\'notokr-regular\'; font-size:14px;',
-                        id: 'userPass'
+                        id: 'userPass',
+                        enableKeyEvents: true,
+                        listeners: {
+                            keyup: function (form, e) {
+                                if (e.getKey() == 13) {
+                                    Ext.getCmp('loginButton').fireEvent('click');
+                                }
+                            }
+                        }
                     }, {
                         xtype: 'button',
                         id: 'loginButton',
@@ -122,11 +138,11 @@ Ext.define('Desktop.LoginWindow', {
                                                 var decodeData = Ext.util.JSON.decode(response.responseText);
                                                 if (decodeData.data.length >= 1) {
                                                     $KRF_APP.loginInfo = decodeData.data[0];
-                                                    
+
 
                                                     var value = decodeData.data[0];
-                                                    for(key in value ){
-                                                        if (value .hasOwnProperty(key)) {
+                                                    for (key in value) {
+                                                        if (value.hasOwnProperty(key)) {
                                                             sessionStorage[key] = value[key];
                                                         }
                                                     }
