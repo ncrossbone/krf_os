@@ -16,14 +16,14 @@ Ext.define('krf_new.view.common.TabControl_New', {
 
 	items: [{
 		xtype: 'container',
-		id: "tabCondition", 
+		id: "tabCondition",
 		//title: 'test',
 		layout: {
 			type: 'hbox'
 		},
 		height: 30,
 		items: [{
-			xtype: 'container', 
+			xtype: 'container',
 			id: 'resultTab_A',
 			hidden: true,
 			layout: {
@@ -107,8 +107,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_B',
 			hidden: true,
 			layout: {
@@ -192,8 +192,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_C',
 			hidden: true,
 			layout: {
@@ -206,7 +206,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			items: [{
 				xtype: 'container',
 				width: 10
-			},{
+			}, {
 				xtype: 'label',
 				text: '기간'
 			}, {
@@ -292,8 +292,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_D',
 			hidden: true,
 			layout: {
@@ -377,8 +377,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_E',
 			hidden: true,
 			layout: {
@@ -432,7 +432,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				width: 10
 			}, {
 				xtype: 'combo',
-				id: 'endYear_E', 
+				id: 'endYear_E',
 				store: $KRF_APP.global.CommFn.bindComboYear(2010, "Desc", ""),
 				width: 80,
 				height: 25
@@ -460,7 +460,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			}, {
 				xtype: 'container',
 				width: 15
-			},{
+			}, {
 				xtype: 'combo',
 				id: 'sstgCombo',
 				valueField: 'id',
@@ -510,8 +510,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_F',
 			hidden: true,
 			layout: {
@@ -578,10 +578,10 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			}, {
 				xtype: 'label',
 				text: '월'
-			},{
+			}, {
 				xtype: 'container',
 				width: 15
-			},{
+			}, {
 				xtype: 'combo',
 				id: 'F_CHANGE',
 				valueField: 'id',
@@ -601,13 +601,13 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				listeners: {
 					change: function () {
 
-						
+
 
 						$KRF_APP.btnFlag = "noDate";
 
 						var fName = Ext.getCmp("F_CHANGE");
 						var tabCtl = Ext.getCmp("searchResultTab");
-							tabCtl = tabCtl.items.items[1];
+						tabCtl = tabCtl.items.items[1];
 						var activeTab = tabCtl.getActiveTab();
 						var gridContainer = activeTab.items.items[0];
 						var gridCtl = gridContainer.items.items[0];
@@ -641,8 +641,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_G',
 			hidden: true,
 			layout: {
@@ -653,10 +653,10 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			flex: 1,
 			height: 30,
 			items: [{
-				
+
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_H',
 			hidden: true,
 			layout: {
@@ -761,8 +761,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_I',
 			hidden: true,
 			layout: {
@@ -1102,7 +1102,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			items: [{
 				xtype: 'label',
 				text: '기간'
-			},{
+			}, {
 				xtype: 'container',
 				width: 10
 			}, {
@@ -1177,7 +1177,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			items: [{
 				xtype: 'label',
 				text: '기간'
-			},{
+			}, {
 				xtype: 'container',
 				width: 10
 			}, {
@@ -1275,8 +1275,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 					}
 				}
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_PollLoad', //부하량
 			hidden: true,
 			layout: {
@@ -1289,7 +1289,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			items: [{
 				xtype: 'label',
 				text: '기간'
-			},{
+			}, {
 				xtype: 'combo',
 				id: 'pollYear',
 				store: ['2013', '2012', '2011', '2010'],
@@ -1324,8 +1324,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				}
 
 			}]
-		},{
-			xtype: 'container', 
+		}, {
+			xtype: 'container',
 			id: 'resultTab_Pollution',//오염원
 			hidden: true,
 			layout: {
@@ -1338,7 +1338,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			items: [{
 				xtype: 'label',
 				text: '기간'
-			},{
+			}, {
 				xtype: 'combo',
 				id: 'pollutionSelect',
 				valueField: 'id',
@@ -1353,10 +1353,10 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				value: '11',
 				width: 170,
 				height: 25
-			},{
+			}, {
 				xtype: 'container',
 				width: 10
-			},{
+			}, {
 				xtype: 'combo',
 				id: 'pollutionYear',
 				store: ['2015', '2014', '2013', '2012', '2011'],
@@ -1410,36 +1410,36 @@ Ext.define('krf_new.view.common.TabControl_New', {
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners: {
 			'tabchange': function (tabPanel, tab) {
-				
+
 
 				var nodeId = "";
 
-				if(tab.initialConfig.id == "searchResultPollLoad_container"){//부하량
+				if (tab.initialConfig.id == "searchResultPollLoad_container") {//부하량
 					nodeId = "PollLoad";//부하량
-				}else if(tab.initialConfig.id == "searchResultpollution_01_container"//오염원
-						||tab.initialConfig.id == "searchResultpollution_02_container"
-						||tab.initialConfig.id == "searchResultpollution_03_container"
-						||tab.initialConfig.id == "searchResultpollution_04_container"
-						||tab.initialConfig.id == "searchResultpollution_05_container"
-						||tab.initialConfig.id == "searchResultpollution_06_container"
-						||tab.initialConfig.id == "searchResultpollution_07_container"){
+				} else if (tab.initialConfig.id == "searchResultpollution_01_container"//오염원
+					|| tab.initialConfig.id == "searchResultpollution_02_container"
+					|| tab.initialConfig.id == "searchResultpollution_03_container"
+					|| tab.initialConfig.id == "searchResultpollution_04_container"
+					|| tab.initialConfig.id == "searchResultpollution_05_container"
+					|| tab.initialConfig.id == "searchResultpollution_06_container"
+					|| tab.initialConfig.id == "searchResultpollution_07_container") {
 
 					nodeId = "Pollution";//오염원
 
-				}else if(tab.initialConfig.parentId != undefined){
-					nodeId = tab.initialConfig.parentId.substring(0,1);
+				} else if (tab.initialConfig.parentId != undefined) {
+					nodeId = tab.initialConfig.parentId.substring(0, 1);
 				};
 
-				
 
 
 
-				Ext.getCmp('tabCondition').items.items.map(function(tabList){
-					if(nodeId){
-						if(tabList.id == 'resultTab_'+nodeId){
+
+				Ext.getCmp('tabCondition').items.items.map(function (tabList) {
+					if (nodeId) {
+						if (tabList.id == 'resultTab_' + nodeId) {
 							tabList.setHidden(false);//탭 visible
 
-							
+
 							//수생태 combo 처리
 							var sstgCombo = Ext.getCmp("sstgCombo");
 							if (nodeId == "E") {
@@ -1448,18 +1448,33 @@ Ext.define('krf_new.view.common.TabControl_New', {
 									sstgCombo.setStore(store);
 								}
 
+							} else if (nodeId == 'Z') {
+								var showConfing = {
+									'Z001': ['bunInfoBtn', 'joInfoBtn'], //어류
+									'Z002': ['bunInfoBtn', 'danInfoBtn', 'joInfoBtn'], //수변식생
+									'Z003': ['bunInfoBtn', 'joInfoBtn'], //저서형
+									'Z004': ['joInfoBtn'], //수질
+									'Z005': ['bunInfoBtn', 'joInfoBtn'], //동물
+									'Z006': ['bunInfoBtn', 'joInfoBtn'] //식물
+								};
+
+								var btnArr = ['bunInfoBtn', 'danInfoBtn', 'joInfoBtn'];
+
+								for (var i = 0; i < btnArr.length; i++) {
+									showConfing[tab.realParentId].indexOf(btnArr[i]) > -1 ? Ext.getCmp(btnArr[i]).setHidden(false) : Ext.getCmp(btnArr[i]).setHidden(true);
+								}
 							}
 
 
-						}else{
+						} else {
 							tabList.setHidden(true);
 						}
-					}else{
+					} else {
 						tabList.setHidden(true);
 					}
 				});
 
-				
+
 			}
 		}
 	}, {
@@ -1525,7 +1540,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 
 					//엑셀다운 클릭 session
 					//setActionInfo(ClNode, "", ClTitle[0], ClNodeName, "엑셀다운");
-					
+
 					//엑셀다운 클릭 session
 					//var logLayerCode = parentId[0] != '' ? parentId[0] : parentId;
 					//'인트라넷/보' , '타입' , '레이어코드' , '지점아이디', '계정'

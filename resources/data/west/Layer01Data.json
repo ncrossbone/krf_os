@@ -295,7 +295,7 @@
 		"layerCode": "J002",
 		"isMetaData": true
 	}]
-},/*{
+},{
 	"id": "56",
 	"text": "비점오염원",
 	"cls": "khLee-x-tree-node-text-bold",
@@ -426,7 +426,7 @@
 		"layerCode": "Q001",
 		"isMetaData": false
 	}]
-}, {
+}, /*{
 	"id": "15",
 	"text": "기타측정지점",
 	"cls": "khLee-x-tree-node-text-bold",
