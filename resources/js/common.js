@@ -3018,7 +3018,7 @@ setTooltipXY = function () {
 		xPx = (centerPoint.x + 76 + mapWin.getX()) - popCtl.getWidth() / 2;
 		yPx = (centerPoint.y + mapWin.getY()) - popCtl.getHeight() + 12;
 		// 이미지 사이즈 절반만큼 offset
-		xPx += 11;
+		xPx += 11; 
 		yPx += 11;
 		popCtl.setX(xPx);
 		popCtl.setY(yPx);
