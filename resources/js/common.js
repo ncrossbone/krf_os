@@ -2739,6 +2739,15 @@ ResetButtonClick = function () {
 	Layer01OnOff("4", "on");
 	Layer01OnOff("5", "on");
 
+	/*퇴적물 관련 */
+	krf_new.global.SedimentFn.initArr();
+
+	var sedimentSeachWindow = Ext.getCmp('sedimentSeachWindow');
+	var sedimentLegendWindow = Ext.getCmp('sedimentLegendWindow');
+	if (sedimentSeachWindow && sedimentLegendWindow) {
+		sedimentSeachWindow.hide();
+		sedimentLegendWindow.hide();
+	}
 }
 
 
@@ -3009,7 +3018,7 @@ setTooltipXY = function () {
 		xPx = (centerPoint.x + 76 + mapWin.getX()) - popCtl.getWidth() / 2;
 		yPx = (centerPoint.y + mapWin.getY()) - popCtl.getHeight() + 12;
 		// 이미지 사이즈 절반만큼 offset
-		xPx += 11;
+		xPx += 11; 
 		yPx += 11;
 		popCtl.setX(xPx);
 		popCtl.setY(yPx);

@@ -264,14 +264,14 @@ Ext.define("krf_new.global.CommFn", {
 				var day = date.getDate();
 				var sysdate = "";
 
-				if(month < 10){
+				if (month < 10) {
 					month = "0" + month;
 				}
-					
-				if(day < 10){
+
+				if (day < 10) {
 					day = "0" + day;
 				}
-				
+
 				sysdate = year + month + day;
 
 
@@ -828,5 +828,9 @@ Ext.define("krf_new.global.CommFn", {
 		});
 
 		srw.items.items[0].setStore(gridStore);
+	},
+
+	siteInfoChangeEventForE: function () {
+		console.log($KRF_APP.layerCode);
 	}
 });

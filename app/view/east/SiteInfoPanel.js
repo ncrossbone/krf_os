@@ -33,6 +33,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 		},
 		title: '검색결과',
 		header: false,
+
 		//store: 'KRF_DEV.store.east.SiteInfoPanel',
 		//store: Ext.create('KRF_DEV.store.east.SiteInfoPanel'),
 		columns: [{
@@ -49,6 +50,11 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 			width: "60%"
 		}]
 	}],
+	listeners: {
+		activate: function () {
+			$KRF_APP.global.CommFn.siteInfoChangeEventForE();
+		}
+	},
 	initComponent: function () {
 		this.callParent();
 

@@ -477,14 +477,11 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"</html>                                                                                                                                                                            "
 				}
 
-
-
-
-
 				var mapToolTip = Ext.create("Ext.window.Window", {
 					header: false,
 					id: 'popSiteInfo',
 					shadow: false,
+					resizable: false,
 					plain: true, // 요게 있어야 background: transparent 먹음..
 					point: point, // 지점 포인트 정보
 					//width: 380,
