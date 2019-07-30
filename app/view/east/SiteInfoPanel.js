@@ -49,6 +49,14 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 			//width: 240
 			width: "60%"
 		}]
+	}, {
+		xtype: 'panel',
+		id: 'siteInfoForE',
+		hidden: true,
+		items: [{
+			xtype: 'label',
+			text: 'zzz'
+		}]
 	}],
 	listeners: {
 		activate: function () {

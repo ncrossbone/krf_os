@@ -831,6 +831,16 @@ Ext.define("krf_new.global.CommFn", {
 	},
 
 	siteInfoChangeEventForE: function () {
-		console.log($KRF_APP.layerCode);
+		var siteInfoForE = Ext.getCmp('siteInfoForE');
+		var siteinfotest = Ext.getCmp('siteinfotest');
+
+		if ($KRF_APP.layerCode.indexOf('E') == -1) {
+			siteInfoForE.setHidden(true);
+			siteinfotest.setHidden(false);
+			return;
+		} else {
+			siteInfoForE.setHidden(false);
+			siteinfotest.setHidden(true);
+		}
 	}
 });
