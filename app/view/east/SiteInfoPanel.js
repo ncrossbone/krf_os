@@ -53,9 +53,79 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 		xtype: 'panel',
 		id: 'siteInfoForE',
 		hidden: true,
+		layout: 'vbox',
+		style: 'padding:10px;',
 		items: [{
-			xtype: 'label',
-			text: 'zzz'
+			xtype: 'container',
+			layout: 'hbox',
+			items: [{
+				xtype: 'label',
+				style: 'font-weight: bold',
+				text: '생물분류군'
+			}, {
+				xtype: 'container',
+				width: 20
+			}, {
+				xtype: 'combo',
+				width: 70
+			}]
+		}, {
+			xtype: 'container',
+			height: 10
+		}, {
+			xtype: 'container',
+			layout: 'hbox',
+			items: [{
+				xtype: 'label',
+				style: 'font-weight: bold',
+				text: '조사년도'
+			}, {
+				xtype: 'container',
+				width: 20
+			}, {
+				xtype: 'combo',
+				width: 70
+			}, {
+				xtype: 'container',
+				width: 5
+			}, {
+				xtype: 'combo',
+				width: 70
+			}]
+		}, {
+			xtype: 'container',
+			height: 10
+		}, {
+			xtype: 'container',
+			layout: 'hbox',
+			items: [{
+				xtype: 'label',
+				style: 'font-weight: bold',
+				text: '지점명'
+			}, {
+				xtype: 'container',
+				width: 20
+			}, {
+				xtype: 'label',
+				text: 'test'
+			}]
+		}, {
+			xtype: 'container',
+			height: 10
+		}, {
+			xtype: 'container',
+			layout: 'hbox',
+			items: [{
+				xtype: 'label',
+				style: 'font-weight: bold',
+				text: '주소'
+			}, {
+				xtype: 'container',
+				width: 20
+			}, {
+				xtype: 'label',
+				text: 'test'
+			}]
 		}]
 	}],
 	listeners: {
