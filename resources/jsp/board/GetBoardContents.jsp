@@ -16,13 +16,16 @@ try{
 	String boardTypeVal = request.getParameter("type");
 	
 	StringBuffer sb = new StringBuffer();
-	sb.append("\n SELECT SEQ                                   ");
-	sb.append("\n       ,TITLE                                 ");
-	sb.append("\n       ,TYPE                                  ");
-	sb.append("\n       ,TO_CHAR(REGDT,'YYYY-MM-DD') AS REGDT  ");
-	sb.append("\n       ,BOARD_CONTENTS                        ");
-	sb.append("\n   FROM KRF_BOARD ");
-	sb.append("\n  WHERE SEQ = ").append(seq);	
+	sb.append("\n	SELECT B.BBSCTT_NO AS SEQ,											");
+	sb.append("\n		   B.BBSCTT_SJ AS TITLE,                                            ");
+	sb.append("\n		   B.BBS_NO AS TYPE,                                               ");
+	sb.append("\n		   TO_CHAR(B.REGIST_DT, 'YYYY-MM-DD') AS REGDT ,        ");
+	sb.append("\n		   B.BBSCTT_CN  AS BOARD_CONTENTS                                            ");
+	sb.append("\n	  FROM COM_BBS A,                                               ");
+	sb.append("\n		   COM_BBSCTT B                                             ");
+	sb.append("\n	 WHERE A.BBS_NO = B.BBS_NO                                      ");
+	sb.append("\n	   AND A.BBS_TY = 'M'                                           ");
+	sb.append("\n	   AND BBSCTT_NO = ").append(seq);	
 	
 	stmt = con.createStatement();   
 	sql = sb.toString();
@@ -33,8 +36,8 @@ try{
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>
-	<%if(boardTypeVal.equals("2")) {%>KRF-공지사항<%} %>
-	<%if(boardTypeVal.equals("1")) {%>KRF- Q & A<%} %>
+	<%if(boardTypeVal.equals("7")) {%>KRF-공지사항<%} %>
+	<%if(boardTypeVal.equals("6")) {%>KRF- Q & A<%} %>
 </title>
 <link href="./css/BasicSet.css" rel="stylesheet" type="text/css" />
 <link href="./css/board.css" rel="stylesheet" type="text/css" />

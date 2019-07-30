@@ -1,8 +1,8 @@
 <%@ page language="java" import="java.sql.*" %>
 <%
 String DB_URL = "jdbc:oracle:thin:@112.217.167.123:31720:STKDIV";
-String DB_USER    = "WATER_2";
-String DB_PASSWORD = "WATER_2";
+String DB_USER    = "WATER2018";
+String DB_PASSWORD = "WATER2018";
 
 Connection con = null;
 Statement stmt = null;

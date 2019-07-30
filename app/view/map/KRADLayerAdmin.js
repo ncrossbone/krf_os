@@ -1222,15 +1222,17 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	me.getSRiverCatId(feature);
 		//me.drawGraphic(feature, "reachLine_s");
 		
-		//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
-		if(feature.attributes.RD_SRCH_ID == "" && feature.attributes.LD_SRCH_ID == ""){
+		if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
+		//if(feature.attributes.RD_SRCH_ID == "" && feature.attributes.LD_SRCH_ID == ""){
     	//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null && feature.attributes.D_RCH_ID != null){
 
-				var rchDiD = feature.attributes.LD_RCH_ID != "" ? feature : feature.attributes.RD_RCH_ID != "" ? feature : "";
+				//var rchDiD = feature.attributes.LD_RCH_ID != "" ? feature : feature.attributes.RD_RCH_ID != "" ? feature : "";
+				var rchDiD = feature.attributes.LD_RCH_ID != null ? feature : feature.attributes.RD_RCH_ID != null ? feature : null;
 
 				if(rchDiD){// 좌우 소하천이 존재하지 않고 좌우리치중 하나가 존재하면
 					//기존 검색으로 넘어간다
-					var downRchId = feature.attributes.RD_RCH_ID != "" ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
+					//var downRchId = feature.attributes.RD_RCH_ID != "" ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
+					var downRchId = feature.attributes.RD_RCH_ID != null ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
 				  feature.attributes.D_RCH_ID = downRchId;
 				  //me.getDownSRich(featureSet);
 
@@ -1244,7 +1246,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     		
     	}else{
 				//소하천이 존재하므로 소하천 검색을한다.
-				var downSrchId = feature.attributes.RD_SRCH_ID != "" ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
+				//var downSrchId = feature.attributes.RD_SRCH_ID != "" ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
+				var downSrchId = feature.attributes.RD_SRCH_ID != null ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
 				feature.attributes.D_SRCH_ID = downSrchId;
     		me.setSRchIdsWithEvent(feature);	
     	}
@@ -1513,6 +1516,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 				var rch_did = "";
 				where = [] //조건절 초기화
 				if(lineFeature.attributes.LU_RCH_DID != ' '){
+					
 					rch_did = lineFeature.attributes.LU_RCH_DID;
 					var radiusInFeature = featureSet.features.map(function(obj){
 						return obj.attributes.RCH_DID;
