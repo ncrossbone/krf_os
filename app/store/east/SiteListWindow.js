@@ -351,7 +351,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 								jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 								if (groupFeature[0].attributes.GROUP_CODE == "E") { //  수생태계는
 			
-									jsonStr += "			\"visible\": \"false\",\n";
+									jsonStr += "			\"visible\": \"true\",\n";
 								}
 								if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
 									jsonStr += "				\"srchBtnDisabled\": true,\n";
@@ -399,7 +399,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 			
 			
-									if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+									if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+									//if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
 										jsonStr += "				\"srchBtnDisabled\": true,\n";
 									}
 									if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
@@ -448,7 +449,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 												}
 												jsonStr += "				\"checked\": null\n";
 			
-												if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
+												if (layerFeature.attributes.GROUP_CODE == "G" ) {
+												//if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
 													jsonStr += "			,   \"infoBtnDisabled\": true,\n";
 													jsonStr += "				\"chartBtnDisabled\": true,\n";
 													jsonStr += "				\"srchBtnDisabled\": true\n";
@@ -706,7 +708,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 	
 	
-							if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+							if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+							//if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
 								jsonStr += "				\"srchBtnDisabled\": true,\n";
 							}
 							if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
@@ -755,7 +758,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 										}
 										jsonStr += "				\"checked\": null\n";
 	
-										if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
+										if (layerFeature.attributes.GROUP_CODE == "G") {
+										//if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
 											jsonStr += "			,   \"infoBtnDisabled\": true,\n";
 											jsonStr += "				\"chartBtnDisabled\": true,\n";
 											jsonStr += "				\"srchBtnDisabled\": true\n";
@@ -840,12 +844,26 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 						var jsonData = "";
 						jsonData = Ext.util.JSON.decode(jsonStr);
 	
-						//한강호소 다시그리기
+						// tree 배열 다시그리기
 						for (var i = 0; i < jsonData.children.length; i++) {
 							if (jsonData.children[i].id == 'Z') {
 								jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
 							}else if(jsonData.children[i].id == 'K'){
 								jsonData.children[i] = store.reDrawKTree(jsonData.children[i]);
+							}else if(jsonData.children[i].id == 'E'){
+								var addTreeData = store.reDrawETree(jsonData.children[i]);
+
+								jsonData.children.map(function(obj){
+									if(obj.id == 'Esstg'){
+										if(addTreeData.length > 0){
+											obj.children = obj.children.concat(addTreeData)
+										}
+									}
+								});
+
+								// 삭제 수생태계 (id가 겹침방지)
+								jsonData.children.splice(i,1);
+
 							}
 						}
 	
@@ -881,6 +899,28 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			});
 		}
 	},
+
+
+	reDrawETree: function(data){
+
+		var reNewData = [];
+
+		data.children.map(function(obj){
+
+			//E003 , E004
+			if(obj.id == "E001"){
+				obj.text = "생태교란종";
+				reNewData.push(obj);
+			}else if(obj.id == "E002"){
+				obj.text = "멸종위기종";
+				reNewData.push(obj);
+			}
+			
+		});
+
+		return reNewData;
+	},
+
 
 	reDrawKTree: function(data){
 
@@ -1117,7 +1157,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		query.returnGeometry = false;
 		query.outFields = ['*'];
 
-		queryTask.execute(query, function (result) {
+		queryTask.execute(query, function (result) { 
 			if (result.features.length == 0) {
 				if (typeof (callback) == 'function') {
 					callback.call(this, sstgString);
@@ -1128,13 +1168,18 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					siteIds.push(result.features[j].attributes.JIJUM_CODE);
 				}
 
+				var eSiteResult = "";
+				eSiteResult = result;
+
+
 				var url = '';
 				var param = {};
 				if(me.searchType == 'nameSearch'){
 					url = _API.sstgText;
 					param = { textField: '금어천' }
 				}else{
-					url = _API.sstg;
+					//url = _API.sstg;
+					url = _API.sstg_2018;
 					param = { siteIds: siteIds }
 				}
 
@@ -1144,6 +1189,23 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					async: false, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
 						var jsonData = Ext.util.JSON.decode(response.responseText);
+
+						
+						//생물측정망 ( 생태교란종 / 멸종위기종 ) 분기
+						var e003 = []; //생태교란종
+						var e004 = []; //멸종위기종
+
+						if(eSiteResult.features.length > 0){
+							for(var eSiteResults = 0 ; eSiteResults < eSiteResult.features.length ; eSiteResults++){
+								if(eSiteResult.features[eSiteResults].attributes.LAYER_CODE == "E003"){
+									e003.push(eSiteResult.features[eSiteResults]);
+								}else if(eSiteResult.features[eSiteResults].attributes.LAYER_CODE == "E004"){
+									e004.push(eSiteResult.features[eSiteResults]);
+								}
+							}
+						}
+
+
 
 						var ssgtObj = {
 							"hc": {
@@ -1577,6 +1639,43 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									sstgString += "	 ]}, \n";
 								}
 
+								if(e003.length > 0){
+									sstgString += "	  { \n";
+									sstgString += "	\"id\": \"EsstgHc\",\n";
+									sstgString += "	\"title\": \"하천\",\n";
+									sstgString += "	\"visible\": \"true\",\n";
+									sstgString += "	\"text\": \"하천\",\n";
+									sstgString += "	\"expanded\": true,\n";
+									sstgString += "	\"infoBtnDisabled\": true,\n";
+									sstgString += "	\"chartBtnDisabled\": true,\n";
+									sstgString += "	\"srchBtnDisabled\": true,\n";
+									sstgString += "	\"children\": [";
+									
+									for(var e003_id = 0 ; e003_id < e003.length ; e003_id ++){
+										if (ssgtObj.hc.ATAL_SE.length > 0) {
+											sstgString += "	  { \n";
+											sstgString += "	\"id\": \"EsstgHcAtalSe\",\n";
+											sstgString += "	\"title\": \"부착돌말류\",\n";
+											sstgString += "	\"visible\": \"true\",\n";
+											sstgString += "	\"text\": \"부착돌말류\",\n";
+											sstgString += "	\"expanded\": false,\n";
+											sstgString += "	\"infoBtnDisabled\": true,\n";
+											sstgString += "	\"chartBtnDisabled\": true,\n";
+											sstgString += "	\"srchBtnDisabled\": false\n";
+											sstgString += "	},";
+										}
+									}
+
+									sstgString += "	]},";
+									
+									
+									
+								}
+
+								if(e004.length > 0){
+
+								}
+
 
 							}
 
@@ -1589,6 +1688,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						if (typeof (callback) == 'function') {
 
+							console.info("1");
 							callback.call(this, sstgString);
 						}
 					},

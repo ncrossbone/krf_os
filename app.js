@@ -104,6 +104,7 @@ Ext.create('Ext.data.Store', {
 		$KRF_DEFINE.windowHeaderHeight = 36;
 		$KRF_DEFINE.westToolbarWidth = 80;
 		$KRF_DEFINE.threeDimServerURL = 'http://112.217.167.123:40004'
+		//$KRF_DEFINE.threeDimServerURL = 'http://localhost:8081'
 	});
 	var apiStore = Ext.create('Ext.data.Store', {
 		autoLoad: true,

@@ -85,30 +85,35 @@ try{
 	pageNum = Integer.valueOf(pageNumString);	
 	
 	StringBuffer sb = new StringBuffer();
-	
-	sb.append("\n SELECT ROWNUM AS ROWNO              ");
-	sb.append("\n       ,T2.*                         ");
-	sb.append("\n   FROM (                            ");
-	sb.append("\n        SELECT ROWNUM AS ROWNO1      ");
-	sb.append("\n              ,T1.*                  ");
-	sb.append("\n          FROM (                     ");
-	sb.append("\n               SELECT SEQ            ");
-	sb.append("\n                     ,COUNT(*) OVER() AS TOTCNT ");
-	sb.append("\n                     ,TITLE          ");
-	sb.append("\n                     ,BOARD_CONTENTS ");
-	sb.append("\n                     ,TO_CHAR(REGDT,'YYYY-MM-DD') AS REGDT ");
-	sb.append("\n                     ,TYPE           ");
-	sb.append("\n                 FROM KRF_BOARD      ");
-	sb.append("\n                WHERE TYPE = ").append(boardType);
+
+	sb.append("\n SELECT ROWNUM AS ROWNO              										");
+	sb.append("\n       ,T2.*                                                               ");
+	sb.append("\n   FROM (                                                                  ");
+	sb.append("\n        SELECT ROWNUM AS ROWNO1                                            ");
+	sb.append("\n              ,T1.*                                                        ");
+	sb.append("\n          FROM (                                                           ");
+	sb.append("\n               SELECT B.BBSCTT_NO   AS SEQ                                       ");
+	sb.append("\n                     ,COUNT(*) OVER() AS TOTCNT                            ");
+	sb.append("\n                     ,B.BBSCTT_SJ     AS TITLE                                     ");
+	sb.append("\n                     ,B.BBSCTT_CN     AS  BOARD_CONTENTS                                    ");
+	sb.append("\n                     ,TO_CHAR(B.REGIST_DT,'YYYY-MM-DD') AS REGDT       ");
+	sb.append("\n                     ,B.BBS_NO        AS TYPE                                      ");
+	sb.append("\n                 FROM COM_BBS A, COM_BBSCTT B                              ");
+
+	sb.append("\n                WHERE A.BBS_NO = ").append(boardType);
+
 	if(wordSh != null && !"".equals(wordSh)){
-		sb.append("\n                  AND TITLE LIKE '%").append(wordSh).append("%'");
+		sb.append("\n                  AND B.BBSCTT_SJ LIKE '%").append(wordSh).append("%'");
 	}
 	if((wordSh != null && !"".equals(wordSh)) && (selectType != null && "all".equals(selectType))){
-		sb.append("\n                   OR BOARD_CONTENTS LIKE '%").append(wordSh).append("%'");
+		sb.append("\n                   OR B.BBSCTT_CN LIKE '%").append(wordSh).append("%'");
 	}
-	sb.append("\n                ORDER BY SEQ DESC    ");
-	sb.append("\n               ) T1                  ");
-	sb.append("\n        ) T2                         ");
+
+	sb.append("\n                  AND A.BBS_NO = B.BBS_NO                                  ");
+	sb.append("\n                  AND A.BBS_TY = 'M' 				                        ");
+	sb.append("\n                ORDER BY B.BBSCTT_NO DESC                                  ");
+	sb.append("\n               ) T1                                                        ");
+	sb.append("\n        ) T2                                                               ");
 	sb.append("\n   WHERE ROWNO1 >  ").append( (pageNum-1)*rowsPerPage);
 	sb.append("\n     AND ROWNO1 <= ").append( (pageNum)*rowsPerPage);
 	sb.append("\n     AND TYPE = ").append(boardType);
@@ -132,8 +137,8 @@ try{
 	
 %>
 <title>
-	<%if(boardTypeVal.equals("2")) {%>KRF-공지사항<%} %>
-	<%if(boardTypeVal.equals("1")) {%>KRF- Q &amp; A<%} %>
+	<%if(boardTypeVal.equals("1")) {%>KRF-공지사항<%} %>
+	<%if(boardTypeVal.equals("2")) {%>KRF- Q &amp; A<%} %>
 </title>
 <link href="./css/BasicSet.css" rel="stylesheet" type="text/css" />
 <link href="./css/board.css" rel="stylesheet" type="text/css" />
@@ -142,8 +147,8 @@ try{
 <div class="boardArea" style='margin-top:20px; margin-left:10px;'>
 	<div class="fullFrame H20">
         <select style="display:none;" class="W100 fl" id="boardType" onchange="javascript:getListByBoard(this.value);">
-            <option value="1" <%if(boardTypeVal.equals("1")) {%>selected="selected"<%} %>>Q &amp; A</option>
-            <option value="2" <%if(boardTypeVal.equals("2")) {%>selected="selected"<%} %>>공지사항</option>
+            <option value="1" <%if(boardTypeVal.equals("6")) {%>selected="selected"<%} %>>Q &amp; A</option>
+            <option value="2" <%if(boardTypeVal.equals("7")) {%>selected="selected"<%} %>>공지사항</option>
         </select>
         
         <div class="fr">

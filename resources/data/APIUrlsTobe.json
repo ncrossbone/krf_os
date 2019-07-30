@@ -62,6 +62,7 @@
     "saveColunmOnOff":"./resources/jsp/saveColunmOnOff.jsp",
     "sessionData":"#host_old#/common/sessionData",
     "sstg":"#host_old#/searchResult/searchSstg",
+    
     "sstgText":"#host_old#/searchResult/searchSstgText",
     "sessionMng":"./resources/jsp/sessionMng.jsp",
     "SessionOut":"./resources/jsp/SessionOut.jsp",
@@ -85,27 +86,24 @@
     
 
     /*신규DB*/
+
+    /* config */
+    "login":"#host#/config/login",
     "getUserLayerInfo":"#host#/config/getUserLayerInfo",
     "loginSession":"#host#/config/loginSession",
     "getSedimentItemValue":"#host#/searchResult/getSedimentItemValue",
-    "GetRWMDT_M":"#host#/chart/getRWMDT_M",
-    "GetRWMDT_Q":"#host#/chart/getRWMDT_Q",
-    "login":"#host#/config/login",
-    "GetRWMDT_2018_A":"#host#/chart/getRWMDT_2018_A",
-    "GetRWMDT_2018_B":"#host#/chart/getRWMDT_2018_B",
-    "GetRWMDT_2018_L":"#host#/chart/getRWMDT_2018_L",
-    "GetRWMDT_2018_K":"#host#/chart/getRWMDT_2018_K",
+    "clickSession":"#host#/common/clickSession",
+
+    /* result */
+
+    "sstg_2018":"#host#/searchResult/searchSstg_2018",
+
+    "searchResult_L2018_Window":"#host#/searchResult/searchResult_L2018_Window",
     "searchResult_A2018":"#host#/searchResult/searchResult_A2018",
     "searchResult_B2018":"#host#/searchResult/searchResult_B2018",
     "searchResult_M":"#host#/searchResult/searchResult_M",
-    "searchResult_L2018":"#host#/searchResult/searchResult_L2018",
-    "searchResult_L2018_Window":"#host#/searchResult/searchResult_L2018_Window",
-    "clickSession":"#host#/common/clickSession",
     "GetSearchResultData_M":"#host#/searchResult/searchResult_M",
     "GetSearchResultData_Q":"#host#/searchResult/searchResult_Q",
-    "GetInfo_L":"#host#/chart/getInfo_L",
-    "GetInfo_Q":"#host#/chart/getInfo_Q",
-    "GetInfo_Z":"#host#/chart/getInfo_Z",
     "GetSearchResultData_Z006":"#host#/searchResult/searchResult_Z006_2018",
     "GetSearchResultData_Z004":"#host#/searchResult/searchResult_Z004_2018",
     "GetSearchResultData_Z005":"#host#/searchResult/searchResult_Z005_2018",
@@ -115,15 +113,10 @@
     "GetSearchResultData_Z003":"#host#/searchResult/searchResult_Z003_2018",
     "GetSearchResultData_K":"#host#/searchResult/searchResult_K2018",
     "GetSearchResultDataWindow_Z":"#host#/searchResult/searchResultWindow_Z",
-
-    "GetRWMDT_Z001":"#host#/chart/getRWMDT_2018_Z001",
-    "GetRWMDT_Z002":"#host#/chart/getRWMDT_2018_Z002",
-    "GetRWMDT_Z003":"#host#/chart/getRWMDT_2018_Z003",
-    "GetRWMDT_Z004":"#host#/chart/getRWMDT_2018_Z004",
-    "GetRWMDT_Z005":"#host#/chart/getRWMDT_2018_Z005",
-    "GetRWMDT_Z006":"#host#/chart/getRWMDT_2018_Z006",
-
+    "searchResult_L2018":"#host#/searchResult/searchResult_L2018",
+    
     "GetSearchResultData_2018_E":"#host#/searchResult/", // 수생태계
+    "searchResult_C2018":"#host#/searchResult/searchResult_C2018",
     "GetSearchResultData_D_2018_1":"#host#/searchResult/searchResult_D_2018_1",
     "GetSearchResultData_D_2018_2":"#host#/searchResult/searchResult_D_2018_2",
     "GetSearchResultData_D_2018_3":"#host#/searchResult/searchResult_D_2018_3",
@@ -131,30 +124,10 @@
     "GetSearchResultData_D_2018_5":"#host#/searchResult/searchResult_D_2018_5",
     "GetSearchResultData_D_2018_6":"#host#/searchResult/searchResult_D_2018_6",
     "GetSearchResultData_D_2018_7":"#host#/searchResult/searchResult_D_2018_7",
-
     "GetSearchResultData_F_2018_1":"#host#/searchResult/searchResult_F_2018_1",
     "GetSearchResultData_F_2018_3":"#host#/searchResult/searchResult_F_2018_3",
-
-    
-    "GetRWMDT_2018_D001":"#host#/chart/getRWMDT_2018_D001",
-    "GetRWMDT_2018_D002":"#host#/chart/getRWMDT_2018_D002",
-    "GetRWMDT_2018_D003":"#host#/chart/getRWMDT_2018_D003",
-    "GetRWMDT_2018_D004":"#host#/chart/getRWMDT_2018_D004",
-    "GetRWMDT_2018_D005":"#host#/chart/getRWMDT_2018_D005",
-    "GetRWMDT_2018_D006":"#host#/chart/getRWMDT_2018_D006",
-    "GetRWMDT_2018_D007":"#host#/chart/getRWMDT_2018_D007",
-
-    "GetRWMDT_2018_I":"#host#/chart/getRWMDT_2018_I",
-
-    "GetRWMDT_2018_F_1":"#host#/chart/getRWMDT_2018_F_1",
-    "GetRWMDT_2018_F_3":"#host#/chart/getRWMDT_2018_F_3",
-
-    "GetRWMDT_2018_C":"#host#/chart/getRWMDT_2018_C",
-    "searchResult_C2018":"#host#/searchResult/searchResult_C2018",
-
     "GetSearchResultData_I_2018_1":"#host#/searchResult/searchResult_I_2018_1",
     "GetSearchResultData_I_2018_2":"#host#/searchResult/searchResult_I_2018_2",
-
 
     "PollLoadSelect":"#host#/pollLoad/pollLoadSelect",
     "PollutionSelect_01_01":"#host#/pollution/pollutionSelect_01_01",
@@ -193,7 +166,6 @@
     "PollutionSelect_07_04":"#host#/pollution/pollutionSelect_07_04",
     "PollutionSelect_07_Catdid":"#host#/pollution/pollutionSelect_07_Catdid",
 
-
     "GetSearchPollLoadResultData_CAT_Detail":"#host#/searchResult/searchResult_PollLoad_Cat_Detail",
     "GetSearchPollLoadResultData_CAT":"#host#/searchResult/searchResult_PollLoad_Cat",
     "GetSearchPollLoadResultData_Result":"./resources/jsp/GetSearchPollLoadResultData_Result.jsp",
@@ -202,6 +174,37 @@
     "GetSearchPollLoadResultData_SW":"./resources/jsp/GetSearchPollLoadResultData_SW.jsp",
     "GetSearchPollLoadResultData_Total":"#host#/searchResult/searchResult_PollLoad_Total",
     "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",
+
+
+
+    
+    /* chart */
+    "GetRWMDT_M":"#host#/chart/getRWMDT_M",
+    "GetRWMDT_Q":"#host#/chart/getRWMDT_Q",
+    "GetRWMDT_2018_A":"#host#/chart/getRWMDT_2018_A",
+    "GetRWMDT_2018_B":"#host#/chart/getRWMDT_2018_B",
+    "GetRWMDT_2018_C":"#host#/chart/getRWMDT_2018_C",
+    "GetRWMDT_2018_L":"#host#/chart/getRWMDT_2018_L",
+    "GetRWMDT_2018_F_1":"#host#/chart/getRWMDT_2018_F_1",
+    "GetRWMDT_2018_F_3":"#host#/chart/getRWMDT_2018_F_3",
+    "GetRWMDT_2018_K":"#host#/chart/getRWMDT_2018_K",
+    "GetRWMDT_2018_D001":"#host#/chart/getRWMDT_2018_D001",
+    "GetRWMDT_2018_D002":"#host#/chart/getRWMDT_2018_D002",
+    "GetRWMDT_2018_D003":"#host#/chart/getRWMDT_2018_D003",
+    "GetRWMDT_2018_D004":"#host#/chart/getRWMDT_2018_D004",
+    "GetRWMDT_2018_D005":"#host#/chart/getRWMDT_2018_D005",
+    "GetRWMDT_2018_D006":"#host#/chart/getRWMDT_2018_D006",
+    "GetRWMDT_2018_D007":"#host#/chart/getRWMDT_2018_D007",
+    "GetRWMDT_2018_I":"#host#/chart/getRWMDT_2018_I",
+    "GetRWMDT_Z001":"#host#/chart/getRWMDT_2018_Z001",
+    "GetRWMDT_Z002":"#host#/chart/getRWMDT_2018_Z002",
+    "GetRWMDT_Z003":"#host#/chart/getRWMDT_2018_Z003",
+    "GetRWMDT_Z004":"#host#/chart/getRWMDT_2018_Z004",
+    "GetRWMDT_Z005":"#host#/chart/getRWMDT_2018_Z005",
+    "GetRWMDT_Z006":"#host#/chart/getRWMDT_2018_Z006",
+    "GetInfo_L":"#host#/chart/getInfo_L",
+    "GetInfo_Q":"#host#/chart/getInfo_Q",
+    "GetInfo_Z":"#host#/chart/getInfo_Z",
 
     init: function(host_old,host){
               if(host != null){
