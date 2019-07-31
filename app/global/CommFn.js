@@ -853,8 +853,10 @@ Ext.define("krf_new.global.CommFn", {
 						Ext.getCmp('siteInfoSstgNm').setText('');
 						Ext.getCmp('siteInfoSstgWtNm').setText('');
 						Ext.getCmp('siteInfoSstgAddr').setText('');
-						if (decodeData.data) {
-							decodeData.data[0];
+						Ext.getCmp('sstgInfoImage').setSrc('./resources/images/sstg/-.png');
+						$('#sstgInfoTxt, #sstgInfoNum').text('');
+
+						if (decodeData.data.length > 0) {
 							//YEAR
 							//TME
 
@@ -864,6 +866,13 @@ Ext.define("krf_new.global.CommFn", {
 							Ext.getCmp('siteInfoSstgNm').setText(decodeData.data[0].AEMRV_NM);
 							Ext.getCmp('siteInfoSstgWtNm').setText(decodeData.data[0].WRSSM_NM);
 							Ext.getCmp('siteInfoSstgAddr').setText(decodeData.data[0].ADRES);
+
+							var gradeArr = ['A', 'B', 'C', 'D', 'E'];
+							var imgSrc = (gradeArr.indexOf(decodeData.data[0].HEALTH_GRAD) > -1) ? decodeData.data[0].HEALTH_GRAD : '-';
+							Ext.getCmp('sstgInfoImage').setSrc('./resources/images/sstg/' + imgSrc + '.png');
+
+							$('#sstgInfoTxt').html(imgSrc == '-' ? '' : '<b style="color: #f00;">' + imgSrc + '</b>등급');
+							$('#sstgInfoNum').html(decodeData.data[0].FAI ? decodeData.data[0].FAI : '-');
 						}
 					}
 				});

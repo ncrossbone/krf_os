@@ -33,3 +33,9 @@ caption, th, td {
 .x-tab-bar-strip-default{
 	background-color: transparent !important;
 }
+
+#sstgInfoImage{
+	left: auto !important; 
+	right:10px !important;
+	top:15px !important;
+}
