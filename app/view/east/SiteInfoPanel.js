@@ -60,14 +60,23 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 			layout: 'hbox',
 			items: [{
 				xtype: 'label',
-				style: 'font-weight: bold',
-				text: '생물분류군'
+				style: 'font-weight: bold; margin-top: 3px;',
+				text: '생물분류군:'
 			}, {
 				xtype: 'container',
 				width: 20
 			}, {
 				xtype: 'combo',
-				width: 70
+				width: 70,
+				editable: false,
+				valueField: 'id',
+				displayField: 'name',
+				value: 'fish',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: 'fish', name: '어류' }
+					]
+				})
 			}]
 		}, {
 			xtype: 'container',
@@ -77,31 +86,51 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 			layout: 'hbox',
 			items: [{
 				xtype: 'label',
-				style: 'font-weight: bold',
-				text: '조사년도'
+				style: 'font-weight: bold; margin-top: 3px;',
+				text: '조사년도:'
 			}, {
 				xtype: 'container',
 				width: 20
 			}, {
 				xtype: 'combo',
-				width: 70
+				width: 80,
+				valueField: 'id',
+				displayField: 'name',
+				value: '2016',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: '2016', name: '2016년' }
+						, { id: '2017', name: '2017년' }
+						, { id: '2018', name: '2018년' }
+						, { id: '2019', name: '2019년' }
+					]
+				})
 			}, {
 				xtype: 'container',
 				width: 5
 			}, {
 				xtype: 'combo',
-				width: 70
+				width: 80,
+				valueField: 'id',
+				displayField: 'name',
+				value: '1',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{ id: '1', name: '1회차' }
+						, { id: '2', name: '2회차' }
+					]
+				})
 			}]
 		}, {
 			xtype: 'container',
-			height: 10
+			height: 15
 		}, {
 			xtype: 'container',
 			layout: 'hbox',
 			items: [{
 				xtype: 'label',
 				style: 'font-weight: bold',
-				text: '지점명'
+				text: '지점명:'
 			}, {
 				xtype: 'container',
 				width: 20
@@ -111,14 +140,31 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 			}]
 		}, {
 			xtype: 'container',
-			height: 10
+			height: 15
 		}, {
 			xtype: 'container',
 			layout: 'hbox',
 			items: [{
 				xtype: 'label',
 				style: 'font-weight: bold',
-				text: '주소'
+				text: '수계명:'
+			}, {
+				xtype: 'container',
+				width: 20
+			}, {
+				xtype: 'label',
+				text: 'test'
+			}]
+		}, {
+			xtype: 'container',
+			height: 13
+		}, {
+			xtype: 'container',
+			layout: 'hbox',
+			items: [{
+				xtype: 'label',
+				style: 'font-weight: bold',
+				text: '주소:'
 			}, {
 				xtype: 'container',
 				width: 20
