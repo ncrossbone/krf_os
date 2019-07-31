@@ -830,7 +830,7 @@ Ext.define("krf_new.global.CommFn", {
 		srw.items.items[0].setStore(gridStore);
 	},
 
-	siteInfoChangeEventForE: function () {
+	siteInfoChangeEventForE: function (id) {
 		var siteInfoForE = Ext.getCmp('siteInfoForE');
 		var siteinfotest = Ext.getCmp('siteinfotest');
 
@@ -841,6 +841,33 @@ Ext.define("krf_new.global.CommFn", {
 		} else {
 			siteInfoForE.setHidden(false);
 			siteinfotest.setHidden(true);
+
+			if (id) {
+				Ext.Ajax.request({
+					url: _API.GET_SSTG_INFO,
+					params: { recordId: id },
+					dataType: 'text/plain',
+					method: 'POST',
+					success: function (response) {
+						var decodeData = Ext.util.JSON.decode(response.responseText);
+						Ext.getCmp('siteInfoSstgNm').setText('');
+						Ext.getCmp('siteInfoSstgWtNm').setText('');
+						Ext.getCmp('siteInfoSstgAddr').setText('');
+						if (decodeData.data) {
+							decodeData.data[0];
+							//YEAR
+							//TME
+
+							//FAI
+							//HEALTH_GRAD
+
+							Ext.getCmp('siteInfoSstgNm').setText(decodeData.data[0].AEMRV_NM);
+							Ext.getCmp('siteInfoSstgWtNm').setText(decodeData.data[0].WRSSM_NM);
+							Ext.getCmp('siteInfoSstgAddr').setText(decodeData.data[0].ADRES);
+						}
+					}
+				});
+			}
 		}
 	}
 });

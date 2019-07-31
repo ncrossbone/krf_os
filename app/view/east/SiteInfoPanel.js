@@ -96,6 +96,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				width: 80,
 				valueField: 'id',
 				displayField: 'name',
+				editable: false,
 				value: '2016',
 				store: Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
@@ -111,6 +112,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 			}, {
 				xtype: 'combo',
 				width: 80,
+				editable: false,
 				valueField: 'id',
 				displayField: 'name',
 				value: '1',
@@ -136,7 +138,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				width: 20
 			}, {
 				xtype: 'label',
-				text: 'test'
+				id:'siteInfoSstgNm'
 			}]
 		}, {
 			xtype: 'container',
@@ -153,7 +155,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				width: 20
 			}, {
 				xtype: 'label',
-				text: 'test'
+				id:'siteInfoSstgWtNm'
 			}]
 		}, {
 			xtype: 'container',
@@ -170,7 +172,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				width: 20
 			}, {
 				xtype: 'label',
-				text: 'test'
+				id:'siteInfoSstgAddr'
 			}]
 		}]
 	}],

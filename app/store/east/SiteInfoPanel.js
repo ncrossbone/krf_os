@@ -11,8 +11,6 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 	listeners: {
 		load: function (store) {
 
-			$KRF_APP.global.CommFn.siteInfoChangeEventForE();
-
 			var url = _API.GetRWMDT;
 
 			var recordId = "";
@@ -22,6 +20,8 @@ Ext.define('krf_new.store.east.SiteInfoPanel', {
 			if (store.parentId != undefined) {
 				parentId = store.parentId;
 			}
+
+			$KRF_APP.global.CommFn.siteInfoChangeEventForE(recordId);
 			// 로딩바 표시
 			Ext.getCmp("siteinfotest").mask("loading", "loading...");
 

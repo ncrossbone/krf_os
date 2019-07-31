@@ -206,6 +206,8 @@
     "GetInfo_Q":"#host#/chart/getInfo_Q",
     "GetInfo_Z":"#host#/chart/getInfo_Z",
 
+    "GET_SSTG_INFO":"#host#/chart/getSstgInfo",
+
     init: function(host_old,host){
               if(host != null){
                   this.domain = host;
