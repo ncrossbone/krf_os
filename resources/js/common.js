@@ -278,6 +278,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 
 		parentId = parentId.substring(0, 1);
 
+		$KRF_APP.chartFlag_D = "";
 		if (parentId == "D") {
 			$KRF_APP.chartFlag_D = orgParentId;
 		}
@@ -427,8 +428,11 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 			} else if ($KRF_APP.layerCode.substr(0, 4) == 'Z006') {
 				yFieldName = 'CELL_CO';
 			}
-		} else if (parentId = 'K') {
+		} else if (parentId == 'K') {
 			yFieldName = 'FUEL_USGQTY';
+		} else if( parentId == 'E') {
+			yFieldName = 'CNT';
+			series.setXField("WMCYMD");
 		}
 
 

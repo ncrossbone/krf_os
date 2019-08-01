@@ -5,9 +5,75 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 	catDid: [],
 	result: null,
 	query: null,
+	visibleButton:{'A':{chart:true,searchResult:false} //tree list 에서 버튼 visible 공통 작업
+				  ,'A001':{chart:false,searchResult:false}
+				  ,'A002':{chart:false,searchResult:false}
+				  ,'A003':{chart:false,searchResult:false}
+				  ,'A004':{chart:false,searchResult:false}
+				  ,'A005':{chart:false,searchResult:false}
+				  ,'A006':{chart:false,searchResult:false}
+				  ,'A007':{chart:false,searchResult:false}
+				  ,'B':{chart:true,searchResult:false}
+				  ,'B001':{chart:false,searchResult:false}
+				  ,'B002':{chart:false,searchResult:false}
+				  ,'C':{chart:true,searchResult:false}
+				  ,'C001':{chart:false,searchResult:false}
+				  ,'C002':{chart:false,searchResult:false}
+				  ,'D':{chart:true,searchResult:false}
+				  ,'D001':{chart:false,searchResult:false}
+				  ,'D002':{chart:false,searchResult:false}
+				  ,'D003':{chart:false,searchResult:false}
+				  ,'D004':{chart:false,searchResult:false}
+				  ,'D005':{chart:false,searchResult:false}
+				  ,'D006':{chart:false,searchResult:false}
+				  ,'D007':{chart:false,searchResult:false}
+				  ,'E':{chart:true,searchResult:true}
+				  ,'E003':{chart:false,searchResult:false}
+				  ,'E004':{chart:false,searchResult:false}
+				  ,'F':{chart:true,searchResult:false}
+				  ,'F001':{chart:false,searchResult:false}
+				  ,'F002':{chart:false,searchResult:false}
+				  ,'F003':{chart:false,searchResult:false}
+				  ,'F004':{chart:false,searchResult:false}
+				  ,'F005':{chart:false,searchResult:false}
+				  ,'F006':{chart:false,searchResult:false}
+				  ,'F007':{chart:false,searchResult:false}
+				  ,'F008':{chart:false,searchResult:false}
+				  ,'G':{chart:true,searchResult:true}
+				  ,'G001':{chart:false,searchResult:false}
+				  ,'G002':{chart:false,searchResult:false}
+				  ,'H':{chart:true,searchResult:true}
+				  ,'H001':{chart:false,searchResult:false}
+				  ,'I':{chart:true,searchResult:false}
+				  ,'I001':{chart:false,searchResult:false}
+				  ,'I002':{chart:false,searchResult:false}
+				  ,'I003':{chart:false,searchResult:false}
+				  ,'J':{chart:true,searchResult:true}
+				  ,'J001':{chart:false,searchResult:false}
+				  ,'J002':{chart:false,searchResult:false}
+				  ,'M':{chart:true,searchResult:true}
+				  ,'M001':{chart:false,searchResult:false}
+				  ,'K':{chart:true,searchResult:false}
+				  ,'K001':{chart:false,searchResult:false}
+				  ,'K002':{chart:false,searchResult:false}
+				  ,'Q':{chart:true,searchResult:false}
+				  ,'Q001':{chart:false,searchResult:false}
+				  ,'Z':{chart:true,searchResult:true}
+				  ,'Z001':{chart:false,searchResult:true}
+				  ,'Z002':{chart:false,searchResult:true}
+				  ,'L':{chart:true,searchResult:false}
+				  ,'L001':{chart:false,searchResult:false}
+
+
+
+
+				  },
 	listeners: {
 
 		load: function (store) {
+
+			var me = this;
+
 			//this.searchType = "";
 			this.searchType = store.searchType;
 			this.store = store;
@@ -353,9 +419,15 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			
 									jsonStr += "			\"visible\": \"true\",\n";
 								}
-								if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
-									jsonStr += "				\"srchBtnDisabled\": true,\n";
+
+								if(me.visibleButton[groupFeature[0].attributes.GROUP_CODE] != undefined){
+									jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[groupFeature[0].attributes.GROUP_CODE]['searchResult']+",\n";
 								}
+
+								// if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
+								// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
+								// }
+
 								if (cnt == 0) {
 									jsonStr += "		\"expanded\": true,\n";
 								} else {
@@ -398,11 +470,16 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									}
 									jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 			
-			
-									if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
-									//if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
-										jsonStr += "				\"srchBtnDisabled\": true,\n";
+									
+									if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
+										jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
 									}
+
+									// if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+									// //if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+									// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
+									// }
+
 									if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
 										jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
 									}
@@ -414,65 +491,34 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									jsonStr += "			\"children\": [";
 			
 									$.each(layerFeatures, function (cnt, layerFeature) {
-										if (layerFeature.attributes.EXT_DATA_ID == undefined || layerFeature.attributes.EXT_DATA_ID == null) {
-											if (layerFeature.attributes.GROUP_CODE == "J") {
-												jsonStr += "{\n";
-												jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-												jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-												jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-												jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-												jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-												jsonStr += "				\"leaf\": true,\n";
-												jsonStr += "				\"checked\": null\n";
-												jsonStr += "			,   \"infoBtnDisabled\": false,\n";
-												jsonStr += "				\"chartBtnDisabled\": true,\n";
-												jsonStr += "				\"srchBtnDisabled\": false\n";
-												jsonStr += "			}, ";
-											} else {
-			
-												if (layerFeature.attributes.GROUP_CODE == 'C') {
-													krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
-												}
-			
-												jsonStr += "{\n";
-												jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-												jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-												jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-												jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-												jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-												jsonStr += "				\"leaf\": true,\n";
-			
-												//4댑스 값 세팅
-												if (layerFeature.attributes.GUBUN_CODE) {
-													jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
-													jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
-												}
-												jsonStr += "				\"checked\": null\n";
-			
-												if (layerFeature.attributes.GROUP_CODE == "G" ) {
-												//if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
-													jsonStr += "			,   \"infoBtnDisabled\": true,\n";
-													jsonStr += "				\"chartBtnDisabled\": true,\n";
-													jsonStr += "				\"srchBtnDisabled\": true\n";
-												}
-												jsonStr += "			}, ";
-			
-											}
-			
-										} else {
-											jsonStr += "{\n";
-											jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "_" + cnt + "\",\n";
-											jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-											jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-											jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
-											jsonStr += "				\"infoBtnDisabled\": true,\n";
-											jsonStr += "				\"chartBtnDisabled\": true,\n";
-											jsonStr += "				\"srchBtnDisabled\": true,\n";
-											jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-											jsonStr += "				\"leaf\": true,\n";
-											jsonStr += "				\"checked\": null\n";
-											jsonStr += "			}, ";
+								
+										if (layerFeature.attributes.GROUP_CODE == 'C') {
+											krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
 										}
+		
+										jsonStr += "{\n";
+										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+										jsonStr += "				\"leaf\": true,\n";
+		
+										//4댑스 값 세팅
+										if (layerFeature.attributes.GUBUN_CODE) {
+											jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
+											jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
+										}
+										jsonStr += "				\"checked\": null\n";
+		
+										if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
+											jsonStr += "				,\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
+											jsonStr += "				\"chartBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
+											jsonStr += "				\"infoBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
+										}
+		
+										jsonStr += "			}, ";
+		
 									});
 			
 									if (layerFeatures.length > 0) {
@@ -658,13 +704,22 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 						}
 	
 						jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+						
+						
 						if (groupFeature[0].attributes.GROUP_CODE == "E") { //  수생태계는
 	
 							jsonStr += "			\"visible\": \"false\",\n";
 						}
-						if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
-							jsonStr += "				\"srchBtnDisabled\": true,\n";
+						
+						
+						if(me.visibleButton[groupFeature[0].attributes.GROUP_CODE] != undefined){
+							jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[groupFeature[0].attributes.GROUP_CODE]['searchResult']+",\n";
 						}
+						
+						// if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
+						// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
+						// }
+
 						if (cnt == 0) {
 							jsonStr += "		\"expanded\": true,\n";
 						} else {
@@ -708,10 +763,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
 	
 	
-							if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
-							//if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
-								jsonStr += "				\"srchBtnDisabled\": true,\n";
+							//me.visibleButton
+							if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
+								jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
 							}
+
 							if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
 								jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
 							}
@@ -723,65 +779,34 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 							jsonStr += "			\"children\": [";
 	
 							$.each(layerFeatures, function (cnt, layerFeature) {
-								if (layerFeature.attributes.EXT_DATA_ID == undefined || layerFeature.attributes.EXT_DATA_ID == null) {
-									if (layerFeature.attributes.GROUP_CODE == "J") {
-										jsonStr += "{\n";
-										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-										jsonStr += "				\"leaf\": true,\n";
-										jsonStr += "				\"checked\": null\n";
-										jsonStr += "			,   \"infoBtnDisabled\": false,\n";
-										jsonStr += "				\"chartBtnDisabled\": true,\n";
-										jsonStr += "				\"srchBtnDisabled\": false\n";
-										jsonStr += "			}, ";
-									} else {
-	
-										if (layerFeature.attributes.GROUP_CODE == 'C') {
-											krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
-										}
-	
-										jsonStr += "{\n";
-										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-										jsonStr += "				\"leaf\": true,\n";
-	
-										//4댑스 값 세팅
-										if (layerFeature.attributes.GUBUN_CODE) {
-											jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
-											jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
-										}
-										jsonStr += "				\"checked\": null\n";
-	
-										if (layerFeature.attributes.GROUP_CODE == "G") {
-										//if (layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E") {
-											jsonStr += "			,   \"infoBtnDisabled\": true,\n";
-											jsonStr += "				\"chartBtnDisabled\": true,\n";
-											jsonStr += "				\"srchBtnDisabled\": true\n";
-										}
-										jsonStr += "			}, ";
-	
-									}
-	
-								} else {
-									jsonStr += "{\n";
-									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "_" + cnt + "\",\n";
-									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
-									jsonStr += "				\"infoBtnDisabled\": true,\n";
-									jsonStr += "				\"chartBtnDisabled\": true,\n";
-									jsonStr += "				\"srchBtnDisabled\": true,\n";
-									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-									jsonStr += "				\"leaf\": true,\n";
-									jsonStr += "				\"checked\": null\n";
-									jsonStr += "			}, ";
+								
+								if (layerFeature.attributes.GROUP_CODE == 'C') {
+									krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
 								}
+
+								jsonStr += "{\n";
+								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+								jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+								jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+								jsonStr += "				\"leaf\": true,\n";
+
+								//4댑스 값 세팅
+								if (layerFeature.attributes.GUBUN_CODE) {
+									jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
+									jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
+								}
+								jsonStr += "				\"checked\": null\n";
+
+								if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
+									jsonStr += "				,\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
+									jsonStr += "				\"chartBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
+									jsonStr += "				\"infoBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
+								}
+
+								jsonStr += "			}, ";
+
 							});
 	
 							if (layerFeatures.length > 0) {
@@ -908,11 +933,11 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		data.children.map(function(obj){
 
 			//E003 , E004
-			if(obj.id == "E001"){
-				obj.text = "생태교란종";
+			if(obj.id == "E003"){
+				//obj.text = "멸종위기종";
 				reNewData.push(obj);
-			}else if(obj.id == "E002"){
-				obj.text = "멸종위기종";
+			}else if(obj.id == "E004"){
+				//obj.text = "생태교란종";
 				reNewData.push(obj);
 			}
 			
@@ -1361,8 +1386,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1390,8 +1415,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1418,8 +1443,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1446,8 +1471,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1474,8 +1499,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1502,8 +1527,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1544,8 +1569,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1572,8 +1597,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1600,8 +1625,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1628,8 +1653,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"iconCls\": \"layerNoneImg\",\n";
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
-											sstgString += "			\"infoBtnDisabled\": true,\n";
-											sstgString += "			\"chartBtnDisabled\": true,\n";
+											sstgString += "			\"infoBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": false,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1659,8 +1684,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "	\"visible\": \"true\",\n";
 											sstgString += "	\"text\": \"부착돌말류\",\n";
 											sstgString += "	\"expanded\": false,\n";
-											sstgString += "	\"infoBtnDisabled\": true,\n";
-											sstgString += "	\"chartBtnDisabled\": true,\n";
+											sstgString += "	\"infoBtnDisabled\": false,\n";
+											sstgString += "	\"chartBtnDisabled\": false,\n";
 											sstgString += "	\"srchBtnDisabled\": false\n";
 											sstgString += "	},";
 										}

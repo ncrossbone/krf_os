@@ -562,6 +562,34 @@
 		//"layerCode": "EsstgHg",
 		"layerCode": "E002",
 		"isMetaData": true
+	},{
+		"id": "25",
+		"wmsId":"72",
+		"text": "생물측정망_멸종위기종",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer85",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "분류번호",
+		"siteNmCol": "조사지점",
+		"siteAddrCol": "ADDR",
+		//"layerCode": "EsstgHg",
+		"layerCode": "E003",
+		"isMetaData": true
+	},{
+		"id": "25",
+		"wmsId":"72",
+		"text": "생물측정망_생태교란종",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer85",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "분류번호",
+		"siteNmCol": "조사지점",
+		"siteAddrCol": "ADDR",
+		//"layerCode": "EsstgHg",
+		"layerCode": "E004",
+		"isMetaData": true
 	}]
 },/*{
 	"id": "P0",
