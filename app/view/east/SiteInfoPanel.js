@@ -133,7 +133,12 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 						data: [{ id: '1', name: '1회차' }
 							, { id: '2', name: '2회차' }
 						]
-					})
+					}),
+					listeners: {
+						change: function () {
+							$KRF_APP.global.CommFn.siteInfoComboChangeEvent();
+						}
+					}
 				}]
 			}, {
 				xtype: 'container',

@@ -318,6 +318,9 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				if (detailLayerList[parentCheck]) {
 					popWidth = 415;
 					popHeight = 325;
+
+					var sstgBtn = parentCheck.indexOf('E') > -1 ? '<img onClick=\"$KRF_APP.global.CommFn.popupClickEvent(this.id,\'' + jijum_Cd + '\');\" id="sstgPopupNextBtn" src="./resources/images/totalSearch/5.gif" style="position: absolute;right: 30px;top: 152px; cursor: pointer;">' : '';
+
 					html = " <!doctype html>																																											" +
 						" <html lang=\"ko\">                                                                                                                                                                        " +
 						" <head>                                                                                                                                                                                    " +
@@ -386,8 +389,8 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"             	<a href=\"#\" onClick=\"ShowToolTipSearchResult('" + jijum_Cd + "','','" + jijum_Name + "','grid_" + jijum_Cd + "','','" + parentCheck + "');\" >자료조회</a>                                                                                                                                                    " +
 						"             	<a href=\"#\" onClick=\"detailSearchClickZoom('" + point.x + "','" + point.y + "');\" class=\"epbtn\"><img src=\"./resources/images/tooltip/img/btn_icon.png\" alt=\"확대\"/></a>                                                                                               " +
 						"             </div>                                                                                                                                                                        " +
-						"             <dl class=\"searchbox\">                                                                                                                                                      " +
-						" 				<dt>[통합검색]</dt>                                                                                                                                                           " +
+						"             <dl class=\"searchbox\" id='basicInfoPopup'>                                                                                                                                                      " +
+						" 				<dt>[통합검색]" + sstgBtn + "</dt>                                                                                                                                                           " +
 						"                 <dd>                                                                                                                                                                      " +
 						"                 	<ul class=\"sinput\">                                                                                                                                                   " +
 						"                     	<li>                                                                                                                                            " +
@@ -418,6 +421,47 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"                     </div>                                                                                                                                                                " +
 						"                 </dd>                                                                                                                                                                     " +
 						"             </dl>                                                                                                                                                                         " +
+
+						/*수생태계 정보 관련 */
+						"             <dl class=\"searchbox\" style='display:none;' id='sstgInfoPopup'>                                                                                                                                                      " +
+						" 				<dt>[수생태정보]<img onClick=\"$KRF_APP.global.CommFn.popupClickEvent(this.id);\" id='sstgPopupPreBtn' src='./resources/images/totalSearch/6.gif' style='position: absolute;right: 30px;top: 152px; cursor: pointer;'></dt>" +
+						"                 <dd style='height:108px;'>                                                                                                                                                                      " +
+
+						"                 	<ul class=\"sinput\">                                                                                                                                                   " +
+						"                     	<li>                                                                                                                                            " +
+						"                         	<span class=\"tit\">항목</span>                                                                                                                                  " +
+						"                             <select id=\"sstgPopupItem\" style=\"width:70px; padding: 3px;\">                                                                                                " +
+						"								<option>어류</option>" +
+						"							  </select>" +
+						"							<table style='height:50px; position: absolute; top: 190px; right: 35px; font-size: 11px; border-collapse: collapse; border: 1px solid #595959;'>" +
+						"								<tr>" +
+						"									<td style='background:#bfbfbf; padding: 2px; text-align:center; font-weight: bold; border-bottom: 1px solid #595959; border-right: 1px solid #595959;'>하천건강성등급</td>" +
+						"									<td style='background:#bfbfbf; padding: 2px; text-align:center; font-weight: bold; border-bottom: 1px solid #595959;'>하천건강성지수</td>" +
+						"								</tr>" +
+						"								<tr>" +
+						"									<td id='sstgPopupGrade' style='background:#fff; padding: 2px; text-align:center; border-right: 1px solid #595959;'>A</td>" +
+						"									<td id='sstgPopupValue' style='background:#fff; padding: 2px; text-align:center;'>37.2</td>" +
+						"								</tr>" +
+						"							</table>" +
+						"                 		</li>                                                                                                                                                               " +
+						"                     	<li style=\"margin-top:5px;\">                                                                                                                                            " +
+						"                         	<span class=\"tit\">년도</span>                                                                                                                                  " +
+						"                             <select id=\"sstgPopupYear\" style=\"width:73px; padding: 3px;\" onChange=\"$KRF_APP.global.CommFn.popupComboChangeEvent(\'" + jijum_Cd + "\');\">                                                                                                " +
+						"								<option value=\"2015\">2015년</option>" +
+						"								<option value=\"2016\">2016년</option>" +
+						"								<option value=\"2017\" selected>2017년</option>" +
+						"								<option value=\"2018\">2018년</option>" +
+						"								<option value=\"2019\">2019년</option>" +
+						"							  </select>" +
+						"                             <select id=\"sstgPopupTme\" style=\"width:64px; padding: 3px;\" onChange=\"$KRF_APP.global.CommFn.popupComboChangeEvent(\'" + jijum_Cd + "\');\">                                                                                                " +
+						"								<option value=\"1\">1회차</option>" +
+						"								<option value=\"2\">2회차</option>" +
+						"							  </select>" +
+						"                 		</li>                                                                                                                                                               " +
+						"					</ul>"
+					"				  </dd>                                                                                                                                                                     " +
+						"             </dl>                                                                                                                                                                         " +
+
 						"         </div>                                                                                                                                                                            " +
 						"     </div>                                                                                                                                                                                " +
 						" </body>                                                                                                                                                                                   " +
