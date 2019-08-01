@@ -229,6 +229,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				recordId = recordId.split('_')[1];
 			} else if (store.parentId == 'Q') {
 				requestUrl = _API['GetRWMDT_' + store.parentId];
+			} else if(store.parentId == 'E') {
+				requestUrl = _API['GetRWMDT_2018_' + store.orgParentId];
 			}
 
 			if (store.parentId == "H" && defaultChart == "1") {
