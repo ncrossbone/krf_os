@@ -75,6 +75,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 					valueField: 'id',
 					displayField: 'name',
 					value: 'fish',
+					id: 'sstgSiteInfoItem',
 					store: Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
 						data: [{ id: 'fish', name: '어류' }
@@ -100,15 +101,22 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 					valueField: 'id',
 					displayField: 'name',
 					editable: false,
-					value: '2016',
+					value: '2017',
+					id: 'sstgSiteInfoYear',
 					store: Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{ id: '2016', name: '2016년' }
+						data: [{ id: '2015', name: '2015년' }
+							, { id: '2016', name: '2016년' }
 							, { id: '2017', name: '2017년' }
 							, { id: '2018', name: '2018년' }
 							, { id: '2019', name: '2019년' }
 						]
-					})
+					}),
+					listeners: {
+						change: function () {
+							$KRF_APP.global.CommFn.siteInfoComboChangeEvent();
+						}
+					}
 				}, {
 					xtype: 'container',
 					width: 5
@@ -119,6 +127,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 					valueField: 'id',
 					displayField: 'name',
 					value: '1',
+					id: 'sstgSiteInfoTme',
 					store: Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
 						data: [{ id: '1', name: '1회차' }
@@ -141,7 +150,8 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 					width: 20
 				}, {
 					xtype: 'label',
-					id: 'siteInfoSstgNm'
+					id: 'siteInfoSstgNm',
+					code: ''
 				}]
 			}, {
 				xtype: 'container',
