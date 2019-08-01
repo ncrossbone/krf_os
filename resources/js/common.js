@@ -431,7 +431,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 		} else if (parentId == 'K') {
 			yFieldName = 'FUEL_USGQTY';
 		} else if( parentId == 'E') {
-			yFieldName = 'CNT';
+			yFieldName = '총합';
 			series.setXField("WMCYMD");
 		}
 
