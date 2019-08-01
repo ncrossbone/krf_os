@@ -1387,7 +1387,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1416,7 +1416,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1444,7 +1444,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1472,7 +1472,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1500,7 +1500,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1528,7 +1528,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1570,7 +1570,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1598,7 +1598,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1626,7 +1626,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1654,7 +1654,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "			\"leaf\": true,\n";
 											sstgString += "			\"checked\": null,\n";
 											sstgString += "			\"infoBtnDisabled\": false,\n";
-											sstgString += "			\"chartBtnDisabled\": false,\n";
+											sstgString += "			\"chartBtnDisabled\": true,\n";
 											sstgString += "			\"srchBtnDisabled\": false,\n";
 											sstgString += "		}, ";
 										}
@@ -1685,7 +1685,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 											sstgString += "	\"text\": \"부착돌말류\",\n";
 											sstgString += "	\"expanded\": false,\n";
 											sstgString += "	\"infoBtnDisabled\": false,\n";
-											sstgString += "	\"chartBtnDisabled\": false,\n";
+											sstgString += "	\"chartBtnDisabled\": true,\n";
 											sstgString += "	\"srchBtnDisabled\": false\n";
 											sstgString += "	},";
 										}

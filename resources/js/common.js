@@ -451,9 +451,15 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 
 		if (!chartFlag) {
 			// 차트정보 스토어 로드
-			if (siteChartCtl != undefined) {
+			if (siteChartCtl != undefined) { 
 				//var chartStore = siteChartCtl.getStore();
 				var chartStore = Ext.create('krf_new.store.east.SiteChartPanel');
+				
+				//수생태계 하천-하구 chart 검색 안되게 ( 지점정보만 존재 )
+				if(orgParentId.substring(0,5) == "Esstg"){
+					return;
+				}
+
 				chartStore.siteCD = title;
 				chartStore.siteId = siteId; // 통합환경 parentId가 siteId로 대체 사용
 				chartStore.yFieldName = yFieldName;

@@ -877,13 +877,27 @@ Ext.define("krf_new.global.CommFn", {
 		var siteInfoForE = Ext.getCmp('siteInfoForE');
 		var siteinfotest = Ext.getCmp('siteinfotest');
 
+		var tabChart = Ext.getCmp('tabChart'); // 차트버튼
+
+		// 수생태는 차트가 없음 (생태/멸종 뺴고)
 		if ($KRF_APP.layerCode.indexOf('E') == -1) {
 			siteInfoForE.setHidden(true);
 			siteinfotest.setHidden(false);
+			tabChart.setHidden(false);
 			return;
 		} else {
 			siteInfoForE.setHidden(false);
 			siteinfotest.setHidden(true);
+
+			// E 수생태는 차트가 없지만 생태/멸종은 차트정보가 있음
+			if($KRF_APP.layerCode == "E003" || $KRF_APP.layerCode == "E004"){
+				tabChart.setHidden(false);
+			}else{
+				tabChart.setHidden(true);
+				ChangeTabIndex(1); //차트가 안보이면서 tab을 지점정보로 변경
+			}
+			
+			
 
 			if (id) {
 				Ext.getCmp('siteInfoSstgNm').code = id;
