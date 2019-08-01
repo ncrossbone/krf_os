@@ -53,10 +53,151 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 		xtype: 'panel',
 		id: 'siteInfoForE',
 		hidden: true,
+		layout: 'hbox',
+		style: 'padding:10px;',
 		items: [{
-			xtype: 'label',
-			text: 'zzz'
-		}]
+			xtype: 'container',
+			layout: 'vbox',
+			items: [{
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype: 'label',
+					style: 'font-weight: bold; margin-top: 3px;',
+					text: '생물분류군:'
+				}, {
+					xtype: 'container',
+					width: 20
+				}, {
+					xtype: 'combo',
+					width: 70,
+					editable: false,
+					valueField: 'id',
+					displayField: 'name',
+					value: 'fish',
+					id: 'sstgSiteInfoItem',
+					store: Ext.create('Ext.data.Store', {
+						fields: ['id', 'name'],
+						data: [{ id: 'fish', name: '어류' }
+						]
+					})
+				}]
+			}, {
+				xtype: 'container',
+				height: 10
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype: 'label',
+					style: 'font-weight: bold; margin-top: 3px;',
+					text: '조사년도:'
+				}, {
+					xtype: 'container',
+					width: 20
+				}, {
+					xtype: 'combo',
+					width: 80,
+					valueField: 'id',
+					displayField: 'name',
+					editable: false,
+					value: '2017',
+					id: 'sstgSiteInfoYear',
+					store: Ext.create('Ext.data.Store', {
+						fields: ['id', 'name'],
+						data: [{ id: '2015', name: '2015년' }
+							, { id: '2016', name: '2016년' }
+							, { id: '2017', name: '2017년' }
+							, { id: '2018', name: '2018년' }
+							, { id: '2019', name: '2019년' }
+						]
+					}),
+					listeners: {
+						change: function () {
+							$KRF_APP.global.CommFn.siteInfoComboChangeEvent();
+						}
+					}
+				}, {
+					xtype: 'container',
+					width: 5
+				}, {
+					xtype: 'combo',
+					width: 80,
+					editable: false,
+					valueField: 'id',
+					displayField: 'name',
+					value: '1',
+					id: 'sstgSiteInfoTme',
+					store: Ext.create('Ext.data.Store', {
+						fields: ['id', 'name'],
+						data: [{ id: '1', name: '1회차' }
+							, { id: '2', name: '2회차' }
+						]
+					})
+				}]
+			}, {
+				xtype: 'container',
+				height: 15
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype: 'label',
+					style: 'font-weight: bold',
+					text: '지점명:'
+				}, {
+					xtype: 'container',
+					width: 20
+				}, {
+					xtype: 'label',
+					id: 'siteInfoSstgNm',
+					code: ''
+				}]
+			}, {
+				xtype: 'container',
+				height: 15
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype: 'label',
+					style: 'font-weight: bold',
+					text: '수계명:'
+				}, {
+					xtype: 'container',
+					width: 20
+				}, {
+					xtype: 'label',
+					id: 'siteInfoSstgWtNm'
+				}]
+			}, {
+				xtype: 'container',
+				height: 13
+			}, {
+				xtype: 'container',
+				layout: 'hbox',
+				items: [{
+					xtype: 'label',
+					style: 'font-weight: bold',
+					text: '주소:'
+				}, {
+					xtype: 'container',
+					width: 20
+				}, {
+					xtype: 'label',
+					id: 'siteInfoSstgAddr'
+				}]
+			}]
+		}, {
+			xtype: 'image',
+			id: 'sstgInfoImage',
+			src: './resources/images/sstg/-.png',
+
+		}],
+		html: '<div style="right: 95px; position: absolute; top: 75px; font-size: 11px; width: 30px; text-align: center;">' +
+			'<a id="sstgInfoTxt"></a>' +
+			'<a id="sstgInfoNum"></a>' +
+			'</div>'
 	}],
 	listeners: {
 		activate: function () {
