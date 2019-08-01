@@ -846,6 +846,61 @@ Ext.define("krf_new.global.CommFn", {
 		});
 	},
 
+	popupComboChangeEvent: function (code) {
+		var me = this;
+		var param = {
+			id: code,
+			item: '-',
+			year: $('#sstgPopupYear').val(),
+			tme: $('#sstgPopupTme').val(),
+		};
+
+		me.getSstgSiteInfoData(param).then(function (result) {
+			me.writePopupTable(Ext.util.JSON.decode(result.responseText).data);
+		});
+	},
+
+	writePopupTable: function (dataArr) {
+		$('#sstgPopupGrade').text('-');
+		$('#sstgPopupValue').text('-');
+		$('#sstgPopupGrade').css('background', '#fff');
+
+		if (dataArr.length > 0) {
+			var gradeArr = ['A', 'B', 'C', 'D', 'E'];
+			var colorObj = {
+				'A': '#004ba7',
+				'B': '#58bc03',
+				'C': '#ffd62e',
+				'D': '#fc9400',
+				'E': '#e11400'
+			};
+
+			var txt = (gradeArr.indexOf(dataArr[0].HEALTH_GRAD) > -1) ? dataArr[0].HEALTH_GRAD : '-';
+
+			$('#sstgPopupGrade').text(txt);
+			$('#sstgPopupGrade').css('background', colorObj[txt] ? colorObj[txt] : '#fff');
+			$('#sstgPopupValue').text(dataArr[0].FAI ? dataArr[0].FAI : '-');
+
+			$('#sstgPopupYear').val(dataArr[0].YEAR);
+			$('#sstgPopupTme').val(dataArr[0].TME);
+		}
+	},
+
+	popupClickEvent: function (btnId, code) {
+		var me = this;
+		if (btnId == 'sstgPopupNextBtn') {
+			$('#basicInfoPopup').hide();
+			$('#sstgInfoPopup').show();
+			me.getSstgSiteInfoData({ id: code }).then(function (result) {
+
+				me.writePopupTable(Ext.util.JSON.decode(result.responseText).data);
+			});
+		} else {
+			$('#basicInfoPopup').show();
+			$('#sstgInfoPopup').hide();
+		}
+	},
+
 	siteInfoComboChangeEvent: function () {
 		var me = this;
 		var param = {
