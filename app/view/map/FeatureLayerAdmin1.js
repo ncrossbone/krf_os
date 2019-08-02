@@ -433,7 +433,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"                             <select id=\"sstgPopupItem\" style=\"width:70px; padding: 3px;\">                                                                                                " +
 						"								<option>어류</option>" +
 						"							  </select>" +
-						"							<table style='height:50px; position: absolute; top: 190px; right: 35px; font-size: 11px; border-collapse: collapse; border: 1px solid #595959;'>" +
+						"							<table style='height:50px; position: absolute; top: 190px; right: 30px; font-size: 11px; border-collapse: collapse; border: 1px solid #595959;'>" +
 						"								<tr>" +
 						"									<td style='background:#bfbfbf; padding: 2px; text-align:center; font-weight: bold; border-bottom: 1px solid #595959; border-right: 1px solid #595959;'>하천건강성등급</td>" +
 						"									<td style='background:#bfbfbf; padding: 2px; text-align:center; font-weight: bold; border-bottom: 1px solid #595959;'>하천건강성지수</td>" +
