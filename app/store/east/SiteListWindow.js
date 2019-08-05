@@ -53,7 +53,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				  ,'J002':{chart:false,searchResult:false}
 				  ,'M':{chart:true,searchResult:true}
 				  ,'M001':{chart:false,searchResult:false}
-				  ,'K':{chart:true,searchResult:false}
+				  ,'K':{chart:true,searchResult:true}
 				  ,'K001':{chart:false,searchResult:false}
 				  ,'K002':{chart:false,searchResult:false}
 				  ,'Q':{chart:true,searchResult:false}

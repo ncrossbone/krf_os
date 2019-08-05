@@ -113,6 +113,7 @@
     "GetSearchResultData_Z003":"#host#/searchResult/searchResult_Z003_2018",
     "GetSearchResultData_K":"#host#/searchResult/searchResult_K2018",
     "GetSearchResultDataWindow_Z":"#host#/searchResult/searchResultWindow_Z",
+    "GetSearchResultDataWindow_K":"#host#/searchResult/searchResultWindow_K",
     "searchResult_L2018":"#host#/searchResult/searchResult_L2018",
     
     "GetSearchResultData_2018_E":"#host#/searchResult/", // 수생태계

@@ -429,6 +429,9 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						}
 
 						cfgBtn.show();
+						if(store.parentId == 'E'){
+							cfgBtn.hide();
+						}
 						saveBtn.show();
 
 					},

@@ -1088,6 +1088,30 @@ Ext.define('krf_new.view.common.TabControl_New', {
 						}
 					}
 				}
+			},{
+				id: 'info_1_K',
+				xtype: 'button',
+				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
+				text: '배출시설',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.CommFn.setDataForK(1);
+						}
+					}
+				}
+			}, {
+				id: 'info_2_K',
+				xtype: 'button',
+				style: 'margin-left:5px; box-sizing:border-box; background: #263352; color: #fff; font-size: 15px; font-family:\'notokr-regular\'; text-align: center; padding: 3px 0; border-radius:3px; border:none;',
+				text: '방지시설',
+				listeners: {
+					el: {
+						click: function () {
+							$KRF_APP.global.CommFn.setDataForK(2);
+						}
+					}
+				}
 			}]
 		}, {
 			xtype: 'container',

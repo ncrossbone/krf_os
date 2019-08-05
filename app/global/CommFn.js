@@ -487,6 +487,54 @@ Ext.define("krf_new.global.CommFn", {
 		return copy;
 	},
 
+	setDataForK: function(val){
+
+		var me  = this;
+
+
+		var tabCtl = Ext.getCmp("searchResultTab");
+		tabCtl = tabCtl.items.items[1];
+		var activeTab = tabCtl.getActiveTab();
+		var preGrid = activeTab.child().child();
+		var preStore = preGrid.getStore();
+
+
+		var srw = Ext.getCmp('searchResultWindow_K_'+val);
+
+		if (!srw) {
+			srw = Ext.create('krf_new.view.center.SearchResultWindow_K_'+val);
+			Ext.getCmp('center_container').add(srw);
+		}
+
+		srw.show();
+
+		//통합환경허가 데이터 store
+		me.setStoreDataK(srw, val+'_1');
+
+		
+
+		
+	},
+
+	// 통합환경허가 store
+	setStoreDataK: function(grid, val){
+
+		var gridStore = Ext.create('krf_new.store.center.SearchResultWindow_K', {
+			gubunCode : val,
+			parentIds: preStore.parentIds,
+			siteIds: preStore.siteIds
+		});
+
+		console.info(grid);
+
+		grid.setStore(gridStore);
+
+
+	},
+
+
+
+
 	setDataForZ: function (btnId) {
 		var tabCtl = Ext.getCmp("searchResultTab");
 		tabCtl = tabCtl.items.items[1];
@@ -934,11 +982,12 @@ Ext.define("krf_new.global.CommFn", {
 
 		var tabChart = Ext.getCmp('tabChart'); // 차트버튼
 
-		// 수생태는 차트가 없음 (생태/멸종 뺴고)
+		// 수생태는 차트가 없음 (생태/멸종 뺴고) btnShowSearchWindow
 		if ($KRF_APP.layerCode.indexOf('E') == -1) {
 			siteInfoForE.setHidden(true);
 			siteinfotest.setHidden(false);
 			tabChart.setHidden(false);
+			$('#btnShowSearchWindow')[0].style.display = '';
 			return;
 		} else {
 			siteInfoForE.setHidden(false);
@@ -946,6 +995,7 @@ Ext.define("krf_new.global.CommFn", {
 
 			// E 수생태는 차트가 없지만 생태/멸종은 차트정보가 있음
 			if($KRF_APP.layerCode == "E003" || $KRF_APP.layerCode == "E004"){
+				
 				tabChart.setHidden(false);
 			}else{
 				tabChart.setHidden(true);
@@ -984,5 +1034,288 @@ Ext.define("krf_new.global.CommFn", {
 				});
 			}
 		}
+	},
+
+
+	//통합환경허가 검새결과 grid (배출시설/방지시설)
+	getKInfoGrid: function(val){
+
+		var grid = null;
+        if(val == 1){
+			grid = [{
+				text:'일자',
+				dataIndex: ''
+			},{
+				text:'기상상태',
+				columns: [{
+					text:'날씨',
+					dataIndex: ''
+				},{
+					text:'온도(C)',
+					dataIndex: ''
+				}]
+			},{
+				text:'배출시설 정보',
+				columns:[{
+					text:'배출구 번호',
+					dataIndex: ''
+				},{
+					text:'배출시설 번호',
+					dataIndex: ''
+				},{
+					text:'배출 시설명',
+					dataIndex: ''
+				},{
+					text:'배출시설 가동시간',
+					dataIndex: ''
+				}]
+			},{
+				text:'방지시설정보',
+				columns:[{
+					text:'방지시설번호',
+					dataIndex: ''
+				}]
+			}]
+		}else if (val == 2) {
+            grid = [{
+                text: '시설개요',
+				columns: [{
+					text:'배출시설 관리 번호',
+					dataIndex: ''
+				},{
+					text:'단위공정 번호',
+					dataIndex: ''
+				},{
+					text:'배출시설명',
+					dataIndex: ''
+				},{
+					text:'비고(부속시설 정보)',
+					dataIndex: ''
+				},{
+					text:'사업장 Item No',
+					dataIndex: ''
+				},{
+					text:'용량',
+					dataIndex: ''
+				},{
+					text:'수량',
+					dataIndex: ''
+				},{
+					text:'운전온도(c)',
+					dataIndex: ''
+				},{
+					text:'온전압력(kPa)',
+					dataIndex: ''
+				},{
+					text:'일간 가동시간(시간/일)',
+					dataIndex: ''
+				},{
+					text:'연간 가동일수(일/년)',
+					dataIndex: ''
+				},{
+					text:'운전인자',
+					dataIndex: ''
+				},{
+					text:'설치지점',
+					dataIndex: ''
+				},{
+					text:'배출(방류)구번호',
+					dataIndex: ''
+				}]
+            },{
+				text:'변경사항',
+				dataIndex: ''
+			},{
+				text:'법정대상여부',
+				dataIndex: ''
+			},{
+				text:'비고',
+				dataIndex: ''
+			},{
+				text:'폐쇄 혹은 가동중지 여부',
+				dataIndex: ''
+			}]
+		}else if(val == 3){
+			grid = [{
+				text:'일련번호',
+				dataIndex:''
+			},{
+				text:'오염물질 배출',
+				columns:[{
+					text:'배출시설 관리번호',
+					dataIndex:''
+				},{
+					text:'매체구분',
+					dataIndex:''
+				},{
+					text:'배출시설번호',
+					dataIndex:''
+				},{
+					text:'배출오염물질등',
+					columns:[{
+						text:'인허가 항목',
+						dataIndex:''
+					},{
+						text:'오염물질',
+						dataIndex:''
+					}]
+				},{
+					text:'배출유량',
+					dataIndex:''
+				},{
+					text:'배출유량 단위',
+					dataIndex:''
+				},{
+					text:'배출온도(도씨)',
+					dataIndex:''
+				},{
+					text:'발생농도',
+					dataIndex:''
+				}]
+			}]
+		}else if(val == 4){
+			grid = [{
+				text:'일자',
+				dataIndex:''
+			},{
+				text:'방지시설 정보',
+				columns:[{
+					text:'방지시설번호',
+					dataIndex:''
+				},{
+					text:'방지시설명',
+					dataIndex:''
+				},{
+					text:'방지지설 가동시간',
+					dataIndex:''
+				}]
+			},{
+				text:'배출구 번호(방류구)',
+				dataIndex:''
+			}]
+		}else if(val == 5){
+			grid = [{
+				text:'일련번호',
+				dataIndex:''
+			},{
+				text:'시설개요',
+				columns:[{
+					text:'방지시설관리번호',
+					dataIndex:''
+				},{
+					text:'단위공정번호',
+					dataIndex:''
+				},{
+					text:'사업장 Item No',
+					dataIndex:''
+				},{
+					text:'방지시설명',
+					dataIndex:''
+				},{
+					text:'비고(부속시설 정보)',
+					dataIndex:''
+				},{
+					text:'용량',
+					dataIndex:''
+				},{
+					text:'용량단위',
+					dataIndex:''
+				},{
+					text:'수량',
+					dataIndex:''
+				},{
+					text:'처리량(m3/hr)',
+					dataIndex:''
+				},{
+					text:'일일 가동시간',
+					dataIndex:''
+				},{
+					text:'연간가동일수',
+					dataIndex:''
+				},{
+					text:'차압관리',
+					dataIndex:''
+				},{
+					text:'운전인자',
+					dataIndex:''
+				},{
+					text:'설치지점',
+					dataIndex:''
+				},{
+					text:'배출(방류)구번호',
+					dataIndex:''
+				},{
+					text:'전단/후단시설',
+					columns:[{
+						text:'전단시설',
+						dataIndex:''
+					},{
+						text:'후단시설',
+						dataIndex:''
+					},{
+						text:'삭제여부',
+						dataIndex:''
+					}]
+				}]
+			}]
+		}else if(val == 6){
+			grid = [{
+				text:'일련번호',
+				dataIndex:''
+			},{
+				text:'방지시설 개요',
+				columns:[{
+					text:'방지시설관리번호',
+					dataIndex:''
+				},{
+					text:'매체구분',
+					dataIndex:''
+				},{
+					text:'방지시설 번호',
+					dataIndex:''
+				},{
+					text:'처리오염물질 등',
+					dataIndex:''
+				},{
+					text:'저감효율(%)',
+					dataIndex:''
+				}]
+			},{
+				text:'배출물질 조건(방지시설 후단)',
+				columns:[{
+					text:'배출유량',
+					dataIndex:''
+				},{
+					text:'배출농도 단위',
+					dataIndex:''
+				},{
+					text:'시간최대 배출량(톤)',
+					dataIndex:''
+				},{
+					text:'1일최대 배출량(톤)',
+					dataIndex:''
+				},{
+					text:'연간최대 배출량(톤)',
+					dataIndex:''
+				},{
+					text:'배출온도(도씨)',
+					dataIndex:''
+				}]
+			},{
+				text:'기타정보',
+				columns:[{
+					text:'방지시설 전단 오염물질 총량 추정값',
+					dataIndex:''
+				},{
+					text:'첨부파일 번호',
+					dataIndex:''
+				}]
+			},{
+				text:'삭제여부',
+				dataIndex:''
+			}]
+		};
+
+		return grid;
 	}
 });

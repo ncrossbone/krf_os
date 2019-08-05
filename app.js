@@ -148,7 +148,7 @@ Ext.create('Ext.data.Store', {
 				'krf_new.global.CommFn',
 				'krf_new.global.TabFn',
 				'krf_new.global.AttrFn',
-				'krf_new.global.SstgGridFn',
+				'krf_new.global.SstgGridFn', //수새태계 controller
 				'Ext.util.LocalStorage',
 				'krf_new.global.SedimentFn'
 			],
