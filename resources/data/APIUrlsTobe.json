@@ -178,9 +178,6 @@
     "GetSearchPollLoadResultData_Total":"#host#/searchResult/searchResult_PollLoad_Total",
     "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",
 
-
-
-    
     /* chart */
     "GetRWMDT_M":"#host#/chart/getRWMDT_M",
     "GetRWMDT_Q":"#host#/chart/getRWMDT_Q",
@@ -213,6 +210,8 @@
 
     "GET_SSTG_INFO":"#host#/chart/getSstgInfo",
 
+    "GetRWMDT":"#host#/chart/getRWMDT",
+    
     init: function(host_old,host){
               if(host != null){
                   this.domain = host;

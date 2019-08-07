@@ -1096,7 +1096,6 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			pollLoadChildString = pollLoadChildString.substring(0, pollLoadChildString.length - 2);
 
 			pollLoadString = pollLoadString.replace("#pollLoadChildString#", pollLoadChildString);
-			//console.info(pollLoadString);
 			return pollLoadString;
 		}
 		else {
@@ -1713,7 +1712,6 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 						if (typeof (callback) == 'function') {
 
-							console.info("1");
 							callback.call(this, sstgString);
 						}
 					},
