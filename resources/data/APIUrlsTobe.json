@@ -183,9 +183,6 @@
     "GetSearchPollLoadResultData_Total":"#host#/searchResult/searchResult_PollLoad_Total",
     "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",
 
-
-
-    
     /* chart */
     "GetRWMDT_M":"#host#/chart/getRWMDT_M",
     "GetRWMDT_Q":"#host#/chart/getRWMDT_Q",
@@ -195,8 +192,12 @@
     "GetRWMDT_2018_E003":"#host#/chart/getRWMDT_2018_E003",
     "GetRWMDT_2018_E004":"#host#/chart/getRWMDT_2018_E004",
     "GetRWMDT_2018_L":"#host#/chart/getRWMDT_2018_L",
+
     "GetRWMDT_2018_F_1":"#host#/chart/getRWMDT_2018_F_1",
+    "GetRWMDT_F_2":"#host#/chart/getRWMDT_F_2",
     "GetRWMDT_2018_F_3":"#host#/chart/getRWMDT_2018_F_3",
+    "GetRWMDT_F_4":"#host#/chart/getRWMDT_F_4",
+
     "GetRWMDT_2018_K":"#host#/chart/getRWMDT_2018_K",
     "GetRWMDT_2018_D001":"#host#/chart/getRWMDT_2018_D001",
     "GetRWMDT_2018_D002":"#host#/chart/getRWMDT_2018_D002",
@@ -217,6 +218,8 @@
     "GetInfo_Z":"#host#/chart/getInfo_Z",
 
     "GET_SSTG_INFO":"#host#/chart/getSstgInfo",
+
+    "GetRWMDT":"#host#/chart/getRWMDT",
 
     init: function(host_old,host){
               if(host != null){
