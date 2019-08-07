@@ -28,8 +28,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				  ,'D006':{chart:false,searchResult:false}
 				  ,'D007':{chart:false,searchResult:false}
 				  ,'E':{chart:true,searchResult:true}
-				  ,'E003':{chart:false,searchResult:false}
-				  ,'E004':{chart:false,searchResult:false}
+				  ,'E003':{chart:false,searchResult:true}
+				  ,'E004':{chart:false,searchResult:true}
 				  ,'F':{chart:true,searchResult:false}
 				  ,'F001':{chart:false,searchResult:false}
 				  ,'F002':{chart:false,searchResult:false}

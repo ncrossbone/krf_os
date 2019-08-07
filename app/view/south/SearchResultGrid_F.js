@@ -61,6 +61,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_F', {
 					width: 0
 				}, {
 					text: '측정소명',
+					//dataIndex: 'FACI_NM',
 					dataIndex: 'FACI_NM',
 					width: 100,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } },
