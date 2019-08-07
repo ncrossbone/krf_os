@@ -126,16 +126,11 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 			var me = this;
 			var firstSearch = $KRF_APP.btnFlag;
 			var startYear = startMonth = endYear = endMonth = "";
-			var startDay = Ext.getCmp("startDay");
-			var startTime = Ext.getCmp("startTime");
-			var endDay = Ext.getCmp("endDay");
-			var endTime = Ext.getCmp("endTime");
+			var startDay = Ext.getCmp("startDay_B");
+			var startTime = Ext.getCmp("startTime_B");
+			var endDay = Ext.getCmp("endDay_B");
+			var endTime = Ext.getCmp("endTime_B");
 
-			
-			// var cmbStartYear = Ext.getCmp("cmbStartYear");
-			// var cmbStartMonth = Ext.getCmp("cmbStartMonth");
-			// var cmbEndYear = Ext.getCmp("cmbEndYear");
-			// var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 
 			var cmbStartYear = Ext.getCmp("startYear_B");
 			var cmbStartMonth = Ext.getCmp("startMonth_B");
@@ -146,6 +141,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 			startMonth = Ext.getCmp("startMonth_B").value;
 			endYear = Ext.getCmp("endYear_B").value;
 			endMonth = Ext.getCmp("endMonth_B").value;
+			
 			var startFull = cmbStartYear.value + cmbStartMonth.value + startDay.value + startTime.value;
 			var endFull = cmbEndYear.value + cmbEndMonth.value + endDay.value + endTime.value;
 			//			var winCtl = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.RESULT.id);

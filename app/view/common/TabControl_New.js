@@ -119,6 +119,19 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			flex: 1,
 			height: 30,
 			items: [{
+				xtype: "combo",
+				id: "select_B001",
+				store: Ext.create('Ext.data.Store', {
+					fields: ['label', 'value'],
+					data: [['미확정자료 보기', '01'], ['확정자료 보기', '02']]
+				}),
+				displayField: 'label',
+				valueField: 'value',
+				width: 150,
+				editable: false,
+				hidden: true,
+				value: "01"
+			},{
 				xtype: 'label',
 				text: '기간'
 			}, {
@@ -145,6 +158,24 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			}, {
 				xtype: 'label',
 				text: '월'
+			},{
+				xtype: 'combo',
+				id: "startDay_B",
+				store: $KRF_APP.global.CommFn.bindComboDay("Asc", ""),
+				editable: false,
+				width: 50
+			}, {
+				xtype: "label",
+				text: "일"
+			}, {
+				xtype: 'combo',
+				id: "startTime_B",
+				store: $KRF_APP.global.CommFn.bindComboHour("Asc", ""),
+				editable: false,
+				width: 50
+			}, {
+				xtype: "label",
+				text: "시"
 			}, {
 				xtype: 'container',
 				width: 10
@@ -175,6 +206,24 @@ Ext.define('krf_new.view.common.TabControl_New', {
 			}, {
 				xtype: 'label',
 				text: '월'
+			},{
+				xtype: 'combo',
+				id: "endDay_B",
+				store: $KRF_APP.global.CommFn.bindComboDay("Asc", ""),
+				editable: false,
+				width: 50
+			}, {
+				xtype: "label",
+				text: "일"
+			}, {
+				xtype: 'combo',
+				id: "endTime_B",
+				store: $KRF_APP.global.CommFn.bindComboHour("Asc", ""),
+				editable: false,
+				width: 50
+			}, {
+				xtype: "label",
+				text: "시"
 			}, {
 				xtype: 'container',
 				width: 15
@@ -1453,6 +1502,26 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				} else if (tab.initialConfig.parentId != undefined) {
 					nodeId = tab.initialConfig.parentId.substring(0, 1);
 				};
+
+
+				//수질자동측정망
+				if (tab.idCheck == "B001") {
+
+					Ext.getCmp('select_B001').setHidden(false);
+					Ext.getCmp('startDay_B').setHidden(false);
+					Ext.getCmp('startTime_B').setHidden(false);
+					Ext.getCmp('endDay_B').setHidden(false);
+					Ext.getCmp('endTime_B').setHidden(false);
+
+				}else{
+
+					Ext.getCmp('select_B001').setHidden(true);
+					Ext.getCmp('startDay_B').setHidden(true);
+					Ext.getCmp('startTime_B').setHidden(true);
+					Ext.getCmp('endDay_B').setHidden(true);
+					Ext.getCmp('endTime_B').setHidden(true);
+					
+				}
 
 
 

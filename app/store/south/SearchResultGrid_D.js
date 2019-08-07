@@ -120,7 +120,8 @@ Ext.define('krf_new.store.south.SearchResultGrid_D', {
 					'CURR_SIDAY'
 				]
 			} else if (store.orgParentIds == "D007") {
-				requestUrl = _API.GetSearchResultData_D_7; //"./resources/jsp/GetSearchResultData_D_7.jsp";
+				//requestUrl = _API.GetSearchResultData_D_7; //"./resources/jsp/GetSearchResultData_D_7.jsp";
+				requestUrl = _API.GetSearchResultData_D_2018_7; //"./resources/jsp/GetSearchResultData_D_7.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',

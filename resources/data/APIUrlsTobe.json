@@ -128,9 +128,14 @@
     "GetSearchResultData_D_2018_6":"#host#/searchResult/searchResult_D_2018_6",
     "GetSearchResultData_D_2018_7":"#host#/searchResult/searchResult_D_2018_7",
     "GetSearchResultData_F_2018_1":"#host#/searchResult/searchResult_F_2018_1",
+    "GetSearchResultData_F_2":"#host#/searchResult/searchResult_F_2",
     "GetSearchResultData_F_2018_3":"#host#/searchResult/searchResult_F_2018_3",
+    "GetSearchResultData_F_4":"#host#/searchResult/searchResult_F_4",
+    
     "GetSearchResultData_I_2018_1":"#host#/searchResult/searchResult_I_2018_1",
     "GetSearchResultData_I_2018_2":"#host#/searchResult/searchResult_I_2018_2",
+    "GetSearchResultData_J001":"#host#/searchResult/searchResult_J001",
+    "GetSearchResultData_J002":"#host#/searchResult/searchResult_J002",
 
     "PollLoadSelect":"#host#/pollLoad/pollLoadSelect",
     "PollutionSelect_01_01":"#host#/pollution/pollutionSelect_01_01",
