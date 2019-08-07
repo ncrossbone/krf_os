@@ -969,8 +969,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				if(obj.children.length > 0){
 					for(var i = 0 ; i < obj.children.length ; i++){
 						obj.children[i].parentCode = 'K';						
-						obj.children[i].chartBtnDisabled = true;
-						obj.children[i].infoBtnDisabled = true;
+						obj.children[i].chartBtnDisabled = false;
+						obj.children[i].infoBtnDisabled = false;
 						pointList.push(obj.children[i]);
 					}
 				}
