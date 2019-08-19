@@ -229,7 +229,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 				recordId = recordId.split('_')[1];
 			} else if (store.parentId == 'Q') {
 				requestUrl = _API['GetRWMDT_' + store.parentId];
-			} else if(store.parentId == 'E') {
+			} else if (store.parentId == 'E') {
 				requestUrl = _API['GetRWMDT_2018_' + store.orgParentId];
 			}
 
@@ -391,7 +391,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						* F 환경기초시설 구분은 미확
 						*/
 
-						if (!jsonData.data) {
+						if (!jsonData.data.length) {
 							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 							Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 							return;
@@ -429,7 +429,7 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 						}
 
 						cfgBtn.show();
-						if(store.parentId == 'E'){
+						if (store.parentId == 'E') {
 							cfgBtn.hide();
 						}
 						saveBtn.show();
