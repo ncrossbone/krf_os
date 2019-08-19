@@ -1444,23 +1444,14 @@ ShowSearchResult = function (siteIds, parentIds, titleText, gridId, test, toolti
 
 		var firstSearch = $KRF_APP.btnFlag;
 		if (firstSearch == "noDate") {
-			// cmbStartYear.setValue("2012");
-			// cmbStartMonth.setValue("09");
-			// cmbEndYear.setValue("2012");
-			// cmbEndMonth.setValue("12");
 		}
 
 		//환경기초시설 검색값 히든처리
-		//hiddenGrid.setHidden(false);
 		if (grdContainer == null || grdContainer == undefined) {
 
 			grdContainer = Ext.create("krf_new.view.south.SearchResultGrid_F", options);
 
-			//그리드 아이디 변경
-			//			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
-
 			tab.add(grdContainer);
-			//tab.insert(0, grdContainer);
 		}
 
 

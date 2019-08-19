@@ -487,10 +487,29 @@ Ext.define("krf_new.global.CommFn", {
 		return copy;
 	},
 
+	
 	setDataForK: function(val){
 
 		var me  = this;
 
+		var srw = Ext.getCmp('searchResultWindow_K');
+
+		if (!srw) {
+			srw = Ext.create('krf_new.view.center.SearchResultWindow_K');
+			Ext.getCmp('center_container').add(srw);
+		}
+
+		srw.show();
+
+		//통합환경허가 데이터 store
+		me.setStoreDataK();
+		
+	},
+
+	// 통합환경허가 store
+	setStoreDataK: function(){
+
+		var me  = this;
 
 		var tabCtl = Ext.getCmp("searchResultTab");
 		tabCtl = tabCtl.items.items[1];
@@ -499,36 +518,63 @@ Ext.define("krf_new.global.CommFn", {
 		var preStore = preGrid.getStore();
 
 
-		var srw = Ext.getCmp('searchResultWindow_K_'+val);
+		//searchResultWindow_K_Combo
 
-		if (!srw) {
-			srw = Ext.create('krf_new.view.center.SearchResultWindow_K_'+val);
-			Ext.getCmp('center_container').add(srw);
-		}
-
-		srw.show();
-
-		//통합환경허가 데이터 store
-		me.setStoreDataK(srw, val+'_1');
-
-		
-
-		
-	},
-
-	// 통합환경허가 store
-	setStoreDataK: function(grid, val){
-
-		var gridStore = Ext.create('krf_new.store.center.SearchResultWindow_K', {
-			gubunCode : val,
-			parentIds: preStore.parentIds,
-			siteIds: preStore.siteIds
+		var searchResultWindow_K_Combo = Ext.getCmp('searchResultWindow_K_Combo');
+		var comboStore = Ext.create('Ext.data.Store', {
+			fields: ['id', 'name'],
+			data: [{ id: '#w1', name: '#w1' }
+				, { id: '#w2', name: '#w2' }]
 		});
 
-		console.info(grid);
+		searchResultWindow_K_Combo.setStore(comboStore);
 
-		grid.setStore(gridStore);
 
+		//Ext.getCmp('searchResultWindow_K_Combo')
+
+
+
+		$.when(me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_1,),me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_2),me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_3)).done(function(result1,result2,result3){
+			
+			var grid1 = Ext.getCmp('searchResultWindow_K_1');// 배출시설
+			var grid2 = Ext.getCmp('searchResultWindow_K_2');// 방지시설
+			var grid3 = Ext.getCmp('searchResultWindow_K_3');// 방류구
+
+			var store1 = Ext.create('Ext.data.Store', {
+				fields: ['A','B','C','D','E','F','G','H'],
+				data: Ext.util.JSON.decode(result1.responseText).data
+			});
+
+			var store2 = Ext.create('Ext.data.Store', {
+				fields: ['A','B','C','D','E','F','G','H'],
+				data: Ext.util.JSON.decode(result2.responseText).data
+			});
+
+			var store3 = Ext.create('Ext.data.Store', {
+				fields: ['A','B','C','D','E','F','G','H'],
+				data: Ext.util.JSON.decode(result3.responseText).data
+			});
+
+			grid1.setStore(store1);
+			grid2.setStore(store2);
+			grid3.setStore(store3);
+
+		});
+
+
+	},
+
+	getStoreDataK: function(siteIds,url){
+
+		return Ext.Ajax.request({
+			url: url,
+			async: false,
+			params: {
+				siteIds: siteIds
+			},
+			dataType: 'text/plain',
+			method: 'POST'
+		});
 
 	},
 
@@ -1036,124 +1082,100 @@ Ext.define("krf_new.global.CommFn", {
 		}
 	},
 
+	getKInfoWindow:function(gubun, val){
 
-	//통합환경허가 검새결과 grid (배출시설/방지시설)
-	getKInfoGrid: function(val){
+		var me  = this;
+
+		var srw = Ext.getCmp('searchResultWindow_K_Info');
+		var grid = Ext.getCmp('searchResultWindow_K_Info_Grid');
+
+		if (!srw) {
+			srw = Ext.create('krf_new.view.center.SearchResultWindow_K_Info');
+			Ext.getCmp('center_container').add(srw);
+		}
+
+		srw.show();
+
+		var columns = me.getKInfoDataGrid(gubun);
+		grid.setColumns(columns);
+
+		var url = "";
+		if(gubun == 1){
+			url = _API.GetSearchResultDataWindow_K_4
+		}else{
+			url = _API.GetSearchResultDataWindow_K_5
+		}
+		
+		//ajax get data 
+		me.getStoreDataK(val, url).then(function (result) {
+			
+			var data = Ext.util.JSON.decode(result.responseText).data;
+
+			if(data.length > 0) {
+				var store = Ext.create('Ext.data.Store', {
+					data: data
+				});
+
+				grid.setStore(store);
+			}
+			
+
+		});
+
+
+		$.when(yme.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_3)).done(function(result1,result2,result3){
+			
+			var grid1 = Ext.getCmp('searchResultWindow_K_1');// 배출시설
+			var grid2 = Ext.getCmp('searchResultWindow_K_2');// 방지시설
+			var grid3 = Ext.getCmp('searchResultWindow_K_3');// 방류구
+
+			var store1 = Ext.create('Ext.data.Store', {
+				fields: ['A','B','C','D','E','F','G','H'],
+				data: Ext.util.JSON.decode(result1.responseText).data
+			});
+
+			var store2 = Ext.create('Ext.data.Store', {
+				fields: ['A','B','C','D','E','F','G','H'],
+				data: Ext.util.JSON.decode(result2.responseText).data
+			});
+
+			var store3 = Ext.create('Ext.data.Store', {
+				fields: ['A','B','C','D','E','F','G','H'],
+				data: Ext.util.JSON.decode(result3.responseText).data
+			});
+
+			grid1.setStore(store1);
+			grid2.setStore(store2);
+			grid3.setStore(store3);
+
+		});
+
+	},
+
+
+	//통합환경허가 검색결과 grid 오염물질정보  val(1/2) = 배출시설 / 방지시설
+	getKInfoDataGrid: function(val){
 
 		var grid = null;
         if(val == 1){
-			grid = [{
-				text:'일자',
-				dataIndex: ''
-			},{
-				text:'기상상태',
-				columns: [{
-					text:'날씨',
-					dataIndex: ''
-				},{
-					text:'온도(C)',
-					dataIndex: ''
-				}]
-			},{
-				text:'배출시설 정보',
-				columns:[{
-					text:'배출구 번호',
-					dataIndex: ''
-				},{
-					text:'배출시설 번호',
-					dataIndex: ''
-				},{
-					text:'배출 시설명',
-					dataIndex: ''
-				},{
-					text:'배출시설 가동시간',
-					dataIndex: ''
-				}]
-			},{
-				text:'방지시설정보',
-				columns:[{
-					text:'방지시설번호',
-					dataIndex: ''
-				}]
-			}]
-		}else if (val == 2) {
-            grid = [{
-                text: '시설개요',
-				columns: [{
-					text:'배출시설 관리 번호',
-					dataIndex: ''
-				},{
-					text:'단위공정 번호',
-					dataIndex: ''
-				},{
-					text:'배출시설명',
-					dataIndex: ''
-				},{
-					text:'비고(부속시설 정보)',
-					dataIndex: ''
-				},{
-					text:'사업장 Item No',
-					dataIndex: ''
-				},{
-					text:'용량',
-					dataIndex: ''
-				},{
-					text:'수량',
-					dataIndex: ''
-				},{
-					text:'운전온도(c)',
-					dataIndex: ''
-				},{
-					text:'온전압력(kPa)',
-					dataIndex: ''
-				},{
-					text:'일간 가동시간(시간/일)',
-					dataIndex: ''
-				},{
-					text:'연간 가동일수(일/년)',
-					dataIndex: ''
-				},{
-					text:'운전인자',
-					dataIndex: ''
-				},{
-					text:'설치지점',
-					dataIndex: ''
-				},{
-					text:'배출(방류)구번호',
-					dataIndex: ''
-				}]
-            },{
-				text:'변경사항',
-				dataIndex: ''
-			},{
-				text:'법정대상여부',
-				dataIndex: ''
-			},{
-				text:'비고',
-				dataIndex: ''
-			},{
-				text:'폐쇄 혹은 가동중지 여부',
-				dataIndex: ''
-			}]
-		}else if(val == 3){
 			grid = [{
 				text:'일련번호',
 				dataIndex:''
 			},{
 				text:'오염물질 배출',
 				columns:[{
-					text:'배출시설 관리번호',
-					dataIndex:''
+					text:'배출시설관리번호',
+					dataIndex:'DHGP_INNB'
 				},{
-					text:'매체구분',
+					text:'매채구분',
 					dataIndex:''
 				},{
 					text:'배출시설번호',
-					dataIndex:''
+					dataIndex:'DHGP_INNB'
 				},{
 					text:'배출오염물질등',
 					columns:[{
-						text:'인허가 항목',
+						text:'인허가항목',
 						dataIndex:''
 					},{
 						text:'오염물질',
@@ -1163,7 +1185,7 @@ Ext.define("krf_new.global.CommFn", {
 					text:'배출유량',
 					dataIndex:''
 				},{
-					text:'배출유량 단위',
+					text:'배출유량단위',
 					dataIndex:''
 				},{
 					text:'배출온도(도씨)',
@@ -1171,148 +1193,323 @@ Ext.define("krf_new.global.CommFn", {
 				},{
 					text:'발생농도',
 					dataIndex:''
-				}]
-			}]
-		}else if(val == 4){
-			grid = [{
-				text:'일자',
-				dataIndex:''
-			},{
-				text:'방지시설 정보',
-				columns:[{
-					text:'방지시설번호',
+				},{
+					text:'배출농도단위',
 					dataIndex:''
 				},{
-					text:'방지시설명',
+					text:'배출계수',
 					dataIndex:''
 				},{
-					text:'방지지설 가동시간',
-					dataIndex:''
-				}]
-			},{
-				text:'배출구 번호(방류구)',
-				dataIndex:''
-			}]
-		}else if(val == 5){
-			grid = [{
-				text:'일련번호',
-				dataIndex:''
-			},{
-				text:'시설개요',
-				columns:[{
-					text:'방지시설관리번호',
+					text:'시간최대발생량(톤)',
 					dataIndex:''
 				},{
-					text:'단위공정번호',
+					text:'1일최대발생량(톤)',
 					dataIndex:''
 				},{
-					text:'사업장 Item No',
+					text:'연간최대발생량(톤)',
 					dataIndex:''
 				},{
-					text:'방지시설명',
+					text:'처리방법',
 					dataIndex:''
 				},{
-					text:'비고(부속시설 정보)',
-					dataIndex:''
-				},{
-					text:'용량',
-					dataIndex:''
-				},{
-					text:'용량단위',
-					dataIndex:''
-				},{
-					text:'수량',
-					dataIndex:''
-				},{
-					text:'처리량(m3/hr)',
-					dataIndex:''
-				},{
-					text:'일일 가동시간',
-					dataIndex:''
-				},{
-					text:'연간가동일수',
-					dataIndex:''
-				},{
-					text:'차압관리',
-					dataIndex:''
-				},{
-					text:'운전인자',
-					dataIndex:''
-				},{
-					text:'설치지점',
-					dataIndex:''
-				},{
-					text:'배출(방류)구번호',
-					dataIndex:''
-				},{
-					text:'전단/후단시설',
-					columns:[{
-						text:'전단시설',
-						dataIndex:''
-					},{
-						text:'후단시설',
-						dataIndex:''
-					},{
-						text:'삭제여부',
-						dataIndex:''
-					}]
-				}]
-			}]
-		}else if(val == 6){
-			grid = [{
-				text:'일련번호',
-				dataIndex:''
-			},{
-				text:'방지시설 개요',
-				columns:[{
-					text:'방지시설관리번호',
-					dataIndex:''
-				},{
-					text:'매체구분',
-					dataIndex:''
-				},{
-					text:'방지시설 번호',
-					dataIndex:''
-				},{
-					text:'처리오염물질 등',
-					dataIndex:''
-				},{
-					text:'저감효율(%)',
+					text:'비고',
 					dataIndex:''
 				}]
 			},{
-				text:'배출물질 조건(방지시설 후단)',
+				text:'배출물질별 관리',
 				columns:[{
-					text:'배출유량',
+					text:'저감방법',
 					dataIndex:''
 				},{
-					text:'배출농도 단위',
+					text:'방지시설관리번호1',
 					dataIndex:''
 				},{
-					text:'시간최대 배출량(톤)',
+					text:'방지시설관리번호2',
 					dataIndex:''
 				},{
-					text:'1일최대 배출량(톤)',
+					text:'방지시설관리번호3',
 					dataIndex:''
 				},{
-					text:'연간최대 배출량(톤)',
+					text:'방지시설관리번호4',
 					dataIndex:''
 				},{
-					text:'배출온도(도씨)',
-					dataIndex:''
-				}]
-			},{
-				text:'기타정보',
-				columns:[{
-					text:'방지시설 전단 오염물질 총량 추정값',
+					text:'방지시설관리번호5',
 					dataIndex:''
 				},{
-					text:'첨부파일 번호',
+					text:'방지시설관리번호6',
+					dataIndex:''
+				},{
+					text:'방지시설관리번호7',
+					dataIndex:''
+				},{
+					text:'방지시설관리번호8',
+					dataIndex:''
+				},{
+					text:'방지시설관리번호9',
+					dataIndex:''
+				},{
+					text:'방지시설관리번호10',
+					dataIndex:''
+				},{
+					text:'시설기준번호',
+					dataIndex:''
+				},{
+					text:'시설기준 적용내용',
 					dataIndex:''
 				}]
 			},{
 				text:'삭제여부',
 				dataIndex:''
+			}]
+		}else if(val == 2){
+			grid = [{
+				text: '일련번호',
+				dataIndex: ''
+			},{
+				text: '방지시설 개요',
+				columns:[{
+					text: '방지시설관리번호',
+					dataIndex:'PRVFCLTY_INNB'
+				},{
+					text: '매체구분',
+					dataIndex:'MEDIA_NM'
+				},{
+					text: '방지시설번호',
+					dataIndex:'PRVFCLTY_NO'
+				},{
+					text: '처리오염물질 등',
+					dataIndex:'PROCESS_CNTMNNT_NM'
+				},{
+					text: '저감효율(%)',
+					dataIndex:'REDUC_EFCNY'
+				}]
+			},{
+				text: '배출물질조건(방지시설 후단)',
+				columns:[{
+					text: '배출유량',
+					dataIndex:'EXHST_FLUX'
+				},{
+					text: '배출유량단위',
+					dataIndex:'EXHST_FLUX_UNIT'
+				},{
+					text: '배출농도',
+					dataIndex:'EXHST_DNSTY'
+				},{
+					text: '배출농도단위',
+					dataIndex:'EXHST_DNSTY_UNIT'
+				},{
+					text: '시간최대배출량(톤)',
+					dataIndex:'HOUR_MXMM_DSCAMT'
+				},{
+					text: '1일최대배출량(톤)',
+					dataIndex:'DE_MXMM_DSCAMT'
+				},{
+					text: '연간최대배출량(톤)',
+					dataIndex:'YY_MXMM_DSCAMT'
+				},{
+					text: '배출온도(도씨)',
+					dataIndex:'EXHST_TP'
+				}]
+			},{
+				text: '최대배출기준',
+				dataIndex:'MXMM_EXHST_STDR_VALUE'
+			},{
+				text: '기타정보',
+				columns:[{
+					text: '방지시설 전단오염물질 총량 추정값',
+					dataIndex:'BFE_CNTMNNT_PRSMP_TOTQY'
+				},{
+					text: '첨부파일번호',
+					dataIndex:'ATCH_FILE_MANAGE_NO'
+				}]
+			},{
+				text: '삭제여부',
+				dataIndex:'DELETE_AT'
+			}]
+		}
+
+		return grid;
+
+	},
+
+	//통합환경허가 검새결과 grid (배출시설/방지시설/방류구)
+	getKInfoGrid: function(val){
+
+		var grid = null;
+        if(val == 1){
+			grid = [{
+				text:'단계',
+				dataIndex:'A'
+			},{
+				text:'시설개요',
+				columns:[{
+					text:'배출시설관리번호',
+					dataIndex:'DHGP_INNB'
+				},{
+					text:'배출시설명',
+					dataIndex:'BPLC_ONSLF_MANAGE_NM'
+				},{
+					text:'배고(부속시설 정보)',
+					dataIndex:'ADCLS_INFO'
+				},{
+					text:'사업장item No',
+					dataIndex:'PROCS_NO'
+				},{
+					text:'용량',
+					dataIndex:'CPCTY'
+				},{
+					text:'용량단위',
+					dataIndex:'CPCTY_UNIT'
+				},{
+					text:'수량',
+					dataIndex:'WQY'
+				},{
+					text:'운전온도(도씨)',
+					dataIndex:'DRV_TP'
+				},{
+					text:'운전압력(kPa)',
+					dataIndex:'DRV_PRESSR'
+				},{
+					text:'일간가동시간(시간/일)',
+					dataIndex:'DE_OPR_TIME'
+				},{
+					text:'연간가동일수(일/년)',
+					dataIndex:'YY_OPR_DAYCNT'
+				},{
+					text:'운전인자',
+					dataIndex:'DRV_FACTR'
+				},{
+					text:'설치지점',
+					dataIndex:'INSTL_SITE'
+				},{
+					text:'배출(방류)구 번호',
+					dataIndex:'DCWTRH_NO'
+				}]
+			},{
+				text:'변경사항',
+				dataIndex:'CHANGE_SE'
+			},{
+				text:'법정대상여부',
+				dataIndex:'LGL_TRGET_AT'
+			},{
+				text:'비고',
+				dataIndex:'RM'
+			},{
+				text:'폐쇄 혹은 가동중지 여부',
+				dataIndex:'CLS_OPR_STPGE_AT'
+			},{
+				text:'오염물질정보',
+				dataIndex: 'DHGP_INNB',
+				renderer: function(val,meta,rec) {
+					// generate unique id for an element
+					var id = Ext.id();
+					Ext.defer(function() {
+					   Ext.widget('button', {
+						  renderTo: Ext.query("#"+id)[0],
+						  text: '보기',
+						  scale: 'small',
+						  handler: function(a,b,c) {
+							$KRF_APP.global.CommFn.getKInfoWindow(1,val);
+						  }
+					   });
+					}, 50);
+					return Ext.String.format('<div id="{0}"></div>', id);
+				 }
+			}]
+		}else if (val == 2) {
+            grid = [{
+				text:'단계',
+				dataIndex:'A'
+			},{
+				text:'일련번호',
+				dataIndex:''
+			},{
+				text:'시설개요',
+				dataIndex:'',
+				columns:[{
+					text:'방지시설관리번호',
+					dataIndex:'PRVFCLTY_INNB'
+				},{
+					text:'단위공정번호',
+					dataIndex:'PROCS_NO'
+				},{
+					text:'사업장 Item No',
+					dataIndex:'BPLC_ONSLF_MANAGE_NO'
+				},{
+					text:'방지시설명',
+					dataIndex:'PRVFCLTY_NM'
+				},{
+					text:'비고(부속시설정보)',
+					dataIndex:'ADCLS_INFO'
+				},{
+					text:'용량',
+					dataIndex:'CPCTY'
+				},{
+					text:'용량단위',
+					dataIndex:'CPCTY_UNIT'
+				},{
+					text:'수량',
+					dataIndex:'WQY'
+				},{
+					text:'처리량(m3/hr',
+					dataIndex:'PROCESS_QY'
+				},{
+					text:'일일가동시간',
+					dataIndex:'DE_OPR_TIME'
+				},{
+					text:'연간가동일수',
+					dataIndex:'YY_OPR_DAYCNT'
+				},{
+					text:'차압관리',
+					dataIndex:'DIFPRS_MANAGE'
+				},{
+					text:'운전인자',
+					dataIndex:'DRV_FACTR'
+				},{
+					text:'설치지점',
+					dataIndex:'INSTL_SITE'
+				},{
+					text:'배출(방류)구 번호',
+					dataIndex:'DCWTRH_NO'
+				}]
+			},{
+				text:'전단/후단시설',
+				columns: [{
+					text:'전단시설',
+					dataIndex:'BFE_PRVFCLTY_INNB_LIST'
+				},{
+					text:'후단시설',
+					dataIndex:'AFTER_PRVFCLTY_INNB'
+				},{
+					text:'삭제여부',
+					dataIndex:'DELETE_AT'
+				}]
+			},{
+				text:'오염물질정보',
+				dataIndex: 'PRVFCLTY_INNB',
+				renderer: function(val,meta,rec) {
+					// generate unique id for an element
+					var id = Ext.id();
+					Ext.defer(function() {
+					   Ext.widget('button', {
+						  renderTo: Ext.query("#"+id)[0],
+						  text: '보기',
+						  scale: 'small',
+						  handler: function(a,b,c) {
+							$KRF_APP.global.CommFn.getKInfoWindow(2,val);
+						  }
+					   });
+					}, 50);
+					return Ext.String.format('<div id="{0}"></div>', id);
+				 }
+			}]
+		}else if(val == 3){
+			grid = [{
+				text:'단계',
+				dataIndex:'A'
+			},{
+				text:'방류구',
+				dataIndex: 'B'
 			}]
 		};
 

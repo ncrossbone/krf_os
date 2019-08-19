@@ -94,7 +94,7 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 				}, {
 					text: '측정일자',
 					//dataIndex: 'WMCYMD',
-					dataIndex: 'CHECK_DE', // 수정필요
+					dataIndex: 'CHCK_DE', // 수정필요
 					width: 90,
 					filter: { type: 'string', itemDefaults: { emptyText: 'Search for...' } }
 				}, {
@@ -106,7 +106,7 @@ Ext.define('krf_new.view.south.SearchResultGrid', {
 				}, {
 					text: '수심',
 					//dataIndex: 'WMDEP',
-					dataIndex: 'WTRSMPLE_DE',
+					dataIndex: 'MESURE_DP',
 					//hidden: true,
 					//hideable: false, // filter Columns영역에 보이지 않기
 					width: 90,
