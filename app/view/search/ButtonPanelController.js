@@ -51,7 +51,7 @@ Ext.define('krf_new.view.search.ButtonPanelController', {
 				Layer01OnOff($KRF_DEFINE.reachNodeLayerId, "on");
 				Layer01OnOff($KRF_DEFINE.reachLineLayerId, "on");
 				Layer01OnOff($KRF_DEFINE.reachFlowLayerId, "on");
-				Layer01OnOff($KRF_DEFINE.LakeLayerId, "on");
+				//Layer01OnOff($KRF_DEFINE.LakeLayerId, "on"); // 190819 왜들어간지 모르겠어서 주석처리
 				SetBtnOnOff("btnFlowLayer", "on");
 				SetBtnOnOff("btnReachLayer", "on");
 				SetBtnOnOff("btnReachNodeLayer", "on");

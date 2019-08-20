@@ -19,6 +19,7 @@
     "SetSearchConfig":"./resources/jsp/SetSearchConfig.jsp",
     "saveColunmOnOff":"./resources/jsp/saveColunmOnOff.jsp",
     "excelDown":"#host#/common/excelDown",
+    "drone_GetRWMDT":"#host#/drone/getRWMDT",
     
     
 
@@ -104,6 +105,9 @@
     "searchResult_L2018_Window":"#host#/searchResult/searchResult_L2018_Window",
     "searchResult_A2018":"#host#/searchResult/searchResult_A2018",
     "searchResult_B2018":"#host#/searchResult/searchResult_B2018",
+    
+    
+    
     "searchResult_M":"#host#/searchResult/searchResult_M",
     "GetSearchResultData_M":"#host#/searchResult/searchResult_M",
     "GetSearchResultData_Q":"#host#/searchResult/searchResult_Q",
@@ -189,6 +193,8 @@
     "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",
 
     /* chart */
+
+
     "GetRWMDT_M":"#host#/chart/getRWMDT_M",
     "GetRWMDT_Q":"#host#/chart/getRWMDT_Q",
     "GetRWMDT_2018_A":"#host#/chart/getRWMDT_2018_A",
@@ -225,6 +231,16 @@
     "GET_SSTG_INFO":"#host#/chart/getSstgInfo",
 
     "GetRWMDT":"#host#/chart/getRWMDT",
+
+
+    
+    /*host_old*/
+    "GetRWMDT_H":"#host_old#/chart/getRWMDT_H",   //수질예보지점
+    "GetRWMDT_HDate":"#host_old#/chart/getRWMDT_HDate", //수질예보지점
+    "GetSearchResultData_B001_fix":"#host_old#/searchResult/searchResult_B001_Fix", //수질측정지점 확정
+    "GetSearchResultData_B001":"#host_old#/searchResult/searchResult_B001", //수질측정지점 미확정
+    "GetSearchResultData_H":"#host_old#/searchResult/searchResult_H", //수질예보지점
+    
 
     init: function(host_old,host){
               if(host != null){
