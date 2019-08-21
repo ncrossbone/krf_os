@@ -19,22 +19,22 @@ Ext.define('krf_new.store.south.SearchResultGrid_H', {
 
 			var startYear = startMonth = endYear = endMonth = startDay = endDay = "";
 
-			var sYearCtl = Ext.getCmp("cmbStartYear");
+			var sYearCtl = Ext.getCmp("startYear_H");
 			if (sYearCtl != undefined)
-				startYear = Ext.getCmp("cmbStartYear").value;
-			var sMonthCtl = Ext.getCmp("cmbStartMonth");
+				startYear = Ext.getCmp("startYear_H").value;
+			var sMonthCtl = Ext.getCmp("startMonth_H");
 			if (sMonthCtl != undefined)
-				startMonth = Ext.getCmp("cmbStartMonth").value;
-			var eYearCtl = Ext.getCmp("cmbEndYear");
+				startMonth = Ext.getCmp("startMonth_H").value;
+			var eYearCtl = Ext.getCmp("endYear_H");
 			if (eYearCtl != undefined)
-				endYear = Ext.getCmp("cmbEndYear").value;
-			var eMonthCtl = Ext.getCmp("cmbEndMonth");
+				endYear = Ext.getCmp("endYear_H").value;
+			var eMonthCtl = Ext.getCmp("endMonth_H");
 			if (eMonthCtl != undefined)
-				endMonth = Ext.getCmp("cmbEndMonth").value;
-			var startDayCmb = Ext.getCmp('hStartDay');
+				endMonth = Ext.getCmp("endMonth_H").value;
+			var startDayCmb = Ext.getCmp('startDay_H');
 			if (startDayCmb != undefined)
 				startDay = startDayCmb.value;
-			var endDayCmb = Ext.getCmp('hEndDay');
+			var endDayCmb = Ext.getCmp('endDay_H');
 			if (endDayCmb != undefined)
 				endDay = endDayCmb.value;
 
@@ -103,10 +103,12 @@ Ext.define('krf_new.store.south.SearchResultGrid_H', {
 				});
 
 				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear);
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("startYear_H").setValue(startYear);
+				Ext.getCmp("startMonth_H").setValue(startMonth);
+				Ext.getCmp("startDay_H").setValue(startDay);
+				Ext.getCmp("endYear_H").setValue(endYear);
+				Ext.getCmp("endMonth_H").setValue(endMonth);
+				Ext.getCmp("endDay_H").setValue(endDay);
 				startDayCmb.setValue(startDay);
 				endDayCmb.setValue(endDay);
 			}

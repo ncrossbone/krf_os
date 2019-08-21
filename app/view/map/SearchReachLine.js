@@ -26,7 +26,7 @@ Ext.define("krf_new.view.map.SearchReachLine", {
 				var query = new Query();
 				query.returnGeometry = true;
 				//query.outFields = ["CAT_DID", "RCH_DID", "LU_RCH_DID", "RU_RCH_DID", "GEO_TRIB"];
-				//query.outFields = ["*"];
+				query.outFields = ["*"];
 				query.geometry = evt;
 
 				// 리치라인 조회

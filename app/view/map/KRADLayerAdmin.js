@@ -58,6 +58,41 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	
 	bonStLine : "",
 	bonEnLine : "",
+
+	// 리치 검색 저장 배열 init
+	searchReachArrayInit : [{
+		cnt:1,
+		sPoint:"",
+		ePoint:"",
+		reachLines: [],
+		reachAreas: []
+	},{
+		cnt:2,
+		sPoint:"",
+		ePoint:"",
+		reachLines: [],
+		reachAreas: []
+	},{
+		cnt:3,
+		sPoint:"",
+		ePoint:"",
+		reachLines: [],
+		reachAreas: []
+	},{
+		cnt:4,
+		sPoint:"",
+		ePoint:"",
+		reachLines: [],
+		reachAreas: []
+	},{
+		cnt:5,
+		sPoint:"",
+		ePoint:"",
+		reachLines: [],
+		reachAreas: []
+	}],
+
+	searchReachArray: null,
 	
 	clickFS: [], //클릭 배열담기(시작/끝)
 	
@@ -146,15 +181,20 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	firstLine : null,
 
 	detailSelectFeature: null,
+
+	valueType : 0, //소하천 데이터 valuetype  ( null / "" )
 	
 	constructor: function(map, geometryService) {
 		
+
 		var me = this;
         me.map = map;
 		me.geometryService = geometryService;
         
 		me.setKRADInfo();
-		
+
+		me.searchReachArray = me.searchReachArrayInit; //물환경 시작/끝위치 검색 배열 생성
+
 		me.setDynamicLayer();
 		
 		require(["esri/symbols/SimpleMarkerSymbol",
@@ -1219,20 +1259,24 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	
     	var feature = featureSet.features[0];
     	me.sRiverLineArray.push(feature);
-    	me.getSRiverCatId(feature);
+		me.getSRiverCatId(feature);
+		
 		//me.drawGraphic(feature, "reachLine_s");
 		
-		if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null){
+		if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null ||
+			feature.attributes.RD_SRCH_ID == "" && feature.attributes.LD_SRCH_ID == ""){
+
+				me.valueType = feature.attributes.RD_SRCH_ID;
 		//if(feature.attributes.RD_SRCH_ID == "" && feature.attributes.LD_SRCH_ID == ""){
     	//if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null && feature.attributes.D_RCH_ID != null){
 
 				//var rchDiD = feature.attributes.LD_RCH_ID != "" ? feature : feature.attributes.RD_RCH_ID != "" ? feature : "";
-				var rchDiD = feature.attributes.LD_RCH_ID != null ? feature : feature.attributes.RD_RCH_ID != null ? feature : null;
+				var rchDiD = feature.attributes.LD_RCH_ID != me.valueType ? feature : feature.attributes.RD_RCH_ID != me.valueType ? feature : me.valueType;
 
 				if(rchDiD){// 좌우 소하천이 존재하지 않고 좌우리치중 하나가 존재하면
 					//기존 검색으로 넘어간다
 					//var downRchId = feature.attributes.RD_RCH_ID != "" ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
-					var downRchId = feature.attributes.RD_RCH_ID != null ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
+					var downRchId = feature.attributes.RD_RCH_ID != me.valueType ? feature.attributes.RD_RCH_ID : feature.attributes.LD_RCH_ID;
 				  feature.attributes.D_RCH_ID = downRchId;
 				  //me.getDownSRich(featureSet);
 
@@ -1247,7 +1291,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	}else{
 				//소하천이 존재하므로 소하천 검색을한다.
 				//var downSrchId = feature.attributes.RD_SRCH_ID != "" ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
-				var downSrchId = feature.attributes.RD_SRCH_ID != null ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
+				var downSrchId = feature.attributes.RD_SRCH_ID != me.valueType ? feature.attributes.RD_SRCH_ID : feature.attributes.LD_SRCH_ID;
 				feature.attributes.D_SRCH_ID = downSrchId;
     		me.setSRchIdsWithEvent(feature);	
     	}
@@ -2471,6 +2515,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 														SetBtnOnOff("btnMenu04", "off");
 														SetBtnOnOff("btnMenu05", "off");
 													}
+
+													//me.searchReachArray
+													console.info("검색start");
 													//버튼 off
 													
 													//시작지점 끝지점 공통하류 존재시 option 줄곳
@@ -2499,6 +2546,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 													
 													// 종료 검색 체크
 													me.isStopCheck();
+
+													console.info("검색end");
 													
 												}
 											}

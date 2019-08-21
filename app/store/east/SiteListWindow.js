@@ -40,8 +40,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				  ,'F007':{chart:false,searchResult:false}
 				  ,'F008':{chart:false,searchResult:false}
 				  ,'G':{chart:true,searchResult:true}
-				  ,'G001':{chart:false,searchResult:false}
-				  ,'G002':{chart:false,searchResult:false}
+				  ,'G001':{chart:true,searchResult:true}
+				  ,'G002':{chart:true,searchResult:true}
 				  ,'H':{chart:true,searchResult:true}
 				  ,'H001':{chart:false,searchResult:false}
 				  ,'I':{chart:true,searchResult:false}
@@ -58,9 +58,9 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				  ,'K002':{chart:false,searchResult:false}
 				  ,'Q':{chart:true,searchResult:false}
 				  ,'Q001':{chart:false,searchResult:false}
-				  ,'Z':{chart:true,searchResult:true}
-				  ,'Z001':{chart:false,searchResult:true}
-				  ,'Z002':{chart:false,searchResult:true}
+				  ,'Z':{chart:true,searchResult:false}
+				  ,'Z001':{chart:false,searchResult:false}
+				  ,'Z002':{chart:false,searchResult:false}
 				  ,'L':{chart:true,searchResult:false}
 				  ,'L001':{chart:false,searchResult:false}
 
@@ -998,6 +998,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 		return reNewData;
 	},
 
+	//한강 수계 호소환경 실태조사
 	reDrawTree: function (data) {
 		var obj = {};
 

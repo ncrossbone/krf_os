@@ -166,6 +166,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				width: 50
 			}, {
 				xtype: "label",
+				id: "startDayLabel_B",
 				text: "일"
 			}, {
 				xtype: 'combo',
@@ -175,6 +176,8 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				width: 50
 			}, {
 				xtype: "label",
+				
+				id: "startTimeLabel_B",
 				text: "시"
 			}, {
 				xtype: 'container',
@@ -214,6 +217,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				width: 50
 			}, {
 				xtype: "label",
+				id: "endDayLabel_B",
 				text: "일"
 			}, {
 				xtype: 'combo',
@@ -223,6 +227,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				width: 50
 			}, {
 				xtype: "label",
+				id: "endTimeLabel_B",
 				text: "시"
 			}, {
 				xtype: 'container',
@@ -1497,17 +1502,25 @@ Ext.define('krf_new.view.common.TabControl_New', {
 
 					Ext.getCmp('select_B001').setHidden(false);
 					Ext.getCmp('startDay_B').setHidden(false);
+					Ext.getCmp('startDayLabel_B').setHidden(false);
 					Ext.getCmp('startTime_B').setHidden(false);
+					Ext.getCmp('startTimeLabel_B').setHidden(false);
 					Ext.getCmp('endDay_B').setHidden(false);
+					Ext.getCmp('endDayLabel_B').setHidden(false);
 					Ext.getCmp('endTime_B').setHidden(false);
+					Ext.getCmp('endTimeLabel_B').setHidden(false);
 
 				}else{
 
 					Ext.getCmp('select_B001').setHidden(true);
 					Ext.getCmp('startDay_B').setHidden(true);
+					Ext.getCmp('startDayLabel_B').setHidden(true);
 					Ext.getCmp('startTime_B').setHidden(true);
+					Ext.getCmp('startTimeLabel_B').setHidden(true);
 					Ext.getCmp('endDay_B').setHidden(true);
+					Ext.getCmp('endDayLabel_B').setHidden(true);
 					Ext.getCmp('endTime_B').setHidden(true);
+					Ext.getCmp('endTimeLabel_B').setHidden(true);
 					
 				}
 
@@ -1711,8 +1724,15 @@ Ext.define('krf_new.view.common.TabControl_New', {
 						}
 						//(kg/일)
 						for (var i = 0; i < headName.length; i++) {
-							if (headName[i].indexOf("(kg/일)") > -1)
+							if (headName[i].indexOf("(kg/일)") > -1){
 								headName[i] = headName[i].replace("(kg/일)", "") + " (kg/일)";
+							}
+
+							//190819 시현 요구사항 pdj * 측정값 문구 삭제 *
+							if (headName[i].indexOf("측정값") > -1){
+								headName[i] = headName[i].replace("측정값", "") + "";
+							}
+								
 						}
 					} else {
 						for (var i = 0; i < colArr.length; i++) {
