@@ -357,7 +357,7 @@ Ext.define("krf_new.global.CommFn", {
 			//url: 'http://localhost:8080/krf/config/loginSession',
 			dataType: "text/plain",
 			method: 'POST',
-			async: true,
+			async: false,
 			params: { userId: sessionId },
 			success: function (response, opts) {
 				var decodeData = Ext.util.JSON.decode(response.responseText);
