@@ -205,6 +205,12 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 			console.info("쿼리 조건이 설정되지 않았습니다.");
 			return;
 		}
+
+		//상위 스텝 (지점이 아닐경우)
+		if(layer01Info[0].children != null){
+			return;
+		}
+		
 		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
 		queryTask.execute(query, function (results) {
 			Ext.each(results.features, function (obj, index) {

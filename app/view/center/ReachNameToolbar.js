@@ -50,6 +50,11 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 			listeners: {
 				el: {
 					click: function () {
+
+						$KRF_APP.coreMap._krad.stCnt = 0;
+						$KRF_APP.coreMap._krad.edCnt = 0;
+						$KRF_APP.coreMap._krad.arrCnt = 0;
+
 						Ext.getCmp("reach_close").setDisabled(true);
 						SetBtnOnOff($KRF_APP.coreMap._krad.btnId, "off");
 						initKradEvt();
