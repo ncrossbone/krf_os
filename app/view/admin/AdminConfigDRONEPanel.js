@@ -30,17 +30,12 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 					xtype:'checkcolumn',
 					listeners: {
                         checkChange: function(column, rowIndex, checked, eOpts) {
-							var record = processStore.getAt(rowIndex);    
-							var columnIndex = column.getIndex();
-							for (var i = 1; i <= 10; i++) {
-								if (i <= columnIndex) {
-									record.set('Phase'+i, true);
-								} 
-								else 
-								{
-									record.set('Phase'+i, false);
-								}
-							}
+							//var record = processStore.getAt(rowIndex);    
+							//var columnIndex = column.getIndex();
+							console.info(record);
+							console.info(rowIndex);
+							console.info(checked);
+							console.info(eOpts);
 						}
                 }
 				},{
