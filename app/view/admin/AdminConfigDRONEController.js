@@ -4,11 +4,40 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 
 	alias: 'controller.AdminConfigDRONEController',
 
-	saveClick: function () {
 
-		
-		this.deleteDroneLayer();
-		//this.deleteDroneLayer();
+	saveClick: function(){
+
+		var store = Ext.getCmp('droneLayerAdd').getStore();
+		var datar = new Array();
+        var jsonDataEncode = "";
+		var records = store.getRange();
+        for (var i = 0; i < records.length; i++) {
+			this.saveDroneLayer(records[i].data);
+		}
+
+	},
+
+	updateClick: function () {
+
+
+		var store = Ext.getCmp('droneLayer').getStore();
+		var records = store.getRange();
+
+		var changeDroneDatas = [];
+		records.map(function(droneObj){
+			if(droneObj.checked){
+				changeDroneDatas.push(droneObj)
+			}
+		});
+
+		console.info(changeDroneDatas);
+
+		if(changeDroneDatas.length > 0){
+			for (var i = 0; i < changeDroneDatas.length; i++) {
+				this.updateDroneLayer(changeDroneDatas[i].data);
+			}
+		}
+
 	},
 
 	refreshClick : function(){
@@ -58,8 +87,11 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			dataType: "text/plain",
 			method: 'POST',
 			async: true,
+			params: {
+				etc : data.ETC
+			},
 			success: function (response, opts) {
-				me.settingDroneLayer();
+				
 			}
 		});
 	},
@@ -77,6 +109,26 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 		
 	},
 
+	updateDroneLayer : function(data){
+		Ext.Ajax.request({
+			url: _API.updateDroneLayer,
+			dataType: "text/html",
+			method: 'POST',
+			async: true,
+			params: {
+				river : data.RIVER,
+				droneLayerId: data.DRONELAYERID,
+				droneDate : data.DRONEDATE,
+				measureDate : data.MEASUREDATE,
+				chlaLayerId : data.CHLALAYERID,
+				chlaDate : data.CHLADATE,
+				phyLayerId : data.PHYLAYERID,
+				phyDate : data.PHYDATE,
+				etc : data.ETC
+			}
+		});
+	},
+
 	saveDroneLayer : function(data){
 		Ext.Ajax.request({
 			url: _API.insertDroneLayer,
@@ -92,7 +144,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 				chlaDate : data.CHLADATE,
 				phyLayerId : data.PHYLAYERID,
 				phyDate : data.PHYDATE,
-				etc : data.ETC
+				etc : data.DRONELAYERID
 			}
 		});
 	},

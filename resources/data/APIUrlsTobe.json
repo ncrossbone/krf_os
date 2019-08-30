@@ -97,6 +97,7 @@
     "getDroneLayer":"#host#/config/getDroneLayer",
     "deleteDroneLayer":"#host#/config/deleteDroneLayer",
     "insertDroneLayer":"#host#/config/insertDroneLayer",
+    "updateDroneLayer":"#host#/config/updateDroneLayer",
 
     /* result */
 

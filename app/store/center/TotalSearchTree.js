@@ -72,9 +72,11 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 							if (childObj.parentId != 'Esstg') {
 								siteIds.push(childObj.parentId + '_' + obj.id);
 							} else {
-								obj.children.map(function (eObj) {
-									siteIds.push('E_' + eObj.eSiteId);
-								})
+								if(obj.parentId != 'E003' && obj.parentId != 'E004'){
+									obj.children.map(function (eObj) {
+										siteIds.push('E_' + eObj.eSiteId);
+									})	
+								}
 							}
 						}
 					})
