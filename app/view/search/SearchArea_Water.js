@@ -128,6 +128,41 @@ Ext.define('krf_new.view.search.SearchArea_Water', {
 			}]
 		}, {
 			xtype: 'container',
+			height: 7
+		}, {
+			xtype: 'container',
+			hidden: true,
+			id: 'boArea',
+			layout: {
+				type: 'hbox'
+			},
+			items: [{
+				id: 'cmbWater4',
+				layerId: $KRF_DEFINE.areaBOLayerId,
+				xtype: 'combo',
+				lnkBtnId: 'btnWater4',
+				cls: 'khLee-x-form-item-label-default',
+				fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit" /> <b>보</b> ',
+				labelWidth: 60,
+				labelAlign: 'right',
+				labelPad: 10,
+				width: 225,
+				editable: false,
+				store: Ext.create('krf_new.store.west.SearchArea_Water'),
+				displayField: 'name',
+				valueField: 'id',
+				disabled: false
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'button',
+				id: 'btnWater4',
+				lnkCmbId: 'cmbWater4',
+				cls: 'khLee-x-button-move'
+			}]
+		}, {
+			xtype: 'container',
 			height: 17
 		}, {
 			xtype: 'container',

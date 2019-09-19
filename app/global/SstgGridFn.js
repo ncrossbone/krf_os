@@ -270,7 +270,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             }, {
                 text: '생물량',
                 columns: [{
-                    text: '얼룩소',
+                    text: '염록소',
                     dataIndex: 'CHLA_QY'
                 }, {
                     text: '유기물',
@@ -282,7 +282,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             }, {
                 text: '지표종',
                 columns: [{
-                    text: '호정수성종',
+                    text: '호청수성종',
                     columns: [{
                         text: '종수',
                         dataIndex: 'KSP_CO'
@@ -546,7 +546,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                     text: '모래',
                     dataIndex: 'STR_SAND_RT'
                 }, {
-                    text: '잔자갈',
+                    text: '전자갈',
                     dataIndex: 'STR_SBAL_RT'
                 }, {
                     text: '자갈',
@@ -1889,7 +1889,7 @@ Ext.define("krf_new.global.SstgGridFn", {
             }, {
                 text: '생물량',
                 columns: [{
-                    text: '얼룩소',
+                    text: '염록소',
                     dataIndex: 'LBDY_QY_CHLA'
                 }, {
                     text: '유기물',

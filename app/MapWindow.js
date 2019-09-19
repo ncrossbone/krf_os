@@ -35,6 +35,10 @@ Ext.define('Desktop.MapWindow', {
 		$KRF_APP.addListener($KRF_EVENT.SHOW_SITE_LIST_WINDOW, this.showSiteListWindow, this);
 		$KRF_APP.addListener($KRF_EVENT.HIDE_SITE_LIST_WINDOW, this.hideSiteListWindow, this);
 
+		// 보 지점 목록 window
+		$KRF_APP.addListener($KRF_EVENT.SHOW_BO_LIST_WINDOW, this.showBoListWindow, this);
+		$KRF_APP.addListener($KRF_EVENT.HIDE_BO_LIST_WINDOW, this.hideBoListWindow, this);
+
 		$KRF_APP.addListener($KRF_EVENT.WEST_TAB_CHANGE, this.westTabChange, this);
 
 		$KRF_APP.addListener($KRF_EVENT.CHECK_MAP_PARAMETER_GET, this.checkMapParameterGet, this);
@@ -377,6 +381,65 @@ Ext.define('Desktop.MapWindow', {
 			}
 		}
 	},
+
+
+	//보 지점 목록 창 띄우기
+	showBoListWindow: function (param) {
+
+		var siteListWindow = Ext.getCmp("siteListWindow");
+		if (siteListWindow == undefined) {
+			siteListWindow = Ext.create('krf_new.view.east.SiteListWindow', { x: Ext.getCmp('center_container').getWidth() - 520, y: $KRF_DEFINE.mapToolbarHeight });
+			Ext.getCmp('center_container').add(siteListWindow);
+			siteListWindow.show();
+		}else{
+			siteListWindow.show();
+		}
+
+		
+
+		var store = null;
+		var treeCtl = Ext.getCmp("siteListTree");
+		
+		store = Ext.create('krf_new.store.east.SiteListWindow', {
+		//store = Ext.create('krf_new.store.east.BoListWindow', {
+			async: true,
+			param: {
+				searchText: 'boSearch',
+				searchType: null,
+				isBookmark: false
+			}
+			
+		});
+
+		//parameter 가 있을시 store load
+		if(param != undefined){
+			store.boCd = param.boCd;
+			store.searchType = 'boSearch';
+			store.load();
+			treeCtl.setStore(store);
+		}
+
+		
+
+
+
+	},
+
+	hideBoListWindow: function (currCtl) {
+		//var listWinCtl = Ext.getCmp("boListWindow");
+		var listWinCtl = Ext.getCmp("siteListWindow");
+		if (listWinCtl != undefined) {
+			listWinCtl.close();
+		}
+		listWinCtl = Ext.getCmp("siteListWindow_reach");
+		if (listWinCtl != undefined) {
+			listWinCtl.close();
+		}
+		// 좌측 정보창 버튼 off
+		SetBtnOnOff("btnBoListWindow", "off");
+	},
+
+
 	// 지점 목록 창 띄우기
 	showSiteListWindow: function (param) {
 		if (param == null || param.searchText == null) {
@@ -677,6 +740,35 @@ Ext.define('Desktop.MapWindow', {
 						});
 					});
 			}
+		}else if(params.boMode == "boMode"){ //params//parameter에 bo에대한 정보가 넘오오면 KRF_APP에 BOMODE 추가
+
+			Ext.getCmp('boArea').setHidden(false);
+			
+			$KRF_APP.BOMODE = true;
+
+			//보 모드로 들어오게 되면 bolistwindow 창을 생성
+			$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW);
+			$KRF_APP.fireEvent($KRF_EVENT.HIDE_BO_LIST_WINDOW);
+
+			if(params.boCode != undefined ){
+				$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { searchText: 'paramSearch', boCd: params.boCode});
+				
+
+				var sec = 0;
+				var timer = setInterval(function(){
+					sec++;
+					if(sec >= 2){
+						$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd : params.boCode});
+						clearInterval(timer);
+					}
+				}, 1000);
+			}
+
+			if(params.boX != undefined && params.boY != undefined && params.boNm != undefined){
+				$KRF_APP.fireEvent($KRF_EVENT.GET_BO_CODE, {'boNm':params.boNm,'boX':params.boX,'boY':params.boY});
+				//$KRF_APP.global.CommFn.initParamBo();
+			}
+
 		}
 	}
 });

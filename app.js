@@ -68,6 +68,28 @@ var $KRF_EVENT = {
 	PULL_WATER_DYNAMIC_LAYER_ON_OFF: 'pullWaterdynamicLayerOnOff',
 	DROUGHT_DYNAMIC_LAYER_ON_OFF: 'droughtDynamicLayerOnOff',
 	REACH_MODE_ON: 'reachModeOn'
+
+
+
+	/* 보 추가 190902 */
+	,SHOW_BO_LIST_WINDOW: 'showBoListWindow'
+	,HIDE_BO_LIST_WINDOW: 'hideBoListWindowBo'
+	,HIGH_CHART_CONTROL: 'highChartControl'
+	,CREATE_HIGH_CHART: 'createHighChart'
+	,SET_HIGH_CHART_DATE: 'setHighChartDate'
+	,GET_BO_CODE: 'getBoCode'
+	,SET_BO_DATA_MARKER:'setBoDataMarker'
+	,REMOVE_BO_DATA_MARKER:'removeBoDataMarker'
+	,VIEW_01_GRAPHIC_LAYER: 'view01GraphicLayer'
+	,VIEW_02_GRAPHIC_LAYER: 'view02GraphicLayer'
+	,VIEW_GRAPHIC_LAYER_CONTROLLER: 'viewGraphicLayerController'
+	,SHOWVIEWDATAWINDOW:'showViewDataWindow'
+	,HIDEVIEWDATAWINDOW:'hideViewDataWindow'
+	,REMOVE_VIEW_GRAPHIC_LAYER: 'removeViewGraphicLayer'
+	,MAIN_BO_GRAPHIC_LAYER: 'mainBoGraphicLayer'
+	,CREATE_HIGH_CHART_DATE:'createHighChartDate'
+	,BO_CENTER_MOVE: 'boCenterMove'
+	,BO_DYNAMIC_LAYER_ON_OFF: 'bodynamicLayerOnOff',
 }
 
 var $KRF_WINS = {
@@ -195,6 +217,25 @@ Ext.create('Ext.data.Store', {
 				$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
 
 				$KRF_APP.addListener($KRF_EVENT.CREATE_WINDOW, me.createWindow, me);
+
+				$KRF_APP.centerPoint = "";
+				$KRF_APP.boObj = [{'ptNo':'1007A20','wSys':'R01', 'isOpen':false ,'ptNm':'강천보' },
+								{'ptNo':'1007A27','wSys':'R01', 'isOpen':false ,'ptNm':'여주보'  },
+								{'ptNo':'1007A60','wSys':'R01', 'isOpen':false  ,'ptNm':'이포보'  },
+								{'ptNo':'2007A25','wSys':'R02', 'isOpen':false ,'ptNm':'상주보' },
+								{'ptNo':'2009A05','wSys':'R02', 'isOpen':false ,'ptNm':'낙단보'  },
+								{'ptNo':'2009A30','wSys':'R02', 'isOpen':false ,'ptNm':'구미보' },
+								{'ptNo':'2011A25','wSys':'R02', 'isOpen':false ,'ptNm':'칠곡보' },
+								{'ptNo':'2011A55','wSys':'R02', 'isOpen':true  ,'ptNm':'강정고령보'},
+								{'ptNo':'2014A25','wSys':'R02', 'isOpen':true  ,'ptNm':'달성보' },
+								{'ptNo':'2014A70','wSys':'R02', 'isOpen':true  ,'ptNm':'합천창녕보'},
+								{'ptNo':'2020A32','wSys':'R02', 'isOpen':true  ,'ptNm':'창녕함안보'},
+								{'ptNo':'3012A07','wSys':'R03', 'isOpen':true  ,'ptNm':'세종보'},
+								{'ptNo':'3012A32','wSys':'R03', 'isOpen':true  ,'ptNm':'공주보'},
+								{'ptNo':'3012A42','wSys':'R03', 'isOpen':true  ,'ptNm':'백제보'},
+								{'ptNo':'5004A10','wSys':'R04', 'isOpen':true  ,'ptNm':'승촌보'},
+								{'ptNo':'5004A35','wSys':'R04', 'isOpen':true  ,'ptNm':'죽산보'}];
+
 			},
 			desktopLoaded: function () {
 
@@ -219,8 +260,6 @@ Ext.create('Ext.data.Store', {
 
 
 				// }
-
-
 				// 내부망 로그인 session 정보 조회 2019-04-22
 				$.when($KRF_APP.global.CommFn.getLoginUserInfo(_ParamObj.p1)).then(function (response) { //세션아이디가 있으면 db조회
 

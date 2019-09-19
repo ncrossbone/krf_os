@@ -15,6 +15,9 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 		'#cmbWater3': {
 			select: 'onAreaChange'
 		},
+		'#cmbWater4': {
+			afterrender: 'onComboBoRender'
+		},
 		'#btnWater1': {
 			click: 'onAreaSearch'
 		},
@@ -38,10 +41,19 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 
 	},
 
+	// 보 랜더링
+	onComboBoRender: function(combo, record, parentId, comboValue){
+		this.setComboData(combo.id, parentId, comboValue);
+	},
+
 	// 콤보 체인지
 	onAreaChange: function (combo, record, parentId, comboValue) {
 
 		var lnkBtn = Ext.getCmp(combo.lnkBtnId);
+		if(combo.lnkBtnId == "btnWater1"){// 대권역 선택시 보 change
+			this.boComboChange(record.data.id);
+		}
+
 		if (lnkBtn) {
 			lnkBtn.setDisabled(false);
 		}
@@ -55,6 +67,28 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 		} else {
 			this.setComboData(combo.tarCmbId, parentId, comboValue);
 		}
+	},
+
+	// 대권역 선택시 보 comboBox change
+	boComboChange: function(value){ //  value ==  대권역 코드
+		var boCombo = Ext.getCmp('cmbWater4');
+
+		
+
+		var storeData = [];
+
+		for(var a = 0 ; a <  $KRF_APP.boObj.length ; a++){
+			if($KRF_APP.boObj[a].wSys == value){
+				for(var i  = 0 ; i < $KRF_APP.BO_STORE.length ; i ++){
+					if($KRF_APP.boObj[a].ptNo == $KRF_APP.BO_STORE[i].id){
+						storeData.push($KRF_APP.BO_STORE[i]);
+					}
+				}		
+			}
+		}
+
+		boCombo.getStore().setData(storeData);
+
 	},
 
 	setComboData: function (comboId, id, comboValue) {
@@ -133,7 +167,36 @@ Ext.define('krf_new.view.search.SearchArea_WaterController', {
 
 	onWaterSelect: function (button, eOpts, bookmark) {
 
-		// if(ChkSearchCondition("수계찾기")){
+		if($KRF_APP.BOMODE){
+			//var treeResach = Ext.getCmp("boListTree");
+			var treeResach = Ext.getCmp("siteListTree");
+			//$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW);
+			if (treeResach != undefined) {
+
+				var boCd = Ext.getCmp("cmbWater4").getValue();
+				if(boCd != null){
+					// var store = treeResach.getStore();
+					// store.boCd = boCd;
+					// store.searchType = 'boSearch';
+					// store.load();
+					// treeResach.getView().refresh();
+
+
+					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd : boCd});
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : boCd});
+					//$KRF_APP.fireEvent($KRF_EVENT.BO_CENTER_MOVE, {boCd : boCd});
+					
+				}else{
+					this.onWaterSelectAction(button, eOpts, bookmark);
+				}
+			}
+		}else{
+			this.onWaterSelectAction(button, eOpts, bookmark);
+		}
+		
+	},
+
+	onWaterSelectAction: function(button, eOpts, bookmark){
 		var btnCtl = null;
 
 		var btn1 = Ext.getCmp("btnWater1");

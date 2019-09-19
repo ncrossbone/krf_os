@@ -26,11 +26,110 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 		me.movePopGraphicLayer.id = "movePopGraphicLayer";
 		me.map.addLayer(me.movePopGraphicLayer);
 
+		//보 MODE
+		var getParam = window.location.search.substring(1);
+		var params = Ext.urlDecode(getParam);
+		if(params.boMode){
+			me.boGraphicLayer = new esri.layers.GraphicsLayer();
+			me.boGraphicLayer.id = "boGraphicLayer";
+			me.map.addLayer(me.boGraphicLayer);
+
+			$KRF_APP.addListener($KRF_EVENT.BO_CENTER_MOVE, me.boCenterMove, me);
+
+
+			this.mainBoGraphicLayer(); //bo main grpahic layer;
+		}
+		
+
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_SITE, me.setSelectedSiteHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_CAT_AREA, me.setSelectedCatAreaHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_RCHLINE, me.setSelectedRchLineHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_POP_SITE, me.setSelectedPopSiteHandler, me);
 	},
+
+
+	boCenterMove: function(boCd){
+		
+		var me = this;
+
+		for(var i = 0 ; i < me.boGraphicLayer.graphics.length ; i++){
+			if(me.boGraphicLayer.graphics[i].attributes!= undefined){
+				if(me.boGraphicLayer.graphics[i].attributes.PT_NO == boCd.boCd){
+					me.map.centerAndZoom(me.boGraphicLayer.graphics[i].geometry, 11);
+				}
+			}
+		}
+	},
+
+
+	mainBoGraphicLayer: function(){
+
+		var me = this;
+
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/0");
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = { "wkid": 102100 };
+		query.outFields = ["*"];
+		query.where = "1=1";
+		queryTask.execute(query, function (results) {
+			if(results.features.length > 0 ){
+
+				var coreMap = $KRF_APP.coreMap;
+
+				for(var i = 0 ; i < results.features.length ; i ++){
+
+					var image = "";
+					//$KRF_APP.boObj.ptNo
+					for(var a = 0 ; a < $KRF_APP.boObj.length ; a ++){
+						if($KRF_APP.boObj[a].ptNo == results.features[i].attributes.PT_NO){
+							if($KRF_APP.boObj[a].isOpen == true){
+								image = "boLayer.gif";
+							}else{
+								image = "boLayer_off.png";
+							}
+						}
+					}
+
+					var symbol = new esri.symbol.PictureMarkerSymbol({
+						"angle": 0,
+						"yoffset": 0,
+						"type": "esriPMS",
+						"url": "./resources/images/symbol/"+image,
+						"contentType": "image/gif",
+						"width": 22,
+						"height": 22
+					});
+
+					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
+					var textGraphic = new esri.Graphic(results.features[i].geometry, new esri.symbol.TextSymbol(results.features[i].attributes.PT_NM));
+					textGraphic.symbol.yoffset = -30;
+					textGraphic.symbol.haloColor = new esri.Color([255, 255, 255]);
+					textGraphic.symbol.haloSize = 2;
+					textGraphic.symbol.font = {
+						size: 12,
+						family: "NanumGothic",
+						weight: "bolder",
+						color: new esri.Color([255, 255, 255])
+					};
+
+					graphic.attributes = results.features[i].attributes;
+					me.boGraphicLayer.add(graphic);	
+					me.boGraphicLayer.add(textGraphic);	
+				}
+				me.boGraphicLayer.on("click", function(evt){	
+
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : evt.graphic.attributes.PT_NO});
+					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd:evt.graphic.attributes.PT_NO});
+				})
+
+			}
+		})
+
+
+	},
+
+
 	setSelectedPopSiteHandler: function (layerId, siteId) {
 
 		var me = this;

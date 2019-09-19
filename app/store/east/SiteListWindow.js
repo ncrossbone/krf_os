@@ -84,6 +84,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			var buttonInfo2 = Ext.getCmp("cmbWater2");
 			//소권역
 			var buttonInfo3 = Ext.getCmp("cmbWater3");
+			//보
+			var buttonInfo4 = Ext.getCmp("cmbWater4");
 			//시도
 			var amdBtn1 = Ext.getCmp("cmbArea1");
 			//시군구
@@ -95,6 +97,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 			var bookParamObj = "";
 
+			
 			if (store.param.isBookmark) {
 				var bookmarkData = store.param.bookmarkData;
 				if (bookmarkData.searchText == 'waterSearch') {
@@ -120,6 +123,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 			//var catDid = [];
 			//var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.reachServiceUrl_v3 + '/' + $KRF_DEFINE.siteInfoLayerId); // 레이어 URL v3
+
 
 			var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.catSearchUrl); // 레이어 URL v3
 
@@ -285,6 +289,18 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				}
 			}
 
+
+			//보 시스템으로 들어왔을시 190616 PDJ  boSearch
+			if($KRF_APP.BOMODE && me.searchType == "boSearch"){
+				if(store.boCd){
+					// 보모드일시 쿼리 변경
+					query.where = "BO_CD IN ('"+store.boCd+"')";
+				}
+			}
+
+
+
+
 			query.orderByFields = ["LAYER_CODE ASC"];
 			query.outFields = ["*"];
 			// 로딩바 표시
@@ -296,12 +312,17 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 			krf_new.global.SedimentFn.initArr();
 
+			
+
 			queryTask.execute(query, function (result) {
 				this.result = result;
 
 
 				
 				if($KRF_APP.coreMap._krad.sRiverAreaArray.length > 0){
+
+				//store.param.detailSearch
+
 					var addSCAT_ID = 'SCAT_ID IN (';
 					for(var addSriver = 0 ; addSriver < $KRF_APP.coreMap._krad.sRiverAreaArray.length ; addSriver++){
 						if(addSriver == $KRF_APP.coreMap._krad.sRiverAreaArray.length-1){
@@ -320,598 +341,17 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 						query.outFields = ["*"];
 						query.where = addSCAT_ID;
 						queryTask.execute(query, function (sriverResult) {
-
-
-							result.features = result.features.concat( sriverResult.features );
-
-
-							var fMap = result.features.map(function (obj) {
-								return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
-							});
-			
-							var filterArr = [];
-							var newFeatures = [];
-			
-							$.each(result.features, function (cnt, feature) {
-			
-								if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID, filterArr) === -1) {
-									if (feature.attributes.GROUP_CODE == 'M') {
-			
-										filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-										filterArr.push('M002' + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-			
-										feature.attributes.LAYER_NM = '자동측정';
-			
-										var cloneAttr = $KRF_APP.global.CommFn.cloneObj(feature.attributes);
-										cloneAttr.LAYER_NM = '수동측정';
-										cloneAttr.LAYER_CODE = 'M002';
-										cloneAttr.JIJUM_CODE = 'M002_' + cloneAttr.JIJUM_CODE;
-			
-										var resultFeature = {
-											geometry: null,
-											infoTemplate: undefined,
-											symbol: undefined,
-											attributes: cloneAttr
-										};
-			
-										feature.attributes.JIJUM_CODE = 'M001_' + feature.attributes.JIJUM_CODE;
-			
-										newFeatures.push(feature);
-										newFeatures.push(resultFeature);
-									} else {
-										filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-										newFeatures.push(feature);
-									}
-								}
-							});
-			
-							result.features = newFeatures;
-			
-							var tMap = result.features.map(function (obj) {
-								return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
-							});
-			
-							var jsonStr = "{\n";
-							jsonStr += "	\"id\": \"0\", \n";
-							jsonStr += "	\"text\":  \"root\", \n";
-							jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold', \n";
-							jsonStr += "	\"checked\": true, \n";
-							jsonStr += "	\"expanded\": true, \n";
-							jsonStr += "	\"children\": [";
-			
-							/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) */
-							var arrGroupCodes = [];
-			
-							$.each(result.features, function (cnt, feature) {
-								// "==="연산자 값과 타입이 정확하게 일치하는지 판단
-								if ($.inArray(feature.attributes.GROUP_CODE, arrGroupCodes) === -1) {
-			
-									arrGroupCodes.push(feature.attributes.GROUP_CODE);
-									
-								}
-							});
-							/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
-			
-							// 그룹 코드 루프 시작
-							$.each(arrGroupCodes, function (cnt, groupCode) {
-			
-								/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) */
-								var groupFeature = result.features.filter(function (feature) {
-			
-									if (feature.attributes.GROUP_CODE === groupCode)
-										return feature;
-								});
-			
-								/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
-								jsonStr += "{\n";
-								jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
-			
-								if (groupFeature[0].attributes.GROUP_CODE == 'C') {
-									jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")";
-									jsonStr += "<img onClick='$KRF_APP.global.SedimentFn.init(this);' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' style='cursor: pointer; vertical-align:sub; margin-left: 5px;'/>";
-									jsonStr += "\",\n";
-								} else {
-									jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
-								}
-			
-								jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-								if (groupFeature[0].attributes.GROUP_CODE == "E") { //  수생태계는
-			
-									jsonStr += "			\"visible\": \"true\",\n";
-								}
-
-								if(me.visibleButton[groupFeature[0].attributes.GROUP_CODE] != undefined){
-									jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[groupFeature[0].attributes.GROUP_CODE]['searchResult']+",\n";
-								}
-
-								// if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
-								// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
-								// }
-
-								if (cnt == 0) {
-									jsonStr += "		\"expanded\": true,\n";
-								} else {
-									jsonStr += "		\"expanded\": false,\n";
-								}
-								jsonStr += "		\"checked\": null,\n";
-								jsonStr += "		\"children\": [";
-			
-								/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
-								var arrLayerCodes = [];
-			
-								$.each(groupFeature, function (cnt, feature) {
-									//if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
-									if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID, arrLayerCodes) === -1) {
-			
-										arrLayerCodes.push(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID);
-									}
-								});
-								/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
-			
-								// 레이어 코드 루프 시작
-								$.each(arrLayerCodes, function (cnt, layerCode) {
-			
-									var layerFeatures = groupFeature.filter(function (feature) {
-										//if(feature.attributes.LAYER_CODE === layerCode){
-										if (feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID === layerCode) {
-											if (feature.attributes.EXT_DATA_ID != undefined && feature.attributes.EXT_DATA_ID != null) {
-												feature.attributes.LAYER_CODE = feature.attributes.LAYER_CODE + "_" + cnt;
-												feature.attributes.LAYER_NM = feature.attributes.LAYER_NM + "_TEST";
-												feature.attributes.isKradLayer = true;
-											}
-											return feature;
-										}
-									});
-			
-									jsonStr += "{\n";
-									jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
-									if(layerFeatures[0].attributes.LAYER_NM == '환경기초시설조사사업'){//20190610 임시
-										layerFeatures[0].attributes.LAYER_NM = '환경기초조사사업';
-									}
-									jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
-			
-									
-									if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
-										jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
-									}
-
-									// if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
-									// //if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
-									// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
-									// }
-
-									if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
-										jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
-									}
-									if (cnt == 0) {
-										jsonStr += "			\"expanded\": true,\n"; // 펼치기..
-									} else {
-										jsonStr += "			\"expanded\": false,\n"; // 펼치기..
-									}
-									jsonStr += "			\"children\": [";
-			
-									$.each(layerFeatures, function (cnt, layerFeature) {
-								
-										if (layerFeature.attributes.GROUP_CODE == 'C') {
-											krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
-										}
-		
-										jsonStr += "{\n";
-										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-										jsonStr += "				\"leaf\": true,\n";
-		
-										//4댑스 값 세팅
-										if (layerFeature.attributes.GUBUN_CODE) {
-											jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
-											jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
-										}
-										jsonStr += "				\"checked\": null\n";
-		
-										if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
-											jsonStr += "				,\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
-											jsonStr += "				\"chartBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
-											jsonStr += "				\"infoBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
-										}
-		
-										jsonStr += "			}, ";
-		
-									});
-			
-									if (layerFeatures.length > 0) {
-										jsonStr = jsonStr.substring(0, jsonStr.length - 2);
-									}
-			
-									jsonStr += "]\n";
-									jsonStr += "		}, ";
-								}); // 레이어 코드 루프 끝
-			
-								if (arrLayerCodes.length > 0) {
-									jsonStr = jsonStr.substring(0, jsonStr.length - 2);
-								}
-			
-								jsonStr += "]\n";
-								jsonStr += "	}, ";
-							}); // 그룹 코드 루프 끝
-							if (arrGroupCodes.length > 0) {
-								jsonStr = jsonStr.substring(0, jsonStr.length - 2);
-							}
-			
-							// 부하량 Json String 가져오기 khLee 20160823 추가
-							var pollLoadString = store.getPollLoadString();
-							var pollutionString = store.getPollutionString();
-			
-							store.getSstgString(function (sstgString) {
-			
-								if (pollLoadString != "") {
-			
-									if (result.features.length == 0) {
-										jsonStr += pollLoadString;
-									} else {
-										jsonStr += ", " + pollLoadString;
-									}
-								}
-			
-								if (pollutionString != "") {
-			
-									if (result.features.length == 0 && pollLoadString == "") {
-										jsonStr += pollutionString;
-									} else {
-										jsonStr += ", " + pollutionString;
-									}
-								}
-			
-			
-								if (sstgString != "") {
-			
-									if (result.features.length == 0 && sstgString == "") {
-										jsonStr += sstgString;
-									} else {
-										jsonStr += ", " + sstgString;
-									}
-								}
-			
-								jsonStr += "]\n";
-			
-								jsonStr += "}";
-			
-								var jsonData = "";
-								jsonData = Ext.util.JSON.decode(jsonStr);
-			
-								//한강호소 다시그리기
-								for (var i = 0; i < jsonData.children.length; i++) {
-									if (jsonData.children[i].id == 'Z') {
-										jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
-									}else if(jsonData.children[i].id == 'K'){
-										jsonData.children[i] = store.reDrawKTree(jsonData.children[i]);
-									}
-								}
-			
-								store.setRootNode(jsonData);
-								store.setRootVisible(false);
-			
-								if (store.param.detailSearch) {
-									detailSeachResult(jsonData);
-									store.param.detailSearch = false; // detailSearch param 초기화
-								}
-								// 로딩바 숨김
-								Ext.getCmp("siteListTree").unmask();
-			
-								if (result.features.length == 0 && pollLoadString == "" && pollutionString == "") {
-									Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
-									Ext.getCmp("siteListTree").mask("데이터가 존재하지 않습니다.", "noData");
-								}
-							});
 						
-
-
+							me.drawTreeList(result, sriverResult, store);
 
 						});
-					
-				}else{
-
-
-					var fMap = result.features.map(function (obj) {
-						return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
-					});
-	
-					var filterArr = [];
-					var newFeatures = [];
-	
-					$.each(result.features, function (cnt, feature) {
-	
-						if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID, filterArr) === -1) {
-							if (feature.attributes.GROUP_CODE == 'M') {
-	
-								filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-								filterArr.push('M002' + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-	
-								feature.attributes.LAYER_NM = '자동측정';
-	
-								var cloneAttr = $KRF_APP.global.CommFn.cloneObj(feature.attributes);
-								cloneAttr.LAYER_NM = '수동측정';
-								cloneAttr.LAYER_CODE = 'M002';
-								cloneAttr.JIJUM_CODE = 'M002_' + cloneAttr.JIJUM_CODE;
-	
-								var resultFeature = {
-									geometry: null,
-									infoTemplate: undefined,
-									symbol: undefined,
-									attributes: cloneAttr
-								};
-	
-								feature.attributes.JIJUM_CODE = 'M001_' + feature.attributes.JIJUM_CODE;
-	
-								newFeatures.push(feature);
-								newFeatures.push(resultFeature);
-							} else {
-								filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
-								newFeatures.push(feature);
-							}
-						}
-					});
-	
-					result.features = newFeatures;
-	
-					var tMap = result.features.map(function (obj) {
-						return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
-					});
-	
-					var jsonStr = "{\n";
-					jsonStr += "	\"id\": \"0\", \n";
-					jsonStr += "	\"text\":  \"root\", \n";
-					jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold', \n";
-					jsonStr += "	\"checked\": true, \n";
-					jsonStr += "	\"expanded\": true, \n";
-					jsonStr += "	\"children\": [";
-	
-					/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) */
-					var arrGroupCodes = [];
-	
-					$.each(result.features, function (cnt, feature) {
-						// "==="연산자 값과 타입이 정확하게 일치하는지 판단
-						if ($.inArray(feature.attributes.GROUP_CODE, arrGroupCodes) === -1) {
-	
-							arrGroupCodes.push(feature.attributes.GROUP_CODE);
-							
-						}
-					});
-					/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
-	
-					// 그룹 코드 루프 시작
-					$.each(arrGroupCodes, function (cnt, groupCode) {
-	
-						/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) */
-						var groupFeature = result.features.filter(function (feature) {
-	
-							if (feature.attributes.GROUP_CODE === groupCode)
-								return feature;
-						});
-	
-						/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
-						jsonStr += "{\n";
-						jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
-	
-						if (groupFeature[0].attributes.GROUP_CODE == 'C') {
-							jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")";
-							jsonStr += "<img onClick='$KRF_APP.global.SedimentFn.init(this);' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' style='cursor: pointer; vertical-align:sub; margin-left: 5px;'/>";
-							jsonStr += "\",\n";
-						} else {
-							jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
-						}
-	
-						jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 						
-						
-						if (groupFeature[0].attributes.GROUP_CODE == "E") { //  수생태계는
-	
-							jsonStr += "			\"visible\": \"false\",\n";
-						}
-						
-						
-						if(me.visibleButton[groupFeature[0].attributes.GROUP_CODE] != undefined){
-							jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[groupFeature[0].attributes.GROUP_CODE]['searchResult']+",\n";
-						}
-						
-						// if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
-						// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
-						// }
+				
+					}else{
 
-						if (cnt == 0) {
-							jsonStr += "		\"expanded\": true,\n";
-						} else {
-							jsonStr += "		\"expanded\": false,\n";
-						}
-						jsonStr += "		\"checked\": null,\n";
-						jsonStr += "		\"children\": [";
-	
-						/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
-						var arrLayerCodes = [];
-	
-						$.each(groupFeature, function (cnt, feature) {
-							//if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
-							if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID, arrLayerCodes) === -1) {
-	
-								arrLayerCodes.push(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID);
-							}
-						});
-						/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
-	
-						// 레이어 코드 루프 시작
-						$.each(arrLayerCodes, function (cnt, layerCode) {
-	
-							var layerFeatures = groupFeature.filter(function (feature) {
-								//if(feature.attributes.LAYER_CODE === layerCode){
-								if (feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID === layerCode) {
-									if (feature.attributes.EXT_DATA_ID != undefined && feature.attributes.EXT_DATA_ID != null) {
-										feature.attributes.LAYER_CODE = feature.attributes.LAYER_CODE + "_" + cnt;
-										feature.attributes.LAYER_NM = feature.attributes.LAYER_NM + "_TEST";
-										feature.attributes.isKradLayer = true;
-									}
-									return feature;
-								}
-							});
-	
-							jsonStr += "{\n";
-							jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
-							if(layerFeatures[0].attributes.LAYER_NM == '환경기초시설조사사업'){//20190610 임시
-								layerFeatures[0].attributes.LAYER_NM = '환경기초조사사업';
-							}
-							jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
-	
-	
-							//me.visibleButton
-							if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
-								jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
-							}
+						me.drawTreeList(result, undefined, store);
 
-							if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
-								jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
-							}
-							if (cnt == 0) {
-								jsonStr += "			\"expanded\": true,\n"; // 펼치기..
-							} else {
-								jsonStr += "			\"expanded\": false,\n"; // 펼치기..
-							}
-							jsonStr += "			\"children\": [";
-	
-							$.each(layerFeatures, function (cnt, layerFeature) {
-								
-								if (layerFeature.attributes.GROUP_CODE == 'C') {
-									krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
-								}
-
-								jsonStr += "{\n";
-								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-								jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-								jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-								jsonStr += "				\"leaf\": true,\n";
-
-								//4댑스 값 세팅
-								if (layerFeature.attributes.GUBUN_CODE) {
-									jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
-									jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
-								}
-								jsonStr += "				\"checked\": null\n";
-
-								if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
-									jsonStr += "				,\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
-									jsonStr += "				\"chartBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
-									jsonStr += "				\"infoBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
-								}
-
-								jsonStr += "			}, ";
-
-							});
-	
-							if (layerFeatures.length > 0) {
-								jsonStr = jsonStr.substring(0, jsonStr.length - 2);
-							}
-	
-							jsonStr += "]\n";
-							jsonStr += "		}, ";
-						}); // 레이어 코드 루프 끝
-	
-						if (arrLayerCodes.length > 0) {
-							jsonStr = jsonStr.substring(0, jsonStr.length - 2);
-						}
-	
-						jsonStr += "]\n";
-						jsonStr += "	}, ";
-					}); // 그룹 코드 루프 끝
-					if (arrGroupCodes.length > 0) {
-						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
-					}
-	
-					// 부하량 Json String 가져오기 khLee 20160823 추가
-					var pollLoadString = store.getPollLoadString();
-					var pollutionString = store.getPollutionString();
-	
-					store.getSstgString(function (sstgString) {
-	
-						if (pollLoadString != "") {
-	
-							if (result.features.length == 0) {
-								jsonStr += pollLoadString;
-							} else {
-								jsonStr += ", " + pollLoadString;
-							}
-						}
-	
-						if (pollutionString != "") {
-	
-							if (result.features.length == 0 && pollLoadString == "") {
-								jsonStr += pollutionString;
-							} else {
-								jsonStr += ", " + pollutionString;
-							}
-						}
-	
-	
-						if (sstgString != "") {
-	
-							if (result.features.length == 0 && sstgString == "") {
-								jsonStr += sstgString;
-							} else {
-								jsonStr += ", " + sstgString;
-							}
-						}
-	
-						jsonStr += "]\n";
-	
-						jsonStr += "}";
-	
-						var jsonData = "";
-						jsonData = Ext.util.JSON.decode(jsonStr);
-	
-						// tree 배열 다시그리기
-						for (var i = 0; i < jsonData.children.length; i++) {
-							if (jsonData.children[i].id == 'Z') {
-								jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
-							}else if(jsonData.children[i].id == 'K'){
-								jsonData.children[i] = store.reDrawKTree(jsonData.children[i]);
-							}else if(jsonData.children[i].id == 'E'){
-								var addTreeData = store.reDrawETree(jsonData.children[i]);
-
-								jsonData.children.map(function(obj){
-									if(obj.id == 'Esstg'){
-										if(addTreeData.length > 0){
-											obj.children = obj.children.concat(addTreeData)
-										}
-									}
-								});
-
-								// 삭제 수생태계 (id가 겹침방지)
-								jsonData.children.splice(i,1);
-
-							}
-						}
-	
-						store.setRootNode(jsonData);
-						store.setRootVisible(false);
-	
-						if (store.param.detailSearch) {
-							detailSeachResult(jsonData);
-							store.param.detailSearch = false; // detailSearch param 초기화
-						}
-						// 로딩바 숨김
-						Ext.getCmp("siteListTree").unmask();
-	
-						if (result.features.length == 0 && pollLoadString == "" && pollutionString == "") {
-							Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
-							Ext.getCmp("siteListTree").mask("데이터가 존재하지 않습니다.", "noData");
-						}
-					});
-			
-					
-
-				}
-
+					};
 
 
 
@@ -923,6 +363,390 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 			});
 		}
+	},
+
+	//store에 tree 그리기
+	drawTreeList: function(result, sriverResult, store){
+
+		var me  = this;
+
+		if(sriverResult){
+			result.features = result.features.concat( sriverResult.features );
+		}
+
+
+		var fMap = result.features.map(function (obj) {
+			return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
+		});
+
+		var filterArr = [];
+		var newFeatures = [];
+
+		$.each(result.features, function (cnt, feature) {
+
+			if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID, filterArr) === -1) {
+				if (feature.attributes.GROUP_CODE == 'M') {
+
+					filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
+					filterArr.push('M002' + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
+
+					feature.attributes.LAYER_NM = '자동측정';
+
+					var cloneAttr = $KRF_APP.global.CommFn.cloneObj(feature.attributes);
+					cloneAttr.LAYER_NM = '수동측정';
+					cloneAttr.LAYER_CODE = 'M002';
+					cloneAttr.JIJUM_CODE = 'M002_' + cloneAttr.JIJUM_CODE;
+
+					var resultFeature = {
+						geometry: null,
+						infoTemplate: undefined,
+						symbol: undefined,
+						attributes: cloneAttr
+					};
+
+					feature.attributes.JIJUM_CODE = 'M001_' + feature.attributes.JIJUM_CODE;
+
+					newFeatures.push(feature);
+					newFeatures.push(resultFeature);
+				} else {
+					filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
+					newFeatures.push(feature);
+				}
+			}
+		});
+
+		result.features = newFeatures;
+
+		var tMap = result.features.map(function (obj) {
+			return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE + " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID;
+		});
+
+		var jsonStr = "{\n";
+		jsonStr += "	\"id\": \"0\", \n";
+		jsonStr += "	\"text\":  \"root\", \n";
+		jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold', \n";
+		jsonStr += "	\"checked\": true, \n";
+		jsonStr += "	\"expanded\": true, \n";
+		jsonStr += "	\"children\": [";
+
+		/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) */
+		var arrGroupCodes = [];
+		var boGroup = [];
+
+		$.each(result.features, function (cnt, feature) {
+			// "==="연산자 값과 타입이 정확하게 일치하는지 판단
+			if ($.inArray(feature.attributes.GROUP_CODE, arrGroupCodes) === -1) {
+
+				arrGroupCodes.push(feature.attributes.GROUP_CODE);
+				
+			}
+		});
+		/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
+
+		/* if == 보 모드일시 / else == 일반모드일시 */
+		if($KRF_APP.BOMODE && me.searchType == "boSearch"){
+			$.each(result.features, function (cnt, feature) {
+				// "==="연산자 값과 타입이 정확하게 일치하는지 판단
+				if(feature.attributes.BO_CD != " "){
+					if ($.inArray(feature.attributes.BO_CD, boGroup) === -1) {
+						boGroup.push(feature.attributes.BO_CD);
+					}
+				}
+			});
+
+			jsonStr += me.boTreeJsonStrMake(arrGroupCodes, result, boGroup);
+			if (arrGroupCodes.length > 0) {
+				jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+			}
+
+			jsonStr += "]\n";
+			jsonStr += "	}, ";
+
+
+		}else{
+			jsonStr += me.treeJsonStrMake(arrGroupCodes, result);
+		}
+
+		
+
+		if (arrGroupCodes.length > 0) {
+			jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+		}
+
+		// 부하량 Json String 가져오기 khLee 20160823 추가
+		var pollLoadString = store.getPollLoadString();
+		var pollutionString = store.getPollutionString();
+
+		store.getSstgString(function (sstgString) {
+
+			if (pollLoadString != "") {
+
+				if (result.features.length == 0) {
+					jsonStr += pollLoadString;
+				} else {
+					jsonStr += ", " + pollLoadString;
+				}
+			}
+
+			if (pollutionString != "") {
+
+				if (result.features.length == 0 && pollLoadString == "") {
+					jsonStr += pollutionString;
+				} else {
+					jsonStr += ", " + pollutionString;
+				}
+			}
+
+
+			if (sstgString != "") {
+
+				if (result.features.length == 0 && sstgString == "") {
+					jsonStr += sstgString;
+				} else {
+					jsonStr += ", " + sstgString;
+				}
+			}
+
+			jsonStr += "]\n";
+
+			jsonStr += "}";
+
+			var jsonData = "";
+			jsonData = Ext.util.JSON.decode(jsonStr);
+
+			//한강호소 다시그리기
+			for (var i = 0; i < jsonData.children.length; i++) {
+				if (jsonData.children[i].id == 'Z') {
+					jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
+				}else if(jsonData.children[i].id == 'K'){
+					jsonData.children[i] = store.reDrawKTree(jsonData.children[i]);
+				}
+			}
+
+			store.setRootNode(jsonData);
+			store.setRootVisible(false);
+
+			if (store.param.detailSearch) {
+				detailSeachResult(jsonData);
+				store.param.detailSearch = false; // detailSearch param 초기화
+			}
+			// 로딩바 숨김
+			Ext.getCmp("siteListTree").unmask();
+
+			if (result.features.length == 0 && pollLoadString == "" && pollutionString == "") {
+				Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
+				Ext.getCmp("siteListTree").mask("데이터가 존재하지 않습니다.", "noData");
+			}
+		});
+
+	},
+
+	//보모드검색 tree 생성 190916
+	boTreeJsonStrMake: function(arrGroupCodes, result, boGroup){
+
+		var me = this;
+		var jsonStr = "";
+
+
+		/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
+		$.each(boGroup, function (cnt, groupCodeBo) {
+
+			var groupFeatureBo = result.features.filter(function (feature) {
+				
+				//$KRF_APP.highChart.parentName = groupFeatureBo[0].attributes.BO_NM;
+
+				if (feature.attributes.BO_CD === groupCodeBo)
+					return feature;
+			});
+
+			jsonStr += "{\n";
+			jsonStr += "		\"id\": \"BO_" + groupFeatureBo[0].attributes.BO_CD + "\",\n";
+			jsonStr += "		\"text\": \"" + groupFeatureBo[0].attributes.BO_NM + "(" + groupFeatureBo.length + ")\",\n";
+			jsonStr += "		\"cls\": \"boTreeName\",\n";
+			jsonStr += "		\"chartBtnDisabled\": true,\n";
+			if (cnt == 0) {
+				jsonStr += "		\"expanded\": true,\n";
+			} else {
+				jsonStr += "		\"expanded\": false,\n";
+			}
+			jsonStr += "		\"checked\": null,\n";
+			jsonStr += "		\"children\": [";
+
+			
+			$.each(groupFeatureBo, function (cnt, feature) {
+				// "==="연산자 값과 타입이 정확하게 일치하는지 판단
+				if ($.inArray(feature.attributes.GROUP_CODE, arrGroupCodes) === -1) {
+
+					arrGroupCodes.push(feature.attributes.GROUP_CODE);
+				}
+			});
+			
+			
+			jsonStr += me.treeJsonStrMake(arrGroupCodes, result);
+			
+
+			
+		});//보 그럽 코드
+		
+
+
+		return jsonStr;
+	},
+
+	//일반검색 tree 생성 190916
+	treeJsonStrMake: function(arrGroupCodes, result){
+		var me = this;
+		var jsonStr = "";
+
+		// 그룹 코드 루프 시작
+		$.each(arrGroupCodes, function (cnt, groupCode) {
+
+			/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) */
+			var groupFeature = result.features.filter(function (feature) {
+
+				if (feature.attributes.GROUP_CODE === groupCode)
+					return feature;
+			});
+
+			/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
+			jsonStr += "{\n";
+			jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
+
+			// 퇴적물 icon 추가
+			if (groupFeature[0].attributes.GROUP_CODE == 'C') {
+				jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")";
+				jsonStr += "<img onClick='$KRF_APP.global.SedimentFn.init(this);' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' style='cursor: pointer; vertical-align:sub; margin-left: 5px;'/>";
+				jsonStr += "\",\n";
+			} else {
+				jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
+			}
+
+			jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+
+			//  수생태계는 전체검색 X
+			// if (groupFeature[0].attributes.GROUP_CODE == "E") { 
+			// 	jsonStr += "			\"visible\": \"true\",\n";
+			// }
+
+			if(me.visibleButton[groupFeature[0].attributes.GROUP_CODE] != undefined){
+				jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[groupFeature[0].attributes.GROUP_CODE]['searchResult']+",\n";
+			}
+
+			// if (groupFeature[0].attributes.GROUP_CODE == "J" || groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "H" || groupFeature[0].attributes.GROUP_CODE == "M" || groupFeature[0].attributes.GROUP_CODE == "Z") {
+			// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
+			// }
+
+			if (cnt == 0) {
+				jsonStr += "		\"expanded\": true,\n";
+			} else {
+				jsonStr += "		\"expanded\": false,\n";
+			}
+			jsonStr += "		\"checked\": null,\n";
+			jsonStr += "		\"children\": [";
+
+			/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
+			var arrLayerCodes = [];
+
+			$.each(groupFeature, function (cnt, feature) {
+				//if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
+				if ($.inArray(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID, arrLayerCodes) === -1) {
+
+					arrLayerCodes.push(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID);
+				}
+			});
+			/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
+
+			// 레이어 코드 루프 시작
+			$.each(arrLayerCodes, function (cnt, layerCode) {
+
+				var layerFeatures = groupFeature.filter(function (feature) {
+					//if(feature.attributes.LAYER_CODE === layerCode){
+					if (feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID === layerCode) {
+						if (feature.attributes.EXT_DATA_ID != undefined && feature.attributes.EXT_DATA_ID != null) {
+							feature.attributes.LAYER_CODE = feature.attributes.LAYER_CODE + "_" + cnt;
+							feature.attributes.LAYER_NM = feature.attributes.LAYER_NM + "_TEST";
+							feature.attributes.isKradLayer = true;
+						}
+						return feature;
+					}
+				});
+
+				jsonStr += "{\n";
+				jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
+				if(layerFeatures[0].attributes.LAYER_NM == '환경기초시설조사사업'){//20190610 임시
+					layerFeatures[0].attributes.LAYER_NM = '환경기초조사사업';
+				}
+				jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
+
+				
+				if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
+					jsonStr += "				\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
+				}
+
+				// if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+				// //if (layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "Z") {
+				// 	jsonStr += "				\"srchBtnDisabled\": true,\n";
+				// }
+
+				if (layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null) {
+					jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+				}
+				if (cnt == 0) {
+					jsonStr += "			\"expanded\": true,\n"; // 펼치기..
+				} else {
+					jsonStr += "			\"expanded\": false,\n"; // 펼치기..
+				}
+				jsonStr += "			\"children\": [";
+
+				$.each(layerFeatures, function (cnt, layerFeature) {
+			
+					if (layerFeature.attributes.GROUP_CODE == 'C') {
+						krf_new.global.SedimentFn.setDataArr(layerFeature.attributes);
+					}
+
+					jsonStr += "{\n";
+					jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+					jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+					jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+					jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+					jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+					jsonStr += "				\"leaf\": true,\n";
+
+					//4댑스 값 세팅
+					if (layerFeature.attributes.GUBUN_CODE) {
+						jsonStr += "				\"gubunCode\": \"" + layerFeature.attributes.GUBUN_CODE + "\",\n";
+						jsonStr += "				\"gubunName\": \"" + layerFeature.attributes.GUBUN_NM + "\",\n";
+					}
+					jsonStr += "				\"checked\": null\n";
+
+					if(me.visibleButton[layerFeatures[0].attributes.LAYER_CODE] != undefined){
+						jsonStr += "				,\"srchBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['searchResult']+",\n";
+						jsonStr += "				\"chartBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
+						jsonStr += "				\"infoBtnDisabled\": "+me.visibleButton[layerFeatures[0].attributes.LAYER_CODE]['chart']+",\n";
+					}
+
+					jsonStr += "			}, ";
+
+				});
+
+				if (layerFeatures.length > 0) {
+					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+				}
+
+				jsonStr += "]\n";
+				jsonStr += "		}, ";
+			}); // 레이어 코드 루프 끝
+
+			if (arrLayerCodes.length > 0) {
+				jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+			}
+
+			jsonStr += "]\n";
+			jsonStr += "	}, ";
+		}); // 그룹 코드 루프 끝
+
+
+		return jsonStr;
 	},
 
 
