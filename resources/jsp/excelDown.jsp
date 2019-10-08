@@ -39,6 +39,7 @@
 			//System.out.println(dataList);
 			String url = request.getParameter("url");
 			String param = request.getParameter("param");
+			System.out.println(url);
 			if(url!=null && !"".equals(url)){
 				StringTokenizer token = new StringTokenizer(url, "?");
 				if(token.countTokens()>0){

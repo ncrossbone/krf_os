@@ -5,6 +5,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 	alias: 'controller.AdminConfigDRONEController',
 
 
+
 	saveClick: function(){
 
 		var store = Ext.getCmp('droneLayerAdd').getStore();
@@ -14,6 +15,8 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
         for (var i = 0; i < records.length; i++) {
 			this.saveDroneLayer(records[i].data);
 		}
+
+		this.refreshClick();
 
 	},
 
@@ -30,12 +33,13 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			}
 		});
 
-		console.info(changeDroneDatas);
-
 		if(changeDroneDatas.length > 0){
 			for (var i = 0; i < changeDroneDatas.length; i++) {
 				this.updateDroneLayer(changeDroneDatas[i].data);
 			}
+			                                                     
+			alert('수정을 완료 하였습니다.');
+			this.refreshClick();
 		}
 
 	},
@@ -46,7 +50,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			url: _API.getDroneLayer,
 			dataType: "text/plain",
 			method: 'POST',
-			async: true,
+			async: false,
 			success: function (response, opts) {
 				var droneLyaer = Ext.util.JSON.decode(response.responseText);
 				if (droneLyaer.data.length > 0) {
@@ -56,6 +60,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 						data: $KRF_APP.DRONELAYERS.data
 					});
 					
+					alert("갱신 되었습니다.");
 					Ext.getCmp('droneLayer').setStore(store);
 
 				}
@@ -71,7 +76,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			url: _API.testDroneLayer,
 			dataType: "application/json",
 			method: 'POST',
-			async: true,
+			async: false,
 			data : JSON.stringify($KRF_APP.DRONELAYERS),
 			success: function (response, opts) {
 				console.info(response)
@@ -79,21 +84,75 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 		});
 	},
 
-	deleteDroneLayer : function(){
-		//return;
+	deleteDroneLayer_test : function(){
+
 		var me = this;
-		Ext.Ajax.request({
-			url: _API.deleteDroneLayer,
-			dataType: "text/plain",
-			method: 'POST',
-			async: true,
-			params: {
-				etc : data.ETC
-			},
-			success: function (response, opts) {
-				
+
+		var store = Ext.getCmp('droneLayer').getStore();
+		var selection = Ext.getCmp('droneLayer').getView().getSelectionModel().getSelection();                               
+		if (selection.length > 0) {
+			for (var i = 0; i < selection.length; i++) {
+
+				var answer = window.confirm(selection[0].data.RIVER+"_"+selection[0].data.DRONEDATE+"영상을 삭제 하시겠습니까?")
+				if (answer) {
+					Ext.Ajax.request({
+						url: _API.deleteDroneLayer,
+						dataType: "text/plain",
+						method: 'POST',
+						async: true,
+						params: {
+							etc : selection[0].data.ETC
+						},
+						success: function (response, opts) {
+							store.remove(selection[i]);
+							store.sync();     		
+						}
+	
+					});
+
+					me.refreshClick();
+
+				}else {
+					return;
+				}                                
 			}
-		});
+		}
+	},
+
+	deleteDroneLayer: function(){
+		
+
+		var store = Ext.getCmp('droneLayer').getStore();
+		var selection = Ext.getCmp('droneLayer').getView().getColumnManager().getColumns()[0].getView().getSelectionModel().getSelection();
+		if (selection.length > 0) {
+			for (var i = 0; i < selection.length; i++) {
+
+				var answer = window.confirm(selection[0].data.RIVER+"_"+selection[0].data.DRONEDATE+"영상을 삭제 하시겠습니까?")
+				if (answer) {
+					Ext.Ajax.request({
+						url: _API.deleteDroneLayer,
+						dataType: "text/plain",
+						method: 'POST',
+						async: true,
+						params: {
+							etc : selection[0].data.ETC
+						},
+						success: function (response, opts) {
+							store.remove(selection[i]);
+							store.sync();     		
+						}
+	
+					});
+
+					me.refreshClick();
+
+				}else {
+					return;
+				}                                
+			}
+		}
+
+		
 	},
 
 	
@@ -114,7 +173,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			url: _API.updateDroneLayer,
 			dataType: "text/html",
 			method: 'POST',
-			async: true,
+			async: false,
 			params: {
 				river : data.RIVER,
 				droneLayerId: data.DRONELAYERID,
@@ -134,7 +193,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			url: _API.insertDroneLayer,
 			dataType: "text/html",
 			method: 'POST',
-			async: true,
+			async: false,
 			params: {
 				river : data.RIVER,
 				droneLayerId: data.DRONELAYERID,
@@ -154,7 +213,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 			url: _API.getDroneLayer,
 			dataType: "text/plain",
 			method: 'POST',
-			async: true,
+			async: false,
 			success: function (response, opts) {
 				var droneLyaer = Ext.util.JSON.decode(response.responseText);
 				if (droneLyaer.data.length > 0) {

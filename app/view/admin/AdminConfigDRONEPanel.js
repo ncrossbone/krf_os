@@ -7,6 +7,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 	autoScroll: true,
 
 	requires: ['krf_new.view.admin.AdminConfigGISController'],
+
 	//controller: 'adminConfigDRONEController',
 	initComponent: function () {
 
@@ -103,7 +104,17 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 					dataIndex:'PHYDATE',
 					width: 110,
 					editor: {xtype: 'textareafield', grow: true}
-				}, {
+				},{
+					text: '삭제',
+					align: 'center',
+					dataIndex: '',
+					renderer: function(val){
+						return "<a href='#'>삭제</a>";
+					},
+					listeners: {
+						click: 'deleteDroneLayer'
+					}
+				}/*, {
 					text: '삭제',
 					align: 'center',
 					dataIndex: '',
@@ -132,6 +143,8 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 												store.sync();     		
 											}
 										});
+
+
 									}else {
 										return;
 									}                                
@@ -139,7 +152,7 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 							}
 						}
 					}
-				}]
+				}*/]
 			},{
 				xtype: 'container',
 				items:[{
