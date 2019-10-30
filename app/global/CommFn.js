@@ -533,8 +533,7 @@ Ext.define("krf_new.global.CommFn", {
 		//Ext.getCmp('searchResultWindow_K_Combo')
 
 
-
-		$.when(me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_1,),me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_2),me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_3)).done(function(result1,result2,result3){
+		$.when(me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_1),me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_2),me.getStoreDataK(preStore.siteIds,_API.GetSearchResultDataWindow_K_3)).done(function(result1,result2,result3){
 			
 			var grid1 = Ext.getCmp('searchResultWindow_K_1');// 배출시설
 			var grid2 = Ext.getCmp('searchResultWindow_K_2');// 방지시설
