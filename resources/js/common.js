@@ -948,19 +948,19 @@ detailSearchTreeColor = function (dom, d) {
 
 	// 해당 컬럼에 맞는 ID 값만 추가 (세로 컬럼 색칠 정의)
 	var config = {
-		'IDEX': 'E',
-		'GRAD': 'E',
+		// 'IDEX': 'E',
+		// 'GRAD': 'E',
 
-		'IEM_1160': 'C',
-		'IEM_1155': 'C',
+		// 'IEM_1160': 'C',
+		// 'IEM_1155': 'C',
 
-		'TOT_INFLOW_QY': 'F',
-		'TOT_DWEQTY': 'F',
+		// 'TOT_INFLOW_QY': 'F',
+		// 'TOT_DWEQTY': 'F',
 
-		'WLV': 'D001',
-		'RAINFL': 'D005',
-		'FLUX': 'D003',
-		'AVRG_SPFLD': 'D',
+		// 'WLV': 'D001',
+		// 'RAINFL': 'D005',
+		// 'FLUX': 'D003',
+		// 'AVRG_SPFLD': 'D',
 	};
 
 	var sortGrid = ['A', 'C', 'E', 'E001', 'E002', 'B', 'F', 'D001', 'D005', 'D003', 'D'];

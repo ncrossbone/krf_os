@@ -139,7 +139,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 									jsonData.data.map(function (obj) {
 
-										if (layerList[i] == obj.LAEYR_CODE) {
+										if (layerList[i] == obj.LAYER_CODE) {
 											confirmJsonData.push(obj);
 										}
 									})
