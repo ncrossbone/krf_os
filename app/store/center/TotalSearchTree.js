@@ -7,20 +7,21 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 			var me = this;
 
+			var window = Ext.getCmp('totalSearchDetailWindow');
+
 			var jsonData = store.data;
 
 			var layerList = [];
 			//상세검색일시
 			if (Ext.getCmp('itemselector')) {
 				layerList = Ext.getCmp('itemselector').getValue();
-			}else{//아닐시 (수질측정망(하천,호소), 생물측정망 (하천,호소), 퇴적물측정망(하천,호소), 수질자동측정망)
+			} else {//아닐시 (수질측정망(하천,호소), 생물측정망 (하천,호소), 퇴적물측정망(하천,호소), 수질자동측정망)
 				layerList = ['A001', 'A002', 'C001', 'C002', 'B001'
-				,'HcAtalSe', 'HcBemaSe','HcFishSe','HcInhaSe', 'HcQltwtrSe', 'HcVtnSe','HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
+					, 'HcAtalSe', 'HcBemaSe', 'HcFishSe', 'HcInhaSe', 'HcQltwtrSe', 'HcVtnSe', 'HgAtalSe', 'HgBemaSe', 'HgFishSe', 'HgVtnSe'];
 			}
 
 			var paramList = { 'A': [], 'B': [], 'C': [], 'D': [], 'Esstg': [], 'F': [], 'G': [], 'H': [] };
 			var siteIds = [];
-
 
 			//날짜 세팅
 			var detailSearchStartYear = "";
@@ -32,8 +33,6 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 				detailSearchStartMonth = Ext.getCmp('detail_startMonth').value;
 				detailSearchEndYear = Ext.getCmp('detail_endYear').value;
 				detailSearchEndMonth = Ext.getCmp('detail_endMonth').value;
-
-
 
 			} else {//아닐시
 
@@ -58,10 +57,6 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 
 
-			
-
-
-
 			var object = jsonData.map;
 			//param siteId 만들기 = ex)A_10230  (GROUP_CODE + _ + JIJUM_CODE)
 			for (var key in object) {
@@ -72,10 +67,10 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 							if (childObj.parentId != 'Esstg') {
 								siteIds.push(childObj.parentId + '_' + obj.id);
 							} else {
-								if(obj.parentId != 'E003' && obj.parentId != 'E004'){
+								if (obj.parentId != 'E003' && obj.parentId != 'E004') {
 									obj.children.map(function (eObj) {
 										siteIds.push('E_' + eObj.eSiteId);
-									})	
+									})
 								}
 							}
 						}
@@ -90,12 +85,9 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 			}, []);
 
 			// 로딩중 메세지
-			if (me.gridCtl != null) {
-				me.gridCtl.removeCls("dj-mask-noneimg");
-				me.gridCtl.addCls("dj-mask-withimg");
-				me.gridCtl.mask("loading", "loading...");
-			}
-
+			window.removeCls("dj-mask-noneimg");
+			window.addCls("dj-mask-withimg");
+			window.mask("loading", "loading...");
 
 			Ext.Ajax.request({
 				url: _API.detialSearchResult,
@@ -110,39 +102,35 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 				},
 				async: true,
 				success: function (response, opts) {
+					if (response.responseText == 'error' || response.responseText == 'fromIndex = -1' || response.responseText == '') {
+						window.addCls('dj-mask-noneimg');
+						window.mask('정보를 조회하지 못했습니다.', 'noData');
+						return;
+					}
 
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 
-
 					if (jsonData.data.length > 0) {
 
-
-
-
-						for(var a = 0 ; a < jsonData.data.length ; a++ ){
-							if(jsonData.data[a].GROUP_CODE == 'A'){
+						for (var a = 0; a < jsonData.data.length; a++) {
+							if (jsonData.data[a].GROUP_CODE == 'A') {
 								jsonData.data[a].sortVal = 1;
-							}else if(jsonData.data[a].GROUP_CODE == 'C'){
+							} else if (jsonData.data[a].GROUP_CODE == 'C') {
 								jsonData.data[a].sortVal = 2;
-							}else if(jsonData.data[a].GROUP_CODE == 'E'){
+							} else if (jsonData.data[a].GROUP_CODE == 'E') {
 								jsonData.data[a].sortVal = 3;
-							}else if(jsonData.data[a].GROUP_CODE == 'B'){
+							} else if (jsonData.data[a].GROUP_CODE == 'B') {
 								jsonData.data[a].sortVal = 4;
-							}else if(jsonData.data[a].GROUP_CODE == 'F'){
+							} else if (jsonData.data[a].GROUP_CODE == 'F') {
 								jsonData.data[a].sortVal = 5;
-							}else if(jsonData.data[a].GROUP_CODE == 'D'){
+							} else if (jsonData.data[a].GROUP_CODE == 'D') {
 								jsonData.data[a].sortVal = 6;
 							}
 						}
 
-
-						
-						
-
-
 						if (jsonData.data[0].msg) {
-							me.gridCtl.addCls("dj-mask-noneimg");
-							me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+							window.addCls("dj-mask-noneimg");
+							window.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 						} else {
 							var confirmJsonData = [];
 
@@ -151,19 +139,13 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 									jsonData.data.map(function (obj) {
 
-										if (layerList[i] == obj.LAEYR_CODE) {
+										if (layerList[i] == obj.LAYER_CODE) {
 											confirmJsonData.push(obj);
 										}
-
 									})
-
-									//if(layerList[i].LAEYR_CODE == )
 								}
 
 							}
-
-
-
 
 							var jsonStr = "{\n";
 							jsonStr += "	\"id\": \"0\", \n";
@@ -175,13 +157,11 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 							var arrGroupCodes = [];
 
-							confirmJsonData.sort(function (a, b) { 
-								return a.sortVal < b.sortVal ? -1 : a.sortVal > b.sortVal ? 1 : 0;  
+							confirmJsonData.sort(function (a, b) {
+								return a.sortVal < b.sortVal ? -1 : a.sortVal > b.sortVal ? 1 : 0;
 							});
 
 							krf_new.global.CommFn.totalSearchExcelData = confirmJsonData;
-
-							
 
 							$.each(confirmJsonData, function (cnt, datas) {
 								// "==="연산자 값과 타입이 정확하게 일치하는지 판단
@@ -190,7 +170,6 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 								}
 
 							});
-
 
 							// 그룹 코드 루프 시작
 							$.each(arrGroupCodes, function (cnt, groupCode) {
@@ -337,13 +316,13 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 							store.setRootVisible(false);
 
 
-							me.gridCtl.unmask();
+							window.unmask();
 						}
 
 
 					} else {
-						me.gridCtl.addCls("dj-mask-noneimg");
-						me.gridCtl.mask("검색도중 오류가 발생했습니다.", "error");
+						window.addCls("dj-mask-noneimg");
+						window.mask("검색도중 오류가 발생했습니다.", "error");
 					}
 
 				}
