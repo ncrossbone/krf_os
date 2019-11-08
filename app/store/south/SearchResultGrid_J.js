@@ -44,6 +44,13 @@ Ext.define('krf_new.store.south.SearchResultGrid_J', {
 				},
 				async: true, // 비동기 = async: true, 동기 = async: false
 				success: function (response, opts) {
+
+					if (response.responseText == 'error' || response.responseText == 'fromIndex = -1' || response.responseText == '') {
+						me.gridCtl.addCls("dj-mask-noneimg");
+						me.gridCtl.mask("정보를 조회하지 못했습니다.", "noData");
+						return;
+					}
+
 					var jsonData = Ext.util.JSON.decode(response.responseText);
 					if (jsonData.data.length > 0) {
 						if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
