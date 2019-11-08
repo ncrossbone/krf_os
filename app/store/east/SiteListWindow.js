@@ -14,7 +14,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				  ,'A006':{chart:false,searchResult:false}
 				  ,'A007':{chart:false,searchResult:false}
 				  ,'B':{chart:true,searchResult:false}
-				  ,'B001':{chart:true,searchResult:false}
+				  ,'B001':{chart:true,searchResult:true}
 				  ,'B002':{chart:false,searchResult:false}
 				  ,'C':{chart:true,searchResult:false}
 				  ,'C001':{chart:false,searchResult:false}
@@ -49,8 +49,8 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				  ,'I002':{chart:false,searchResult:false}
 				  ,'I003':{chart:false,searchResult:false}
 				  ,'J':{chart:true,searchResult:true}
-				  ,'J001':{chart:false,searchResult:false}
-				  ,'J002':{chart:false,searchResult:false}
+				  ,'J001':{chart:true,searchResult:false}
+				  ,'J002':{chart:true,searchResult:false}
 				  ,'M':{chart:true,searchResult:true}
 				  ,'M001':{chart:false,searchResult:false}
 				  ,'K':{chart:true,searchResult:true}
@@ -520,7 +520,19 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					jsonData.children[i] = store.reDrawTree(jsonData.children[i]);
 				}else if(jsonData.children[i].id == 'K'){
 					jsonData.children[i] = store.reDrawKTree(jsonData.children[i]);
+				}else if(jsonData.children[i].id == 'E'){
+					var addTreeData = store.reDrawETree(jsonData.children[i]);
+					jsonData.children.map(function(obj){
+						if(obj.id == 'Esstg'){
+							if(addTreeData.length > 0){
+								obj.children = obj.children.concat(addTreeData)
+							}
+						}
+					});
+					// 삭제 수생태계 (id가 겹침방지)
+					jsonData.children.splice(i,1);
 				}
+				   
 			}
 
 			store.setRootNode(jsonData);

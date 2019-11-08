@@ -306,9 +306,9 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 		}
 
 		//상위 스텝 (지점이 아닐경우)
-		if(layer01Info[0].children != null){
-			return;
-		}
+		// if(layer01Info[0].children != null){
+		// 	return;
+		// }
 		
 		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
 		queryTask.execute(query, function (results) {
