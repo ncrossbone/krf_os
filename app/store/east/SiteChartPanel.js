@@ -242,9 +242,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					},
 					async: false, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
-						if ('error' == response.responseText) {
-							Ext.Msg.alert("알림", "차트정보 조회중 예외가 발생했습니다.");
-							Ext.getCmp("siteCharttest").unmask();
+						if (response.responseText == 'error' || response.responseText == 'fromIndex = -1' || response.responseText == '') {
+							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 							Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
 							return;
 						}
@@ -298,9 +297,8 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					},
 					async: true, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
-						if ('error' == response.responseText) {
-							Ext.Msg.alert("알림", "차트정보 조회중 예외가 발생했습니다.");
-							Ext.getCmp("siteCharttest").unmask();
+						if (response.responseText == 'error' || response.responseText == 'fromIndex = -1' || response.responseText == '') {
+							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 							Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
 							return;
 						}
@@ -376,12 +374,12 @@ Ext.define('krf_new.store.east.SiteChartPanel', {
 					},
 					async: true, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
-						if ('error' == response.responseText) {
-							Ext.Msg.alert("알림", "차트정보 조회중 예외가 발생했습니다.");
-							Ext.getCmp("siteCharttest").unmask();
+						if (response.responseText == 'error' || response.responseText == 'fromIndex = -1' || response.responseText == '') {
+							Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
 							Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
 							return;
 						}
+
 						// JSON Object로 변경
 						var jsonData = Ext.util.JSON.decode(response.responseText);
 						/*
