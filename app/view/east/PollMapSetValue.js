@@ -44,7 +44,7 @@ Ext.define('krf_new.view.east.PollMapSetValue', {
 			}, {
 				xtype: 'combo',
 				id: 'setPollYear',
-				store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
+				store: ['', '2010', '2011', '2012', '2013', '2014', '2015','2016','2017'],
 				value: '2013',
 				//labelWidth: 30,
 				//labelAlign: 'right',
