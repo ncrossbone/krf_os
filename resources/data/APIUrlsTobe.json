@@ -64,7 +64,7 @@
     // "GetSearchResultData_F_4":"#host_old#/searchResult/searchResult_F_4",
     // "GetSearchResultData_H":"#host_old#/searchResult/searchResult_H",
     // "GetSearchResultData_I_1":"#host_old#/searchResult/searchResult_I_1",
-    // "GetSearchResultData_I_2":"#host_old#/searchResult/searchResult_I_2",
+    
     // "GetSearchResultData_J001":"#host_old#/searchResult/searchResult_J001",
     // "GetSearchResultData_J002":"#host_old#/searchResult/searchResult_J002",
     // "GetSearchResultData":"#host_old#/searchResult/searchResult_A",
@@ -241,6 +241,7 @@
     "GetSearchResultData_B001_fix":"#host_old#/searchResult/searchResult_B001_Fix", //수질측정지점 확정
     "GetSearchResultData_B001":"#host_old#/searchResult/searchResult_B001", //수질측정지점 미확정
     "GetSearchResultData_H":"#host_old#/searchResult/searchResult_H", //수질예보지점
+    "GetSearchResultData_I_2":"#host_old#/searchResult/searchResult_I_2", //상수권구간 검색결과 
     
 
     init: function(host_old,host){
