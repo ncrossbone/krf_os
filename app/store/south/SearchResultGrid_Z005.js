@@ -19,7 +19,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_Z005', {
 
             var sYearCtl = Ext.getCmp('startYear_Z');
             if (sYearCtl != undefined) {
-                startYear = Ext.getCmp('v').value;
+                startYear = Ext.getCmp('startYear_Z').value;
             }
 
             var sMonthCtl = Ext.getCmp('startMonth_Z');

@@ -7,7 +7,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 
 			var me = this;
 
-			var window = Ext.getCmp('totalSearchDetailWindow');
+			var window = Ext.getCmp('totalSearchTree');
 
 			var jsonData = store.data;
 
