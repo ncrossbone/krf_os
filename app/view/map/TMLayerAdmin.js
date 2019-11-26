@@ -151,10 +151,29 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 					}
 					store.load();
 					for (var i = 0; i < tmCatFeatureSet.features.length; i++) {
-						for (var j = 0; j < store.data.items.length; j++) {
-							if (tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID) {
-								tmCatFeatureSet.features[i].attributes[colName] = Number(store.data.items[j].data[colName]);
-							}
+						// for (var j = 0; j < store.data.items.length; j++) {
+						// 	if (tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID) {
+						// 		tmCatFeatureSet.features[i].attributes[colName] = Number(store.data.items[j].data[colName]);
+						// 	}
+						// }
+
+						//값 초기화
+						tmCatFeatureSet.features[i].attributes[colName] = null;
+
+						if(store.data.items.length > 0){
+							for (var j = 0; j < store.data.items.length; j++) {
+
+								if (tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID) {
+									if(Number(store.data.items[j].data[colName]) == null){
+										tmCatFeatureSet.features[i].attributes[colName] = null;
+									}else{
+										tmCatFeatureSet.features[i].attributes[colName] = Number(store.data.items[j].data[colName]);	
+									}
+									
+								}
+							}	
+						}else{
+							tmCatFeatureSet.features[i].attributes[colName] = null;
 						}
 					}
 
@@ -176,53 +195,58 @@ Ext.define("krf_new.view.map.TMLayerAdmin", {
 						//quantize = getQuantize(minVal, maxVal, range);
 
 						for (var i = 0; i < tmCatFeatures.length; i++) {
-
+							
 							// 폴리곤 그래픽 지정
 							var tmCatGraphic = tmCatFeatures[i];
-							// 폴리곤 심볼 지정
-							tmCatGraphic.setSymbol(tmCatFillSymbol);
-							// 폴리곤 그래픽 추가
-							me.tmGraphicLayerCat.add(tmCatGraphic);
-							//console.info(tmCatGraphic);
-							/* 폴리곤 중심점 가져오기 */
-							var centerPoint = getCenterFromGraphic(tmCatGraphic);
 
-							// 발생부하량 BOD 합계
-							var gnrBodSu = tmCatGraphic.attributes[colName];
-							// 라벨 텍스트 설정
-							//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
-							var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
+							if(tmCatGraphic.attributes[colName]){
+								// 폴리곤 심볼 지정
+								tmCatGraphic.setSymbol(tmCatFillSymbol);
+								// 폴리곤 그래픽 추가
+								me.tmGraphicLayerCat.add(tmCatGraphic);
+								//console.info(tmCatGraphic);
+								/* 폴리곤 중심점 가져오기 */
+								var centerPoint = getCenterFromGraphic(tmCatGraphic);
 
-							// 텍스트 라벨 생성
-							var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
-								new esri.Color([255, 255, 255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
-									new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
-							// 라벨 그래픽 생성
-							//console.info(tmCatLabelSymbol);
-							var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
-							// 집수구역 부하량 속성 데이터 카피
-							tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
-							me.tmLabelLayerCat.add(tmCatLabelGraphic);
+								// 발생부하량 BOD 합계
+								var gnrBodSu = tmCatGraphic.attributes[colName];
+								console.info(gnrBodSu);
+								// 라벨 텍스트 설정
+								//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
+								var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
 
-							//var range = quantize(gnrBodSu);
+								// 텍스트 라벨 생성
+								var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
+									new esri.Color([255, 255, 255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
+										new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
+								// 라벨 그래픽 생성
+								//console.info(tmCatLabelSymbol);
+								var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
+								// 집수구역 부하량 속성 데이터 카피
+								tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
+								me.tmLabelLayerCat.add(tmCatLabelGraphic);
 
-							var circle = new Circle({
-								center: centerPoint,
-								radius: getCatRangeRadius(range)
-							});
+								//var range = quantize(gnrBodSu);
 
-							// 원형 그래픽 생성
-							var cirCleGraphic = new Graphic(circle, tmCatFillSymbol);
-							// 집수구역 부하량 속성 데이터 카피
-							cirCleGraphic.attributes = tmCatGraphic.attributes;
-							me.circleGraphicLayer.add(cirCleGraphic);
+								var circle = new Circle({
+									center: centerPoint,
+									radius: getCatRangeRadius(range)
+								});
 
-							// 이미지 심볼 생성
-							var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range / 2)), 25, 63).setOffset(0, 25);
-							var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
-							// 집수구역 부하량 속성 데이터 카피
-							barImgGraphic.attributes = tmCatGraphic.attributes;
-							me.barImgGraphicLayer.add(barImgGraphic);
+								// 원형 그래픽 생성
+								var cirCleGraphic = new Graphic(circle, tmCatFillSymbol);
+								// 집수구역 부하량 속성 데이터 카피
+								cirCleGraphic.attributes = tmCatGraphic.attributes;
+								me.circleGraphicLayer.add(cirCleGraphic);
+
+								// 이미지 심볼 생성
+								var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range / 2)), 25, 63).setOffset(0, 25);
+								var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
+								// 집수구역 부하량 속성 데이터 카피
+								barImgGraphic.attributes = tmCatGraphic.attributes;
+								me.barImgGraphicLayer.add(barImgGraphic);
+							}
+							
 						}
 					}
 
