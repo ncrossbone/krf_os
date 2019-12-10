@@ -1500,38 +1500,38 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 									sstgString += "	 ]}, \n";
 								}
 
-								if(e003.length > 0){
-									sstgString += "	  { \n";
-									sstgString += "	\"id\": \"EsstgHc\",\n";
-									sstgString += "	\"title\": \"하천\",\n";
-									sstgString += "	\"visible\": \"true\",\n";
-									sstgString += "	\"text\": \"하천\",\n";
-									sstgString += "	\"expanded\": true,\n";
-									sstgString += "	\"infoBtnDisabled\": true,\n";
-									sstgString += "	\"chartBtnDisabled\": true,\n";
-									sstgString += "	\"srchBtnDisabled\": true,\n";
-									sstgString += "	\"children\": [";
+								// if(e003.length > 0){
+								// 	sstgString += "	  { \n";
+								// 	sstgString += "	\"id\": \"EsstgHc\",\n";
+								// 	sstgString += "	\"title\": \"하천\",\n";
+								// 	sstgString += "	\"visible\": \"true\",\n";
+								// 	sstgString += "	\"text\": \"하천\",\n";
+								// 	sstgString += "	\"expanded\": true,\n";
+								// 	sstgString += "	\"infoBtnDisabled\": true,\n";
+								// 	sstgString += "	\"chartBtnDisabled\": true,\n";
+								// 	sstgString += "	\"srchBtnDisabled\": true,\n";
+								// 	sstgString += "	\"children\": [";
 									
-									for(var e003_id = 0 ; e003_id < e003.length ; e003_id ++){
-										if (ssgtObj.hc.ATAL_SE.length > 0) {
-											sstgString += "	  { \n";
-											sstgString += "	\"id\": \"EsstgHcAtalSe\",\n";
-											sstgString += "	\"title\": \"부착돌말류\",\n";
-											sstgString += "	\"visible\": \"true\",\n";
-											sstgString += "	\"text\": \"부착돌말류\",\n";
-											sstgString += "	\"expanded\": false,\n";
-											sstgString += "	\"infoBtnDisabled\": false,\n";
-											sstgString += "	\"chartBtnDisabled\": true,\n";
-											sstgString += "	\"srchBtnDisabled\": false\n";
-											sstgString += "	},";
-										}
-									}
+								// 	for(var e003_id = 0 ; e003_id < e003.length ; e003_id ++){
+								// 		if (ssgtObj.hc.ATAL_SE.length > 0) {
+								// 			sstgString += "	  { \n";
+								// 			sstgString += "	\"id\": \"EsstgHcAtalSe\",\n";
+								// 			sstgString += "	\"title\": \"부착돌말류\",\n";
+								// 			sstgString += "	\"visible\": \"true\",\n";
+								// 			sstgString += "	\"text\": \"부착돌말류\",\n";
+								// 			sstgString += "	\"expanded\": false,\n";
+								// 			sstgString += "	\"infoBtnDisabled\": false,\n";
+								// 			sstgString += "	\"chartBtnDisabled\": true,\n";
+								// 			sstgString += "	\"srchBtnDisabled\": false\n";
+								// 			sstgString += "	},";
+								// 		}
+								// 	}
 
-									sstgString += "	]},";
+								// 	sstgString += "	]},";
 									
 									
 									
-								}
+								// }
 
 								if(e004.length > 0){
 
