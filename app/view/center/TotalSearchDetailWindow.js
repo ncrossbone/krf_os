@@ -149,7 +149,8 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
                 isDisabled: function (view, rowIdx, colIdx, item, record) {
 
                 }
-            }, { text: "수심(m)", width: 95, align: 'center', dataIndex: "IEM_1001", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
+            }
+            , { text: "수심(m)", width: 95, align: 'center', dataIndex: "IEM_1001", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "수소이온농도(pH)", width: 95, align: 'center', dataIndex: "IEM_1039", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "용존산소(DO)(㎎/L)", width: 95, align: 'center', dataIndex: "IEM_1054", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "생물화학적산소요구량(BOD)(㎎/L)", width: 95, align: 'center', dataIndex: "IEM_1052", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
@@ -201,7 +202,19 @@ Ext.define('krf_new.view.center.TotalSearchDetailWindow', {
             , { text: "다이에틸헥실프탈레이트(DEHP)(㎎/L)", width: 95, align: 'center', dataIndex: "IEM_1082", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "1,4-다이옥세인(㎎/L)", width: 95, align: 'center', dataIndex: "IEM_1086", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "투명도(m)", width: 95, align: 'center', dataIndex: "IEM_1062", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
-            , { text: "유량(㎥/s)", width: 95, align: 'center', dataIndex: "IEM_1059", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
+            , {
+                text: "유량(㎥/s)",
+                width: 95,
+                align: 'center',
+                dataIndex: "IEM_1059",
+                renderer: function (val, dom, d) {
+                    detailSearchTreeColor(dom, d);
+                    var retVal = "";
+                    if (val != undefined && val != 'undefined') { retVal = val; }
+                    return retVal;
+                }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { }
+            }
+
             , { text: "포름알데히드(㎎/L)", width: 95, align: 'center', dataIndex: "IEM_1093", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "염소이온(Cl-)(㎎/L)", width: 95, align: 'center', dataIndex: "IEM_1041", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }
             , { text: "오염단계", width: 95, align: 'center', dataIndex: "IEM_1155", renderer: function (val, dom, d) { detailSearchTreeColor(dom, d); var retVal = ""; if (val != undefined && val != 'undefined') { retVal = val; } return retVal; }, handler: function (grid, rowIndex, colIndex, actionItem, node, record, row) { }, isDisabled: function (view, rowIdx, colIdx, item, record) { } }

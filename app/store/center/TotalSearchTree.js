@@ -241,6 +241,7 @@ Ext.define('krf_new.store.center.TotalSearchTree', {
 										} else {
 											jsonStr += "				\"id\": \"" + layerFeature.SITE_CODE + "_" + cnt + "\",\n";
 										}
+										
 										jsonStr += "				\"text\": \"" + layerFeature.SITE_NM + "\",\n";
 										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
 										jsonStr += "				\"DTA_SE\": \"" + layerFeature.DTA_SE + "\",\n";
