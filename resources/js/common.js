@@ -2998,6 +2998,9 @@ centerAtWithOffset = function (x, y, spatialReferrence) {
 
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
 	coreMap.map.centerAt(point);
+
+	detailSearchClickZoom(x,y);
+
 }
 
 //툴팁 XY 셋팅

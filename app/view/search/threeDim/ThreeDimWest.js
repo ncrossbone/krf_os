@@ -39,6 +39,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimWest', {
 				items: [{
 					id: 'cmbThreeDimLayerList',
 					xtype: 'combo',
+					hidden: true,
 					cls: 'khLee-x-form-item-label-default',
 					fieldLabel: '<img src="./resources/images/button/blit.gif" class="cmbBlit"  /> <b>주제도</b> ',
 					labelWidth: 60,
@@ -46,7 +47,7 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimWest', {
 					labelPad: 10,
 					width: 225,
 					editable: false,
-					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: true }),
+					store: Ext.create('krf_new.store.west.LayerSetStore', { autoLoad: false }),
 					displayField: 'layerSetName',
 					valueField: 'layerSetId',
 					listeners: {

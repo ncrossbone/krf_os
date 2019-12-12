@@ -156,7 +156,20 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 							}
 						}
 
-						Ext.getCmp('threeDimLayer01').setRootNode({ text: 'root', expanded: true, leaf: false, children: userLayerSet });
+						//임시 2019-11-24 pdj
+						var visibleThreeDimLayer = ['0','S']; //수질측정지점,소하천
+						var threeDimLayerList = [];
+						userLayerSet.map(function(threeObj){
+							for(var b = 0 ; b < visibleThreeDimLayer.length; b++){
+								if(threeObj.id == visibleThreeDimLayer[b]){
+									threeDimLayerList.push(threeObj);
+								}
+							}
+							
+						});
+						
+						//Ext.getCmp('threeDimLayer01').setRootNode({ text: 'root', expanded: true, leaf: false, children: userLayerSet });
+						Ext.getCmp('threeDimLayer01').setRootNode({ text: 'root', expanded: true, leaf: false, children: threeDimLayerList });
 
 						$KRF_APP.fireEvent($KRF_EVENT.THREEDIM_SEND_MESSAGE, { type: 'layerOffAll' });
 					}

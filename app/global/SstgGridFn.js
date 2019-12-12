@@ -546,7 +546,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                     text: '모래',
                     dataIndex: 'STR_SAND_RT'
                 }, {
-                    text: '전자갈',
+                    text: '잔자갈',
                     dataIndex: 'STR_SBAL_RT'
                 }, {
                     text: '자갈',
@@ -763,7 +763,7 @@ Ext.define("krf_new.global.SstgGridFn", {
                     text: '모래',
                     dataIndex: 'STR_SAND_RT',
                 }, {
-                    text: '전자갈',
+                    text: '잔자갈',
                     dataIndex: 'STR_SBAL_RT',
                 }, {
                     text: '자갈',
