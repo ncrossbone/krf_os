@@ -59,6 +59,8 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	bonStLine : "",
 	bonEnLine : "",
 
+	drawCnt: 0,
+
 	// 리치 검색 저장 배열 init
 	searchReachArrayInit : [{
 		cnt:1,
@@ -183,6 +185,9 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 	detailSelectFeature: null,
 
 	valueType : 0, //소하천 데이터 valuetype  ( null / "" )
+
+	toolbarAction: null, // dojo/on draw - end event 한번만 먹이게 하기 위해서
+	selectionToolbar: null, // esri toolbar draw 전역변수
 	
 	constructor: function(map, geometryService) {
 		
@@ -1020,20 +1025,24 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
         	});
     		
     		
+			
+			if(me.selectionToolbar == null){
+				me.selectionToolbar = new Draw(me.map, { showTooltips: false });
+			}
     		
-    		var selectionToolbar = new Draw(me.map, { showTooltips: false });
-    		
+			me.selectionToolbar.deactivate(); //기존 정의되어 있던 draw evnet remove 191212
+			//me.selectionToolbar.finishDrawing();
     		
     		
     		if(me.drawOption == "extent"){
-    			selectionToolbar.activate(Draw.EXTENT);
+    			me.selectionToolbar.activate(Draw.EXTENT);
     		}else if(me.drawOption == "radius"){
     			
-    			selectionToolbar.activate(Draw.POINT);
+    			me.selectionToolbar.activate(Draw.POINT);
     			
     		}else if(me.drawOption == "circle"){
     			
-    			selectionToolbar.activate(Draw.CIRCLE);
+    			me.selectionToolbar.activate(Draw.CIRCLE);
     			
     			//반경 그릴시
     			var centerPt = ""; //센터 포인트 좌표
@@ -1087,99 +1096,106 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     				
     				
     			});
-    		}
+			}
 			
-    		on(selectionToolbar, "DrawEnd", function (evt) {
-    			if(me.drawOption == "radius"){
-    				
-    				if(evt.type != "point"){
-    					return;
+			// dojo / on event 한번만 넣기 위해서
+			if(me.toolbarAction == null){
+				me.toolbarAction = on(me.selectionToolbar, "DrawEnd", function (evt) {
+
+					if(me.drawOption == "radius"){
+						
+						if(evt.type != "point"){
+							return;
+						}
+						
+						var btn = Ext.getCmp("btnMenu07");
+						if(btn.btnOnOff == "off"){
+							return;
+						}
+						var radiusText = parseFloat(Ext.getCmp("radiusText").getValue());
+						
+						if(isNaN(radiusText)){
+							alert("숫자만 입력 가능합니다.");
+							return;
+						}
+						var params = new BufferParameters();
+						params.distances = [ radiusText ];
+						
+						params.outSpatialReference = me.map.spatialReference;
+						params.unit = esri.tasks.GeometryService.UNIT_KILOMETER;
+						
+						require(["esri/geometry/normalizeUtils"], function(normalizeUtils) { 
+							
+							normalizeUtils.normalizeCentralMeridian([evt]).then(function(normalizedGeometries){
+								var normalizedGeometry = normalizedGeometries[0];
+									
+								  me.geometryService.simplify([normalizedGeometry], function(geometries) {
+									params.geometries = geometries;
+									
+									me.geometryService.buffer(params, function(result){
+										
+										if(result.length>0){
+											evt = result[0];
+											var symbol = new esri.symbol.SimpleFillSymbol(
+													esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+													new esri.symbol.SimpleLineSymbol(
+															esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+													  new dojo.Color([255,0,0,0.65]), 2
+													),
+													new dojo.Color([255,0,0,0.35])
+												  );
+											
+											var graphic = new esri.Graphic(evt, symbol);
+															me.map.graphics.clear();
+											me.map.graphics.add(graphic);
+											
+											
+											if(me.map.getLevel() < 11){
+												alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+											}else{
+												me.mapClickEvt = evt;
+												me.setRchIdsWithEvent();
+											}
+											me.selectionToolbar.deactivate();
+											
+											SetBtnOnOff(btnId, "off");
+											SetBtnOnOff("btnMenu07", "off");
+											
+											krf_new.global.Obj.hideSimpleTooltip();
+											
+											var radiusToolbar = Ext.getCmp("radiusToolbar");
+											radiusToolbar.hide();
+											
+										}
+										
+									})
+									
+								  });
+							  });
+							
+						});
+						
+						
+					}else{
+						//return;
+						me.map.graphics.clear();
+						
+						if(me.map.getLevel() < 11){
+							alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
+						}else{
+							me.mapClickEvt = evt;
+							me.setRchIdsWithEvent();
+						}
+						me.selectionToolbar.deactivate();
+						SetBtnOnOff(btnId, "off");
+						krf_new.global.Obj.hideSimpleTooltip();
 					}
 					
-					var btn = Ext.getCmp("btnMenu07");
-					if(btn.btnOnOff == "off"){
-						return;
-					}
-    				var radiusText = parseFloat(Ext.getCmp("radiusText").getValue());
-    				
-    				if(isNaN(radiusText)){
-    					alert("숫자만 입력 가능합니다.");
-    					return;
-    				}
-    				var params = new BufferParameters();
-	    			params.distances = [ radiusText ];
-	    			
-		            params.outSpatialReference = me.map.spatialReference;
-		            params.unit = esri.tasks.GeometryService.UNIT_KILOMETER;
-		            
-		            require(["esri/geometry/normalizeUtils"], function(normalizeUtils) { 
-		            	
-		            	normalizeUtils.normalizeCentralMeridian([evt]).then(function(normalizedGeometries){
-			                var normalizedGeometry = normalizedGeometries[0];
-			                	
-			                  me.geometryService.simplify([normalizedGeometry], function(geometries) {
-			                    params.geometries = geometries;
-			                    
-			                    me.geometryService.buffer(params, function(result){
-			                    	
-			                    	if(result.length>0){
-			            	    		evt = result[0];
-			            	    		var symbol = new esri.symbol.SimpleFillSymbol(
-			            	    				esri.symbol.SimpleFillSymbol.STYLE_SOLID,
-			            	    	            new esri.symbol.SimpleLineSymbol(
-			            	    	            		esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-			            	    	              new dojo.Color([255,0,0,0.65]), 2
-			            	    	            ),
-			            	    	            new dojo.Color([255,0,0,0.35])
-			            	    	          );
-			            	    		
-			            	    		var graphic = new esri.Graphic(evt, symbol);
-														me.map.graphics.clear();
-			            	    		me.map.graphics.add(graphic);
-			            	    		
-			                			
-			                			if(me.map.getLevel() < 11){
-			                				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
-			                			}else{
-			                				me.mapClickEvt = evt;
-			                				me.setRchIdsWithEvent();
-			                			}
-			                			selectionToolbar.deactivate();
-			                			
-			                			SetBtnOnOff(btnId, "off");
-			                			SetBtnOnOff("btnMenu07", "off");
-			                			
-			                			krf_new.global.Obj.hideSimpleTooltip();
-			            	    		
-			                			var radiusToolbar = Ext.getCmp("radiusToolbar");
-			                			radiusToolbar.hide();
-			            	            
-			            	    	}
-			                    	
-			                    })
-			                    
-			                  });
-			              });
-		            	
-		            });
-    	            
-    	            
-    			}else{
-    				//return;
-        			me.map.graphics.clear();
-        			
-        			if(me.map.getLevel() < 11){
-        				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
-        			}else{
-        				me.mapClickEvt = evt;
-        				me.setRchIdsWithEvent();
-        			}
-        			selectionToolbar.deactivate();
-        			SetBtnOnOff(btnId, "off");
-        			krf_new.global.Obj.hideSimpleTooltip();
-    			}
-    			
-    		});
+				});
+			}
+			
+			
+    		
     	});
     },
     offMapDragEvt: function(){
