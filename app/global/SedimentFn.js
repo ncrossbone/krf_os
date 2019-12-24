@@ -52,7 +52,7 @@ Ext.define('krf_new.global.SedimentFn', {
 		p = p.substring(0, p.length - 1);
 
 		Ext.Ajax.request({
-			url: _API.GetSearchResultData_C,
+			url: _API.searchResult_C2018,
 			dataType: 'text/plain',
 			method: 'POST',
 			async: true,

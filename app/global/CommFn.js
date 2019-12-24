@@ -1024,6 +1024,7 @@ Ext.define("krf_new.global.CommFn", {
 		var me = this;
 		var siteInfoForE = Ext.getCmp('siteInfoForE');
 		var siteinfotest = Ext.getCmp('siteinfotest');
+		var windowSiteNChart = Ext.getCmp('windowSiteNChart');
 
 		var tabChart = Ext.getCmp('tabChart'); // 차트버튼
 
@@ -1031,12 +1032,17 @@ Ext.define("krf_new.global.CommFn", {
 		if ($KRF_APP.layerCode.indexOf('E') == -1) {
 			siteInfoForE.setHidden(true);
 			siteinfotest.setHidden(false);
+
+			windowSiteNChart.setHeight(355);
+
 			tabChart.setHidden(false);
 			$('#btnShowSearchWindow')[0].style.display = '';
 			return;
 		} else {
 			siteInfoForE.setHidden(false);
 			siteinfotest.setHidden(true);
+
+			windowSiteNChart.setHeight(220);
 
 			// E 수생태는 차트가 없지만 생태/멸종은 차트정보가 있음
 			if($KRF_APP.layerCode == "E003" || $KRF_APP.layerCode == "E004"){
