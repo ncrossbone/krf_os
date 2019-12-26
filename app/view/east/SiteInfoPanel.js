@@ -84,13 +84,13 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				}]
 			}, {
 				xtype: 'container',
-				height: 10
+				height: 5
 			}, {
 				xtype: 'container',
 				layout: 'hbox',
 				items: [{
 					xtype: 'label',
-					style: 'font-weight: bold; margin-top: 3px;',
+					style: 'font-weight: bold; margin-top: 3px; margin-left: 13px;',
 					text: '조사년도:'
 				}, {
 					xtype: 'container',
@@ -142,13 +142,13 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				}]
 			}, {
 				xtype: 'container',
-				height: 15
+				height: 10
 			}, {
 				xtype: 'container',
 				layout: 'hbox',
 				items: [{
 					xtype: 'label',
-					style: 'font-weight: bold',
+					style: 'font-weight: bold; margin-left: 28px;',
 					text: '지점명:'
 				}, {
 					xtype: 'container',
@@ -166,7 +166,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				layout: 'hbox',
 				items: [{
 					xtype: 'label',
-					style: 'font-weight: bold',
+					style: 'font-weight: bold; margin-left: 28px;',
 					text: '수계명:'
 				}, {
 					xtype: 'container',
@@ -183,7 +183,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				layout: 'hbox',
 				items: [{
 					xtype: 'label',
-					style: 'font-weight: bold',
+					style: 'font-weight: bold; margin-left: 42px;',
 					text: '주소:'
 				}, {
 					xtype: 'container',
