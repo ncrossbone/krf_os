@@ -51,9 +51,9 @@ Ext.define('krf_new.global.SedimentFn', {
 
 		p = p.substring(0, p.length - 1);
 
-		Ext.Ajax.request({
+		Ext.Ajax.request({ 
 			url: _API.searchResult_C2018,
-			dataType: 'text/plain',
+			dataType: 'text/plain', 
 			method: 'POST',
 			async: true,
 			params: { firstSearch: 'noDate', siteIds: p },
