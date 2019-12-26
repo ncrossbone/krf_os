@@ -54,7 +54,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 		id: 'siteInfoForE',
 		hidden: true,
 		layout: 'hbox',
-		style: 'padding:10px;',
+		style: 'padding: 30px 10px 10px;',
 		items: [{
 			xtype: 'container',
 			layout: 'vbox',
@@ -84,7 +84,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				}]
 			}, {
 				xtype: 'container',
-				height: 5
+				height: 10
 			}, {
 				xtype: 'container',
 				layout: 'hbox',
@@ -142,7 +142,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				}]
 			}, {
 				xtype: 'container',
-				height: 10
+				height: 15
 			}, {
 				xtype: 'container',
 				layout: 'hbox',
@@ -160,7 +160,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				}]
 			}, {
 				xtype: 'container',
-				height: 15
+				height: 20
 			}, {
 				xtype: 'container',
 				layout: 'hbox',
@@ -177,7 +177,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 				}]
 			}, {
 				xtype: 'container',
-				height: 13
+				height: 20
 			}, {
 				xtype: 'container',
 				layout: 'hbox',

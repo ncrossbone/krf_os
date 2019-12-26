@@ -1042,7 +1042,7 @@ Ext.define("krf_new.global.CommFn", {
 			siteInfoForE.setHidden(false);
 			siteinfotest.setHidden(true);
 
-			windowSiteNChart.setHeight(220);
+			windowSiteNChart.setHeight(290);
 
 			// E 수생태는 차트가 없지만 생태/멸종은 차트정보가 있음
 			if($KRF_APP.layerCode == "E003" || $KRF_APP.layerCode == "E004"){
