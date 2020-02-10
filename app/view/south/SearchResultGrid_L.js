@@ -19,7 +19,7 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 			height: '100%',
 			items: [{
 				xtype: 'grid',
-				layerId: 'J',
+				layerId: 'L',
 				plugins: ['bufferedrenderer', 'gridfilters'],
 				cls: 'khLee-x-column-header-text',
 				siteIds: "",
@@ -74,11 +74,12 @@ Ext.define('krf_new.view.south.SearchResultGrid_L', {
 						}
 					},
 					renderer: function (val, a, b, rowIdx, colIdx) {
-						if (rowIdx == 0){
-							return "<b>" + val + "</b>";
-						}else{
-							return "<a href='#'>" + val + "</a>";
-						}
+						// if (rowIdx == 0){
+						// 	return "<b>" + val + "</b>";
+						// }else{
+						// 	return "<a href='#'>" + val + "</a>";
+						// }
+						return "<a href='#'>" + val + "</a>";
 					}
 				},{
 					text: '측정일자',

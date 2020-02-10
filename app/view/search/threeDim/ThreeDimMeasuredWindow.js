@@ -106,7 +106,8 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimMeasuredWindow', {
                         var layer = selLayer[0].data;
 
                         var measuredDef = Ext.Ajax.request({
-                            url: _API.searchMeasuredValue + '?type=' + layer.measureCode,
+                            //url: _API.searchMeasuredValue + '?type=' + layer.measureCode,
+                            url: _API.searchMeasuredValue2018 + '?type=' + layer.measureCode,
                             method: 'GET',
                             async: true
                         });

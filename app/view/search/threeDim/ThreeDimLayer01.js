@@ -162,6 +162,20 @@ Ext.define('krf_new.view.search.threeDim.ThreeDimLayer01', {
 						userLayerSet.map(function(threeObj){
 							for(var b = 0 ; b < visibleThreeDimLayer.length; b++){
 								if(threeObj.id == visibleThreeDimLayer[b]){
+									
+									// // 소하천은 리치 라인만 필요  3D WMS 레이어 오류로 인하여 임시.. 20-01-20
+									// if(threeObj.id == 'S'){
+									// 	var sRiverReArray = [];
+									// 	threeObj.children.map(function(childrenObj){
+									// 		//"S1" = 리치라인
+									// 		if(childrenObj.id == 'S1'){
+									// 			sRiverReArray.push(childrenObj);
+									// 		}
+									// 	})
+									// 	threeObj.children = sRiverReArray;
+									// }
+									
+
 									threeDimLayerList.push(threeObj);
 								}
 							}

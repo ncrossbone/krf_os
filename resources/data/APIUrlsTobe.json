@@ -86,6 +86,7 @@
     
     "searchMeasuredValue":"#host_old#/searchResult/searchMeasuredValue",
     /*신규DB*/
+    "searchMeasuredValue2018":"#host#/searchResult/searchMeasuredValue2018",
 
     /* config */
     "login":"#host#/config/login",

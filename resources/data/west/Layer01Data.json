@@ -928,7 +928,7 @@
 		"metaDataId":"S002"
 	}, {
 		"id": "S2",
-		//"wmsId":"39",
+		"wmsId":"S0",
 		"text": "소하천 집수구역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer89",
