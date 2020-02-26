@@ -36,7 +36,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_M002', {
                 endYear = Ext.getCmp('endYear_M').value;
             }
 
-            var eMonthCtl = Ext.getCmp('wndMonth_M');
+            var eMonthCtl = Ext.getCmp('endMonth_M');
             if (sMonthCtl != undefined) {
                 endMonth = Ext.getCmp('endMonth_M').value + Ext.getCmp('endDay_M').value;
             }
