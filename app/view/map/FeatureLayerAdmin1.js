@@ -29,7 +29,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 		//보 MODE
 		var getParam = window.location.search.substring(1);
 		var params = Ext.urlDecode(getParam);
-		if(params.boMode){
+		if (params.boMode) {
 			me.boGraphicLayer = new esri.layers.GraphicsLayer();
 			me.boGraphicLayer.id = "boGraphicLayer";
 			me.map.addLayer(me.boGraphicLayer);
@@ -39,7 +39,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 
 			this.mainBoGraphicLayer(); //bo main grpahic layer;
 		}
-		
+
 
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_SITE, me.setSelectedSiteHandler, me);
 		$KRF_APP.addListener($KRF_EVENT.SET_SELECTED_CAT_AREA, me.setSelectedCatAreaHandler, me);
@@ -48,13 +48,13 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 	},
 
 
-	boCenterMove: function(boCd){
-		
+	boCenterMove: function (boCd) {
+
 		var me = this;
 
-		for(var i = 0 ; i < me.boGraphicLayer.graphics.length ; i++){
-			if(me.boGraphicLayer.graphics[i].attributes!= undefined){
-				if(me.boGraphicLayer.graphics[i].attributes.PT_NO == boCd.boCd){
+		for (var i = 0; i < me.boGraphicLayer.graphics.length; i++) {
+			if (me.boGraphicLayer.graphics[i].attributes != undefined) {
+				if (me.boGraphicLayer.graphics[i].attributes.PT_NO == boCd.boCd) {
 					me.map.centerAndZoom(me.boGraphicLayer.graphics[i].geometry, 11);
 				}
 			}
@@ -62,30 +62,30 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 	},
 
 
-	mainBoGraphicLayer: function(){
+	mainBoGraphicLayer: function () {
 
 		var me = this;
 
-		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl+"/0");
+		var queryTask = new esri.tasks.QueryTask($KRF_DEFINE.boServiceUrl + "/0");
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = { "wkid": 102100 };
 		query.outFields = ["*"];
 		query.where = "1=1";
 		queryTask.execute(query, function (results) {
-			if(results.features.length > 0 ){
+			if (results.features.length > 0) {
 
 				var coreMap = $KRF_APP.coreMap;
 
-				for(var i = 0 ; i < results.features.length ; i ++){
+				for (var i = 0; i < results.features.length; i++) {
 
 					var image = "";
 					//$KRF_APP.boObj.ptNo
-					for(var a = 0 ; a < $KRF_APP.boObj.length ; a ++){
-						if($KRF_APP.boObj[a].ptNo == results.features[i].attributes.PT_NO){
-							if($KRF_APP.boObj[a].isOpen == true){
+					for (var a = 0; a < $KRF_APP.boObj.length; a++) {
+						if ($KRF_APP.boObj[a].ptNo == results.features[i].attributes.PT_NO) {
+							if ($KRF_APP.boObj[a].isOpen == true) {
 								image = "boLayer.gif";
-							}else{
+							} else {
 								image = "boLayer_off.png";
 							}
 						}
@@ -95,13 +95,13 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"angle": 0,
 						"yoffset": 0,
 						"type": "esriPMS",
-						"url": "./resources/images/symbol/"+image,
+						"url": "./resources/images/symbol/" + image,
 						"contentType": "image/gif",
 						"width": 22,
 						"height": 22
 					});
 
-					var graphic = new esri.Graphic(results.features[i].geometry,symbol);
+					var graphic = new esri.Graphic(results.features[i].geometry, symbol);
 					var textGraphic = new esri.Graphic(results.features[i].geometry, new esri.symbol.TextSymbol(results.features[i].attributes.PT_NM));
 					textGraphic.symbol.yoffset = -30;
 					textGraphic.symbol.haloColor = new esri.Color([255, 255, 255]);
@@ -114,13 +114,13 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 					};
 
 					graphic.attributes = results.features[i].attributes;
-					me.boGraphicLayer.add(graphic);	
-					me.boGraphicLayer.add(textGraphic);	
+					me.boGraphicLayer.add(graphic);
+					me.boGraphicLayer.add(textGraphic);
 				}
-				me.boGraphicLayer.on("click", function(evt){	
+				me.boGraphicLayer.on("click", function (evt) {
 
-					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, {boCd : evt.graphic.attributes.PT_NO});
-					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, {boCd:evt.graphic.attributes.PT_NO});
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_BO_LIST_WINDOW, { boCd: evt.graphic.attributes.PT_NO });
+					$KRF_APP.fireEvent($KRF_EVENT.BO_DYNAMIC_LAYER_ON_OFF, { boCd: evt.graphic.attributes.PT_NO });
 				})
 
 			}
@@ -296,6 +296,10 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 			siteId = siteId.split('_');
 
 			query.where = layer01Info[0].siteIdCol + " = '" + siteId[0] + "' AND 방류구번호 = '" + siteId[1] + "'";
+
+			//비점오염원
+		} else if (layerId == '57') {
+			query.where = layer01Info[0].siteIdCol + " = '" + siteId.split('_')[1] + "'";
 		}
 
 
@@ -304,12 +308,12 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 			console.info("쿼리 조건이 설정되지 않았습니다.");
 			return;
 		}
-		
+
 		// query 중에 undefined가 있으면 return; 
-		if(query.where.indexOf("undefined") > -1){
+		if (query.where.indexOf("undefined") > -1) {
 			return;
 		}
-		
+
 		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
 		queryTask.execute(query, function (results) {
 			Ext.each(results.features, function (obj, index) {
@@ -416,7 +420,11 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 				};
 
 				if (parentCheck == 'M001') {
-					jijum_Cd = parentCheck + '_' + jijum_Cd;
+					jijum_Cd = siteId.split('_')[0] + '_' + jijum_Cd;
+
+					if (siteId.split('_')[0] == 'M002') {
+						jijum_Gubun = '비점오염원측정망 - 수동';
+					}
 				}
 
 				// 레이어별 툴팁 설정

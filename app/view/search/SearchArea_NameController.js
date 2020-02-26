@@ -26,7 +26,23 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 				layerCodeObj[feature[i].attributes.GROUP_CODE] = { title: feature[i].attributes.GROUP_NM, child: [] };
 			}
 
-			layerCodeObj[feature[i].attributes.GROUP_CODE].child.push(feature[i].attributes);
+
+
+			// 비점오염원 중복지점 처리
+			if (feature[i].attributes.GROUP_CODE == 'M') {
+				var cloneAttr = $KRF_APP.global.CommFn.cloneObj(feature[i].attributes);
+
+				feature[i].attributes.JIJUM_CODE = 'M001_' + feature[i].attributes.JIJUM_CODE;
+				feature[i].attributes.LAYER_NM = '비점오염원측정망 - 자동';
+				layerCodeObj[feature[i].attributes.GROUP_CODE].child.push(feature[i].attributes);
+
+				cloneAttr.LAYER_NM = '비점오염원측정망 - 수동';
+				cloneAttr.LAYER_CODE = 'M002';
+				cloneAttr.JIJUM_CODE = 'M002_' + cloneAttr.JIJUM_CODE;
+				layerCodeObj[feature[i].attributes.GROUP_CODE].child.push(cloneAttr);
+			} else {
+				layerCodeObj[feature[i].attributes.GROUP_CODE].child.push(feature[i].attributes);
+			}
 		}
 
 		var html = '';

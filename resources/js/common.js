@@ -430,7 +430,7 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 			}
 		} else if (parentId == 'K') {
 			yFieldName = 'FUEL_USGQTY';
-		} else if( parentId == 'E') {
+		} else if (parentId == 'E') {
 			yFieldName = '총합';
 			series.setXField("WMCYMD");
 		}
@@ -451,12 +451,12 @@ ShowWindowSiteNChart = function (tabIdx, title, test, parentId, chartFlag, siteI
 
 		if (!chartFlag) {
 			// 차트정보 스토어 로드
-			if (siteChartCtl != undefined) { 
+			if (siteChartCtl != undefined) {
 				//var chartStore = siteChartCtl.getStore();
 				var chartStore = Ext.create('krf_new.store.east.SiteChartPanel');
-				
+
 				//수생태계 하천-하구 chart 검색 안되게 ( 지점정보만 존재 )
-				if(orgParentId.substring(0,5) == "Esstg"){
+				if (orgParentId.substring(0, 5) == "Esstg") {
 					return;
 				}
 
@@ -2486,7 +2486,6 @@ siteMovePoint = function (parentNodeId, nodeId, clickValue) {
 		if (parentNodeId.substring(0, 1) == "E") {
 			parentNodeId = parentNodeId.substring(0, 7);
 		} else if (parentNodeId.substring(0, 1) == "M") {
-			nodeId = nodeId.split(parentNodeId + '_')[1];
 			parentNodeId = 'M001';
 		} else if (parentNodeId.substring(0, 1) == "Z") {
 			parentNodeId = nodeId.split('_')[0];
@@ -2999,7 +2998,7 @@ centerAtWithOffset = function (x, y, spatialReferrence) {
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
 	coreMap.map.centerAt(point);
 
-	detailSearchClickZoom(x,y);
+	detailSearchClickZoom(x, y);
 
 }
 
@@ -3022,7 +3021,7 @@ setTooltipXY = function () {
 		xPx = (centerPoint.x + 76 + mapWin.getX()) - popCtl.getWidth() / 2;
 		yPx = (centerPoint.y + mapWin.getY()) - popCtl.getHeight() + 12;
 		// 이미지 사이즈 절반만큼 offset
-		xPx += 11; 
+		xPx += 11;
 		yPx += 11;
 		popCtl.setX(xPx);
 		popCtl.setY(yPx);
