@@ -1035,14 +1035,10 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 
 				var url = '';
 				var param = {};
-				if(me.searchType == 'nameSearch'){
-					url = _API.sstgText;
-					param = { textField: '금어천' }
-				}else{
-					//url = _API.sstg;
-					url = _API.sstg_2018;
-					param = { siteIds: siteIds }
-				}
+				
+
+				url = _API.sstg_2018;
+				param = { siteIds: siteIds }
 
 				Ext.Ajax.request({
 					url: url,
@@ -1050,6 +1046,12 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 					async: false, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
 						var jsonData = Ext.util.JSON.decode(response.responseText);
+
+						//지점은 존재하나 db와 틀린경우 2020-02-26
+						if(jsonData.data.length == 0){
+							callback.call(this, sstgString);
+							return;
+						}
 
 						
 						//생물측정망 ( 생태교란종 / 멸종위기종 ) 분기
