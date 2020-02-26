@@ -136,20 +136,32 @@ Ext.define('Desktop.LoginWindow', {
                                             //params: { userId: loginInfo.userId },
                                             success: function (response, opts) {
                                                 var decodeData = Ext.util.JSON.decode(response.responseText);
-                                                if (decodeData.data.length >= 1) {
-                                                    $KRF_APP.loginInfo = decodeData.data[0];
 
+                                                var succesLogin = true;
 
-                                                    var value = decodeData.data[0];
-                                                    for (key in value) {
-                                                        if (value.hasOwnProperty(key)) {
-                                                            sessionStorage[key] = value[key];
-                                                        }
-                                                    }
-
-                                                    $KRF_APP.completedLogin($KRF_APP.loginInfo);
-                                                    Ext.getCmp('login-win').close();
+                                                if(decodeData.error){
+                                                    succesLogin = false;
                                                 }
+
+                                                if(succesLogin){
+                                                    if (decodeData.data.length >= 1) {
+                                                        $KRF_APP.loginInfo = decodeData.data[0];
+    
+    
+                                                        var value = decodeData.data[0];
+                                                        for (key in value) {
+                                                            if (value.hasOwnProperty(key)) {
+                                                                sessionStorage[key] = value[key];
+                                                            }
+                                                        }
+    
+                                                        $KRF_APP.completedLogin($KRF_APP.loginInfo);
+                                                        Ext.getCmp('login-win').close();
+                                                    }
+                                                }else{
+                                                    alert("아이디또는 패스워드가 틀립니다");
+                                                }
+                                                
                                             }
                                         });
                                     } else {

@@ -3544,6 +3544,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					}
 					
 					
+					//검색중지
 					if(isSearch == true){
 						
 						cnt++;
@@ -3567,6 +3568,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
 					else{
 						
 					}
+
 				}
 			});
     	});

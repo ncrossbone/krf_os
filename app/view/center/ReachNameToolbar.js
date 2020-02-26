@@ -17,7 +17,7 @@ Ext.define('krf_new.view.center.ReachNameToolbar', {
 
 	bodyStyle: 'background:#043264 !important; padding:5px; border-radius:5px;',
 	/* 사이즈 지정 */
-	//itemWidth: 69,
+	//itemWidth: 69, 
 
 	//cls: 'dj_toolbarNm dj_spottextfield2',
 	height: 38,
