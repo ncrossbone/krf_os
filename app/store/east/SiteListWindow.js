@@ -154,7 +154,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 				//} else if (buttonInfo1.lastValue == null && amdBtn1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "") {
 			} else if (bookParamObj.searchText == "nameSearch") {
 				bookParamObj.value1 = nameInfo.rawValue;
-				query.where = "JIJUM_NM like '" + nameInfo.rawValue + "%'";
+				query.where = "JIJUM_NM like '%" + nameInfo.rawValue + "%'";
 			} else if (bookParamObj.searchText == "SEnameSearch") {
 				if (endPoint.rawValue == "") {
 					query.where = "JIJUM_NM like '" + startPoint.rawValue + "%'";
