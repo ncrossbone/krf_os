@@ -57,9 +57,9 @@ Ext.define('krf_new.view.search.SearchArea_NameController', {
 				resultHtml += ' 	<span class="n2">[' + layerCodeObj[key].child[i].LAYER_NM + ']</span>';
 				resultHtml += ' 	<p>' + layerCodeObj[key].child[i].ADDR + '</p>';
 				resultHtml += '	</td>';
-				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + result.features[i].attributes.LAYER_CODE + '\',\'' + result.features[i].attributes.JIJUM_CODE + '\',\'start\');" ><img src="./resources/images/totalSearch/Btn_S.png" alt="시작점"/></a></td>';
-				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + result.features[i].attributes.LAYER_CODE + '\',\'' + result.features[i].attributes.JIJUM_CODE + '\',\'end\');" ><img src="./resources/images/totalSearch/Btn_E.png" alt="끝점"/></a></td>';
-				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + result.features[i].attributes.LAYER_CODE + '\',\'' + result.features[i].attributes.JIJUM_CODE + '\',\'addrLink\');" > <img src="./resources/images/totalSearch/Btn_Search.png" alt="자세히" /></a ></td > ';
+				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + layerCodeObj[key].child[i].LAYER_CODE + '\',\'' + layerCodeObj[key].child[i].JIJUM_CODE + '\',\'start\');" ><img src="./resources/images/totalSearch/Btn_S.png" alt="시작점"/></a></td>';
+				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + layerCodeObj[key].child[i].LAYER_CODE + '\',\'' + layerCodeObj[key].child[i].JIJUM_CODE + '\',\'end\');" ><img src="./resources/images/totalSearch/Btn_E.png" alt="끝점"/></a></td>';
+				resultHtml += '	<td><a href="javascript:void(0);" onClick="siteMovePoint(\'' + layerCodeObj[key].child[i].LAYER_CODE + '\',\'' + layerCodeObj[key].child[i].JIJUM_CODE + '\',\'addrLink\');" > <img src="./resources/images/totalSearch/Btn_Search.png" alt="자세히" /></a ></td > ';
 				resultHtml += '</tr>';
 			}
 			resultHtml += '</tbody>';
