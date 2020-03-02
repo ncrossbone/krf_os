@@ -14,7 +14,7 @@ Ext.define('krf_new.store.south.SearchResultGrid_H', {
 
 			var me = this;
 			var requestUrl = "";
-			requestUrl = _API.GetSearchResultData_H;
+			requestUrl = _API.GetSearchResultData_H2018;
 			var firstSearch = $KRF_APP.btnFlag;
 
 			var startYear = startMonth = endYear = endMonth = startDay = endDay = "";
