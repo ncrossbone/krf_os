@@ -980,7 +980,7 @@ Ext.define('krf_new.store.east.SiteListWindow', {
 			}
 
 		} else {
-
+			
 			// if (this.catDid.length == 0) {
 			// 	if (typeof (callback) == 'function') {
 			// 		callback.call(this, sstgString);
