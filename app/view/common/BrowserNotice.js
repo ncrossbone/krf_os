@@ -18,7 +18,7 @@ Ext.define('krf_new.view.common.BrowserNotice', {
     }],
     html: '<span style="position: absolute; width: 605px; left: 140px; height: 130px; top: 185px; cursor: pointer;" onclick="Ext.getCmp(\'browserNoticeWindow\').chromeDown()"></span> <span style="position: absolute; width: 31px; left: 849px; height: 31px; top: 6px; cursor: pointer;" onclick="Ext.getCmp(\'browserNoticeWindow\').closePopup()"></span>',
     chromeDown: function () {
-        var url = './resources/file/standalone.zip';
+        var url = 'https://www.google.com/intl/ko/chrome/';
         window.location.assign(url);
     },
     
