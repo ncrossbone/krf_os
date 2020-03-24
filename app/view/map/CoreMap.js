@@ -127,9 +127,9 @@ Ext.define('krf_new.view.map.CoreMap', {
 
 			$KRF_APP.fireEvent($KRF_EVENT.CORE_MAP_LOADED, me);
 
-			require(["/KRF_DEV/app/view/map/task/CustomPrintTask.js"], function () {
+			require(["/GIS/app/view/map/task/CustomPrintTask.js"], function () {
 				me.printTask = new krf_new.view.map.task.CustomPrintTask(me.map, me.id
-					, '/KRF_DEV/resources/jsp/CustomPrintTask_New.jsp'
+					, '/GIS/resources/jsp/CustomPrintTask_New.jsp'
 					, "./resources/jsp/proxy.jsp", $KRF_DEFINE.arcServiceUrl, "/resources/saveImgTemp/capture");
 
 			});
