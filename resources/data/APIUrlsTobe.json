@@ -235,14 +235,16 @@
     "GetRWMDT":"#host#/chart/getRWMDT",
 
 
-    
-    /*host_old*/
     "GetRWMDT_H":"#host#/chart/getRWMDT_H",   //수질예보지점
     "GetRWMDT_HDate":"#host#/chart/getRWMDT_HDate", //수질예보지점
+    "GetSearchResultData_H2018":"#host#/searchResult/searchResult_H2018", //수질예보지점
+
+    /*"GetSearchResultData_H":"#host_old#/searchResult/searchResult_H", //수질예보지점*/
+    
+    /*host_old*/
     "GetSearchResultData_B001_fix":"#host_old#/searchResult/searchResult_B001_Fix", //수질측정지점 확정
     "GetSearchResultData_B001":"#host_old#/searchResult/searchResult_B001", //수질측정지점 미확정
-    "GetSearchResultData_H":"#host_old#/searchResult/searchResult_H", //수질예보지점
-    "GetSearchResultData_H2018":"#host#/searchResult/searchResult_H2018", //수질예보지점
+    
     "GetSearchResultData_I_2":"#host_old#/searchResult/searchResult_I_2", //상수권구간 검색결과 
     
 

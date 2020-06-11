@@ -659,7 +659,7 @@
 	}, {
 		"id": "28",
 		"wmsId":"69",
-		"text": "하수종말처리시설",
+		"text": "공공하수처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer26",
 		"leaf": true,
@@ -672,7 +672,7 @@
 	}, {
 		"id": "29",
 		"wmsId":"68",
-		"text": "산업폐수종말처리시설",
+		"text": "공공폐수처리시설",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer27",
 		"leaf": true,

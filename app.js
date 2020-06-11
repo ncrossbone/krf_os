@@ -158,7 +158,7 @@ Ext.create('Ext.data.Store', {
 
 		*/
 		//a[0].data.init('http://112.217.167.123:40003/krf_old','http://localhost/krf'); 
-		a[0].data.init('http://112.217.167.123:40003/krf_old', 'http://localhost/krf_new');
+		a[0].data.init('http://localhost/krf_new', 'http://112.217.167.123:40003/krf_new');
 		//a[0].data.init('http://localhost:8080');
 		//a[0].data.init('http://localhost:80');
 

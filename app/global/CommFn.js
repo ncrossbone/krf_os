@@ -236,6 +236,49 @@ Ext.define("krf_new.global.CommFn", {
 			return { year: year, month: month, day: day, hour: hour };
 		}
 	},
+
+	/* 날짜 계산 */
+	changeDate: {
+
+		changeYear: function(nowDate, changeVal){
+
+			nowDate.setYear(nowDate.getFullYear() + changeVal);
+
+			var year = nowDate.getFullYear();
+			var month = String(nowDate.getMonth() + 1).length == 1 ? "0" + String(nowDate.getMonth() + 1) : String(nowDate.getMonth() + 1);
+			var day = String(nowDate.getDate()).length == 1 ? "0" + String(nowDate.getDate()) : String(nowDate.getDate());
+			var hour = String(nowDate.getHours()).length == 1 ? "0" + String(nowDate.getHours()) : String(nowDate.getHours());
+
+			return { year: year, month: month, day: day, hour: hour };
+		},
+
+		changeMonth: function(nowDate, changeVal){
+
+			nowDate.setMonth(nowDate.getMonth() + changeVal);
+
+			var year = nowDate.getFullYear();
+			var month = String(nowDate.getMonth() + 1).length == 1 ? "0" + String(nowDate.getMonth() + 1) : String(nowDate.getMonth() + 1);
+			var day = String(nowDate.getDate()).length == 1 ? "0" + String(nowDate.getDate()) : String(nowDate.getDate());
+			var hour = String(nowDate.getHours()).length == 1 ? "0" + String(nowDate.getHours()) : String(nowDate.getHours());
+
+			return { year: year, month: month, day: day, hour: hour };
+		},
+
+		changeDay: function(nowDate, changeVal){
+
+			nowDate.setDate(nowDate.getDate() + changeVal);
+
+			var year = nowDate.getFullYear();
+			var month = String(nowDate.getMonth() + 1).length == 1 ? "0" + String(nowDate.getMonth() + 1) : String(nowDate.getMonth() + 1);
+			var day = String(nowDate.getDate()).length == 1 ? "0" + String(nowDate.getDate()) : String(nowDate.getDate());
+			var hour = String(nowDate.getHours()).length == 1 ? "0" + String(nowDate.getHours()) : String(nowDate.getHours());
+
+			return { year: year, month: month, day: day, hour: hour };
+		}
+		
+
+	},
+
     /**
      * 엑셀파일 다운로드
      */

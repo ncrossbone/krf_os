@@ -1500,7 +1500,7 @@ Ext.define('krf_new.view.common.TabControl_New', {
 				//수질자동측정망
 				if (tab.idCheck == "B001") {
 
-					Ext.getCmp('select_B001').setHidden(false);
+					Ext.getCmp('select_B001').setHidden(true);
 					Ext.getCmp('startDay_B').setHidden(false);
 					Ext.getCmp('startDayLabel_B').setHidden(false);
 					Ext.getCmp('startTime_B').setHidden(false);

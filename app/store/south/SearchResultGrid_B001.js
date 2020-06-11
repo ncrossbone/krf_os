@@ -125,25 +125,36 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 		load: function (store) {
 			var me = this;
 			var firstSearch = $KRF_APP.btnFlag;
+
 			var startYear = startMonth = endYear = endMonth = "";
-			var startDay = Ext.getCmp("startDay_B");
-			var startTime = Ext.getCmp("startTime_B");
-			var endDay = Ext.getCmp("endDay_B");
-			var endTime = Ext.getCmp("endTime_B");
+			startYear = Ext.getCmp("startYear_B").value;
+			startMonth = Ext.getCmp("startMonth_B").value;
+			var startDay = Ext.getCmp("startDay_B").value;
+			var startTime = Ext.getCmp("startTime_B").value;
+			
+			
+			
+			endYear = Ext.getCmp("endYear_B").value;
+			endMonth = Ext.getCmp("endMonth_B").value;
+			var endDay = Ext.getCmp("endDay_B").value;
+			var endTime = Ext.getCmp("endTime_B").value;
 
 
 			var cmbStartYear = Ext.getCmp("startYear_B");
 			var cmbStartMonth = Ext.getCmp("startMonth_B");
+			var cmbStartDay = Ext.getCmp("startDay_B");
+			var cmbStartTime = Ext.getCmp("startTime_B");
+
 			var cmbEndYear = Ext.getCmp("endYear_B");
 			var cmbEndMonth = Ext.getCmp("endMonth_B");
+			var cmbEndDay = Ext.getCmp("endDay_B");
+			var cmbEndTime = Ext.getCmp("endTime_B");
 
-			startYear = Ext.getCmp("startYear_B").value;
-			startMonth = Ext.getCmp("startMonth_B").value;
-			endYear = Ext.getCmp("endYear_B").value;
-			endMonth = Ext.getCmp("endMonth_B").value;
 			
-			var startFull = cmbStartYear.value + cmbStartMonth.value + startDay.value + startTime.value;
-			var endFull = cmbEndYear.value + cmbEndMonth.value + endDay.value + endTime.value;
+			
+			
+			var startFull = startYear + startMonth + startDay + startTime;
+			var endFull = endYear + endMonth + endDay + endTime;
 			//			var winCtl = $KRF_APP.getDesktopWindow($KRF_WINS.KRF.RESULT.id);
 
 			var winCtl = Ext.getCmp("searchResultWindow");
@@ -151,16 +162,22 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
 
-			var con = Ext.getCmp("select_B001").value;
+			//20203031  확정 자료만 보여주기
+			//var con = Ext.getCmp("select_B001").value;
+			var con = '02';
 			var url = "";
 			var start = "";
 			var end = "";
 
-			if (con == "01") {
+
+			//20200331 확정데이터만 보여주기로 
+			url = _API.GetSearchResultData_B001_fix; //'./resources/jsp/GetSearchResultData_B001_fix.jsp';
+
+			/*if (con == "01") {
 				url = _API.GetSearchResultData_B001;  //'./resources/jsp/GetSearchResultData_B001.jsp';
 			} else {
 				url = _API.GetSearchResultData_B001_fix; //'./resources/jsp/GetSearchResultData_B001_fix.jsp';
-			}
+			}*/
 
 			// 로딩중 메세지
 			if (me.gridCtl != null) {
@@ -172,58 +189,49 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 			if (firstSearch == "noDate") {
 				Ext.Ajax.request({
 					url: url,
-					params: { firstSearch: firstSearch, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con: con, startFull: startFull, endFull: endFull },
+					params: { firstSearch: firstSearch, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIdsChar: store.siteIds, con: con, startFull: startFull, endFull: endFull },
 					async: false, // 비동기 = async: true, 동기 = async: false
 					success: function (response, opts) {
 						var jsonData = Ext.util.JSON.decode(response.responseText);
 						if (jsonData.data.length > 0) {
 							if (jsonData.data[0].msg == undefined || jsonData.data[0].msg == "") {
 								var endDate = jsonData.data[0].WMCYMD;
-								if (con == "01") {
-									var dtE = new Date(endDate.substring(0, 4)
-										, endDate.substring(4, 6)
-										, endDate.substring(6, 8)
-										, endDate.substring(8, 10));
 
-									dtE.setMonth(dtE.getMonth() - 1);
-									endFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7) + dtE.toISOString().substring(8, 10) + "24";
+								//$KRF_APP.global.CommFn.changeDate.changeYear()
 
-									cmbEndYear.setValue(dtE.toISOString().substring(0, 4));
-									cmbEndMonth.setValue(dtE.toISOString().substring(5, 7));
-									endDay.setValue(dtE.toISOString().substring(8, 10));
-									endTime.setValue("24");
+								/* 최근날짜 date format으로 변환한뒤 공통 날짜 구하는 function 사용 */
+								var dtE = new Date(endDate.substring(0, 4), parseInt(endDate.substring(4, 6)-1), parseInt(endDate.substring(6, 8)));
 
-									dtE.setMonth(dtE.getMonth() - 1);
-									startFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7) + dtE.toISOString().substring(8, 10) + "00";
 
-									cmbStartYear.setValue(dtE.toISOString().substring(0, 4));
-									cmbStartMonth.setValue(dtE.toISOString().substring(5, 7));
-									startDay.setValue(dtE.toISOString().substring(8, 10));
-									startTime.setValue("00");
+									//자동수질측정지점 -1달
+									var endDates = $KRF_APP.global.CommFn.changeDate.changeMonth(dtE,0);
+									var startDates = $KRF_APP.global.CommFn.changeDate.changeMonth(dtE,-1);
 
-								} else {
-									var dtE = new Date(endDay.substring(0, 4), endDay.substring(4, 6));
+									var eYear, eMonth, eDate;
+									var sYear, sMonth, sDate;
+									
+									eYear = endDates.year;
+									eMonth = endDates.month;
+									eDate = endDates.day;
+									endFull = eYear + eMonth + eDate + '235959';
 
-									dtE.setMonth(dtE.getMonth() - 1);
-									endFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7);
-									cmbEndYear.setValue(dtE.toISOString().substring(0, 4));
-									cmbEndMonth.setValue(dtE.toISOString().substring(5, 7));
-									endDay.setValue("30");
-									endTime.setValue("24");
+									sYear = startDates.year;
+									sMonth = startDates.month;
+									sDate = startDates.day;
+									startFull = sYear + sMonth + sDate + '010000';
 
-									dtE.setMonth(dtE.getMonth() - 1);
-									startFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7);
-									cmbStartYear.setValue(dtE.toISOString().substring(0, 4));
-									cmbStartMonth.setValue(dtE.toISOString().substring(5, 7));
-									StartDay.setValue("01");
-									StartTime.setValue("00");
-								}
-							} else {
-								if (me.gridCtl != null) {
-									me.gridCtl.addCls("dj-mask-noneimg");
-									me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-								}
+									cmbEndYear.setValue(eYear);
+									cmbEndMonth.setValue(eMonth);
+									cmbEndDay.setValue(eDate);
+									cmbEndTime.setValue("24");
+
+									cmbStartYear.setValue(sYear);
+									cmbStartMonth.setValue(sMonth);
+									cmbStartDay.setValue(sDate);
+									cmbStartTime.setValue("01");
+								
 							}
+
 						} else {
 							if (me.gridCtl != null) {
 
@@ -234,16 +242,17 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 					},
 					failure: function (form, action) {
 						if (me.gridCtl != null) {
-							me.gridCtl.addCls("dj-mask-noneimg");
+							me.gridCtl.addCls("dj-mask-noneimg");k
 							me.gridCtl.mask("오류가 발생하였습니다.");
 						}
 					}
 				});
 			}
+
 			firstSearch = "date";
 			Ext.Ajax.request({
 				url: url,
-				params: { firstSearch: firstSearch, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con: con, startFull: startFull, endFull: endFull },
+				params: { firstSearch: firstSearch, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIdsChar: store.siteIds, con: con, startFull: startFull, endFull: endFull },
 				async: true, // 비동기 = async: true, 동기 = async: false
 				success: function (response, opts) {
 					var jsonData = Ext.util.JSON.decode(response.responseText);
@@ -252,12 +261,12 @@ Ext.define('krf_new.store.south.SearchResultGrid_B001', {
 							store.setData(jsonData.data);
 							store.startYear = cmbStartYear.value;
 							store.startMonth = cmbStartMonth.value;
-							store.startDay = startDay.value;
-							store.startTime = startTime.value;
+							store.startDay = cmbStartDay.value;
+							store.startTime = cmbStartTime.value;
 							store.endYear = cmbEndYear.value;
 							store.endMonth = cmbEndMonth.value;
-							store.endDay = endDay.value;
-							store.endTime = endTime.value;
+							store.endDay = cmbEndDay.value;
+							store.endTime = cmbEndTime.value;
 							// 로딩바 숨김
 							if (me.gridCtl != null) {
 								me.gridCtl.unmask();
