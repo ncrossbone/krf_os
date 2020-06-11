@@ -78,7 +78,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			f_ChartText.hidden = false;
 			hChartDate.hidden = true;
 
-			var year = ['', '2012', '2013'];
+			var year = ['', '2012', '2013','2014','2015','2016','2017','2018','2019','2020'];
 			selectYear.setStore(year);
 			selectYear.setValue('2012');
 			selectYear2.setStore(year);
@@ -208,7 +208,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					me.height = 250;
 				}
 			} else {
-				var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
+				var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018','2019','2020'];
 				selectYear.setStore(year);
 				selectYear2.setStore(year);
 			}
@@ -217,7 +217,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 			f_Chart.hidden = true;
 			f_ChartText.hidden = true;
 			hChartDate.hidden = true;
-			var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'];
+			var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018','2019','2020'];
 			selectYear.setStore(year);
 			selectYear2.setStore(year);
 		}
@@ -730,8 +730,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				xtype: 'combo',
 				id: 'selectYear',
 				//..fieldLabel: '<b>년</b> ',
-				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
-				value: '2014',
+				//store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+				//value: '2014',
 				//labelWidth: 30,
 				//labelAlign: 'right',
 				width: 65,
@@ -772,8 +772,8 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: 'combo',
 					id: 'selectYear2',
 					//fieldLabel: '<b>년</b> ',
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
-					value: '2015',
+					//store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+					//value: '2015',
 					//labelWidth: 30,
 					//labelAlign: 'right',
 					width: 65,
@@ -844,7 +844,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				xtype: "combo",
 				width: 90,
 				height: 25,
-				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017','2018','2019','2020'],
 				//id:"cStartChartDate",
 				id: "cStartChartYear",
 				editable: false
@@ -883,7 +883,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 				xtype: "combo",
 				width: 90,
 				height: 25,
-				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017','2018','2019','2020'],
 				id: "cEndChartYear",
 				//id:"cStartChartDate",
 				editable: false
@@ -927,7 +927,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018','2019','2020'],
 					value: '2018',
 					id: "hSelectYear",
 					editable: false,
@@ -979,7 +979,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2019','2020'],
 					id: "m_SelectYear",
 					editable: false,
 				}, {
@@ -1024,7 +1024,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "m_EndYear",
 					editable: false,
 				}, {
@@ -1073,7 +1073,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "l_SelectYear",
 					editable: false,
 				}, {
@@ -1108,7 +1108,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "l_EndYear",
 					editable: false,
 				}, {
@@ -1144,7 +1144,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "z_SelectYear_chart",
 					editable: false,
 				}, {
@@ -1171,7 +1171,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "z_EndYear_chart",
 					editable: false,
 				}, {
@@ -1202,7 +1202,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "q_SelectYear",
 					editable: false,
 				}, {
@@ -1229,7 +1229,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "q_EndYear",
 					editable: false,
 				}, {
@@ -1260,7 +1260,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "k_SelectYear_chart",
 					editable: false,
 				}, {
@@ -1287,7 +1287,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "k_EndYear_chart",
 					editable: false,
 				}, {
@@ -1318,7 +1318,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "d007_SelectYear",
 					editable: false,
 				}, {
@@ -1363,7 +1363,7 @@ Ext.define('krf_new.view.east.ChartPanelDate', {
 					xtype: "combo",
 					width: 80,
 					height: 25,
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019','2020'],
 					id: "d007_EndYear",
 					editable: false,
 				}, {

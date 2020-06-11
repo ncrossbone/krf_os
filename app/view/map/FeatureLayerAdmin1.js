@@ -565,6 +565,7 @@ Ext.define('krf_new.view.map.FeatureLayerAdmin1', {
 						"								<option value=\"2017\" selected>2017년</option>" +
 						"								<option value=\"2018\">2018년</option>" +
 						"								<option value=\"2019\">2019년</option>" +
+						"								<option value=\"2020\">2020년</option>" +
 						"							  </select>" +
 						"                             <select id=\"sstgPopupTme\" style=\"width:64px; padding: 3px;\" onChange=\"$KRF_APP.global.CommFn.popupComboChangeEvent(\'" + jijum_Cd + "\');\">                                                                                                " +
 						"								<option value=\"1\">1회차</option>" +

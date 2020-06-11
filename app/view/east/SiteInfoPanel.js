@@ -110,6 +110,7 @@ Ext.define('krf_new.view.east.SiteInfoPanel', {
 							, { id: '2017', name: '2017년' }
 							, { id: '2018', name: '2018년' }
 							, { id: '2019', name: '2019년' }
+							, { id: '2020', name: '2020년' }
 						]
 					}),
 					listeners: {
