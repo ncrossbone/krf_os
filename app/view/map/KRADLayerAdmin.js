@@ -1276,7 +1276,7 @@ Ext.define("krf_new.view.map.KRADLayerAdmin", {
     	var feature = featureSet.features[0];
     	me.sRiverLineArray.push(feature);
 		me.getSRiverCatId(feature);
-		
+		me.valueType = null;
 		//me.drawGraphic(feature, "reachLine_s");
 		
 		if(feature.attributes.RD_SRCH_ID == null && feature.attributes.LD_SRCH_ID == null ||
