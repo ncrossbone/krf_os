@@ -201,7 +201,7 @@ Ext.create('Ext.data.Store', {
 
 				me.localStorate = new Ext.util.LocalStorage({
 					id: 'krfStorage'
-				});
+				});                      
 
 				$KRF_APP.global = krf_new.global;
 				$KRF_APP.global.CommFn.isIEFunc();
@@ -211,7 +211,7 @@ Ext.create('Ext.data.Store', {
 				$KRF_APP.addListener($KRF_EVENT.CORE_MAP_LOADED, me.coreMapLoaded, me);
 				// 모드 변경
 				$KRF_APP.addListener($KRF_EVENT.MODE_CHANGED, me.modeChanged, me);
-
+                        
 				$KRF_APP.addListener($KRF_EVENT.MINIMIZE_WINDOWS, me.minimizeWindows, me);
 
 				$KRF_APP.addListener($KRF_EVENT.CENTERAT, me.centerAt, me);
