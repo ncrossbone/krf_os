@@ -122,13 +122,16 @@
     "deleteDroneLayer":"#host#/config/deleteDroneLayer",
     "insertDroneLayer":"#host#/config/insertDroneLayer",
     "testDroneLayer":"#host#/config/testDroneLayer",
-    init: function(host){
+    
+    init: function(host, host_new){
               if(host != null){
                   this.domain = host;
               }
 	          for(var key in this){
                    if(typeof(this[key]) == 'string'){
-                       this[key] = this[key].replace('#host#', host);
+                       //this[key] = this[key].replace('#host#', host);
+                       this[key] = this[key].replace('#host#', host); //  기존 DB
+                       this[key] = this[key].replace('#host_new#', host_new);  //표준화 DB
                    }
                }
     	  }

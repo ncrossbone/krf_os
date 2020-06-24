@@ -120,7 +120,8 @@ Ext.create('Ext.data.Store', {
 	apiStore.load(function (a, b, c) {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-		a[0].data.init('http://112.217.167.123:40003/krf_old');
+		// 외부망 표준화 이전 DB / 외부망 표준화 DB
+		a[0].data.init('http://112.217.167.123:40003/krf_old','http://112.217.167.123:40003/krf_out_new'); 
 
 		Ext.application({
 			name: 'krf_new',
@@ -807,6 +808,9 @@ Ext.create('Ext.data.Store', {
 								});
 							});
 					}
+				}else if(params.droneMode != undefined){
+					SetBtnOnOff('btnSearchDrone');
+					$KRF_APP.fireEvent($KRF_EVENT.SHOW_DRONE_TOOLBAR);
 				}
 			}
 		});
