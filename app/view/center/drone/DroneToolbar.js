@@ -154,6 +154,23 @@ Ext.define('krf_new.view.center.drone.DroneToolbar', {
 		}, {
 			xtype: "container",
 			width: 5
+		}, { // 남조류세포
+			xtype: "drone-vcombo",
+			id: "cboDroneBlue", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+			labelSrc: './resources/images/drone/label_07.png',
+			labelText: '남조류세포수',
+			width: 120,
+			jsonUrl: "./resources/data/drone/LayerMapper.json",
+			dataRoot: "",
+			fields: ["BLUELAYERID", "BLUEDATE"],
+			displayField: "BLUEDATE",
+			valueField: "BLUELAYERID",
+			onChange: "onDroneBlueChange",
+			onItemClick: "onItemClickEmpty",
+			labelCss: "cursor:pointer; color:#00fbff; font-weight:bold; background:url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat; background-color: #353f4b; padding: 3px 23px;"
+		}, {
+			xtype: "container",
+			width: 5
 		}, { // 조류측정자료
 			xtype: "drone-vcombo",
 			id: "cboDroneWBSite", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.

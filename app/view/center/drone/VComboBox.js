@@ -57,16 +57,25 @@ Ext.define('krf_new.view.center.drone.VComboBox', {
 				listeners: {
 					el: {
 						click: function (doc) {
-							if (doc.target.id == "check_cboDroneDate" || doc.target.id == "check_cboDroneChla" || doc.target.id == "check_cboDronePhy") {
+							if (doc.target.id == "check_cboDroneDate" || doc.target.id == "check_cboDroneChla" || doc.target.id == "check_cboDronePhy"|| doc.target.id == "check_cboDroneBlue") {
 								var imageUrl = "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat";
 								if (doc.target.style.background.split('check_')[1].split('.')[0] == "off") {
 									//클로로필, 피코시아닌 toggle
 									if (doc.target.id == "check_cboDroneChla") {
 										$("#check_cboDronePhy").css('background', imageUrl);
 										$("#check_cboDronePhy").css('background-color', "#353f4b");
+										$("#check_cboDroneBlue").css('background', imageUrl);
+										$("#check_cboDroneBlue").css('background-color', "#353f4b");
 									} else if (doc.target.id == "check_cboDronePhy") {
 										$("#check_cboDroneChla").css('background', imageUrl);
 										$("#check_cboDroneChla").css('background-color', "#353f4b");
+										$("#check_cboDroneBlue").css('background', imageUrl);
+										$("#check_cboDroneBlue").css('background-color', "#353f4b");
+									} else if(doc.target.id == "check_cboDroneBlue") {
+										$("#check_cboDroneChla").css('background', imageUrl);
+										$("#check_cboDroneChla").css('background-color', "#353f4b");
+										$("#check_cboDronePhy").css('background', imageUrl);
+										$("#check_cboDronePhy").css('background-color', "#353f4b");
 									}
 									imageUrl = "url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat";
 								}
@@ -81,6 +90,7 @@ Ext.define('krf_new.view.center.drone.VComboBox', {
 								switch (doc.target.id) {
 									case "check_cboDroneChla": storeId = "droneChla"; break;
 									case "check_cboDronePhy": storeId = "dronePhy"; break;
+									case "check_cboDroneBlue": storeId = "check_cboDroneBlue"; break;
 									case "check_cboDroneDate": storeId = "dronePhoto"; break;
 									default: break;
 								}

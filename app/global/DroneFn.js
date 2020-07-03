@@ -77,6 +77,10 @@ Ext.define("krf_new.global.DroneFn", {
 			var cboDronePhy = Ext.getCmp("cboDronePhy");
 			me.initVComboBox(cboDronePhy);
 
+			// 남조류세포 초기화
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue");
+			me.initVComboBox(cboDroneBlue);
+
 			// 레이어선택 초기화
 			var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 			me.initVComboBox(cboDroneLayer);
@@ -93,6 +97,9 @@ Ext.define("krf_new.global.DroneFn", {
 
 		$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 		$("#check_cboDronePhy").css('background-color', "#353f4b");
+
+		$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+		$("#check_cboDroneBlue").css('background-color', "#353f4b");
 
 	},
 	LayerVisibility: function () {
@@ -117,6 +124,9 @@ Ext.define("krf_new.global.DroneFn", {
 			//피코시아닌 레이어
 			var Phycocyanin = me.map.getLayer("Phycocyanin");
 			Phycocyanin.setVisibility(true);
+			//남조류세포 레이어
+			var BlueGreenAlgae = me.map.getLayer("BlueGreenAlgae");
+			BlueGreenAlgae.setVisibility(true);
 
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
 			// 2017-09-22 pdj : 항공영상날짜와 항공영상combo store를 비교하여 exp컬럼이 있으면 주의사항 popup 활성화
@@ -142,6 +152,7 @@ Ext.define("krf_new.global.DroneFn", {
 			var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
 			var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
 			var phyLegend = Ext.getCmp("phyLegend"); // 범례 이미지 컨트롤
 
@@ -163,6 +174,7 @@ Ext.define("krf_new.global.DroneFn", {
 			var layersAciation = [];
 			var layersChlorophyll_a = [];
 			var layersPhycocyanin = [];
+			var layersBlueGreenAlgae = [];
 
 			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 			var layerStore = cboDroneLayer.getStore();
@@ -249,6 +261,7 @@ Ext.define("krf_new.global.DroneFn", {
 			aciationLayer.setVisibleLayers([-1]);
 			Chlorophyll_a.setVisibleLayers([-1]);
 			Phycocyanin.setVisibleLayers([-1]);
+			BlueGreenAlgae.setVisibleLayers([-1]);
 
 			if (layers.length > 0) {
 				activeLayer.setVisibleLayers(layers);
@@ -261,6 +274,9 @@ Ext.define("krf_new.global.DroneFn", {
 			}
 			if (layersPhycocyanin.length > 0) {
 				Phycocyanin.setVisibleLayers(layersPhycocyanin);
+			}
+			if (layersBlueGreenAlgae.length > 0) {
+				BlueGreenAlgae.setVisibleLayers(layersBlueGreenAlgae);
 			}
 		}, 1);
 	},
