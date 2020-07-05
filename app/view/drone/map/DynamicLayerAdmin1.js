@@ -37,5 +37,11 @@ Ext.define('krf_new.view.drone.map.DynamicLayerAdmin1', {
 		me.layer.visible = true;
 		me.map.addLayer(me.layer);
 		me.layer.setVisibility(false);
+
+		me.layer = new esri.layers.ArcGISDynamicMapServiceLayer($KRF_DEFINE.MapserviceUrlBlue);
+		me.layer.id = "BlueGreenAlgae";
+		me.layer.visible = true;
+		me.map.addLayer(me.layer);
+		me.layer.setVisibility(false);
 	}
 });

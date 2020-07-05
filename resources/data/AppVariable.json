@@ -66,6 +66,8 @@
 	"MapserviceUrl1" : "http://112.217.167.123:40002/arcgis/rest/services/drone_dev/MapServer",
 	"MapserviceUrlChlo" : "http://112.217.167.123:40002/arcgis/rest/services/Chlorophyll_a/MapServer",
 	"MapserviceUrlPhyco" : "http://112.217.167.123:40002/arcgis/rest/services/Phycocyanin/MapServer",
+	"MapserviceUrlBlue" : "http://112.217.167.123:40002/arcgis/rest/services/blue_green_algae/MapServer",
+
 	"MapserviceUrlAviation" : "http://112.217.167.123:40002/arcgis/rest/services/Aviation_image/MapServer",
 	"isOffsetPoint": true, // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
 	"kradMapservicUrl": "http://112.217.167.123:40002/arcgis/rest/services/KRAD/MapServer",

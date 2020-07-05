@@ -852,6 +852,14 @@
 		"image2": "<img src='./resources/images/drone/layer_icon_06.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
 	}, {
+		"id":"droneBlue",
+		"layerId": "Blue",
+		"layerName": "남조류세포",
+		"layerOnOff": "off",
+		"image1": "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"image2": "<img src='./resources/images/drone/layer_icon_06.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"visible": "true"
+	}, {
 		"layerId": "2",
 		"layerName": "대교지점",
 		"layerOnOff": "on",

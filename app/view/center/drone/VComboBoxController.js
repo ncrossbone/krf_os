@@ -46,6 +46,11 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 		this.comboBind(newValue, cboDronePhy, "PHYLAYERID", "DESC");
 		cboDronePhy.setValue("");
 
+		/* 남조류세포수 바인딩 */
+		var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
+		this.comboBind(newValue, cboDroneBlue, "BLUELAYERID", "DESC");
+		cboDroneBlue.setValue("");
+
 
 		/* 지점목록 바인딩 */
 		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList").down("combo");
@@ -86,7 +91,7 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			droneLayerId = store.data.items[0].data.DRONELAYERID;
 			drone = store.data.items[0].data;
 			measureDate = store.data.items[0].data.MEASUREDATE;
-			phyLayerId = store.data.items[0].data.CHLALAYERID;
+			phyLayerId = store.data.items[0].data.PHYLAYERID;
 			me.defaultDate(droneLayerId, measureDate, drone, phyLayerId);
 
 		}, 1000);
@@ -115,6 +120,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 			$("#check_cboDronePhy").css('background-color', "#353f4b");
 
+			$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneBlue").css('background-color', "#353f4b");
+
 			/* 조류측정자료 Set Value */
 			var measureDate = measureDate;
 			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
@@ -131,6 +139,7 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 		if (newValue != null && newValue != "") {
 			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
 			var phyLayerId = item.lastSelectedRecords[0].data.PHYLAYERID;
+			var blueLayerId = item.lastSelectedRecords[0].data.BLUELAYERID;
 			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
 			var dateValue = item.lastSelectedRecords[0].data;
 
@@ -141,6 +150,10 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			/* 피코시안 Set Value */
 			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
 			this.comboChange(newValue, cboDronePhy, phyLayerId);
+
+			/* 남조류세포 Set Value */
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
+			this.comboChange(newValue, cboDroneBlue, blueLayerId);
 
 			/* 조류측정자료 Set Value */
 			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
@@ -159,6 +172,7 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
 			var phyLayerId = item.lastSelectedRecords[0].data.PHYLAYERID;
 			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
+			var blueLayerId = item.lastSelectedRecords[0].data.BLUELAYERID;
 
 			/* 항공영상 Set Value */
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
@@ -167,6 +181,10 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			/* 피코시안 Set Value */
 			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
 			this.comboChange(newValue, cboDronePhy, phyLayerId);
+
+			/* 남조류세포 Set Value */
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
+			this.comboChange(newValue, cboDroneBlue, blueLayerId);
 
 			/* 조류측정자료 Set Value */
 			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
@@ -178,6 +196,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 			$("#check_cboDronePhy").css('background-color', "#353f4b");
 
+			$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneBlue").css('background-color', "#353f4b");
+
 		}
 	},
 
@@ -188,6 +209,7 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
 			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
 			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
+			var blueLayerId = item.lastSelectedRecords[0].data.BLUELAYERID;
 
 			/* 항공영상 Set Value */
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
@@ -201,11 +223,55 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			this.comboChange(newValue, cboDroneChla, chlaLayerId);
 
+			/* 남조류세포 Set Value */
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
+			this.comboChange(newValue, cboDroneBlue, blueLayerId);
+
 			$("#check_cboDroneChla").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 			$("#check_cboDroneChla").css('background-color', "#353f4b");
 
 			$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
 			$("#check_cboDronePhy").css('background-color', "#353f4b");
+
+			$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneBlue").css('background-color', "#353f4b");
+
+		}
+	},
+
+	/*조류측정자료 change*/
+	onDroneBlueChange: function (item, newValue, oldValue, evt) {
+		if (newValue != null && newValue != "") {
+
+			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
+			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
+			var measureDate = item.lastSelectedRecords[0].data.MEASUREDATE;
+			var blueLayerId = item.lastSelectedRecords[0].data.BLUELAYERID;
+
+			/* 항공영상 Set Value */
+			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
+			this.comboChange(newValue, cboDroneDate, droneLayerId);
+
+			/* 조류측정자료 Set Value */
+			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
+			this.comboChange(newValue, cboDroneWBSite, measureDate);
+
+			/* 클로로필a Set Value */
+			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+			this.comboChange(newValue, cboDroneChla, chlaLayerId);
+
+			/* 남조류세포 Set Value */
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
+			this.comboChange(newValue, cboDroneBlue, blueLayerId);
+
+			$("#check_cboDroneChla").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneChla").css('background-color', "#353f4b");
+
+			$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDronePhy").css('background-color', "#353f4b");
+
+			$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
+			$("#check_cboDroneBlue").css('background-color', "#353f4b");
 
 		}
 	},
@@ -217,6 +283,8 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			var droneLayerId = item.lastSelectedRecords[0].data.DRONELAYERID;
 			var chlaLayerId = item.lastSelectedRecords[0].data.CHLALAYERID;
 			var phyLayerId = item.lastSelectedRecords[0].data.PHYLAYERID;
+			var blueLayerId = item.lastSelectedRecords[0].data.BLUELAYERID;
+
 
 			/* 항공영상 Set Value */
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
@@ -229,6 +297,10 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			/* 피코시안 Set Value */
 			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
 			this.comboChange(newValue, cboDronePhy, phyLayerId);
+
+			/* 남조류세포 Set Value */
+			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
+			this.comboChange(newValue, cboDroneBlue, blueLayerId);
 		}
 	},
 
@@ -241,7 +313,7 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	onDroneLayerClick: function (list, record, liEm, index, divEm) {
 		var layerNum = "";
 		layerNum = record.data.layerId;
-		
+
 		var me = Ext.getCmp('_mapDiv_');
 		var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
 		var activeLayer = null;
@@ -260,6 +332,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			} else if (record.data.layerId == "Drone") {
 				$("#check_cboDroneDate").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 				$("#check_cboDroneDate").css('background-color', "#353f4b");
+			} else if(record.data.layerId == "Blue") {
+				$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+				$("#check_cboDroneBlue").css('background-color', "#353f4b");
 			}
 
 			if (cboDroneArea.rawValue != "") {
@@ -295,6 +370,9 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			} else if (record.data.layerId == "Drone") {
 				$("#check_cboDroneDate").css('background', "url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
 				$("#check_cboDroneDate").css('background-color', "#353f4b");
+			} else if (record.data.layerId == "Blue") {
+				$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
+				$("#check_cboDroneBlue").css('background-color', "#353f4b");
 			}
 
 			if (cboDroneArea.rawValue != "") {
@@ -320,22 +398,59 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 
 		if (record.data.layerId == "Phy") {
 			var storeIdx = store.data.items.map(function (a) { return a.id }).indexOf("droneChla");
+			var storeIdx2 = store.data.items.map(function (a) { return a.id }).indexOf("droneBlue");
 			store.data.items[storeIdx].data.layerOnOff = "off";
+			store.data.items[storeIdx2].data.layerOnOff = "off";
 			store.data.items[storeIdx].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
-			store.insert(index - 1, store.data.items[storeIdx].data);
+			store.data.items[storeIdx2].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			
+			store.insert(index - 1, store.data.items[storeIdx].data);			
+			store.insert(index, record);
+
+			store.insert(index - 1, store.data.items[storeIdx2].data);			
 			store.insert(index, record);
 
 			$("#check_cboDroneChla").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 			$("#check_cboDroneChla").css('background-color', "#353f4b");
+			$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneBlue").css('background-color', "#353f4b");
 		} else if (record.data.layerId == "Chla") {
 			var storeIdx = store.data.items.map(function (a) { return a.id }).indexOf("dronePhy");
+			var storeIdx2 = store.data.items.map(function (a) { return a.id }).indexOf("droneBlue");
 			store.data.items[storeIdx].data.layerOnOff = "off";
+			store.data.items[storeIdx2].data.layerOnOff = "off";
 			store.data.items[storeIdx].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
-			store.insert(index + 1, store.data.items[storeIdx].data);
+			store.data.items[storeIdx2].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			
+			store.insert(index - 1, store.data.items[storeIdx].data);			
+			store.insert(index, record);
+
+			store.insert(index - 1, store.data.items[storeIdx2].data);			
 			store.insert(index, record);
 
 			$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 			$("#check_cboDronePhy").css('background-color', "#353f4b");
+			$("#check_cboDroneBlue").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneBlue").css('background-color', "#353f4b");
+		} else if (record.data.layerId == "Blue") {
+			var storeIdx = store.data.items.map(function (a) { return a.id }).indexOf("dronePhy");
+			var storeIdx2 = store.data.items.map(function (a) { return a.id }).indexOf("droneChla");
+
+			store.data.items[storeIdx].data.layerOnOff = "off";
+			store.data.items[storeIdx2].data.layerOnOff = "off";
+			store.data.items[storeIdx].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.data.items[storeIdx2].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			
+			store.insert(index - 1, store.data.items[storeIdx].data);			
+			store.insert(index, record);
+
+			store.insert(index - 1, store.data.items[storeIdx2].data);			
+			store.insert(index, record);
+
+			$("#check_cboDronePhy").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDronePhy").css('background-color', "#353f4b");
+			$("#check_cboDroneChla").css('background', "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneChla").css('background-color', "#353f4b");
 		} else {
 			store.insert(index, record);
 		}
@@ -368,6 +483,11 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 					obj.data.layerOnOff = "off";
 					obj.data.image1 = obj.data.image1.replace("_on", "_off");
 					layerStore.insert(index, obj);
+				} else if (obj.data.layerId == "Blue") {
+					index = cnt;
+					obj.data.layerOnOff = "off";
+					obj.data.image1 = obj.data.image1.replace("_on", "_off");
+					layerStore.insert(index, obj);
 				}
 			} else if (item.itemId == "cboDronePhy") {
 				if (obj.data.layerId == "Chla") {
@@ -376,6 +496,28 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 					obj.data.image1 = obj.data.image1.replace("_on", "_off");
 					layerStore.insert(index, obj);
 				} else if (obj.data.layerId == "Phy") {
+					index = cnt;
+					obj.data.layerOnOff = "on";
+					obj.data.image1 = obj.data.image1.replace("_off", "_on");
+					layerStore.insert(index, obj);
+				} else if (obj.data.layerId == "Blue") {
+					index = cnt;
+					obj.data.layerOnOff = "off";
+					obj.data.image1 = obj.data.image1.replace("_on", "_off");
+					layerStore.insert(index, obj);
+				}
+			} else if (item.itemId == "cboDroneBlue") {
+				if (obj.data.layerId == "Chla") {
+					index = cnt;
+					obj.data.layerOnOff = "off";
+					obj.data.image1 = obj.data.image1.replace("_on", "_off");
+					layerStore.insert(index, obj);
+				} else if (obj.data.layerId == "Phy") {
+					index = cnt;
+					obj.data.layerOnOff = "off";
+					obj.data.image1 = obj.data.image1.replace("_on", "_off");
+					layerStore.insert(index, obj);
+				} else if (obj.data.layerId == "Blue") {
 					index = cnt;
 					obj.data.layerOnOff = "on";
 					obj.data.image1 = obj.data.image1.replace("_off", "_on");
@@ -390,10 +532,11 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 	// 콤보 데이터 바인딩
 	comboBind: function (dataRoot, comboCtl, keyName, sort) {
 
-		// var fields = ["layerId", "layerName", "layerOnOff", "layerImg", "layerOnImg", "layerOffImg",
-		// 	"DroneDate", "MeasureDate", "ChlaLayerId", "ChlaDate", "layerNm", "PhyData", "PhyLayerId"];
+		/*var fields = ["layerId", "layerName", "layerOnOff", "layerImg", "layerOnImg", "layerOffImg",
+			"DroneDate", "MeasureDate", "ChlaLayerId", "ChlaDate", "layerNm", "PhyData", "PhyLayerId"];*/
 		var fields = ["LAYERID", "LAYERNAME", "LAYERONOFF", "LAYERIMG", "LAYERONIMG", "LAYEROFFIMG",
-		"DRONEDATE", "MEASUREDATE", "CHLALAYERID", "CHLADATE", "LAYERNM", "PHYDATE", "PHYLAYERID"];
+		"DRONEDATE", "MEASUREDATE", "CHLALAYERID", "CHLADATE", "LAYERNM", "PHYDATE", "PHYLAYERID", "BLUEDATE", "BLUELAYERID"];
+	
 		var jsonUrl = "./resources/data/drone/LayerMapper.json";
 
 		var sorters = [];
@@ -406,29 +549,26 @@ Ext.define('krf_new.view.center.drone.VComboBoxController', {
 			});
 		}
 
+		//$KRF_APP.DRONELAYERS
 		var dataStore = [];
-		if($KRF_APP.DRONELAYERS.data.length > 0){
-			for(var i = 0; i < $KRF_APP.DRONELAYERS.data.length ; i++){
-				if($KRF_APP.DRONELAYERS.data[i].RIVER == dataRoot){
-					dataStore.push($KRF_APP.DRONELAYERS.data[i]);
-				}
-			}
+        if($KRF_APP.DRONELAYERS.data.length > 0){
+            for(var i = 0; i < $KRF_APP.DRONELAYERS.data.length ; i++){
+                if($KRF_APP.DRONELAYERS.data[i].RIVER == dataRoot){
+                    dataStore.push($KRF_APP.DRONELAYERS.data[i]);
+                }
+            }
 		}
+
 		var comboStore = Ext.create("Ext.data.Store", {
 			fields: fields,
-			data : dataStore,
-			sorters: sorters
+			/*proxy: {
+				type: "ajax",
+				url: jsonUrl,
+				reader: { type: "json", rootProperty: dataRoot }
+			},
+			sorters: sorters*/
+			data: dataStore
 		});
-
-		// var comboStore = Ext.create("Ext.data.Store", {
-		// 	fields: fields,
-		// 	proxy: {
-		// 		type: "ajax",
-		// 		url: jsonUrl,
-		// 		reader: { type: "json", rootProperty: dataRoot }
-		// 	},
-		// 	sorters: sorters
-		// });
 
 		comboStore.load();
 
