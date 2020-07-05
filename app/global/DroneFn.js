@@ -182,6 +182,7 @@ Ext.define("krf_new.global.DroneFn", {
 			var droneOnOff = "";
 			var chlOnOff = "";
 			var phyOnOff = "";
+			var blueOnOff = "";
 			var measureOnOff = "";
 			var wbSiteOnOff = "";
 
@@ -193,6 +194,8 @@ Ext.define("krf_new.global.DroneFn", {
 					chlOnOff = obj.data.layerOnOff;
 				} else if (obj.data.layerId == "Phy") {
 					phyOnOff = obj.data.layerOnOff;
+				} else if (obj.data.layerId == "Blue") {
+					blueOnOff = obj.data.layerOnOff;
 				} else if (obj.data.id == "reachLine") {
 					// 주제도 선택에 리치노드, 리치라인 On/Off
 					for (var i = 0; i < obj.data.layerId.length; i++) {
@@ -236,6 +239,22 @@ Ext.define("krf_new.global.DroneFn", {
 					phyLegend.setY((mapWinHeight) - 115);
 					//layers.push(cboDroneChla.value);
 					layersPhycocyanin.push(cboDronePhy.value);
+					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
+					Ext.getCmp("cboDroneLayer").down("combo").expand();
+				} else {
+					phyLegend.hide();
+				}
+			} else {
+				phyLegend.hide();
+			}
+
+			if (blueOnOff == "on") {
+				if (cboDroneBlue.value != null) {
+					//phyLegend.show();
+					//phyLegend.setX((mapWinWidth) - 164);
+					//phyLegend.setY((mapWinHeight) - 115);
+					//layers.push(cboDroneChla.value);
+					layersBlueGreenAlgae.push(cboDroneBlue.value);
 					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
 					Ext.getCmp("cboDroneLayer").down("combo").expand();
 				} else {

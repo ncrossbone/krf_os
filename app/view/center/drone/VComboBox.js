@@ -90,7 +90,7 @@ Ext.define('krf_new.view.center.drone.VComboBox', {
 								switch (doc.target.id) {
 									case "check_cboDroneChla": storeId = "droneChla"; break;
 									case "check_cboDronePhy": storeId = "dronePhy"; break;
-									case "check_cboDroneBlue": storeId = "check_cboDroneBlue"; break;
+									case "check_cboDroneBlue": storeId = "droneBlue"; break;
 									case "check_cboDroneDate": storeId = "dronePhoto"; break;
 									default: break;
 								}

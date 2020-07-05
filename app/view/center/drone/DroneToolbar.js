@@ -42,7 +42,7 @@ Ext.define('krf_new.view.center.drone.DroneToolbar', {
 							toolbarCont.expand();
 							toolbarCont.updateHeaderPosition("right");
 							toolbarCont.header.setHtml("<img src='./resources/images/drone/btn_arrow_close2.png' />");
-							toolbarCont.setWidth(895);
+							toolbarCont.setWidth(995);
 							toolbarCont.up("panel").setWidth(1003);
 						} else {
 							toolbarCont.collapse();
@@ -66,7 +66,7 @@ Ext.define('krf_new.view.center.drone.DroneToolbar', {
 		},
 		headerPosition: 'right',
 		expanded: true,
-		width: 895,
+		width: 995,
 		height: 80,
 		items: [{
 			xtype: "container",
