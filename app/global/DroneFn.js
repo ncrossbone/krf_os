@@ -155,6 +155,7 @@ Ext.define("krf_new.global.DroneFn", {
 			var cboDroneBlue = Ext.getCmp("cboDroneBlue").down("combo");
 			var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
 			var phyLegend = Ext.getCmp("phyLegend"); // 범례 이미지 컨트롤
+			var blueLegend = Ext.getCmp("blueLegend"); // 범례 이미지 컨트롤
 
 			var centerCont = Ext.getCmp('cont_container');
 			var mapWin = Ext.getCmp('_mapDiv_');
@@ -163,12 +164,16 @@ Ext.define("krf_new.global.DroneFn", {
 			var mapWinHeight = mapWin.height;
 
 			if (chlLegend == undefined || chlLegend == null) {
-				chlLegend = Ext.create('krf_new.view.center.drone.LegendChl', { x: ( mapWinWidth) - 164, y: ( mapWinHeight) - 115 });
+				chlLegend = Ext.create('krf_new.view.center.drone.LegendChl', { x: ( mapWinWidth) - 244, y: ( mapWinHeight) - 61 });
 				centerCont.add(chlLegend);
 			}
 			if (phyLegend == undefined || phyLegend == null) {
-				phyLegend = Ext.create('krf_new.view.center.drone.LegendPhy', { x: ( mapWinWidth) - 164, y: ( mapWinHeight) -115 });
+				phyLegend = Ext.create('krf_new.view.center.drone.LegendPhy', { x: ( mapWinWidth) - 244, y: ( mapWinHeight) -61 });
 				centerCont.add(phyLegend);
+			}
+			if (blueLegend == undefined || blueLegend == null) {
+				blueLegend = Ext.create('krf_new.view.center.drone.LegendBlue', { x: ( mapWinWidth) - 244, y: ( mapWinHeight) -61 });
+				centerCont.add(blueLegend);
 			}
 			var layers = [];
 			var layersAciation = [];
@@ -219,8 +224,8 @@ Ext.define("krf_new.global.DroneFn", {
 			if (chlOnOff == "on") {
 				if (cboDroneChla.value != null) {
 					chlLegend.show();
-					chlLegend.setX((mapWinWidth) - 164);
-					chlLegend.setY((mapWinHeight) - 115);
+					chlLegend.setX((mapWinWidth) - 244);
+					chlLegend.setY((mapWinHeight) - 61);
 					//layers.push(cboDroneChla.value);
 					layersChlorophyll_a.push(cboDroneChla.value);
 					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
@@ -235,8 +240,8 @@ Ext.define("krf_new.global.DroneFn", {
 			if (phyOnOff == "on") {
 				if (cboDronePhy.value != null) {
 					phyLegend.show();
-					phyLegend.setX((mapWinWidth) - 164);
-					phyLegend.setY((mapWinHeight) - 115);
+					phyLegend.setX((mapWinWidth) - 244);
+					phyLegend.setY((mapWinHeight) - 61);
 					//layers.push(cboDroneChla.value);
 					layersPhycocyanin.push(cboDronePhy.value);
 					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
@@ -250,18 +255,18 @@ Ext.define("krf_new.global.DroneFn", {
 
 			if (blueOnOff == "on") {
 				if (cboDroneBlue.value != null) {
-					//phyLegend.show();
-					//phyLegend.setX((mapWinWidth) - 164);
-					//phyLegend.setY((mapWinHeight) - 115);
-					//layers.push(cboDroneChla.value);
+					blueLegend.show();
+					blueLegend.setX((mapWinWidth) - 244);
+					blueLegend.setY((mapWinHeight) - 61);
+					layers.push(cboDroneBlue.value);
 					layersBlueGreenAlgae.push(cboDroneBlue.value);
 					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
 					Ext.getCmp("cboDroneLayer").down("combo").expand();
 				} else {
-					phyLegend.hide();
+					blueLegend.hide();
 				}
 			} else {
-				phyLegend.hide();
+				blueLegend.hide();
 			}
 
 			/*if(phyOnOff == "on"){

@@ -158,7 +158,7 @@ Ext.define('krf_new.view.center.drone.DroneToolbar', {
 			xtype: "drone-vcombo",
 			id: "cboDroneBlue", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
 			labelSrc: './resources/images/drone/label_07.png',
-			labelText: '남조류세포수',
+			labelText: '남조류세포',
 			width: 120,
 			jsonUrl: "./resources/data/drone/LayerMapper.json",
 			dataRoot: "",
