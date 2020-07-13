@@ -121,7 +121,7 @@ Ext.create('Ext.data.Store', {
 		_API = a[0].data;
 		// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
 		// 외부망 표준화 이전 DB / 외부망 표준화 DB
-		a[0].data.init('http://localhost:8080/krf','http://112.217.167.123:40003/krf_out_new'); 
+		a[0].data.init('http://localhost:8080/krf'); 
 
 		Ext.application({
 			name: 'krf_new',
