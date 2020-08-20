@@ -87,6 +87,16 @@ Ext.define('krf_new.view.center.AdminConfigDRONEPanel', {
 					width: 110,
 					editor: {xtype: 'textareafield', grow: true}
 				}, {
+					text: '남조류세포 ID',
+					dataIndex:'BLUELAYERID',
+					width: 110,
+					editor: {xtype: 'textareafield', grow: true}
+				}, {
+					text: '남조류세포 날짜',
+					dataIndex:'BLUEDATE',
+					width: 110,
+					editor: {xtype: 'textareafield', grow: true}
+				}, {
 					text: 'ETC',
 					dataIndex:'ETC',
 					width: 50,

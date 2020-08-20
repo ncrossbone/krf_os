@@ -82,6 +82,8 @@ Ext.define('krf_new.view.center.AdminConfigDRONEController', {
 				chlaDate : data.CHLADATE,
 				phyLayerId : data.PHYLAYERID,
 				phyDate : data.PHYDATE,
+				blueLayerId : data.BLUELAYERID,
+				blueDate : data.BLUEDATE,
 				etc : data.ETC
 			}
 		});
