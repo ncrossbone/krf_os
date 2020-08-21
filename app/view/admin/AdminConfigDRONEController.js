@@ -183,6 +183,8 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 				chlaDate : data.CHLADATE,
 				phyLayerId : data.PHYLAYERID,
 				phyDate : data.PHYDATE,
+				blueLayerId : data.BLUELAYERID,
+				blueDate : data.BLUEDATE,
 				etc : data.ETC
 			}
 		});
@@ -203,6 +205,8 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEController', {
 				chlaDate : data.CHLADATE,
 				phyLayerId : data.PHYLAYERID,
 				phyDate : data.PHYDATE,
+				blueLayerId : data.BLUELAYERID,
+				blueDate : data.BLUEDATE,
 				etc : data.DRONELAYERID
 			}
 		});

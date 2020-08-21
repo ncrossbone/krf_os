@@ -104,6 +104,16 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 					dataIndex:'PHYDATE',
 					width: 110,
 					editor: {xtype: 'textareafield', grow: true}
+				}, {
+					text: '남조류세포 ID',
+					dataIndex:'BLUELAYERID',
+					width: 110,
+					editor: {xtype: 'textareafield', grow: true}
+				}, {
+					text: '남조류세포 날짜',
+					dataIndex:'BLUEDATE',
+					width: 110,
+					editor: {xtype: 'textareafield', grow: true}
 				},{
 					text: '삭제',
 					align: 'center',
@@ -235,6 +245,16 @@ Ext.define('krf_new.view.admin.AdminConfigDRONEPanel', {
 				}, {
 					text: '피코시아닌 날짜',
 					dataIndex:'PHYDATE',
+					width: 110,
+					editor: {xtype: 'textareafield', grow: true}
+				}, {
+					text: '남조류세포 ID',
+					dataIndex:'BLUELAYERID',
+					width: 110,
+					editor: {xtype: 'textareafield', grow: true}
+				}, {
+					text: '남조류세포 날짜',
+					dataIndex:'BLUEDATE',
 					width: 110,
 					editor: {xtype: 'textareafield', grow: true}
 				}, {
